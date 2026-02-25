@@ -1,4 +1,4 @@
-defmodule JidoChat.MixProject do
+defmodule Jido.Chat.MixProject do
   use Mix.Project
 
   def project do

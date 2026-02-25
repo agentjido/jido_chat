@@ -1,6 +1,6 @@
-defmodule JidoChat do
+defmodule Jido.Chat do
   @moduledoc """
-  Documentation for `JidoChat`.
+  Documentation for `Jido.Chat`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule JidoChat do
 
   ## Examples
 
-      iex> JidoChat.hello()
+      iex> Jido.Chat.hello()
       :world
 
   """

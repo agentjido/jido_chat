@@ -1,8 +1,8 @@
-defmodule JidoChatTest do
+defmodule Jido.ChatTest do
   use ExUnit.Case
-  doctest JidoChat
+  doctest Jido.Chat
 
   test "greets the world" do
-    assert JidoChat.hello() == :world
+    assert Jido.Chat.hello() == :world
   end
 end
