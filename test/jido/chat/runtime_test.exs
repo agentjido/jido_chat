@@ -8,6 +8,7 @@ defmodule Jido.Chat.RuntimeTest do
     ChannelInfo,
     EventEnvelope,
     Incoming,
+    IngressResult,
     MessagePage,
     ModalResult,
     Postable,
@@ -298,6 +299,43 @@ defmodule Jido.Chat.RuntimeTest do
     refute_received :handled
   end
 
+  test "dedupe window is bounded by metadata.dedupe_limit" do
+    chat =
+      Chat.new(adapters: %{test: TestAdapter}, metadata: %{dedupe_limit: 2})
+      |> Chat.on_new_message(~r/.*/, fn _thread, _incoming -> send(self(), :handled) end)
+
+    incoming_1 =
+      Incoming.new(%{
+        external_room_id: "room-3",
+        external_user_id: "user-3",
+        external_message_id: "dedupe-a",
+        text: "hello a"
+      })
+
+    incoming_2 = %{incoming_1 | external_message_id: "dedupe-b", text: "hello b"}
+    incoming_3 = %{incoming_1 | external_message_id: "dedupe-c", text: "hello c"}
+
+    assert {:ok, chat, %Incoming{}} =
+             Chat.process_message(chat, :test, "test:room-3", incoming_1, [])
+
+    assert {:ok, chat, %Incoming{}} =
+             Chat.process_message(chat, :test, "test:room-3", incoming_2, [])
+
+    assert {:ok, chat, %Incoming{}} =
+             Chat.process_message(chat, :test, "test:room-3", incoming_3, [])
+
+    assert MapSet.size(chat.dedupe) == 2
+    assert length(chat.dedupe_order) == 2
+
+    assert {:ok, _chat, %Incoming{}} =
+             Chat.process_message(chat, :test, "test:room-3", incoming_1, [])
+
+    assert_received :handled
+    assert_received :handled
+    assert_received :handled
+    assert_received :handled
+  end
+
   test "thread post returns sent message handle" do
     chat = Chat.new(adapters: %{test: TestAdapter})
     thread = Chat.thread(chat, :test, "room-4", [])
@@ -564,6 +602,29 @@ defmodule Jido.Chat.RuntimeTest do
     assert response.status == 200
   end
 
+  test "route_request returns transport-agnostic ingress result" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+
+    request =
+      WebhookRequest.new(%{
+        adapter_name: :test,
+        headers: %{"x-test" => "1"},
+        payload: %{
+          external_room_id: "room-req",
+          external_user_id: "user-req",
+          external_message_id: "req-2",
+          text: "hello"
+        }
+      })
+
+    assert {:ok, %IngressResult{} = result} = Chat.route_request(chat, :test, request, [])
+    assert result.mode == :request
+    assert %Chat{} = result.chat
+    assert %EventEnvelope{event_type: :message} = result.event
+    assert %WebhookResponse{status: 200} = result.response
+    assert %WebhookRequest{} = result.request
+  end
+
   test "handle_webhook_request always returns typed response on unknown adapter" do
     chat = Chat.new(adapters: %{test: TestAdapter})
 
@@ -598,6 +659,35 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert response.status == 204
     assert response.body.noop == true
+  end
+
+  test "route_event returns transport-agnostic ingress result" do
+    chat =
+      Chat.new(adapters: %{test: TestAdapter})
+      |> Chat.on_reaction(fn _event -> send(self(), :reaction_event) end)
+
+    envelope =
+      EventEnvelope.new(%{
+        adapter_name: :test,
+        event_type: :reaction,
+        payload: %{thread_id: "t1", emoji: "👍", added: true}
+      })
+
+    assert {:ok, %IngressResult{} = result} = Chat.route_event(chat, :test, envelope, [])
+    assert result.mode == :event
+    assert is_nil(result.response)
+    assert %EventEnvelope{event_type: :reaction} = result.event
+    assert_received :reaction_event
+  end
+
+  test "route_event wraps failures as typed ingress error" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+
+    assert {:error, %Jido.Chat.Errors.Ingress{} = error} =
+             Chat.route_event(chat, :test, %{event_type: :invalid, payload: %{}}, [])
+
+    assert error.transport == :event
+    assert error.adapter_name == :test
   end
 
   test "stream helpers page through messages" do

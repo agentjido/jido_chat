@@ -2,6 +2,12 @@
 
 `jido_chat` is the core Chat SDK-style surface for `Jido.Chat` adapters.
 
+## Experimental Status
+
+This package is experimental and pre-1.0. APIs and behavior will change.
+`Jido.Chat` is an Elixir implementation aligned to the Vercel Chat SDK
+([chat-sdk.dev/docs](https://www.chat-sdk.dev/docs)).
+
 It provides:
 
 - `Jido.Chat` (pure struct + function bot loop)
@@ -14,7 +20,7 @@ It provides:
 ```elixir
 def deps do
   [
-    {:jido_chat, "~> 0.1.0"}
+    {:jido_chat, github: "agentjido/jido_chat", branch: "main"}
   ]
 end
 ```

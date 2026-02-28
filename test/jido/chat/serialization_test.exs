@@ -7,6 +7,7 @@ defmodule Jido.Chat.SerializationTest do
     CapabilityMatrix,
     ChannelRef,
     EventEnvelope,
+    IngressResult,
     Message,
     ModalResult,
     Response,
@@ -21,6 +22,9 @@ defmodule Jido.Chat.SerializationTest do
       Chat.new(adapters: %{test: __MODULE__}, metadata: %{env: :test})
       |> Chat.on_new_mention(fn _thread, _incoming -> :ok end)
       |> Chat.on_new_message(~r/^ping$/, fn _thread, _incoming -> :ok end)
+      |> then(fn value ->
+        %{value | dedupe: MapSet.new([{:test, "m1"}]), dedupe_order: [{:test, "m1"}]}
+      end)
 
     encoded = Chat.to_map(chat)
 
@@ -28,11 +32,13 @@ defmodule Jido.Chat.SerializationTest do
     assert encoded["handlers"]["serializable"] == false
     assert encoded["handlers"]["counts"]["mention"] == 1
     assert encoded["handlers"]["counts"]["message"] == 1
+    assert encoded["dedupe_order"] == [["test", "m1"]]
 
     revived = Chat.from_map(encoded)
 
     assert revived.id == chat.id
     assert revived.metadata == %{"env" => :test}
+    assert revived.dedupe_order == [{:test, "m1"}]
     assert revived.handlers.mention == []
     assert revived.handlers.message == []
   end
@@ -112,6 +118,16 @@ defmodule Jido.Chat.SerializationTest do
     matrix = CapabilityMatrix.new(%{adapter_name: :test, capabilities: %{send_message: :native}})
     modal_result = ModalResult.new(%{id: "modal_1", external_room_id: "room-1"})
 
+    ingress_result =
+      IngressResult.new(%{
+        chat: Chat.new(adapters: %{test: __MODULE__}),
+        adapter_name: :test,
+        event: envelope,
+        response: response,
+        request: request,
+        mode: :request
+      })
+
     assert %EventEnvelope{event_type: :message} =
              envelope |> EventEnvelope.to_map() |> EventEnvelope.from_map()
 
@@ -126,6 +142,9 @@ defmodule Jido.Chat.SerializationTest do
 
     assert %ModalResult{id: "modal_1"} =
              modal_result |> ModalResult.to_map() |> ModalResult.from_map()
+
+    assert %IngressResult{adapter_name: :test, mode: :request} =
+             ingress_result |> IngressResult.to_map() |> IngressResult.from_map()
   end
 
   test "chat reviver supports all typed payloads" do
@@ -153,6 +172,20 @@ defmodule Jido.Chat.SerializationTest do
              reviver.(
                EventEnvelope.new(%{adapter_name: :test, event_type: :message, payload: %{}})
                |> EventEnvelope.to_map()
+             )
+
+    assert %IngressResult{} =
+             reviver.(
+               IngressResult.new(%{
+                 chat: Chat.new(adapters: %{test: __MODULE__}),
+                 adapter_name: :test,
+                 event:
+                   EventEnvelope.new(%{adapter_name: :test, event_type: :message, payload: %{}}),
+                 response: WebhookResponse.accepted(),
+                 request: WebhookRequest.new(%{adapter_name: :test, payload: %{}}),
+                 mode: :request
+               })
+               |> IngressResult.to_map()
              )
 
     assert %CapabilityMatrix{} =

@@ -47,7 +47,43 @@ defmodule Jido.Chat.HandlerDispatch do
   defp mark_dedupe(chat, nil), do: chat
 
   defp mark_dedupe(chat, key) do
-    Map.update(chat, :dedupe, MapSet.new([key]), &MapSet.put(&1, key))
+    dedupe = Map.get(chat, :dedupe, MapSet.new()) |> MapSet.put(key)
+    dedupe_order = Map.get(chat, :dedupe_order, []) ++ [key]
+    dedupe_limit = dedupe_limit(chat)
+
+    {trimmed_dedupe_order, overflow_keys} = trim_dedupe_order(dedupe_order, dedupe_limit)
+
+    trimmed_dedupe =
+      Enum.reduce(overflow_keys, dedupe, fn overflow_key, acc ->
+        MapSet.delete(acc, overflow_key)
+      end)
+
+    chat
+    |> Map.put(:dedupe, trimmed_dedupe)
+    |> Map.put(:dedupe_order, trimmed_dedupe_order)
+  end
+
+  defp dedupe_limit(chat) do
+    metadata = Map.get(chat, :metadata, %{})
+
+    value =
+      case metadata do
+        %{} -> metadata[:dedupe_limit] || metadata["dedupe_limit"]
+        _ -> nil
+      end
+
+    if is_integer(value) and value > 0, do: value, else: 1_000
+  end
+
+  defp trim_dedupe_order(dedupe_order, dedupe_limit) do
+    overflow_count = max(length(dedupe_order) - dedupe_limit, 0)
+
+    if overflow_count == 0 do
+      {dedupe_order, []}
+    else
+      {overflow_keys, remaining_keys} = Enum.split(dedupe_order, overflow_count)
+      {remaining_keys, overflow_keys}
+    end
   end
 
   defp route_handlers(chat, %Thread{} = thread, %Incoming{} = incoming) do

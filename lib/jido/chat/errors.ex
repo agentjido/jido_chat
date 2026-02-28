@@ -5,6 +5,7 @@ defmodule Jido.Chat.Errors do
 
   use Splode,
     error_classes: [
+      ingress: Jido.Chat.Errors.Ingress,
       validation: Jido.Chat.Errors.Validation
     ],
     unknown_error: Jido.Chat.Errors.Unknown

@@ -13,6 +13,8 @@ defmodule Jido.Chat do
     ChannelRef,
     EventRouter,
     EventEnvelope,
+    Errors,
+    IngressResult,
     Incoming,
     LegacyMessage,
     Message,
@@ -28,6 +30,8 @@ defmodule Jido.Chat do
     WebhookRequest,
     WebhookResponse
   }
+
+  alias Jido.Chat.Errors.Ingress, as: IngressError
 
   alias Jido.Chat.Content.Text
 
@@ -91,12 +95,17 @@ defmodule Jido.Chat do
           (t(), WebhookRequest.t() | map(), keyword() ->
              {:ok, t(), EventEnvelope.t() | nil, WebhookResponse.t()})
 
+  @type route_request_handler ::
+          (WebhookRequest.t() | map(), keyword() ->
+             {:ok, IngressResult.t()} | {:error, Exception.t()})
+
   @type t :: %__MODULE__{
           id: String.t(),
           user_name: String.t(),
           adapters: %{optional(atom()) => module()},
           subscriptions: MapSet.t(String.t()),
           dedupe: MapSet.t({atom(), String.t()}),
+          dedupe_order: [{atom(), String.t()}],
           handlers: handlers(),
           metadata: map(),
           thread_state: %{optional(String.t()) => map()},
@@ -125,6 +134,7 @@ defmodule Jido.Chat do
               adapters: Zoi.map() |> Zoi.default(%{}),
               subscriptions: Zoi.any() |> Zoi.default(MapSet.new()),
               dedupe: Zoi.any() |> Zoi.default(MapSet.new()),
+              dedupe_order: Zoi.list() |> Zoi.default([]),
               handlers: Zoi.map() |> Zoi.default(@default_handlers),
               metadata: Zoi.map() |> Zoi.default(%{}),
               thread_state: Zoi.map() |> Zoi.default(%{}),
@@ -297,6 +307,93 @@ defmodule Jido.Chat do
   end
 
   @doc """
+  Routes a request-style inbound input through verification/parsing/event dispatch.
+
+  This is transport-agnostic and returns a typed `IngressResult`.
+  """
+  @spec route_request(
+          t(),
+          atom(),
+          WebhookRequest.t() | map(),
+          keyword()
+        ) :: {:ok, IngressResult.t()} | {:error, Exception.t()}
+  def route_request(%__MODULE__{} = chat, adapter_name, request_or_payload, opts \\ [])
+      when is_atom(adapter_name) and is_list(opts) do
+    with {:ok, routed_chat, envelope, response} <-
+           WebhookPipeline.handle_request(
+             chat,
+             adapter_name,
+             request_or_payload,
+             opts,
+             &AdapterRegistry.resolve/2,
+             &process_event/4
+           ) do
+      {:ok,
+       IngressResult.new(%{
+         chat: routed_chat,
+         adapter_name: adapter_name,
+         event: normalize_ingress_event(envelope),
+         response: normalize_ingress_response(response),
+         request: normalize_ingress_request(adapter_name, request_or_payload, opts),
+         mode: :request,
+         metadata: %{transport: :request}
+       })}
+    else
+      {:error, reason} ->
+        {:error, ingress_error(:request, adapter_name, reason)}
+    end
+  rescue
+    exception ->
+      {:error, ingress_error(:request, adapter_name, {:exception, exception})}
+  end
+
+  @doc """
+  Routes an event-style inbound input (polling/gateway/listener) through `process_event/4`.
+
+  This is transport-agnostic and returns a typed `IngressResult`.
+  """
+  @spec route_event(t(), atom(), EventEnvelope.t() | map() | :noop, keyword()) ::
+          {:ok, IngressResult.t()} | {:error, Exception.t()}
+  def route_event(chat, adapter_name, event, opts \\ [])
+
+  def route_event(%__MODULE__{} = chat, adapter_name, :noop, _opts)
+      when is_atom(adapter_name) do
+    {:ok,
+     IngressResult.new(%{
+       chat: chat,
+       adapter_name: adapter_name,
+       event: :noop,
+       response: nil,
+       request: nil,
+       mode: :event,
+       metadata: %{transport: :event}
+     })}
+  end
+
+  def route_event(%__MODULE__{} = chat, adapter_name, event, opts)
+      when is_atom(adapter_name) and is_list(opts) do
+    case process_event(chat, adapter_name, event, opts) do
+      {:ok, routed_chat, envelope} ->
+        {:ok,
+         IngressResult.new(%{
+           chat: routed_chat,
+           adapter_name: adapter_name,
+           event: envelope,
+           response: nil,
+           request: nil,
+           mode: :event,
+           metadata: %{transport: :event}
+         })}
+
+      {:error, reason} ->
+        {:error, ingress_error(:event, adapter_name, reason, %{event: event})}
+    end
+  rescue
+    exception ->
+      {:error, ingress_error(:event, adapter_name, {:exception, exception}, %{event: event})}
+  end
+
+  @doc """
   Handles a typed webhook request for the given adapter.
 
   Returns the updated chat state, normalized event envelope, and typed webhook response.
@@ -310,14 +407,10 @@ defmodule Jido.Chat do
           {:ok, t(), EventEnvelope.t() | nil, WebhookResponse.t()}
   def handle_webhook_request(%__MODULE__{} = chat, adapter_name, request_or_payload, opts \\ [])
       when is_atom(adapter_name) and is_list(opts) do
-    WebhookPipeline.handle_request(
-      chat,
-      adapter_name,
-      request_or_payload,
-      opts,
-      &AdapterRegistry.resolve/2,
-      &process_event/4
-    )
+    with {:ok, %IngressResult{} = result} <-
+           route_request(chat, adapter_name, request_or_payload, opts) do
+      {:ok, result.chat, envelope_or_nil(result.event), response_or_default(result.response)}
+    end
   end
 
   @doc """
@@ -595,6 +688,53 @@ defmodule Jido.Chat do
   @doc false
   @spec revive(map()) :: term()
   def revive(map), do: Serialization.revive(map)
+
+  defp normalize_ingress_event(%EventEnvelope{} = envelope), do: envelope
+  defp normalize_ingress_event(nil), do: nil
+  defp normalize_ingress_event(:noop), do: :noop
+  defp normalize_ingress_event(other), do: other
+
+  defp normalize_ingress_response(%WebhookResponse{} = response), do: response
+  defp normalize_ingress_response(nil), do: nil
+  defp normalize_ingress_response(other) when is_map(other), do: WebhookResponse.new(other)
+  defp normalize_ingress_response(_other), do: WebhookResponse.accepted()
+
+  defp normalize_ingress_request(_adapter_name, %WebhookRequest{} = request, _opts), do: request
+
+  defp normalize_ingress_request(adapter_name, payload, opts) when is_map(payload) do
+    payload_map = payload[:payload] || payload["payload"] || payload
+    headers = opts[:headers] || payload[:headers] || payload["headers"] || %{}
+
+    WebhookRequest.new(%{
+      adapter_name: adapter_name,
+      method: payload[:method] || payload["method"] || opts[:method] || "POST",
+      path: payload[:path] || payload["path"] || opts[:path],
+      headers: headers,
+      payload: payload_map,
+      query: payload[:query] || payload["query"] || opts[:query] || %{},
+      raw: payload,
+      metadata: payload[:metadata] || payload["metadata"] || %{}
+    })
+  end
+
+  defp normalize_ingress_request(adapter_name, _other, _opts),
+    do: WebhookRequest.new(%{adapter_name: adapter_name, payload: %{}})
+
+  defp envelope_or_nil(%EventEnvelope{} = envelope), do: envelope
+  defp envelope_or_nil(_), do: nil
+
+  defp response_or_default(%WebhookResponse{} = response), do: response
+  defp response_or_default(other) when is_map(other), do: WebhookResponse.new(other)
+  defp response_or_default(_), do: WebhookResponse.accepted()
+
+  defp ingress_error(transport, adapter_name, reason, context \\ %{}) do
+    Errors.to_error(%IngressError{
+      transport: transport,
+      adapter_name: adapter_name,
+      reason: reason,
+      context: context
+    })
+  end
 
   defp thread_id(adapter_name, external_room_id, nil), do: "#{adapter_name}:#{external_room_id}"
 
