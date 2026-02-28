@@ -26,6 +26,8 @@ defmodule Jido.Chat.Adapter do
   @type external_room_id :: String.t() | integer()
   @type external_user_id :: String.t() | integer()
   @type external_message_id :: String.t() | integer()
+  @type sink_mfa :: {module(), atom(), [term()]}
+  @type listener_opts :: keyword()
 
   @type capability_status :: :native | :fallback | :unsupported
   @type capability_matrix :: %{optional(atom()) => capability_status()}
@@ -132,6 +134,23 @@ defmodule Jido.Chat.Adapter do
   @callback format_webhook_response(term(), opts :: keyword()) ::
               WebhookResponse.t() | map() | {:ok, WebhookResponse.t() | map()} | {:error, term()}
 
+  @doc """
+  Optional listener child-spec callback for adapter-owned ingress workers.
+
+  Listener workers should emit inbound payloads/events through a sink MFA provided
+  in `opts` to avoid coupling adapter packages to runtime implementations.
+
+  Expected listener opts keys:
+    * `:sink_mfa` - sink callback MFA, typically `{Module, :function, [base_args...]}`
+    * `:bridge_id` - configured bridge identifier
+    * `:bridge_config` - resolved bridge config struct/map
+    * `:instance_module` - runtime instance module (opaque to adapters)
+    * `:settings` - adapter-specific ingress settings map
+    * `:ingress` - normalized ingress mode/settings map
+  """
+  @callback listener_child_specs(bridge_id :: String.t(), opts :: listener_opts()) ::
+              {:ok, [Supervisor.child_spec()]} | {:error, term()}
+
   @callback capabilities() :: capability_matrix()
 
   @optional_callbacks initialize: 1,
@@ -156,6 +175,7 @@ defmodule Jido.Chat.Adapter do
                       verify_webhook: 2,
                       parse_event: 2,
                       format_webhook_response: 2,
+                      listener_child_specs: 2,
                       capabilities: 0
 
   defmacro __using__(_opts) do
