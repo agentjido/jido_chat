@@ -385,7 +385,12 @@ defmodule Jido.Chat.RuntimeTest do
     assert sent.text == "**hello**"
     assert sent.formatted == "**hello**"
     assert sent.metadata.format == :markdown
+    assert sent.id == "file_room-postable"
     assert [%{kind: :image}] = Enum.map(sent.attachments, &Map.from_struct/1)
+    assert_received {:send_file, "room-postable", %{kind: :image}, upload_opts}
+    assert upload_opts[:caption] == "**hello**"
+    assert upload_opts[:text] == "**hello**"
+    assert upload_opts[:thread_id] == nil
   end
 
   test "thread send_file routes through adapter upload callback" do
@@ -540,6 +545,43 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert sent.raw == %{alpha: 1}
     assert is_binary(sent.text)
+  end
+
+  test "channel post routes attachment-bearing payloads through send_file" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    channel = Chat.channel(chat, :test, "chan-post-file")
+
+    assert {:ok, %SentMessage{} = sent} =
+             Jido.Chat.ChannelRef.post(
+               channel,
+               Postable.text("hello")
+               |> Map.put(:attachments, [%{kind: :file, filename: "doc.pdf"}])
+             )
+
+    assert sent.id == "file_chan-post-file"
+    assert [%{kind: :file, filename: "doc.pdf"}] = Enum.map(sent.attachments, &Map.from_struct/1)
+
+    assert_received {:send_file, "chan-post-file", %{kind: :file, filename: "doc.pdf"},
+                     upload_opts}
+
+    assert upload_opts[:caption] == "hello"
+    assert upload_opts[:text] == "hello"
+  end
+
+  test "channel and thread post reject multiple attachments explicitly" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    channel = Chat.channel(chat, :test, "chan-multi")
+    thread = Chat.thread(chat, :test, "thread-multi", [])
+
+    postable =
+      Postable.text("hello")
+      |> Map.put(:attachments, [%{kind: :image}, %{kind: :file}])
+
+    assert {:error, :multiple_attachments_unsupported} =
+             Jido.Chat.ChannelRef.post(channel, postable)
+
+    assert {:error, :multiple_attachments_unsupported} =
+             Thread.post(thread, postable)
   end
 
   test "webhooks helper returns adapter-keyed typed dispatchers" do

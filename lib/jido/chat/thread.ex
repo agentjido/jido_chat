@@ -318,27 +318,64 @@ defmodule Jido.Chat.Thread do
   defp post_payload(%__MODULE__{} = thread, %PostPayload{} = payload, opts) do
     opts = with_thread_opts(thread, opts)
 
-    with {:ok, response} <-
-           Adapter.send_message(
-             thread.adapter,
-             thread.external_room_id,
-             payload.text || "",
-             opts
-           ) do
-      {:ok,
-       SentMessage.new(%{
-         id: response.external_message_id || Jido.Chat.ID.generate!(),
-         thread_id: thread.id,
-         adapter: thread.adapter,
-         external_room_id: thread.external_room_id,
-         text: payload.text,
-         formatted: payload.formatted || payload.text,
-         raw: payload.raw,
-         attachments: payload.attachments,
-         metadata: payload.metadata,
-         response: response,
-         default_opts: opts
-       })}
+    attachments = payload.attachments || []
+
+    case attachments do
+      [] ->
+        with {:ok, response} <-
+               Adapter.send_message(
+                 thread.adapter,
+                 thread.external_room_id,
+                 payload.text || "",
+                 opts
+               ) do
+          {:ok,
+           SentMessage.new(%{
+             id: response.external_message_id || Jido.Chat.ID.generate!(),
+             thread_id: thread.id,
+             adapter: thread.adapter,
+             external_room_id: thread.external_room_id,
+             text: payload.text,
+             formatted: payload.formatted || payload.text,
+             raw: payload.raw,
+             attachments: attachments,
+             metadata: payload.metadata,
+             response: response,
+             default_opts: opts
+           })}
+        end
+
+      [attachment] ->
+        file_opts =
+          opts
+          |> maybe_put_caption(payload)
+          |> maybe_put_metadata(payload.metadata)
+
+        with {:ok, response} <-
+               Adapter.send_file(
+                 thread.adapter,
+                 thread.external_room_id,
+                 attachment,
+                 file_opts
+               ) do
+          {:ok,
+           SentMessage.new(%{
+             id: response.external_message_id || Jido.Chat.ID.generate!(),
+             thread_id: thread.id,
+             adapter: thread.adapter,
+             external_room_id: thread.external_room_id,
+             text: payload.text,
+             formatted: payload.formatted || payload.text,
+             raw: payload.raw,
+             attachments: [attachment],
+             metadata: payload.metadata,
+             response: response,
+             default_opts: file_opts
+           })}
+        end
+
+      _multiple ->
+        {:error, :multiple_attachments_unsupported}
     end
   end
 
@@ -439,6 +476,21 @@ defmodule Jido.Chat.Thread do
 
   defp with_thread_opts(%__MODULE__{external_thread_id: external_thread_id}, opts) do
     Keyword.put_new(opts, :thread_id, external_thread_id)
+  end
+
+  defp maybe_put_caption(opts, %PostPayload{text: nil}), do: opts
+  defp maybe_put_caption(opts, %PostPayload{text: ""}), do: opts
+
+  defp maybe_put_caption(opts, %PostPayload{text: text}) do
+    opts
+    |> Keyword.put_new(:caption, text)
+    |> Keyword.put_new(:text, text)
+  end
+
+  defp maybe_put_metadata(opts, metadata) when metadata in [%{}, nil], do: opts
+
+  defp maybe_put_metadata(opts, metadata) when is_map(metadata) do
+    Keyword.update(opts, :metadata, metadata, &Map.merge(metadata, &1))
   end
 
   defp maybe_put_status(opts, nil), do: opts

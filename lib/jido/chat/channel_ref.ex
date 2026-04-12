@@ -218,27 +218,64 @@ defmodule Jido.Chat.ChannelRef do
   end
 
   defp post_payload(%__MODULE__{} = channel, %PostPayload{} = payload, opts) do
-    with {:ok, response} <-
-           Adapter.post_channel_message(
-             channel.adapter,
-             channel.external_id,
-             payload.text || "",
-             opts
-           ) do
-      {:ok,
-       SentMessage.new(%{
-         id: response.external_message_id || Jido.Chat.ID.generate!(),
-         thread_id: channel.id,
-         adapter: channel.adapter,
-         external_room_id: channel.external_id,
-         text: payload.text,
-         formatted: payload.formatted || payload.text,
-         raw: payload.raw,
-         attachments: payload.attachments,
-         metadata: payload.metadata,
-         response: response,
-         default_opts: opts
-       })}
+    attachments = payload.attachments || []
+
+    case attachments do
+      [] ->
+        with {:ok, response} <-
+               Adapter.post_channel_message(
+                 channel.adapter,
+                 channel.external_id,
+                 payload.text || "",
+                 opts
+               ) do
+          {:ok,
+           SentMessage.new(%{
+             id: response.external_message_id || Jido.Chat.ID.generate!(),
+             thread_id: channel.id,
+             adapter: channel.adapter,
+             external_room_id: channel.external_id,
+             text: payload.text,
+             formatted: payload.formatted || payload.text,
+             raw: payload.raw,
+             attachments: attachments,
+             metadata: payload.metadata,
+             response: response,
+             default_opts: opts
+           })}
+        end
+
+      [attachment] ->
+        file_opts =
+          opts
+          |> maybe_put_caption(payload)
+          |> maybe_put_metadata(payload.metadata)
+
+        with {:ok, response} <-
+               Adapter.send_file(
+                 channel.adapter,
+                 channel.external_id,
+                 attachment,
+                 file_opts
+               ) do
+          {:ok,
+           SentMessage.new(%{
+             id: response.external_message_id || Jido.Chat.ID.generate!(),
+             thread_id: channel.id,
+             adapter: channel.adapter,
+             external_room_id: channel.external_id,
+             text: payload.text,
+             formatted: payload.formatted || payload.text,
+             raw: payload.raw,
+             attachments: [attachment],
+             metadata: payload.metadata,
+             response: response,
+             default_opts: file_opts
+           })}
+        end
+
+      _multiple ->
+        {:error, :multiple_attachments_unsupported}
     end
   end
 
@@ -270,6 +307,21 @@ defmodule Jido.Chat.ChannelRef do
 
   defp normalize_fetch_opts(_other),
     do: Jido.Chat.FetchOptions.to_keyword(Jido.Chat.FetchOptions.new(%{}))
+
+  defp maybe_put_caption(opts, %PostPayload{text: nil}), do: opts
+  defp maybe_put_caption(opts, %PostPayload{text: ""}), do: opts
+
+  defp maybe_put_caption(opts, %PostPayload{text: text}) do
+    opts
+    |> Keyword.put_new(:caption, text)
+    |> Keyword.put_new(:text, text)
+  end
+
+  defp maybe_put_metadata(opts, metadata) when metadata in [%{}, nil], do: opts
+
+  defp maybe_put_metadata(opts, metadata) when is_map(metadata) do
+    Keyword.update(opts, :metadata, metadata, &Map.merge(metadata, &1))
+  end
 
   defp next_message_batch(%{pending: [next | rest]} = state),
     do: {[next], %{state | pending: rest}}
