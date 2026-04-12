@@ -5,6 +5,7 @@ defmodule Jido.Chat.StructsTest do
 
   alias Jido.Chat.{
     ActionEvent,
+    Attachment,
     AssistantContextChangedEvent,
     AssistantThreadStartedEvent,
     CapabilityMatrix,
@@ -190,6 +191,37 @@ defmodule Jido.Chat.StructsTest do
       card_payload = Postable.card(%{title: "Card"}) |> Postable.to_payload()
       assert card_payload.raw == %{title: "Card"}
       assert card_payload.metadata.format == :card
+    end
+
+    test "post payloads normalize outbound attachments into typed structs" do
+      payload =
+        Postable.new(%{
+          kind: :text,
+          text: "hello",
+          attachments: [
+            Image.new("https://example.com/photo.jpg",
+              media_type: "image/jpeg",
+              alt_text: "photo"
+            ),
+            %{path: "/tmp/report.pdf", media_type: "application/pdf"}
+          ]
+        })
+        |> Postable.to_payload()
+
+      assert [
+               %Attachment{
+                 kind: :image,
+                 url: "https://example.com/photo.jpg",
+                 media_type: "image/jpeg",
+                 metadata: %{alt_text: "photo"}
+               },
+               %Attachment{
+                 kind: :file,
+                 path: "/tmp/report.pdf",
+                 filename: "report.pdf",
+                 media_type: "application/pdf"
+               }
+             ] = payload.attachments
     end
 
     test "event placeholder structs parse cleanly" do

@@ -29,8 +29,9 @@ end
 
 `Jido.Chat.Adapter` is the canonical contract for new integrations.
 `Jido.Chat.ChannelRef` and `Jido.Chat.Thread` are the typed handles for room and thread operations.
-Adapters can expose native uploads through `send_file/3`; `Jido.Chat.ChannelRef.send_file/3`
-and `Jido.Chat.Thread.send_file/3` route those uploads through the canonical core helpers.
+Adapters can expose native rich posting through `post_message/3`, which receives the full
+typed `Jido.Chat.PostPayload` including attachments. `send_file/3` remains the low-level
+upload hook used by the core fallback path for older adapters.
 
 ## Usage (Core Loop)
 

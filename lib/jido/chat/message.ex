@@ -141,7 +141,9 @@ defmodule Jido.Chat.Message do
         other -> other
       end)
 
-    Map.put(attrs, :attachments, normalized)
+    attrs
+    |> Map.delete("attachments")
+    |> Map.put(:attachments, normalized)
   end
 
   defp build_thread_id(nil, nil, nil), do: nil

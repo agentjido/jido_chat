@@ -6,16 +6,17 @@ defmodule Jido.Chat.Adapter do
   """
 
   alias Jido.Chat.{
+    Attachment,
     CapabilityMatrix,
     ChannelInfo,
     EventEnvelope,
     EphemeralMessage,
     FetchOptions,
     Incoming,
-    Media,
     ModalResult,
     Message,
     MessagePage,
+    PostPayload,
     Response,
     WebhookRequest,
     WebhookResponse,
@@ -45,7 +46,7 @@ defmodule Jido.Chat.Adapter do
   @type thread_page_result :: {:ok, ThreadPage.t()} | {:error, term()}
   @type ephemeral_result :: {:ok, EphemeralMessage.t()} | {:error, term()}
   @type modal_result :: {:ok, ModalResult.t()} | {:error, term()}
-  @type file_input :: Media.input()
+  @type file_input :: Attachment.input()
 
   @callback channel_type() :: atom()
   @callback transform_incoming(raw_payload()) :: incoming_result() | {:ok, map()}
@@ -54,6 +55,9 @@ defmodule Jido.Chat.Adapter do
               send_result() | {:ok, map()} | {:error, term()}
 
   @callback send_file(external_room_id(), file :: file_input(), opts :: keyword()) ::
+              send_result() | {:ok, map()} | {:error, term()}
+
+  @callback post_message(external_room_id(), payload :: PostPayload.t(), opts :: keyword()) ::
               send_result() | {:ok, map()} | {:error, term()}
 
   @callback edit_message(
@@ -164,6 +168,7 @@ defmodule Jido.Chat.Adapter do
   @optional_callbacks initialize: 1,
                       shutdown: 1,
                       send_file: 3,
+                      post_message: 3,
                       edit_message: 4,
                       delete_message: 3,
                       start_typing: 2,
@@ -248,6 +253,7 @@ defmodule Jido.Chat.Adapter do
         shutdown: support_status(adapter_module, :shutdown, 1, :fallback),
         send_message: :native,
         send_file: support_status(adapter_module, :send_file, 3),
+        post_message: support_status(adapter_module, :post_message, 3),
         edit_message: support_status(adapter_module, :edit_message, 4),
         delete_message: support_status(adapter_module, :delete_message, 3),
         start_typing: support_status(adapter_module, :start_typing, 2),
@@ -302,6 +308,47 @@ defmodule Jido.Chat.Adapter do
       {:error, :unsupported}
     end
   end
+
+  @doc "Posts a normalized outbound payload using adapter-native or core fallback behavior."
+  @spec post_message(module(), external_room_id(), PostPayload.t() | map(), keyword()) ::
+          send_result()
+  def post_message(adapter_module, external_room_id, payload, opts \\ [])
+
+  def post_message(adapter_module, external_room_id, %PostPayload{} = payload, opts) do
+    scope = Keyword.get(opts, :scope, :thread)
+    adapter_opts = Keyword.delete(opts, :scope)
+
+    cond do
+      function_exported?(adapter_module, :post_message, 3) ->
+        with {:ok, response} <-
+               adapter_module.post_message(external_room_id, payload, adapter_opts) do
+          {:ok, normalize_response(adapter_module, response)}
+        end
+
+      payload.attachments in [nil, []] and scope == :channel ->
+        post_channel_message(adapter_module, external_room_id, payload.text || "", adapter_opts)
+
+      payload.attachments in [nil, []] ->
+        send_message(adapter_module, external_room_id, payload.text || "", adapter_opts)
+
+      match?([_single], payload.attachments) ->
+        [attachment] = payload.attachments
+
+        file_opts =
+          adapter_opts
+          |> maybe_put_caption(payload)
+          |> maybe_put_metadata(payload.metadata)
+
+        send_file(adapter_module, external_room_id, attachment, file_opts)
+
+      true ->
+        {:error, :multiple_attachments_unsupported}
+    end
+  end
+
+  def post_message(adapter_module, external_room_id, payload, opts)
+      when is_map(payload),
+      do: post_message(adapter_module, external_room_id, PostPayload.new(payload), opts)
 
   @doc "Posts a channel-level message using adapter callback or send fallback."
   @spec post_channel_message(module(), external_room_id(), String.t(), keyword()) :: send_result()
@@ -907,6 +954,7 @@ defmodule Jido.Chat.Adapter do
       shutdown: support_status(adapter_module, :shutdown, 1, :fallback),
       send_message: :native,
       send_file: support_status(adapter_module, :send_file, 3),
+      post_message: support_status(adapter_module, :post_message, 3),
       edit_message: support_status(adapter_module, :edit_message, 4),
       delete_message: support_status(adapter_module, :delete_message, 3),
       start_typing: support_status(adapter_module, :start_typing, 2),
@@ -975,6 +1023,7 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:shutdown), do: {:shutdown, 1}
   defp capability_callback(:send_message), do: {:send_message, 3}
   defp capability_callback(:send_file), do: {:send_file, 3}
+  defp capability_callback(:post_message), do: {:post_message, 3}
   defp capability_callback(:edit_message), do: {:edit_message, 4}
   defp capability_callback(:delete_message), do: {:delete_message, 3}
   defp capability_callback(:start_typing), do: {:start_typing, 2}
@@ -997,6 +1046,21 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:parse_event), do: {:parse_event, 2}
   defp capability_callback(:format_webhook_response), do: {:format_webhook_response, 2}
   defp capability_callback(_), do: nil
+
+  defp maybe_put_caption(opts, %PostPayload{text: nil}), do: opts
+  defp maybe_put_caption(opts, %PostPayload{text: ""}), do: opts
+
+  defp maybe_put_caption(opts, %PostPayload{text: text}) do
+    opts
+    |> Keyword.put_new(:caption, text)
+    |> Keyword.put_new(:text, text)
+  end
+
+  defp maybe_put_metadata(opts, metadata) when metadata in [%{}, nil], do: opts
+
+  defp maybe_put_metadata(opts, metadata) when is_map(metadata) do
+    Keyword.update(opts, :metadata, metadata, &Map.merge(metadata, &1))
+  end
 
   defp stringify(nil), do: nil
   defp stringify(value) when is_binary(value), do: value

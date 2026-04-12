@@ -58,10 +58,13 @@ defmodule Jido.Chat.CapabilitiesTest do
       def channel_type, do: :threaded
 
       @impl true
+      def post_message(_, _, _), do: {:error, :not_implemented}
+
+      @impl true
       def capabilities do
         %{
           send_message: :native,
-          send_file: :native,
+          post_message: :native,
           open_thread: :native,
           list_threads: :native,
           add_reaction: :native,

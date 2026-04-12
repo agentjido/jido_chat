@@ -5,8 +5,8 @@ defmodule Jido.Chat.ChannelRef do
 
   alias Jido.Chat.{
     Adapter,
+    Attachment,
     ChannelInfo,
-    Media,
     MessagePage,
     ModalResult,
     PostPayload,
@@ -69,7 +69,7 @@ defmodule Jido.Chat.ChannelRef do
   end
 
   @doc "Uploads a file to the channel when supported by the adapter."
-  @spec send_file(t(), Media.input(), keyword()) ::
+  @spec send_file(t(), Attachment.input(), keyword()) ::
           {:ok, SentMessage.t()} | {:error, term()}
   def send_file(%__MODULE__{} = channel, file, opts \\ []) do
     with {:ok, response} <- Adapter.send_file(channel.adapter, channel.external_id, file, opts) do
@@ -82,7 +82,7 @@ defmodule Jido.Chat.ChannelRef do
          text: opts[:text] || opts[:caption],
          formatted: opts[:text] || opts[:caption],
          raw: response.raw,
-         attachments: [Media.normalize(file)],
+         attachments: [Attachment.normalize(file)],
          metadata: opts[:metadata] || %{},
          response: response,
          default_opts: opts
@@ -218,64 +218,25 @@ defmodule Jido.Chat.ChannelRef do
   end
 
   defp post_payload(%__MODULE__{} = channel, %PostPayload{} = payload, opts) do
-    attachments = payload.attachments || []
+    adapter_opts = Keyword.put(opts, :scope, :channel)
 
-    case attachments do
-      [] ->
-        with {:ok, response} <-
-               Adapter.post_channel_message(
-                 channel.adapter,
-                 channel.external_id,
-                 payload.text || "",
-                 opts
-               ) do
-          {:ok,
-           SentMessage.new(%{
-             id: response.external_message_id || Jido.Chat.ID.generate!(),
-             thread_id: channel.id,
-             adapter: channel.adapter,
-             external_room_id: channel.external_id,
-             text: payload.text,
-             formatted: payload.formatted || payload.text,
-             raw: payload.raw,
-             attachments: attachments,
-             metadata: payload.metadata,
-             response: response,
-             default_opts: opts
-           })}
-        end
-
-      [attachment] ->
-        file_opts =
-          opts
-          |> maybe_put_caption(payload)
-          |> maybe_put_metadata(payload.metadata)
-
-        with {:ok, response} <-
-               Adapter.send_file(
-                 channel.adapter,
-                 channel.external_id,
-                 attachment,
-                 file_opts
-               ) do
-          {:ok,
-           SentMessage.new(%{
-             id: response.external_message_id || Jido.Chat.ID.generate!(),
-             thread_id: channel.id,
-             adapter: channel.adapter,
-             external_room_id: channel.external_id,
-             text: payload.text,
-             formatted: payload.formatted || payload.text,
-             raw: payload.raw,
-             attachments: [attachment],
-             metadata: payload.metadata,
-             response: response,
-             default_opts: file_opts
-           })}
-        end
-
-      _multiple ->
-        {:error, :multiple_attachments_unsupported}
+    with {:ok, default_opts} <- post_default_opts(channel.adapter, payload, opts),
+         {:ok, response} <-
+           Adapter.post_message(channel.adapter, channel.external_id, payload, adapter_opts) do
+      {:ok,
+       SentMessage.new(%{
+         id: response.external_message_id || Jido.Chat.ID.generate!(),
+         thread_id: channel.id,
+         adapter: channel.adapter,
+         external_room_id: channel.external_id,
+         text: payload.text,
+         formatted: payload.formatted || payload.text,
+         raw: payload.raw,
+         attachments: payload.attachments || [],
+         metadata: payload.metadata,
+         response: response,
+         default_opts: default_opts
+       })}
     end
   end
 
@@ -321,6 +282,25 @@ defmodule Jido.Chat.ChannelRef do
 
   defp maybe_put_metadata(opts, metadata) when is_map(metadata) do
     Keyword.update(opts, :metadata, metadata, &Map.merge(metadata, &1))
+  end
+
+  defp post_default_opts(adapter, %PostPayload{} = payload, opts) do
+    cond do
+      function_exported?(adapter, :post_message, 3) ->
+        {:ok, opts}
+
+      payload.attachments in [nil, []] ->
+        {:ok, opts}
+
+      match?([_attachment], payload.attachments) ->
+        {:ok,
+         opts
+         |> maybe_put_caption(payload)
+         |> maybe_put_metadata(payload.metadata)}
+
+      true ->
+        {:error, :multiple_attachments_unsupported}
+    end
   end
 
   defp next_message_batch(%{pending: [next | rest]} = state),

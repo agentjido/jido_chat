@@ -196,11 +196,15 @@ defmodule Jido.Chat.Capabilities do
   end
 
   defp normalize_adapter_capabilities(capabilities) when is_map(capabilities) do
+    media_supported? =
+      supported_status?(capabilities[:post_message]) or
+        supported_status?(capabilities[:send_file])
+
     [:text]
-    |> maybe_add_capability(:image, supported_status?(capabilities[:send_file]))
-    |> maybe_add_capability(:audio, supported_status?(capabilities[:send_file]))
-    |> maybe_add_capability(:video, supported_status?(capabilities[:send_file]))
-    |> maybe_add_capability(:file, supported_status?(capabilities[:send_file]))
+    |> maybe_add_capability(:image, media_supported?)
+    |> maybe_add_capability(:audio, media_supported?)
+    |> maybe_add_capability(:video, media_supported?)
+    |> maybe_add_capability(:file, media_supported?)
     |> maybe_add_capability(
       :threads,
       supported_status?(capabilities[:open_thread]) or

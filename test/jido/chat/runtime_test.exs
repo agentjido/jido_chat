@@ -4,6 +4,7 @@ defmodule Jido.Chat.RuntimeTest do
   alias Jido.Chat
 
   alias Jido.Chat.{
+    Attachment,
     CapabilityMatrix,
     ChannelInfo,
     EventEnvelope,
@@ -11,6 +12,7 @@ defmodule Jido.Chat.RuntimeTest do
     IngressResult,
     MessagePage,
     ModalResult,
+    PostPayload,
     Postable,
     Response,
     SentMessage,
@@ -218,6 +220,39 @@ defmodule Jido.Chat.RuntimeTest do
          external_message_id: "m_#{room_id}",
          external_room_id: room_id,
          channel_type: :no_modal
+       })}
+    end
+  end
+
+  defmodule RichPostAdapter do
+    use Jido.Chat.Adapter
+
+    @impl true
+    def channel_type, do: :rich
+
+    @impl true
+    def transform_incoming(payload) when is_map(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message(room_id, _text, _opts) do
+      {:ok,
+       Response.new(%{
+         external_message_id: "msg_#{room_id}",
+         external_room_id: room_id,
+         channel_type: :rich
+       })}
+    end
+
+    @impl true
+    def post_message(room_id, %PostPayload{} = payload, opts) do
+      send(self(), {:post_message, room_id, payload, opts})
+
+      {:ok,
+       Response.new(%{
+         external_message_id: "post_#{room_id}",
+         external_room_id: room_id,
+         channel_type: :rich,
+         metadata: %{attachments: length(payload.attachments || [])}
        })}
     end
   end
@@ -582,6 +617,52 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert {:error, :multiple_attachments_unsupported} =
              Thread.post(thread, postable)
+  end
+
+  test "thread post routes multiple attachments through native post_message callback" do
+    chat = Chat.new(adapters: %{rich: RichPostAdapter})
+    thread = Chat.thread(chat, :rich, "room-rich", [])
+
+    assert {:ok, %SentMessage{} = sent} =
+             Thread.post(
+               thread,
+               Postable.text("hello")
+               |> Map.put(:attachments, [
+                 %{path: "/tmp/photo.png", media_type: "image/png"},
+                 %{url: "https://example.com/spec.pdf", media_type: "application/pdf"}
+               ])
+             )
+
+    assert sent.id == "post_room-rich"
+
+    assert [
+             %Attachment{kind: :image, path: "/tmp/photo.png", filename: "photo.png"},
+             %Attachment{kind: :file, url: "https://example.com/spec.pdf"}
+           ] = sent.attachments
+
+    assert_received {:post_message, "room-rich", %PostPayload{} = payload, []}
+    assert length(payload.attachments) == 2
+    assert Enum.map(payload.attachments, & &1.kind) == [:image, :file]
+  end
+
+  test "channel post routes multiple attachments through native post_message callback" do
+    chat = Chat.new(adapters: %{rich: RichPostAdapter})
+    channel = Chat.channel(chat, :rich, "chan-rich")
+
+    assert {:ok, %SentMessage{} = sent} =
+             Jido.Chat.ChannelRef.post(
+               channel,
+               Postable.text("hello")
+               |> Map.put(:attachments, [
+                 %{path: "/tmp/voice.ogg", media_type: "audio/ogg"},
+                 %{url: "https://example.com/clip.mp4", media_type: "video/mp4"}
+               ])
+             )
+
+    assert sent.id == "post_chan-rich"
+    assert Enum.map(sent.attachments, & &1.kind) == [:audio, :video]
+    assert_received {:post_message, "chan-rich", %PostPayload{} = payload, []}
+    assert Enum.map(payload.attachments, & &1.kind) == [:audio, :video]
   end
 
   test "webhooks helper returns adapter-keyed typed dispatchers" do
