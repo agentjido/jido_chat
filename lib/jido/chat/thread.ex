@@ -278,19 +278,19 @@ defmodule Jido.Chat.Thread do
   @doc "Subscribes this thread in a pure `Jido.Chat` state struct."
   @spec subscribe(Jido.Chat.t(), t()) :: Jido.Chat.t()
   def subscribe(%Jido.Chat{} = chat, %__MODULE__{} = thread) do
-    %{chat | subscriptions: MapSet.put(chat.subscriptions, thread.id)}
+    Jido.Chat.subscribe(chat, thread.id)
   end
 
   @doc "Unsubscribes this thread in a pure `Jido.Chat` state struct."
   @spec unsubscribe(Jido.Chat.t(), t()) :: Jido.Chat.t()
   def unsubscribe(%Jido.Chat{} = chat, %__MODULE__{} = thread) do
-    %{chat | subscriptions: MapSet.delete(chat.subscriptions, thread.id)}
+    Jido.Chat.unsubscribe(chat, thread.id)
   end
 
   @doc "Returns true when the thread is subscribed in a pure `Jido.Chat` state struct."
   @spec subscribed?(Jido.Chat.t(), t()) :: boolean()
   def subscribed?(%Jido.Chat{} = chat, %__MODULE__{} = thread) do
-    MapSet.member?(chat.subscriptions, thread.id)
+    Jido.Chat.subscribed?(chat, thread.id)
   end
 
   @doc "Serializes thread into a plain map with type marker."

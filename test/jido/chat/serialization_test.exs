@@ -18,18 +18,65 @@ defmodule Jido.Chat.SerializationTest do
     WebhookResponse
   }
 
+  defmodule WrappedStateAdapter do
+    @behaviour Jido.Chat.StateAdapter
+
+    alias Jido.Chat.StateAdapters.Memory
+
+    @impl true
+    def init(snapshot, opts), do: {:wrapped, Memory.init(snapshot, opts)}
+
+    @impl true
+    def snapshot({:wrapped, state}), do: Memory.snapshot(state)
+
+    @impl true
+    def subscribed?({:wrapped, state}, thread_id), do: Memory.subscribed?(state, thread_id)
+
+    @impl true
+    def subscribe({:wrapped, state}, thread_id),
+      do: {:wrapped, Memory.subscribe(state, thread_id)}
+
+    @impl true
+    def unsubscribe({:wrapped, state}, thread_id),
+      do: {:wrapped, Memory.unsubscribe(state, thread_id)}
+
+    @impl true
+    def thread_state({:wrapped, state}, thread_id), do: Memory.thread_state(state, thread_id)
+
+    @impl true
+    def put_thread_state({:wrapped, state}, thread_id, value),
+      do: {:wrapped, Memory.put_thread_state(state, thread_id, value)}
+
+    @impl true
+    def channel_state({:wrapped, state}, channel_id), do: Memory.channel_state(state, channel_id)
+
+    @impl true
+    def put_channel_state({:wrapped, state}, channel_id, value),
+      do: {:wrapped, Memory.put_channel_state(state, channel_id, value)}
+
+    @impl true
+    def duplicate?({:wrapped, state}, key), do: Memory.duplicate?(state, key)
+
+    @impl true
+    def mark_dedupe({:wrapped, state}, key, limit),
+      do: {:wrapped, Memory.mark_dedupe(state, key, limit)}
+  end
+
   test "chat serialization is JSON-safe and explicitly non-serializable for handlers" do
     chat =
-      Chat.new(adapters: %{test: __MODULE__}, metadata: %{env: :test})
+      Chat.new(
+        adapters: %{test: __MODULE__},
+        metadata: %{env: :test},
+        dedupe: MapSet.new([{:test, "m1"}]),
+        dedupe_order: [{:test, "m1"}]
+      )
       |> Chat.on_new_mention(fn _thread, _incoming -> :ok end)
       |> Chat.on_new_message(~r/^ping$/, fn _thread, _incoming -> :ok end)
-      |> then(fn value ->
-        %{value | dedupe: MapSet.new([{:test, "m1"}]), dedupe_order: [{:test, "m1"}]}
-      end)
 
     encoded = Chat.to_map(chat)
 
     assert encoded["__type__"] == "chat"
+    assert encoded["state_adapter"] == "Elixir.Jido.Chat.StateAdapters.Memory"
     assert encoded["handlers"]["serializable"] == false
     assert encoded["handlers"]["counts"]["mention"] == 1
     assert encoded["handlers"]["counts"]["message"] == 1
@@ -42,6 +89,31 @@ defmodule Jido.Chat.SerializationTest do
     assert revived.dedupe_order == [{:test, "m1"}]
     assert revived.handlers.mention == []
     assert revived.handlers.message == []
+  end
+
+  test "chat serialization preserves custom state adapter snapshots" do
+    chat =
+      Chat.new(
+        adapters: %{test: __MODULE__},
+        state_adapter: WrappedStateAdapter,
+        subscriptions: ["test:room-1"],
+        thread_state: %{"test:room-1" => %{phase: :open}}
+      )
+      |> Chat.subscribe("test:room-2")
+      |> Chat.put_channel_state("test:chan-1", %{topic: "general"})
+
+    encoded = Chat.to_map(chat)
+
+    assert encoded["state_adapter"] == "Elixir.Jido.Chat.SerializationTest.WrappedStateAdapter"
+
+    revived = Chat.from_map(encoded)
+
+    assert revived.state_adapter == WrappedStateAdapter
+    assert match?({:wrapped, _}, revived.state)
+    assert Chat.subscribed?(revived, "test:room-1")
+    assert Chat.subscribed?(revived, "test:room-2")
+    assert Chat.thread_state(revived, "test:room-1") == %{"phase" => :open}
+    assert Chat.channel_state(revived, "test:chan-1") == %{"topic" => "general"}
   end
 
   test "thread and channel refs round-trip with module adapters" do

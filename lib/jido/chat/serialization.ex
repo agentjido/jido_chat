@@ -21,6 +21,7 @@ defmodule Jido.Chat.Serialization do
       id: chat.id,
       user_name: chat.user_name,
       adapters: serialize_adapters(chat.adapters),
+      state_adapter: Wire.encode_module(chat.state_adapter),
       subscriptions: chat.subscriptions |> MapSet.to_list() |> Enum.sort(),
       dedupe: serialize_dedupe(chat.dedupe),
       dedupe_order: serialize_dedupe_order(chat.dedupe_order || []),
@@ -41,24 +42,19 @@ defmodule Jido.Chat.Serialization do
         id: map[:id] || map["id"],
         user_name: map[:user_name] || map["user_name"],
         adapters: deserialize_adapters(map[:adapters] || map["adapters"] || %{}),
+        state_adapter: map[:state_adapter] || map["state_adapter"],
         metadata: map[:metadata] || map["metadata"] || %{},
+        subscriptions: map[:subscriptions] || map["subscriptions"] || [],
+        dedupe: map[:dedupe] || map["dedupe"] || [],
+        dedupe_order: map[:dedupe_order] || map["dedupe_order"] || [],
         thread_state: map[:thread_state] || map["thread_state"] || %{},
         channel_state: map[:channel_state] || map["channel_state"] || %{}
       })
 
-    subscriptions = map[:subscriptions] || map["subscriptions"] || []
-    dedupe = map[:dedupe] || map["dedupe"] || []
-    dedupe_order = map[:dedupe_order] || map["dedupe_order"] || dedupe
-
     %{
       chat
       | initialized: map[:initialized] || map["initialized"] || false,
-        dedupe: deserialize_dedupe(dedupe),
-        dedupe_order: deserialize_dedupe_order(dedupe_order),
-        subscriptions: deserialize_subscriptions(subscriptions),
-        handlers: deserialize_handlers(map[:handlers] || map["handlers"] || %{}, chat.handlers),
-        thread_state: map[:thread_state] || map["thread_state"] || %{},
-        channel_state: map[:channel_state] || map["channel_state"] || %{}
+        handlers: deserialize_handlers(map[:handlers] || map["handlers"] || %{}, chat.handlers)
     }
   end
 
@@ -115,23 +111,6 @@ defmodule Jido.Chat.Serialization do
 
   defp deserialize_adapters(_), do: %{}
 
-  defp deserialize_dedupe(dedupe) when is_list(dedupe) do
-    dedupe
-    |> Enum.reduce(MapSet.new(), fn
-      [adapter_name, message_id], acc ->
-        MapSet.put(acc, {normalize_key_atom(adapter_name), to_string(message_id)})
-
-      {adapter_name, message_id}, acc ->
-        MapSet.put(acc, {normalize_key_atom(adapter_name), to_string(message_id)})
-
-      _other, acc ->
-        acc
-    end)
-  end
-
-  defp deserialize_dedupe(%MapSet{} = dedupe), do: dedupe
-  defp deserialize_dedupe(_), do: MapSet.new()
-
   defp serialize_dedupe_order(dedupe_order) when is_list(dedupe_order) do
     dedupe_order
     |> Enum.map(fn
@@ -143,32 +122,6 @@ defmodule Jido.Chat.Serialization do
   end
 
   defp serialize_dedupe_order(_), do: []
-
-  defp deserialize_dedupe_order(dedupe_order) when is_list(dedupe_order) do
-    dedupe_order
-    |> Enum.reduce([], fn
-      [adapter_name, message_id], acc ->
-        [{normalize_key_atom(adapter_name), to_string(message_id)} | acc]
-
-      {adapter_name, message_id}, acc ->
-        [{normalize_key_atom(adapter_name), to_string(message_id)} | acc]
-
-      _other, acc ->
-        acc
-    end)
-    |> Enum.reverse()
-  end
-
-  defp deserialize_dedupe_order(_), do: []
-
-  defp deserialize_subscriptions(subscriptions) when is_list(subscriptions) do
-    subscriptions
-    |> Enum.map(&to_string/1)
-    |> MapSet.new()
-  end
-
-  defp deserialize_subscriptions(%MapSet{} = subscriptions), do: subscriptions
-  defp deserialize_subscriptions(_), do: MapSet.new()
 
   defp deserialize_handlers(handlers, defaults) when is_map(handlers) and is_map(defaults) do
     serializable? = handlers[:serializable] || handlers["serializable"] || false

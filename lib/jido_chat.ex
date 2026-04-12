@@ -24,6 +24,7 @@ defmodule Jido.Chat do
     Room,
     Serialization,
     SlashCommandEvent,
+    StateAdapter,
     Thread,
     WebhookPipeline,
     WebhookRequest,
@@ -102,6 +103,8 @@ defmodule Jido.Chat do
           id: String.t(),
           user_name: String.t(),
           adapters: %{optional(atom()) => module()},
+          state_adapter: module(),
+          state: term(),
           subscriptions: MapSet.t(String.t()),
           dedupe: MapSet.t({atom(), String.t()}),
           dedupe_order: [{atom(), String.t()}],
@@ -131,6 +134,8 @@ defmodule Jido.Chat do
               id: Zoi.string(),
               user_name: Zoi.string() |> Zoi.default("bot"),
               adapters: Zoi.map() |> Zoi.default(%{}),
+              state_adapter: Zoi.any() |> Zoi.default(Jido.Chat.StateAdapters.Memory),
+              state: Zoi.any() |> Zoi.nullish(),
               subscriptions: Zoi.any() |> Zoi.default(MapSet.new()),
               dedupe: Zoi.any() |> Zoi.default(MapSet.new()),
               dedupe_order: Zoi.list() |> Zoi.default([]),
@@ -157,6 +162,9 @@ defmodule Jido.Chat do
     * `:user_name`
     * `:adapters` - map `%{telegram: Jido.Chat.Telegram.Adapter, ...}`
     * `:metadata`
+    * `:state_adapter` - state backend module, defaults to `Jido.Chat.StateAdapters.Memory`
+    * `:state_opts` - adapter-specific initialization options
+    * `:state` - explicit adapter state, overrides legacy snapshot inputs
   """
   @spec new(keyword() | map()) :: t()
   def new(opts \\ [])
@@ -164,13 +172,37 @@ defmodule Jido.Chat do
   def new(opts) when is_list(opts), do: opts |> Map.new() |> new()
 
   def new(opts) when is_map(opts) do
+    state_adapter =
+      opts[:state_adapter] || opts["state_adapter"] || Jido.Chat.StateAdapters.Memory
+
+    state_adapter = Jido.Chat.Wire.decode_module(state_adapter) || Jido.Chat.StateAdapters.Memory
+    state_opts = opts[:state_opts] || opts["state_opts"] || []
+
+    state_snapshot =
+      opts
+      |> initial_state_snapshot()
+      |> maybe_replace_with_explicit_state(state_adapter, opts[:state] || opts["state"])
+
+    state =
+      case opts[:state] || opts["state"] do
+        nil -> StateAdapter.init(state_adapter, state_snapshot, state_opts)
+        explicit_state -> explicit_state
+      end
+
+    normalized_state_snapshot = StateAdapter.snapshot(state_adapter, state)
+
     attrs = %{
       id: opts[:id] || opts["id"] || Jido.Chat.ID.generate!(),
       user_name: opts[:user_name] || opts["user_name"] || "bot",
       adapters: AdapterRegistry.normalize_adapters(opts[:adapters] || opts["adapters"] || %{}),
+      state_adapter: state_adapter,
+      state: state,
       metadata: opts[:metadata] || opts["metadata"] || %{},
-      thread_state: opts[:thread_state] || opts["thread_state"] || %{},
-      channel_state: opts[:channel_state] || opts["channel_state"] || %{}
+      subscriptions: normalized_state_snapshot.subscriptions,
+      dedupe: normalized_state_snapshot.dedupe,
+      dedupe_order: normalized_state_snapshot.dedupe_order,
+      thread_state: normalized_state_snapshot.thread_state,
+      channel_state: normalized_state_snapshot.channel_state
     }
 
     Jido.Chat.Schema.parse!(__MODULE__, @schema, attrs)
@@ -638,39 +670,74 @@ defmodule Jido.Chat do
 
   @doc "Returns true when a thread id is currently subscribed."
   @spec subscribed?(t(), String.t()) :: boolean()
-  def subscribed?(%__MODULE__{} = chat, thread_id),
-    do: MapSet.member?(chat.subscriptions, thread_id)
+  def subscribed?(%__MODULE__{} = chat, thread_id) when is_binary(thread_id) do
+    StateAdapter.subscribed?(chat.state_adapter, chat.state, thread_id)
+  end
 
   @doc "Subscribes a thread id."
   @spec subscribe(t(), String.t()) :: t()
-  def subscribe(%__MODULE__{} = chat, thread_id),
-    do: %{chat | subscriptions: MapSet.put(chat.subscriptions, thread_id)}
+  def subscribe(%__MODULE__{} = chat, thread_id) when is_binary(thread_id) do
+    chat.state_adapter
+    |> StateAdapter.subscribe(chat.state, thread_id)
+    |> sync_state(chat)
+  end
 
   @doc "Unsubscribes a thread id."
   @spec unsubscribe(t(), String.t()) :: t()
-  def unsubscribe(%__MODULE__{} = chat, thread_id),
-    do: %{chat | subscriptions: MapSet.delete(chat.subscriptions, thread_id)}
+  def unsubscribe(%__MODULE__{} = chat, thread_id) when is_binary(thread_id) do
+    chat.state_adapter
+    |> StateAdapter.unsubscribe(chat.state, thread_id)
+    |> sync_state(chat)
+  end
 
   @doc "Gets thread state map by id."
   @spec thread_state(t(), String.t()) :: map()
-  def thread_state(%__MODULE__{} = chat, thread_id),
-    do: Map.get(chat.thread_state, thread_id, %{})
+  def thread_state(%__MODULE__{} = chat, thread_id) when is_binary(thread_id) do
+    StateAdapter.thread_state(chat.state_adapter, chat.state, thread_id)
+  end
 
   @doc "Sets thread state map by id."
   @spec put_thread_state(t(), String.t(), map()) :: t()
   def put_thread_state(%__MODULE__{} = chat, thread_id, state) when is_map(state) do
-    %{chat | thread_state: Map.put(chat.thread_state, thread_id, state)}
+    chat.state_adapter
+    |> StateAdapter.put_thread_state(chat.state, thread_id, state)
+    |> sync_state(chat)
   end
 
   @doc "Gets channel state map by id."
   @spec channel_state(t(), String.t()) :: map()
-  def channel_state(%__MODULE__{} = chat, channel_id),
-    do: Map.get(chat.channel_state, channel_id, %{})
+  def channel_state(%__MODULE__{} = chat, channel_id) when is_binary(channel_id) do
+    StateAdapter.channel_state(chat.state_adapter, chat.state, channel_id)
+  end
 
   @doc "Sets channel state map by id."
   @spec put_channel_state(t(), String.t(), map()) :: t()
   def put_channel_state(%__MODULE__{} = chat, channel_id, state) when is_map(state) do
-    %{chat | channel_state: Map.put(chat.channel_state, channel_id, state)}
+    chat.state_adapter
+    |> StateAdapter.put_channel_state(chat.state, channel_id, state)
+    |> sync_state(chat)
+  end
+
+  @doc false
+  @spec duplicate?(t(), {atom(), String.t()} | nil) :: boolean()
+  def duplicate?(%__MODULE__{}, nil), do: false
+
+  def duplicate?(%__MODULE__{} = chat, {adapter_name, message_id})
+      when is_atom(adapter_name) and is_binary(message_id) do
+    StateAdapter.duplicate?(chat.state_adapter, chat.state, {adapter_name, message_id})
+  end
+
+  @doc false
+  @spec mark_dedupe(t(), {atom(), String.t()} | nil) :: t()
+  def mark_dedupe(%__MODULE__{} = chat, nil), do: chat
+
+  def mark_dedupe(%__MODULE__{} = chat, {adapter_name, message_id})
+      when is_atom(adapter_name) and is_binary(message_id) do
+    dedupe_limit = dedupe_limit(chat)
+
+    chat.state_adapter
+    |> StateAdapter.mark_dedupe(chat.state, {adapter_name, message_id}, dedupe_limit)
+    |> sync_state(chat)
   end
 
   @doc "Creates a normalized Chat SDK-style message."
@@ -701,6 +768,49 @@ defmodule Jido.Chat do
   @doc false
   @spec revive(map()) :: term()
   def revive(map), do: Serialization.revive(map)
+
+  defp sync_state(state, %__MODULE__{} = chat) do
+    snapshot = StateAdapter.snapshot(chat.state_adapter, state)
+
+    %{
+      chat
+      | state: state,
+        subscriptions: snapshot.subscriptions,
+        dedupe: snapshot.dedupe,
+        dedupe_order: snapshot.dedupe_order,
+        thread_state: snapshot.thread_state,
+        channel_state: snapshot.channel_state
+    }
+  end
+
+  defp initial_state_snapshot(opts) do
+    %{
+      subscriptions: opts[:subscriptions] || opts["subscriptions"] || MapSet.new(),
+      dedupe: opts[:dedupe] || opts["dedupe"] || MapSet.new(),
+      dedupe_order: opts[:dedupe_order] || opts["dedupe_order"] || [],
+      thread_state: opts[:thread_state] || opts["thread_state"] || %{},
+      channel_state: opts[:channel_state] || opts["channel_state"] || %{}
+    }
+    |> StateAdapter.normalize_snapshot()
+  end
+
+  defp maybe_replace_with_explicit_state(snapshot, _state_adapter, nil), do: snapshot
+
+  defp maybe_replace_with_explicit_state(_snapshot, state_adapter, explicit_state) do
+    StateAdapter.snapshot(state_adapter, explicit_state)
+  end
+
+  defp dedupe_limit(chat) do
+    metadata = Map.get(chat, :metadata, %{})
+
+    value =
+      case metadata do
+        %{} -> metadata[:dedupe_limit] || metadata["dedupe_limit"]
+        _ -> nil
+      end
+
+    if is_integer(value) and value > 0, do: value, else: 1_000
+  end
 
   defp normalize_ingress_event(%EventEnvelope{} = envelope), do: envelope
   defp normalize_ingress_event(nil), do: nil
