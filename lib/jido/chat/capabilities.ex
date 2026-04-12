@@ -1,6 +1,6 @@
 defmodule Jido.Chat.Capabilities do
   @moduledoc """
-  Capabilities negotiation for channels and participants.
+  Capabilities negotiation for adapters and participants.
 
   Provides functions to check and filter content based on channel capabilities,
   preventing content type mismatches between channels and participants.
@@ -19,14 +19,6 @@ defmodule Jido.Chat.Capabilities do
   - `:typing` - Typing indicators
   - `:presence` - Presence status updates
   - `:read_receipts` - Delivery and read receipts
-  - `:listener_lifecycle` - Listener child-spec lifecycle hook
-  - `:routing_metadata` - Routing metadata extraction hook
-  - `:sender_verification` - Sender verification hook
-  - `:outbound_sanitization` - Outbound sanitization hook
-  - `:media_send` - Outbound media send hook
-  - `:media_edit` - Outbound media edit hook
-  - `:command_hints` - Command hint extraction hook
-  - `:message_edit` - Text message edit hook
 
   ## Examples
 
@@ -58,14 +50,6 @@ defmodule Jido.Chat.Capabilities do
           | :typing
           | :presence
           | :read_receipts
-          | :listener_lifecycle
-          | :routing_metadata
-          | :sender_verification
-          | :outbound_sanitization
-          | :media_send
-          | :media_edit
-          | :command_hints
-          | :message_edit
 
   @type capabilities :: [capability()]
 
@@ -81,15 +65,7 @@ defmodule Jido.Chat.Capabilities do
     :threads,
     :typing,
     :presence,
-    :read_receipts,
-    :listener_lifecycle,
-    :routing_metadata,
-    :sender_verification,
-    :outbound_sanitization,
-    :media_send,
-    :media_edit,
-    :command_hints,
-    :message_edit
+    :read_receipts
   ]
 
   @doc """
@@ -187,18 +163,65 @@ defmodule Jido.Chat.Capabilities do
   end
 
   @doc """
-  Returns the capabilities for a channel module.
+  Returns the content capabilities for an adapter module.
 
-  If the channel implements the `capabilities/0` callback, returns those capabilities.
-  Otherwise returns the default `[:text]`.
+  Legacy channel wrappers have been removed. This helper now accepts the canonical
+  `Jido.Chat.Adapter` module and derives a content-focused capability list from the
+  adapter surface. When an adapter only exposes the operational capability matrix,
+  the content fallback remains `[:text]`.
 
   ## Examples
 
-      iex> Capabilities.channel_capabilities(Jido.Chat.Channels.Discord)
-      [:text, :image, :audio, :video, :file, :reactions, :threads]
+      iex> Capabilities.channel_capabilities(Jido.Chat.Discord.Adapter)
+      [:text, :reactions, :threads]
   """
   @spec channel_capabilities(module()) :: capabilities()
-  def channel_capabilities(channel_module) when is_atom(channel_module) do
-    Jido.Chat.Channel.capabilities(channel_module)
+  def channel_capabilities(adapter_module) when is_atom(adapter_module) do
+    cond do
+      function_exported?(adapter_module, :capabilities, 0) ->
+        normalize_adapter_capabilities(adapter_module.capabilities())
+
+      true ->
+        [:text]
+    end
+  end
+
+  defp normalize_adapter_capabilities(capabilities) when is_list(capabilities) do
+    capabilities
+    |> Enum.filter(&(&1 in @all_capabilities))
+    |> case do
+      [] -> [:text]
+      filtered -> filtered
+    end
+  end
+
+  defp normalize_adapter_capabilities(capabilities) when is_map(capabilities) do
+    [:text]
+    |> maybe_add_capability(:image, supported_status?(capabilities[:send_file]))
+    |> maybe_add_capability(:audio, supported_status?(capabilities[:send_file]))
+    |> maybe_add_capability(:video, supported_status?(capabilities[:send_file]))
+    |> maybe_add_capability(:file, supported_status?(capabilities[:send_file]))
+    |> maybe_add_capability(
+      :threads,
+      supported_status?(capabilities[:open_thread]) or
+        supported_status?(capabilities[:list_threads])
+    )
+    |> maybe_add_capability(
+      :reactions,
+      supported_status?(capabilities[:add_reaction]) or
+        supported_status?(capabilities[:remove_reaction])
+    )
+    |> maybe_add_capability(:typing, supported_status?(capabilities[:start_typing]))
+    |> maybe_add_capability(:streaming, supported_status?(capabilities[:stream]))
+  end
+
+  defp normalize_adapter_capabilities(_), do: [:text]
+
+  defp supported_status?(status), do: status in [:native, :fallback]
+
+  defp maybe_add_capability(capabilities, _capability, false), do: capabilities
+
+  defp maybe_add_capability(capabilities, capability, true) do
+    Enum.uniq(capabilities ++ [capability])
   end
 end

@@ -9,6 +9,7 @@ defmodule Jido.Chat.ChannelMeta do
               adapter_name: Zoi.atom() |> Zoi.nullish(),
               external_room_id: Zoi.any() |> Zoi.nullish(),
               external_thread_id: Zoi.string() |> Zoi.nullish(),
+              delivery_external_room_id: Zoi.string() |> Zoi.nullish(),
               chat_type: Zoi.atom() |> Zoi.nullish(),
               chat_title: Zoi.string() |> Zoi.nullish(),
               is_dm: Zoi.boolean() |> Zoi.default(false),

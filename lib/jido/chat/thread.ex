@@ -7,6 +7,7 @@ defmodule Jido.Chat.Thread do
     Adapter,
     Author,
     ChannelRef,
+    Media,
     Message,
     MessagePage,
     ModalResult,
@@ -80,6 +81,30 @@ defmodule Jido.Chat.Thread do
       post_stream(thread, enumerable, opts)
     else
       {:error, :invalid_postable}
+    end
+  end
+
+  @doc "Uploads a file to the thread when supported by the adapter."
+  @spec send_file(t(), Media.input(), keyword()) :: {:ok, SentMessage.t()} | {:error, term()}
+  def send_file(%__MODULE__{} = thread, file, opts \\ []) do
+    opts = with_thread_opts(thread, opts)
+
+    with {:ok, response} <-
+           Adapter.send_file(thread.adapter, thread.external_room_id, file, opts) do
+      {:ok,
+       SentMessage.new(%{
+         id: response.external_message_id || Jido.Chat.ID.generate!(),
+         thread_id: thread.id,
+         adapter: thread.adapter,
+         external_room_id: thread.external_room_id,
+         text: opts[:text] || opts[:caption],
+         formatted: opts[:text] || opts[:caption],
+         raw: response.raw,
+         attachments: [Media.normalize(file)],
+         metadata: opts[:metadata] || %{},
+         response: response,
+         default_opts: opts
+       })}
     end
   end
 

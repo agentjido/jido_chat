@@ -6,12 +6,14 @@ defmodule Jido.Chat.ChannelRef do
   alias Jido.Chat.{
     Adapter,
     ChannelInfo,
+    Media,
     MessagePage,
     ModalResult,
     PostPayload,
     Postable,
     SentMessage,
     ThreadPage,
+    Thread,
     Wire
   }
 
@@ -66,10 +68,39 @@ defmodule Jido.Chat.ChannelRef do
     end
   end
 
+  @doc "Uploads a file to the channel when supported by the adapter."
+  @spec send_file(t(), Media.input(), keyword()) ::
+          {:ok, SentMessage.t()} | {:error, term()}
+  def send_file(%__MODULE__{} = channel, file, opts \\ []) do
+    with {:ok, response} <- Adapter.send_file(channel.adapter, channel.external_id, file, opts) do
+      {:ok,
+       SentMessage.new(%{
+         id: response.external_message_id || Jido.Chat.ID.generate!(),
+         thread_id: channel.id,
+         adapter: channel.adapter,
+         external_room_id: channel.external_id,
+         text: opts[:text] || opts[:caption],
+         formatted: opts[:text] || opts[:caption],
+         raw: response.raw,
+         attachments: [Media.normalize(file)],
+         metadata: opts[:metadata] || %{},
+         response: response,
+         default_opts: opts
+       })}
+    end
+  end
+
   @doc "Opens a modal in the channel when supported by the adapter."
   @spec open_modal(t(), map(), keyword()) :: {:ok, ModalResult.t()} | {:error, term()}
   def open_modal(%__MODULE__{} = channel, payload, opts \\ []) when is_map(payload) do
     Adapter.open_modal(channel.adapter, channel.external_id, payload, opts)
+  end
+
+  @doc "Opens a native platform thread from an existing channel message when supported."
+  @spec open_thread(t(), String.t() | integer(), keyword()) ::
+          {:ok, Thread.t()} | {:error, term()}
+  def open_thread(%__MODULE__{} = channel, message_id, opts \\ []) do
+    Adapter.open_thread(channel.adapter, channel.external_id, message_id, opts)
   end
 
   @doc "Posts an ephemeral message via adapter when supported."

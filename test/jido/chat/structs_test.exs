@@ -14,7 +14,6 @@ defmodule Jido.Chat.StructsTest do
     EventEnvelope,
     FetchOptions,
     Incoming,
-    LegacyMessage,
     Media,
     Mention,
     Message,
@@ -53,12 +52,6 @@ defmodule Jido.Chat.StructsTest do
       assert message.is_mention == false
     end
 
-    test "LegacyMessage.new/1 remains available for migration" do
-      message = LegacyMessage.new(%{room_id: "room_1", sender_id: "user_1", role: :user})
-      assert message.room_id == "room_1"
-      assert message.status == :sending
-    end
-
     test "Room.new/1 creates room with defaults" do
       room = Room.new(%{type: :direct})
 
@@ -81,12 +74,27 @@ defmodule Jido.Chat.StructsTest do
         Incoming.new(%{
           external_room_id: "room_1",
           mentions: [%{user_id: "u1", username: "jane"}],
-          media: [%{kind: :image, url: "telegram://file/abc"}],
+          media: [
+            %{type: :image, url: "telegram://file/abc"},
+            Image.new("https://example.com/photo.jpg",
+              media_type: "image/jpeg",
+              alt_text: "photo"
+            )
+          ],
           channel_meta: %{adapter_name: :telegram, external_room_id: "room_1"}
         })
 
       assert [%Mention{user_id: "u1", username: "jane"}] = incoming.mentions
-      assert [%Media{kind: :image, url: "telegram://file/abc"}] = incoming.media
+
+      assert [
+               %Media{kind: :image, url: "telegram://file/abc"},
+               %Media{
+                 kind: :image,
+                 url: "https://example.com/photo.jpg",
+                 media_type: "image/jpeg",
+                 metadata: %{alt_text: "photo"}
+               }
+             ] = incoming.media
 
       assert %ChannelMeta{adapter_name: :telegram, external_room_id: "room_1"} =
                incoming.channel_meta
@@ -143,6 +151,23 @@ defmodule Jido.Chat.StructsTest do
       payload = PostPayload.text("hello")
       assert payload.kind == :text
       assert payload.formatted == "hello"
+    end
+
+    test "Message.new/1 normalizes content attachments into media structs" do
+      message =
+        Message.new(%{
+          external_room_id: "room_1",
+          external_message_id: "m1",
+          attachments: [
+            Video.new("https://example.com/video.mp4", media_type: "video/mp4", duration: 8),
+            File.new("https://example.com/doc.pdf", "doc.pdf", media_type: "application/pdf")
+          ]
+        })
+
+      assert [
+               %Media{kind: :video, media_type: "video/mp4", duration: 8},
+               %Media{kind: :file, filename: "doc.pdf", media_type: "application/pdf"}
+             ] = message.attachments
     end
 
     test "Postable.to_payload/1 preserves encoding intent by kind" do
@@ -252,6 +277,27 @@ defmodule Jido.Chat.StructsTest do
 
       assert file.filename == "doc.pdf"
       assert inline.size == 7
+    end
+
+    test "Media.normalize/1 preserves typed attachment details" do
+      image = Media.normalize(Image.from_base64("base64==", "image/png", alt_text: "inline"))
+      audio = Media.normalize(Audio.new("https://example.com/audio.mp3", duration: 12))
+      video = Media.normalize(%{type: :video, url: "https://example.com/video.mp4", duration: 8})
+      file = Media.normalize("/tmp/report.pdf")
+
+      assert image.kind == :image
+      assert image.media_type == "image/png"
+      assert image.metadata.alt_text == "inline"
+
+      assert audio.kind == :audio
+      assert audio.duration == 12
+
+      assert video.kind == :video
+      assert video.duration == 8
+
+      assert file.kind == :file
+      assert file.filename == "report.pdf"
+      assert file.metadata.path == "/tmp/report.pdf"
     end
 
     test "ToolUse.new/3 and ToolResult.new/3" do

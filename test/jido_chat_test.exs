@@ -8,16 +8,15 @@ defmodule Jido.ChatTest do
     participant = Chat.new_participant(%{type: :human})
 
     message =
-      Chat.new_message(%{
-        room_id: room.id,
-        sender_id: participant.id,
-        role: :user,
-        content: [Chat.text("hello")]
+      Chat.message(%{
+        external_room_id: room.id,
+        external_message_id: "m1",
+        text: "hello"
       })
 
     assert room.type == :direct
     assert participant.type == :human
-    assert message.role == :user
-    assert [%Jido.Chat.Content.Text{text: "hello"}] = message.content
+    assert message.text == "hello"
+    assert message.external_room_id == room.id
   end
 end

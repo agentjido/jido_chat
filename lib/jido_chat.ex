@@ -16,7 +16,6 @@ defmodule Jido.Chat do
     Errors,
     IngressResult,
     Incoming,
-    LegacyMessage,
     Message,
     ModalCloseEvent,
     ModalSubmitEvent,
@@ -433,6 +432,24 @@ defmodule Jido.Chat do
     end
   end
 
+  @doc """
+  Opens a native platform thread from an existing room message when supported.
+  """
+  @spec open_thread(t(), atom(), String.t() | integer(), String.t() | integer(), keyword()) ::
+          {:ok, Thread.t()} | {:error, term()}
+  def open_thread(
+        %__MODULE__{} = chat,
+        adapter_name,
+        external_room_id,
+        external_message_id,
+        opts \\ []
+      )
+      when is_atom(adapter_name) and is_list(opts) do
+    with {:ok, adapter_module} <- AdapterRegistry.resolve(chat, adapter_name) do
+      Adapter.open_thread(adapter_module, external_room_id, external_message_id, opts)
+    end
+  end
+
   @doc "Builds a channel reference from adapter + external channel id."
   @spec channel(t(), atom(), String.t() | integer()) :: ChannelRef.t()
   def channel(%__MODULE__{} = chat, adapter_name, external_id) when is_atom(adapter_name) do
@@ -655,10 +672,6 @@ defmodule Jido.Chat do
   def put_channel_state(%__MODULE__{} = chat, channel_id, state) when is_map(state) do
     %{chat | channel_state: Map.put(chat.channel_state, channel_id, state)}
   end
-
-  @doc "Compatibility constructor for legacy message shape."
-  @spec new_message(map()) :: LegacyMessage.t()
-  def new_message(attrs), do: LegacyMessage.new(attrs)
 
   @doc "Creates a normalized Chat SDK-style message."
   @spec message(map()) :: Message.t()

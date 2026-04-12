@@ -28,8 +28,9 @@ end
 ## Canonical Adapter Interface
 
 `Jido.Chat.Adapter` is the canonical contract for new integrations.
-
-`Jido.Chat.Channel` remains available as a compatibility shim for legacy channel modules during migration.
+`Jido.Chat.ChannelRef` and `Jido.Chat.Thread` are the typed handles for room and thread operations.
+Adapters can expose native uploads through `send_file/3`; `Jido.Chat.ChannelRef.send_file/3`
+and `Jido.Chat.Thread.send_file/3` route those uploads through the canonical core helpers.
 
 ## Usage (Core Loop)
 

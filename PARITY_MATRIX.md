@@ -13,6 +13,7 @@ This matrix tracks practical parity against the Vercel Chat SDK surface using ex
 | `Jido.Chat` lifecycle + routing (`new/initialize/shutdown`, mention/message/subscribed) | native |
 | Typed event routing (`process_event/4` + `process_*` wrappers) | native |
 | Typed webhook API (`handle_webhook_request/4`, `webhooks/1`) | native |
+| Typed file/media normalization + outbound `send_file` contract | native |
 | Serialization/revival (`to_map/from_map/reviver`) for core handles | native |
 | Thread/channel state helpers (pure struct) | native |
 | `Thread`/`ChannelRef` stream helpers | native |
@@ -54,5 +55,5 @@ This matrix tracks practical parity against the Vercel Chat SDK surface using ex
 ## Migration Notes
 
 - `Jido.Chat.Message` is the normalized Chat SDK-style message object.
-- legacy model remains available as `Jido.Chat.LegacyMessage` for migration.
-- compatibility wrappers (`Jido.Chat.Telegram.Channel`, `Jido.Chat.Discord.Channel`) are retained for this phase.
+- thread-scoped runtime persistence now lives in `jido_messaging` via `Jido.Messaging.Message`, `Jido.Messaging.Thread`, and `Jido.Messaging.Context`.
+- legacy compatibility wrappers and migration-only message structs have been removed.

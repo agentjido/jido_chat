@@ -1,17 +1,17 @@
 defmodule Jido.Chat.Adapters.Threading do
   @moduledoc """
-  Behaviour for channel-specific threading support.
+  Behaviour for adapter-specific threading support.
 
   Threading is fundamental to messaging but varies significantly across platforms.
-  This behaviour defines how channels can implement platform-specific threading
+  This behaviour defines how adapters can implement platform-specific threading
   logic while providing a normalized output for the messaging pipeline.
 
   ## Implementation
 
-  Channels that support threading should implement this behaviour:
+  Adapters that support threading should implement this behaviour:
 
       defmodule MyApp.Channels.Slack do
-        @behaviour Jido.Chat.Channel
+        @behaviour Jido.Chat.Adapter
         @behaviour Jido.Chat.Adapters.Threading
 
         @impl Jido.Chat.Adapters.Threading
@@ -49,7 +49,7 @@ defmodule Jido.Chat.Adapters.Threading do
         }
 
   @doc """
-  Returns whether this channel supports threading.
+  Returns whether this adapter supports threading.
 
   Used for capability detection and feature gating.
   """

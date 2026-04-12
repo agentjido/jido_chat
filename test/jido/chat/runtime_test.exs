@@ -42,6 +42,20 @@ defmodule Jido.Chat.RuntimeTest do
     end
 
     @impl true
+    def send_file(room_id, file, opts) do
+      send(self(), {:send_file, room_id, file, opts})
+
+      {:ok,
+       Response.new(%{
+         external_message_id: "file_#{room_id}",
+         external_room_id: room_id,
+         status: :sent,
+         channel_type: :test,
+         metadata: %{caption: opts[:caption] || opts[:text]}
+       })}
+    end
+
+    @impl true
     def edit_message(room_id, message_id, text, _opts) do
       {:ok,
        Response.new(%{
@@ -174,6 +188,16 @@ defmodule Jido.Chat.RuntimeTest do
            }
          ],
          next_cursor: nil
+       }}
+    end
+
+    @impl true
+    def open_thread(room_id, message_id, _opts) do
+      {:ok,
+       %{
+         external_room_id: room_id,
+         external_thread_id: "thr_#{message_id}",
+         metadata: %{root_message_id: message_id}
        }}
     end
   end
@@ -364,6 +388,22 @@ defmodule Jido.Chat.RuntimeTest do
     assert [%{kind: :image}] = Enum.map(sent.attachments, &Map.from_struct/1)
   end
 
+  test "thread send_file routes through adapter upload callback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-file", [])
+
+    assert {:ok, %SentMessage{} = sent} =
+             Thread.send_file(thread, "/tmp/report.pdf", caption: "report")
+
+    assert sent.id == "file_room-file"
+    assert sent.text == "report"
+
+    assert [%{filename: "report.pdf", kind: :file}] =
+             Enum.map(sent.attachments, &Map.from_struct/1)
+
+    assert_received {:send_file, "room-file", "/tmp/report.pdf", [caption: "report"]}
+  end
+
   test "thread enumerable post routes through adapter stream callback" do
     chat = Chat.new(adapters: %{test: TestAdapter})
     thread = Chat.thread(chat, :test, "room-stream-post", [])
@@ -455,6 +495,40 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert {:ok, %ThreadPage{} = threads} = Jido.Chat.ChannelRef.threads(channel)
     assert length(threads.threads) == 1
+  end
+
+  test "channel send_file and open_thread return typed handles" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    channel = Chat.channel(chat, :test, "chan-files")
+
+    assert {:ok, %SentMessage{} = sent} =
+             Jido.Chat.ChannelRef.send_file(
+               channel,
+               %{type: :image, url: "https://example.com/photo.jpg", media_type: "image/jpeg"},
+               text: "caption"
+             )
+
+    assert sent.id == "file_chan-files"
+
+    assert [%{kind: :image, media_type: "image/jpeg"}] =
+             Enum.map(sent.attachments, &Map.from_struct/1)
+
+    assert {:ok, %Thread{} = thread} =
+             Jido.Chat.ChannelRef.open_thread(channel, "root-123")
+
+    assert thread.external_room_id == "chan-files"
+    assert thread.external_thread_id == "thr_root-123"
+    assert thread.id == "test:chan-files:thr_root-123"
+  end
+
+  test "chat open_thread routes through adapter helper" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+
+    assert {:ok, %Thread{} = thread} =
+             Chat.open_thread(chat, :test, "room-open-thread", "msg-1")
+
+    assert thread.external_thread_id == "thr_msg-1"
+    assert thread.metadata.root_message_id == "msg-1"
   end
 
   test "channel post preserves postable payload fields in sent handle" do

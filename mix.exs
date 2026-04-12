@@ -13,7 +13,7 @@ defmodule Jido.Chat.MixProject do
       deps: deps(),
       aliases: aliases(),
       name: "Jido Chat",
-      description: "Core chat SDK types and channel contracts for Jido",
+      description: "Core chat SDK types and adapter contracts for Jido",
       source_url: @source_url,
       homepage_url: @source_url
     ]

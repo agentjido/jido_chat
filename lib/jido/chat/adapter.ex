@@ -2,7 +2,7 @@ defmodule Jido.Chat.Adapter do
   @moduledoc """
   Canonical adapter behavior for Chat SDK style integrations.
 
-  `Jido.Chat.Channel` remains available as a compatibility behavior during migration.
+  Thread-aware channel contract for Chat SDK integrations.
   """
 
   alias Jido.Chat.{
@@ -12,6 +12,7 @@ defmodule Jido.Chat.Adapter do
     EphemeralMessage,
     FetchOptions,
     Incoming,
+    Media,
     ModalResult,
     Message,
     MessagePage,
@@ -44,11 +45,15 @@ defmodule Jido.Chat.Adapter do
   @type thread_page_result :: {:ok, ThreadPage.t()} | {:error, term()}
   @type ephemeral_result :: {:ok, EphemeralMessage.t()} | {:error, term()}
   @type modal_result :: {:ok, ModalResult.t()} | {:error, term()}
+  @type file_input :: Media.input()
 
   @callback channel_type() :: atom()
   @callback transform_incoming(raw_payload()) :: incoming_result() | {:ok, map()}
 
   @callback send_message(external_room_id(), text :: String.t(), opts :: keyword()) ::
+              send_result() | {:ok, map()} | {:error, term()}
+
+  @callback send_file(external_room_id(), file :: file_input(), opts :: keyword()) ::
               send_result() | {:ok, map()} | {:error, term()}
 
   @callback edit_message(
@@ -119,6 +124,9 @@ defmodule Jido.Chat.Adapter do
   @callback list_threads(external_room_id(), opts :: keyword()) ::
               {:ok, ThreadPage.t() | map()} | {:error, term()}
 
+  @callback open_thread(external_room_id(), external_message_id(), opts :: keyword()) ::
+              {:ok, Thread.t() | map()} | {:error, term()}
+
   @callback open_dm(external_user_id(), opts :: keyword()) ::
               {:ok, external_room_id()} | {:error, term()}
 
@@ -155,6 +163,7 @@ defmodule Jido.Chat.Adapter do
 
   @optional_callbacks initialize: 1,
                       shutdown: 1,
+                      send_file: 3,
                       edit_message: 4,
                       delete_message: 3,
                       start_typing: 2,
@@ -170,6 +179,7 @@ defmodule Jido.Chat.Adapter do
                       fetch_messages: 2,
                       fetch_channel_messages: 2,
                       list_threads: 2,
+                      open_thread: 3,
                       open_dm: 2,
                       handle_webhook: 3,
                       verify_webhook: 2,
@@ -237,6 +247,7 @@ defmodule Jido.Chat.Adapter do
         initialize: support_status(adapter_module, :initialize, 1, :fallback),
         shutdown: support_status(adapter_module, :shutdown, 1, :fallback),
         send_message: :native,
+        send_file: support_status(adapter_module, :send_file, 3),
         edit_message: support_status(adapter_module, :edit_message, 4),
         delete_message: support_status(adapter_module, :delete_message, 3),
         start_typing: support_status(adapter_module, :start_typing, 2),
@@ -250,6 +261,7 @@ defmodule Jido.Chat.Adapter do
         fetch_messages: support_status(adapter_module, :fetch_messages, 2),
         fetch_channel_messages: support_status(adapter_module, :fetch_channel_messages, 2),
         list_threads: support_status(adapter_module, :list_threads, 2),
+        open_thread: support_status(adapter_module, :open_thread, 3),
         post_channel_message: support_status(adapter_module, :post_channel_message, 3, :fallback),
         stream: support_status(adapter_module, :stream, 3, :fallback),
         open_modal: support_status(adapter_module, :open_modal, 3),
@@ -276,6 +288,18 @@ defmodule Jido.Chat.Adapter do
   def send_message(adapter_module, external_room_id, text, opts \\ []) do
     with {:ok, response} <- adapter_module.send_message(external_room_id, text, opts) do
       {:ok, normalize_response(adapter_module, response)}
+    end
+  end
+
+  @doc "Uploads and sends a file when supported by the adapter."
+  @spec send_file(module(), external_room_id(), file_input(), keyword()) :: send_result()
+  def send_file(adapter_module, external_room_id, file, opts \\ []) do
+    if function_exported?(adapter_module, :send_file, 3) do
+      with {:ok, response} <- adapter_module.send_file(external_room_id, file, opts) do
+        {:ok, normalize_response(adapter_module, response)}
+      end
+    else
+      {:error, :unsupported}
     end
   end
 
@@ -521,6 +545,20 @@ defmodule Jido.Chat.Adapter do
     end
   end
 
+  @doc "Opens a native platform thread from an existing room message when supported."
+  @spec open_thread(module(), external_room_id(), external_message_id(), keyword()) ::
+          thread_result()
+  def open_thread(adapter_module, external_room_id, external_message_id, opts \\ []) do
+    if function_exported?(adapter_module, :open_thread, 3) do
+      with {:ok, thread} <-
+             adapter_module.open_thread(external_room_id, external_message_id, opts) do
+        {:ok, normalize_thread(adapter_module, thread, external_room_id, opts)}
+      end
+    else
+      {:error, :unsupported}
+    end
+  end
+
   @doc "Default helper to normalize webhook payload through `transform_incoming/1`."
   @spec handle_webhook(module(), Jido.Chat.t(), raw_payload(), keyword()) ::
           {:ok, Jido.Chat.t(), Incoming.t()} | {:error, term()}
@@ -705,15 +743,19 @@ defmodule Jido.Chat.Adapter do
   defp normalize_thread(_adapter_module, %Thread{} = thread, _external_room_id, _opts), do: thread
 
   defp normalize_thread(adapter_module, thread, external_room_id, opts) when is_map(thread) do
+    external_thread_id =
+      thread[:external_thread_id] || thread["external_thread_id"] || opts[:external_thread_id]
+
     Thread.new(%{
-      id: thread[:id] || thread["id"] || "#{adapter_type(adapter_module)}:#{external_room_id}",
+      id:
+        thread[:id] || thread["id"] ||
+          default_thread_id(adapter_module, external_room_id, external_thread_id),
       adapter_name:
         thread[:adapter_name] || thread["adapter_name"] || adapter_type(adapter_module),
       adapter: thread[:adapter] || thread["adapter"] || adapter_module,
       external_room_id:
         thread[:external_room_id] || thread["external_room_id"] || external_room_id,
-      external_thread_id:
-        thread[:external_thread_id] || thread["external_thread_id"] || opts[:external_thread_id],
+      external_thread_id: external_thread_id,
       channel_id: thread[:channel_id] || thread["channel_id"],
       is_dm: thread[:is_dm] || thread["is_dm"] || false,
       metadata: thread[:metadata] || thread["metadata"] || %{}
@@ -840,6 +882,12 @@ defmodule Jido.Chat.Adapter do
     })
   end
 
+  defp default_thread_id(adapter_module, external_room_id, nil),
+    do: "#{adapter_type(adapter_module)}:#{external_room_id}"
+
+  defp default_thread_id(adapter_module, external_room_id, external_thread_id),
+    do: "#{adapter_type(adapter_module)}:#{external_room_id}:#{external_thread_id}"
+
   defp normalize_fetch_opts(%FetchOptions{} = opts), do: opts
   defp normalize_fetch_opts(opts) when is_list(opts), do: FetchOptions.new(opts)
   defp normalize_fetch_opts(opts) when is_map(opts), do: FetchOptions.new(opts)
@@ -858,6 +906,7 @@ defmodule Jido.Chat.Adapter do
       initialize: support_status(adapter_module, :initialize, 1, :fallback),
       shutdown: support_status(adapter_module, :shutdown, 1, :fallback),
       send_message: :native,
+      send_file: support_status(adapter_module, :send_file, 3),
       edit_message: support_status(adapter_module, :edit_message, 4),
       delete_message: support_status(adapter_module, :delete_message, 3),
       start_typing: support_status(adapter_module, :start_typing, 2),
@@ -871,6 +920,7 @@ defmodule Jido.Chat.Adapter do
       fetch_messages: support_status(adapter_module, :fetch_messages, 2),
       fetch_channel_messages: support_status(adapter_module, :fetch_channel_messages, 2),
       list_threads: support_status(adapter_module, :list_threads, 2),
+      open_thread: support_status(adapter_module, :open_thread, 3),
       post_channel_message: support_status(adapter_module, :post_channel_message, 3, :fallback),
       stream: support_status(adapter_module, :stream, 3, :fallback),
       open_modal: support_status(adapter_module, :open_modal, 3),
@@ -924,6 +974,7 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:initialize), do: {:initialize, 1}
   defp capability_callback(:shutdown), do: {:shutdown, 1}
   defp capability_callback(:send_message), do: {:send_message, 3}
+  defp capability_callback(:send_file), do: {:send_file, 3}
   defp capability_callback(:edit_message), do: {:edit_message, 4}
   defp capability_callback(:delete_message), do: {:delete_message, 3}
   defp capability_callback(:start_typing), do: {:start_typing, 2}
@@ -937,6 +988,7 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:fetch_messages), do: {:fetch_messages, 2}
   defp capability_callback(:fetch_channel_messages), do: {:fetch_channel_messages, 2}
   defp capability_callback(:list_threads), do: {:list_threads, 2}
+  defp capability_callback(:open_thread), do: {:open_thread, 3}
   defp capability_callback(:post_channel_message), do: {:post_channel_message, 3}
   defp capability_callback(:stream), do: {:stream, 3}
   defp capability_callback(:open_modal), do: {:open_modal, 3}

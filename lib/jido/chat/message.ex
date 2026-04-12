@@ -137,7 +137,7 @@ defmodule Jido.Chat.Message do
     normalized =
       Enum.map(attachments, fn
         %Media{} = media -> media
-        map when is_map(map) -> Media.new(map)
+        attachment when is_map(attachment) -> Media.normalize(attachment)
         other -> other
       end)
 
