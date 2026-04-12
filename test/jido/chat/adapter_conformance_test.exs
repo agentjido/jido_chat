@@ -77,8 +77,10 @@ defmodule Jido.Chat.AdapterConformanceTest do
   end
 
   test "unsupported callbacks return deterministic unsupported error" do
+    assert {:error, :unsupported} = Adapter.send_file(GoodAdapter, "room", "/tmp/test.png", [])
     assert {:error, :unsupported} = Adapter.edit_message(GoodAdapter, "room", "msg", "text", [])
     assert {:error, :unsupported} = Adapter.delete_message(GoodAdapter, "room", "msg", [])
+    assert {:error, :unsupported} = Adapter.open_thread(GoodAdapter, "room", "msg", [])
   end
 
   test "default webhook parse path yields typed message envelope" do

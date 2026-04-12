@@ -3,7 +3,7 @@ defmodule Jido.Chat.Postable do
   Typed post payload accepted by thread/channel post helpers.
   """
 
-  alias Jido.Chat.PostPayload
+  alias Jido.Chat.{Attachment, PostPayload}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -13,7 +13,7 @@ defmodule Jido.Chat.Postable do
               raw: Zoi.any() |> Zoi.nullish(),
               ast: Zoi.any() |> Zoi.nullish(),
               card: Zoi.any() |> Zoi.nullish(),
-              attachments: Zoi.array(Zoi.any()) |> Zoi.default([]),
+              attachments: Zoi.array(Zoi.struct(Attachment)) |> Zoi.default([]),
               metadata: Zoi.map() |> Zoi.default(%{})
             },
             coerce: true
@@ -29,7 +29,12 @@ defmodule Jido.Chat.Postable do
 
   @doc "Creates a new typed post payload."
   def new(%__MODULE__{} = postable), do: postable
-  def new(attrs) when is_map(attrs), do: Jido.Chat.Schema.parse!(__MODULE__, @schema, attrs)
+
+  def new(attrs) when is_map(attrs) do
+    attrs
+    |> normalize_attachments()
+    |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
+  end
 
   @doc "Builds a text post payload."
   def text(value) when is_binary(value), do: new(%{kind: :text, text: value})
@@ -125,5 +130,13 @@ defmodule Jido.Chat.Postable do
       {:ok, encoded} -> encoded
       {:error, _reason} -> inspect(value)
     end
+  end
+
+  defp normalize_attachments(attrs) do
+    attachments = attrs[:attachments] || attrs["attachments"] || []
+
+    attrs
+    |> Map.delete("attachments")
+    |> Map.put(:attachments, Attachment.normalize_many(attachments))
   end
 end

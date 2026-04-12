@@ -17,6 +17,7 @@ defmodule Jido.Chat.Incoming do
               external_message_id: Zoi.any() |> Zoi.nullish(),
               external_reply_to_id: Zoi.any() |> Zoi.nullish(),
               external_thread_id: Zoi.string() |> Zoi.nullish(),
+              delivery_external_room_id: Zoi.string() |> Zoi.nullish(),
               timestamp: Zoi.any() |> Zoi.nullish(),
               chat_type: Zoi.atom() |> Zoi.nullish(),
               chat_title: Zoi.string() |> Zoi.nullish(),
@@ -104,7 +105,7 @@ defmodule Jido.Chat.Incoming do
   defp normalize_mention(other), do: other
 
   defp normalize_media(%Media{} = media), do: media
-  defp normalize_media(map) when is_map(map), do: Media.new(map)
+  defp normalize_media(map) when is_map(map), do: Media.normalize(map)
   defp normalize_media(other), do: other
 
   defp maybe_normalize_channel_meta(attrs) do

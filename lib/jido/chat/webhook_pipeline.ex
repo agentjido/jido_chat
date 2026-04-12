@@ -167,7 +167,7 @@ defmodule Jido.Chat.WebhookPipeline do
       headers: headers,
       payload: payload_map,
       query: payload[:query] || payload["query"] || opts[:query] || %{},
-      raw: payload,
+      raw: payload[:raw] || payload["raw"] || opts[:raw] || opts[:raw_body],
       metadata: payload[:metadata] || payload["metadata"] || %{}
     })
   end

@@ -3,7 +3,7 @@ defmodule Jido.Chat.SentMessage do
   Canonical sent-message handle with follow-up lifecycle operations.
   """
 
-  alias Jido.Chat.{Adapter, Author, Media, Response, Wire}
+  alias Jido.Chat.{Adapter, Attachment, Author, Response, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -18,7 +18,7 @@ defmodule Jido.Chat.SentMessage do
               raw: Zoi.any() |> Zoi.nullish(),
               author: Zoi.struct(Author) |> Zoi.nullish(),
               metadata: Zoi.map() |> Zoi.default(%{}),
-              attachments: Zoi.array(Zoi.struct(Media)) |> Zoi.default([]),
+              attachments: Zoi.array(Zoi.struct(Attachment)) |> Zoi.default([]),
               is_mention: Zoi.boolean() |> Zoi.default(false),
               default_opts: Zoi.any() |> Zoi.default([])
             },
@@ -150,12 +150,13 @@ defmodule Jido.Chat.SentMessage do
 
     normalized =
       Enum.map(attachments, fn
-        %Media{} = media -> media
-        map when is_map(map) -> Media.new(map)
-        other -> other
+        %Attachment{} = attachment -> attachment
+        attachment -> Attachment.normalize(attachment)
       end)
 
-    Map.put(attrs, :attachments, normalized)
+    attrs
+    |> Map.delete("attachments")
+    |> Map.put(:attachments, normalized)
   end
 
   defp attach_defaults(%{response: %Response{} = response} = attrs) do

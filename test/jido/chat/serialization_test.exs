@@ -4,6 +4,7 @@ defmodule Jido.Chat.SerializationTest do
   alias Jido.Chat
 
   alias Jido.Chat.{
+    Attachment,
     CapabilityMatrix,
     ChannelRef,
     EventEnvelope,
@@ -89,12 +90,16 @@ defmodule Jido.Chat.SerializationTest do
         adapter: __MODULE__,
         external_room_id: "room-1",
         text: "hello",
+        attachments: [%{path: "/tmp/report.pdf", media_type: "application/pdf"}],
         response: Response.new(%{external_message_id: "m1", external_room_id: "room-1"})
       })
 
     assert %Message{id: "m1", text: "hello"} = message |> Message.to_map() |> Message.from_map()
 
     assert %SentMessage{id: "m1", adapter: __MODULE__} =
+             sent |> SentMessage.to_map() |> SentMessage.from_map()
+
+    assert %SentMessage{attachments: [%Attachment{filename: "report.pdf"}]} =
              sent |> SentMessage.to_map() |> SentMessage.from_map()
   end
 

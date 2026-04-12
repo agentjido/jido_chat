@@ -3,7 +3,7 @@ defmodule Jido.Chat.PostPayload do
   Typed normalized outbound payload used by thread/channel posting helpers.
   """
 
-  alias Jido.Chat.Wire
+  alias Jido.Chat.{Attachment, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -14,7 +14,7 @@ defmodule Jido.Chat.PostPayload do
               text: Zoi.string() |> Zoi.nullish(),
               formatted: Zoi.string() |> Zoi.nullish(),
               raw: Zoi.any() |> Zoi.nullish(),
-              attachments: Zoi.array(Zoi.any()) |> Zoi.default([]),
+              attachments: Zoi.array(Zoi.struct(Attachment)) |> Zoi.default([]),
               metadata: Zoi.map() |> Zoi.default(%{})
             },
             coerce: true
@@ -30,7 +30,11 @@ defmodule Jido.Chat.PostPayload do
 
   @doc "Creates a normalized post payload."
   @spec new(map()) :: t()
-  def new(attrs) when is_map(attrs), do: Jido.Chat.Schema.parse!(__MODULE__, @schema, attrs)
+  def new(attrs) when is_map(attrs) do
+    attrs
+    |> normalize_attachments()
+    |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
+  end
 
   @doc "Builds a text payload."
   @spec text(String.t()) :: t()
@@ -52,4 +56,12 @@ defmodule Jido.Chat.PostPayload do
   @doc "Builds post payload from serialized data."
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map), do: new(map)
+
+  defp normalize_attachments(attrs) do
+    attachments = attrs[:attachments] || attrs["attachments"] || []
+
+    attrs
+    |> Map.delete("attachments")
+    |> Map.put(:attachments, Attachment.normalize_many(attachments))
+  end
 end
