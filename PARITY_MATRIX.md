@@ -1,59 +1,45 @@
-# Jido.Chat Parity Matrix (Phase 2 Completion Batch)
+# Jido.Chat Parity Matrix
 
-This matrix tracks practical parity against the Vercel Chat SDK surface using explicit capability classes:
+Target: functional parity with the Vercel Chat SDK core surfaces as of `chat` `4.25.0`.
 
-- `native`: platform/adapter implements direct behavior.
-- `fallback`: behavior is provided via a deterministic fallback path.
-- `unsupported`: explicit typed unsupported behavior (`{:error, :unsupported}`).
+Status meanings:
 
-## Core (`jido_chat`)
+- `native`: owned directly by `jido_chat`.
+- `fallback`: owned by `jido_chat`, but completed through a deterministic fallback path.
+- `adapter-specific`: the core package defines the contract, while platform adapters decide the transport or rendering behavior.
+- `unsupported`: the core package returns an explicit unsupported result instead of guessing.
 
-| Surface | Status |
-|---|---|
-| `Jido.Chat` lifecycle + routing (`new/initialize/shutdown`, mention/message/subscribed) | native |
-| Typed event routing (`process_event/4` + `process_*` wrappers) | native |
-| Typed webhook API (`handle_webhook_request/4`, `webhooks/1`) | native |
-| Typed file/media normalization + outbound `send_file` contract | native |
-| Serialization/revival (`to_map/from_map/reviver`) for core handles | native |
-| Thread/channel state helpers (pure struct) | native |
-| `Thread`/`ChannelRef` stream helpers | native |
-| `SentMessage` lifecycle (`edit/delete/reactions`) | native |
-| Adapter capability matrix + conformance validation | native |
+## Core-Owned Surfaces
 
-## Telegram (`jido_chat_telegram`)
+| Surface | Core Contract | Adapter Requirement | Status | Notes |
+|---|---|---|---|---|
+| Lifecycle and routing | `Jido.Chat`, `process_event/4`, typed handlers | normalize inbound payloads | native | mention, message, slash, action, reaction, modal, assistant events |
+| Outbound payload model | `Postable`, `PostPayload`, `FileUpload`, `StreamChunk` | optional `post_message/3` for native rich delivery | native | text, markdown, raw, card, stream, attachment, file inputs |
+| Single-file fallback delivery | `Adapter.post_message/4` fallback to `send_file/3` | implement `send_file/3` | fallback | caption and metadata are preserved |
+| Multi-file delivery | capability gating in core | declare and implement adapter-native batch behavior | adapter-specific | otherwise returns `{:error, :multiple_attachments_unsupported}` |
+| Markdown/card/modal modeling | `Markdown`, `Card`, `Modal`, `ModalResponse` | render or translate for platform UI | native | core owns canonical payload shape and fallback text |
+| Modal open helpers | `Thread.open_modal/3`, `ChannelRef.open_modal/3`, event helpers | implement `open_modal/3` for native behavior | fallback | explicit `{:error, :unsupported}` when unavailable |
+| Typed event envelopes | `EventEnvelope` plus normalized event structs | parse platform webhook or gateway payloads | native | event structs now carry richer thread/channel/message context |
+| Stream posting | `PostPayload.stream/2`, `Adapter.stream/4` | optional `stream/3` for native streaming | fallback | placeholder-plus-edit fallback uses `edit_message/4` when present |
+| Overlapping-message concurrency | `Concurrency`, `StateAdapter`, chat-level lock helpers | custom state adapters for distributed coordination | native | memory adapter supports reject, queue, debounce, concurrent |
+| Serialization/revival | `to_map/from_map`, `Serialization.revive/1` | preserve adapter module identity | native | snapshots now include lock state |
+| Capability negotiation | `CapabilityMatrix`, `Capabilities`, `Adapter.validate_capabilities/1` | declare explicit statuses in `capabilities/0` | native | native/fallback/unsupported are surfaced intentionally |
+| AI history conversion | `Jido.Chat.AI.to_messages/2` | none | native | chronological sorting, role mapping, multipart attachment conversion |
 
-| Capability | Status | Notes |
+## Adapter-Owned Responsibilities
+
+| Surface | Why It Stays Adapter-Owned | Notes |
 |---|---|---|
-| send/edit/delete message | native | ExGram transport |
-| typing | native | `sendChatAction` |
-| metadata fetch | native | `getChat` |
-| open DM | native | Telegram user/chat id model |
-| reactions add/remove | native | `setMessageReaction` |
-| webhook secret verification | native | `x-telegram-bot-api-secret-token` |
-| parse webhook event families (`message`, `edited_message`, `callback_query`, `message_reaction`) | native | normalized to typed events |
-| ephemeral message | fallback | DM fallback path |
-| message history (`fetch_messages`, `fetch_channel_messages`) | unsupported | Bot API limit in this adapter scope |
-| thread listing (`list_threads`) | unsupported | platform/model mismatch |
-| modal APIs | unsupported | no native Telegram modal surface |
+| Native card rendering | platform UI primitives differ too much | core provides canonical card payloads and fallback text |
+| Native modal rendering and submit semantics | modal transport and response contracts are platform-specific | core owns modal payloads and lifecycle result types |
+| Webhook verification and signature policy | each provider defines its own transport security model | core provides typed request/response wrappers |
+| Thread/message/channel fetch details | pagination and identifiers are provider-specific | core owns normalized output structs |
+| Reactions, typing, DM open, thread open/list | transport operations vary by provider | capability matrix exposes native vs fallback support |
 
-## Discord (`jido_chat_discord`)
+## Remaining Deliberate Gaps
 
-| Capability | Status | Notes |
-|---|---|---|
-| send/edit/delete message | native | Nostrum transport |
-| typing | native | channel typing API |
-| metadata/thread/message fetch | native | normalized outputs |
-| reactions add/remove | native | message reaction API |
-| list threads | native | normalized thread page |
-| webhook interaction parsing (slash/action/modal submit) | native | typed event envelopes |
-| gateway helper routing (message/reaction/modal close) | native | forwards to `process_*` |
-| signature verification | native | Ed25519 + timestamp fail-closed path |
-| interaction ephemeral | native | interaction response flags |
-| fallback ephemeral (non-interaction) | fallback | DM fallback |
-| modal close (webhook-native) | unsupported | handled as synthetic gateway event |
+Repository tracking for parity follow-up work lives under Beadwork epic `jchat-w38`.
 
-## Migration Notes
-
-- `Jido.Chat.Message` is the normalized Chat SDK-style message object.
-- thread-scoped runtime persistence now lives in `jido_messaging` via `Jido.Messaging.Message`, `Jido.Messaging.Thread`, and `Jido.Messaging.Context`.
-- legacy compatibility wrappers and migration-only message structs have been removed.
+- `jido_chat` ships the concurrency contract and the in-memory state adapter, but not a distributed lock adapter.
+- Stream fallback currently renders structured chunks to text; it does not do markdown healing or table buffering.
+- Platform-native card and modal rendering remain intentionally adapter-specific even though the payload model is now shared.
