@@ -16,11 +16,15 @@ defmodule Jido.Chat.StructsTest do
     FileUpload,
     FetchOptions,
     Incoming,
+    Card,
     Media,
+    Markdown,
     Mention,
     Message,
     MessagePage,
+    Modal,
     ModalResult,
+    ModalResponse,
     ModalCloseEvent,
     ModalSubmitEvent,
     Participant,
@@ -188,17 +192,114 @@ defmodule Jido.Chat.StructsTest do
       assert is_binary(raw_payload.text)
 
       ast_payload = Postable.ast(%{node: :p}) |> Postable.to_payload()
-      assert ast_payload.ast == %{node: :p}
+      assert %Markdown{} = ast_payload.ast
       assert ast_payload.raw == %{node: :p}
       assert ast_payload.metadata.format == :ast
 
       card_payload =
         Postable.card(%{title: "Card"}, fallback_text: "fallback card") |> Postable.to_payload()
 
-      assert card_payload.card == %{title: "Card"}
-      assert card_payload.raw == %{title: "Card"}
+      assert %Card{title: "Card"} = card_payload.card
+      assert %Card{title: "Card"} = card_payload.raw
       assert card_payload.fallback_text == "fallback card"
       assert card_payload.metadata.format == :card
+    end
+
+    test "markdown helpers provide stringify, plain text, walk, and table fallbacks" do
+      markdown =
+        Markdown.root([
+          Markdown.heading(2, "Overview"),
+          Markdown.paragraph([
+            Markdown.text("hello "),
+            Markdown.strong("world"),
+            Markdown.text(" from "),
+            Markdown.link("jido", "https://example.com")
+          ]),
+          Markdown.table([
+            ["Name", "Role"],
+            ["Ada", "admin"],
+            ["Bea", "editor"]
+          ])
+        ])
+
+      walked =
+        Markdown.walk(markdown, fn
+          %Jido.Chat.Markdown.Node{type: :text, text: "world"} = node ->
+            %{node | text: "team"}
+
+          node ->
+            node
+        end)
+
+      assert Markdown.stringify(markdown) =~ "## Overview"
+      assert Markdown.plain_text(walked) =~ "hello team from jido"
+      assert Markdown.table_to_ascii(markdown) =~ "Name"
+      assert Markdown.parse("## Parsed\n\nhello").root.type == :root
+    end
+
+    test "typed markdown and card payloads preserve canonical rich content" do
+      markdown =
+        Markdown.root([
+          Markdown.heading(2, "Status"),
+          Markdown.paragraph("Everything is green.")
+        ])
+
+      ast_payload = Postable.ast(markdown) |> Postable.to_payload()
+      assert %Markdown{} = ast_payload.ast
+      assert ast_payload.text == "Status\n\nEverything is green."
+      assert ast_payload.formatted =~ "## Status"
+
+      card =
+        Card.new(%{
+          title: "Deployment",
+          summary: "Ready to ship",
+          components: [
+            Card.fields([
+              Card.field("Version", "1.2.3"),
+              Card.field("Region", "us-central")
+            ]),
+            Card.actions([
+              Card.button("Approve", "deploy:approve", value: "ship"),
+              Card.link_button("Logs", "https://example.com/logs")
+            ]),
+            Card.table(["Name", "State"], [["api", "ok"], ["worker", "ok"]])
+          ]
+        })
+
+      card_payload = Postable.card(card) |> Postable.to_payload()
+
+      assert %Card{} = card_payload.card
+      assert card_payload.fallback_text =~ "Deployment"
+      assert card_payload.fallback_text =~ "Version: 1.2.3"
+      assert card_payload.text == card_payload.fallback_text
+    end
+
+    test "modal builders and modal responses normalize canonical lifecycle data" do
+      modal =
+        Modal.new(%{
+          title: "Feedback",
+          callback_id: "feedback",
+          notify_on_close: true,
+          private_metadata: "thread:test:1",
+          elements: [
+            Modal.text_input("summary", "Summary", required: true),
+            Modal.radio_select("sentiment", "Sentiment", [
+              Modal.select_option("Good", "good"),
+              Modal.select_option("Bad", "bad")
+            ])
+          ]
+        })
+
+      assert modal.callback_id == "feedback"
+      assert Enum.map(modal.elements, & &1.kind) == [:text_input, :radio_select]
+
+      assert %ModalResponse{action: :close} = ModalResponse.close()
+
+      assert %ModalResponse{action: :errors, errors: %{"summary" => "required"}} =
+               ModalResponse.errors(%{"summary" => "required"})
+
+      assert %ModalResponse{action: :update, modal: %Modal{title: "Feedback"}} =
+               ModalResponse.update(modal)
     end
 
     test "post payloads normalize outbound attachments into typed structs" do
@@ -269,6 +370,7 @@ defmodule Jido.Chat.StructsTest do
         Postable.stream([
           "hello",
           %{kind: :status, text: "working", metadata: %{phase: 1}},
+          %{kind: :step_start, payload: %{label: "Draft response"}},
           StreamChunk.text("done")
         ])
         |> Postable.to_payload()
@@ -276,7 +378,9 @@ defmodule Jido.Chat.StructsTest do
       assert payload.kind == :stream
       assert payload.stream |> Enum.at(0) == "hello"
       assert %StreamChunk{kind: :status, text: "working"} = Enum.at(payload.stream, 1)
-      assert %StreamChunk{kind: :text, text: "done"} = Enum.at(payload.stream, 2)
+      assert %StreamChunk{kind: :step_start} = Enum.at(payload.stream, 2)
+      assert %StreamChunk{kind: :text, text: "done"} = Enum.at(payload.stream, 3)
+      assert payload.fallback_text == "helloworkingDraft responsedone"
     end
 
     test "event placeholder structs parse cleanly" do

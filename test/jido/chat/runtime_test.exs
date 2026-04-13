@@ -5,12 +5,15 @@ defmodule Jido.Chat.RuntimeTest do
 
   alias Jido.Chat.{
     Attachment,
+    Card,
     CapabilityMatrix,
     ChannelInfo,
     EventEnvelope,
     Incoming,
     IngressResult,
+    Markdown,
     MessagePage,
+    Modal,
     ModalResult,
     PostPayload,
     Postable,
@@ -428,6 +431,26 @@ defmodule Jido.Chat.RuntimeTest do
     assert upload_opts[:thread_id] == nil
   end
 
+  test "thread post flattens typed card payloads through text fallback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-card", [])
+
+    card =
+      Card.new(%{
+        title: "Deploy",
+        summary: "Ready",
+        components: [
+          Card.fields([Card.field("Version", "1.2.3")]),
+          Card.actions([Card.button("Approve", "deploy:approve")])
+        ]
+      })
+
+    assert {:ok, %SentMessage{} = sent} = Thread.post(thread, Postable.card(card))
+    assert sent.text =~ "Deploy"
+    assert sent.text =~ "Version: 1.2.3"
+    assert sent.id == "msg_room-card"
+  end
+
   test "thread send_file routes through adapter upload callback" do
     chat = Chat.new(adapters: %{test: TestAdapter})
     thread = Chat.thread(chat, :test, "room-file", [])
@@ -464,6 +487,19 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received {:stream, "room-stream-postable", "abc"}
   end
 
+  test "adapter render helpers expose canonical markdown and card payloads" do
+    markdown =
+      Markdown.root([
+        Markdown.heading(3, "Plan"),
+        Markdown.list(["one", "two"])
+      ])
+
+    card = Card.new(%{title: "Status", components: [Card.button("Run", "run")]})
+
+    assert Jido.Chat.Adapter.render_markdown(markdown) =~ "### Plan"
+    assert %{"title" => "Status"} = Jido.Chat.Adapter.render_card(card)
+  end
+
   test "thread/channel open_modal route through adapter and normalize typed result" do
     chat = Chat.new(adapters: %{test: TestAdapter})
     thread = Chat.thread(chat, :test, "room-modal", [])
@@ -480,6 +516,28 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert channel_result.status == :opened
     assert_received {:open_modal, "room-modal", %{custom_id: "feedback", title: "Feedback"}}
+  end
+
+  test "open_modal accepts typed modal payloads" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-modal-typed", [])
+
+    modal =
+      Modal.new(%{
+        title: "Feedback",
+        callback_id: "feedback",
+        elements: [Modal.text_input("summary", "Summary")]
+      })
+
+    assert {:ok, %ModalResult{} = result} = Thread.open_modal(thread, modal)
+    assert result.external_room_id == "room-modal-typed"
+
+    assert_received {:open_modal, "room-modal-typed",
+                     %{
+                       "title" => "Feedback",
+                       "callback_id" => "feedback",
+                       "elements" => [%{"id" => "summary", "kind" => :text_input}]
+                     }}
   end
 
   test "open_modal returns unsupported when adapter does not implement it" do

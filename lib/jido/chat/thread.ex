@@ -11,6 +11,7 @@ defmodule Jido.Chat.Thread do
     FileUpload,
     Message,
     MessagePage,
+    Modal,
     ModalResult,
     PostPayload,
     Postable,
@@ -110,8 +111,9 @@ defmodule Jido.Chat.Thread do
   end
 
   @doc "Opens a modal in the thread when supported by the adapter."
-  @spec open_modal(t(), map(), keyword()) :: {:ok, ModalResult.t()} | {:error, term()}
-  def open_modal(%__MODULE__{} = thread, payload, opts \\ []) when is_map(payload) do
+  @spec open_modal(t(), Modal.t() | map(), keyword()) :: {:ok, ModalResult.t()} | {:error, term()}
+  def open_modal(%__MODULE__{} = thread, payload, opts \\ [])
+      when is_map(payload) or is_struct(payload, Modal) do
     opts = with_thread_opts(thread, opts)
     Adapter.open_modal(thread.adapter, thread.external_room_id, payload, opts)
   end

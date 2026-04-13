@@ -9,6 +9,7 @@ defmodule Jido.Chat.ChannelRef do
     ChannelInfo,
     FileUpload,
     MessagePage,
+    Modal,
     ModalResult,
     PostPayload,
     Postable,
@@ -92,8 +93,9 @@ defmodule Jido.Chat.ChannelRef do
   end
 
   @doc "Opens a modal in the channel when supported by the adapter."
-  @spec open_modal(t(), map(), keyword()) :: {:ok, ModalResult.t()} | {:error, term()}
-  def open_modal(%__MODULE__{} = channel, payload, opts \\ []) when is_map(payload) do
+  @spec open_modal(t(), Modal.t() | map(), keyword()) :: {:ok, ModalResult.t()} | {:error, term()}
+  def open_modal(%__MODULE__{} = channel, payload, opts \\ [])
+      when is_map(payload) or is_struct(payload, Modal) do
     Adapter.open_modal(channel.adapter, channel.external_id, payload, opts)
   end
 

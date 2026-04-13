@@ -9,7 +9,7 @@ defmodule Jido.Chat.StreamChunk do
             __MODULE__,
             %{
               kind:
-                Zoi.enum([:text, :markdown, :status, :plan, :data])
+                Zoi.enum([:text, :markdown, :status, :plan, :data, :step_start, :step_finish])
                 |> Zoi.default(:text),
               text: Zoi.string() |> Zoi.nullish(),
               payload: Zoi.any() |> Zoi.nullish(),
@@ -48,6 +48,29 @@ defmodule Jido.Chat.StreamChunk do
   @spec normalize_many([input()]) :: [t() | String.t()]
   def normalize_many(chunks) when is_list(chunks), do: Enum.map(chunks, &normalize/1)
 
+  @doc "Returns the best text fallback for the chunk."
+  @spec fallback_text(t() | String.t()) :: String.t()
+  def fallback_text(value) when is_binary(value), do: value
+
+  def fallback_text(%__MODULE__{kind: kind, text: text, payload: payload}) do
+    cond do
+      is_binary(text) and text != "" ->
+        text
+
+      kind in [:step_start, :step_finish] ->
+        payload_label(payload)
+
+      kind == :plan ->
+        payload_lines(payload)
+
+      kind == :status ->
+        payload_label(payload)
+
+      true ->
+        payload_label(payload) || ""
+    end
+  end
+
   @doc "Serializes a stream chunk into a plain map with type marker."
   @spec to_map(t()) :: map()
   def to_map(%__MODULE__{} = chunk) do
@@ -60,6 +83,21 @@ defmodule Jido.Chat.StreamChunk do
   @doc "Builds a stream chunk from serialized map data."
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+
+  defp payload_label(%{label: label}) when is_binary(label), do: label
+  defp payload_label(%{"label" => label}) when is_binary(label), do: label
+  defp payload_label(%{title: title}) when is_binary(title), do: title
+  defp payload_label(%{"title" => title}) when is_binary(title), do: title
+  defp payload_label(payload) when is_binary(payload), do: payload
+  defp payload_label(_payload), do: nil
+
+  defp payload_lines(payload) when is_list(payload) do
+    payload
+    |> Enum.map(&to_string/1)
+    |> Enum.join("\n")
+  end
+
+  defp payload_lines(payload), do: payload_label(payload) || ""
 
   defp normalize_opts(opts) when is_list(opts), do: Map.new(opts)
   defp normalize_opts(opts) when is_map(opts), do: opts

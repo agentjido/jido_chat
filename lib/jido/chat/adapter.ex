@@ -6,6 +6,7 @@ defmodule Jido.Chat.Adapter do
   """
 
   alias Jido.Chat.{
+    Card,
     CapabilityMatrix,
     ChannelInfo,
     EventEnvelope,
@@ -13,6 +14,8 @@ defmodule Jido.Chat.Adapter do
     FileUpload,
     FetchOptions,
     Incoming,
+    Markdown,
+    Modal,
     ModalResult,
     Message,
     MessagePage,
@@ -601,9 +604,12 @@ defmodule Jido.Chat.Adapter do
   end
 
   @doc "Opens adapter-native modal when supported."
-  @spec open_modal(module(), external_room_id(), map(), keyword()) ::
+  @spec open_modal(module(), external_room_id(), Modal.t() | map(), keyword()) ::
           modal_result()
-  def open_modal(adapter_module, external_room_id, payload, opts \\ []) when is_map(payload) do
+  def open_modal(adapter_module, external_room_id, payload, opts \\ [])
+      when is_map(payload) or is_struct(payload, Modal) do
+    payload = normalize_modal_payload(payload)
+
     if function_exported?(adapter_module, :open_modal, 3) do
       with {:ok, result} <- adapter_module.open_modal(external_room_id, payload, opts) do
         {:ok, normalize_modal_result(result, external_room_id)}
@@ -1009,6 +1015,29 @@ defmodule Jido.Chat.Adapter do
     })
   end
 
+  @doc "Returns a stable adapter-facing Markdown representation."
+  @spec render_markdown(Markdown.t() | map() | String.t(), keyword()) :: String.t()
+  def render_markdown(markdown, _opts \\ []) do
+    markdown
+    |> normalize_markdown_payload()
+    |> Markdown.stringify()
+  end
+
+  @doc "Returns a stable adapter-facing card payload."
+  @spec render_card(Card.t() | map(), keyword()) :: map()
+  def render_card(card, _opts \\ []) do
+    card
+    |> normalize_card_payload()
+    |> Card.to_adapter_payload()
+  end
+
+  @doc "Returns a stable adapter-facing modal payload."
+  @spec render_modal(Modal.t() | map(), keyword()) :: map()
+  def render_modal(modal, _opts \\ []) do
+    modal
+    |> normalize_modal_payload()
+  end
+
   defp default_channel_info(adapter_module, external_room_id) do
     ChannelInfo.new(%{
       id: to_string(external_room_id),
@@ -1034,6 +1063,16 @@ defmodule Jido.Chat.Adapter do
 
   defp fallback_thread_id(adapter_module, external_room_id),
     do: "#{adapter_type(adapter_module)}:#{external_room_id}"
+
+  defp normalize_markdown_payload(%Markdown{} = markdown), do: markdown
+  defp normalize_markdown_payload(%{} = markdown), do: Markdown.new(markdown)
+  defp normalize_markdown_payload(value) when is_binary(value), do: Markdown.parse(value)
+
+  defp normalize_card_payload(%Card{} = card), do: card
+  defp normalize_card_payload(%{} = card), do: Card.new(card)
+
+  defp normalize_modal_payload(%Modal{} = modal), do: Modal.to_adapter_payload(modal)
+  defp normalize_modal_payload(%{} = modal), do: modal
 
   defp ensure_capability_defaults(matrix, adapter_module) do
     single_upload_supported? =

@@ -5,13 +5,17 @@ defmodule Jido.Chat.SerializationTest do
 
   alias Jido.Chat.{
     Attachment,
+    Card,
     CapabilityMatrix,
     ChannelRef,
     EventEnvelope,
     FileUpload,
     IngressResult,
+    Markdown,
     Message,
+    Modal,
     ModalResult,
+    ModalResponse,
     PostPayload,
     Response,
     SentMessage,
@@ -206,6 +210,37 @@ defmodule Jido.Chat.SerializationTest do
            } = payload |> PostPayload.to_map() |> PostPayload.from_map()
   end
 
+  test "markdown, card, modal, and modal response round-trip" do
+    markdown =
+      Markdown.root([
+        Markdown.heading(2, "Release"),
+        Markdown.paragraph("Ready")
+      ])
+
+    card =
+      Card.new(%{
+        title: "Deploy",
+        summary: "Ready",
+        components: [Card.button("Approve", "deploy:approve")]
+      })
+
+    modal =
+      Modal.new(%{
+        title: "Feedback",
+        callback_id: "feedback",
+        elements: [Modal.text_input("summary", "Summary")]
+      })
+
+    response = ModalResponse.push(modal)
+
+    assert %Markdown{} = markdown |> Markdown.to_map() |> Markdown.from_map()
+    assert %Card{} = card |> Card.to_map() |> Card.from_map()
+    assert %Modal{} = modal |> Modal.to_map() |> Modal.from_map()
+
+    assert %ModalResponse{action: :push, modal: %Modal{callback_id: "feedback"}} =
+             response |> ModalResponse.to_map() |> ModalResponse.from_map()
+  end
+
   test "event and webhook structs round-trip" do
     envelope =
       EventEnvelope.new(%{
@@ -316,5 +351,17 @@ defmodule Jido.Chat.SerializationTest do
 
     assert %ModalResult{} =
              reviver.(ModalResult.new(%{id: "modal_1"}) |> ModalResult.to_map())
+
+    assert %Markdown{} =
+             reviver.(Markdown.root([Markdown.paragraph("hello")]) |> Markdown.to_map())
+
+    assert %Card{} =
+             reviver.(Card.new(%{title: "Status"}) |> Card.to_map())
+
+    assert %Modal{} =
+             reviver.(Modal.new(%{title: "Feedback"}) |> Modal.to_map())
+
+    assert %ModalResponse{} =
+             reviver.(ModalResponse.close() |> ModalResponse.to_map())
   end
 end

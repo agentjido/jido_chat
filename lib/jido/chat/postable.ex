@@ -3,7 +3,7 @@ defmodule Jido.Chat.Postable do
   Typed post payload accepted by thread/channel post helpers.
   """
 
-  alias Jido.Chat.{Attachment, FileUpload, PostPayload}
+  alias Jido.Chat.{Attachment, Card, FileUpload, Markdown, PostPayload}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -61,8 +61,20 @@ defmodule Jido.Chat.Postable do
     do: new(Map.merge(normalize_opts(opts), %{kind: :text, text: value}))
 
   @doc "Builds a markdown post payload."
-  def markdown(value, opts \\ []) when is_binary(value),
+  def markdown(value, opts \\ [])
+
+  def markdown(value, opts) when is_binary(value),
     do: new(Map.merge(normalize_opts(opts), %{kind: :markdown, markdown: value, text: value}))
+
+  def markdown(%Markdown{} = value, opts) do
+    new(
+      Map.merge(normalize_opts(opts), %{
+        kind: :markdown,
+        markdown: Markdown.stringify(value),
+        text: Markdown.plain_text(value)
+      })
+    )
+  end
 
   @doc "Builds a raw payload wrapper."
   def raw(value, opts \\ []), do: new(Map.merge(normalize_opts(opts), %{kind: :raw, raw: value}))
@@ -71,7 +83,12 @@ defmodule Jido.Chat.Postable do
   def ast(value, opts \\ []), do: new(Map.merge(normalize_opts(opts), %{kind: :ast, ast: value}))
 
   @doc "Builds a card payload wrapper."
-  def card(value, opts \\ []),
+  def card(value, opts \\ [])
+
+  def card(%Card{} = value, opts),
+    do: new(Map.merge(normalize_opts(opts), %{kind: :card, card: value}))
+
+  def card(value, opts),
     do: new(Map.merge(normalize_opts(opts), %{kind: :card, card: value}))
 
   @doc "Builds a stream payload wrapper."

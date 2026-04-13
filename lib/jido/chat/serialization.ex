@@ -2,13 +2,17 @@ defmodule Jido.Chat.Serialization do
   @moduledoc false
 
   alias Jido.Chat.{
+    Card,
     CapabilityMatrix,
     ChannelRef,
     EventEnvelope,
     FileUpload,
     IngressResult,
+    Markdown,
     Message,
+    Modal,
     ModalResult,
+    ModalResponse,
     PostPayload,
     SentMessage,
     StreamChunk,
@@ -68,6 +72,12 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "chat"} = map), do: from_map(map)
   def revive(%{"__type__" => "thread"} = map), do: Thread.from_map(map)
   def revive(%{"__type__" => "channel"} = map), do: ChannelRef.from_map(map)
+  def revive(%{"__type__" => "markdown"} = map), do: Markdown.from_map(map)
+  def revive(%{"__type__" => "markdown_node"} = map), do: Jido.Chat.Markdown.Node.from_map(map)
+  def revive(%{"__type__" => "card"} = map), do: Card.from_map(map)
+  def revive(%{"__type__" => "card_component"} = map), do: Jido.Chat.Card.Component.from_map(map)
+  def revive(%{"__type__" => "modal"} = map), do: Modal.from_map(map)
+  def revive(%{"__type__" => "modal_element"} = map), do: Jido.Chat.Modal.Element.from_map(map)
   def revive(%{"__type__" => "message"} = map), do: Message.from_map(map)
   def revive(%{"__type__" => "file_upload"} = map), do: FileUpload.from_map(map)
   def revive(%{"__type__" => "post_payload"} = map), do: PostPayload.from_map(map)
@@ -76,6 +86,7 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "event_envelope"} = map), do: EventEnvelope.from_map(map)
   def revive(%{"__type__" => "ingress_result"} = map), do: IngressResult.from_map(map)
   def revive(%{"__type__" => "modal_result"} = map), do: ModalResult.from_map(map)
+  def revive(%{"__type__" => "modal_response"} = map), do: ModalResponse.from_map(map)
   def revive(%{"__type__" => "capability_matrix"} = map), do: CapabilityMatrix.from_map(map)
   def revive(%{"__type__" => "webhook_request"} = map), do: WebhookRequest.from_map(map)
   def revive(%{"__type__" => "webhook_response"} = map), do: WebhookResponse.from_map(map)

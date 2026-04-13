@@ -3,7 +3,7 @@ defmodule Jido.Chat.PostPayload do
   Typed normalized outbound payload used by thread/channel posting helpers.
   """
 
-  alias Jido.Chat.{Attachment, FileUpload, StreamChunk, Wire}
+  alias Jido.Chat.{Attachment, Card, FileUpload, Markdown, StreamChunk, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -93,6 +93,8 @@ defmodule Jido.Chat.PostPayload do
   def to_map(%__MODULE__{} = payload) do
     payload
     |> Map.from_struct()
+    |> Map.update!(:ast, &serialize_ast/1)
+    |> Map.update!(:card, &serialize_card/1)
     |> Map.update!(:stream, &serialize_stream/1)
     |> Wire.to_plain()
     |> Map.put("__type__", "post_payload")
@@ -122,7 +124,13 @@ defmodule Jido.Chat.PostPayload do
   end
 
   defp normalize_content(%{kind: :markdown} = attrs) do
-    markdown = attrs[:markdown] || attrs["markdown"] || attrs[:text] || attrs["text"]
+    markdown =
+      case attrs[:markdown] || attrs["markdown"] || attrs[:text] || attrs["text"] do
+        %Markdown{} = markdown -> Markdown.stringify(markdown)
+        %{} = markdown -> markdown |> Markdown.new() |> Markdown.stringify()
+        value -> value
+      end
+
     text = attrs[:text] || attrs["text"] || markdown
     formatted = attrs[:formatted] || attrs["formatted"] || text
 
@@ -147,8 +155,9 @@ defmodule Jido.Chat.PostPayload do
     ast = attrs[:ast] || attrs["ast"] || attrs[:raw] || attrs["raw"]
     raw = attrs[:raw] || attrs["raw"] || ast
     fallback_text = attrs[:fallback_text] || attrs["fallback_text"]
-    text = attrs[:text] || attrs["text"] || fallback_text || to_text_value(ast)
-    formatted = attrs[:formatted] || attrs["formatted"] || text
+    {ast, formatted, ast_text} = normalize_ast(ast)
+    text = attrs[:text] || attrs["text"] || fallback_text || ast_text
+    formatted = attrs[:formatted] || attrs["formatted"] || formatted || text
 
     attrs
     |> Map.put(:ast, ast)
@@ -160,11 +169,11 @@ defmodule Jido.Chat.PostPayload do
 
   defp normalize_content(%{kind: :card} = attrs) do
     card = attrs[:card] || attrs["card"] || attrs[:raw] || attrs["raw"]
-    raw = attrs[:raw] || attrs["raw"] || card
+    {card, raw, card_text} = normalize_card(card)
 
     fallback_text =
       attrs[:fallback_text] || attrs["fallback_text"] || attrs[:text] || attrs["text"] ||
-        to_text_value(card)
+        card_text
 
     text = attrs[:text] || attrs["text"] || fallback_text
     formatted = attrs[:formatted] || attrs["formatted"] || text
@@ -181,7 +190,8 @@ defmodule Jido.Chat.PostPayload do
     stream = attrs[:stream] || attrs["stream"] || attrs[:raw] || attrs["raw"]
 
     fallback_text =
-      attrs[:fallback_text] || attrs["fallback_text"] || attrs[:text] || attrs["text"]
+      attrs[:fallback_text] || attrs["fallback_text"] || attrs[:text] || attrs["text"] ||
+        stream_fallback_text(stream)
 
     formatted = attrs[:formatted] || attrs["formatted"] || fallback_text
 
@@ -274,6 +284,51 @@ defmodule Jido.Chat.PostPayload do
   defp normalize_stream_item(chunk) when is_map(chunk), do: StreamChunk.new(chunk)
   defp normalize_stream_item(chunk), do: chunk
 
+  defp normalize_ast(%Markdown{} = markdown) do
+    {markdown, Markdown.stringify(markdown), Markdown.plain_text(markdown)}
+  end
+
+  defp normalize_ast(%{} = ast) do
+    markdown = Markdown.new(ast)
+    {markdown, Markdown.stringify(markdown), Markdown.plain_text(markdown)}
+  rescue
+    _ -> {ast, to_text_value(ast), to_text_value(ast)}
+  end
+
+  defp normalize_ast(ast), do: {ast, to_text_value(ast), to_text_value(ast)}
+
+  defp normalize_card(%Card{} = card) do
+    fallback = Card.fallback_text(card)
+    {card, card, fallback}
+  end
+
+  defp normalize_card(%{} = card) do
+    normalized = Card.new(card)
+    fallback = Card.fallback_text(normalized)
+    {normalized, normalized, fallback}
+  rescue
+    _ -> {card, card, to_text_value(card)}
+  end
+
+  defp normalize_card(card), do: {card, card, to_text_value(card)}
+
+  defp stream_fallback_text(chunks) when is_list(chunks) do
+    chunks
+    |> Enum.map(fn
+      %StreamChunk{} = chunk -> StreamChunk.fallback_text(chunk)
+      value when is_binary(value) -> value
+      value when is_map(value) -> value |> StreamChunk.new() |> StreamChunk.fallback_text()
+      value -> to_string(value)
+    end)
+    |> Enum.reject(&(&1 in [nil, ""]))
+    |> Enum.join("")
+    |> blank_to_nil()
+  rescue
+    _ -> nil
+  end
+
+  defp stream_fallback_text(_), do: nil
+
   defp serialize_stream(nil), do: nil
 
   defp serialize_stream(chunks) when is_list(chunks) do
@@ -285,6 +340,12 @@ defmodule Jido.Chat.PostPayload do
 
   defp serialize_stream(_other), do: nil
 
+  defp serialize_ast(%Markdown{} = markdown), do: Markdown.to_map(markdown)
+  defp serialize_ast(other), do: Wire.to_plain(other)
+
+  defp serialize_card(%Card{} = card), do: Card.to_map(card)
+  defp serialize_card(other), do: Wire.to_plain(other)
+
   defp to_text_value(nil), do: nil
   defp to_text_value(value) when is_binary(value), do: value
 
@@ -294,6 +355,9 @@ defmodule Jido.Chat.PostPayload do
       {:error, _reason} -> inspect(value)
     end
   end
+
+  defp blank_to_nil(""), do: nil
+  defp blank_to_nil(value), do: value
 
   defp present?(nil), do: false
   defp present?(""), do: false
