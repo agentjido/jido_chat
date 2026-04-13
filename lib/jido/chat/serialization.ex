@@ -32,6 +32,8 @@ defmodule Jido.Chat.Serialization do
 
   @spec to_map(map()) :: map()
   def to_map(chat) when is_map(chat) do
+    snapshot = Jido.Chat.StateAdapter.snapshot(chat.state_adapter, chat.state)
+
     %{
       id: chat.id,
       user_name: chat.user_name,
@@ -44,6 +46,8 @@ defmodule Jido.Chat.Serialization do
       metadata: Wire.to_plain(chat.metadata),
       thread_state: Wire.to_plain(chat.thread_state),
       channel_state: Wire.to_plain(chat.channel_state),
+      locks: Wire.to_plain(snapshot.locks),
+      pending_locks: Wire.to_plain(snapshot.pending_locks),
       initialized: chat.initialized
     }
     |> Wire.to_plain()
@@ -63,7 +67,9 @@ defmodule Jido.Chat.Serialization do
         dedupe: map[:dedupe] || map["dedupe"] || [],
         dedupe_order: map[:dedupe_order] || map["dedupe_order"] || [],
         thread_state: map[:thread_state] || map["thread_state"] || %{},
-        channel_state: map[:channel_state] || map["channel_state"] || %{}
+        channel_state: map[:channel_state] || map["channel_state"] || %{},
+        locks: map[:locks] || map["locks"] || %{},
+        pending_locks: map[:pending_locks] || map["pending_locks"] || %{}
       })
 
     %{

@@ -230,6 +230,43 @@ defmodule Jido.Chat.RuntimeTest do
     end
   end
 
+  defmodule EditFallbackAdapter do
+    use Jido.Chat.Adapter
+
+    @impl true
+    def channel_type, do: :edit_fallback
+
+    @impl true
+    def transform_incoming(payload) when is_map(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message(room_id, text, _opts) do
+      send(self(), {:fallback_send, room_id, text})
+
+      {:ok,
+       Response.new(%{
+         external_message_id: "stream_msg_#{room_id}",
+         external_room_id: room_id,
+         channel_type: :edit_fallback,
+         metadata: %{sent: text}
+       })}
+    end
+
+    @impl true
+    def edit_message(room_id, message_id, text, _opts) do
+      send(self(), {:fallback_edit, room_id, message_id, text})
+
+      {:ok,
+       Response.new(%{
+         external_message_id: message_id,
+         external_room_id: room_id,
+         status: :edited,
+         channel_type: :edit_fallback,
+         metadata: %{edited: text}
+       })}
+    end
+  end
+
   defmodule RichPostAdapter do
     use Jido.Chat.Adapter
 
@@ -488,6 +525,41 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert sent.id == "stream_room-stream-postable"
     assert_received {:stream, "room-stream-postable", "abc"}
+  end
+
+  test "stream fallback posts placeholder then edits structured output without native stream" do
+    chat = Chat.new(adapters: %{edit_fallback: EditFallbackAdapter})
+    thread = Chat.thread(chat, :edit_fallback, "room-stream-fallback", [])
+
+    assert {:ok, %SentMessage{} = sent} =
+             Thread.post(
+               thread,
+               Postable.stream([
+                 "alpha",
+                 %{kind: :step_start, payload: %{label: "Plan"}},
+                 %{kind: :plan, payload: ["one", "two"]},
+                 "omega"
+               ]),
+               placeholder_text: "working",
+               fallback_mode: :post_edit,
+               update_every: 2
+             )
+
+    assert sent.id == "stream_msg_room-stream-fallback"
+    assert sent.response.metadata.stream_fallback == :post_edit
+    assert_received {:fallback_send, "room-stream-fallback", "working"}
+
+    assert_received {:fallback_edit, "room-stream-fallback", "stream_msg_room-stream-fallback",
+                     first_edit}
+
+    assert first_edit =~ "alpha"
+    assert first_edit =~ "Plan"
+
+    assert_received {:fallback_edit, "room-stream-fallback", "stream_msg_room-stream-fallback",
+                     final_edit}
+
+    assert final_edit =~ "- one"
+    assert final_edit =~ "omega"
   end
 
   test "adapter render helpers expose canonical markdown and card payloads" do

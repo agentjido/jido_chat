@@ -15,14 +15,18 @@ defmodule Jido.Chat.StateAdapters.Memory do
             dedupe: MapSet.new(),
             dedupe_order: [],
             thread_state: %{},
-            channel_state: %{}
+            channel_state: %{},
+            locks: %{},
+            pending_locks: %{}
 
   @type t :: %__MODULE__{
           subscriptions: MapSet.t(String.t()),
           dedupe: MapSet.t(StateAdapter.dedupe_key()),
           dedupe_order: [StateAdapter.dedupe_key()],
           thread_state: %{optional(String.t()) => map()},
-          channel_state: %{optional(String.t()) => map()}
+          channel_state: %{optional(String.t()) => map()},
+          locks: %{optional(String.t()) => map()},
+          pending_locks: %{optional(String.t()) => [map()]}
         }
 
   @impl true
@@ -34,7 +38,9 @@ defmodule Jido.Chat.StateAdapters.Memory do
       dedupe: snapshot.dedupe,
       dedupe_order: snapshot.dedupe_order,
       thread_state: snapshot.thread_state,
-      channel_state: snapshot.channel_state
+      channel_state: snapshot.channel_state,
+      locks: snapshot.locks,
+      pending_locks: snapshot.pending_locks
     }
   end
 
@@ -45,7 +51,9 @@ defmodule Jido.Chat.StateAdapters.Memory do
       dedupe: state.dedupe,
       dedupe_order: state.dedupe_order,
       thread_state: state.thread_state,
-      channel_state: state.channel_state
+      channel_state: state.channel_state,
+      locks: state.locks,
+      pending_locks: state.pending_locks
     }
   end
 
@@ -100,6 +108,62 @@ defmodule Jido.Chat.StateAdapters.Memory do
     %{state | dedupe: trimmed_dedupe, dedupe_order: trimmed_dedupe_order}
   end
 
+  @impl true
+  def lock(%__MODULE__{} = state, _key, _owner, :concurrent, _metadata) do
+    {:acquired, state}
+  end
+
+  def lock(%__MODULE__{} = state, key, owner, strategy, metadata)
+      when strategy in [:reject, :queue, :debounce] do
+    case Map.get(state.locks, key) do
+      nil ->
+        next_state = put_lock(state, key, owner, strategy, metadata)
+        {:acquired, next_state}
+
+      _lock when strategy == :reject ->
+        {:busy, state}
+
+      _lock when strategy == :queue ->
+        pending = Map.get(state.pending_locks, key, [])
+        entry = pending_entry(owner, strategy, metadata)
+        {:queued, %{state | pending_locks: Map.put(state.pending_locks, key, pending ++ [entry])}}
+
+      _lock when strategy == :debounce ->
+        entry = pending_entry(owner, strategy, metadata)
+        {:debounced, %{state | pending_locks: Map.put(state.pending_locks, key, [entry])}}
+    end
+  end
+
+  @impl true
+  def release_lock(%__MODULE__{} = state, key, owner) do
+    case Map.get(state.locks, key) do
+      %{owner: ^owner} ->
+        pending = Map.get(state.pending_locks, key, [])
+
+        next_state =
+          state
+          |> delete_lock(key)
+          |> delete_pending(key)
+
+        {{:released, pending}, next_state}
+
+      _other ->
+        {{:error, :not_owner}, state}
+    end
+  end
+
+  @impl true
+  def force_release_lock(%__MODULE__{} = state, key) do
+    pending = Map.get(state.pending_locks, key, [])
+
+    next_state =
+      state
+      |> delete_lock(key)
+      |> delete_pending(key)
+
+    {{:released, pending}, next_state}
+  end
+
   defp trim_dedupe_order(dedupe_order, dedupe_limit) do
     overflow_count = max(length(dedupe_order) - dedupe_limit, 0)
 
@@ -109,5 +173,19 @@ defmodule Jido.Chat.StateAdapters.Memory do
       {overflow_keys, remaining_keys} = Enum.split(dedupe_order, overflow_count)
       {remaining_keys, overflow_keys}
     end
+  end
+
+  defp put_lock(%__MODULE__{} = state, key, owner, strategy, metadata) do
+    lock = %{owner: owner, strategy: strategy, metadata: metadata}
+    %{state | locks: Map.put(state.locks, key, lock)}
+  end
+
+  defp delete_lock(%__MODULE__{} = state, key), do: %{state | locks: Map.delete(state.locks, key)}
+
+  defp delete_pending(%__MODULE__{} = state, key),
+    do: %{state | pending_locks: Map.delete(state.pending_locks, key)}
+
+  defp pending_entry(owner, strategy, metadata) do
+    %{owner: owner, strategy: strategy, metadata: metadata}
   end
 end

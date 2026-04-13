@@ -14,10 +14,14 @@ defmodule Jido.Chat.StateAdapter do
           dedupe: MapSet.t(dedupe_key()),
           dedupe_order: [dedupe_key()],
           thread_state: %{optional(String.t()) => map()},
-          channel_state: %{optional(String.t()) => map()}
+          channel_state: %{optional(String.t()) => map()},
+          locks: %{optional(String.t()) => map()},
+          pending_locks: %{optional(String.t()) => [map()]}
         }
 
   @type state :: term()
+  @type lock_result :: :acquired | :queued | :debounced | :busy
+  @type release_result :: {:released, [map()]} | {:error, :not_owner}
 
   @callback init(snapshot(), keyword()) :: state()
   @callback snapshot(state()) :: snapshot() | map()
@@ -30,6 +34,9 @@ defmodule Jido.Chat.StateAdapter do
   @callback put_channel_state(state(), String.t(), map()) :: state()
   @callback duplicate?(state(), dedupe_key()) :: boolean()
   @callback mark_dedupe(state(), dedupe_key(), pos_integer()) :: state()
+  @callback lock(state(), String.t(), String.t(), atom(), map()) :: {lock_result(), state()}
+  @callback release_lock(state(), String.t(), String.t()) :: {release_result(), state()}
+  @callback force_release_lock(state(), String.t()) :: {{:released, [map()]}, state()}
 
   @doc "Initializes adapter state from a normalized snapshot."
   @spec init(module(), map(), keyword()) :: state()
@@ -107,6 +114,28 @@ defmodule Jido.Chat.StateAdapter do
     adapter_module.mark_dedupe(state, key, limit)
   end
 
+  @doc "Attempts to acquire a concurrency lock for the given key and owner."
+  @spec lock(module(), state(), String.t(), String.t(), atom(), map()) :: {lock_result(), state()}
+  def lock(adapter_module, state, key, owner, strategy, metadata \\ %{})
+      when is_atom(adapter_module) and is_binary(key) and is_binary(owner) and is_atom(strategy) and
+             is_map(metadata) do
+    adapter_module.lock(state, key, owner, strategy, metadata)
+  end
+
+  @doc "Releases a held lock and returns any queued/debounced pending entries."
+  @spec release_lock(module(), state(), String.t(), String.t()) :: {release_result(), state()}
+  def release_lock(adapter_module, state, key, owner)
+      when is_atom(adapter_module) and is_binary(key) and is_binary(owner) do
+    adapter_module.release_lock(state, key, owner)
+  end
+
+  @doc "Force-releases a lock regardless of owner and returns pending entries."
+  @spec force_release_lock(module(), state(), String.t()) :: {{:released, [map()]}, state()}
+  def force_release_lock(adapter_module, state, key)
+      when is_atom(adapter_module) and is_binary(key) do
+    adapter_module.force_release_lock(state, key)
+  end
+
   @doc "Returns the canonical empty snapshot."
   @spec default_snapshot() :: snapshot()
   def default_snapshot do
@@ -115,7 +144,9 @@ defmodule Jido.Chat.StateAdapter do
       dedupe: MapSet.new(),
       dedupe_order: [],
       thread_state: %{},
-      channel_state: %{}
+      channel_state: %{},
+      locks: %{},
+      pending_locks: %{}
     }
   end
 
@@ -131,13 +162,18 @@ defmodule Jido.Chat.StateAdapter do
       dedupe_order: snapshot[:dedupe_order] || snapshot["dedupe_order"] || defaults.dedupe_order,
       thread_state: snapshot[:thread_state] || snapshot["thread_state"] || defaults.thread_state,
       channel_state:
-        snapshot[:channel_state] || snapshot["channel_state"] || defaults.channel_state
+        snapshot[:channel_state] || snapshot["channel_state"] || defaults.channel_state,
+      locks: snapshot[:locks] || snapshot["locks"] || defaults.locks,
+      pending_locks:
+        snapshot[:pending_locks] || snapshot["pending_locks"] || defaults.pending_locks
     }
     |> normalize_subscriptions()
     |> normalize_dedupe()
     |> normalize_dedupe_order()
     |> normalize_thread_state()
     |> normalize_channel_state()
+    |> normalize_locks()
+    |> normalize_pending_locks()
   end
 
   def normalize_snapshot(_snapshot), do: default_snapshot()
@@ -226,6 +262,40 @@ defmodule Jido.Chat.StateAdapter do
       end
 
     %{snapshot | channel_state: channel_state}
+  end
+
+  defp normalize_locks(snapshot) do
+    locks =
+      case snapshot.locks do
+        locks when is_map(locks) -> locks
+        _ -> %{}
+      end
+
+    %{snapshot | locks: locks}
+  end
+
+  defp normalize_pending_locks(snapshot) do
+    pending_locks =
+      case snapshot.pending_locks do
+        pending when is_map(pending) ->
+          pending
+          |> Enum.map(fn {key, entries} ->
+            normalized_entries =
+              if is_list(entries) do
+                Enum.filter(entries, &is_map/1)
+              else
+                []
+              end
+
+            {to_string(key), normalized_entries}
+          end)
+          |> Map.new()
+
+        _ ->
+          %{}
+      end
+
+    %{snapshot | pending_locks: pending_locks}
   end
 
   defp normalize_key_atom(key) when is_atom(key), do: key

@@ -75,6 +75,20 @@ defmodule Jido.Chat.SerializationTest do
     @impl true
     def mark_dedupe({:wrapped, state}, key, limit),
       do: {:wrapped, Memory.mark_dedupe(state, key, limit)}
+
+    @impl true
+    def lock({:wrapped, state}, key, owner, strategy, metadata),
+      do: unwrap_lock(Memory.lock(state, key, owner, strategy, metadata))
+
+    @impl true
+    def release_lock({:wrapped, state}, key, owner),
+      do: unwrap_lock(Memory.release_lock(state, key, owner))
+
+    @impl true
+    def force_release_lock({:wrapped, state}, key),
+      do: unwrap_lock(Memory.force_release_lock(state, key))
+
+    defp unwrap_lock({result, state}), do: {result, {:wrapped, state}}
   end
 
   test "chat serialization is JSON-safe and explicitly non-serializable for handlers" do

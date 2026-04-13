@@ -24,6 +24,7 @@ defmodule Jido.Chat.Adapter do
     Response,
     WebhookRequest,
     WebhookResponse,
+    StreamChunk,
     Thread,
     ThreadPage
   }
@@ -386,8 +387,32 @@ defmodule Jido.Chat.Adapter do
         {:ok, normalize_response(adapter_module, response)}
       end
     else
-      text = chunks |> Enum.map(&to_string/1) |> Enum.join("")
-      send_message(adapter_module, external_room_id, text, opts)
+      fallback_chunks = Enum.to_list(chunks)
+      fallback_text = stream_fallback_text(fallback_chunks)
+      fallback_mode = Keyword.get(opts, :fallback_mode, default_stream_fallback(adapter_module))
+      placeholder_text = Keyword.get(opts, :placeholder_text, "Working...")
+      update_every = Keyword.get(opts, :update_every, 1)
+      stream_opts = Keyword.drop(opts, [:fallback_mode, :placeholder_text, :update_every])
+
+      cond do
+        fallback_mode == :post_edit and function_exported?(adapter_module, :edit_message, 4) ->
+          with {:ok, initial_response} <-
+                 send_message(adapter_module, external_room_id, placeholder_text, stream_opts),
+               {:ok, final_response} <-
+                 stream_post_edit_fallback(
+                   adapter_module,
+                   external_room_id,
+                   initial_response,
+                   fallback_chunks,
+                   stream_opts,
+                   update_every
+                 ) do
+            {:ok, final_response}
+          end
+
+        true ->
+          send_message(adapter_module, external_room_id, fallback_text, stream_opts)
+      end
     end
   end
 
@@ -1063,6 +1088,117 @@ defmodule Jido.Chat.Adapter do
 
   defp fallback_thread_id(adapter_module, external_room_id),
     do: "#{adapter_type(adapter_module)}:#{external_room_id}"
+
+  defp default_stream_fallback(adapter_module) do
+    if function_exported?(adapter_module, :edit_message, 4), do: :post_edit, else: :final
+  end
+
+  defp stream_post_edit_fallback(
+         adapter_module,
+         external_room_id,
+         initial_response,
+         chunks,
+         stream_opts,
+         update_every
+       ) do
+    total = length(chunks)
+    update_every = if is_integer(update_every) and update_every > 0, do: update_every, else: 1
+
+    chunks
+    |> Enum.with_index(1)
+    |> Enum.reduce_while({:ok, "", initial_response}, fn {chunk, index},
+                                                         {:ok, acc_text, response} ->
+      next_text = acc_text <> render_stream_chunk(chunk)
+      should_update = rem(index, update_every) == 0 or index == total
+
+      if should_update do
+        case edit_message(
+               adapter_module,
+               external_room_id,
+               initial_response.external_message_id,
+               next_text,
+               stream_opts
+             ) do
+          {:ok, next_response} ->
+            {:cont,
+             {:ok, next_text, with_stream_metadata(next_response, :post_edit, total, next_text)}}
+
+          {:error, _reason} = error ->
+            {:halt, error}
+        end
+      else
+        {:cont, {:ok, next_text, response}}
+      end
+    end)
+    |> case do
+      {:ok, _text, response} ->
+        {:ok, response}
+
+      {:error, _reason} = error ->
+        error
+    end
+  end
+
+  defp with_stream_metadata(%Response{} = response, mode, chunk_count, final_text) do
+    metadata =
+      (response.metadata || %{})
+      |> Map.put(:stream_fallback, mode)
+      |> Map.put(:chunk_count, chunk_count)
+      |> Map.put(:final_text, final_text)
+
+    %{response | metadata: metadata}
+  end
+
+  defp stream_fallback_text(chunks) do
+    chunks
+    |> Enum.map(&render_stream_chunk/1)
+    |> Enum.join("")
+  end
+
+  defp render_stream_chunk(%StreamChunk{} = chunk) do
+    case chunk.kind do
+      :text -> chunk.text || ""
+      :markdown -> chunk.text || ""
+      :status -> bracketed_chunk(chunk)
+      :plan -> plan_chunk(chunk)
+      :step_start -> step_chunk(chunk)
+      :step_finish -> "\n"
+      :data -> ""
+    end
+  end
+
+  defp render_stream_chunk(chunk) when is_map(chunk),
+    do: chunk |> StreamChunk.new() |> render_stream_chunk()
+
+  defp render_stream_chunk(chunk), do: to_string(chunk)
+
+  defp bracketed_chunk(%StreamChunk{} = chunk) do
+    case StreamChunk.fallback_text(chunk) do
+      nil -> ""
+      "" -> ""
+      text -> "\n[#{text}]\n"
+    end
+  end
+
+  defp plan_chunk(%StreamChunk{} = chunk) do
+    case chunk.payload do
+      items when is_list(items) ->
+        "\n" <>
+          (items
+           |> Enum.map_join("\n", fn item -> "- " <> to_string(item) end)) <> "\n"
+
+      _other ->
+        bracketed_chunk(chunk)
+    end
+  end
+
+  defp step_chunk(%StreamChunk{} = chunk) do
+    case StreamChunk.fallback_text(chunk) do
+      nil -> ""
+      "" -> ""
+      text -> "\n\n#{text}\n"
+    end
+  end
 
   defp normalize_markdown_payload(%Markdown{} = markdown), do: markdown
   defp normalize_markdown_payload(%{} = markdown), do: Markdown.new(markdown)

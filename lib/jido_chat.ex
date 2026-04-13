@@ -12,6 +12,7 @@ defmodule Jido.Chat do
     Author,
     CapabilityMatrix,
     ChannelRef,
+    Concurrency,
     Emoji,
     EventRouter,
     EventEnvelope,
@@ -760,6 +761,65 @@ defmodule Jido.Chat do
     |> sync_state(chat)
   end
 
+  @doc "Returns normalized overlapping-message concurrency config."
+  @spec concurrency(t()) :: Concurrency.t()
+  def concurrency(%__MODULE__{} = chat) do
+    Concurrency.new(chat.metadata[:concurrency] || chat.metadata["concurrency"] || %{})
+  end
+
+  @doc "Updates chat-level concurrency configuration."
+  @spec configure_concurrency(t(), keyword() | map()) :: t()
+  def configure_concurrency(%__MODULE__{} = chat, opts) when is_list(opts) or is_map(opts) do
+    config = Concurrency.new(opts)
+    metadata = Map.put(chat.metadata || %{}, :concurrency, Map.from_struct(config))
+    %{chat | metadata: metadata}
+  end
+
+  @doc "Returns the current concurrency lock snapshot."
+  @spec lock_snapshot(t()) :: %{locks: map(), pending_locks: map()}
+  def lock_snapshot(%__MODULE__{} = chat) do
+    snapshot = StateAdapter.snapshot(chat.state_adapter, chat.state)
+    %{locks: snapshot.locks, pending_locks: snapshot.pending_locks}
+  end
+
+  @doc "Attempts to acquire a concurrency lock for a message-processing key."
+  @spec acquire_lock(t(), String.t(), String.t(), keyword() | map()) ::
+          {:acquired | :queued | :debounced | :busy, t()}
+  def acquire_lock(%__MODULE__{} = chat, key, owner, opts \\ [])
+      when is_binary(key) and is_binary(owner) do
+    opts = if is_list(opts), do: Map.new(opts), else: opts
+    config = opts[:concurrency] || opts["concurrency"] || concurrency(chat)
+    config = Concurrency.new(config)
+    metadata = opts[:metadata] || opts["metadata"] || %{}
+
+    {result, state} =
+      StateAdapter.lock(
+        chat.state_adapter,
+        chat.state,
+        key,
+        owner,
+        config.strategy,
+        metadata
+      )
+
+    {result, sync_state(state, chat)}
+  end
+
+  @doc "Releases a held concurrency lock and returns queued/debounced entries."
+  @spec release_lock(t(), String.t(), String.t()) ::
+          {{:released, [map()]} | {:error, :not_owner}, t()}
+  def release_lock(%__MODULE__{} = chat, key, owner) when is_binary(key) and is_binary(owner) do
+    {result, state} = StateAdapter.release_lock(chat.state_adapter, chat.state, key, owner)
+    {result, sync_state(state, chat)}
+  end
+
+  @doc "Force-releases a concurrency lock regardless of owner."
+  @spec force_release_lock(t(), String.t()) :: {{:released, [map()]}, t()}
+  def force_release_lock(%__MODULE__{} = chat, key) when is_binary(key) do
+    {result, state} = StateAdapter.force_release_lock(chat.state_adapter, chat.state, key)
+    {result, sync_state(state, chat)}
+  end
+
   @doc "Unsubscribes a thread id."
   @spec unsubscribe(t(), String.t()) :: t()
   def unsubscribe(%__MODULE__{} = chat, thread_id) when is_binary(thread_id) do
@@ -1140,7 +1200,9 @@ defmodule Jido.Chat do
       dedupe: opts[:dedupe] || opts["dedupe"] || MapSet.new(),
       dedupe_order: opts[:dedupe_order] || opts["dedupe_order"] || [],
       thread_state: opts[:thread_state] || opts["thread_state"] || %{},
-      channel_state: opts[:channel_state] || opts["channel_state"] || %{}
+      channel_state: opts[:channel_state] || opts["channel_state"] || %{},
+      locks: opts[:locks] || opts["locks"] || %{},
+      pending_locks: opts[:pending_locks] || opts["pending_locks"] || %{}
     }
     |> StateAdapter.normalize_snapshot()
   end
