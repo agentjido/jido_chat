@@ -9,8 +9,10 @@ defmodule Jido.Chat do
     AdapterRegistry,
     AssistantContextChangedEvent,
     AssistantThreadStartedEvent,
+    Author,
     CapabilityMatrix,
     ChannelRef,
+    Emoji,
     EventRouter,
     EventEnvelope,
     Errors,
@@ -258,10 +260,28 @@ defmodule Jido.Chat do
     update_in(chat.handlers.reaction, &(&1 ++ [handler]))
   end
 
+  @doc "Registers a filtered reaction-event handler."
+  @spec on_reaction(
+          t(),
+          String.t() | atom() | [String.t() | atom()] | Regex.t(),
+          reaction_handler()
+        ) ::
+          t()
+  def on_reaction(%__MODULE__{} = chat, selector, handler) when is_function(handler) do
+    register_filtered_handler(chat, :reaction, selector, handler)
+  end
+
   @doc "Registers an action-event handler."
   @spec on_action(t(), action_handler()) :: t()
   def on_action(%__MODULE__{} = chat, handler) when is_function(handler) do
     update_in(chat.handlers.action, &(&1 ++ [handler]))
+  end
+
+  @doc "Registers a filtered action-event handler."
+  @spec on_action(t(), String.t() | atom() | [String.t() | atom()] | Regex.t(), action_handler()) ::
+          t()
+  def on_action(%__MODULE__{} = chat, selector, handler) when is_function(handler) do
+    register_filtered_handler(chat, :action, selector, handler)
   end
 
   @doc "Registers a modal-submit handler."
@@ -270,16 +290,46 @@ defmodule Jido.Chat do
     update_in(chat.handlers.modal_submit, &(&1 ++ [handler]))
   end
 
+  @doc "Registers a filtered modal-submit handler."
+  @spec on_modal_submit(
+          t(),
+          String.t() | atom() | [String.t() | atom()] | Regex.t(),
+          modal_submit_handler()
+        ) :: t()
+  def on_modal_submit(%__MODULE__{} = chat, selector, handler) when is_function(handler) do
+    register_filtered_handler(chat, :modal_submit, selector, handler)
+  end
+
   @doc "Registers a modal-close handler."
   @spec on_modal_close(t(), modal_close_handler()) :: t()
   def on_modal_close(%__MODULE__{} = chat, handler) when is_function(handler) do
     update_in(chat.handlers.modal_close, &(&1 ++ [handler]))
   end
 
+  @doc "Registers a filtered modal-close handler."
+  @spec on_modal_close(
+          t(),
+          String.t() | atom() | [String.t() | atom()] | Regex.t(),
+          modal_close_handler()
+        ) :: t()
+  def on_modal_close(%__MODULE__{} = chat, selector, handler) when is_function(handler) do
+    register_filtered_handler(chat, :modal_close, selector, handler)
+  end
+
   @doc "Registers a slash-command handler."
   @spec on_slash_command(t(), slash_command_handler()) :: t()
   def on_slash_command(%__MODULE__{} = chat, handler) when is_function(handler) do
     update_in(chat.handlers.slash_command, &(&1 ++ [handler]))
+  end
+
+  @doc "Registers a filtered slash-command handler."
+  @spec on_slash_command(
+          t(),
+          String.t() | atom() | [String.t() | atom()] | Regex.t(),
+          slash_command_handler()
+        ) :: t()
+  def on_slash_command(%__MODULE__{} = chat, selector, handler) when is_function(handler) do
+    register_filtered_handler(chat, :slash_command, selector, handler)
   end
 
   @doc "Registers assistant thread started handlers."
@@ -447,7 +497,11 @@ defmodule Jido.Chat do
   @doc """
   Opens a DM thread with an adapter when supported.
   """
-  @spec open_dm(t(), atom(), String.t() | integer()) :: {:ok, Thread.t()} | {:error, term()}
+  @spec open_dm(
+          t(),
+          atom() | Author.t() | map() | String.t() | integer(),
+          String.t() | integer() | keyword() | map()
+        ) :: {:ok, Thread.t()} | {:error, term()}
   def open_dm(%__MODULE__{} = chat, adapter_name, external_user_id) when is_atom(adapter_name) do
     with {:ok, adapter_module} <- AdapterRegistry.resolve(chat, adapter_name) do
       if function_exported?(adapter_module, :open_dm, 2) do
@@ -461,6 +515,18 @@ defmodule Jido.Chat do
       else
         {:error, :unsupported}
       end
+    end
+  end
+
+  def open_dm(%__MODULE__{} = chat, target, opts) when is_list(opts) or is_map(opts) do
+    with {:ok, adapter_name, external_user_id} <- resolve_dm_target(chat, target, opts) do
+      open_dm(chat, adapter_name, external_user_id)
+    end
+  end
+
+  def open_dm(%__MODULE__{} = chat, target, []) do
+    with {:ok, adapter_name, external_user_id} <- resolve_dm_target(chat, target, []) do
+      open_dm(chat, adapter_name, external_user_id)
     end
   end
 
@@ -544,6 +610,7 @@ defmodule Jido.Chat do
   def process_reaction(%__MODULE__{} = chat, adapter_name, event, opts \\ [])
       when is_atom(adapter_name) and is_list(opts) do
     with {:ok, reaction} <- EventRouter.ensure_reaction_event(event, adapter_name) do
+      reaction = enrich_event_context(chat, adapter_name, reaction)
       {:ok, EventRouter.run_event_handlers(chat, chat.handlers.reaction, reaction), reaction}
     end
   end
@@ -554,6 +621,7 @@ defmodule Jido.Chat do
   def process_action(%__MODULE__{} = chat, adapter_name, event, opts \\ [])
       when is_atom(adapter_name) and is_list(opts) do
     with {:ok, action} <- EventRouter.ensure_action_event(event, adapter_name) do
+      action = enrich_event_context(chat, adapter_name, action)
       {:ok, EventRouter.run_event_handlers(chat, chat.handlers.action, action), action}
     end
   end
@@ -564,6 +632,8 @@ defmodule Jido.Chat do
   def process_modal_submit(%__MODULE__{} = chat, adapter_name, event, opts \\ [])
       when is_atom(adapter_name) and is_list(opts) do
     with {:ok, modal_submit} <- EventRouter.ensure_modal_submit_event(event, adapter_name) do
+      modal_submit = enrich_event_context(chat, adapter_name, modal_submit)
+
       {:ok, EventRouter.run_event_handlers(chat, chat.handlers.modal_submit, modal_submit),
        modal_submit}
     end
@@ -575,6 +645,8 @@ defmodule Jido.Chat do
   def process_modal_close(%__MODULE__{} = chat, adapter_name, event, opts \\ [])
       when is_atom(adapter_name) and is_list(opts) do
     with {:ok, modal_close} <- EventRouter.ensure_modal_close_event(event, adapter_name) do
+      modal_close = enrich_event_context(chat, adapter_name, modal_close)
+
       {:ok, EventRouter.run_event_handlers(chat, chat.handlers.modal_close, modal_close),
        modal_close}
     end
@@ -586,6 +658,8 @@ defmodule Jido.Chat do
   def process_slash_command(%__MODULE__{} = chat, adapter_name, event, opts \\ [])
       when is_atom(adapter_name) and is_list(opts) do
     with {:ok, slash_command} <- EventRouter.ensure_slash_command_event(event, adapter_name) do
+      slash_command = enrich_event_context(chat, adapter_name, slash_command)
+
       {:ok, EventRouter.run_event_handlers(chat, chat.handlers.slash_command, slash_command),
        slash_command}
     end
@@ -627,6 +701,8 @@ defmodule Jido.Chat do
       when is_atom(adapter_name) do
     with {:ok, assistant_event} <-
            EventRouter.ensure_assistant_thread_started_event(event, adapter_name) do
+      assistant_event = enrich_event_context(chat, adapter_name, assistant_event)
+
       {:ok,
        EventRouter.run_event_handlers(
          chat,
@@ -647,6 +723,8 @@ defmodule Jido.Chat do
       when is_atom(adapter_name) do
     with {:ok, assistant_event} <-
            EventRouter.ensure_assistant_context_changed_event(event, adapter_name) do
+      assistant_event = enrich_event_context(chat, adapter_name, assistant_event)
+
       {:ok,
        EventRouter.run_event_handlers(
          chat,
@@ -753,6 +831,10 @@ defmodule Jido.Chat do
   @spec text(String.t()) :: Text.t()
   def text(value), do: Text.new(value)
 
+  @doc "Resolves a cross-platform emoji token into a rendered value."
+  @spec emoji(String.t() | atom(), keyword()) :: String.t()
+  def emoji(value, opts \\ []), do: Emoji.render(value, opts)
+
   @doc "Serializes chat state to a revivable map."
   @spec to_map(t()) :: map()
   def to_map(%__MODULE__{} = chat), do: Serialization.to_map(chat)
@@ -768,6 +850,275 @@ defmodule Jido.Chat do
   @doc false
   @spec revive(map()) :: term()
   def revive(map), do: Serialization.revive(map)
+
+  defp register_filtered_handler(%__MODULE__{} = chat, key, selector, handler) do
+    normalized = normalize_handler_selector(selector)
+    update_in(chat.handlers[key], &(&1 ++ [{normalized, handler}]))
+  end
+
+  defp normalize_handler_selector(selectors) when is_list(selectors),
+    do: Enum.map(selectors, &normalize_handler_selector/1)
+
+  defp normalize_handler_selector(selector) when is_atom(selector) and selector != :all,
+    do: Atom.to_string(selector)
+
+  defp normalize_handler_selector(selector), do: selector
+
+  defp resolve_dm_target(%__MODULE__{} = chat, %Author{} = author, opts) do
+    adapter_name =
+      opts[:adapter_name] ||
+        author.metadata[:adapter_name] ||
+        author.metadata["adapter_name"] ||
+        infer_single_adapter(chat)
+
+    with {:ok, adapter_name} <- normalize_adapter_name(chat, adapter_name) do
+      {:ok, adapter_name, author.user_id}
+    end
+  end
+
+  defp resolve_dm_target(%__MODULE__{} = chat, target, opts) when is_map(target) do
+    resolve_dm_target(chat, Author.new(target), opts)
+  rescue
+    _ -> {:error, :invalid_dm_target}
+  end
+
+  defp resolve_dm_target(%__MODULE__{} = chat, target, opts)
+       when is_binary(target) or is_integer(target) do
+    case parse_adapter_prefixed_target(chat, target) do
+      {:ok, adapter_name, external_user_id} ->
+        {:ok, adapter_name, external_user_id}
+
+      :error ->
+        with {:ok, adapter_name} <-
+               normalize_adapter_name(chat, opts[:adapter_name] || infer_single_adapter(chat)) do
+          {:ok, adapter_name, to_string(target)}
+        end
+    end
+  end
+
+  defp resolve_dm_target(_chat, _target, _opts), do: {:error, :invalid_dm_target}
+
+  defp normalize_adapter_name(_chat, adapter_name) when is_atom(adapter_name),
+    do: {:ok, adapter_name}
+
+  defp normalize_adapter_name(_chat, nil), do: {:error, :ambiguous_adapter}
+
+  defp normalize_adapter_name(chat, adapter_name) when is_binary(adapter_name) do
+    adapter_atom = String.to_existing_atom(adapter_name)
+    normalize_adapter_name(chat, adapter_atom)
+  rescue
+    ArgumentError -> {:error, :ambiguous_adapter}
+  end
+
+  defp infer_single_adapter(%__MODULE__{adapters: adapters}) when map_size(adapters) == 1 do
+    adapters |> Map.keys() |> List.first()
+  end
+
+  defp infer_single_adapter(_chat), do: nil
+
+  defp parse_adapter_prefixed_target(%__MODULE__{adapters: adapters}, target)
+       when is_binary(target) do
+    case String.split(target, ":", parts: 2) do
+      [adapter_name, external_user_id] when external_user_id != "" ->
+        adapter_atom = String.to_atom(adapter_name)
+
+        if Map.has_key?(adapters, adapter_atom) do
+          {:ok, adapter_atom, external_user_id}
+        else
+          :error
+        end
+
+      _ ->
+        :error
+    end
+  end
+
+  defp parse_adapter_prefixed_target(_chat, _target), do: :error
+
+  defp enrich_event_context(%__MODULE__{} = chat, adapter_name, event) do
+    adapter = Map.get(chat.adapters, adapter_name)
+    channel = Map.get(event, :channel) || build_channel_handle(chat, adapter_name, event)
+    thread = Map.get(event, :thread) || build_thread_handle(chat, adapter_name, event, channel)
+    message = Map.get(event, :message) || build_message_handle(event, thread, channel)
+
+    related_channel =
+      Map.get(event, :related_channel) || build_related_channel_handle(chat, adapter_name, event)
+
+    related_thread =
+      Map.get(event, :related_thread) ||
+        build_related_thread_handle(chat, adapter_name, event, related_channel)
+
+    related_message =
+      Map.get(event, :related_message) ||
+        build_related_message_handle(event, related_thread, related_channel)
+
+    struct(event,
+      adapter: adapter,
+      thread: thread,
+      channel: channel,
+      message: message,
+      related_thread: related_thread,
+      related_channel: related_channel,
+      related_message: related_message,
+      thread_id: Map.get(event, :thread_id) || (thread && thread.id),
+      channel_id: Map.get(event, :channel_id) || (channel && channel.id),
+      message_id: Map.get(event, :message_id) || (message && message.id)
+    )
+  end
+
+  defp build_channel_handle(%__MODULE__{} = chat, adapter_name, event) do
+    case channel_external_id(
+           adapter_name,
+           Map.get(event, :channel_id) || Map.get(event, :thread_id)
+         ) do
+      nil -> nil
+      external_id -> channel(chat, adapter_name, external_id)
+    end
+  end
+
+  defp build_thread_handle(%__MODULE__{} = chat, adapter_name, event, channel) do
+    cond do
+      is_binary(Map.get(event, :thread_id)) ->
+        case parse_thread_identifier(adapter_name, Map.get(event, :thread_id)) do
+          {external_room_id, external_thread_id} ->
+            thread(chat, adapter_name, external_room_id,
+              id: Map.get(event, :thread_id),
+              external_thread_id: external_thread_id,
+              is_dm: is_dm_channel?(channel)
+            )
+
+          _ ->
+            nil
+        end
+
+      match?(%ChannelRef{}, channel) ->
+        thread(chat, adapter_name, channel.external_id,
+          id: "#{adapter_name}:#{channel.external_id}",
+          is_dm: is_dm_channel?(channel)
+        )
+
+      true ->
+        nil
+    end
+  end
+
+  defp build_message_handle(event, thread, channel) do
+    case Map.get(event, :message_id) do
+      nil ->
+        nil
+
+      message_id ->
+        external_room_id =
+          cond do
+            match?(%Thread{}, thread) -> thread.external_room_id
+            match?(%ChannelRef{}, channel) -> channel.external_id
+            true -> nil
+          end
+
+        Message.new(%{
+          id: to_string(message_id),
+          thread_id: thread && thread.id,
+          channel_id: channel && channel.id,
+          external_room_id: external_room_id,
+          external_message_id: to_string(message_id)
+        })
+    end
+  end
+
+  defp build_related_channel_handle(%__MODULE__{} = chat, adapter_name, event) do
+    related_channel_id =
+      Map.get(event.metadata, :related_channel_id) ||
+        Map.get(event.metadata, "related_channel_id")
+
+    case channel_external_id(adapter_name, related_channel_id) do
+      nil -> nil
+      external_id -> channel(chat, adapter_name, external_id)
+    end
+  end
+
+  defp build_related_thread_handle(%__MODULE__{} = chat, adapter_name, event, related_channel) do
+    related_thread_id =
+      Map.get(event.metadata, :related_thread_id) || Map.get(event.metadata, "related_thread_id")
+
+    cond do
+      is_binary(related_thread_id) ->
+        case parse_thread_identifier(adapter_name, related_thread_id) do
+          {external_room_id, external_thread_id} ->
+            thread(chat, adapter_name, external_room_id,
+              id: related_thread_id,
+              external_thread_id: external_thread_id,
+              is_dm: is_dm_channel?(related_channel)
+            )
+
+          _ ->
+            nil
+        end
+
+      match?(%ChannelRef{}, related_channel) ->
+        thread(chat, adapter_name, related_channel.external_id,
+          id: "#{adapter_name}:#{related_channel.external_id}",
+          is_dm: is_dm_channel?(related_channel)
+        )
+
+      true ->
+        nil
+    end
+  end
+
+  defp build_related_message_handle(event, thread, channel) do
+    related_message_id =
+      Map.get(event.metadata, :related_message_id) ||
+        Map.get(event.metadata, "related_message_id")
+
+    if is_binary(related_message_id) do
+      Message.new(%{
+        id: related_message_id,
+        thread_id: thread && thread.id,
+        channel_id: channel && channel.id,
+        external_room_id:
+          cond do
+            match?(%Thread{}, thread) -> thread.external_room_id
+            match?(%ChannelRef{}, channel) -> channel.external_id
+            true -> nil
+          end,
+        external_message_id: related_message_id
+      })
+    end
+  end
+
+  defp parse_thread_identifier(adapter_name, thread_id) when is_binary(thread_id) do
+    prefix = "#{adapter_name}:"
+
+    if String.starts_with?(thread_id, prefix) do
+      rest = String.trim_leading(thread_id, prefix)
+
+      case String.split(rest, ":", parts: 2) do
+        [external_room_id, external_thread_id] -> {external_room_id, external_thread_id}
+        [external_room_id] -> {external_room_id, nil}
+        _ -> nil
+      end
+    end
+  end
+
+  defp parse_thread_identifier(_adapter_name, _thread_id), do: nil
+
+  defp channel_external_id(adapter_name, channel_id) when is_binary(channel_id) do
+    prefix = "#{adapter_name}:"
+
+    if String.starts_with?(channel_id, prefix) do
+      String.trim_leading(channel_id, prefix)
+      |> String.split(":", parts: 2)
+      |> List.first()
+    end
+  end
+
+  defp channel_external_id(_adapter_name, _channel_id), do: nil
+
+  defp is_dm_channel?(%ChannelRef{metadata: metadata}) do
+    metadata[:is_dm] || metadata["is_dm"] || false
+  end
+
+  defp is_dm_channel?(_channel), do: false
 
   defp sync_state(state, %__MODULE__{} = chat) do
     snapshot = StateAdapter.snapshot(chat.state_adapter, state)

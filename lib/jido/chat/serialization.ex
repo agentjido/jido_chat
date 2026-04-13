@@ -2,19 +2,27 @@ defmodule Jido.Chat.Serialization do
   @moduledoc false
 
   alias Jido.Chat.{
+    ActionEvent,
+    AssistantContextChangedEvent,
+    AssistantThreadStartedEvent,
     Card,
     CapabilityMatrix,
     ChannelRef,
     EventEnvelope,
     FileUpload,
+    Incoming,
     IngressResult,
     Markdown,
     Message,
     Modal,
+    ModalCloseEvent,
     ModalResult,
+    ModalSubmitEvent,
     ModalResponse,
     PostPayload,
+    ReactionEvent,
     SentMessage,
+    SlashCommandEvent,
     StreamChunk,
     Thread,
     WebhookRequest,
@@ -72,6 +80,19 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "chat"} = map), do: from_map(map)
   def revive(%{"__type__" => "thread"} = map), do: Thread.from_map(map)
   def revive(%{"__type__" => "channel"} = map), do: ChannelRef.from_map(map)
+  def revive(%{"__type__" => "incoming"} = map), do: Incoming.from_map(map)
+  def revive(%{"__type__" => "reaction_event"} = map), do: ReactionEvent.from_map(map)
+  def revive(%{"__type__" => "action_event"} = map), do: ActionEvent.from_map(map)
+  def revive(%{"__type__" => "modal_submit_event"} = map), do: ModalSubmitEvent.from_map(map)
+  def revive(%{"__type__" => "modal_close_event"} = map), do: ModalCloseEvent.from_map(map)
+  def revive(%{"__type__" => "slash_command_event"} = map), do: SlashCommandEvent.from_map(map)
+
+  def revive(%{"__type__" => "assistant_thread_started_event"} = map),
+    do: AssistantThreadStartedEvent.from_map(map)
+
+  def revive(%{"__type__" => "assistant_context_changed_event"} = map),
+    do: AssistantContextChangedEvent.from_map(map)
+
   def revive(%{"__type__" => "markdown"} = map), do: Markdown.from_map(map)
   def revive(%{"__type__" => "markdown_node"} = map), do: Jido.Chat.Markdown.Node.from_map(map)
   def revive(%{"__type__" => "card"} = map), do: Card.from_map(map)

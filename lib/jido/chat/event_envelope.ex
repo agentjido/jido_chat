@@ -3,7 +3,17 @@ defmodule Jido.Chat.EventEnvelope do
   Canonical normalized event envelope used by webhook and gateway ingestion.
   """
 
-  alias Jido.Chat.Wire
+  alias Jido.Chat.{
+    ActionEvent,
+    AssistantContextChangedEvent,
+    AssistantThreadStartedEvent,
+    Incoming,
+    ModalCloseEvent,
+    ModalSubmitEvent,
+    ReactionEvent,
+    SlashCommandEvent,
+    Wire
+  }
 
   @event_types [
     :message,
@@ -64,13 +74,22 @@ defmodule Jido.Chat.EventEnvelope do
   def to_map(%__MODULE__{} = envelope) do
     envelope
     |> Map.from_struct()
+    |> Map.update!(:payload, &serialize_payload/1)
     |> Wire.to_plain()
     |> Map.put("__type__", "event_envelope")
   end
 
   @doc "Builds event envelope from serialized data."
   @spec from_map(map()) :: t()
-  def from_map(map) when is_map(map), do: new(map)
+  def from_map(map) when is_map(map) do
+    payload = map[:payload] || map["payload"]
+
+    map
+    |> Map.drop(["__type__", :__type__])
+    |> Map.delete("payload")
+    |> Map.put(:payload, deserialize_payload(payload))
+    |> new()
+  end
 
   defp maybe_normalize_event_type(attrs) do
     case attrs[:event_type] || attrs["event_type"] do
@@ -86,4 +105,44 @@ defmodule Jido.Chat.EventEnvelope do
   rescue
     ArgumentError -> attrs
   end
+
+  defp serialize_payload(%Incoming{} = payload), do: Incoming.to_map(payload)
+  defp serialize_payload(%ReactionEvent{} = payload), do: ReactionEvent.to_map(payload)
+  defp serialize_payload(%ActionEvent{} = payload), do: ActionEvent.to_map(payload)
+  defp serialize_payload(%ModalSubmitEvent{} = payload), do: ModalSubmitEvent.to_map(payload)
+  defp serialize_payload(%ModalCloseEvent{} = payload), do: ModalCloseEvent.to_map(payload)
+  defp serialize_payload(%SlashCommandEvent{} = payload), do: SlashCommandEvent.to_map(payload)
+
+  defp serialize_payload(%AssistantThreadStartedEvent{} = payload),
+    do: AssistantThreadStartedEvent.to_map(payload)
+
+  defp serialize_payload(%AssistantContextChangedEvent{} = payload),
+    do: AssistantContextChangedEvent.to_map(payload)
+
+  defp serialize_payload(payload), do: Wire.to_plain(payload)
+
+  defp deserialize_payload(%{"__type__" => "incoming"} = payload), do: Incoming.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "reaction_event"} = payload),
+    do: ReactionEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "action_event"} = payload),
+    do: ActionEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "modal_submit_event"} = payload),
+    do: ModalSubmitEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "modal_close_event"} = payload),
+    do: ModalCloseEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "slash_command_event"} = payload),
+    do: SlashCommandEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "assistant_thread_started_event"} = payload),
+    do: AssistantThreadStartedEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "assistant_context_changed_event"} = payload),
+    do: AssistantContextChangedEvent.from_map(payload)
+
+  defp deserialize_payload(payload), do: payload
 end

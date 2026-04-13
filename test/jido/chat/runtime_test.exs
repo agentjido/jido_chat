@@ -5,6 +5,8 @@ defmodule Jido.Chat.RuntimeTest do
 
   alias Jido.Chat.{
     Attachment,
+    ActionEvent,
+    Author,
     Card,
     CapabilityMatrix,
     ChannelInfo,
@@ -18,6 +20,7 @@ defmodule Jido.Chat.RuntimeTest do
     PostPayload,
     Postable,
     Response,
+    SlashCommandEvent,
     SentMessage,
     Thread,
     ThreadPage,
@@ -540,6 +543,64 @@ defmodule Jido.Chat.RuntimeTest do
                      }}
   end
 
+  test "filtered action handlers run before catch-all handlers and preserve event context" do
+    chat =
+      Chat.new(adapters: %{test: TestAdapter})
+      |> Chat.on_action("deploy:approve", fn _event -> send(self(), {:action_hit, 1}) end)
+      |> Chat.on_action(fn _event -> send(self(), {:action_hit, 2}) end)
+
+    assert {:ok, _chat, %ActionEvent{} = event} =
+             Chat.process_action(
+               chat,
+               :test,
+               %{
+                 thread_id: "test:room-action:thread-1",
+                 channel_id: "test:room-action",
+                 message_id: "msg-1",
+                 action_id: "deploy:approve",
+                 trigger_id: "trigger-1",
+                 metadata: %{related_message_id: "msg-root"}
+               },
+               []
+             )
+
+    assert %Thread{id: "test:room-action:thread-1"} = event.thread
+    assert %Jido.Chat.ChannelRef{id: "test:room-action"} = event.channel
+    assert %Jido.Chat.Message{id: "msg-1"} = event.message
+    assert %Jido.Chat.Message{id: "msg-root"} = event.related_message
+    assert_receive {:action_hit, 1}
+    assert_receive {:action_hit, 2}
+
+    assert {:ok, %ModalResult{external_room_id: "room-action"}} =
+             ActionEvent.open_modal(event, Modal.new(%{title: "Approval"}))
+  end
+
+  test "filtered slash command handlers match identifiers and expose modal helpers" do
+    chat =
+      Chat.new(adapters: %{test: TestAdapter})
+      |> Chat.on_slash_command("/deploy", fn _event -> send(self(), :slash_specific) end)
+      |> Chat.on_slash_command(fn _event -> send(self(), :slash_all) end)
+
+    assert {:ok, _chat, %SlashCommandEvent{} = event} =
+             Chat.process_slash_command(
+               chat,
+               :test,
+               %{
+                 command: "/deploy",
+                 channel_id: "test:room-slash",
+                 trigger_id: "trigger-2"
+               },
+               []
+             )
+
+    assert %Jido.Chat.ChannelRef{id: "test:room-slash"} = event.channel
+    assert_receive :slash_specific
+    assert_receive :slash_all
+
+    assert {:ok, %ModalResult{external_room_id: "room-slash"}} =
+             SlashCommandEvent.open_modal(event, Modal.new(%{title: "Deploy"}))
+  end
+
   test "open_modal returns unsupported when adapter does not implement it" do
     chat = Chat.new(adapters: %{no_modal: NoModalAdapter})
     thread = Chat.thread(chat, :no_modal, "room-unsupported", [])
@@ -572,6 +633,18 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received {:reaction_remove, "room-6", "msg_room-6", "👍"}
   end
 
+  test "emoji helpers render named reactions for lifecycle APIs" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-emoji", [])
+
+    assert {:ok, %SentMessage{} = sent} = Thread.post(thread, "emoji")
+    assert Chat.emoji(:rocket) == "🚀"
+    assert Chat.emoji(":custom_deploy:", custom: %{custom_deploy: "<deploy>"}) == "<deploy>"
+
+    assert :ok = SentMessage.add_reaction(sent, :thumbs_up)
+    assert_received {:reaction_add, "room-emoji", "msg_room-emoji", "👍"}
+  end
+
   test "thread typing and ephemeral fallback" do
     chat = Chat.new(adapters: %{test: TestAdapter})
     thread = Chat.thread(chat, :test, "room-7", [])
@@ -585,6 +658,29 @@ defmodule Jido.Chat.RuntimeTest do
     assert ephemeral.used_fallback == true
     assert ephemeral.thread_id == "test:dm-user-7"
     assert ephemeral.text == "secret"
+  end
+
+  test "ephemeral card payloads use canonical fallback text through DM fallback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-ephemeral-card", [])
+
+    card =
+      Card.new(%{
+        title: "Secret",
+        components: [Card.field("Scope", "private")]
+      })
+
+    assert {:ok, ephemeral} =
+             Thread.post_ephemeral(
+               thread,
+               "user-ephemeral-card",
+               Postable.card(card),
+               fallback_to_dm: true
+             )
+
+    assert ephemeral.used_fallback == true
+    assert ephemeral.text =~ "Secret"
+    assert ephemeral.text =~ "Scope: private"
   end
 
   test "ephemeral payloads can use file delivery through DM fallback" do
@@ -664,6 +760,26 @@ defmodule Jido.Chat.RuntimeTest do
     assert thread.external_room_id == "chan-files"
     assert thread.external_thread_id == "thr_root-123"
     assert thread.id == "test:chan-files:thr_root-123"
+  end
+
+  test "open_dm infers adapter from author metadata, prefixed ids, and single-adapter chats" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+
+    author =
+      Author.new(%{
+        user_id: "user-author",
+        user_name: "author",
+        metadata: %{adapter_name: :test}
+      })
+
+    assert {:ok, %Thread{external_room_id: "dm-user-author", is_dm: true}} =
+             Chat.open_dm(chat, author, [])
+
+    assert {:ok, %Thread{external_room_id: "dm-user-prefixed", is_dm: true}} =
+             Chat.open_dm(chat, "test:user-prefixed", [])
+
+    assert {:ok, %Thread{external_room_id: "dm-user-inferred", is_dm: true}} =
+             Chat.open_dm(chat, "user-inferred", [])
   end
 
   test "chat open_thread routes through adapter helper" do
@@ -883,6 +999,53 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received :slash_hit
     assert_received :assistant_thread_hit
     assert_received :assistant_context_hit
+  end
+
+  test "filtered reaction and modal handlers only fire on matching identifiers" do
+    chat =
+      Chat.new(adapters: %{test: TestAdapter})
+      |> Chat.on_reaction("👍", fn _event -> send(self(), :reaction_specific) end)
+      |> Chat.on_modal_submit("feedback", fn _event -> send(self(), :modal_submit_specific) end)
+      |> Chat.on_modal_close("feedback", fn _event -> send(self(), :modal_close_specific) end)
+
+    assert {:ok, _chat, _event} =
+             Chat.process_reaction(chat, :test, %{thread_id: "test:room-r", emoji: "👍"}, [])
+
+    assert {:ok, _chat, _event} =
+             Chat.process_modal_submit(chat, :test, %{callback_id: "feedback"}, [])
+
+    assert {:ok, _chat, _event} =
+             Chat.process_modal_close(chat, :test, %{callback_id: "feedback"}, [])
+
+    assert_received :reaction_specific
+    assert_received :modal_submit_specific
+    assert_received :modal_close_specific
+
+    assert {:ok, _chat, _event} = Chat.process_reaction(chat, :test, %{emoji: "👎"}, [])
+    refute_received :reaction_specific
+  end
+
+  test "assistant events gain thread and channel handles" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+
+    assert {:ok, _chat, assistant_started} =
+             Chat.process_assistant_thread_started(chat, :test, %{
+               thread_id: "test:room-assistant:thr-1",
+               channel_id: "test:room-assistant"
+             })
+
+    assert %Thread{id: "test:room-assistant:thr-1"} = assistant_started.thread
+    assert %Jido.Chat.ChannelRef{id: "test:room-assistant"} = assistant_started.channel
+
+    assert {:ok, _chat, assistant_changed} =
+             Chat.process_assistant_context_changed(chat, :test, %{
+               thread_id: "test:room-assistant:thr-1",
+               channel_id: "test:room-assistant",
+               context: %{phase: :thinking}
+             })
+
+    assert %Thread{id: "test:room-assistant:thr-1"} = assistant_changed.thread
+    assert assistant_changed.context == %{phase: :thinking}
   end
 
   test "process_event routes typed envelopes" do

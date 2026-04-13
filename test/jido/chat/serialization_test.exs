@@ -4,20 +4,28 @@ defmodule Jido.Chat.SerializationTest do
   alias Jido.Chat
 
   alias Jido.Chat.{
+    ActionEvent,
+    AssistantContextChangedEvent,
+    AssistantThreadStartedEvent,
     Attachment,
     Card,
     CapabilityMatrix,
     ChannelRef,
     EventEnvelope,
     FileUpload,
+    Incoming,
     IngressResult,
     Markdown,
     Message,
     Modal,
+    ModalCloseEvent,
     ModalResult,
+    ModalSubmitEvent,
     ModalResponse,
     PostPayload,
+    ReactionEvent,
     Response,
+    SlashCommandEvent,
     SentMessage,
     StreamChunk,
     Thread,
@@ -288,6 +296,90 @@ defmodule Jido.Chat.SerializationTest do
 
     assert %IngressResult{adapter_name: :test, mode: :request} =
              ingress_result |> IngressResult.to_map() |> IngressResult.from_map()
+  end
+
+  test "typed event payloads survive envelope serialization and reviving" do
+    reviver = Chat.reviver()
+
+    thread =
+      Thread.new(%{
+        id: "test:room-1:thr-1",
+        adapter_name: :test,
+        adapter: __MODULE__,
+        external_room_id: "room-1",
+        external_thread_id: "thr-1"
+      })
+
+    channel =
+      ChannelRef.new(%{
+        id: "test:room-1",
+        adapter_name: :test,
+        adapter: __MODULE__,
+        external_id: "room-1"
+      })
+
+    message =
+      Message.new(%{
+        id: "m1",
+        thread_id: thread.id,
+        channel_id: channel.id,
+        external_room_id: "room-1",
+        external_message_id: "m1"
+      })
+
+    reaction =
+      ReactionEvent.new(%{
+        adapter_name: :test,
+        thread_id: thread.id,
+        channel_id: channel.id,
+        message_id: "m1",
+        emoji: "👍",
+        thread: thread,
+        channel: channel,
+        message: message
+      })
+
+    envelope =
+      EventEnvelope.new(%{
+        adapter_name: :test,
+        event_type: :reaction,
+        payload: reaction
+      })
+
+    assert %EventEnvelope{payload: %ReactionEvent{thread: %Thread{}, channel: %ChannelRef{}}} =
+             envelope |> EventEnvelope.to_map() |> EventEnvelope.from_map()
+
+    assert %Incoming{} =
+             reviver.(
+               Incoming.new(%{external_room_id: "room-2", external_message_id: "m2"})
+               |> Incoming.to_map()
+             )
+
+    assert %ReactionEvent{} = reviver.(reaction |> ReactionEvent.to_map())
+
+    assert %ActionEvent{} =
+             reviver.(ActionEvent.new(%{action_id: "approve"}) |> ActionEvent.to_map())
+
+    assert %ModalSubmitEvent{} =
+             reviver.(ModalSubmitEvent.new(%{callback_id: "form"}) |> ModalSubmitEvent.to_map())
+
+    assert %ModalCloseEvent{} =
+             reviver.(ModalCloseEvent.new(%{callback_id: "form"}) |> ModalCloseEvent.to_map())
+
+    assert %SlashCommandEvent{} =
+             reviver.(SlashCommandEvent.new(%{command: "/help"}) |> SlashCommandEvent.to_map())
+
+    assert %AssistantThreadStartedEvent{} =
+             reviver.(
+               AssistantThreadStartedEvent.new(%{thread_id: "test:room:thr"})
+               |> AssistantThreadStartedEvent.to_map()
+             )
+
+    assert %AssistantContextChangedEvent{} =
+             reviver.(
+               AssistantContextChangedEvent.new(%{thread_id: "test:room:thr", context: %{a: 1}})
+               |> AssistantContextChangedEvent.to_map()
+             )
   end
 
   test "chat reviver supports all typed payloads" do

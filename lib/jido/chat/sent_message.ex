@@ -3,7 +3,7 @@ defmodule Jido.Chat.SentMessage do
   Canonical sent-message handle with follow-up lifecycle operations.
   """
 
-  alias Jido.Chat.{Adapter, Attachment, Author, PostPayload, Postable, Response, Wire}
+  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, PostPayload, Postable, Response, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -75,8 +75,10 @@ defmodule Jido.Chat.SentMessage do
   end
 
   @doc "Adds a reaction to the message when supported by the adapter."
-  @spec add_reaction(t(), String.t(), keyword()) :: :ok | {:error, term()}
-  def add_reaction(%__MODULE__{} = sent, emoji, opts \\ []) when is_binary(emoji) do
+  @spec add_reaction(t(), String.t() | atom(), keyword()) :: :ok | {:error, term()}
+  def add_reaction(%__MODULE__{} = sent, emoji, opts \\ []) do
+    emoji = Emoji.render(emoji, custom: opts[:custom_emoji])
+
     Adapter.add_reaction(
       sent.adapter,
       sent.external_room_id,
@@ -87,8 +89,10 @@ defmodule Jido.Chat.SentMessage do
   end
 
   @doc "Removes a reaction from the message when supported by the adapter."
-  @spec remove_reaction(t(), String.t(), keyword()) :: :ok | {:error, term()}
-  def remove_reaction(%__MODULE__{} = sent, emoji, opts \\ []) when is_binary(emoji) do
+  @spec remove_reaction(t(), String.t() | atom(), keyword()) :: :ok | {:error, term()}
+  def remove_reaction(%__MODULE__{} = sent, emoji, opts \\ []) do
+    emoji = Emoji.render(emoji, custom: opts[:custom_emoji])
+
     Adapter.remove_reaction(
       sent.adapter,
       sent.external_room_id,

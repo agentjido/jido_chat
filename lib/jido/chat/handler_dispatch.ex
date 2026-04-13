@@ -1,7 +1,16 @@
 defmodule Jido.Chat.HandlerDispatch do
   @moduledoc false
 
-  alias Jido.Chat.{EventNormalizer, Incoming, Thread}
+  alias Jido.Chat.{
+    ActionEvent,
+    EventNormalizer,
+    Incoming,
+    ModalCloseEvent,
+    ModalSubmitEvent,
+    ReactionEvent,
+    SlashCommandEvent,
+    Thread
+  }
 
   @spec process_message(map(), atom(), String.t(), Incoming.t() | map(), (map(),
                                                                           Incoming.t(),
@@ -27,7 +36,9 @@ defmodule Jido.Chat.HandlerDispatch do
 
   @spec run_event_handlers(map(), list(), term()) :: map()
   def run_event_handlers(chat, handlers, event) when is_map(chat) and is_list(handlers) do
-    Enum.reduce(handlers, chat, fn handler, acc -> run_event_handler(acc, handler, event) end)
+    handlers
+    |> ordered_handlers()
+    |> Enum.reduce(chat, fn handler, acc -> run_event_handler(acc, handler, event) end)
   end
 
   defp dedupe_key(_adapter_name, %Incoming{external_message_id: nil}), do: nil
@@ -85,12 +96,56 @@ defmodule Jido.Chat.HandlerDispatch do
     end
   end
 
+  defp run_event_handler(chat, {selector, handler}, event) do
+    if selector_matches?(selector, event) do
+      run_event_handler(chat, handler, event)
+    else
+      chat
+    end
+  end
+
   defp run_event_handler(chat, handler, event) do
     case :erlang.fun_info(handler, :arity) do
       {:arity, 2} -> coerce_handler_result(chat, handler.(chat, event))
       _ -> coerce_handler_result(chat, handler.(event))
     end
   end
+
+  defp ordered_handlers(handlers) do
+    {specific, catch_all} = Enum.split_with(handlers, &match?({_selector, _handler}, &1))
+    specific ++ catch_all
+  end
+
+  defp selector_matches?(:all, _event), do: true
+
+  defp selector_matches?(selectors, event) when is_list(selectors) do
+    Enum.any?(selectors, &selector_matches?(&1, event))
+  end
+
+  defp selector_matches?(%Regex{} = pattern, event) do
+    case selector_value(event) do
+      value when is_binary(value) -> Regex.match?(pattern, value)
+      _ -> false
+    end
+  end
+
+  defp selector_matches?(selector, event) when is_function(selector, 1), do: selector.(event)
+
+  defp selector_matches?(selector, event) when is_atom(selector) do
+    selector == selector_value(event) || Atom.to_string(selector) == selector_value(event)
+  end
+
+  defp selector_matches?(selector, event) when is_binary(selector),
+    do: selector == selector_value(event)
+
+  defp selector_matches?(_selector, _event), do: false
+
+  defp selector_value(%ReactionEvent{emoji: emoji}), do: emoji
+  defp selector_value(%ActionEvent{action_id: action_id}), do: action_id
+  defp selector_value(%ModalSubmitEvent{callback_id: callback_id}), do: callback_id
+  defp selector_value(%ModalCloseEvent{callback_id: callback_id}), do: callback_id
+  defp selector_value(%SlashCommandEvent{command: command}), do: command
+  defp selector_value(_event), do: nil
 
   defp coerce_handler_result(current_chat, next_chat) when is_map(next_chat) do
     if Map.get(next_chat, :__struct__) == Jido.Chat do
