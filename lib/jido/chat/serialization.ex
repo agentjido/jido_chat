@@ -5,10 +5,13 @@ defmodule Jido.Chat.Serialization do
     CapabilityMatrix,
     ChannelRef,
     EventEnvelope,
+    FileUpload,
     IngressResult,
     Message,
     ModalResult,
+    PostPayload,
     SentMessage,
+    StreamChunk,
     Thread,
     WebhookRequest,
     WebhookResponse,
@@ -66,7 +69,10 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "thread"} = map), do: Thread.from_map(map)
   def revive(%{"__type__" => "channel"} = map), do: ChannelRef.from_map(map)
   def revive(%{"__type__" => "message"} = map), do: Message.from_map(map)
+  def revive(%{"__type__" => "file_upload"} = map), do: FileUpload.from_map(map)
+  def revive(%{"__type__" => "post_payload"} = map), do: PostPayload.from_map(map)
   def revive(%{"__type__" => "sent_message"} = map), do: SentMessage.from_map(map)
+  def revive(%{"__type__" => "stream_chunk"} = map), do: StreamChunk.from_map(map)
   def revive(%{"__type__" => "event_envelope"} = map), do: EventEnvelope.from_map(map)
   def revive(%{"__type__" => "ingress_result"} = map), do: IngressResult.from_map(map)
   def revive(%{"__type__" => "modal_result"} = map), do: ModalResult.from_map(map)

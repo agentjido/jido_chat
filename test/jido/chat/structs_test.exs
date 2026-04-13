@@ -13,6 +13,7 @@ defmodule Jido.Chat.StructsTest do
     ChannelMeta,
     EphemeralMessage,
     EventEnvelope,
+    FileUpload,
     FetchOptions,
     Incoming,
     Media,
@@ -30,6 +31,7 @@ defmodule Jido.Chat.StructsTest do
     Room,
     SentMessage,
     SlashCommandEvent,
+    StreamChunk,
     ThreadPage,
     ThreadSummary,
     WebhookRequest,
@@ -177,6 +179,7 @@ defmodule Jido.Chat.StructsTest do
       assert text_payload.formatted == "hello"
 
       markdown_payload = Postable.markdown("**hello**") |> Postable.to_payload()
+      assert markdown_payload.markdown == "**hello**"
       assert markdown_payload.text == "**hello**"
       assert markdown_payload.metadata.format == :markdown
 
@@ -185,11 +188,16 @@ defmodule Jido.Chat.StructsTest do
       assert is_binary(raw_payload.text)
 
       ast_payload = Postable.ast(%{node: :p}) |> Postable.to_payload()
+      assert ast_payload.ast == %{node: :p}
       assert ast_payload.raw == %{node: :p}
       assert ast_payload.metadata.format == :ast
 
-      card_payload = Postable.card(%{title: "Card"}) |> Postable.to_payload()
+      card_payload =
+        Postable.card(%{title: "Card"}, fallback_text: "fallback card") |> Postable.to_payload()
+
+      assert card_payload.card == %{title: "Card"}
       assert card_payload.raw == %{title: "Card"}
+      assert card_payload.fallback_text == "fallback card"
       assert card_payload.metadata.format == :card
     end
 
@@ -222,6 +230,53 @@ defmodule Jido.Chat.StructsTest do
                  media_type: "application/pdf"
                }
              ] = payload.attachments
+    end
+
+    test "post payloads normalize outbound files into typed structs" do
+      payload =
+        Postable.new(%{
+          markdown: "**hello**",
+          files: [
+            "/tmp/report.pdf",
+            %{url: "https://example.com/photo.jpg", media_type: "image/jpeg"}
+          ]
+        })
+        |> Postable.to_payload()
+
+      assert payload.kind == :markdown
+
+      assert [
+               %FileUpload{
+                 kind: :file,
+                 path: "/tmp/report.pdf",
+                 filename: "report.pdf"
+               },
+               %FileUpload{
+                 kind: :image,
+                 url: "https://example.com/photo.jpg",
+                 media_type: "image/jpeg"
+               }
+             ] = payload.files
+
+      assert [
+               %Attachment{filename: "report.pdf", kind: :file},
+               %Attachment{kind: :image, url: "https://example.com/photo.jpg"}
+             ] = PostPayload.outbound_attachments(payload)
+    end
+
+    test "stream postables preserve text chunks and normalize structured chunks" do
+      payload =
+        Postable.stream([
+          "hello",
+          %{kind: :status, text: "working", metadata: %{phase: 1}},
+          StreamChunk.text("done")
+        ])
+        |> Postable.to_payload()
+
+      assert payload.kind == :stream
+      assert payload.stream |> Enum.at(0) == "hello"
+      assert %StreamChunk{kind: :status, text: "working"} = Enum.at(payload.stream, 1)
+      assert %StreamChunk{kind: :text, text: "done"} = Enum.at(payload.stream, 2)
     end
 
     test "event placeholder structs parse cleanly" do

@@ -453,6 +453,17 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received {:stream, "room-stream-post", "abc"}
   end
 
+  test "thread post routes stream postables through adapter stream callback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-stream-postable", [])
+
+    assert {:ok, %SentMessage{} = sent} =
+             Thread.post(thread, Postable.stream(["a", "b", "c"]))
+
+    assert sent.id == "stream_room-stream-postable"
+    assert_received {:stream, "room-stream-postable", "abc"}
+  end
+
   test "thread/channel open_modal route through adapter and normalize typed result" do
     chat = Chat.new(adapters: %{test: TestAdapter})
     thread = Chat.thread(chat, :test, "room-modal", [])
@@ -599,6 +610,26 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received {:send_file, "chan-post-file", %{kind: :file, filename: "doc.pdf"},
                      upload_opts}
 
+    assert upload_opts[:caption] == "hello"
+    assert upload_opts[:text] == "hello"
+  end
+
+  test "channel post routes file-bearing payloads through send_file" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    channel = Chat.channel(chat, :test, "chan-post-upload")
+
+    assert {:ok, %SentMessage{} = sent} =
+             Jido.Chat.ChannelRef.post(
+               channel,
+               Postable.text("hello", files: [%{path: "/tmp/report.pdf"}])
+             )
+
+    assert sent.id == "file_chan-post-upload"
+
+    assert [%{kind: :file, filename: "report.pdf"}] =
+             Enum.map(sent.attachments, &Map.from_struct/1)
+
+    assert_received {:send_file, "chan-post-upload", %{path: "/tmp/report.pdf"}, upload_opts}
     assert upload_opts[:caption] == "hello"
     assert upload_opts[:text] == "hello"
   end

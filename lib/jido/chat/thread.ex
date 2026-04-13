@@ -8,6 +8,7 @@ defmodule Jido.Chat.Thread do
     Attachment,
     Author,
     ChannelRef,
+    FileUpload,
     Message,
     MessagePage,
     ModalResult,
@@ -58,20 +59,20 @@ defmodule Jido.Chat.Thread do
   def post(%__MODULE__{} = thread, text, opts) when is_binary(text) do
     text
     |> PostPayload.text()
-    |> then(&post_payload(thread, &1, opts))
+    |> then(&dispatch_post_payload(thread, &1, opts))
   end
 
   def post(%__MODULE__{} = thread, %Postable{} = postable, opts) do
     postable
     |> Postable.to_payload()
-    |> then(&post_payload(thread, &1, opts))
+    |> then(&dispatch_post_payload(thread, &1, opts))
   end
 
   def post(%__MODULE__{} = thread, postable_map, opts) when is_map(postable_map) do
     postable_map
     |> Postable.new()
     |> Postable.to_payload()
-    |> then(&post_payload(thread, &1, opts))
+    |> then(&dispatch_post_payload(thread, &1, opts))
   rescue
     _ -> {:error, :invalid_postable}
   end
@@ -85,7 +86,7 @@ defmodule Jido.Chat.Thread do
   end
 
   @doc "Uploads a file to the thread when supported by the adapter."
-  @spec send_file(t(), Attachment.input(), keyword()) :: {:ok, SentMessage.t()} | {:error, term()}
+  @spec send_file(t(), FileUpload.input(), keyword()) :: {:ok, SentMessage.t()} | {:error, term()}
   def send_file(%__MODULE__{} = thread, file, opts \\ []) do
     opts = with_thread_opts(thread, opts)
 
@@ -327,15 +328,24 @@ defmodule Jido.Chat.Thread do
          thread_id: thread.id,
          adapter: thread.adapter,
          external_room_id: thread.external_room_id,
-         text: payload.text,
-         formatted: payload.formatted || payload.text,
+         text: PostPayload.display_text(payload),
+         formatted: payload.formatted || PostPayload.display_text(payload),
          raw: payload.raw,
-         attachments: payload.attachments || [],
+         attachments: PostPayload.outbound_attachments(payload),
          metadata: payload.metadata,
          response: response,
          default_opts: default_opts
        })}
     end
+  end
+
+  defp dispatch_post_payload(%__MODULE__{} = thread, %PostPayload{kind: :stream} = payload, opts)
+       when not is_nil(payload.stream) do
+    post_stream(thread, payload.stream, opts)
+  end
+
+  defp dispatch_post_payload(%__MODULE__{} = thread, %PostPayload{} = payload, opts) do
+    post_payload(thread, payload, opts)
   end
 
   defp post_stream(%__MODULE__{} = thread, enumerable, opts) do
@@ -437,13 +447,19 @@ defmodule Jido.Chat.Thread do
     Keyword.put_new(opts, :thread_id, external_thread_id)
   end
 
-  defp maybe_put_caption(opts, %PostPayload{text: nil}), do: opts
-  defp maybe_put_caption(opts, %PostPayload{text: ""}), do: opts
+  defp maybe_put_caption(opts, %PostPayload{} = payload) do
+    case PostPayload.display_text(payload) do
+      nil ->
+        opts
 
-  defp maybe_put_caption(opts, %PostPayload{text: text}) do
-    opts
-    |> Keyword.put_new(:caption, text)
-    |> Keyword.put_new(:text, text)
+      "" ->
+        opts
+
+      text ->
+        opts
+        |> Keyword.put_new(:caption, text)
+        |> Keyword.put_new(:text, text)
+    end
   end
 
   defp maybe_put_metadata(opts, metadata) when metadata in [%{}, nil], do: opts
@@ -453,14 +469,16 @@ defmodule Jido.Chat.Thread do
   end
 
   defp post_default_opts(adapter, %PostPayload{} = payload, opts, _scope) do
+    upload_candidates = PostPayload.upload_candidates(payload)
+
     cond do
       function_exported?(adapter, :post_message, 3) ->
         {:ok, opts}
 
-      payload.attachments in [nil, []] ->
+      upload_candidates in [nil, []] ->
         {:ok, opts}
 
-      match?([_attachment], payload.attachments) ->
+      match?([_attachment], upload_candidates) ->
         {:ok,
          opts
          |> maybe_put_caption(payload)

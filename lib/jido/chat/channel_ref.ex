@@ -7,6 +7,7 @@ defmodule Jido.Chat.ChannelRef do
     Adapter,
     Attachment,
     ChannelInfo,
+    FileUpload,
     MessagePage,
     ModalResult,
     PostPayload,
@@ -46,16 +47,16 @@ defmodule Jido.Chat.ChannelRef do
   def post(channel, input, opts \\ [])
 
   def post(%__MODULE__{} = channel, text, opts) when is_binary(text),
-    do: text |> PostPayload.text() |> then(&post_payload(channel, &1, opts))
+    do: text |> PostPayload.text() |> then(&dispatch_post_payload(channel, &1, opts))
 
   def post(%__MODULE__{} = channel, %Postable{} = postable, opts),
-    do: postable |> Postable.to_payload() |> then(&post_payload(channel, &1, opts))
+    do: postable |> Postable.to_payload() |> then(&dispatch_post_payload(channel, &1, opts))
 
   def post(%__MODULE__{} = channel, postable_map, opts) when is_map(postable_map) do
     postable_map
     |> Postable.new()
     |> Postable.to_payload()
-    |> then(&post_payload(channel, &1, opts))
+    |> then(&dispatch_post_payload(channel, &1, opts))
   rescue
     _ -> {:error, :invalid_postable}
   end
@@ -69,7 +70,7 @@ defmodule Jido.Chat.ChannelRef do
   end
 
   @doc "Uploads a file to the channel when supported by the adapter."
-  @spec send_file(t(), Attachment.input(), keyword()) ::
+  @spec send_file(t(), FileUpload.input(), keyword()) ::
           {:ok, SentMessage.t()} | {:error, term()}
   def send_file(%__MODULE__{} = channel, file, opts \\ []) do
     with {:ok, response} <- Adapter.send_file(channel.adapter, channel.external_id, file, opts) do
@@ -229,15 +230,24 @@ defmodule Jido.Chat.ChannelRef do
          thread_id: channel.id,
          adapter: channel.adapter,
          external_room_id: channel.external_id,
-         text: payload.text,
-         formatted: payload.formatted || payload.text,
+         text: PostPayload.display_text(payload),
+         formatted: payload.formatted || PostPayload.display_text(payload),
          raw: payload.raw,
-         attachments: payload.attachments || [],
+         attachments: PostPayload.outbound_attachments(payload),
          metadata: payload.metadata,
          response: response,
          default_opts: default_opts
        })}
     end
+  end
+
+  defp dispatch_post_payload(%__MODULE__{} = channel, %PostPayload{kind: :stream} = payload, opts)
+       when not is_nil(payload.stream) do
+    post_stream(channel, payload.stream, opts)
+  end
+
+  defp dispatch_post_payload(%__MODULE__{} = channel, %PostPayload{} = payload, opts) do
+    post_payload(channel, payload, opts)
   end
 
   defp post_stream(%__MODULE__{} = channel, enumerable, opts) do
@@ -269,13 +279,19 @@ defmodule Jido.Chat.ChannelRef do
   defp normalize_fetch_opts(_other),
     do: Jido.Chat.FetchOptions.to_keyword(Jido.Chat.FetchOptions.new(%{}))
 
-  defp maybe_put_caption(opts, %PostPayload{text: nil}), do: opts
-  defp maybe_put_caption(opts, %PostPayload{text: ""}), do: opts
+  defp maybe_put_caption(opts, %PostPayload{} = payload) do
+    case PostPayload.display_text(payload) do
+      nil ->
+        opts
 
-  defp maybe_put_caption(opts, %PostPayload{text: text}) do
-    opts
-    |> Keyword.put_new(:caption, text)
-    |> Keyword.put_new(:text, text)
+      "" ->
+        opts
+
+      text ->
+        opts
+        |> Keyword.put_new(:caption, text)
+        |> Keyword.put_new(:text, text)
+    end
   end
 
   defp maybe_put_metadata(opts, metadata) when metadata in [%{}, nil], do: opts
@@ -285,14 +301,16 @@ defmodule Jido.Chat.ChannelRef do
   end
 
   defp post_default_opts(adapter, %PostPayload{} = payload, opts) do
+    upload_candidates = PostPayload.upload_candidates(payload)
+
     cond do
       function_exported?(adapter, :post_message, 3) ->
         {:ok, opts}
 
-      payload.attachments in [nil, []] ->
+      upload_candidates in [nil, []] ->
         {:ok, opts}
 
-      match?([_attachment], payload.attachments) ->
+      match?([_attachment], upload_candidates) ->
         {:ok,
          opts
          |> maybe_put_caption(payload)

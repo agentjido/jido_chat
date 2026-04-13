@@ -8,11 +8,14 @@ defmodule Jido.Chat.SerializationTest do
     CapabilityMatrix,
     ChannelRef,
     EventEnvelope,
+    FileUpload,
     IngressResult,
     Message,
     ModalResult,
+    PostPayload,
     Response,
     SentMessage,
+    StreamChunk,
     Thread,
     WebhookRequest,
     WebhookResponse
@@ -173,6 +176,34 @@ defmodule Jido.Chat.SerializationTest do
 
     assert %SentMessage{attachments: [%Attachment{filename: "report.pdf"}]} =
              sent |> SentMessage.to_map() |> SentMessage.from_map()
+  end
+
+  test "file upload, stream chunk, and post payload round-trip" do
+    payload =
+      PostPayload.new(%{
+        kind: :card,
+        card: %{title: "Card"},
+        fallback_text: "Card fallback",
+        files: [%{path: "/tmp/report.pdf", media_type: "application/pdf"}],
+        stream: ["hello", %{kind: :status, text: "working"}]
+      })
+
+    assert %FileUpload{filename: "report.pdf"} =
+             %{path: "/tmp/report.pdf", media_type: "application/pdf"}
+             |> FileUpload.normalize()
+             |> FileUpload.to_map()
+             |> FileUpload.from_map()
+
+    assert %StreamChunk{kind: :status, text: "working"} =
+             StreamChunk.new(%{kind: :status, text: "working"})
+             |> StreamChunk.to_map()
+             |> StreamChunk.from_map()
+
+    assert %PostPayload{
+             kind: :card,
+             fallback_text: "Card fallback",
+             files: [%FileUpload{filename: "report.pdf"}]
+           } = payload |> PostPayload.to_map() |> PostPayload.from_map()
   end
 
   test "event and webhook structs round-trip" do

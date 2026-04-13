@@ -6,11 +6,11 @@ defmodule Jido.Chat.Adapter do
   """
 
   alias Jido.Chat.{
-    Attachment,
     CapabilityMatrix,
     ChannelInfo,
     EventEnvelope,
     EphemeralMessage,
+    FileUpload,
     FetchOptions,
     Incoming,
     ModalResult,
@@ -46,7 +46,7 @@ defmodule Jido.Chat.Adapter do
   @type thread_page_result :: {:ok, ThreadPage.t()} | {:error, term()}
   @type ephemeral_result :: {:ok, EphemeralMessage.t()} | {:error, term()}
   @type modal_result :: {:ok, ModalResult.t()} | {:error, term()}
-  @type file_input :: Attachment.input()
+  @type file_input :: FileUpload.input()
 
   @callback channel_type() :: atom()
   @callback transform_incoming(raw_payload()) :: incoming_result() | {:ok, map()}
@@ -317,6 +317,7 @@ defmodule Jido.Chat.Adapter do
   def post_message(adapter_module, external_room_id, %PostPayload{} = payload, opts) do
     scope = Keyword.get(opts, :scope, :thread)
     adapter_opts = Keyword.delete(opts, :scope)
+    upload_candidates = PostPayload.upload_candidates(payload)
 
     cond do
       function_exported?(adapter_module, :post_message, 3) ->
@@ -325,21 +326,31 @@ defmodule Jido.Chat.Adapter do
           {:ok, normalize_response(adapter_module, response)}
         end
 
-      payload.attachments in [nil, []] and scope == :channel ->
-        post_channel_message(adapter_module, external_room_id, payload.text || "", adapter_opts)
+      upload_candidates in [nil, []] and scope == :channel ->
+        post_channel_message(
+          adapter_module,
+          external_room_id,
+          PostPayload.display_text(payload) || "",
+          adapter_opts
+        )
 
-      payload.attachments in [nil, []] ->
-        send_message(adapter_module, external_room_id, payload.text || "", adapter_opts)
+      upload_candidates in [nil, []] ->
+        send_message(
+          adapter_module,
+          external_room_id,
+          PostPayload.display_text(payload) || "",
+          adapter_opts
+        )
 
-      match?([_single], payload.attachments) ->
-        [attachment] = payload.attachments
+      match?([_single], upload_candidates) ->
+        [upload] = upload_candidates
 
         file_opts =
           adapter_opts
           |> maybe_put_caption(payload)
           |> maybe_put_metadata(payload.metadata)
 
-        send_file(adapter_module, external_room_id, attachment, file_opts)
+        send_file(adapter_module, external_room_id, upload, file_opts)
 
       true ->
         {:error, :multiple_attachments_unsupported}
@@ -1047,13 +1058,19 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:format_webhook_response), do: {:format_webhook_response, 2}
   defp capability_callback(_), do: nil
 
-  defp maybe_put_caption(opts, %PostPayload{text: nil}), do: opts
-  defp maybe_put_caption(opts, %PostPayload{text: ""}), do: opts
+  defp maybe_put_caption(opts, %PostPayload{} = payload) do
+    case PostPayload.display_text(payload) do
+      nil ->
+        opts
 
-  defp maybe_put_caption(opts, %PostPayload{text: text}) do
-    opts
-    |> Keyword.put_new(:caption, text)
-    |> Keyword.put_new(:text, text)
+      "" ->
+        opts
+
+      text ->
+        opts
+        |> Keyword.put_new(:caption, text)
+        |> Keyword.put_new(:text, text)
+    end
   end
 
   defp maybe_put_metadata(opts, metadata) when metadata in [%{}, nil], do: opts
