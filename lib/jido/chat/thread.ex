@@ -174,17 +174,39 @@ defmodule Jido.Chat.Thread do
   end
 
   @doc "Posts an ephemeral message to a user with optional DM fallback policy."
-  @spec post_ephemeral(t(), String.t() | integer() | Author.t() | map(), String.t(), keyword()) ::
+  @spec post_ephemeral(
+          t(),
+          String.t() | integer() | Author.t() | map(),
+          String.t() | Postable.t() | map(),
+          keyword()
+        ) ::
           {:ok, Jido.Chat.EphemeralMessage.t()} | {:error, term()}
-  def post_ephemeral(%__MODULE__{} = thread, user, text, opts \\ []) when is_binary(text) do
+  def post_ephemeral(thread, user, input, opts \\ [])
+
+  def post_ephemeral(%__MODULE__{} = thread, user, text, opts) when is_binary(text) do
+    do_post_ephemeral(thread, user, PostPayload.text(text), opts)
+  end
+
+  def post_ephemeral(%__MODULE__{} = thread, user, %Postable{} = postable, opts) do
+    do_post_ephemeral(thread, user, Postable.to_payload(postable), opts)
+  end
+
+  def post_ephemeral(%__MODULE__{} = thread, user, postable_map, opts)
+      when is_map(postable_map) do
+    do_post_ephemeral(thread, user, postable_map |> Postable.new() |> Postable.to_payload(), opts)
+  rescue
+    _ -> {:error, :invalid_postable}
+  end
+
+  defp do_post_ephemeral(%__MODULE__{} = thread, user, %PostPayload{} = payload, opts) do
     with {:ok, external_user_id} <- external_user_id(user) do
       opts = with_thread_opts(thread, opts)
 
-      Adapter.post_ephemeral(
+      Adapter.post_ephemeral_message(
         thread.adapter,
         thread.external_room_id,
         external_user_id,
-        text,
+        payload,
         opts
       )
     end

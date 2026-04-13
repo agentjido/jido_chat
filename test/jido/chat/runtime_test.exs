@@ -495,8 +495,14 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert {:ok, %SentMessage{} = sent} = Thread.post(thread, "hello")
 
-    assert {:ok, %SentMessage{} = edited} = SentMessage.edit(sent, "updated")
+    assert {:ok, %SentMessage{} = edited} =
+             SentMessage.edit(sent, Postable.markdown("**updated**"))
+
     assert edited.response.status == :edited
+    assert edited.text == "**updated**"
+
+    assert {:error, :edit_attachments_unsupported} =
+             SentMessage.edit(sent, Postable.text("updated", files: ["/tmp/report.pdf"]))
 
     assert :ok = SentMessage.delete(sent)
     assert_received {:deleted, "room-6", "msg_room-6"}
@@ -520,6 +526,36 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert ephemeral.used_fallback == true
     assert ephemeral.thread_id == "test:dm-user-7"
+    assert ephemeral.text == "secret"
+  end
+
+  test "ephemeral payloads can use file delivery through DM fallback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-ephemeral-file", [])
+
+    assert {:ok, ephemeral} =
+             Thread.post_ephemeral(
+               thread,
+               "user-ephemeral",
+               Postable.text("secret", files: [%{path: "/tmp/report.pdf"}]),
+               fallback_to_dm: true
+             )
+
+    assert ephemeral.used_fallback == true
+    assert ephemeral.text == "secret"
+    assert [%{filename: "report.pdf"}] = Enum.map(ephemeral.attachments, &Map.from_struct/1)
+  end
+
+  test "ephemeral file payloads are rejected without DM fallback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    channel = Chat.channel(chat, :test, "chan-ephemeral-file")
+
+    assert {:error, :ephemeral_attachments_unsupported} =
+             Jido.Chat.ChannelRef.post_ephemeral(
+               channel,
+               "user-ephemeral",
+               Postable.text("secret", files: [%{path: "/tmp/report.pdf"}])
+             )
   end
 
   test "thread messages and all_messages pagination" do

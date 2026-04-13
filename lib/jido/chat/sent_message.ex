@@ -3,7 +3,7 @@ defmodule Jido.Chat.SentMessage do
   Canonical sent-message handle with follow-up lifecycle operations.
   """
 
-  alias Jido.Chat.{Adapter, Attachment, Author, Response, Wire}
+  alias Jido.Chat.{Adapter, Attachment, Author, PostPayload, Postable, Response, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -43,28 +43,29 @@ defmodule Jido.Chat.SentMessage do
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 
-  @doc "Edits the message text and returns an updated sent-message handle."
-  @spec edit(t(), String.t(), keyword()) :: {:ok, t()} | {:error, term()}
-  def edit(%__MODULE__{} = sent, text, opts \\ []) when is_binary(text) do
-    with {:ok, response} <-
-           Adapter.edit_message(
-             sent.adapter,
-             sent.external_room_id,
-             sent.id,
-             text,
-             merge_opts(sent, opts)
-           ) do
-      {:ok,
-       %{
-         sent
-         | id: response.external_message_id || sent.id,
-           external_room_id: response.external_room_id || sent.external_room_id,
-           response: response,
-           text: text,
-           formatted: text,
-           raw: response.raw
-       }}
-    end
+  @doc "Edits the message using the canonical outbound payload contract."
+  @spec edit(t(), String.t() | Postable.t() | map(), keyword()) :: {:ok, t()} | {:error, term()}
+  def edit(message, input, opts \\ [])
+
+  def edit(%__MODULE__{} = sent, text, opts) when is_binary(text) do
+    text
+    |> PostPayload.text()
+    |> then(&edit_payload(sent, &1, opts))
+  end
+
+  def edit(%__MODULE__{} = sent, %Postable{} = postable, opts) do
+    postable
+    |> Postable.to_payload()
+    |> then(&edit_payload(sent, &1, opts))
+  end
+
+  def edit(%__MODULE__{} = sent, postable_map, opts) when is_map(postable_map) do
+    postable_map
+    |> Postable.new()
+    |> Postable.to_payload()
+    |> then(&edit_payload(sent, &1, opts))
+  rescue
+    _ -> {:error, :invalid_postable}
   end
 
   @doc "Deletes the message when supported by the adapter."
@@ -186,4 +187,39 @@ defmodule Jido.Chat.SentMessage do
        do: Keyword.merge(defaults, opts)
 
   defp merge_opts(_sent, opts), do: opts
+
+  defp edit_payload(%__MODULE__{} = sent, %PostPayload{} = payload, opts) do
+    upload_candidates = PostPayload.upload_candidates(payload)
+    text = PostPayload.display_text(payload)
+
+    cond do
+      payload.kind == :stream ->
+        {:error, :edit_stream_unsupported}
+
+      upload_candidates != [] ->
+        {:error, :edit_attachments_unsupported}
+
+      true ->
+        with {:ok, response} <-
+               Adapter.edit_message(
+                 sent.adapter,
+                 sent.external_room_id,
+                 sent.id,
+                 text || "",
+                 merge_opts(sent, opts)
+               ) do
+          {:ok,
+           %{
+             sent
+             | id: response.external_message_id || sent.id,
+               external_room_id: response.external_room_id || sent.external_room_id,
+               response: response,
+               text: text,
+               formatted: payload.formatted || text,
+               raw: payload.raw || response.raw,
+               metadata: Map.merge(sent.metadata || %{}, payload.metadata || %{})
+           }}
+        end
+    end
+  end
 end

@@ -17,6 +17,7 @@ defmodule Jido.Chat.Adapter do
     Message,
     MessagePage,
     PostPayload,
+    Postable,
     Response,
     WebhookRequest,
     WebhookResponse,
@@ -277,6 +278,7 @@ defmodule Jido.Chat.Adapter do
         format_webhook_response:
           support_status(adapter_module, :format_webhook_response, 2, :fallback)
       }
+      |> ensure_capability_defaults(adapter_module)
     end
   end
 
@@ -519,28 +521,81 @@ defmodule Jido.Chat.Adapter do
   @spec post_ephemeral(module(), external_room_id(), external_user_id(), String.t(), keyword()) ::
           ephemeral_result()
   def post_ephemeral(adapter_module, external_room_id, external_user_id, text, opts \\ []) do
-    if function_exported?(adapter_module, :post_ephemeral, 4) do
-      with {:ok, message} <-
-             adapter_module.post_ephemeral(external_room_id, external_user_id, text, opts) do
-        {:ok, normalize_ephemeral(adapter_module, message, external_room_id, false)}
-      end
-    else
-      fallback_to_dm = Keyword.get(opts, :fallback_to_dm, false)
+    post_ephemeral_message(
+      adapter_module,
+      external_room_id,
+      external_user_id,
+      PostPayload.text(text),
+      opts
+    )
+  end
 
-      if fallback_to_dm and function_exported?(adapter_module, :open_dm, 2) do
-        with {:ok, dm_room_id} <- adapter_module.open_dm(external_user_id, opts),
-             {:ok, response} <- send_message(adapter_module, dm_room_id, text, opts) do
-          {:ok,
-           EphemeralMessage.new(%{
-             id: response.external_message_id || Jido.Chat.ID.generate!(),
-             thread_id: fallback_thread_id(adapter_module, dm_room_id),
-             used_fallback: true,
-             raw: response.raw,
-             metadata: %{source_room_id: external_room_id}
-           })}
-        end
-      else
-        {:error, :unsupported}
+  @doc "Posts an ephemeral payload using the canonical outbound payload contract."
+  @spec post_ephemeral_message(
+          module(),
+          external_room_id(),
+          external_user_id(),
+          String.t() | Postable.t() | PostPayload.t() | map(),
+          keyword()
+        ) :: ephemeral_result()
+  def post_ephemeral_message(
+        adapter_module,
+        external_room_id,
+        external_user_id,
+        input,
+        opts \\ []
+      ) do
+    with {:ok, payload} <- normalize_post_payload_input(input) do
+      upload_candidates = PostPayload.upload_candidates(payload)
+      text = PostPayload.display_text(payload) || ""
+      base_opts = maybe_put_metadata(opts, payload.metadata)
+      fallback_to_dm = Keyword.get(base_opts, :fallback_to_dm, false)
+
+      cond do
+        upload_candidates == [] and function_exported?(adapter_module, :post_ephemeral, 4) ->
+          with {:ok, message} <-
+                 adapter_module.post_ephemeral(
+                   external_room_id,
+                   external_user_id,
+                   text,
+                   base_opts
+                 ) do
+            {:ok,
+             normalize_ephemeral(
+               adapter_module,
+               message,
+               external_room_id,
+               false,
+               payload,
+               base_opts
+             )}
+          end
+
+        fallback_to_dm and function_exported?(adapter_module, :open_dm, 2) ->
+          dm_opts = Keyword.delete(base_opts, :fallback_to_dm)
+
+          with {:ok, dm_room_id} <- adapter_module.open_dm(external_user_id, base_opts),
+               {:ok, response} <- post_message(adapter_module, dm_room_id, payload, dm_opts) do
+            {:ok,
+             EphemeralMessage.new(%{
+               id: response.external_message_id || Jido.Chat.ID.generate!(),
+               thread_id: fallback_thread_id(adapter_module, dm_room_id),
+               text: text,
+               formatted: payload.formatted || text,
+               used_fallback: true,
+               raw: response.raw,
+               attachments: PostPayload.outbound_attachments(payload),
+               metadata:
+                 %{source_room_id: external_room_id, delivery: :dm_fallback}
+                 |> Map.merge(payload.metadata || %{})
+             })}
+          end
+
+        upload_candidates != [] ->
+          {:error, :ephemeral_attachments_unsupported}
+
+        true ->
+          {:error, :unsupported}
       end
     end
   end
@@ -761,6 +816,8 @@ defmodule Jido.Chat.Adapter do
     if function_exported?(adapter_module, callback, arity), do: :native, else: fallback
   end
 
+  defp supported_status?(status), do: status in [:native, :fallback]
+
   defp normalize_capability_matrix(matrix) when is_map(matrix),
     do: matrix |> then(&CapabilityMatrix.new(%{capabilities: &1})) |> CapabilityMatrix.as_map()
 
@@ -886,11 +943,20 @@ defmodule Jido.Chat.Adapter do
          _adapter_module,
          %EphemeralMessage{} = message,
          _external_room_id,
-         _used_fallback
+         _used_fallback,
+         _payload,
+         _opts
        ),
        do: message
 
-  defp normalize_ephemeral(adapter_module, message, external_room_id, used_fallback)
+  defp normalize_ephemeral(
+         adapter_module,
+         message,
+         external_room_id,
+         used_fallback,
+         payload,
+         opts
+       )
        when is_map(message) do
     thread_id =
       message[:thread_id] || message["thread_id"] ||
@@ -904,9 +970,19 @@ defmodule Jido.Chat.Adapter do
     EphemeralMessage.new(%{
       id: to_string(id),
       thread_id: to_string(thread_id),
+      text: message[:text] || message["text"] || PostPayload.display_text(payload),
+      formatted:
+        message[:formatted] || message["formatted"] || payload.formatted ||
+          PostPayload.display_text(payload),
       used_fallback: message[:used_fallback] || message["used_fallback"] || used_fallback,
       raw: message[:raw] || message["raw"],
-      metadata: message[:metadata] || message["metadata"] || %{}
+      attachments:
+        message[:attachments] || message["attachments"] ||
+          PostPayload.outbound_attachments(payload),
+      metadata:
+        (message[:metadata] || message["metadata"] || %{})
+        |> Map.merge(payload.metadata || %{})
+        |> Map.merge(metadata_from_opts(opts))
     })
   end
 
@@ -960,6 +1036,12 @@ defmodule Jido.Chat.Adapter do
     do: "#{adapter_type(adapter_module)}:#{external_room_id}"
 
   defp ensure_capability_defaults(matrix, adapter_module) do
+    single_upload_supported? =
+      supported_status?(matrix[:send_file]) or supported_status?(matrix[:post_message])
+
+    multi_upload_supported? =
+      supported_status?(matrix[:multi_file]) or supported_status?(matrix[:post_message])
+
     defaults = %{
       initialize: support_status(adapter_module, :initialize, 1, :fallback),
       shutdown: support_status(adapter_module, :shutdown, 1, :fallback),
@@ -987,7 +1069,23 @@ defmodule Jido.Chat.Adapter do
       verify_webhook: support_status(adapter_module, :verify_webhook, 2, :fallback),
       parse_event: support_status(adapter_module, :parse_event, 2, :fallback),
       format_webhook_response:
-        support_status(adapter_module, :format_webhook_response, 2, :fallback)
+        support_status(adapter_module, :format_webhook_response, 2, :fallback),
+      text: :native,
+      image: if(single_upload_supported?, do: :fallback, else: :unsupported),
+      audio: if(single_upload_supported?, do: :fallback, else: :unsupported),
+      video: if(single_upload_supported?, do: :fallback, else: :unsupported),
+      file: if(single_upload_supported?, do: :fallback, else: :unsupported),
+      multi_file: if(multi_upload_supported?, do: :fallback, else: :unsupported),
+      markdown: :unsupported,
+      cards: :unsupported,
+      modals: support_status(adapter_module, :open_modal, 3),
+      ephemeral:
+        cond do
+          function_exported?(adapter_module, :post_ephemeral, 4) -> :native
+          function_exported?(adapter_module, :open_dm, 2) -> :fallback
+          true -> :unsupported
+        end,
+      assistant_events: :unsupported
     }
 
     Map.merge(defaults, matrix)
@@ -1004,6 +1102,33 @@ defmodule Jido.Chat.Adapter do
   end
 
   defp normalize_webhook_request(other, _opts), do: WebhookRequest.new(%{payload: %{raw: other}})
+
+  defp normalize_post_payload_input(%PostPayload{} = payload), do: {:ok, payload}
+
+  defp normalize_post_payload_input(%Postable{} = postable),
+    do: {:ok, Postable.to_payload(postable)}
+
+  defp normalize_post_payload_input(input) when is_binary(input),
+    do: {:ok, PostPayload.text(input)}
+
+  defp normalize_post_payload_input(input) when is_map(input) do
+    try do
+      {:ok, input |> Postable.new() |> Postable.to_payload()}
+    rescue
+      _ -> {:error, :invalid_postable}
+    end
+  end
+
+  defp normalize_post_payload_input(_input), do: {:error, :invalid_postable}
+
+  defp metadata_from_opts(opts) when is_list(opts) do
+    case Keyword.get(opts, :metadata) do
+      metadata when is_map(metadata) -> metadata
+      _other -> %{}
+    end
+  end
+
+  defp metadata_from_opts(_opts), do: %{}
 
   defp normalize_event_envelope(_adapter_module, %EventEnvelope{} = envelope), do: envelope
 

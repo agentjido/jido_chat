@@ -105,10 +105,41 @@ defmodule Jido.Chat.ChannelRef do
   end
 
   @doc "Posts an ephemeral message via adapter when supported."
-  @spec post_ephemeral(t(), String.t() | integer(), String.t(), keyword()) ::
+  @spec post_ephemeral(t(), String.t() | integer(), String.t() | Postable.t() | map(), keyword()) ::
           {:ok, Jido.Chat.EphemeralMessage.t()} | {:error, term()}
-  def post_ephemeral(%__MODULE__{} = channel, user_id, text, opts \\ []) when is_binary(text) do
-    Adapter.post_ephemeral(channel.adapter, channel.external_id, user_id, text, opts)
+  def post_ephemeral(channel, user_id, input, opts \\ [])
+
+  def post_ephemeral(%__MODULE__{} = channel, user_id, text, opts) when is_binary(text) do
+    Adapter.post_ephemeral_message(
+      channel.adapter,
+      channel.external_id,
+      user_id,
+      PostPayload.text(text),
+      opts
+    )
+  end
+
+  def post_ephemeral(%__MODULE__{} = channel, user_id, %Postable{} = postable, opts) do
+    Adapter.post_ephemeral_message(
+      channel.adapter,
+      channel.external_id,
+      user_id,
+      Postable.to_payload(postable),
+      opts
+    )
+  end
+
+  def post_ephemeral(%__MODULE__{} = channel, user_id, postable_map, opts)
+      when is_map(postable_map) do
+    Adapter.post_ephemeral_message(
+      channel.adapter,
+      channel.external_id,
+      user_id,
+      postable_map |> Postable.new() |> Postable.to_payload(),
+      opts
+    )
+  rescue
+    _ -> {:error, :invalid_postable}
   end
 
   @doc "Starts typing indicator on channel when supported."

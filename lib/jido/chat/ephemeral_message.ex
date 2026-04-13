@@ -3,13 +3,18 @@ defmodule Jido.Chat.EphemeralMessage do
   Canonical result of an ephemeral send attempt.
   """
 
+  alias Jido.Chat.Attachment
+
   @schema Zoi.struct(
             __MODULE__,
             %{
               id: Zoi.string(),
               thread_id: Zoi.string(),
+              text: Zoi.string() |> Zoi.nullish(),
+              formatted: Zoi.string() |> Zoi.nullish(),
               used_fallback: Zoi.boolean() |> Zoi.default(false),
               raw: Zoi.any() |> Zoi.nullish(),
+              attachments: Zoi.array(Zoi.struct(Attachment)) |> Zoi.default([]),
               metadata: Zoi.map() |> Zoi.default(%{})
             },
             coerce: true
@@ -24,5 +29,23 @@ defmodule Jido.Chat.EphemeralMessage do
   def schema, do: @schema
 
   @doc "Creates an ephemeral message result struct."
-  def new(attrs) when is_map(attrs), do: Jido.Chat.Schema.parse!(__MODULE__, @schema, attrs)
+  def new(attrs) when is_map(attrs) do
+    attrs
+    |> normalize_attachments()
+    |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
+  end
+
+  defp normalize_attachments(attrs) do
+    attachments = attrs[:attachments] || attrs["attachments"] || []
+
+    normalized =
+      Enum.map(attachments, fn
+        %Attachment{} = attachment -> attachment
+        attachment -> Attachment.normalize(attachment)
+      end)
+
+    attrs
+    |> Map.delete("attachments")
+    |> Map.put(:attachments, normalized)
+  end
 end

@@ -1,13 +1,15 @@
 defmodule Jido.Chat.CapabilitiesTest do
   use ExUnit.Case, async: true
 
-  alias Jido.Chat.Capabilities
+  alias Jido.Chat.{Capabilities, PostPayload, Postable}
   alias Jido.Chat.Content.{Audio, Image, Text, ToolResult, ToolUse}
 
   test "supports?/2 and all/0" do
     assert Capabilities.supports?([:text, :image], :image)
     refute Capabilities.supports?([:text], :image)
     assert :file in Capabilities.all()
+    assert :multi_file in Capabilities.all()
+    assert :cards in Capabilities.all()
     refute :message_edit in Capabilities.all()
   end
 
@@ -33,6 +35,28 @@ defmodule Jido.Chat.CapabilitiesTest do
     assert [%Audio{}] = Capabilities.unsupported_content(content, [:text, :image])
   end
 
+  test "can_deliver?/2 handles outbound post payloads" do
+    assert Capabilities.can_deliver?(
+             [:text, :file],
+             Postable.text("hello", files: ["/tmp/report.pdf"])
+           )
+
+    refute Capabilities.can_deliver?(
+             [:text, :file],
+             Postable.text("hello", files: ["/tmp/report.pdf", "/tmp/other.pdf"])
+           )
+
+    assert Capabilities.can_deliver?(
+             [:text],
+             PostPayload.new(%{kind: :card, card: %{title: "Card"}, fallback_text: "fallback"})
+           )
+
+    refute Capabilities.can_deliver?(
+             [:text],
+             PostPayload.new(%{kind: :stream, stream: ["hello"]})
+           )
+  end
+
   test "channel_capabilities/1 defaults to [:text] for adapters without an explicit matrix" do
     defmodule AdapterWithoutCapabilities do
       @behaviour Jido.Chat.Adapter
@@ -47,10 +71,10 @@ defmodule Jido.Chat.CapabilitiesTest do
       def send_message(_, _, _), do: {:error, :not_implemented}
     end
 
-    assert Capabilities.channel_capabilities(AdapterWithoutCapabilities) == [:text]
+    assert Capabilities.channel_capabilities(AdapterWithoutCapabilities) == [:text, :streaming]
   end
 
-  test "channel_capabilities/1 derives content and operational support from adapter capability matrices" do
+  test "channel_capabilities/1 derives delivery support from adapter capability matrices" do
     defmodule AdapterWithThreading do
       @behaviour Jido.Chat.Adapter
 
@@ -65,6 +89,8 @@ defmodule Jido.Chat.CapabilitiesTest do
         %{
           send_message: :native,
           post_message: :native,
+          cards: :native,
+          modals: :native,
           open_thread: :native,
           list_threads: :native,
           add_reaction: :native,
@@ -87,6 +113,9 @@ defmodule Jido.Chat.CapabilitiesTest do
              :audio,
              :video,
              :file,
+             :multi_file,
+             :cards,
+             :modals,
              :threads,
              :reactions,
              :typing,
