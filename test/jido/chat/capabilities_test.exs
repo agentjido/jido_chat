@@ -122,4 +122,28 @@ defmodule Jido.Chat.CapabilitiesTest do
              :streaming
            ]
   end
+
+  test "channel_capabilities/1 preserves legacy list-based adapter capabilities" do
+    defmodule AdapterWithLegacyListCapabilities do
+      @behaviour Jido.Chat.Adapter
+
+      @impl true
+      def channel_type, do: :legacy_caps
+
+      @impl true
+      def capabilities, do: [:text, :image, :threads]
+
+      @impl true
+      def transform_incoming(_), do: {:error, :not_implemented}
+
+      @impl true
+      def send_message(_, _, _), do: {:error, :not_implemented}
+    end
+
+    assert Capabilities.channel_capabilities(AdapterWithLegacyListCapabilities) == [
+             :text,
+             :image,
+             :threads
+           ]
+  end
 end

@@ -205,6 +205,7 @@ defmodule Jido.Chat.RuntimeTest do
        %{
          external_room_id: room_id,
          external_thread_id: "thr_#{message_id}",
+         delivery_external_room_id: "delivery_#{message_id}",
          metadata: %{root_message_id: message_id}
        }}
     end
@@ -862,6 +863,7 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert thread.external_thread_id == "thr_msg-1"
     assert thread.metadata.root_message_id == "msg-1"
+    assert thread.metadata.delivery_external_room_id == "delivery_msg-1"
   end
 
   test "channel post preserves postable payload fields in sent handle" do

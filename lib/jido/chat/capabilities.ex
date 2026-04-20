@@ -138,9 +138,18 @@ defmodule Jido.Chat.Capabilities do
   @doc "Returns the delivery-focused capability list for an adapter module."
   @spec channel_capabilities(module()) :: capabilities()
   def channel_capabilities(adapter_module) when is_atom(adapter_module) do
-    adapter_module
-    |> Adapter.capabilities()
-    |> normalize_adapter_capabilities()
+    capabilities =
+      if Code.ensure_loaded?(adapter_module) and
+           function_exported?(adapter_module, :capabilities, 0) do
+        case adapter_module.capabilities() do
+          caps when is_list(caps) -> caps
+          _ -> Adapter.capabilities(adapter_module)
+        end
+      else
+        Adapter.capabilities(adapter_module)
+      end
+
+    normalize_adapter_capabilities(capabilities)
   end
 
   defp normalize_adapter_capabilities(capabilities) when is_list(capabilities) do

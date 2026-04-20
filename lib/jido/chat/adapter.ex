@@ -248,7 +248,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Returns capability matrix for adapter-native vs fallback support."
   @spec capabilities(module()) :: capability_matrix()
   def capabilities(adapter_module) do
-    if function_exported?(adapter_module, :capabilities, 0) do
+    if callback_exported?(adapter_module, :capabilities, 0) do
       adapter_module.capabilities()
       |> normalize_capability_matrix()
       |> ensure_capability_defaults(adapter_module)
@@ -892,6 +892,13 @@ defmodule Jido.Chat.Adapter do
     external_thread_id =
       thread[:external_thread_id] || thread["external_thread_id"] || opts[:external_thread_id]
 
+    metadata =
+      (thread[:metadata] || thread["metadata"] || %{})
+      |> maybe_put_thread_metadata(
+        :delivery_external_room_id,
+        thread[:delivery_external_room_id] || thread["delivery_external_room_id"]
+      )
+
     Thread.new(%{
       id:
         thread[:id] || thread["id"] ||
@@ -904,7 +911,7 @@ defmodule Jido.Chat.Adapter do
       external_thread_id: external_thread_id,
       channel_id: thread[:channel_id] || thread["channel_id"],
       is_dm: thread[:is_dm] || thread["is_dm"] || false,
-      metadata: thread[:metadata] || thread["metadata"] || %{}
+      metadata: metadata
     })
   end
 
@@ -969,6 +976,9 @@ defmodule Jido.Chat.Adapter do
 
   defp normalize_thread_page(%ThreadPage{} = page), do: page
   defp normalize_thread_page(page) when is_map(page), do: ThreadPage.new(page)
+
+  defp maybe_put_thread_metadata(metadata, _key, nil), do: metadata
+  defp maybe_put_thread_metadata(metadata, key, value), do: Map.put(metadata, key, value)
 
   defp normalize_ephemeral(
          _adapter_module,
@@ -1256,8 +1266,8 @@ defmodule Jido.Chat.Adapter do
       modals: support_status(adapter_module, :open_modal, 3),
       ephemeral:
         cond do
-          function_exported?(adapter_module, :post_ephemeral, 4) -> :native
-          function_exported?(adapter_module, :open_dm, 2) -> :fallback
+          callback_exported?(adapter_module, :post_ephemeral, 4) -> :native
+          callback_exported?(adapter_module, :open_dm, 2) -> :fallback
           true -> :unsupported
         end,
       assistant_events: :unsupported
@@ -1357,6 +1367,10 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:parse_event), do: {:parse_event, 2}
   defp capability_callback(:format_webhook_response), do: {:format_webhook_response, 2}
   defp capability_callback(_), do: nil
+
+  defp callback_exported?(adapter_module, callback, arity) do
+    Code.ensure_loaded?(adapter_module) and function_exported?(adapter_module, callback, arity)
+  end
 
   defp maybe_put_caption(opts, %PostPayload{} = payload) do
     case PostPayload.display_text(payload) do
