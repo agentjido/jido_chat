@@ -20,7 +20,7 @@ defmodule Jido.Chat.MixProject do
   end
 
   def cli do
-    [preferred_envs: [quality: :test, q: :test]]
+    [preferred_envs: [quality: :test, q: :test, cover: :test]]
   end
 
   def application do
@@ -42,6 +42,7 @@ defmodule Jido.Chat.MixProject do
   defp aliases do
     [
       q: ["quality"],
+      cover: ["test --cover"],
       quality: [
         "format --check-formatted",
         "compile --warnings-as-errors",

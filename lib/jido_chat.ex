@@ -1,6 +1,11 @@
 defmodule Jido.Chat do
   @moduledoc """
-  Core chat SDK facade and event-loop state container.
+  Core adapter-contract facade and lightweight event-loop state container.
+
+  `jido_chat` owns canonical chat types, adapter contracts, typed handles, and
+  deterministic fallback behavior. It does not define the supervised runtime or
+  process tree for production messaging systems; that responsibility belongs in
+  `jido_messaging`.
   """
 
   alias Jido.Chat.{
