@@ -6,20 +6,25 @@ defmodule Jido.Chat.Adapter do
   """
 
   alias Jido.Chat.{
-    Attachment,
+    Card,
     CapabilityMatrix,
     ChannelInfo,
     EventEnvelope,
     EphemeralMessage,
+    FileUpload,
     FetchOptions,
     Incoming,
+    Markdown,
+    Modal,
     ModalResult,
     Message,
     MessagePage,
     PostPayload,
+    Postable,
     Response,
     WebhookRequest,
     WebhookResponse,
+    StreamChunk,
     Thread,
     ThreadPage
   }
@@ -46,7 +51,7 @@ defmodule Jido.Chat.Adapter do
   @type thread_page_result :: {:ok, ThreadPage.t()} | {:error, term()}
   @type ephemeral_result :: {:ok, EphemeralMessage.t()} | {:error, term()}
   @type modal_result :: {:ok, ModalResult.t()} | {:error, term()}
-  @type file_input :: Attachment.input()
+  @type file_input :: FileUpload.input()
 
   @callback channel_type() :: atom()
   @callback transform_incoming(raw_payload()) :: incoming_result() | {:ok, map()}
@@ -243,7 +248,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Returns capability matrix for adapter-native vs fallback support."
   @spec capabilities(module()) :: capability_matrix()
   def capabilities(adapter_module) do
-    if function_exported?(adapter_module, :capabilities, 0) do
+    if callback_exported?(adapter_module, :capabilities, 0) do
       adapter_module.capabilities()
       |> normalize_capability_matrix()
       |> ensure_capability_defaults(adapter_module)
@@ -277,6 +282,7 @@ defmodule Jido.Chat.Adapter do
         format_webhook_response:
           support_status(adapter_module, :format_webhook_response, 2, :fallback)
       }
+      |> ensure_capability_defaults(adapter_module)
     end
   end
 
@@ -317,6 +323,7 @@ defmodule Jido.Chat.Adapter do
   def post_message(adapter_module, external_room_id, %PostPayload{} = payload, opts) do
     scope = Keyword.get(opts, :scope, :thread)
     adapter_opts = Keyword.delete(opts, :scope)
+    upload_candidates = PostPayload.upload_candidates(payload)
 
     cond do
       function_exported?(adapter_module, :post_message, 3) ->
@@ -325,21 +332,31 @@ defmodule Jido.Chat.Adapter do
           {:ok, normalize_response(adapter_module, response)}
         end
 
-      payload.attachments in [nil, []] and scope == :channel ->
-        post_channel_message(adapter_module, external_room_id, payload.text || "", adapter_opts)
+      upload_candidates in [nil, []] and scope == :channel ->
+        post_channel_message(
+          adapter_module,
+          external_room_id,
+          PostPayload.display_text(payload) || "",
+          adapter_opts
+        )
 
-      payload.attachments in [nil, []] ->
-        send_message(adapter_module, external_room_id, payload.text || "", adapter_opts)
+      upload_candidates in [nil, []] ->
+        send_message(
+          adapter_module,
+          external_room_id,
+          PostPayload.display_text(payload) || "",
+          adapter_opts
+        )
 
-      match?([_single], payload.attachments) ->
-        [attachment] = payload.attachments
+      match?([_single], upload_candidates) ->
+        [upload] = upload_candidates
 
         file_opts =
           adapter_opts
           |> maybe_put_caption(payload)
           |> maybe_put_metadata(payload.metadata)
 
-        send_file(adapter_module, external_room_id, attachment, file_opts)
+        send_file(adapter_module, external_room_id, upload, file_opts)
 
       true ->
         {:error, :multiple_attachments_unsupported}
@@ -370,8 +387,32 @@ defmodule Jido.Chat.Adapter do
         {:ok, normalize_response(adapter_module, response)}
       end
     else
-      text = chunks |> Enum.map(&to_string/1) |> Enum.join("")
-      send_message(adapter_module, external_room_id, text, opts)
+      fallback_chunks = Enum.to_list(chunks)
+      fallback_text = stream_fallback_text(fallback_chunks)
+      fallback_mode = Keyword.get(opts, :fallback_mode, default_stream_fallback(adapter_module))
+      placeholder_text = Keyword.get(opts, :placeholder_text, "Working...")
+      update_every = Keyword.get(opts, :update_every, 1)
+      stream_opts = Keyword.drop(opts, [:fallback_mode, :placeholder_text, :update_every])
+
+      cond do
+        fallback_mode == :post_edit and function_exported?(adapter_module, :edit_message, 4) ->
+          with {:ok, initial_response} <-
+                 send_message(adapter_module, external_room_id, placeholder_text, stream_opts),
+               {:ok, final_response} <-
+                 stream_post_edit_fallback(
+                   adapter_module,
+                   external_room_id,
+                   initial_response,
+                   fallback_chunks,
+                   stream_opts,
+                   update_every
+                 ) do
+            {:ok, final_response}
+          end
+
+        true ->
+          send_message(adapter_module, external_room_id, fallback_text, stream_opts)
+      end
     end
   end
 
@@ -508,36 +549,92 @@ defmodule Jido.Chat.Adapter do
   @spec post_ephemeral(module(), external_room_id(), external_user_id(), String.t(), keyword()) ::
           ephemeral_result()
   def post_ephemeral(adapter_module, external_room_id, external_user_id, text, opts \\ []) do
-    if function_exported?(adapter_module, :post_ephemeral, 4) do
-      with {:ok, message} <-
-             adapter_module.post_ephemeral(external_room_id, external_user_id, text, opts) do
-        {:ok, normalize_ephemeral(adapter_module, message, external_room_id, false)}
-      end
-    else
-      fallback_to_dm = Keyword.get(opts, :fallback_to_dm, false)
+    post_ephemeral_message(
+      adapter_module,
+      external_room_id,
+      external_user_id,
+      PostPayload.text(text),
+      opts
+    )
+  end
 
-      if fallback_to_dm and function_exported?(adapter_module, :open_dm, 2) do
-        with {:ok, dm_room_id} <- adapter_module.open_dm(external_user_id, opts),
-             {:ok, response} <- send_message(adapter_module, dm_room_id, text, opts) do
-          {:ok,
-           EphemeralMessage.new(%{
-             id: response.external_message_id || Jido.Chat.ID.generate!(),
-             thread_id: fallback_thread_id(adapter_module, dm_room_id),
-             used_fallback: true,
-             raw: response.raw,
-             metadata: %{source_room_id: external_room_id}
-           })}
-        end
-      else
-        {:error, :unsupported}
+  @doc "Posts an ephemeral payload using the canonical outbound payload contract."
+  @spec post_ephemeral_message(
+          module(),
+          external_room_id(),
+          external_user_id(),
+          String.t() | Postable.t() | PostPayload.t() | map(),
+          keyword()
+        ) :: ephemeral_result()
+  def post_ephemeral_message(
+        adapter_module,
+        external_room_id,
+        external_user_id,
+        input,
+        opts \\ []
+      ) do
+    with {:ok, payload} <- normalize_post_payload_input(input) do
+      upload_candidates = PostPayload.upload_candidates(payload)
+      text = PostPayload.display_text(payload) || ""
+      base_opts = maybe_put_metadata(opts, payload.metadata)
+      fallback_to_dm = Keyword.get(base_opts, :fallback_to_dm, false)
+
+      cond do
+        upload_candidates == [] and function_exported?(adapter_module, :post_ephemeral, 4) ->
+          with {:ok, message} <-
+                 adapter_module.post_ephemeral(
+                   external_room_id,
+                   external_user_id,
+                   text,
+                   base_opts
+                 ) do
+            {:ok,
+             normalize_ephemeral(
+               adapter_module,
+               message,
+               external_room_id,
+               false,
+               payload,
+               base_opts
+             )}
+          end
+
+        fallback_to_dm and function_exported?(adapter_module, :open_dm, 2) ->
+          dm_opts = Keyword.delete(base_opts, :fallback_to_dm)
+
+          with {:ok, dm_room_id} <- adapter_module.open_dm(external_user_id, base_opts),
+               {:ok, response} <- post_message(adapter_module, dm_room_id, payload, dm_opts) do
+            {:ok,
+             EphemeralMessage.new(%{
+               id: response.external_message_id || Jido.Chat.ID.generate!(),
+               thread_id: fallback_thread_id(adapter_module, dm_room_id),
+               text: text,
+               formatted: payload.formatted || text,
+               used_fallback: true,
+               raw: response.raw,
+               attachments: PostPayload.outbound_attachments(payload),
+               metadata:
+                 %{source_room_id: external_room_id, delivery: :dm_fallback}
+                 |> Map.merge(payload.metadata || %{})
+             })}
+          end
+
+        upload_candidates != [] ->
+          {:error, :ephemeral_attachments_unsupported}
+
+        true ->
+          {:error, :unsupported}
       end
     end
   end
 
   @doc "Opens adapter-native modal when supported."
-  @spec open_modal(module(), external_room_id(), map(), keyword()) ::
+  @spec open_modal(module(), external_room_id(), Modal.t() | map(), keyword()) ::
           modal_result()
-  def open_modal(adapter_module, external_room_id, payload, opts \\ []) when is_map(payload) do
+  def open_modal(adapter_module, external_room_id, payload, opts \\ [])
+      when is_map(payload) or is_struct(payload, Modal) do
+    payload = normalize_modal_payload(payload)
+
     if function_exported?(adapter_module, :open_modal, 3) do
       with {:ok, result} <- adapter_module.open_modal(external_room_id, payload, opts) do
         {:ok, normalize_modal_result(result, external_room_id)}
@@ -750,6 +847,8 @@ defmodule Jido.Chat.Adapter do
     if function_exported?(adapter_module, callback, arity), do: :native, else: fallback
   end
 
+  defp supported_status?(status), do: status in [:native, :fallback]
+
   defp normalize_capability_matrix(matrix) when is_map(matrix),
     do: matrix |> then(&CapabilityMatrix.new(%{capabilities: &1})) |> CapabilityMatrix.as_map()
 
@@ -793,6 +892,13 @@ defmodule Jido.Chat.Adapter do
     external_thread_id =
       thread[:external_thread_id] || thread["external_thread_id"] || opts[:external_thread_id]
 
+    metadata =
+      (thread[:metadata] || thread["metadata"] || %{})
+      |> maybe_put_thread_metadata(
+        :delivery_external_room_id,
+        thread[:delivery_external_room_id] || thread["delivery_external_room_id"]
+      )
+
     Thread.new(%{
       id:
         thread[:id] || thread["id"] ||
@@ -805,7 +911,7 @@ defmodule Jido.Chat.Adapter do
       external_thread_id: external_thread_id,
       channel_id: thread[:channel_id] || thread["channel_id"],
       is_dm: thread[:is_dm] || thread["is_dm"] || false,
-      metadata: thread[:metadata] || thread["metadata"] || %{}
+      metadata: metadata
     })
   end
 
@@ -871,15 +977,27 @@ defmodule Jido.Chat.Adapter do
   defp normalize_thread_page(%ThreadPage{} = page), do: page
   defp normalize_thread_page(page) when is_map(page), do: ThreadPage.new(page)
 
+  defp maybe_put_thread_metadata(metadata, _key, nil), do: metadata
+  defp maybe_put_thread_metadata(metadata, key, value), do: Map.put(metadata, key, value)
+
   defp normalize_ephemeral(
          _adapter_module,
          %EphemeralMessage{} = message,
          _external_room_id,
-         _used_fallback
+         _used_fallback,
+         _payload,
+         _opts
        ),
        do: message
 
-  defp normalize_ephemeral(adapter_module, message, external_room_id, used_fallback)
+  defp normalize_ephemeral(
+         adapter_module,
+         message,
+         external_room_id,
+         used_fallback,
+         payload,
+         opts
+       )
        when is_map(message) do
     thread_id =
       message[:thread_id] || message["thread_id"] ||
@@ -893,9 +1011,19 @@ defmodule Jido.Chat.Adapter do
     EphemeralMessage.new(%{
       id: to_string(id),
       thread_id: to_string(thread_id),
+      text: message[:text] || message["text"] || PostPayload.display_text(payload),
+      formatted:
+        message[:formatted] || message["formatted"] || payload.formatted ||
+          PostPayload.display_text(payload),
       used_fallback: message[:used_fallback] || message["used_fallback"] || used_fallback,
       raw: message[:raw] || message["raw"],
-      metadata: message[:metadata] || message["metadata"] || %{}
+      attachments:
+        message[:attachments] || message["attachments"] ||
+          PostPayload.outbound_attachments(payload),
+      metadata:
+        (message[:metadata] || message["metadata"] || %{})
+        |> Map.merge(payload.metadata || %{})
+        |> Map.merge(metadata_from_opts(opts))
     })
   end
 
@@ -920,6 +1048,29 @@ defmodule Jido.Chat.Adapter do
       raw: result,
       metadata: %{coerced: true}
     })
+  end
+
+  @doc "Returns a stable adapter-facing Markdown representation."
+  @spec render_markdown(Markdown.t() | map() | String.t(), keyword()) :: String.t()
+  def render_markdown(markdown, _opts \\ []) do
+    markdown
+    |> normalize_markdown_payload()
+    |> Markdown.stringify()
+  end
+
+  @doc "Returns a stable adapter-facing card payload."
+  @spec render_card(Card.t() | map(), keyword()) :: map()
+  def render_card(card, _opts \\ []) do
+    card
+    |> normalize_card_payload()
+    |> Card.to_adapter_payload()
+  end
+
+  @doc "Returns a stable adapter-facing modal payload."
+  @spec render_modal(Modal.t() | map(), keyword()) :: map()
+  def render_modal(modal, _opts \\ []) do
+    modal
+    |> normalize_modal_payload()
   end
 
   defp default_channel_info(adapter_module, external_room_id) do
@@ -948,7 +1099,134 @@ defmodule Jido.Chat.Adapter do
   defp fallback_thread_id(adapter_module, external_room_id),
     do: "#{adapter_type(adapter_module)}:#{external_room_id}"
 
+  defp default_stream_fallback(adapter_module) do
+    if function_exported?(adapter_module, :edit_message, 4), do: :post_edit, else: :final
+  end
+
+  defp stream_post_edit_fallback(
+         adapter_module,
+         external_room_id,
+         initial_response,
+         chunks,
+         stream_opts,
+         update_every
+       ) do
+    total = length(chunks)
+    update_every = if is_integer(update_every) and update_every > 0, do: update_every, else: 1
+
+    chunks
+    |> Enum.with_index(1)
+    |> Enum.reduce_while({:ok, "", initial_response}, fn {chunk, index},
+                                                         {:ok, acc_text, response} ->
+      next_text = acc_text <> render_stream_chunk(chunk)
+      should_update = rem(index, update_every) == 0 or index == total
+
+      if should_update do
+        case edit_message(
+               adapter_module,
+               external_room_id,
+               initial_response.external_message_id,
+               next_text,
+               stream_opts
+             ) do
+          {:ok, next_response} ->
+            {:cont,
+             {:ok, next_text, with_stream_metadata(next_response, :post_edit, total, next_text)}}
+
+          {:error, _reason} = error ->
+            {:halt, error}
+        end
+      else
+        {:cont, {:ok, next_text, response}}
+      end
+    end)
+    |> case do
+      {:ok, _text, response} ->
+        {:ok, response}
+
+      {:error, _reason} = error ->
+        error
+    end
+  end
+
+  defp with_stream_metadata(%Response{} = response, mode, chunk_count, final_text) do
+    metadata =
+      (response.metadata || %{})
+      |> Map.put(:stream_fallback, mode)
+      |> Map.put(:chunk_count, chunk_count)
+      |> Map.put(:final_text, final_text)
+
+    %{response | metadata: metadata}
+  end
+
+  defp stream_fallback_text(chunks) do
+    chunks
+    |> Enum.map(&render_stream_chunk/1)
+    |> Enum.join("")
+  end
+
+  defp render_stream_chunk(%StreamChunk{} = chunk) do
+    case chunk.kind do
+      :text -> chunk.text || ""
+      :markdown -> chunk.text || ""
+      :status -> bracketed_chunk(chunk)
+      :plan -> plan_chunk(chunk)
+      :step_start -> step_chunk(chunk)
+      :step_finish -> "\n"
+      :data -> ""
+    end
+  end
+
+  defp render_stream_chunk(chunk) when is_map(chunk),
+    do: chunk |> StreamChunk.new() |> render_stream_chunk()
+
+  defp render_stream_chunk(chunk), do: to_string(chunk)
+
+  defp bracketed_chunk(%StreamChunk{} = chunk) do
+    case StreamChunk.fallback_text(chunk) do
+      nil -> ""
+      "" -> ""
+      text -> "\n[#{text}]\n"
+    end
+  end
+
+  defp plan_chunk(%StreamChunk{} = chunk) do
+    case chunk.payload do
+      items when is_list(items) ->
+        "\n" <>
+          (items
+           |> Enum.map_join("\n", fn item -> "- " <> to_string(item) end)) <> "\n"
+
+      _other ->
+        bracketed_chunk(chunk)
+    end
+  end
+
+  defp step_chunk(%StreamChunk{} = chunk) do
+    case StreamChunk.fallback_text(chunk) do
+      nil -> ""
+      "" -> ""
+      text -> "\n\n#{text}\n"
+    end
+  end
+
+  defp normalize_markdown_payload(%Markdown{} = markdown), do: markdown
+  defp normalize_markdown_payload(%{} = markdown), do: Markdown.new(markdown)
+  defp normalize_markdown_payload(value) when is_binary(value), do: Markdown.parse(value)
+
+  defp normalize_card_payload(%Card{} = card), do: card
+  defp normalize_card_payload(%{} = card), do: Card.new(card)
+
+  defp normalize_modal_payload(%Modal{} = modal), do: Modal.to_adapter_payload(modal)
+  defp normalize_modal_payload(%{} = modal), do: modal
+
   defp ensure_capability_defaults(matrix, adapter_module) do
+    single_upload_supported? =
+      supported_status?(matrix[:send_file]) or supported_status?(matrix[:post_message])
+
+    multi_upload_supported? =
+      supported_status?(matrix[:multi_file]) or supported_status?(matrix[:post_message])
+
     defaults = %{
       initialize: support_status(adapter_module, :initialize, 1, :fallback),
       shutdown: support_status(adapter_module, :shutdown, 1, :fallback),
@@ -976,7 +1254,23 @@ defmodule Jido.Chat.Adapter do
       verify_webhook: support_status(adapter_module, :verify_webhook, 2, :fallback),
       parse_event: support_status(adapter_module, :parse_event, 2, :fallback),
       format_webhook_response:
-        support_status(adapter_module, :format_webhook_response, 2, :fallback)
+        support_status(adapter_module, :format_webhook_response, 2, :fallback),
+      text: :native,
+      image: if(single_upload_supported?, do: :fallback, else: :unsupported),
+      audio: if(single_upload_supported?, do: :fallback, else: :unsupported),
+      video: if(single_upload_supported?, do: :fallback, else: :unsupported),
+      file: if(single_upload_supported?, do: :fallback, else: :unsupported),
+      multi_file: if(multi_upload_supported?, do: :fallback, else: :unsupported),
+      markdown: :unsupported,
+      cards: :unsupported,
+      modals: support_status(adapter_module, :open_modal, 3),
+      ephemeral:
+        cond do
+          callback_exported?(adapter_module, :post_ephemeral, 4) -> :native
+          callback_exported?(adapter_module, :open_dm, 2) -> :fallback
+          true -> :unsupported
+        end,
+      assistant_events: :unsupported
     }
 
     Map.merge(defaults, matrix)
@@ -993,6 +1287,33 @@ defmodule Jido.Chat.Adapter do
   end
 
   defp normalize_webhook_request(other, _opts), do: WebhookRequest.new(%{payload: %{raw: other}})
+
+  defp normalize_post_payload_input(%PostPayload{} = payload), do: {:ok, payload}
+
+  defp normalize_post_payload_input(%Postable{} = postable),
+    do: {:ok, Postable.to_payload(postable)}
+
+  defp normalize_post_payload_input(input) when is_binary(input),
+    do: {:ok, PostPayload.text(input)}
+
+  defp normalize_post_payload_input(input) when is_map(input) do
+    try do
+      {:ok, input |> Postable.new() |> Postable.to_payload()}
+    rescue
+      _ -> {:error, :invalid_postable}
+    end
+  end
+
+  defp normalize_post_payload_input(_input), do: {:error, :invalid_postable}
+
+  defp metadata_from_opts(opts) when is_list(opts) do
+    case Keyword.get(opts, :metadata) do
+      metadata when is_map(metadata) -> metadata
+      _other -> %{}
+    end
+  end
+
+  defp metadata_from_opts(_opts), do: %{}
 
   defp normalize_event_envelope(_adapter_module, %EventEnvelope{} = envelope), do: envelope
 
@@ -1047,13 +1368,23 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:format_webhook_response), do: {:format_webhook_response, 2}
   defp capability_callback(_), do: nil
 
-  defp maybe_put_caption(opts, %PostPayload{text: nil}), do: opts
-  defp maybe_put_caption(opts, %PostPayload{text: ""}), do: opts
+  defp callback_exported?(adapter_module, callback, arity) do
+    Code.ensure_loaded?(adapter_module) and function_exported?(adapter_module, callback, arity)
+  end
 
-  defp maybe_put_caption(opts, %PostPayload{text: text}) do
-    opts
-    |> Keyword.put_new(:caption, text)
-    |> Keyword.put_new(:text, text)
+  defp maybe_put_caption(opts, %PostPayload{} = payload) do
+    case PostPayload.display_text(payload) do
+      nil ->
+        opts
+
+      "" ->
+        opts
+
+      text ->
+        opts
+        |> Keyword.put_new(:caption, text)
+        |> Keyword.put_new(:text, text)
+    end
   end
 
   defp maybe_put_metadata(opts, metadata) when metadata in [%{}, nil], do: opts

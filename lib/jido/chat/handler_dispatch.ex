@@ -1,7 +1,16 @@
 defmodule Jido.Chat.HandlerDispatch do
   @moduledoc false
 
-  alias Jido.Chat.{EventNormalizer, Incoming, Thread}
+  alias Jido.Chat.{
+    ActionEvent,
+    EventNormalizer,
+    Incoming,
+    ModalCloseEvent,
+    ModalSubmitEvent,
+    ReactionEvent,
+    SlashCommandEvent,
+    Thread
+  }
 
   @spec process_message(map(), atom(), String.t(), Incoming.t() | map(), (map(),
                                                                           Incoming.t(),
@@ -27,7 +36,9 @@ defmodule Jido.Chat.HandlerDispatch do
 
   @spec run_event_handlers(map(), list(), term()) :: map()
   def run_event_handlers(chat, handlers, event) when is_map(chat) and is_list(handlers) do
-    Enum.reduce(handlers, chat, fn handler, acc -> run_event_handler(acc, handler, event) end)
+    handlers
+    |> ordered_handlers()
+    |> Enum.reduce(chat, fn handler, acc -> run_event_handler(acc, handler, event) end)
   end
 
   defp dedupe_key(_adapter_name, %Incoming{external_message_id: nil}), do: nil
@@ -39,52 +50,12 @@ defmodule Jido.Chat.HandlerDispatch do
   defp duplicate?(_chat, nil), do: false
 
   defp duplicate?(chat, key) do
-    chat
-    |> Map.get(:dedupe, MapSet.new())
-    |> MapSet.member?(key)
+    Jido.Chat.duplicate?(chat, key)
   end
 
   defp mark_dedupe(chat, nil), do: chat
 
-  defp mark_dedupe(chat, key) do
-    dedupe = Map.get(chat, :dedupe, MapSet.new()) |> MapSet.put(key)
-    dedupe_order = Map.get(chat, :dedupe_order, []) ++ [key]
-    dedupe_limit = dedupe_limit(chat)
-
-    {trimmed_dedupe_order, overflow_keys} = trim_dedupe_order(dedupe_order, dedupe_limit)
-
-    trimmed_dedupe =
-      Enum.reduce(overflow_keys, dedupe, fn overflow_key, acc ->
-        MapSet.delete(acc, overflow_key)
-      end)
-
-    chat
-    |> Map.put(:dedupe, trimmed_dedupe)
-    |> Map.put(:dedupe_order, trimmed_dedupe_order)
-  end
-
-  defp dedupe_limit(chat) do
-    metadata = Map.get(chat, :metadata, %{})
-
-    value =
-      case metadata do
-        %{} -> metadata[:dedupe_limit] || metadata["dedupe_limit"]
-        _ -> nil
-      end
-
-    if is_integer(value) and value > 0, do: value, else: 1_000
-  end
-
-  defp trim_dedupe_order(dedupe_order, dedupe_limit) do
-    overflow_count = max(length(dedupe_order) - dedupe_limit, 0)
-
-    if overflow_count == 0 do
-      {dedupe_order, []}
-    else
-      {overflow_keys, remaining_keys} = Enum.split(dedupe_order, overflow_count)
-      {remaining_keys, overflow_keys}
-    end
-  end
+  defp mark_dedupe(chat, key), do: Jido.Chat.mark_dedupe(chat, key)
 
   defp route_handlers(chat, %Thread{} = thread, %Incoming{} = incoming) do
     cond do
@@ -125,12 +96,56 @@ defmodule Jido.Chat.HandlerDispatch do
     end
   end
 
+  defp run_event_handler(chat, {selector, handler}, event) do
+    if selector_matches?(selector, event) do
+      run_event_handler(chat, handler, event)
+    else
+      chat
+    end
+  end
+
   defp run_event_handler(chat, handler, event) do
     case :erlang.fun_info(handler, :arity) do
       {:arity, 2} -> coerce_handler_result(chat, handler.(chat, event))
       _ -> coerce_handler_result(chat, handler.(event))
     end
   end
+
+  defp ordered_handlers(handlers) do
+    {specific, catch_all} = Enum.split_with(handlers, &match?({_selector, _handler}, &1))
+    specific ++ catch_all
+  end
+
+  defp selector_matches?(:all, _event), do: true
+
+  defp selector_matches?(selectors, event) when is_list(selectors) do
+    Enum.any?(selectors, &selector_matches?(&1, event))
+  end
+
+  defp selector_matches?(%Regex{} = pattern, event) do
+    case selector_value(event) do
+      value when is_binary(value) -> Regex.match?(pattern, value)
+      _ -> false
+    end
+  end
+
+  defp selector_matches?(selector, event) when is_function(selector, 1), do: selector.(event)
+
+  defp selector_matches?(selector, event) when is_atom(selector) do
+    selector == selector_value(event) || Atom.to_string(selector) == selector_value(event)
+  end
+
+  defp selector_matches?(selector, event) when is_binary(selector),
+    do: selector == selector_value(event)
+
+  defp selector_matches?(_selector, _event), do: false
+
+  defp selector_value(%ReactionEvent{emoji: emoji}), do: emoji
+  defp selector_value(%ActionEvent{action_id: action_id}), do: action_id
+  defp selector_value(%ModalSubmitEvent{callback_id: callback_id}), do: callback_id
+  defp selector_value(%ModalCloseEvent{callback_id: callback_id}), do: callback_id
+  defp selector_value(%SlashCommandEvent{command: command}), do: command
+  defp selector_value(_event), do: nil
 
   defp coerce_handler_result(current_chat, next_chat) when is_map(next_chat) do
     if Map.get(next_chat, :__struct__) == Jido.Chat do
@@ -160,8 +175,6 @@ defmodule Jido.Chat.HandlerDispatch do
   defp mentioned?(_chat, _incoming), do: false
 
   defp subscribed?(chat, thread_id) do
-    chat
-    |> Map.get(:subscriptions, MapSet.new())
-    |> MapSet.member?(thread_id)
+    Jido.Chat.subscribed?(chat, thread_id)
   end
 end

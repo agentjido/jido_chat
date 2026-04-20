@@ -5,16 +5,22 @@ defmodule Jido.Chat.RuntimeTest do
 
   alias Jido.Chat.{
     Attachment,
+    ActionEvent,
+    Author,
+    Card,
     CapabilityMatrix,
     ChannelInfo,
     EventEnvelope,
     Incoming,
     IngressResult,
+    Markdown,
     MessagePage,
+    Modal,
     ModalResult,
     PostPayload,
     Postable,
     Response,
+    SlashCommandEvent,
     SentMessage,
     Thread,
     ThreadPage,
@@ -199,6 +205,7 @@ defmodule Jido.Chat.RuntimeTest do
        %{
          external_room_id: room_id,
          external_thread_id: "thr_#{message_id}",
+         delivery_external_room_id: "delivery_#{message_id}",
          metadata: %{root_message_id: message_id}
        }}
     end
@@ -220,6 +227,43 @@ defmodule Jido.Chat.RuntimeTest do
          external_message_id: "m_#{room_id}",
          external_room_id: room_id,
          channel_type: :no_modal
+       })}
+    end
+  end
+
+  defmodule EditFallbackAdapter do
+    use Jido.Chat.Adapter
+
+    @impl true
+    def channel_type, do: :edit_fallback
+
+    @impl true
+    def transform_incoming(payload) when is_map(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message(room_id, text, _opts) do
+      send(self(), {:fallback_send, room_id, text})
+
+      {:ok,
+       Response.new(%{
+         external_message_id: "stream_msg_#{room_id}",
+         external_room_id: room_id,
+         channel_type: :edit_fallback,
+         metadata: %{sent: text}
+       })}
+    end
+
+    @impl true
+    def edit_message(room_id, message_id, text, _opts) do
+      send(self(), {:fallback_edit, room_id, message_id, text})
+
+      {:ok,
+       Response.new(%{
+         external_message_id: message_id,
+         external_room_id: room_id,
+         status: :edited,
+         channel_type: :edit_fallback,
+         metadata: %{edited: text}
        })}
     end
   end
@@ -428,6 +472,26 @@ defmodule Jido.Chat.RuntimeTest do
     assert upload_opts[:thread_id] == nil
   end
 
+  test "thread post flattens typed card payloads through text fallback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-card", [])
+
+    card =
+      Card.new(%{
+        title: "Deploy",
+        summary: "Ready",
+        components: [
+          Card.fields([Card.field("Version", "1.2.3")]),
+          Card.actions([Card.button("Approve", "deploy:approve")])
+        ]
+      })
+
+    assert {:ok, %SentMessage{} = sent} = Thread.post(thread, Postable.card(card))
+    assert sent.text =~ "Deploy"
+    assert sent.text =~ "Version: 1.2.3"
+    assert sent.id == "msg_room-card"
+  end
+
   test "thread send_file routes through adapter upload callback" do
     chat = Chat.new(adapters: %{test: TestAdapter})
     thread = Chat.thread(chat, :test, "room-file", [])
@@ -453,6 +517,65 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received {:stream, "room-stream-post", "abc"}
   end
 
+  test "thread post routes stream postables through adapter stream callback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-stream-postable", [])
+
+    assert {:ok, %SentMessage{} = sent} =
+             Thread.post(thread, Postable.stream(["a", "b", "c"]))
+
+    assert sent.id == "stream_room-stream-postable"
+    assert_received {:stream, "room-stream-postable", "abc"}
+  end
+
+  test "stream fallback posts placeholder then edits structured output without native stream" do
+    chat = Chat.new(adapters: %{edit_fallback: EditFallbackAdapter})
+    thread = Chat.thread(chat, :edit_fallback, "room-stream-fallback", [])
+
+    assert {:ok, %SentMessage{} = sent} =
+             Thread.post(
+               thread,
+               Postable.stream([
+                 "alpha",
+                 %{kind: :step_start, payload: %{label: "Plan"}},
+                 %{kind: :plan, payload: ["one", "two"]},
+                 "omega"
+               ]),
+               placeholder_text: "working",
+               fallback_mode: :post_edit,
+               update_every: 2
+             )
+
+    assert sent.id == "stream_msg_room-stream-fallback"
+    assert sent.response.metadata.stream_fallback == :post_edit
+    assert_received {:fallback_send, "room-stream-fallback", "working"}
+
+    assert_received {:fallback_edit, "room-stream-fallback", "stream_msg_room-stream-fallback",
+                     first_edit}
+
+    assert first_edit =~ "alpha"
+    assert first_edit =~ "Plan"
+
+    assert_received {:fallback_edit, "room-stream-fallback", "stream_msg_room-stream-fallback",
+                     final_edit}
+
+    assert final_edit =~ "- one"
+    assert final_edit =~ "omega"
+  end
+
+  test "adapter render helpers expose canonical markdown and card payloads" do
+    markdown =
+      Markdown.root([
+        Markdown.heading(3, "Plan"),
+        Markdown.list(["one", "two"])
+      ])
+
+    card = Card.new(%{title: "Status", components: [Card.button("Run", "run")]})
+
+    assert Jido.Chat.Adapter.render_markdown(markdown) =~ "### Plan"
+    assert %{"title" => "Status"} = Jido.Chat.Adapter.render_card(card)
+  end
+
   test "thread/channel open_modal route through adapter and normalize typed result" do
     chat = Chat.new(adapters: %{test: TestAdapter})
     thread = Chat.thread(chat, :test, "room-modal", [])
@@ -471,6 +594,86 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received {:open_modal, "room-modal", %{custom_id: "feedback", title: "Feedback"}}
   end
 
+  test "open_modal accepts typed modal payloads" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-modal-typed", [])
+
+    modal =
+      Modal.new(%{
+        title: "Feedback",
+        callback_id: "feedback",
+        elements: [Modal.text_input("summary", "Summary")]
+      })
+
+    assert {:ok, %ModalResult{} = result} = Thread.open_modal(thread, modal)
+    assert result.external_room_id == "room-modal-typed"
+
+    assert_received {:open_modal, "room-modal-typed",
+                     %{
+                       "title" => "Feedback",
+                       "callback_id" => "feedback",
+                       "elements" => [%{"id" => "summary", "kind" => :text_input}]
+                     }}
+  end
+
+  test "filtered action handlers run before catch-all handlers and preserve event context" do
+    chat =
+      Chat.new(adapters: %{test: TestAdapter})
+      |> Chat.on_action("deploy:approve", fn _event -> send(self(), {:action_hit, 1}) end)
+      |> Chat.on_action(fn _event -> send(self(), {:action_hit, 2}) end)
+
+    assert {:ok, _chat, %ActionEvent{} = event} =
+             Chat.process_action(
+               chat,
+               :test,
+               %{
+                 thread_id: "test:room-action:thread-1",
+                 channel_id: "test:room-action",
+                 message_id: "msg-1",
+                 action_id: "deploy:approve",
+                 trigger_id: "trigger-1",
+                 metadata: %{related_message_id: "msg-root"}
+               },
+               []
+             )
+
+    assert %Thread{id: "test:room-action:thread-1"} = event.thread
+    assert %Jido.Chat.ChannelRef{id: "test:room-action"} = event.channel
+    assert %Jido.Chat.Message{id: "msg-1"} = event.message
+    assert %Jido.Chat.Message{id: "msg-root"} = event.related_message
+    assert_receive {:action_hit, 1}
+    assert_receive {:action_hit, 2}
+
+    assert {:ok, %ModalResult{external_room_id: "room-action"}} =
+             ActionEvent.open_modal(event, Modal.new(%{title: "Approval"}))
+  end
+
+  test "filtered slash command handlers match identifiers and expose modal helpers" do
+    chat =
+      Chat.new(adapters: %{test: TestAdapter})
+      |> Chat.on_slash_command("/deploy", fn _event -> send(self(), :slash_specific) end)
+      |> Chat.on_slash_command(fn _event -> send(self(), :slash_all) end)
+
+    assert {:ok, _chat, %SlashCommandEvent{} = event} =
+             Chat.process_slash_command(
+               chat,
+               :test,
+               %{
+                 command: "/deploy",
+                 channel_id: "test:room-slash",
+                 trigger_id: "trigger-2"
+               },
+               []
+             )
+
+    assert %Jido.Chat.ChannelRef{id: "test:room-slash"} = event.channel
+    assert_receive :slash_specific
+    assert_receive :slash_all
+
+    assert {:ok, %ModalResult{external_room_id: "room-slash"}} =
+             SlashCommandEvent.open_modal(event, Modal.new(%{title: "Deploy"}))
+  end
+
   test "open_modal returns unsupported when adapter does not implement it" do
     chat = Chat.new(adapters: %{no_modal: NoModalAdapter})
     thread = Chat.thread(chat, :no_modal, "room-unsupported", [])
@@ -484,8 +687,14 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert {:ok, %SentMessage{} = sent} = Thread.post(thread, "hello")
 
-    assert {:ok, %SentMessage{} = edited} = SentMessage.edit(sent, "updated")
+    assert {:ok, %SentMessage{} = edited} =
+             SentMessage.edit(sent, Postable.markdown("**updated**"))
+
     assert edited.response.status == :edited
+    assert edited.text == "**updated**"
+
+    assert {:error, :edit_attachments_unsupported} =
+             SentMessage.edit(sent, Postable.text("updated", files: ["/tmp/report.pdf"]))
 
     assert :ok = SentMessage.delete(sent)
     assert_received {:deleted, "room-6", "msg_room-6"}
@@ -495,6 +704,18 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert :ok = SentMessage.remove_reaction(sent, "👍")
     assert_received {:reaction_remove, "room-6", "msg_room-6", "👍"}
+  end
+
+  test "emoji helpers render named reactions for lifecycle APIs" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-emoji", [])
+
+    assert {:ok, %SentMessage{} = sent} = Thread.post(thread, "emoji")
+    assert Chat.emoji(:rocket) == "🚀"
+    assert Chat.emoji(":custom_deploy:", custom: %{custom_deploy: "<deploy>"}) == "<deploy>"
+
+    assert :ok = SentMessage.add_reaction(sent, :thumbs_up)
+    assert_received {:reaction_add, "room-emoji", "msg_room-emoji", "👍"}
   end
 
   test "thread typing and ephemeral fallback" do
@@ -509,6 +730,59 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert ephemeral.used_fallback == true
     assert ephemeral.thread_id == "test:dm-user-7"
+    assert ephemeral.text == "secret"
+  end
+
+  test "ephemeral card payloads use canonical fallback text through DM fallback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-ephemeral-card", [])
+
+    card =
+      Card.new(%{
+        title: "Secret",
+        components: [Card.field("Scope", "private")]
+      })
+
+    assert {:ok, ephemeral} =
+             Thread.post_ephemeral(
+               thread,
+               "user-ephemeral-card",
+               Postable.card(card),
+               fallback_to_dm: true
+             )
+
+    assert ephemeral.used_fallback == true
+    assert ephemeral.text =~ "Secret"
+    assert ephemeral.text =~ "Scope: private"
+  end
+
+  test "ephemeral payloads can use file delivery through DM fallback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    thread = Chat.thread(chat, :test, "room-ephemeral-file", [])
+
+    assert {:ok, ephemeral} =
+             Thread.post_ephemeral(
+               thread,
+               "user-ephemeral",
+               Postable.text("secret", files: [%{path: "/tmp/report.pdf"}]),
+               fallback_to_dm: true
+             )
+
+    assert ephemeral.used_fallback == true
+    assert ephemeral.text == "secret"
+    assert [%{filename: "report.pdf"}] = Enum.map(ephemeral.attachments, &Map.from_struct/1)
+  end
+
+  test "ephemeral file payloads are rejected without DM fallback" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    channel = Chat.channel(chat, :test, "chan-ephemeral-file")
+
+    assert {:error, :ephemeral_attachments_unsupported} =
+             Jido.Chat.ChannelRef.post_ephemeral(
+               channel,
+               "user-ephemeral",
+               Postable.text("secret", files: [%{path: "/tmp/report.pdf"}])
+             )
   end
 
   test "thread messages and all_messages pagination" do
@@ -561,6 +835,26 @@ defmodule Jido.Chat.RuntimeTest do
     assert thread.id == "test:chan-files:thr_root-123"
   end
 
+  test "open_dm infers adapter from author metadata, prefixed ids, and single-adapter chats" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+
+    author =
+      Author.new(%{
+        user_id: "user-author",
+        user_name: "author",
+        metadata: %{adapter_name: :test}
+      })
+
+    assert {:ok, %Thread{external_room_id: "dm-user-author", is_dm: true}} =
+             Chat.open_dm(chat, author, [])
+
+    assert {:ok, %Thread{external_room_id: "dm-user-prefixed", is_dm: true}} =
+             Chat.open_dm(chat, "test:user-prefixed", [])
+
+    assert {:ok, %Thread{external_room_id: "dm-user-inferred", is_dm: true}} =
+             Chat.open_dm(chat, "user-inferred", [])
+  end
+
   test "chat open_thread routes through adapter helper" do
     chat = Chat.new(adapters: %{test: TestAdapter})
 
@@ -569,6 +863,7 @@ defmodule Jido.Chat.RuntimeTest do
 
     assert thread.external_thread_id == "thr_msg-1"
     assert thread.metadata.root_message_id == "msg-1"
+    assert thread.metadata.delivery_external_room_id == "delivery_msg-1"
   end
 
   test "channel post preserves postable payload fields in sent handle" do
@@ -599,6 +894,26 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received {:send_file, "chan-post-file", %{kind: :file, filename: "doc.pdf"},
                      upload_opts}
 
+    assert upload_opts[:caption] == "hello"
+    assert upload_opts[:text] == "hello"
+  end
+
+  test "channel post routes file-bearing payloads through send_file" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+    channel = Chat.channel(chat, :test, "chan-post-upload")
+
+    assert {:ok, %SentMessage{} = sent} =
+             Jido.Chat.ChannelRef.post(
+               channel,
+               Postable.text("hello", files: [%{path: "/tmp/report.pdf"}])
+             )
+
+    assert sent.id == "file_chan-post-upload"
+
+    assert [%{kind: :file, filename: "report.pdf"}] =
+             Enum.map(sent.attachments, &Map.from_struct/1)
+
+    assert_received {:send_file, "chan-post-upload", %{path: "/tmp/report.pdf"}, upload_opts}
     assert upload_opts[:caption] == "hello"
     assert upload_opts[:text] == "hello"
   end
@@ -758,6 +1073,53 @@ defmodule Jido.Chat.RuntimeTest do
     assert_received :slash_hit
     assert_received :assistant_thread_hit
     assert_received :assistant_context_hit
+  end
+
+  test "filtered reaction and modal handlers only fire on matching identifiers" do
+    chat =
+      Chat.new(adapters: %{test: TestAdapter})
+      |> Chat.on_reaction("👍", fn _event -> send(self(), :reaction_specific) end)
+      |> Chat.on_modal_submit("feedback", fn _event -> send(self(), :modal_submit_specific) end)
+      |> Chat.on_modal_close("feedback", fn _event -> send(self(), :modal_close_specific) end)
+
+    assert {:ok, _chat, _event} =
+             Chat.process_reaction(chat, :test, %{thread_id: "test:room-r", emoji: "👍"}, [])
+
+    assert {:ok, _chat, _event} =
+             Chat.process_modal_submit(chat, :test, %{callback_id: "feedback"}, [])
+
+    assert {:ok, _chat, _event} =
+             Chat.process_modal_close(chat, :test, %{callback_id: "feedback"}, [])
+
+    assert_received :reaction_specific
+    assert_received :modal_submit_specific
+    assert_received :modal_close_specific
+
+    assert {:ok, _chat, _event} = Chat.process_reaction(chat, :test, %{emoji: "👎"}, [])
+    refute_received :reaction_specific
+  end
+
+  test "assistant events gain thread and channel handles" do
+    chat = Chat.new(adapters: %{test: TestAdapter})
+
+    assert {:ok, _chat, assistant_started} =
+             Chat.process_assistant_thread_started(chat, :test, %{
+               thread_id: "test:room-assistant:thr-1",
+               channel_id: "test:room-assistant"
+             })
+
+    assert %Thread{id: "test:room-assistant:thr-1"} = assistant_started.thread
+    assert %Jido.Chat.ChannelRef{id: "test:room-assistant"} = assistant_started.channel
+
+    assert {:ok, _chat, assistant_changed} =
+             Chat.process_assistant_context_changed(chat, :test, %{
+               thread_id: "test:room-assistant:thr-1",
+               channel_id: "test:room-assistant",
+               context: %{phase: :thinking}
+             })
+
+    assert %Thread{id: "test:room-assistant:thr-1"} = assistant_changed.thread
+    assert assistant_changed.context == %{phase: :thinking}
   end
 
   test "process_event routes typed envelopes" do

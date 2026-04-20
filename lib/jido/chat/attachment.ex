@@ -4,7 +4,7 @@ defmodule Jido.Chat.Attachment do
   """
 
   alias Jido.Chat.Content.{Audio, File, Image, Video}
-  alias Jido.Chat.Media
+  alias Jido.Chat.{FileUpload, Media}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -28,6 +28,7 @@ defmodule Jido.Chat.Attachment do
 
   @type input ::
           t()
+          | FileUpload.t()
           | Media.t()
           | Image.t()
           | Audio.t()
@@ -51,6 +52,10 @@ defmodule Jido.Chat.Attachment do
   @doc "Normalizes supported outbound attachment inputs into a canonical attachment struct."
   @spec normalize(input()) :: t()
   def normalize(%__MODULE__{} = attachment), do: attachment
+
+  def normalize(%FileUpload{} = file_upload) do
+    new(Map.from_struct(file_upload))
+  end
 
   def normalize(%Media{} = media) do
     metadata = media.metadata || %{}

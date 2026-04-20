@@ -2,40 +2,12 @@ defmodule Jido.Chat.Capabilities do
   @moduledoc """
   Capabilities negotiation for adapters and participants.
 
-  Provides functions to check and filter content based on channel capabilities,
-  preventing content type mismatches between channels and participants.
-
-  ## Supported Capabilities
-
-  - `:text` - Plain text messages
-  - `:image` - Image attachments
-  - `:audio` - Audio files and voice messages
-  - `:video` - Video attachments
-  - `:file` - Generic file attachments
-  - `:tool_use` - Tool/action invocation blocks
-  - `:streaming` - Incremental message updates
-  - `:reactions` - Message reactions
-  - `:threads` - Threaded conversations
-  - `:typing` - Typing indicators
-  - `:presence` - Presence status updates
-  - `:read_receipts` - Delivery and read receipts
-
-  ## Examples
-
-      # Check if a channel can deliver content
-      iex> Capabilities.can_deliver?([:text, :image], %Content.Image{url: "..."})
-      true
-
-      iex> Capabilities.can_deliver?([:text], %Content.Image{url: "..."})
-      false
-
-      # Filter content to what a channel supports
-      iex> content = [%Content.Text{text: "Hi"}, %Content.Image{url: "..."}]
-      iex> Capabilities.filter_content(content, [:text])
-      [%Content.Text{text: "Hi"}]
+  Provides functions to check and filter inbound content blocks and outbound
+  post payloads based on channel capabilities.
   """
 
-  alias Jido.Chat.Content.{Text, Image, Audio, Video, File, ToolUse, ToolResult}
+  alias Jido.Chat.{Adapter, Attachment, FileUpload, PostPayload, Postable}
+  alias Jido.Chat.Content.{Audio, File, Image, Text, ToolResult, ToolUse, Video}
 
   @type capability ::
           :text
@@ -43,6 +15,11 @@ defmodule Jido.Chat.Capabilities do
           | :audio
           | :video
           | :file
+          | :multi_file
+          | :markdown
+          | :cards
+          | :modals
+          | :ephemeral
           | :tool_use
           | :streaming
           | :reactions
@@ -50,6 +27,7 @@ defmodule Jido.Chat.Capabilities do
           | :typing
           | :presence
           | :read_receipts
+          | :assistant_events
 
   @type capabilities :: [capability()]
 
@@ -59,48 +37,32 @@ defmodule Jido.Chat.Capabilities do
     :audio,
     :video,
     :file,
+    :multi_file,
+    :markdown,
+    :cards,
+    :modals,
+    :ephemeral,
     :tool_use,
     :streaming,
     :reactions,
     :threads,
     :typing,
     :presence,
-    :read_receipts
+    :read_receipts,
+    :assistant_events
   ]
 
-  @doc """
-  Returns all supported capability atoms.
-  """
-  @spec all :: capabilities()
+  @doc "Returns all supported capability atoms."
+  @spec all() :: capabilities()
   def all, do: @all_capabilities
 
-  @doc """
-  Checks if a capability is in the list of capabilities.
-
-  ## Examples
-
-      iex> Capabilities.supports?([:text, :image], :text)
-      true
-
-      iex> Capabilities.supports?([:text], :image)
-      false
-  """
+  @doc "Checks if a capability is in the list of capabilities."
   @spec supports?(capabilities(), capability()) :: boolean()
   def supports?(capabilities, capability) when is_list(capabilities) and is_atom(capability) do
     capability in capabilities
   end
 
-  @doc """
-  Returns the list of capabilities required for a content type.
-
-  ## Examples
-
-      iex> Capabilities.content_requires(%Content.Text{text: "hello"})
-      [:text]
-
-      iex> Capabilities.content_requires(%Content.Image{url: "..."})
-      [:image]
-  """
+  @doc "Returns the list of capabilities required for an inbound content block."
   @spec content_requires(struct()) :: capabilities()
   def content_requires(%Text{}), do: [:text]
   def content_requires(%Image{}), do: [:image]
@@ -111,79 +73,83 @@ defmodule Jido.Chat.Capabilities do
   def content_requires(%ToolResult{}), do: [:text]
   def content_requires(_), do: [:text]
 
-  @doc """
-  Checks if a channel can deliver the given content.
+  @doc "Checks if a channel can deliver the given outbound postable payload."
+  @spec can_deliver?(capabilities(), Postable.t() | PostPayload.t() | map()) :: boolean()
+  def can_deliver?(channel_caps, %Postable{} = postable) when is_list(channel_caps) do
+    can_deliver?(channel_caps, Postable.to_payload(postable))
+  end
 
-  Returns true if the channel capabilities include all requirements for the content.
+  def can_deliver?(channel_caps, %PostPayload{} = payload) when is_list(channel_caps) do
+    uploads_supported? =
+      payload
+      |> upload_requires()
+      |> Enum.all?(&supports?(channel_caps, &1))
 
-  ## Examples
+    content_supported? =
+      case payload.kind do
+        :stream ->
+          supports?(channel_caps, :streaming)
 
-      iex> Capabilities.can_deliver?([:text, :image], %Content.Text{text: "hello"})
-      true
+        :card ->
+          supports?(channel_caps, :cards) or
+            (supports?(channel_caps, :text) and is_binary(payload.fallback_text || payload.text))
 
-      iex> Capabilities.can_deliver?([:text], %Content.Image{url: "..."})
-      false
-  """
+        :markdown ->
+          supports?(channel_caps, :markdown) or supports?(channel_caps, :text)
+
+        _other ->
+          supports?(channel_caps, :text)
+      end
+
+    uploads_supported? and content_supported?
+  end
+
+  def can_deliver?(channel_caps, payload)
+      when is_list(channel_caps) and is_map(payload) and not is_struct(payload) do
+    try do
+      payload
+      |> PostPayload.new()
+      |> then(&can_deliver?(channel_caps, &1))
+    rescue
+      _ -> false
+    end
+  end
+
   @spec can_deliver?(capabilities(), struct()) :: boolean()
   def can_deliver?(channel_caps, content) when is_list(channel_caps) do
     required = content_requires(content)
     Enum.all?(required, &supports?(channel_caps, &1))
   end
 
-  @doc """
-  Filters a list of content to only what the channel supports.
-
-  Returns a list containing only content that the channel can deliver.
-
-  ## Examples
-
-      iex> content = [%Content.Text{text: "Hi"}, %Content.Image{url: "..."}]
-      iex> Capabilities.filter_content(content, [:text])
-      [%Content.Text{text: "Hi"}]
-  """
-  @spec filter_content([struct()], capabilities()) :: [struct()]
+  @doc "Filters a list of content or outbound payloads to only what the channel supports."
+  @spec filter_content([term()], capabilities()) :: [term()]
   def filter_content(content_list, channel_caps)
       when is_list(content_list) and is_list(channel_caps) do
     Enum.filter(content_list, &can_deliver?(channel_caps, &1))
   end
 
-  @doc """
-  Returns a list of content that the channel cannot deliver.
-
-  ## Examples
-
-      iex> content = [%Content.Text{text: "Hi"}, %Content.Image{url: "..."}]
-      iex> Capabilities.unsupported_content(content, [:text])
-      [%Content.Image{url: "..."}]
-  """
-  @spec unsupported_content([struct()], capabilities()) :: [struct()]
+  @doc "Returns a list of content or outbound payloads that the channel cannot deliver."
+  @spec unsupported_content([term()], capabilities()) :: [term()]
   def unsupported_content(content_list, channel_caps)
       when is_list(content_list) and is_list(channel_caps) do
     Enum.reject(content_list, &can_deliver?(channel_caps, &1))
   end
 
-  @doc """
-  Returns the content capabilities for an adapter module.
-
-  Legacy channel wrappers have been removed. This helper now accepts the canonical
-  `Jido.Chat.Adapter` module and derives a content-focused capability list from the
-  adapter surface. When an adapter only exposes the operational capability matrix,
-  the content fallback remains `[:text]`.
-
-  ## Examples
-
-      iex> Capabilities.channel_capabilities(Jido.Chat.Discord.Adapter)
-      [:text, :reactions, :threads]
-  """
+  @doc "Returns the delivery-focused capability list for an adapter module."
   @spec channel_capabilities(module()) :: capabilities()
   def channel_capabilities(adapter_module) when is_atom(adapter_module) do
-    cond do
-      function_exported?(adapter_module, :capabilities, 0) ->
-        normalize_adapter_capabilities(adapter_module.capabilities())
+    capabilities =
+      if Code.ensure_loaded?(adapter_module) and
+           function_exported?(adapter_module, :capabilities, 0) do
+        case adapter_module.capabilities() do
+          caps when is_list(caps) -> caps
+          _ -> Adapter.capabilities(adapter_module)
+        end
+      else
+        Adapter.capabilities(adapter_module)
+      end
 
-      true ->
-        [:text]
-    end
+    normalize_adapter_capabilities(capabilities)
   end
 
   defp normalize_adapter_capabilities(capabilities) when is_list(capabilities) do
@@ -197,14 +163,34 @@ defmodule Jido.Chat.Capabilities do
 
   defp normalize_adapter_capabilities(capabilities) when is_map(capabilities) do
     media_supported? =
-      supported_status?(capabilities[:post_message]) or
-        supported_status?(capabilities[:send_file])
+      supported_status?(capabilities[:image]) or
+        supported_status?(capabilities[:audio]) or
+        supported_status?(capabilities[:video]) or
+        supported_status?(capabilities[:file]) or
+        supported_status?(capabilities[:send_file]) or
+        supported_status?(capabilities[:post_message])
+
+    multi_file_supported? =
+      supported_status?(capabilities[:multi_file]) or
+        supported_status?(capabilities[:post_message])
 
     [:text]
     |> maybe_add_capability(:image, media_supported?)
     |> maybe_add_capability(:audio, media_supported?)
     |> maybe_add_capability(:video, media_supported?)
     |> maybe_add_capability(:file, media_supported?)
+    |> maybe_add_capability(:multi_file, multi_file_supported?)
+    |> maybe_add_capability(:markdown, supported_status?(capabilities[:markdown]))
+    |> maybe_add_capability(:cards, supported_status?(capabilities[:cards]))
+    |> maybe_add_capability(
+      :modals,
+      supported_status?(capabilities[:modals]) or supported_status?(capabilities[:open_modal])
+    )
+    |> maybe_add_capability(
+      :ephemeral,
+      supported_status?(capabilities[:ephemeral]) or
+        supported_status?(capabilities[:post_ephemeral])
+    )
     |> maybe_add_capability(
       :threads,
       supported_status?(capabilities[:open_thread]) or
@@ -217,9 +203,30 @@ defmodule Jido.Chat.Capabilities do
     )
     |> maybe_add_capability(:typing, supported_status?(capabilities[:start_typing]))
     |> maybe_add_capability(:streaming, supported_status?(capabilities[:stream]))
+    |> maybe_add_capability(:assistant_events, supported_status?(capabilities[:assistant_events]))
   end
 
   defp normalize_adapter_capabilities(_), do: [:text]
+
+  defp upload_requires(%PostPayload{} = payload) do
+    uploads = PostPayload.upload_candidates(payload)
+
+    uploads
+    |> Enum.flat_map(&upload_requires/1)
+    |> maybe_require_multi_file(length(uploads))
+  end
+
+  defp upload_requires(%Attachment{kind: kind}), do: upload_requires(kind)
+  defp upload_requires(%FileUpload{kind: kind}), do: upload_requires(kind)
+  defp upload_requires(:image), do: [:image]
+  defp upload_requires(:audio), do: [:audio]
+  defp upload_requires(:video), do: [:video]
+  defp upload_requires(_kind), do: [:file]
+
+  defp maybe_require_multi_file(capabilities, count) when count > 1,
+    do: Enum.uniq([:multi_file | capabilities])
+
+  defp maybe_require_multi_file(capabilities, _count), do: Enum.uniq(capabilities)
 
   defp supported_status?(status), do: status in [:native, :fallback]
 

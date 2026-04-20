@@ -4,6 +4,7 @@ defmodule Jido.Chat.Incoming do
   """
 
   alias Jido.Chat.{Author, ChannelMeta, Media, Mention}
+  alias Jido.Chat.Wire
 
   @schema Zoi.struct(
             __MODULE__,
@@ -49,6 +50,19 @@ defmodule Jido.Chat.Incoming do
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 
+  @doc "Serializes the incoming payload into a plain map with a type marker."
+  @spec to_map(t()) :: map()
+  def to_map(%__MODULE__{} = incoming) do
+    incoming
+    |> Map.from_struct()
+    |> Wire.to_plain()
+    |> Map.put("__type__", "incoming")
+  end
+
+  @doc "Builds an incoming payload from serialized map data."
+  @spec from_map(map()) :: t()
+  def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+
   defp maybe_attach_author(%{author: %Author{}} = attrs), do: attrs
 
   defp maybe_attach_author(%{author: author} = attrs) when is_map(author),
@@ -62,11 +76,16 @@ defmodule Jido.Chat.Incoming do
     if is_nil(user_id) do
       attrs
     else
-      Map.put_new(attrs, :author, %Author{
-        user_id: to_string(user_id),
-        user_name: username || to_string(user_id),
-        full_name: display_name || username
-      })
+      attrs
+      |> Map.delete("author")
+      |> Map.put_new(
+        :author,
+        %Author{
+          user_id: to_string(user_id),
+          user_name: username || to_string(user_id),
+          full_name: display_name || username
+        }
+      )
     end
   end
 
@@ -78,7 +97,9 @@ defmodule Jido.Chat.Incoming do
         attrs
 
       list when is_list(list) ->
-        Map.put(attrs, :mentions, Enum.map(list, &normalize_mention/1))
+        attrs
+        |> Map.delete("mentions")
+        |> Map.put(:mentions, Enum.map(list, &normalize_mention/1))
 
       _other ->
         attrs
@@ -93,7 +114,9 @@ defmodule Jido.Chat.Incoming do
         attrs
 
       list when is_list(list) ->
-        Map.put(attrs, :media, Enum.map(list, &normalize_media/1))
+        attrs
+        |> Map.delete("media")
+        |> Map.put(:media, Enum.map(list, &normalize_media/1))
 
       _other ->
         attrs
@@ -119,7 +142,9 @@ defmodule Jido.Chat.Incoming do
         attrs
 
       map when is_map(map) ->
-        Map.put(attrs, :channel_meta, ChannelMeta.new(map))
+        attrs
+        |> Map.delete("channel_meta")
+        |> Map.put(:channel_meta, ChannelMeta.new(map))
 
       _other ->
         attrs

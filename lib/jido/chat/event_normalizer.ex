@@ -192,11 +192,24 @@ defmodule Jido.Chat.EventNormalizer do
 
   defp infer_event_type(payload) when is_map(payload) do
     cond do
-      Map.has_key?(payload, :emoji) or Map.has_key?(payload, "emoji") -> :reaction
-      Map.has_key?(payload, :action_id) or Map.has_key?(payload, "action_id") -> :action
-      Map.has_key?(payload, :callback_id) or Map.has_key?(payload, "callback_id") -> :modal_submit
-      Map.has_key?(payload, :command) or Map.has_key?(payload, "command") -> :slash_command
-      true -> :message
+      Map.has_key?(payload, :emoji) or Map.has_key?(payload, "emoji") ->
+        :reaction
+
+      Map.has_key?(payload, :action_id) or Map.has_key?(payload, "action_id") ->
+        :action
+
+      Map.get(payload, :event_type) == :modal_close or
+          Map.get(payload, "event_type") == "modal_close" ->
+        :modal_close
+
+      Map.has_key?(payload, :callback_id) or Map.has_key?(payload, "callback_id") ->
+        :modal_submit
+
+      Map.has_key?(payload, :command) or Map.has_key?(payload, "command") ->
+        :slash_command
+
+      true ->
+        :message
     end
   end
 
@@ -212,9 +225,9 @@ defmodule Jido.Chat.EventNormalizer do
 
   defp payload_thread_id(_adapter_name, %ReactionEvent{} = payload), do: payload.thread_id
   defp payload_thread_id(_adapter_name, %ActionEvent{} = payload), do: payload.thread_id
-  defp payload_thread_id(_adapter_name, %ModalSubmitEvent{}), do: nil
-  defp payload_thread_id(_adapter_name, %ModalCloseEvent{}), do: nil
-  defp payload_thread_id(_adapter_name, %SlashCommandEvent{}), do: nil
+  defp payload_thread_id(_adapter_name, %ModalSubmitEvent{} = payload), do: payload.thread_id
+  defp payload_thread_id(_adapter_name, %ModalCloseEvent{} = payload), do: payload.thread_id
+  defp payload_thread_id(_adapter_name, %SlashCommandEvent{} = payload), do: payload.thread_id
 
   defp payload_thread_id(_adapter_name, %AssistantThreadStartedEvent{} = payload),
     do: payload.thread_id
@@ -225,12 +238,23 @@ defmodule Jido.Chat.EventNormalizer do
   defp payload_thread_id(_adapter_name, _), do: nil
 
   defp payload_channel_id(%Incoming{} = incoming), do: stringify(incoming.external_room_id)
+  defp payload_channel_id(%ReactionEvent{} = payload), do: payload.channel_id
+  defp payload_channel_id(%ActionEvent{} = payload), do: payload.channel_id
+  defp payload_channel_id(%ModalSubmitEvent{} = payload), do: payload.channel_id
+  defp payload_channel_id(%ModalCloseEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%SlashCommandEvent{} = payload), do: payload.channel_id
+  defp payload_channel_id(%AssistantThreadStartedEvent{} = payload), do: payload.channel_id
+  defp payload_channel_id(%AssistantContextChangedEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(_), do: nil
 
   defp payload_message_id(%Incoming{} = incoming), do: stringify(incoming.external_message_id)
   defp payload_message_id(%ReactionEvent{} = payload), do: payload.message_id
   defp payload_message_id(%ActionEvent{} = payload), do: payload.message_id
+  defp payload_message_id(%ModalSubmitEvent{} = payload), do: payload.message_id
+  defp payload_message_id(%ModalCloseEvent{} = payload), do: payload.message_id
+  defp payload_message_id(%SlashCommandEvent{} = payload), do: payload.message_id
+  defp payload_message_id(%AssistantThreadStartedEvent{} = payload), do: payload.message_id
+  defp payload_message_id(%AssistantContextChangedEvent{} = payload), do: payload.message_id
   defp payload_message_id(_), do: nil
 
   defp stringify(nil), do: nil
