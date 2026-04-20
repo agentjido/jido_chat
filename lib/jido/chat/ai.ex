@@ -11,9 +11,21 @@ defmodule Jido.Chat.AI do
           required(:content) => String.t() | [ai_content_part()]
         }
 
-  @doc "Converts normalized chat messages into AI-friendly role/content maps."
-  @spec to_messages([Message.t() | map()], keyword()) :: [ai_message()]
+  @doc """
+  Converts normalized chat messages into AI-friendly role/content maps.
+
+  Options stay Elixir-native by default, but Chat SDK-style camelCase aliases are
+  accepted to make cross-port migration less brittle:
+
+  - `include_names` or `includeNames`
+  - `transform` or `transformMessage`
+  - `unsupported_attachment` or `onUnsupportedAttachment`
+  - `fetch_attachment` or `fetchAttachment`
+  """
+  @spec to_messages([Message.t() | map()], keyword() | map()) :: [ai_message()]
   def to_messages(messages, opts \\ []) when is_list(messages) do
+    opts = normalize_opts(opts)
+
     messages
     |> Enum.map(&normalize_message/1)
     |> sort_messages()
@@ -21,7 +33,7 @@ defmodule Jido.Chat.AI do
   end
 
   @doc "Alias for `to_messages/2`."
-  @spec to_ai_messages([Message.t() | map()], keyword()) :: [ai_message()]
+  @spec to_ai_messages([Message.t() | map()], keyword() | map()) :: [ai_message()]
   def to_ai_messages(messages, opts \\ []), do: to_messages(messages, opts)
 
   defp normalize_message(%Message{} = message), do: message
@@ -112,7 +124,11 @@ defmodule Jido.Chat.AI do
   end
 
   defp unsupported_attachment_parts(attachment, message, opts) do
-    case opts[:unsupported_attachment] do
+    case option(opts, [
+           :unsupported_attachment,
+           :on_unsupported_attachment,
+           :onUnsupportedAttachment
+         ]) do
       nil ->
         []
 
@@ -137,7 +153,7 @@ defmodule Jido.Chat.AI do
         data
 
       _ ->
-        case opts[:fetch_attachment] do
+        case option(opts, [:fetch_attachment, :fetchAttachment]) do
           callback when is_function(callback, 1) ->
             case callback.(attachment) do
               {:ok, value} when is_binary(value) -> value
@@ -180,7 +196,7 @@ defmodule Jido.Chat.AI do
   end
 
   defp maybe_put_name(message, %Message{author: author}, opts) do
-    if opts[:include_names] && author do
+    if option(opts, [:include_names, :includeNames]) && author do
       Map.put(message, :name, author.user_name || author.full_name)
     else
       message
@@ -188,11 +204,21 @@ defmodule Jido.Chat.AI do
   end
 
   defp transform_message(ai_message, message, opts) do
-    case opts[:transform] do
+    case option(opts, [:transform, :transform_message, :transformMessage]) do
       callback when is_function(callback, 2) -> callback.(ai_message, message)
       callback when is_function(callback, 1) -> callback.(ai_message)
       _ -> ai_message
     end
+  end
+
+  defp normalize_opts(opts) when is_list(opts), do: Map.new(opts)
+  defp normalize_opts(opts) when is_map(opts), do: opts
+  defp normalize_opts(_opts), do: %{}
+
+  defp option(opts, keys) when is_map(opts) do
+    Enum.find_value(keys, fn key ->
+      Map.get(opts, key) || Map.get(opts, Atom.to_string(key))
+    end)
   end
 
   defp text_only_parts?(parts), do: Enum.all?(parts, &match?(%{type: "text"}, &1))

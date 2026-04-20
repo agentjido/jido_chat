@@ -96,4 +96,30 @@ defmodule Jido.Chat.AITest do
     assert %{type: "text", text: "{\"ok\":true}", filename: "schema.json"} in ai_message.content
     assert %{type: "text", text: "unsupported:audio"} in ai_message.content
   end
+
+  test "to_ai_messages accepts Chat SDK-style camelCase option aliases" do
+    message =
+      Message.new(%{
+        id: "m1",
+        text: "hello",
+        attachments: [
+          %{type: :file, filename: "schema.json", media_type: "application/json"},
+          %{type: :audio, url: "https://example.com/audio.mp3", media_type: "audio/mpeg"}
+        ],
+        author: Author.new(%{user_id: "user", user_name: "casey"})
+      })
+
+    [ai_message] =
+      AI.to_ai_messages([message],
+        includeNames: true,
+        fetchAttachment: fn %{filename: "schema.json"} -> "{\"ok\":true}" end,
+        onUnsupportedAttachment: fn attachment, _message -> "unsupported:#{attachment.kind}" end,
+        transformMessage: fn ai_message, _message -> Map.put(ai_message, :source, :camel_case) end
+      )
+
+    assert ai_message.name == "casey"
+    assert ai_message.source == :camel_case
+    assert %{type: "text", text: "{\"ok\":true}", filename: "schema.json"} in ai_message.content
+    assert %{type: "text", text: "unsupported:audio"} in ai_message.content
+  end
 end
