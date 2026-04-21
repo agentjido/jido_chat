@@ -12,9 +12,7 @@ defmodule Jido.Chat.HandlerDispatch do
     Thread
   }
 
-  @spec process_message(map(), atom(), String.t(), Incoming.t() | map(), (map(),
-                                                                          Incoming.t(),
-                                                                          String.t() ->
+  @spec process_message(map(), atom(), String.t(), Incoming.t() | map(), (map(), Incoming.t(), String.t() ->
                                                                             Thread.t())) ::
           {:ok, map(), Incoming.t()} | {:error, term()}
   def process_message(chat, adapter_name, thread_id, incoming, build_thread)

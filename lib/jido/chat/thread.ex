@@ -19,6 +19,8 @@ defmodule Jido.Chat.Thread do
     Wire
   }
 
+  @dialyzer {:nowarn_function, collect_all_messages: 5}
+
   @schema Zoi.struct(
             __MODULE__,
             %{
@@ -270,20 +272,6 @@ defmodule Jido.Chat.Thread do
       case fetched do
         %__MODULE__{} = fetched_thread ->
           {:ok, fetched_thread}
-
-        map when is_map(map) ->
-          {:ok,
-           %{
-             thread
-             | metadata:
-                 Map.merge(thread.metadata || %{}, map[:metadata] || map["metadata"] || %{}),
-               external_thread_id:
-                 map[:external_thread_id] || map["external_thread_id"] ||
-                   thread.external_thread_id
-           }}
-
-        _ ->
-          {:error, :invalid_thread}
       end
     end
   end
@@ -430,7 +418,7 @@ defmodule Jido.Chat.Thread do
 
     case messages(thread, request_opts) do
       {:ok, %MessagePage{} = page} ->
-        pending = page.messages || []
+        pending = page.messages
         done? = is_nil(page.next_cursor)
         next_cursor = page.next_cursor
 

@@ -279,8 +279,7 @@ defmodule Jido.Chat.Adapter do
         webhook: support_status(adapter_module, :handle_webhook, 3, :fallback),
         verify_webhook: support_status(adapter_module, :verify_webhook, 2, :fallback),
         parse_event: support_status(adapter_module, :parse_event, 2, :fallback),
-        format_webhook_response:
-          support_status(adapter_module, :format_webhook_response, 2, :fallback)
+        format_webhook_response: support_status(adapter_module, :format_webhook_response, 2, :fallback)
       }
       |> ensure_capability_defaults(adapter_module)
     end
@@ -615,7 +614,7 @@ defmodule Jido.Chat.Adapter do
                attachments: PostPayload.outbound_attachments(payload),
                metadata:
                  %{source_room_id: external_room_id, delivery: :dm_fallback}
-                 |> Map.merge(payload.metadata || %{})
+                 |> Map.merge(payload.metadata)
              })}
           end
 
@@ -903,11 +902,9 @@ defmodule Jido.Chat.Adapter do
       id:
         thread[:id] || thread["id"] ||
           default_thread_id(adapter_module, external_room_id, external_thread_id),
-      adapter_name:
-        thread[:adapter_name] || thread["adapter_name"] || adapter_type(adapter_module),
+      adapter_name: thread[:adapter_name] || thread["adapter_name"] || adapter_type(adapter_module),
       adapter: thread[:adapter] || thread["adapter"] || adapter_module,
-      external_room_id:
-        thread[:external_room_id] || thread["external_room_id"] || external_room_id,
+      external_room_id: thread[:external_room_id] || thread["external_room_id"] || external_room_id,
       external_thread_id: external_thread_id,
       channel_id: thread[:channel_id] || thread["channel_id"],
       is_dm: thread[:is_dm] || thread["is_dm"] || false,
@@ -1022,7 +1019,7 @@ defmodule Jido.Chat.Adapter do
           PostPayload.outbound_attachments(payload),
       metadata:
         (message[:metadata] || message["metadata"] || %{})
-        |> Map.merge(payload.metadata || %{})
+        |> Map.merge(payload.metadata)
         |> Map.merge(metadata_from_opts(opts))
     })
   end
@@ -1033,10 +1030,8 @@ defmodule Jido.Chat.Adapter do
     ModalResult.new(%{
       id: result[:id] || result["id"] || Jido.Chat.ID.generate!(),
       status: result[:status] || result["status"] || :opened,
-      external_room_id:
-        result[:external_room_id] || result["external_room_id"] || external_room_id,
-      external_message_id:
-        stringify(result[:external_message_id] || result["external_message_id"]),
+      external_room_id: result[:external_room_id] || result["external_room_id"] || external_room_id,
+      external_message_id: stringify(result[:external_message_id] || result["external_message_id"]),
       raw: result[:raw] || result["raw"],
       metadata: result[:metadata] || result["metadata"] || %{}
     })
@@ -1116,8 +1111,7 @@ defmodule Jido.Chat.Adapter do
 
     chunks
     |> Enum.with_index(1)
-    |> Enum.reduce_while({:ok, "", initial_response}, fn {chunk, index},
-                                                         {:ok, acc_text, response} ->
+    |> Enum.reduce_while({:ok, "", initial_response}, fn {chunk, index}, {:ok, acc_text, response} ->
       next_text = acc_text <> render_stream_chunk(chunk)
       should_update = rem(index, update_every) == 0 or index == total
 
@@ -1130,8 +1124,7 @@ defmodule Jido.Chat.Adapter do
                stream_opts
              ) do
           {:ok, next_response} ->
-            {:cont,
-             {:ok, next_text, with_stream_metadata(next_response, :post_edit, total, next_text)}}
+            {:cont, {:ok, next_text, with_stream_metadata(next_response, :post_edit, total, next_text)}}
 
           {:error, _reason} = error ->
             {:halt, error}
@@ -1151,7 +1144,7 @@ defmodule Jido.Chat.Adapter do
 
   defp with_stream_metadata(%Response{} = response, mode, chunk_count, final_text) do
     metadata =
-      (response.metadata || %{})
+      response.metadata
       |> Map.put(:stream_fallback, mode)
       |> Map.put(:chunk_count, chunk_count)
       |> Map.put(:final_text, final_text)
@@ -1184,7 +1177,6 @@ defmodule Jido.Chat.Adapter do
 
   defp bracketed_chunk(%StreamChunk{} = chunk) do
     case StreamChunk.fallback_text(chunk) do
-      nil -> ""
       "" -> ""
       text -> "\n[#{text}]\n"
     end
@@ -1204,7 +1196,6 @@ defmodule Jido.Chat.Adapter do
 
   defp step_chunk(%StreamChunk{} = chunk) do
     case StreamChunk.fallback_text(chunk) do
-      nil -> ""
       "" -> ""
       text -> "\n\n#{text}\n"
     end
@@ -1253,8 +1244,7 @@ defmodule Jido.Chat.Adapter do
       webhook: support_status(adapter_module, :handle_webhook, 3, :fallback),
       verify_webhook: support_status(adapter_module, :verify_webhook, 2, :fallback),
       parse_event: support_status(adapter_module, :parse_event, 2, :fallback),
-      format_webhook_response:
-        support_status(adapter_module, :format_webhook_response, 2, :fallback),
+      format_webhook_response: support_status(adapter_module, :format_webhook_response, 2, :fallback),
       text: :native,
       image: if(single_upload_supported?, do: :fallback, else: :unsupported),
       audio: if(single_upload_supported?, do: :fallback, else: :unsupported),
@@ -1312,8 +1302,6 @@ defmodule Jido.Chat.Adapter do
       _other -> %{}
     end
   end
-
-  defp metadata_from_opts(_opts), do: %{}
 
   defp normalize_event_envelope(_adapter_module, %EventEnvelope{} = envelope), do: envelope
 
