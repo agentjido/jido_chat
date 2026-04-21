@@ -218,7 +218,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Initializes adapter resources when supported."
   @spec initialize(module(), keyword()) :: :ok | {:error, term()}
   def initialize(adapter_module, opts \\ []) do
-    if function_exported?(adapter_module, :initialize, 1) do
+    if callback_exported?(adapter_module, :initialize, 1) do
       case adapter_module.initialize(opts) do
         :ok -> :ok
         {:ok, _} -> :ok
@@ -233,7 +233,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Shuts down adapter resources when supported."
   @spec shutdown(module(), keyword()) :: :ok | {:error, term()}
   def shutdown(adapter_module, opts \\ []) do
-    if function_exported?(adapter_module, :shutdown, 1) do
+    if callback_exported?(adapter_module, :shutdown, 1) do
       case adapter_module.shutdown(opts) do
         :ok -> :ok
         {:ok, _} -> :ok
@@ -305,7 +305,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Uploads and sends a file when supported by the adapter."
   @spec send_file(module(), external_room_id(), file_input(), keyword()) :: send_result()
   def send_file(adapter_module, external_room_id, file, opts \\ []) do
-    if function_exported?(adapter_module, :send_file, 3) do
+    if callback_exported?(adapter_module, :send_file, 3) do
       with {:ok, response} <- adapter_module.send_file(external_room_id, file, opts) do
         {:ok, normalize_response(adapter_module, response)}
       end
@@ -325,7 +325,7 @@ defmodule Jido.Chat.Adapter do
     upload_candidates = PostPayload.upload_candidates(payload)
 
     cond do
-      function_exported?(adapter_module, :post_message, 3) ->
+      callback_exported?(adapter_module, :post_message, 3) ->
         with {:ok, response} <-
                adapter_module.post_message(external_room_id, payload, adapter_opts) do
           {:ok, normalize_response(adapter_module, response)}
@@ -369,7 +369,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Posts a channel-level message using adapter callback or send fallback."
   @spec post_channel_message(module(), external_room_id(), String.t(), keyword()) :: send_result()
   def post_channel_message(adapter_module, external_room_id, text, opts \\ []) do
-    if function_exported?(adapter_module, :post_channel_message, 3) do
+    if callback_exported?(adapter_module, :post_channel_message, 3) do
       with {:ok, response} <- adapter_module.post_channel_message(external_room_id, text, opts) do
         {:ok, normalize_response(adapter_module, response)}
       end
@@ -381,7 +381,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Streams chunked text using adapter stream callback or send fallback."
   @spec stream(module(), external_room_id(), Enumerable.t(), keyword()) :: send_result()
   def stream(adapter_module, external_room_id, chunks, opts \\ []) do
-    if function_exported?(adapter_module, :stream, 3) do
+    if callback_exported?(adapter_module, :stream, 3) do
       with {:ok, response} <- adapter_module.stream(external_room_id, chunks, opts) do
         {:ok, normalize_response(adapter_module, response)}
       end
@@ -394,7 +394,7 @@ defmodule Jido.Chat.Adapter do
       stream_opts = Keyword.drop(opts, [:fallback_mode, :placeholder_text, :update_every])
 
       cond do
-        fallback_mode == :post_edit and function_exported?(adapter_module, :edit_message, 4) ->
+        fallback_mode == :post_edit and callback_exported?(adapter_module, :edit_message, 4) ->
           with {:ok, initial_response} <-
                  send_message(adapter_module, external_room_id, placeholder_text, stream_opts),
                {:ok, final_response} <-
@@ -419,7 +419,7 @@ defmodule Jido.Chat.Adapter do
   @spec edit_message(module(), external_room_id(), external_message_id(), String.t(), keyword()) ::
           send_result()
   def edit_message(adapter_module, external_room_id, external_message_id, text, opts \\ []) do
-    if function_exported?(adapter_module, :edit_message, 4) do
+    if callback_exported?(adapter_module, :edit_message, 4) do
       with {:ok, response} <-
              adapter_module.edit_message(external_room_id, external_message_id, text, opts) do
         {:ok, normalize_response(adapter_module, Map.put(response, :status, :edited))}
@@ -433,7 +433,7 @@ defmodule Jido.Chat.Adapter do
   @spec delete_message(module(), external_room_id(), external_message_id(), keyword()) ::
           delete_result()
   def delete_message(adapter_module, external_room_id, external_message_id, opts \\ []) do
-    if function_exported?(adapter_module, :delete_message, 3) do
+    if callback_exported?(adapter_module, :delete_message, 3) do
       case adapter_module.delete_message(external_room_id, external_message_id, opts) do
         :ok -> :ok
         {:ok, _} -> :ok
@@ -448,7 +448,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Starts typing indicator when supported by adapter."
   @spec start_typing(module(), external_room_id(), keyword()) :: typing_result()
   def start_typing(adapter_module, external_room_id, opts \\ []) do
-    if function_exported?(adapter_module, :start_typing, 2) do
+    if callback_exported?(adapter_module, :start_typing, 2) do
       case adapter_module.start_typing(external_room_id, opts) do
         :ok -> :ok
         {:ok, _} -> :ok
@@ -463,7 +463,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Fetches channel metadata as `Jido.Chat.ChannelInfo`."
   @spec fetch_metadata(module(), external_room_id(), keyword()) :: metadata_result()
   def fetch_metadata(adapter_module, external_room_id, opts \\ []) do
-    if function_exported?(adapter_module, :fetch_metadata, 2) do
+    if callback_exported?(adapter_module, :fetch_metadata, 2) do
       with {:ok, info} <- adapter_module.fetch_metadata(external_room_id, opts) do
         {:ok, normalize_channel_info(adapter_module, info, external_room_id)}
       end
@@ -475,7 +475,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Fetches thread metadata as a normalized `Jido.Chat.Thread`."
   @spec fetch_thread(module(), external_room_id(), keyword()) :: thread_result()
   def fetch_thread(adapter_module, external_room_id, opts \\ []) do
-    if function_exported?(adapter_module, :fetch_thread, 2) do
+    if callback_exported?(adapter_module, :fetch_thread, 2) do
       with {:ok, thread} <- adapter_module.fetch_thread(external_room_id, opts) do
         {:ok, normalize_thread(adapter_module, thread, external_room_id, opts)}
       end
@@ -496,7 +496,7 @@ defmodule Jido.Chat.Adapter do
   @spec fetch_message(module(), external_room_id(), external_message_id(), keyword()) ::
           message_result()
   def fetch_message(adapter_module, external_room_id, external_message_id, opts \\ []) do
-    if function_exported?(adapter_module, :fetch_message, 3) do
+    if callback_exported?(adapter_module, :fetch_message, 3) do
       with {:ok, message} <-
              adapter_module.fetch_message(external_room_id, external_message_id, opts) do
         {:ok, normalize_message(adapter_module, message, opts)}
@@ -510,7 +510,7 @@ defmodule Jido.Chat.Adapter do
   @spec add_reaction(module(), external_room_id(), external_message_id(), String.t(), keyword()) ::
           reaction_result()
   def add_reaction(adapter_module, external_room_id, external_message_id, emoji, opts \\ []) do
-    if function_exported?(adapter_module, :add_reaction, 4) do
+    if callback_exported?(adapter_module, :add_reaction, 4) do
       case adapter_module.add_reaction(external_room_id, external_message_id, emoji, opts) do
         :ok -> :ok
         {:ok, _} -> :ok
@@ -532,7 +532,7 @@ defmodule Jido.Chat.Adapter do
         ) ::
           reaction_result()
   def remove_reaction(adapter_module, external_room_id, external_message_id, emoji, opts \\ []) do
-    if function_exported?(adapter_module, :remove_reaction, 4) do
+    if callback_exported?(adapter_module, :remove_reaction, 4) do
       case adapter_module.remove_reaction(external_room_id, external_message_id, emoji, opts) do
         :ok -> :ok
         {:ok, _} -> :ok
@@ -579,7 +579,7 @@ defmodule Jido.Chat.Adapter do
       fallback_to_dm = Keyword.get(base_opts, :fallback_to_dm, false)
 
       cond do
-        upload_candidates == [] and function_exported?(adapter_module, :post_ephemeral, 4) ->
+        upload_candidates == [] and callback_exported?(adapter_module, :post_ephemeral, 4) ->
           with {:ok, message} <-
                  adapter_module.post_ephemeral(
                    external_room_id,
@@ -598,7 +598,7 @@ defmodule Jido.Chat.Adapter do
              )}
           end
 
-        fallback_to_dm and function_exported?(adapter_module, :open_dm, 2) ->
+        fallback_to_dm and callback_exported?(adapter_module, :open_dm, 2) ->
           dm_opts = Keyword.delete(base_opts, :fallback_to_dm)
 
           with {:ok, dm_room_id} <- adapter_module.open_dm(external_user_id, base_opts),
@@ -634,7 +634,7 @@ defmodule Jido.Chat.Adapter do
       when is_map(payload) or is_struct(payload, Modal) do
     payload = normalize_modal_payload(payload)
 
-    if function_exported?(adapter_module, :open_modal, 3) do
+    if callback_exported?(adapter_module, :open_modal, 3) do
       with {:ok, result} <- adapter_module.open_modal(external_room_id, payload, opts) do
         {:ok, normalize_modal_result(result, external_room_id)}
       end
@@ -646,7 +646,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Fetches thread-level history when supported by adapter."
   @spec fetch_messages(module(), external_room_id(), keyword()) :: message_page_result()
   def fetch_messages(adapter_module, external_room_id, opts \\ []) do
-    if function_exported?(adapter_module, :fetch_messages, 2) do
+    if callback_exported?(adapter_module, :fetch_messages, 2) do
       fetch_opts = normalize_fetch_opts(opts)
 
       with {:ok, page} <-
@@ -661,7 +661,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Fetches channel-level history when supported by adapter."
   @spec fetch_channel_messages(module(), external_room_id(), keyword()) :: message_page_result()
   def fetch_channel_messages(adapter_module, external_room_id, opts \\ []) do
-    if function_exported?(adapter_module, :fetch_channel_messages, 2) do
+    if callback_exported?(adapter_module, :fetch_channel_messages, 2) do
       fetch_opts = normalize_fetch_opts(opts)
 
       with {:ok, page} <-
@@ -679,7 +679,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Lists channel thread summaries when supported by adapter."
   @spec list_threads(module(), external_room_id(), keyword()) :: thread_page_result()
   def list_threads(adapter_module, external_room_id, opts \\ []) do
-    if function_exported?(adapter_module, :list_threads, 2) do
+    if callback_exported?(adapter_module, :list_threads, 2) do
       with {:ok, page} <- adapter_module.list_threads(external_room_id, opts) do
         {:ok, normalize_thread_page(page)}
       end
@@ -692,7 +692,7 @@ defmodule Jido.Chat.Adapter do
   @spec open_thread(module(), external_room_id(), external_message_id(), keyword()) ::
           thread_result()
   def open_thread(adapter_module, external_room_id, external_message_id, opts \\ []) do
-    if function_exported?(adapter_module, :open_thread, 3) do
+    if callback_exported?(adapter_module, :open_thread, 3) do
       with {:ok, thread} <-
              adapter_module.open_thread(external_room_id, external_message_id, opts) do
         {:ok, normalize_thread(adapter_module, thread, external_room_id, opts)}
@@ -718,7 +718,7 @@ defmodule Jido.Chat.Adapter do
   def verify_webhook(adapter_module, request, opts \\ []) do
     request = normalize_webhook_request(request, opts)
 
-    if function_exported?(adapter_module, :verify_webhook, 2) do
+    if callback_exported?(adapter_module, :verify_webhook, 2) do
       adapter_module.verify_webhook(request, opts)
     else
       :ok
@@ -732,7 +732,7 @@ defmodule Jido.Chat.Adapter do
     request = normalize_webhook_request(request, opts)
 
     cond do
-      function_exported?(adapter_module, :parse_event, 2) ->
+      callback_exported?(adapter_module, :parse_event, 2) ->
         case adapter_module.parse_event(request, opts) do
           {:ok, :noop} ->
             {:ok, :noop}
@@ -768,7 +768,7 @@ defmodule Jido.Chat.Adapter do
   @spec format_webhook_response(module(), term(), keyword()) ::
           {:ok, WebhookResponse.t()} | {:error, term()}
   def format_webhook_response(adapter_module, result, opts \\ []) do
-    if function_exported?(adapter_module, :format_webhook_response, 2) do
+    if callback_exported?(adapter_module, :format_webhook_response, 2) do
       case adapter_module.format_webhook_response(result, opts) do
         {:ok, response} ->
           {:ok, normalize_webhook_response(response)}
@@ -813,7 +813,7 @@ defmodule Jido.Chat.Adapter do
             acc
 
           {name, arity} ->
-            exported? = function_exported?(adapter_module, name, arity)
+            exported? = callback_exported?(adapter_module, name, arity)
 
             case {status, exported?} do
               {:native, false} -> [{capability, :missing_callback} | acc]
@@ -831,7 +831,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Returns adapter channel type with fallback to module name."
   @spec adapter_type(module()) :: atom()
   def adapter_type(adapter_module) do
-    if function_exported?(adapter_module, :channel_type, 0) do
+    if callback_exported?(adapter_module, :channel_type, 0) do
       adapter_module.channel_type()
     else
       adapter_module
@@ -843,7 +843,7 @@ defmodule Jido.Chat.Adapter do
   end
 
   defp support_status(adapter_module, callback, arity, fallback \\ :unsupported) do
-    if function_exported?(adapter_module, callback, arity), do: :native, else: fallback
+    if callback_exported?(adapter_module, callback, arity), do: :native, else: fallback
   end
 
   defp supported_status?(status), do: status in [:native, :fallback]
@@ -1095,7 +1095,7 @@ defmodule Jido.Chat.Adapter do
     do: "#{adapter_type(adapter_module)}:#{external_room_id}"
 
   defp default_stream_fallback(adapter_module) do
-    if function_exported?(adapter_module, :edit_message, 4), do: :post_edit, else: :final
+    if callback_exported?(adapter_module, :edit_message, 4), do: :post_edit, else: :final
   end
 
   defp stream_post_edit_fallback(

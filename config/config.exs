@@ -16,7 +16,6 @@ if config_env() == :dev do
 
   config :git_ops,
     mix_project: Jido.Chat.MixProject,
-    changelog_file: "CHANGELOG.md",
     repository_url: "https://github.com/agentjido/jido_chat",
     manage_mix_version?: true,
     version_tag_prefix: "v",
