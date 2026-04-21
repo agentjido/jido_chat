@@ -35,8 +35,7 @@ defmodule Jido.Chat.MessagingTarget do
               kind: Zoi.enum([:room, :dm, :thread]) |> Zoi.default(:room),
               external_id: Zoi.string(),
               thread_id: Zoi.string() |> Zoi.nullish(),
-              reply_to_mode:
-                Zoi.enum([:inline, :thread, :platform_default]) |> Zoi.default(:platform_default),
+              reply_to_mode: Zoi.enum([:inline, :thread, :platform_default]) |> Zoi.default(:platform_default),
               reply_to_id: Zoi.string() |> Zoi.nullish(),
               instance_id: Zoi.string() |> Zoi.nullish(),
               channel_type: Zoi.atom() |> Zoi.nullish()

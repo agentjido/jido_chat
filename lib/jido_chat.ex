@@ -43,6 +43,10 @@ defmodule Jido.Chat do
 
   alias Jido.Chat.Content.Text
 
+  @dialyzer {:nowarn_function, normalize_ingress_event: 1}
+  @dialyzer {:nowarn_function, normalize_ingress_response: 1}
+  @dialyzer {:nowarn_function, normalize_ingress_request: 3}
+
   @typedoc "Mention handler callback."
   @type mention_handler ::
           (Thread.t(), Incoming.t() -> term()) | (t(), Thread.t(), Incoming.t() -> t() | term())
@@ -640,8 +644,7 @@ defmodule Jido.Chat do
     with {:ok, modal_submit} <- EventRouter.ensure_modal_submit_event(event, adapter_name) do
       modal_submit = enrich_event_context(chat, adapter_name, modal_submit)
 
-      {:ok, EventRouter.run_event_handlers(chat, chat.handlers.modal_submit, modal_submit),
-       modal_submit}
+      {:ok, EventRouter.run_event_handlers(chat, chat.handlers.modal_submit, modal_submit), modal_submit}
     end
   end
 
@@ -653,8 +656,7 @@ defmodule Jido.Chat do
     with {:ok, modal_close} <- EventRouter.ensure_modal_close_event(event, adapter_name) do
       modal_close = enrich_event_context(chat, adapter_name, modal_close)
 
-      {:ok, EventRouter.run_event_handlers(chat, chat.handlers.modal_close, modal_close),
-       modal_close}
+      {:ok, EventRouter.run_event_handlers(chat, chat.handlers.modal_close, modal_close), modal_close}
     end
   end
 
@@ -666,8 +668,7 @@ defmodule Jido.Chat do
     with {:ok, slash_command} <- EventRouter.ensure_slash_command_event(event, adapter_name) do
       slash_command = enrich_event_context(chat, adapter_name, slash_command)
 
-      {:ok, EventRouter.run_event_handlers(chat, chat.handlers.slash_command, slash_command),
-       slash_command}
+      {:ok, EventRouter.run_event_handlers(chat, chat.handlers.slash_command, slash_command), slash_command}
     end
   end
 

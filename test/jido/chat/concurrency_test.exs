@@ -60,14 +60,10 @@ defmodule Jido.Chat.ConcurrencyTest do
     chat = Chat.new() |> Chat.configure_concurrency(strategy: :concurrent)
 
     assert {:acquired, chat} =
-             Chat.acquire_lock(chat, "thread:concurrent", "owner-1",
-               concurrency: [strategy: :concurrent]
-             )
+             Chat.acquire_lock(chat, "thread:concurrent", "owner-1", concurrency: [strategy: :concurrent])
 
     assert {:acquired, chat} =
-             Chat.acquire_lock(chat, "thread:concurrent", "owner-2",
-               concurrency: [strategy: :concurrent]
-             )
+             Chat.acquire_lock(chat, "thread:concurrent", "owner-2", concurrency: [strategy: :concurrent])
 
     assert %{locks: %{}, pending_locks: %{}} = Chat.lock_snapshot(chat)
   end

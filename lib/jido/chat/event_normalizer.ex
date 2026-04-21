@@ -169,8 +169,7 @@ defmodule Jido.Chat.EventNormalizer do
 
       %{} = user ->
         normalized_user = %{
-          user_id:
-            to_string(user[:user_id] || user["user_id"] || user[:id] || user["id"] || "unknown"),
+          user_id: to_string(user[:user_id] || user["user_id"] || user[:id] || user["id"] || "unknown"),
           user_name:
             user[:user_name] || user["user_name"] || user[:username] || user["username"] ||
               to_string(user[:id] || user["id"] || "unknown"),

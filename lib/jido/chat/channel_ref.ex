@@ -368,7 +368,7 @@ defmodule Jido.Chat.ChannelRef do
 
     case messages(channel, request_opts) do
       {:ok, %MessagePage{} = page} ->
-        pending = page.messages || []
+        pending = page.messages
         done? = is_nil(page.next_cursor)
         next_cursor = page.next_cursor
 
@@ -403,7 +403,7 @@ defmodule Jido.Chat.ChannelRef do
 
     case threads(channel, request_opts) do
       {:ok, %ThreadPage{} = page} ->
-        pending = page.threads || []
+        pending = page.threads
         done? = is_nil(page.next_cursor)
         next_cursor = page.next_cursor
 

@@ -221,7 +221,7 @@ defmodule Jido.Chat.SentMessage do
                text: text,
                formatted: payload.formatted || text,
                raw: payload.raw || response.raw,
-               metadata: Map.merge(sent.metadata || %{}, payload.metadata || %{})
+               metadata: Map.merge(sent.metadata, payload.metadata)
            }}
         end
     end

@@ -3,6 +3,7 @@ defmodule Jido.Chat.ID do
   Lightweight ID generator for SDK structs.
   """
 
+  @doc "Generates a URL-safe chat identifier."
   @spec generate!() :: String.t()
   def generate! do
     "jch_" <> (16 |> :crypto.strong_rand_bytes() |> Base.url_encode64(padding: false))

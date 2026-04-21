@@ -428,8 +428,7 @@ defmodule Jido.Chat.SerializationTest do
                IngressResult.new(%{
                  chat: Chat.new(adapters: %{test: __MODULE__}),
                  adapter_name: :test,
-                 event:
-                   EventEnvelope.new(%{adapter_name: :test, event_type: :message, payload: %{}}),
+                 event: EventEnvelope.new(%{adapter_name: :test, event_type: :message, payload: %{}}),
                  response: WebhookResponse.accepted(),
                  request: WebhookRequest.new(%{adapter_name: :test, payload: %{}}),
                  mode: :request

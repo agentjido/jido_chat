@@ -122,7 +122,7 @@ defmodule Jido.Chat.Markdown do
   end
 
   @doc "Builds a list item node."
-  @spec list_item([node_input()] | String.t()) :: markdown_node()
+  @spec list_item(node_input() | [node_input()]) :: markdown_node()
   def list_item(value), do: Node.new(%{type: :list_item, children: normalize_children(value)})
 
   @doc "Builds a blockquote node."

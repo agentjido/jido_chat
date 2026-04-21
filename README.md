@@ -2,9 +2,9 @@
 
 `jido_chat` is the core adapter contract and canonical data model for `Jido.Chat` integrations.
 
-## Experimental Status
+## Release Status
 
-This package is experimental and pre-1.0. APIs and behavior will change.
+This package is being prepared for the Jido 1.x chat package release line.
 
 `Jido.Chat` is an Elixir implementation aligned to the Vercel Chat SDK
 ([chat-sdk.dev/docs](https://www.chat-sdk.dev/docs)).
@@ -49,7 +49,7 @@ upload hook used by the core fallback path for single-upload posts.
 2. Declare explicit surface support through `capabilities/0` instead of relying on callback inference.
 3. If you build directly on the lightweight `Jido.Chat` facade and ship a custom `Jido.Chat.StateAdapter`, implement `lock/5`, `release_lock/3`, and `force_release_lock/2`, and persist `locks` plus `pending_locks` in snapshots.
 4. Treat `Jido.Chat.PostPayload` as the canonical outbound contract. It can now carry text, markdown, raw payloads, cards, streams, attachments, and `FileUpload` values.
-5. Run `mix quality` before publishing adapter changes. Use `mix cover` when you want the current raw line-coverage signal; this package does not claim exhaustive coverage yet.
+5. Run `mix quality` and `mix coveralls` before publishing adapter changes. Release candidates should meet the current Jido coverage threshold.
 
 ## Usage (Core Loop)
 
@@ -84,5 +84,6 @@ payload =
 
 ## Reference Docs
 
-- [Parity Matrix](PARITY_MATRIX.md)
-- [Migration Notes](MIGRATION_NOTES.md)
+The package-level parity matrix and migration notes are tracked in the
+`proj_jido_chat` workspace while this package is moving through the 1.x release
+batch.

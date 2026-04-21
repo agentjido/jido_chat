@@ -69,8 +69,7 @@ defmodule Jido.Chat.AI do
     ai_message =
       %{
         role: role_for(message),
-        content:
-          if(length(parts) <= 1 and text_only_parts?(parts), do: single_text(parts), else: parts)
+        content: if(length(parts) <= 1 and text_only_parts?(parts), do: single_text(parts), else: parts)
       }
       |> maybe_put_name(message, opts)
 

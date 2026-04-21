@@ -16,16 +16,14 @@ defmodule Jido.Chat.EventEnvelopeTest do
 
   test "event envelope round-trips each supported payload type" do
     payloads = [
-      {:message,
-       Incoming.new(%{external_room_id: "room-1", external_message_id: "msg-1", text: "hi"})},
+      {:message, Incoming.new(%{external_room_id: "room-1", external_message_id: "msg-1", text: "hi"})},
       {:reaction, ReactionEvent.new(%{emoji: "👍", message_id: "msg-1"})},
       {:action, ActionEvent.new(%{action_id: "approve", message_id: "msg-2"})},
       {:modal_submit, ModalSubmitEvent.new(%{callback_id: "deploy", values: %{env: "prod"}})},
       {:modal_close, ModalCloseEvent.new(%{callback_id: "deploy"})},
       {:slash_command, SlashCommandEvent.new(%{command: "/deploy", text: "prod"})},
       {:assistant_thread_started, AssistantThreadStartedEvent.new(%{thread_id: "thr-1"})},
-      {:assistant_context_changed,
-       AssistantContextChangedEvent.new(%{thread_id: "thr-1", context: %{a: 1}})}
+      {:assistant_context_changed, AssistantContextChangedEvent.new(%{thread_id: "thr-1", context: %{a: 1}})}
     ]
 
     for {event_type, payload} <- payloads do

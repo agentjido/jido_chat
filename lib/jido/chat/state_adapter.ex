@@ -38,6 +38,8 @@ defmodule Jido.Chat.StateAdapter do
   @callback release_lock(state(), String.t(), String.t()) :: {release_result(), state()}
   @callback force_release_lock(state(), String.t()) :: {{:released, [map()]}, state()}
 
+  @dialyzer {:nowarn_function, default_snapshot: 0}
+
   @doc "Initializes adapter state from a normalized snapshot."
   @spec init(module(), map(), keyword()) :: state()
   def init(adapter_module, snapshot, opts \\ []) when is_atom(adapter_module) do
@@ -156,16 +158,13 @@ defmodule Jido.Chat.StateAdapter do
     defaults = default_snapshot()
 
     %{
-      subscriptions:
-        snapshot[:subscriptions] || snapshot["subscriptions"] || defaults.subscriptions,
+      subscriptions: snapshot[:subscriptions] || snapshot["subscriptions"] || defaults.subscriptions,
       dedupe: snapshot[:dedupe] || snapshot["dedupe"] || defaults.dedupe,
       dedupe_order: snapshot[:dedupe_order] || snapshot["dedupe_order"] || defaults.dedupe_order,
       thread_state: snapshot[:thread_state] || snapshot["thread_state"] || defaults.thread_state,
-      channel_state:
-        snapshot[:channel_state] || snapshot["channel_state"] || defaults.channel_state,
+      channel_state: snapshot[:channel_state] || snapshot["channel_state"] || defaults.channel_state,
       locks: snapshot[:locks] || snapshot["locks"] || defaults.locks,
-      pending_locks:
-        snapshot[:pending_locks] || snapshot["pending_locks"] || defaults.pending_locks
+      pending_locks: snapshot[:pending_locks] || snapshot["pending_locks"] || defaults.pending_locks
     }
     |> normalize_subscriptions()
     |> normalize_dedupe()

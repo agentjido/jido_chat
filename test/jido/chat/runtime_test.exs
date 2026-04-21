@@ -550,14 +550,12 @@ defmodule Jido.Chat.RuntimeTest do
     assert sent.response.metadata.stream_fallback == :post_edit
     assert_received {:fallback_send, "room-stream-fallback", "working"}
 
-    assert_received {:fallback_edit, "room-stream-fallback", "stream_msg_room-stream-fallback",
-                     first_edit}
+    assert_received {:fallback_edit, "room-stream-fallback", "stream_msg_room-stream-fallback", first_edit}
 
     assert first_edit =~ "alpha"
     assert first_edit =~ "Plan"
 
-    assert_received {:fallback_edit, "room-stream-fallback", "stream_msg_room-stream-fallback",
-                     final_edit}
+    assert_received {:fallback_edit, "room-stream-fallback", "stream_msg_room-stream-fallback", final_edit}
 
     assert final_edit =~ "- one"
     assert final_edit =~ "omega"
@@ -891,8 +889,7 @@ defmodule Jido.Chat.RuntimeTest do
     assert sent.id == "file_chan-post-file"
     assert [%{kind: :file, filename: "doc.pdf"}] = Enum.map(sent.attachments, &Map.from_struct/1)
 
-    assert_received {:send_file, "chan-post-file", %{kind: :file, filename: "doc.pdf"},
-                     upload_opts}
+    assert_received {:send_file, "chan-post-file", %{kind: :file, filename: "doc.pdf"}, upload_opts}
 
     assert upload_opts[:caption] == "hello"
     assert upload_opts[:text] == "hello"
