@@ -6,14 +6,14 @@ defmodule Jido.Chat.Response do
   @schema Zoi.struct(
             __MODULE__,
             %{
-              external_message_id: Zoi.string() |> Zoi.nullish(),
+              external_message_id: Zoi.any() |> Zoi.nullish(),
               external_room_id: Zoi.any() |> Zoi.nullish(),
               timestamp: Zoi.any() |> Zoi.nullish(),
               channel_type: Zoi.atom() |> Zoi.nullish(),
               status: Zoi.enum([:sent, :edited, :accepted, :failed]) |> Zoi.default(:sent),
               raw: Zoi.any() |> Zoi.nullish(),
               metadata: Zoi.map() |> Zoi.default(%{}),
-              message_id: Zoi.any() |> Zoi.nullish(),
+              message_id: Zoi.string() |> Zoi.nullish(),
               chat_id: Zoi.any() |> Zoi.nullish(),
               channel_id: Zoi.any() |> Zoi.nullish(),
               date: Zoi.any() |> Zoi.nullish()
@@ -55,14 +55,14 @@ defmodule Jido.Chat.Response do
       end
 
     %{
-      external_message_id: stringify(external_message_id),
+      external_message_id: external_message_id,
       external_room_id: external_room_id,
       timestamp: normalized_timestamp,
       channel_type: channel_type,
       status: fetch.(:status) || :sent,
       raw: fetch.(:raw),
       metadata: fetch.(:metadata) || %{},
-      message_id: external_message_id,
+      message_id: stringify(external_message_id),
       chat_id: fetch.(:chat_id) || maybe_chat_id(channel_type, external_room_id),
       channel_id: fetch.(:channel_id) || maybe_channel_id(channel_type, external_room_id),
       date: fetch.(:date) || raw_timestamp

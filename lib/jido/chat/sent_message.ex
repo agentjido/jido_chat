@@ -8,7 +8,7 @@ defmodule Jido.Chat.SentMessage do
   @schema Zoi.struct(
             __MODULE__,
             %{
-              id: Zoi.string(),
+              id: Zoi.any(),
               thread_id: Zoi.string(),
               adapter: Zoi.any(),
               external_room_id: Zoi.any() |> Zoi.nullish(),
