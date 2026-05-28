@@ -858,13 +858,16 @@ defmodule Jido.Chat.Adapter do
 
   defp normalize_response(adapter_module, %Response{} = response) do
     response
-    |> Map.put_new(:channel_type, adapter_type(adapter_module))
+    |> Map.put(:channel_type, Map.get(response, :channel_type) || adapter_type(adapter_module))
     |> Response.new()
   end
 
   defp normalize_response(adapter_module, map) when is_map(map) do
     map
-    |> Map.put_new(:channel_type, adapter_type(adapter_module))
+    |> Map.put(
+      :channel_type,
+      Map.get(map, :channel_type) || Map.get(map, "channel_type") || adapter_type(adapter_module)
+    )
     |> Response.new()
   end
 

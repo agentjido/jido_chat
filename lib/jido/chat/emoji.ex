@@ -64,12 +64,22 @@ defmodule Jido.Chat.Emoji do
   defp normalize_name(value) when is_atom(value), do: value
 
   defp normalize_name(value) when is_binary(value) do
-    value
-    |> String.trim()
-    |> String.trim_leading(":")
-    |> String.trim_trailing(":")
-    |> String.replace("-", "_")
-    |> String.to_atom()
+    normalized =
+      value
+      |> String.trim()
+      |> String.trim_leading(":")
+      |> String.trim_trailing(":")
+      |> String.replace("-", "_")
+
+    case normalized do
+      "" -> ""
+      _ ->
+        try do
+          String.to_existing_atom(normalized)
+        rescue
+          ArgumentError -> normalized
+        end
+    end
   end
 
   defp fallback_token(value) when is_binary(value), do: value

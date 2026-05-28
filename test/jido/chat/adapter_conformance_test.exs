@@ -138,6 +138,31 @@ defmodule Jido.Chat.AdapterConformanceTest do
     end
   end
 
+  defmodule NilChannelTypeAdapter do
+    use Adapter
+
+    @impl true
+    def channel_type, do: :nil_channel_type
+
+    @impl true
+    def transform_incoming(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message(room_id, _text, _opts) do
+      {:ok,
+       %Response{
+         external_message_id: "m1",
+         external_room_id: room_id,
+         channel_type: nil
+       }}
+    end
+
+    @impl true
+    def capabilities do
+      %{send_message: :native}
+    end
+  end
+
   test "capability matrix struct normalizes statuses" do
     matrix = Adapter.capability_matrix(GoodAdapter)
 
@@ -178,6 +203,14 @@ defmodule Jido.Chat.AdapterConformanceTest do
     assert upload.filename == "demo.txt"
     assert Keyword.fetch!(opts, :caption) == "caption"
     assert Keyword.fetch!(opts, :metadata) == %{scope: :conformance}
+  end
+
+  test "response normalization fills in a missing channel_type on response structs" do
+    assert {:ok, %Response{} = response} =
+             Adapter.send_message(NilChannelTypeAdapter, "room-4", "hello", [])
+
+    assert response.channel_type == :nil_channel_type
+    assert response.external_message_id == "m1"
   end
 
   test "stream fallback preserves structured chunks through placeholder plus edit" do

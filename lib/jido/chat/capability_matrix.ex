@@ -63,42 +63,59 @@ defmodule Jido.Chat.CapabilityMatrix do
   def from_map(map) when is_map(map), do: new(map)
 
   defp normalize_capabilities(capabilities) when is_map(capabilities) do
-    capabilities
-    |> Enum.map(fn {capability, status} ->
-      {normalize_capability_key(capability), normalize_status(status)}
+    Enum.reduce(capabilities, %{}, fn {capability, status}, acc ->
+      case normalize_capability_key(capability) do
+        {:ok, capability_key} -> Map.put(acc, capability_key, normalize_status(status))
+        :error -> acc
+      end
     end)
-    |> Map.new()
   end
 
   defp normalize_capabilities(capabilities) when is_list(capabilities) do
-    capabilities
-    |> Enum.map(fn capability ->
-      {normalize_capability_key(capability), :native}
+    Enum.reduce(capabilities, %{}, fn capability, acc ->
+      case normalize_capability_key(capability) do
+        {:ok, capability_key} -> Map.put(acc, capability_key, :native)
+        :error -> acc
+      end
     end)
-    |> Map.new()
   end
 
   defp normalize_capabilities(_), do: %{}
 
-  defp normalize_capability_key(capability) when is_atom(capability), do: capability
+  defp normalize_capability_key(capability) when is_atom(capability), do: {:ok, capability}
 
   defp normalize_capability_key(capability) when is_binary(capability) do
-    capability
-    |> String.trim()
-    |> String.to_atom()
+    capability = String.trim(capability)
+
+    case capability do
+      "" ->
+        :error
+
+      _ ->
+        try do
+          {:ok, String.to_existing_atom(capability)}
+        rescue
+          ArgumentError -> :error
+        end
+    end
   end
 
-  defp normalize_capability_key(capability), do: capability
+  defp normalize_capability_key(_capability), do: :error
 
   defp normalize_status(status) when status in @statuses, do: status
 
   defp normalize_status(status) when is_binary(status) do
-    status
-    |> String.trim()
-    |> String.to_atom()
-    |> normalize_status()
-  rescue
-    _ -> :unsupported
+    status = String.trim(status)
+
+    case status do
+      "" -> :unsupported
+      _ ->
+        try do
+          String.to_existing_atom(status) |> normalize_status()
+        rescue
+          ArgumentError -> :unsupported
+        end
+    end
   end
 
   defp normalize_status(_), do: :unsupported

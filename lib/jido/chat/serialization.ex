@@ -146,11 +146,14 @@ defmodule Jido.Chat.Serialization do
 
   defp deserialize_adapters(adapters) when is_map(adapters) do
     adapters
-    |> Enum.map(fn {key, value} ->
-      {normalize_key_atom(key), Wire.decode_module(value)}
+    |> Enum.reduce(%{}, fn {key, value}, acc ->
+      with {:ok, adapter_key} <- normalize_key_atom(key),
+           adapter_module when not is_nil(adapter_module) <- Wire.decode_module(value) do
+        Map.put(acc, adapter_key, adapter_module)
+      else
+        _ -> acc
+      end
     end)
-    |> Enum.reject(fn {_key, value} -> is_nil(value) end)
-    |> Map.new()
   end
 
   defp deserialize_adapters(_), do: %{}
@@ -174,11 +177,15 @@ defmodule Jido.Chat.Serialization do
 
   defp deserialize_handlers(_handlers, defaults), do: defaults
 
-  defp normalize_key_atom(key) when is_atom(key), do: key
+  defp normalize_key_atom(key) when is_atom(key), do: {:ok, key}
 
   defp normalize_key_atom(key) when is_binary(key) do
-    String.to_atom(key)
+    try do
+      {:ok, String.to_existing_atom(key)}
+    rescue
+      ArgumentError -> :error
+    end
   end
 
-  defp normalize_key_atom(key), do: key
+  defp normalize_key_atom(_key), do: :error
 end

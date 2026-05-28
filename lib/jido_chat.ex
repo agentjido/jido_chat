@@ -986,12 +986,11 @@ defmodule Jido.Chat do
        when is_binary(target) do
     case String.split(target, ":", parts: 2) do
       [adapter_name, external_user_id] when external_user_id != "" ->
-        adapter_atom = String.to_atom(adapter_name)
-
-        if Map.has_key?(adapters, adapter_atom) do
+        with {:ok, adapter_atom} <- parse_existing_adapter_name(adapter_name),
+             true <- Map.has_key?(adapters, adapter_atom) do
           {:ok, adapter_atom, external_user_id}
         else
-          :error
+          _ -> :error
         end
 
       _ ->
@@ -1000,6 +999,14 @@ defmodule Jido.Chat do
   end
 
   defp parse_adapter_prefixed_target(_chat, _target), do: :error
+
+  defp parse_existing_adapter_name(adapter_name) when is_binary(adapter_name) do
+    try do
+      {:ok, String.to_existing_atom(adapter_name)}
+    rescue
+      ArgumentError -> :error
+    end
+  end
 
   defp enrich_event_context(%__MODULE__{} = chat, adapter_name, event) do
     adapter = Map.get(chat.adapters, adapter_name)

@@ -204,10 +204,16 @@ defmodule Jido.Chat.StateAdapter do
         dedupe when is_list(dedupe) ->
           Enum.reduce(dedupe, MapSet.new(), fn
             [adapter_name, message_id], acc ->
-              MapSet.put(acc, {normalize_key_atom(adapter_name), to_string(message_id)})
+              case normalize_key_atom(adapter_name) do
+                {:ok, adapter_atom} -> MapSet.put(acc, {adapter_atom, to_string(message_id)})
+                :error -> acc
+              end
 
             {adapter_name, message_id}, acc ->
-              MapSet.put(acc, {normalize_key_atom(adapter_name), to_string(message_id)})
+              case normalize_key_atom(adapter_name) do
+                {:ok, adapter_atom} -> MapSet.put(acc, {adapter_atom, to_string(message_id)})
+                :error -> acc
+              end
 
             _other, acc ->
               acc
@@ -226,10 +232,16 @@ defmodule Jido.Chat.StateAdapter do
         dedupe_order when is_list(dedupe_order) ->
           Enum.reduce(dedupe_order, [], fn
             [adapter_name, message_id], acc ->
-              [{normalize_key_atom(adapter_name), to_string(message_id)} | acc]
+              case normalize_key_atom(adapter_name) do
+                {:ok, adapter_atom} -> [{adapter_atom, to_string(message_id)} | acc]
+                :error -> acc
+              end
 
             {adapter_name, message_id}, acc ->
-              [{normalize_key_atom(adapter_name), to_string(message_id)} | acc]
+              case normalize_key_atom(adapter_name) do
+                {:ok, adapter_atom} -> [{adapter_atom, to_string(message_id)} | acc]
+                :error -> acc
+              end
 
             _other, acc ->
               acc
@@ -297,7 +309,15 @@ defmodule Jido.Chat.StateAdapter do
     %{snapshot | pending_locks: pending_locks}
   end
 
-  defp normalize_key_atom(key) when is_atom(key), do: key
-  defp normalize_key_atom(key) when is_binary(key), do: String.to_atom(key)
-  defp normalize_key_atom(key), do: key
+  defp normalize_key_atom(key) when is_atom(key), do: {:ok, key}
+
+  defp normalize_key_atom(key) when is_binary(key) do
+    try do
+      {:ok, String.to_existing_atom(key)}
+    rescue
+      ArgumentError -> :error
+    end
+  end
+
+  defp normalize_key_atom(_key), do: :error
 end
