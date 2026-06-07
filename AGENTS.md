@@ -18,3 +18,7 @@ Jido chat ecosystem.
 - Runtime process trees, bridge supervision, queues, retries, and delivery orchestration belong in `jido_messaging`.
 - Prefer Zoi-backed structs and Splode errors for new core data and errors.
 - Keep public APIs documented and typed.
+
+## Release Hygiene
+
+- Do not modify `CHANGELOG.md`; release notes are generated from Git history during release, so keep changes focused on proper Conventional Commits.
