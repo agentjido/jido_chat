@@ -410,29 +410,26 @@ defmodule Jido.Chat do
         ) :: {:ok, IngressResult.t()} | {:error, Exception.t()}
   def route_request(%__MODULE__{} = chat, adapter_name, request_or_payload, opts \\ [])
       when is_atom(adapter_name) and is_list(opts) do
-    with {:ok, routed_chat, envelope, response} <-
-           WebhookPipeline.handle_request(
-             chat,
-             adapter_name,
-             request_or_payload,
-             opts,
-             &AdapterRegistry.resolve/2,
-             &process_event/4
-           ) do
-      {:ok,
-       IngressResult.new(%{
-         chat: routed_chat,
-         adapter_name: adapter_name,
-         event: normalize_ingress_event(envelope),
-         response: normalize_ingress_response(response),
-         request: normalize_ingress_request(adapter_name, request_or_payload, opts),
-         mode: :request,
-         metadata: %{transport: :request}
-       })}
-    else
-      {:error, reason} ->
-        {:error, ingress_error(:request, adapter_name, reason)}
-    end
+    {:ok, routed_chat, envelope, response} =
+      WebhookPipeline.handle_request(
+        chat,
+        adapter_name,
+        request_or_payload,
+        opts,
+        &AdapterRegistry.resolve/2,
+        &process_event/4
+      )
+
+    {:ok,
+     IngressResult.new(%{
+       chat: routed_chat,
+       adapter_name: adapter_name,
+       event: normalize_ingress_event(envelope),
+       response: normalize_ingress_response(response),
+       request: normalize_ingress_request(adapter_name, request_or_payload, opts),
+       mode: :request,
+       metadata: %{transport: :request}
+     })}
   rescue
     exception ->
       {:error, ingress_error(:request, adapter_name, {:exception, exception})}
@@ -530,12 +527,6 @@ defmodule Jido.Chat do
 
   def open_dm(%__MODULE__{} = chat, target, opts) when is_list(opts) or is_map(opts) do
     with {:ok, adapter_name, external_user_id} <- resolve_dm_target(chat, target, opts) do
-      open_dm(chat, adapter_name, external_user_id)
-    end
-  end
-
-  def open_dm(%__MODULE__{} = chat, target, []) do
-    with {:ok, adapter_name, external_user_id} <- resolve_dm_target(chat, target, []) do
       open_dm(chat, adapter_name, external_user_id)
     end
   end
@@ -964,10 +955,10 @@ defmodule Jido.Chat do
 
   defp resolve_dm_target(_chat, _target, _opts), do: {:error, :invalid_dm_target}
 
+  defp normalize_adapter_name(_chat, nil), do: {:error, :ambiguous_adapter}
+
   defp normalize_adapter_name(_chat, adapter_name) when is_atom(adapter_name),
     do: {:ok, adapter_name}
-
-  defp normalize_adapter_name(_chat, nil), do: {:error, :ambiguous_adapter}
 
   defp normalize_adapter_name(chat, adapter_name) when is_binary(adapter_name) do
     adapter_atom = String.to_existing_atom(adapter_name)
