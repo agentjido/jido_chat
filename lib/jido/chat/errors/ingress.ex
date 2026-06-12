@@ -22,8 +22,8 @@ defmodule Jido.Chat.Errors.Ingress do
 
     adapter_label =
       case adapter_name do
-        value when is_atom(value) -> Atom.to_string(value)
         nil -> "unknown"
+        value when is_atom(value) -> Atom.to_string(value)
         value -> to_string(value)
       end
 
