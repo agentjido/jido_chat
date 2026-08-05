@@ -163,6 +163,30 @@ defmodule Jido.Chat.AdapterConformanceTest do
     end
   end
 
+  defmodule MediaAdapter do
+    use Adapter
+
+    @impl true
+    def channel_type, do: :media
+
+    @impl true
+    def transform_incoming(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message(room_id, _text, _opts) do
+      {:ok, Response.new(%{external_message_id: "m1", external_room_id: room_id})}
+    end
+
+    @impl true
+    def fetch_media("media://" <> file_id, _opts), do: {:ok, "bytes-" <> file_id}
+    def fetch_media(_reference, _opts), do: {:error, :invalid_reference}
+
+    @impl true
+    def capabilities do
+      %{send_message: :native, fetch_media: :native}
+    end
+  end
+
   test "capability matrix struct normalizes statuses" do
     matrix = Adapter.capability_matrix(GoodAdapter)
 
@@ -178,6 +202,15 @@ defmodule Jido.Chat.AdapterConformanceTest do
              Adapter.validate_capabilities(BadAdapter)
 
     assert {:edit_message, :missing_callback} in mismatches
+  end
+
+  test "fetch_media is optional and surfaces through the capability matrix" do
+    assert Adapter.capability_matrix(MediaAdapter).capabilities.fetch_media == :native
+    assert Adapter.capability_matrix(GoodAdapter).capabilities.fetch_media == :unsupported
+
+    assert :ok = Adapter.validate_capabilities(MediaAdapter)
+    assert {:ok, "bytes-42"} = MediaAdapter.fetch_media("media://42", [])
+    assert {:error, :invalid_reference} = MediaAdapter.fetch_media("nope", [])
   end
 
   test "unsupported callbacks return deterministic unsupported error" do
