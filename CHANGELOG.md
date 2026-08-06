@@ -12,6 +12,19 @@ Initial Hex release of `jido_chat`.
 
 <!-- changelog -->
 
+## [v1.1.0](https://github.com/agentjido/jido_chat/compare/v1.0.2...v1.1.0) (2026-08-06)
+
+
+
+
+### Features:
+
+* adapter: add optional fetch_media/2 callback (#29) by Jad Tarabay
+
+### Bug Fixes:
+
+* deps: update Mint for CVE-2026-59249 by mikehostetler
+
 ## [v1.0.2](https://github.com/agentjido/jido_chat/compare/v1.0.1...v1.0.2) (2026-05-28)
 
 
