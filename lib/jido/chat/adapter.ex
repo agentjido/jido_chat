@@ -15,6 +15,7 @@ defmodule Jido.Chat.Adapter do
     FetchOptions,
     Incoming,
     Markdown,
+    Media,
     Modal,
     ModalResult,
     Message,
@@ -51,7 +52,9 @@ defmodule Jido.Chat.Adapter do
   @type thread_page_result :: {:ok, ThreadPage.t()} | {:error, term()}
   @type ephemeral_result :: {:ok, EphemeralMessage.t()} | {:error, term()}
   @type modal_result :: {:ok, ModalResult.t()} | {:error, term()}
+  @type media_result :: {:ok, binary()} | {:error, term()}
   @type file_input :: FileUpload.input()
+  @type media_reference :: String.t() | Media.t() | map()
 
   @callback channel_type() :: atom()
   @callback transform_incoming(raw_payload()) :: incoming_result() | {:ok, map()}
@@ -90,6 +93,15 @@ defmodule Jido.Chat.Adapter do
 
   @callback fetch_message(external_room_id(), external_message_id(), opts :: keyword()) ::
               {:ok, Message.t() | Incoming.t() | map()} | {:error, term()}
+
+  @doc """
+  Fetches the bytes behind an inbound media reference.
+
+  The inbound counterpart to `c:send_file/3`. The reference is the one the adapter itself
+  minted on the incoming message, so the adapter that created it is the one that resolves
+  it — no caller ever learns a provider's reference scheme.
+  """
+  @callback fetch_media(reference :: media_reference(), opts :: keyword()) :: media_result()
 
   @callback add_reaction(
               external_room_id(),
@@ -180,6 +192,7 @@ defmodule Jido.Chat.Adapter do
                       fetch_metadata: 2,
                       fetch_thread: 2,
                       fetch_message: 3,
+                      fetch_media: 2,
                       add_reaction: 4,
                       remove_reaction: 4,
                       post_ephemeral: 4,
@@ -1233,6 +1246,7 @@ defmodule Jido.Chat.Adapter do
       fetch_metadata: support_status(adapter_module, :fetch_metadata, 2, :fallback),
       fetch_thread: support_status(adapter_module, :fetch_thread, 2, :fallback),
       fetch_message: support_status(adapter_module, :fetch_message, 3, :fallback),
+      fetch_media: support_status(adapter_module, :fetch_media, 2),
       add_reaction: support_status(adapter_module, :add_reaction, 4),
       remove_reaction: support_status(adapter_module, :remove_reaction, 4),
       post_ephemeral: support_status(adapter_module, :post_ephemeral, 4),
@@ -1342,6 +1356,7 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:fetch_metadata), do: {:fetch_metadata, 2}
   defp capability_callback(:fetch_thread), do: {:fetch_thread, 2}
   defp capability_callback(:fetch_message), do: {:fetch_message, 3}
+  defp capability_callback(:fetch_media), do: {:fetch_media, 2}
   defp capability_callback(:add_reaction), do: {:add_reaction, 4}
   defp capability_callback(:remove_reaction), do: {:remove_reaction, 4}
   defp capability_callback(:post_ephemeral), do: {:post_ephemeral, 4}
