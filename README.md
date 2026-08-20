@@ -22,6 +22,7 @@ The package is intentionally scoped to the adapter layer:
 
 - `jido_chat` owns typed content/event models, adapter contracts, typed thread/channel handles, and deterministic fallback behavior.
 - `jido_messaging` owns supervised runtime concerns such as webhook ingress, delivery queues, retries, room/session state, bridge lifecycle, and process trees.
+- A trusted application/runtime resolver owns stable identity resolution. In an `Author`, `id` is the framework-neutral stable identity and `user_id` is the provider identity. Adapters may pass an `Author.id` supplied by that resolver, but they must not infer it from provider IDs, display names, usernames, or email addresses, and they must not call a provider to obtain it for this contract.
 
 It provides:
 
@@ -60,7 +61,10 @@ upload hook used by the core fallback path for single-upload posts.
 2. Declare explicit surface support through `capabilities/0` instead of relying on callback inference.
 3. If you build directly on the lightweight `Jido.Chat` facade and ship a custom `Jido.Chat.StateAdapter`, implement `lock/5`, `release_lock/3`, and `force_release_lock/2`, and persist `locks` plus `pending_locks` in snapshots.
 4. Treat `Jido.Chat.PostPayload` as the canonical outbound contract. It can now carry text, markdown, raw payloads, cards, streams, attachments, and `FileUpload` values.
-5. Run `mix quality` before publishing adapter changes.
+5. Preserve compatibility with legacy inbound payloads. Existing messages, wire maps, and adapter payloads do not need `author` or reply fields; normalization keeps their useful values and leaves the enriched fields unset.
+6. Treat `Author.id` as trusted, framework-neutral stable identity. Only pass it through when an application/runtime resolver supplied it. Never derive it from a provider ID, display name, username, or email, and do not make provider profile calls to resolve it for this contract.
+7. Reply context is shallow and uses only data already present in the event. It does not perform replied-message lookup.
+8. Run `mix quality` before publishing adapter changes.
 
 ## Usage (Core Loop)
 
