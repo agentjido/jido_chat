@@ -3,7 +3,7 @@ defmodule Jido.Chat.Incoming do
   Canonical normalized inbound message/event payload.
   """
 
-  alias Jido.Chat.{Author, ChannelMeta, Media, Mention}
+  alias Jido.Chat.{Author, ChannelMeta, Media, Mention, ReplyContext}
   alias Jido.Chat.Wire
 
   @schema Zoi.struct(
@@ -17,6 +17,7 @@ defmodule Jido.Chat.Incoming do
               display_name: Zoi.string() |> Zoi.nullish(),
               external_message_id: Zoi.any() |> Zoi.nullish(),
               external_reply_to_id: Zoi.any() |> Zoi.nullish(),
+              reply_context: Zoi.struct(ReplyContext) |> Zoi.nullish(),
               external_thread_id: Zoi.string() |> Zoi.nullish(),
               delivery_external_room_id: Zoi.string() |> Zoi.nullish(),
               timestamp: Zoi.any() |> Zoi.nullish(),
@@ -44,6 +45,7 @@ defmodule Jido.Chat.Incoming do
   def new(attrs) when is_map(attrs) do
     attrs
     |> maybe_attach_author()
+    |> maybe_normalize_reply_context()
     |> maybe_normalize_mentions()
     |> maybe_normalize_media()
     |> maybe_normalize_channel_meta()
@@ -62,6 +64,20 @@ defmodule Jido.Chat.Incoming do
   @doc "Builds an incoming payload from serialized map data."
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+
+  defp maybe_normalize_reply_context(%{reply_context: %ReplyContext{}} = attrs),
+    do: Map.delete(attrs, "reply_context")
+
+  defp maybe_normalize_reply_context(%{reply_context: context} = attrs) when is_map(context),
+    do: Map.put(attrs, :reply_context, ReplyContext.new(context))
+
+  defp maybe_normalize_reply_context(%{"reply_context" => %ReplyContext{}} = attrs), do: attrs
+
+  defp maybe_normalize_reply_context(%{"reply_context" => context} = attrs)
+       when is_map(context),
+       do: attrs |> Map.delete("reply_context") |> Map.put(:reply_context, ReplyContext.new(context))
+
+  defp maybe_normalize_reply_context(attrs), do: attrs
 
   defp maybe_attach_author(%{author: %Author{}} = attrs), do: attrs
 

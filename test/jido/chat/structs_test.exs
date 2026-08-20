@@ -59,6 +59,60 @@ defmodule Jido.Chat.StructsTest do
       assert message.is_mention == false
     end
 
+    test "Message.from_incoming/2 preserves independent reply identity and context" do
+      incoming =
+        Incoming.new(%{
+          external_room_id: "room_1",
+          external_message_id: "transport-message",
+          external_reply_to_id: "transport-parent",
+          reply_context: %{
+            "id" => "context-parent",
+            "external_message_id" => "quoted-message",
+            "text" => "quoted text",
+            "author" => %{
+              "user_id" => "quoted-user",
+              "user_name" => "quoted-user-name",
+              "id" => "stable-quoted-user"
+            },
+            "nested_reply" => %{id: "must-be-discarded"}
+          }
+        })
+
+      message = Message.from_incoming(incoming)
+
+      assert message.external_reply_to_id == "transport-parent"
+      assert message.reply_context.id == "context-parent"
+      assert message.reply_context.external_message_id == "quoted-message"
+      assert message.reply_context.text == "quoted text"
+      assert message.reply_context.author.user_id == "quoted-user"
+      refute Map.has_key?(Map.from_struct(message.reply_context), :nested_reply)
+    end
+
+    test "Incoming and Message normalize atom and string reply-context maps" do
+      atom_context = %{id: "atom-id", text: "atom text"}
+      string_context = %{"id" => "string-id", "text" => "string text"}
+
+      assert %Chat.ReplyContext{id: "atom-id"} =
+               Incoming.new(%{external_room_id: "room", reply_context: atom_context}).reply_context
+
+      assert %Chat.ReplyContext{id: "string-id"} =
+               Incoming.new(%{"external_room_id" => "room", "reply_context" => string_context}).reply_context
+
+      assert %Chat.ReplyContext{id: "atom-id"} =
+               Message.new(%{id: "m1", reply_context: atom_context}).reply_context
+
+      assert %Chat.ReplyContext{id: "string-id"} =
+               Message.new(%{"id" => "m1", "reply_context" => string_context}).reply_context
+    end
+
+    test "reply transport ID and context do not synthesize each other" do
+      assert %{external_reply_to_id: "parent", reply_context: nil} =
+               Message.new(%{id: "m1", external_reply_to_id: "parent"})
+
+      assert %{external_reply_to_id: nil, reply_context: %Chat.ReplyContext{id: "quoted"}} =
+               Message.new(%{id: "m1", reply_context: %{id: "quoted"}})
+    end
+
     test "Room.new/1 creates room with defaults" do
       room = Room.new(%{type: :direct})
 
