@@ -139,6 +139,42 @@ defmodule Jido.Chat.EventEnvelopeTest do
     assert reaction.user.id == nil
   end
 
+  test "event normalizer accepts fully string-key legacy users" do
+    assert {:ok, reaction} =
+             EventNormalizer.ensure_reaction_event(
+               %{
+                 "emoji" => "👍",
+                 "user" => %{"id" => "provider-only", "username" => "casey"}
+               },
+               :slack
+             )
+
+    assert reaction.user.user_id == "provider-only"
+    assert reaction.user.id == nil
+    assert reaction.user.user_name == "casey"
+  end
+
+  test "event normalizer accepts fully string-key enriched users" do
+    assert {:ok, reaction} =
+             EventNormalizer.ensure_reaction_event(
+               %{
+                 "emoji" => "👍",
+                 "user" => %{
+                   "user_id" => "provider-1",
+                   "id" => "stable-1",
+                   "user_name" => "bot",
+                   "full_name" => "Test Bot"
+                 }
+               },
+               :slack
+             )
+
+    assert reaction.user.user_id == "provider-1"
+    assert reaction.user.id == "stable-1"
+    assert reaction.user.user_name == "bot"
+    assert reaction.user.full_name == "Test Bot"
+  end
+
   test "event normalizer returns tagged errors for invalid inputs" do
     assert {:error, {:invalid_incoming, :bad}} = EventNormalizer.ensure_incoming(:bad)
 

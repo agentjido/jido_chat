@@ -183,7 +183,8 @@ defmodule Jido.Chat.SerializationTest do
         thread_id: "test:room-1",
         external_room_id: "room-1",
         external_message_id: "m1",
-        text: "hello"
+        text: "hello",
+        author: %{id: "u1", user_id: "u1", user_name: "Ada"}
       })
 
     sent =
@@ -197,7 +198,8 @@ defmodule Jido.Chat.SerializationTest do
         response: Response.new(%{external_message_id: "m1", external_room_id: "room-1"})
       })
 
-    assert %Message{id: "m1", text: "hello"} = message |> Message.to_map() |> Message.from_map()
+    assert %Message{id: "m1", text: "hello", author: %Author{id: "u1", user_name: "Ada"}} =
+             message |> Message.to_map() |> Message.from_map()
 
     assert %SentMessage{id: "m1", adapter: __MODULE__} =
              sent |> SentMessage.to_map() |> SentMessage.from_map()

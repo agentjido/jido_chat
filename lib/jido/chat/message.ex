@@ -137,7 +137,7 @@ defmodule Jido.Chat.Message do
   defp normalize_author(%{"author" => %Author{}} = attrs), do: attrs
 
   defp normalize_author(%{"author" => author} = attrs) when is_map(author),
-    do: Map.put(attrs, :author, Author.new(author))
+    do: attrs |> Map.delete("author") |> Map.put(:author, Author.new(author))
 
   defp normalize_author(attrs), do: attrs
 

@@ -190,7 +190,9 @@ defmodule Jido.Chat.EventNormalizer do
           metadata: user[:metadata] || user["metadata"] || %{}
         }
 
-        Map.put(map, :user, Author.new(normalized_user))
+        map
+        |> Map.delete("user")
+        |> Map.put(:user, Author.new(normalized_user))
 
       _ ->
         map
