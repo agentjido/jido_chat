@@ -168,17 +168,27 @@ defmodule Jido.Chat.EventNormalizer do
         map
 
       %{} = user ->
-        normalized_user = %{
-          user_id: to_string(user[:user_id] || user["user_id"] || user[:id] || user["id"] || "unknown"),
-          user_name:
-            user[:user_name] || user["user_name"] || user[:username] || user["username"] ||
-              to_string(user[:id] || user["id"] || "unknown"),
-          full_name:
-            user[:full_name] || user["full_name"] || user[:name] || user["name"] ||
-              user[:global_name] || user["global_name"],
-          is_bot: user[:is_bot] || user["is_bot"] || false,
-          is_me: user[:is_me] || user["is_me"] || false
-        }
+        normalized_user =
+          Map.merge(user, %{
+            user_id: to_string(user[:user_id] || user["user_id"] || user[:id] || user["id"] || "unknown"),
+            user_name:
+              user[:user_name] || user["user_name"] || user[:username] || user["username"] ||
+                to_string(user[:id] || user["id"] || "unknown"),
+            full_name:
+              user[:full_name] || user["full_name"] || user[:name] || user["name"] ||
+                user[:global_name] || user["global_name"],
+            is_bot: user[:is_bot] || user["is_bot"] || false,
+            is_me: user[:is_me] || user["is_me"] || false,
+            is_system: user[:is_system] || user["is_system"] || false,
+            metadata: user[:metadata] || user["metadata"] || %{}
+          })
+
+        normalized_user =
+          if Map.has_key?(user, :user_id) or Map.has_key?(user, "user_id") do
+            normalized_user
+          else
+            normalized_user |> Map.delete(:id) |> Map.delete("id")
+          end
 
         Map.put(map, :user, Author.new(normalized_user))
 

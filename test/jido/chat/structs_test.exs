@@ -107,6 +107,56 @@ defmodule Jido.Chat.StructsTest do
                incoming.channel_meta
     end
 
+    test "Author.new/1 preserves stable identity, email, and system state" do
+      author =
+        Chat.Author.new(%{
+          user_id: "provider-1",
+          user_name: "casey",
+          id: "stable-1",
+          email: "casey@example.com",
+          is_system: true
+        })
+
+      assert author.id == "stable-1"
+      assert author.user_id == "provider-1"
+      assert author.email == "casey@example.com"
+      refute author.is_bot
+      assert author.is_system
+    end
+
+    test "legacy human Author.new/1 keeps enriched fields unset and defaults false" do
+      author = Chat.Author.new(%{user_id: "human-1", user_name: "casey"})
+
+      assert author.id == nil
+      assert author.email == nil
+      refute author.is_bot
+      refute author.is_system
+    end
+
+    test "Incoming.new/1 preserves enriched string-key author maps" do
+      incoming =
+        Incoming.new(%{
+          "external_room_id" => "room-1",
+          "external_user_id" => "provider-external",
+          "author" => %{
+            "user_id" => "provider-author",
+            "user_name" => "bot",
+            "id" => "stable-bot",
+            "email" => "bot@example.com",
+            "is_bot" => true,
+            "is_system" => true,
+            "metadata" => %{"source" => "test"}
+          }
+        })
+
+      assert incoming.author.user_id == "provider-author"
+      assert incoming.author.id == "stable-bot"
+      assert incoming.author.email == "bot@example.com"
+      assert incoming.author.is_bot
+      assert incoming.author.is_system
+      assert incoming.author.metadata == %{"source" => "test"}
+    end
+
     test "new typed structs normalize canonical bot-loop payloads" do
       fetch_options = FetchOptions.new(limit: 25, direction: :forward, cursor: "abc")
       assert fetch_options.limit == 25

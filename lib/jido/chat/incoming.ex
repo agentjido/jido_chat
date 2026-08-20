@@ -68,6 +68,11 @@ defmodule Jido.Chat.Incoming do
   defp maybe_attach_author(%{author: author} = attrs) when is_map(author),
     do: Map.put(attrs, :author, Author.new(author))
 
+  defp maybe_attach_author(%{"author" => %Author{}} = attrs), do: attrs
+
+  defp maybe_attach_author(%{"author" => author} = attrs) when is_map(author),
+    do: attrs |> Map.delete("author") |> Map.put(:author, Author.new(author))
+
   defp maybe_attach_author(attrs) do
     user_id = attrs[:external_user_id] || attrs["external_user_id"]
     username = attrs[:username] || attrs["username"]

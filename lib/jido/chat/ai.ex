@@ -189,6 +189,7 @@ defmodule Jido.Chat.AI do
       role in [:system, "system"] -> "system"
       role in [:assistant, "assistant"] -> "assistant"
       role in [:user, "user"] -> "user"
+      author && author.is_system -> "system"
       author && author.is_me -> "assistant"
       true -> "user"
     end

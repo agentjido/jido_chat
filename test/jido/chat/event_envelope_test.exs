@@ -98,6 +98,47 @@ defmodule Jido.Chat.EventEnvelopeTest do
     assert envelope.message_id == "msg-88"
   end
 
+  test "event user normalization preserves enriched author fields" do
+    assert {:ok, reaction} =
+             EventNormalizer.ensure_reaction_event(
+               %{
+                 emoji: "👍",
+                 user: %{
+                   "user_id" => "provider-1",
+                   "user_name" => "bot",
+                   "full_name" => "Test Bot",
+                   "id" => "stable-1",
+                   "email" => "bot@example.com",
+                   "is_bot" => true,
+                   "is_system" => true,
+                   "is_me" => true,
+                   "metadata" => %{"source" => "test"}
+                 }
+               },
+               :slack
+             )
+
+    assert reaction.user.id == "stable-1"
+    assert reaction.user.email == "bot@example.com"
+    assert reaction.user.user_name == "bot"
+    assert reaction.user.full_name == "Test Bot"
+    assert reaction.user.is_bot
+    assert reaction.user.is_system
+    assert reaction.user.is_me
+    assert reaction.user.metadata == %{"source" => "test"}
+  end
+
+  test "event user provider-only id does not become stable author id" do
+    assert {:ok, reaction} =
+             EventNormalizer.ensure_reaction_event(
+               %{emoji: "👍", user: %{"id" => "provider-only", "username" => "casey"}},
+               :slack
+             )
+
+    assert reaction.user.user_id == "provider-only"
+    assert reaction.user.id == nil
+  end
+
   test "event normalizer returns tagged errors for invalid inputs" do
     assert {:error, {:invalid_incoming, :bad}} = EventNormalizer.ensure_incoming(:bad)
 

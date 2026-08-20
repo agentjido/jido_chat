@@ -6,11 +6,14 @@ defmodule Jido.Chat.Author do
   @schema Zoi.struct(
             __MODULE__,
             %{
+              id: Zoi.string() |> Zoi.nullish(),
               user_id: Zoi.string(),
               user_name: Zoi.string(),
               full_name: Zoi.string() |> Zoi.nullish(),
+              email: Zoi.string() |> Zoi.nullish(),
               is_bot: Zoi.boolean() |> Zoi.default(false),
               is_me: Zoi.boolean() |> Zoi.default(false),
+              is_system: Zoi.boolean() |> Zoi.default(false),
               metadata: Zoi.map() |> Zoi.default(%{})
             },
             coerce: true
