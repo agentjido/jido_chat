@@ -1,6 +1,11 @@
 defmodule Jido.Chat.Media do
   @moduledoc """
   Normalized media entry used in `Jido.Chat.Incoming`.
+
+  Explicit provider MIME values are normalized with `Jido.Chat.MediaType`.
+  Filename and URL hints can recover `kind`, but they do not add an exact
+  `media_type`. Adapters can call `Jido.Chat.MediaType.resolve/2` when they have
+  stronger provider, response-header, or downloaded-byte evidence.
   """
 
   alias Jido.Chat.Content.{Audio, File, Image, Video}
@@ -45,7 +50,7 @@ defmodule Jido.Chat.Media do
     new(%{
       kind: :image,
       url: image.url,
-      media_type: image.media_type,
+      media_type: MediaType.normalize(image.media_type),
       width: image.width,
       height: image.height,
       metadata: compact_metadata(%{data: image.data, alt_text: image.alt_text})
@@ -56,7 +61,7 @@ defmodule Jido.Chat.Media do
     new(%{
       kind: :audio,
       url: audio.url,
-      media_type: audio.media_type,
+      media_type: MediaType.normalize(audio.media_type),
       duration: audio.duration,
       metadata: compact_metadata(%{data: audio.data, transcript: audio.transcript})
     })
@@ -66,7 +71,7 @@ defmodule Jido.Chat.Media do
     new(%{
       kind: :video,
       url: video.url,
-      media_type: video.media_type,
+      media_type: MediaType.normalize(video.media_type),
       width: video.width,
       height: video.height,
       duration: video.duration,
@@ -79,10 +84,12 @@ defmodule Jido.Chat.Media do
   end
 
   def normalize(%File{} = file) do
+    media_type = MediaType.normalize(file.media_type)
+
     new(%{
-      kind: MediaType.kind(file.media_type, file.filename || file.url),
+      kind: MediaType.kind(media_type, reference_hint([file.filename, file.url])),
       url: file.url,
-      media_type: file.media_type,
+      media_type: media_type,
       filename: file.filename,
       size_bytes: file.size,
       metadata: compact_metadata(%{data: file.data})
@@ -116,13 +123,15 @@ defmodule Jido.Chat.Media do
     media_type =
       attrs[:media_type] || attrs["media_type"] || attrs[:mime_type] || attrs["mime_type"]
 
+    media_type = MediaType.normalize(media_type)
+
     filename = attrs[:filename] || attrs["filename"] || attrs[:name] || attrs["name"]
     url = attrs[:url] || attrs["url"]
 
     %{
       kind:
         normalize_kind(attrs[:kind] || attrs["kind"] || attrs[:type] || attrs["type"]) ||
-          MediaType.kind(media_type, filename || url),
+          MediaType.kind(media_type, reference_hint([filename, url])),
       url: url,
       media_type: media_type,
       filename: filename,
@@ -165,6 +174,13 @@ defmodule Jido.Chat.Media do
   end
 
   defp normalize_kind(_kind), do: nil
+
+  defp reference_hint(values) do
+    Enum.find_value(values, fn
+      value when is_binary(value) -> if(String.trim(value) == "", do: nil, else: value)
+      _other -> nil
+    end)
+  end
 
   defp filename_from_reference(reference) when is_binary(reference) do
     case remote_reference?(reference) do

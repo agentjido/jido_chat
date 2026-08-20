@@ -6,15 +6,19 @@ defmodule Jido.Chat.MediaType do
 
   1. A valid MIME value declared by the provider.
   2. A default that the provider contract guarantees for the downloadable file.
-  3. A file signature, when the bytes have already been downloaded.
-  4. A filename or URL extension as a best-effort hint.
+  3. A valid HTTP `Content-Type`, when it comes from the media download response.
+  4. A file signature, when the bytes have already been downloaded.
+  5. A filename or URL extension as a best-effort hint.
 
-  `resolve/2` follows this order. A provider default is never added unless the
-  caller supplies `:provider_default`. Normalization and MIME resolution do not
-  change media bytes.
+  Pass the provider payload value as the first argument to `resolve/2`. Pass a
+  download response `Content-Type` as `:response_media_type`. A provider default
+  is never added unless the caller supplies `:provider_default`. Normalization
+  and MIME resolution do not change media bytes.
   """
 
   @type kind :: :image | :audio | :video | :file
+
+  @media_type_pattern ~r/^[a-z0-9!#$&^_.+-]+\/[a-z0-9!#$&^_.+-]+$/
 
   @extension_media_types %{
     ".aac" => "audio/aac",
@@ -54,13 +58,15 @@ defmodule Jido.Chat.MediaType do
   @doc """
   Resolves the best available MIME value.
 
-  Supported options are `:provider_default`, `:data`, `:filename`, `:url`, and
-  `:path`. Filename and reference values are hints and have the lowest priority.
+  Supported options are `:provider_default`, `:response_media_type`, `:data`,
+  `:filename`, `:url`, and `:path`. Filename and reference values are hints and
+  have the lowest priority.
   """
   @spec resolve(term(), keyword()) :: String.t() | nil
   def resolve(provider_value, opts \\ []) when is_list(opts) do
     normalize(provider_value) ||
       normalize(Keyword.get(opts, :provider_default)) ||
+      normalize(Keyword.get(opts, :response_media_type)) ||
       sniff(Keyword.get(opts, :data)) ||
       from_filename(reference(opts))
   end
@@ -75,7 +81,7 @@ defmodule Jido.Chat.MediaType do
       |> String.trim()
       |> String.downcase()
 
-    if Regex.match?(~r/^[a-z0-9!#$&^_.+-]+\/[a-z0-9!#$&^_.+-]+$/, media_type),
+    if Regex.match?(@media_type_pattern, media_type),
       do: media_type,
       else: nil
   end
@@ -123,14 +129,17 @@ defmodule Jido.Chat.MediaType do
   end
 
   defp reference(opts) do
-    Keyword.get(opts, :filename) ||
-      Keyword.get(opts, :url) ||
-      Keyword.get(opts, :path)
+    Enum.find_value([:filename, :url, :path], fn key ->
+      case Keyword.get(opts, key) do
+        value when is_binary(value) -> if(String.trim(value) == "", do: nil, else: value)
+        _other -> nil
+      end
+    end)
   end
 
   defp reference_path(value) do
     case URI.parse(value) do
-      %URI{scheme: scheme, path: path} when is_binary(scheme) and is_binary(path) -> path
+      %URI{path: path} when is_binary(path) and path != "" -> path
       _other -> value
     end
   end
