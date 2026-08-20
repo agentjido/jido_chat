@@ -4,6 +4,7 @@ defmodule Jido.Chat.Media do
   """
 
   alias Jido.Chat.Content.{Audio, File, Image, Video}
+  alias Jido.Chat.MediaType
 
   @schema Zoi.struct(
             __MODULE__,
@@ -79,7 +80,7 @@ defmodule Jido.Chat.Media do
 
   def normalize(%File{} = file) do
     new(%{
-      kind: infer_kind(file.media_type, file.filename, file.url),
+      kind: MediaType.kind(file.media_type, file.filename || file.url),
       url: file.url,
       media_type: file.media_type,
       filename: file.filename,
@@ -92,7 +93,7 @@ defmodule Jido.Chat.Media do
 
   def normalize(reference) when is_binary(reference) do
     new(%{
-      kind: infer_kind(nil, filename_from_reference(reference), reference),
+      kind: MediaType.kind(nil, filename_from_reference(reference) || reference),
       url: if(remote_reference?(reference), do: reference, else: nil),
       filename: filename_from_reference(reference),
       metadata:
@@ -121,7 +122,7 @@ defmodule Jido.Chat.Media do
     %{
       kind:
         normalize_kind(attrs[:kind] || attrs["kind"] || attrs[:type] || attrs["type"]) ||
-          infer_kind(media_type, filename, url),
+          MediaType.kind(media_type, filename || url),
       url: url,
       media_type: media_type,
       filename: filename,
@@ -164,27 +165,6 @@ defmodule Jido.Chat.Media do
   end
 
   defp normalize_kind(_kind), do: nil
-
-  defp infer_kind(media_type, filename, url) do
-    cond do
-      is_binary(media_type) and String.starts_with?(media_type, "image/") -> :image
-      is_binary(media_type) and String.starts_with?(media_type, "audio/") -> :audio
-      is_binary(media_type) and String.starts_with?(media_type, "video/") -> :video
-      extension_kind(filename || url) != :file -> extension_kind(filename || url)
-      true -> :file
-    end
-  end
-
-  defp extension_kind(nil), do: :file
-
-  defp extension_kind(value) when is_binary(value) do
-    case value |> Path.extname() |> String.downcase() do
-      ext when ext in [".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".svg"] -> :image
-      ext when ext in [".mp3", ".wav", ".ogg", ".m4a", ".flac", ".aac"] -> :audio
-      ext when ext in [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"] -> :video
-      _ -> :file
-    end
-  end
 
   defp filename_from_reference(reference) when is_binary(reference) do
     case remote_reference?(reference) do

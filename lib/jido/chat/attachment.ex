@@ -4,7 +4,7 @@ defmodule Jido.Chat.Attachment do
   """
 
   alias Jido.Chat.Content.{Audio, File, Image, Video}
-  alias Jido.Chat.{FileUpload, Media}
+  alias Jido.Chat.{FileUpload, Media, MediaType}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -115,7 +115,7 @@ defmodule Jido.Chat.Attachment do
 
   def normalize(%File{} = file) do
     new(%{
-      kind: infer_kind(file.media_type, file.filename, file.url),
+      kind: MediaType.kind(file.media_type, file.filename || file.url),
       url: file.url,
       data: file.data,
       media_type: file.media_type,
@@ -128,7 +128,7 @@ defmodule Jido.Chat.Attachment do
 
   def normalize(reference) when is_binary(reference) do
     new(%{
-      kind: infer_kind(nil, filename_from_reference(reference), reference),
+      kind: MediaType.kind(nil, filename_from_reference(reference) || reference),
       url: if(remote_reference?(reference), do: reference, else: nil),
       path: if(remote_reference?(reference), do: nil, else: reference),
       filename: filename_from_reference(reference)
@@ -156,7 +156,7 @@ defmodule Jido.Chat.Attachment do
     %{
       kind:
         normalize_kind(attrs[:kind] || attrs["kind"] || attrs[:type] || attrs["type"]) ||
-          infer_kind(media_type, filename, url || path),
+          MediaType.kind(media_type, filename || url || path),
       url: url,
       path: path,
       data: attrs[:data] || attrs["data"],
@@ -214,27 +214,6 @@ defmodule Jido.Chat.Attachment do
   end
 
   defp normalize_kind(_kind), do: nil
-
-  defp infer_kind(media_type, filename, reference) do
-    cond do
-      is_binary(media_type) and String.starts_with?(media_type, "image/") -> :image
-      is_binary(media_type) and String.starts_with?(media_type, "audio/") -> :audio
-      is_binary(media_type) and String.starts_with?(media_type, "video/") -> :video
-      extension_kind(filename || reference) != :file -> extension_kind(filename || reference)
-      true -> :file
-    end
-  end
-
-  defp extension_kind(nil), do: :file
-
-  defp extension_kind(value) when is_binary(value) do
-    case value |> Path.extname() |> String.downcase() do
-      ext when ext in [".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp", ".svg"] -> :image
-      ext when ext in [".mp3", ".wav", ".ogg", ".m4a", ".flac", ".aac"] -> :audio
-      ext when ext in [".mp4", ".mov", ".avi", ".mkv", ".webm", ".m4v"] -> :video
-      _ -> :file
-    end
-  end
 
   defp filename_from_reference(nil), do: nil
 
