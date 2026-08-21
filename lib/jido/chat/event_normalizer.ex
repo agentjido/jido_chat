@@ -12,6 +12,7 @@ defmodule Jido.Chat.EventNormalizer do
     MessageUpdatedEvent,
     ModalCloseEvent,
     ModalSubmitEvent,
+    OptionsLoadEvent,
     ReactionEvent,
     SlashCommandEvent
   }
@@ -90,6 +91,16 @@ defmodule Jido.Chat.EventNormalizer do
 
   def ensure_modal_close_event(other, _adapter_name),
     do: {:error, {:invalid_modal_close_event, other}}
+
+  @spec ensure_options_load_event(OptionsLoadEvent.t() | map() | term(), atom()) ::
+          {:ok, OptionsLoadEvent.t()} | {:error, term()}
+  def ensure_options_load_event(%OptionsLoadEvent{} = event, _adapter_name), do: {:ok, event}
+
+  def ensure_options_load_event(map, adapter_name) when is_map(map),
+    do: ensure_event_struct(map, adapter_name, OptionsLoadEvent, :invalid_options_load_event)
+
+  def ensure_options_load_event(other, _adapter_name),
+    do: {:error, {:invalid_options_load_event, other}}
 
   @spec ensure_slash_command_event(SlashCommandEvent.t() | map() | term(), atom()) ::
           {:ok, SlashCommandEvent.t()} | {:error, term()}
@@ -245,6 +256,10 @@ defmodule Jido.Chat.EventNormalizer do
 
   defp infer_event_type(payload) when is_map(payload) do
     cond do
+      Map.get(payload, :event_type) == :options_load or
+          Map.get(payload, "event_type") == "options_load" ->
+        :options_load
+
       Map.has_key?(payload, :emoji) or Map.has_key?(payload, "emoji") ->
         :reaction
 
@@ -282,6 +297,7 @@ defmodule Jido.Chat.EventNormalizer do
   defp payload_thread_id(_adapter_name, %ActionEvent{} = payload), do: payload.thread_id
   defp payload_thread_id(_adapter_name, %ModalSubmitEvent{} = payload), do: payload.thread_id
   defp payload_thread_id(_adapter_name, %ModalCloseEvent{} = payload), do: payload.thread_id
+  defp payload_thread_id(_adapter_name, %OptionsLoadEvent{} = payload), do: payload.thread_id
   defp payload_thread_id(_adapter_name, %SlashCommandEvent{} = payload), do: payload.thread_id
 
   defp payload_thread_id(_adapter_name, %AssistantThreadStartedEvent{} = payload),
@@ -299,6 +315,7 @@ defmodule Jido.Chat.EventNormalizer do
   defp payload_channel_id(%ActionEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%ModalSubmitEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%ModalCloseEvent{} = payload), do: payload.channel_id
+  defp payload_channel_id(%OptionsLoadEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%SlashCommandEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%AssistantThreadStartedEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%AssistantContextChangedEvent{} = payload), do: payload.channel_id
@@ -311,6 +328,7 @@ defmodule Jido.Chat.EventNormalizer do
   defp payload_message_id(%ActionEvent{} = payload), do: payload.message_id
   defp payload_message_id(%ModalSubmitEvent{} = payload), do: payload.message_id
   defp payload_message_id(%ModalCloseEvent{} = payload), do: payload.message_id
+  defp payload_message_id(%OptionsLoadEvent{} = payload), do: payload.message_id
   defp payload_message_id(%SlashCommandEvent{} = payload), do: payload.message_id
   defp payload_message_id(%AssistantThreadStartedEvent{} = payload), do: payload.message_id
   defp payload_message_id(%AssistantContextChangedEvent{} = payload), do: payload.message_id

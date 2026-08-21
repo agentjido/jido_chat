@@ -47,6 +47,10 @@ defmodule Jido.Chat.EventRouter do
   def ensure_modal_close_event(event, adapter_name),
     do: EventNormalizer.ensure_modal_close_event(event, adapter_name)
 
+  @spec ensure_options_load_event(term(), atom()) :: {:ok, term()} | {:error, term()}
+  def ensure_options_load_event(event, adapter_name),
+    do: EventNormalizer.ensure_options_load_event(event, adapter_name)
+
   @spec ensure_slash_command_event(term(), atom()) :: {:ok, term()} | {:error, term()}
   def ensure_slash_command_event(event, adapter_name),
     do: EventNormalizer.ensure_slash_command_event(event, adapter_name)
@@ -162,6 +166,21 @@ defmodule Jido.Chat.EventRouter do
         dispatchers
       ) do
     dispatchers.process_modal_close.(
+      chat,
+      adapter_name,
+      envelope.payload || envelope.raw || %{},
+      opts
+    )
+  end
+
+  def route_event(
+        chat,
+        adapter_name,
+        %EventEnvelope{event_type: :options_load} = envelope,
+        opts,
+        dispatchers
+      ) do
+    dispatchers.process_options_load.(
       chat,
       adapter_name,
       envelope.payload || envelope.raw || %{},

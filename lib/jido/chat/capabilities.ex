@@ -28,6 +28,13 @@ defmodule Jido.Chat.Capabilities do
           | :presence
           | :read_receipts
           | :assistant_events
+          | :card_charts
+          | :card_tables
+          | :modal_date_input
+          | :modal_number_input
+          | :external_select
+          | :options_load
+          | :link_action_ids
 
   @type capabilities :: [capability()]
 
@@ -49,7 +56,14 @@ defmodule Jido.Chat.Capabilities do
     :typing,
     :presence,
     :read_receipts,
-    :assistant_events
+    :assistant_events,
+    :card_charts,
+    :card_tables,
+    :modal_date_input,
+    :modal_number_input,
+    :external_select,
+    :options_load,
+    :link_action_ids
   ]
 
   @doc "Returns all supported capability atoms."
@@ -207,6 +221,16 @@ defmodule Jido.Chat.Capabilities do
     |> maybe_add_capability(:streaming, supported_status?(capabilities[:stream]))
     |> maybe_add_capability(:read_receipts, supported_status?(capabilities[:mark_as_read]))
     |> maybe_add_capability(:assistant_events, supported_status?(capabilities[:assistant_events]))
+    |> maybe_add_capability(:card_charts, supported_status?(capabilities[:card_charts]))
+    |> maybe_add_capability(:card_tables, supported_status?(capabilities[:card_tables]))
+    |> maybe_add_capability(:modal_date_input, supported_status?(capabilities[:modal_date_input]))
+    |> maybe_add_capability(
+      :modal_number_input,
+      supported_status?(capabilities[:modal_number_input])
+    )
+    |> maybe_add_capability(:external_select, supported_status?(capabilities[:external_select]))
+    |> maybe_add_capability(:options_load, supported_status?(capabilities[:options_load]))
+    |> maybe_add_capability(:link_action_ids, supported_status?(capabilities[:link_action_ids]))
   end
 
   defp normalize_adapter_capabilities(_), do: [:text]

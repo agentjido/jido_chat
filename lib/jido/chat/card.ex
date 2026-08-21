@@ -103,18 +103,37 @@ defmodule Jido.Chat.Card do
   end
 
   @doc "Builds a link button component."
-  @spec link_button(String.t(), String.t(), keyword() | map()) :: component()
-  def link_button(label, url, opts \\ []) when is_binary(label) and is_binary(url) do
+  @spec link_button(String.t(), String.t(), keyword() | map() | String.t()) :: component()
+  def link_button(label, url, opts \\ [])
+
+  def link_button(label, url, action_id)
+      when is_binary(label) and is_binary(url) and is_binary(action_id) do
+    link_button(label, url, %{action_id: action_id})
+  end
+
+  def link_button(label, url, opts)
+      when is_binary(label) and is_binary(url) and (is_list(opts) or is_map(opts)) do
     opts = normalize_opts(opts)
 
     Component.new(%{
       kind: :link_button,
+      id:
+        opts[:action_id] || opts["action_id"] || opts[:id] || opts["id"] ||
+          stable_link_action_id(label, url),
       label: label,
       url: url,
       style: opts[:style] || opts["style"],
       disabled: opts[:disabled] || opts["disabled"] || false,
       metadata: opts[:metadata] || opts["metadata"] || %{}
     })
+  end
+
+  @doc "Builds a link button with an explicit action ID and options."
+  @spec link_button(String.t(), String.t(), String.t(), keyword() | map()) :: component()
+  def link_button(label, url, action_id, opts)
+      when is_binary(label) and is_binary(url) and is_binary(action_id) do
+    opts = normalize_opts(opts) |> Map.put(:action_id, action_id)
+    link_button(label, url, opts)
   end
 
   @doc "Builds a text link component."
@@ -141,6 +160,20 @@ defmodule Jido.Chat.Card do
       label: label,
       value: value,
       text: opts[:text] || opts["text"],
+      metadata: opts[:metadata] || opts["metadata"] || %{}
+    })
+  end
+
+  @doc "Builds a select option group."
+  @spec select_option_group(String.t(), [component() | map()], keyword() | map()) :: component()
+  def select_option_group(label, options, opts \\ [])
+      when is_binary(label) and is_list(options) do
+    opts = normalize_opts(opts)
+
+    Component.new(%{
+      kind: :option_group,
+      label: label,
+      options: options,
       metadata: opts[:metadata] || opts["metadata"] || %{}
     })
   end
@@ -178,6 +211,34 @@ defmodule Jido.Chat.Card do
     })
   end
 
+  @doc "Builds a select whose options load from an external source."
+  @spec external_select(String.t(), keyword() | map()) :: component()
+  def external_select(action_id, opts \\ []) when is_binary(action_id) do
+    opts = normalize_opts(opts)
+
+    Component.new(%{
+      kind: :external_select,
+      id: action_id,
+      label: opts[:label] || opts["label"],
+      title: opts[:title] || opts["title"],
+      value: opts[:value] || opts["value"],
+      options: opts[:options] || opts["options"] || [],
+      option_groups: opts[:option_groups] || opts["option_groups"] || [],
+      options_source: normalize_options_source(opts[:options_source] || opts["options_source"]),
+      min_query_length: option(opts, :min_query_length),
+      timeout_ms: option(opts, :timeout_ms),
+      fallback_text: opts[:fallback_text] || opts["fallback_text"],
+      metadata: opts[:metadata] || opts["metadata"] || %{}
+    })
+  end
+
+  @doc "Builds a dynamic select. This is an alias for `external_select/2`."
+  @spec dynamic_select(String.t(), keyword() | map()) :: component()
+  def dynamic_select(action_id, opts \\ []) do
+    opts = normalize_opts(opts) |> Map.put(:options_source, :dynamic)
+    external_select(action_id, opts)
+  end
+
   @doc "Builds a table component."
   @spec table([String.t()], [[String.t()]], keyword() | map()) :: component()
   def table(columns, rows, opts \\ []) when is_list(columns) and is_list(rows) do
@@ -186,10 +247,57 @@ defmodule Jido.Chat.Card do
     Component.new(%{
       kind: :table,
       title: opts[:title] || opts["title"],
+      caption: opts[:caption] || opts["caption"],
       columns: columns,
       rows: rows,
+      page_size: option(opts, :page_size),
       metadata: opts[:metadata] || opts["metadata"] || %{}
     })
+  end
+
+  @doc "Builds a pie chart component."
+  @spec pie_chart(list(), keyword() | map()) :: component()
+  def pie_chart(data, opts \\ []), do: chart(:pie_chart, data, opts)
+
+  @doc "Builds a bar chart component."
+  @spec bar_chart(list(), keyword() | map()) :: component()
+  def bar_chart(data, opts \\ []), do: chart(:bar_chart, data, opts)
+
+  @spec bar_chart([String.t()], list(), keyword() | map()) :: component()
+  def bar_chart(categories, series, opts), do: chart(:bar_chart, categories, series, opts)
+
+  @doc "Builds an area chart component."
+  @spec area_chart(list(), keyword() | map()) :: component()
+  def area_chart(data, opts \\ []), do: chart(:area_chart, data, opts)
+
+  @spec area_chart([String.t()], list(), keyword() | map()) :: component()
+  def area_chart(categories, series, opts), do: chart(:area_chart, categories, series, opts)
+
+  @doc "Builds a line chart component."
+  @spec line_chart(list(), keyword() | map()) :: component()
+  def line_chart(data, opts \\ []), do: chart(:line_chart, data, opts)
+
+  @spec line_chart([String.t()], list(), keyword() | map()) :: component()
+  def line_chart(categories, series, opts), do: chart(:line_chart, categories, series, opts)
+
+  @doc "Builds a chart component from a chart type and data points."
+  @spec chart(:pie | :bar | :area | :line | atom() | String.t(), list(), keyword() | map()) ::
+          component()
+  def chart(type, data, opts \\ []) when is_list(data) do
+    build_chart(normalize_chart_kind(type), data, opts)
+  end
+
+  @doc "Builds a named-series chart with ordered shared categories."
+  @spec chart(atom() | String.t(), [String.t()], list(), keyword() | map()) :: component()
+  def chart(type, categories, series, opts)
+      when is_list(categories) and is_list(series) do
+    opts =
+      opts
+      |> normalize_opts()
+      |> Map.put(:categories, categories)
+      |> Map.put(:series, series)
+
+    build_chart(normalize_chart_kind(type), [], opts)
   end
 
   @doc "Builds an image component."
@@ -245,6 +353,7 @@ defmodule Jido.Chat.Card do
       %Markdown{} = markdown -> Markdown.stringify(markdown)
       other -> other
     end)
+    |> Map.put(:fallback_text, fallback_text(card))
     |> Wire.to_plain()
   end
 
@@ -353,9 +462,19 @@ defmodule Jido.Chat.Card do
         options = Enum.map(component.options, &select_option_label/1)
         [Markdown.heading(4, label), Markdown.list(options)]
 
+      :external_select ->
+        external_select_to_markdown(component)
+
       :table ->
         table_rows = [component.columns | component.rows]
-        [Markdown.table(table_rows)]
+
+        []
+        |> maybe_prepend_component_title(component.title)
+        |> maybe_append_component_text(component.caption)
+        |> Kernel.++([Markdown.table(table_rows)])
+
+      kind when kind in [:pie_chart, :bar_chart, :area_chart, :line_chart] ->
+        chart_to_markdown(component)
 
       :image ->
         label = component.alt_text || component.title || component.image_url || "image"
@@ -366,6 +485,12 @@ defmodule Jido.Chat.Card do
 
       :select_option ->
         [Markdown.paragraph(select_option_label(component))]
+
+      :option_group ->
+        [
+          Markdown.heading(4, component.label || component.title || "Options"),
+          Markdown.list(Enum.map(component.options, &select_option_label/1))
+        ]
     end
   end
 
@@ -397,6 +522,7 @@ defmodule Jido.Chat.Card do
     |> Map.from_struct()
     |> Map.update!(:items, fn items -> Enum.map(items, &component_to_plain/1) end)
     |> Map.update!(:options, fn options -> Enum.map(options, &component_to_plain/1) end)
+    |> Map.update!(:option_groups, fn groups -> Enum.map(groups, &component_to_plain/1) end)
     |> Map.update!(:markdown, fn
       nil -> nil
       %Markdown{} = markdown -> Markdown.stringify(markdown)
@@ -407,4 +533,95 @@ defmodule Jido.Chat.Card do
 
   defp normalize_opts(opts) when is_list(opts), do: Map.new(opts)
   defp normalize_opts(opts) when is_map(opts), do: opts
+
+  defp build_chart(kind, data, opts) when is_list(data) do
+    opts = normalize_opts(opts)
+
+    Component.new(%{
+      kind: kind,
+      title: opts[:title] || opts["title"],
+      caption: opts[:caption] || opts["caption"],
+      alt_text: opts[:alt_text] || opts["alt_text"],
+      fallback_text: opts[:fallback_text] || opts["fallback_text"],
+      data: data,
+      categories: opts[:categories] || opts["categories"] || [],
+      series: opts[:series] || opts["series"] || [],
+      metadata: opts[:metadata] || opts["metadata"] || %{}
+    })
+  end
+
+  defp chart_to_markdown(component) do
+    description =
+      component.fallback_text || component.alt_text ||
+        "#{chart_kind_label(component.kind)}. #{chart_data_text(component)}."
+
+    []
+    |> maybe_prepend_component_title(component.title)
+    |> maybe_append_component_text(component.caption)
+    |> Kernel.++([Markdown.paragraph(description)])
+  end
+
+  defp chart_kind_label(:pie_chart), do: "Pie chart"
+  defp chart_kind_label(:bar_chart), do: "Bar chart"
+  defp chart_kind_label(:area_chart), do: "Area chart"
+  defp chart_kind_label(:line_chart), do: "Line chart"
+
+  defp chart_data_text(%Component{series: [_ | _]} = component) do
+    Enum.map_join(component.series, "; ", fn series ->
+      "#{series.name} — " <>
+        Enum.map_join(Stream.zip(component.categories, series.values), ", ", fn {category, value} ->
+          "#{category}: #{format_number(value)}"
+        end)
+    end)
+  end
+
+  defp chart_data_text(%Component{data: data}) do
+    Enum.map_join(data, "; ", fn point ->
+      prefix = if point.series, do: "#{point.series} — ", else: ""
+      "#{prefix}#{point.label}: #{format_number(point.value)}"
+    end)
+  end
+
+  defp format_number(value) when is_number(value), do: to_string(value)
+
+  defp external_select_to_markdown(component) do
+    label = component.label || component.title || component.id || "Select"
+
+    options =
+      Stream.concat(component.options, Stream.flat_map(component.option_groups, & &1.options))
+
+    description =
+      component.fallback_text ||
+        if(Enum.empty?(options),
+          do: "Options load as you type.",
+          else: "Initial options: #{Enum.map_join(options, ", ", &select_option_label/1)}."
+        )
+
+    [Markdown.heading(4, label), Markdown.paragraph(description)]
+  end
+
+  defp stable_link_action_id(label, url) do
+    digest = :crypto.hash(:sha256, label <> "\0" <> url) |> Base.encode16(case: :lower)
+    "link:" <> binary_part(digest, 0, 16)
+  end
+
+  defp normalize_options_source(nil), do: :external
+  defp normalize_options_source(source) when source in [:external, :dynamic], do: source
+  defp normalize_options_source("external"), do: :external
+  defp normalize_options_source("dynamic"), do: :dynamic
+  defp normalize_options_source(source), do: source
+
+  defp normalize_chart_kind(:pie), do: :pie_chart
+  defp normalize_chart_kind(:bar), do: :bar_chart
+  defp normalize_chart_kind(:area), do: :area_chart
+  defp normalize_chart_kind(:line), do: :line_chart
+  defp normalize_chart_kind("pie"), do: :pie_chart
+  defp normalize_chart_kind("bar"), do: :bar_chart
+  defp normalize_chart_kind("area"), do: :area_chart
+  defp normalize_chart_kind("line"), do: :line_chart
+  defp normalize_chart_kind(kind), do: kind
+
+  defp option(opts, key) do
+    Map.get(opts, key, Map.get(opts, Atom.to_string(key)))
+  end
 end

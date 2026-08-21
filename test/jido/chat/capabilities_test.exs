@@ -57,7 +57,7 @@ defmodule Jido.Chat.CapabilitiesTest do
            )
   end
 
-  test "channel_capabilities/1 defaults to [:text] for adapters without an explicit matrix" do
+  test "channel_capabilities/1 derives fallbacks for adapters without an explicit matrix" do
     defmodule AdapterWithoutCapabilities do
       @behaviour Jido.Chat.Adapter
 
@@ -71,7 +71,13 @@ defmodule Jido.Chat.CapabilitiesTest do
       def send_message(_, _, _), do: {:error, :not_implemented}
     end
 
-    assert Capabilities.channel_capabilities(AdapterWithoutCapabilities) == [:text, :streaming]
+    assert Capabilities.channel_capabilities(AdapterWithoutCapabilities) == [
+             :text,
+             :streaming,
+             :card_charts,
+             :card_tables,
+             :link_action_ids
+           ]
   end
 
   test "channel_capabilities/1 derives delivery support from adapter capability matrices" do
@@ -90,7 +96,14 @@ defmodule Jido.Chat.CapabilitiesTest do
           send_message: :native,
           post_message: :native,
           cards: :native,
+          card_charts: :fallback,
+          card_tables: :native,
           modals: :native,
+          modal_date_input: :native,
+          modal_number_input: :fallback,
+          external_select: :native,
+          options_load: :native,
+          link_action_ids: :fallback,
           open_thread: :native,
           list_threads: :native,
           add_reaction: :native,
@@ -119,7 +132,14 @@ defmodule Jido.Chat.CapabilitiesTest do
              :threads,
              :reactions,
              :typing,
-             :streaming
+             :streaming,
+             :card_charts,
+             :card_tables,
+             :modal_date_input,
+             :modal_number_input,
+             :external_select,
+             :options_load,
+             :link_action_ids
            ]
   end
 
