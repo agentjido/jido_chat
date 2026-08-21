@@ -956,7 +956,7 @@ defmodule Jido.Chat.Adapter do
                   [{capability, :missing_callback} | acc]
 
                 {:fallback, false} ->
-                  if core_fallback_capability?(capability) do
+                  if fallback_available?(adapter_module, capability) do
                     acc
                   else
                     [{capability, :missing_fallback} | acc]
@@ -1008,6 +1008,12 @@ defmodule Jido.Chat.Adapter do
   end
 
   defp core_fallback_capability?(capability), do: capability in @core_fallback_capabilities
+
+  defp fallback_available?(adapter_module, :fetch_subject),
+    do: callback_exported?(adapter_module, :fetch_thread, 2)
+
+  defp fallback_available?(_adapter_module, capability),
+    do: core_fallback_capability?(capability)
 
   defp supported_status?(status), do: status in [:native, :fallback]
 
