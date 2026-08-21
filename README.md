@@ -71,6 +71,26 @@ See the [Adapter Test Kit](guides/adapter_test_kit.md) guide for the reusable
 conformance case, deterministic factories and mocks, and provider-extension
 tests.
 
+### Message lifecycle events
+
+Adapter `parse_event/2` implementations must map provider edit and delete
+deliveries to `:message_updated` and `:message_deleted` envelopes. Their typed
+payloads are `Jido.Chat.MessageUpdatedEvent` and
+`Jido.Chat.MessageDeletedEvent`. Each payload must include the provider
+`message_id`. It should also include adapter, channel, thread, author,
+timestamp, metadata, and raw provider context when these values are available.
+
+An update should put the new content in `message`. A delete uses `message: nil`
+when the provider does not send the deleted content. Core does not fetch or
+recover that content. Lifecycle handlers use `on_message_updated/2` and
+`on_message_deleted/2`. They are separate from `on_new_message/3`, so provider
+edit deliveries, including bot streaming edits, do not start a new-message
+handler loop.
+
+Core normalizes and routes each lifecycle delivery. Duplicate-delivery policy,
+persisted-message lookup, and the result for an unknown persisted message ID
+belong to the consuming runtime or persistence layer.
+
 ## Usage (Core Loop)
 
 ```elixir

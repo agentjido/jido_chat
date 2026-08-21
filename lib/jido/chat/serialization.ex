@@ -14,6 +14,8 @@ defmodule Jido.Chat.Serialization do
     IngressResult,
     Markdown,
     Message,
+    MessageDeletedEvent,
+    MessageUpdatedEvent,
     Modal,
     ModalCloseEvent,
     ModalResult,
@@ -88,6 +90,8 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "thread"} = map), do: Thread.from_map(map)
   def revive(%{"__type__" => "channel"} = map), do: ChannelRef.from_map(map)
   def revive(%{"__type__" => "incoming"} = map), do: Incoming.from_map(map)
+  def revive(%{"__type__" => "message_updated_event"} = map), do: MessageUpdatedEvent.from_map(map)
+  def revive(%{"__type__" => "message_deleted_event"} = map), do: MessageDeletedEvent.from_map(map)
   def revive(%{"__type__" => "reaction_event"} = map), do: ReactionEvent.from_map(map)
   def revive(%{"__type__" => "action_event"} = map), do: ActionEvent.from_map(map)
   def revive(%{"__type__" => "modal_submit_event"} = map), do: ModalSubmitEvent.from_map(map)
