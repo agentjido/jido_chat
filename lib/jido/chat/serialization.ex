@@ -53,6 +53,7 @@ defmodule Jido.Chat.Serialization do
       channel_state: Wire.to_plain(chat.channel_state),
       locks: Wire.to_plain(snapshot.locks),
       pending_locks: Wire.to_plain(snapshot.pending_locks),
+      concurrency_events: Wire.to_plain(snapshot.concurrency_events),
       initialized: chat.initialized
     }
     |> Wire.to_plain()
@@ -74,7 +75,8 @@ defmodule Jido.Chat.Serialization do
         thread_state: map[:thread_state] || map["thread_state"] || %{},
         channel_state: map[:channel_state] || map["channel_state"] || %{},
         locks: map[:locks] || map["locks"] || %{},
-        pending_locks: map[:pending_locks] || map["pending_locks"] || %{}
+        pending_locks: map[:pending_locks] || map["pending_locks"] || %{},
+        concurrency_events: map[:concurrency_events] || map["concurrency_events"] || []
       })
 
     %{

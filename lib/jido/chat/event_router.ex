@@ -3,11 +3,17 @@ defmodule Jido.Chat.EventRouter do
 
   alias Jido.Chat.{EventEnvelope, EventNormalizer, HandlerDispatch, Incoming, Thread}
 
-  @spec process_message(map(), atom(), String.t(), Incoming.t() | map(), (map(), Incoming.t(), String.t() ->
-                                                                            Thread.t())) ::
+  @spec process_message(
+          map(),
+          atom(),
+          String.t(),
+          Incoming.t() | map(),
+          (map(), Incoming.t(), String.t() -> Thread.t()),
+          Jido.Chat.MessageContext.t() | nil
+        ) ::
           {:ok, map(), Incoming.t()} | {:error, term()}
-  def process_message(chat, adapter_name, thread_id, incoming, build_thread) do
-    HandlerDispatch.process_message(chat, adapter_name, thread_id, incoming, build_thread)
+  def process_message(chat, adapter_name, thread_id, incoming, build_thread, context \\ nil) do
+    HandlerDispatch.process_message(chat, adapter_name, thread_id, incoming, build_thread, context)
   end
 
   @spec run_event_handlers(map(), list(), term()) :: map()

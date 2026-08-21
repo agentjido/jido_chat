@@ -9,13 +9,20 @@ defmodule Jido.Chat.HandlerDispatch do
     ModalSubmitEvent,
     ReactionEvent,
     SlashCommandEvent,
+    MessageContext,
     Thread
   }
 
-  @spec process_message(map(), atom(), String.t(), Incoming.t() | map(), (map(), Incoming.t(), String.t() ->
-                                                                            Thread.t())) ::
+  @spec process_message(
+          map(),
+          atom(),
+          String.t(),
+          Incoming.t() | map(),
+          (map(), Incoming.t(), String.t() -> Thread.t()),
+          MessageContext.t() | nil
+        ) ::
           {:ok, map(), Incoming.t()} | {:error, term()}
-  def process_message(chat, adapter_name, thread_id, incoming, build_thread)
+  def process_message(chat, adapter_name, thread_id, incoming, build_thread, context \\ nil)
       when is_map(chat) and is_atom(adapter_name) and is_binary(thread_id) and
              is_function(build_thread, 3) do
     with {:ok, incoming} <- EventNormalizer.ensure_incoming(incoming) do
@@ -26,7 +33,7 @@ defmodule Jido.Chat.HandlerDispatch do
       else
         chat = mark_dedupe(chat, dedupe_key)
         thread = build_thread.(chat, incoming, thread_id)
-        routed_chat = route_handlers(chat, thread, incoming)
+        routed_chat = route_handlers(chat, thread, incoming, context)
         {:ok, routed_chat, incoming}
       end
     end
@@ -55,37 +62,56 @@ defmodule Jido.Chat.HandlerDispatch do
 
   defp mark_dedupe(chat, key), do: Jido.Chat.mark_dedupe(chat, key)
 
-  defp route_handlers(chat, %Thread{} = thread, %Incoming{} = incoming) do
+  defp route_handlers(chat, %Thread{} = thread, %Incoming{} = incoming, context) do
     cond do
       subscribed?(chat, thread.id) ->
-        run_handlers(chat, chat.handlers.subscribed, thread, incoming)
+        run_handlers(chat, chat.handlers.subscribed, thread, incoming, context)
 
       mentioned?(chat, incoming) ->
-        run_handlers(chat, chat.handlers.mention, thread, incoming)
+        run_handlers(chat, chat.handlers.mention, thread, incoming, context)
 
       true ->
-        run_message_handlers(chat, thread, incoming)
+        run_message_handlers(chat, thread, incoming, context)
     end
   end
 
-  defp run_message_handlers(chat, %Thread{} = thread, %Incoming{} = incoming) do
+  defp run_message_handlers(chat, %Thread{} = thread, %Incoming{} = incoming, context) do
     text = incoming.text || ""
 
     Enum.reduce(chat.handlers.message, chat, fn {pattern, handler}, acc ->
       if Regex.match?(pattern, text) do
-        run_handler(acc, handler, thread, incoming)
+        run_handler(acc, handler, thread, incoming, context)
       else
         acc
       end
     end)
   end
 
-  defp run_handlers(chat, handlers, %Thread{} = thread, %Incoming{} = incoming) do
-    Enum.reduce(handlers, chat, fn handler, acc -> run_handler(acc, handler, thread, incoming) end)
+  defp run_handlers(chat, handlers, %Thread{} = thread, %Incoming{} = incoming, context) do
+    Enum.reduce(handlers, chat, fn handler, acc ->
+      run_handler(acc, handler, thread, incoming, context)
+    end)
   end
 
-  defp run_handler(chat, handler, %Thread{} = thread, %Incoming{} = incoming) do
+  defp run_handler(chat, handler, %Thread{} = thread, %Incoming{} = incoming, nil) do
     case :erlang.fun_info(handler, :arity) do
+      {:arity, 4} ->
+        context = MessageContext.new(skipped: [], total_count: 1)
+        coerce_handler_result(chat, handler.(chat, thread, incoming, context))
+
+      {:arity, 3} ->
+        coerce_handler_result(chat, handler.(chat, thread, incoming))
+
+      _ ->
+        coerce_handler_result(chat, handler.(thread, incoming))
+    end
+  end
+
+  defp run_handler(chat, handler, %Thread{} = thread, %Incoming{} = incoming, context) do
+    case :erlang.fun_info(handler, :arity) do
+      {:arity, 4} ->
+        coerce_handler_result(chat, handler.(chat, thread, incoming, context))
+
       {:arity, 3} ->
         coerce_handler_result(chat, handler.(chat, thread, incoming))
 

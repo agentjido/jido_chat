@@ -147,6 +147,25 @@ defmodule Jido.Chat.SerializationTest do
     assert Chat.channel_state(revived, "test:chan-1") == %{"topic" => "general"}
   end
 
+  test "custom state adapters keep the existing lock callback contract" do
+    chat =
+      Chat.new(state_adapter: WrappedStateAdapter)
+      |> Chat.configure_concurrency(strategy: :queue)
+
+    assert {:acquired, chat} = Chat.acquire_lock(chat, "thread:custom", "owner-1", now_ms: 10)
+
+    assert {:queued, chat} =
+             Chat.acquire_lock(chat, "thread:custom", "owner-2",
+               now_ms: 20,
+               metadata: %{message_id: "m2"}
+             )
+
+    assert {{:released, [entry]}, _chat} =
+             Chat.release_lock(chat, "thread:custom", "owner-1")
+
+    assert entry.metadata == %{message_id: "m2"}
+  end
+
   test "thread and channel refs round-trip with module adapters" do
     thread =
       Thread.new(%{
