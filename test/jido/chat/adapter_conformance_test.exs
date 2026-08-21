@@ -70,6 +70,42 @@ defmodule Jido.Chat.AdapterConformanceTest do
     end
   end
 
+  defmodule InvalidCapabilityStatusAdapter do
+    use Adapter
+
+    @impl true
+    def channel_type, do: :invalid_capability_status
+
+    @impl true
+    def transform_incoming(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message(room_id, _text, _opts) do
+      {:ok, Response.new(%{external_message_id: "m1", external_room_id: room_id})}
+    end
+
+    @impl true
+    def capabilities, do: %{send_message: :sometimes}
+  end
+
+  defmodule InvalidCapabilityMapAdapter do
+    use Adapter
+
+    @impl true
+    def channel_type, do: :invalid_capability_map
+
+    @impl true
+    def transform_incoming(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message(room_id, _text, _opts) do
+      {:ok, Response.new(%{external_message_id: "m1", external_room_id: room_id})}
+    end
+
+    @impl true
+    def capabilities, do: [:send_message]
+  end
+
   defmodule FallbackAdapter do
     use Adapter
 
@@ -188,6 +224,28 @@ defmodule Jido.Chat.AdapterConformanceTest do
     end
   end
 
+  defmodule MalformedMediaAdapter do
+    use Adapter
+
+    @impl true
+    def channel_type, do: :malformed_media
+
+    @impl true
+    def transform_incoming(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message(room_id, _text, _opts) do
+      {:ok, Response.new(%{external_message_id: "m1", external_room_id: room_id})}
+    end
+
+    @impl true
+    def fetch_media(:wrapped, _opts), do: {:ok, %{bytes: "not-binary"}}
+    def fetch_media(:invalid, _opts), do: :invalid
+
+    @impl true
+    def capabilities, do: %{send_message: :native, fetch_media: :native}
+  end
+
   test "capability matrix struct normalizes statuses" do
     matrix = Adapter.capability_matrix(GoodAdapter)
 
@@ -205,13 +263,29 @@ defmodule Jido.Chat.AdapterConformanceTest do
     assert {:edit_message, :missing_callback} in mismatches
   end
 
+  test "capability validation rejects an invalid raw status before normalization" do
+    assert {:error, {:invalid_capability_matrix, [send_message: :invalid_status]}} =
+             Adapter.validate_capabilities(InvalidCapabilityStatusAdapter)
+  end
+
+  test "capability validation rejects a raw declaration that is not a map" do
+    assert {:error, {:invalid_capability_matrix, [capabilities: :invalid_map]}} =
+             Adapter.validate_capabilities(InvalidCapabilityMapAdapter)
+  end
+
   test "fetch_media is optional and surfaces through the capability matrix" do
     assert Adapter.capability_matrix(MediaAdapter).capabilities.fetch_media == :native
     assert Adapter.capability_matrix(GoodAdapter).capabilities.fetch_media == :unsupported
 
     assert :ok = Adapter.validate_capabilities(MediaAdapter)
-    assert {:ok, "bytes-42"} = MediaAdapter.fetch_media("media://42", [])
-    assert {:error, :invalid_reference} = MediaAdapter.fetch_media("nope", [])
+    assert {:ok, "bytes-42"} = Adapter.fetch_media(MediaAdapter, "media://42", [])
+    assert {:error, :invalid_reference} = Adapter.fetch_media(MediaAdapter, "nope", [])
+    assert {:error, :unsupported} = Adapter.fetch_media(GoodAdapter, "media://42", [])
+  end
+
+  test "fetch_media rejects malformed provider results" do
+    assert {:error, :invalid_media_result} = Adapter.fetch_media(MalformedMediaAdapter, :wrapped, [])
+    assert {:error, :invalid_media_result} = Adapter.fetch_media(MalformedMediaAdapter, :invalid, [])
   end
 
   test "unsupported callbacks return deterministic unsupported error" do

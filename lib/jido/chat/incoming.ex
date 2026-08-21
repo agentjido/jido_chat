@@ -42,10 +42,12 @@ defmodule Jido.Chat.Incoming do
   def schema, do: @schema
 
   @doc "Creates a normalized incoming payload."
+  @spec new(map()) :: t()
   def new(attrs) when is_map(attrs) do
     attrs
     |> maybe_attach_author()
     |> maybe_normalize_reply_context()
+    |> maybe_normalize_chat_type()
     |> maybe_normalize_mentions()
     |> maybe_normalize_media()
     |> maybe_normalize_channel_meta()
@@ -84,10 +86,17 @@ defmodule Jido.Chat.Incoming do
   defp maybe_attach_author(%{author: author} = attrs) when is_map(author),
     do: Map.put(attrs, :author, Author.new(author))
 
-  defp maybe_attach_author(%{"author" => %Author{}} = attrs), do: attrs
+  defp maybe_attach_author(%{"author" => %Author{} = author} = attrs) do
+    attrs
+    |> Map.delete("author")
+    |> Map.put(:author, author)
+  end
 
-  defp maybe_attach_author(%{"author" => author} = attrs) when is_map(author),
-    do: attrs |> Map.delete("author") |> Map.put(:author, Author.new(author))
+  defp maybe_attach_author(%{"author" => author} = attrs) when is_map(author) do
+    attrs
+    |> Map.delete("author")
+    |> Map.put(:author, Author.new(author))
+  end
 
   defp maybe_attach_author(attrs) do
     user_id = attrs[:external_user_id] || attrs["external_user_id"]
@@ -142,6 +151,23 @@ defmodule Jido.Chat.Incoming do
       _other ->
         attrs
     end
+  end
+
+  defp maybe_normalize_chat_type(attrs) do
+    case attrs[:chat_type] || attrs["chat_type"] do
+      chat_type when is_atom(chat_type) ->
+        attrs
+
+      chat_type when is_binary(chat_type) ->
+        attrs
+        |> Map.delete("chat_type")
+        |> Map.put(:chat_type, chat_type |> String.trim() |> String.to_existing_atom())
+
+      _other ->
+        attrs
+    end
+  rescue
+    ArgumentError -> attrs
   end
 
   defp normalize_mention(%Mention{} = mention), do: mention

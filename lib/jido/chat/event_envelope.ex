@@ -66,6 +66,7 @@ defmodule Jido.Chat.EventEnvelope do
   def new(attrs) when is_map(attrs) do
     attrs
     |> Map.put_new(:id, Jido.Chat.ID.generate!())
+    |> maybe_normalize_adapter_name()
     |> maybe_normalize_event_type()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
@@ -98,9 +99,28 @@ defmodule Jido.Chat.EventEnvelope do
         attrs
 
       event_type when is_binary(event_type) ->
-        Map.put(attrs, :event_type, event_type |> String.trim() |> String.to_existing_atom())
+        attrs
+        |> Map.delete("event_type")
+        |> Map.put(:event_type, event_type |> String.trim() |> String.to_existing_atom())
 
       _ ->
+        attrs
+    end
+  rescue
+    ArgumentError -> attrs
+  end
+
+  defp maybe_normalize_adapter_name(attrs) do
+    case attrs[:adapter_name] || attrs["adapter_name"] do
+      adapter_name when is_atom(adapter_name) ->
+        attrs
+
+      adapter_name when is_binary(adapter_name) ->
+        attrs
+        |> Map.delete("adapter_name")
+        |> Map.put(:adapter_name, adapter_name |> String.trim() |> String.to_existing_atom())
+
+      _other ->
         attrs
     end
   rescue
