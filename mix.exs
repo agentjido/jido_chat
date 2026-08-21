@@ -28,7 +28,7 @@ defmodule Jido.Chat.MixProject do
       dialyzer: [
         plt_local_path: "priv/plts/project.plt",
         plt_core_path: "priv/plts/core.plt",
-        plt_add_apps: [:mix]
+        plt_add_apps: [:mix, :ex_unit]
       ]
     ]
   end
@@ -88,7 +88,15 @@ defmodule Jido.Chat.MixProject do
 
   defp package do
     [
-      files: ["lib", "mix.exs", "README.md", "LICENSE", "CHANGELOG.md", "usage-rules.md"],
+      files: [
+        "lib",
+        "guides",
+        "mix.exs",
+        "README.md",
+        "LICENSE",
+        "CHANGELOG.md",
+        "usage-rules.md"
+      ],
       maintainers: ["Mike Hostetler"],
       licenses: ["Apache-2.0"],
       links: %{
@@ -108,7 +116,8 @@ defmodule Jido.Chat.MixProject do
       extras: [
         "README.md",
         "CHANGELOG.md",
-        "CONTRIBUTING.md"
+        "CONTRIBUTING.md",
+        "guides/adapter_test_kit.md"
       ]
     ]
   end

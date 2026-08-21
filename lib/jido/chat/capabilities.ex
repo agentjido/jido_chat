@@ -162,17 +162,19 @@ defmodule Jido.Chat.Capabilities do
   end
 
   defp normalize_adapter_capabilities(capabilities) when is_map(capabilities) do
+    native_post_message? = capabilities[:post_message] == :native
+
     media_supported? =
       supported_status?(capabilities[:image]) or
         supported_status?(capabilities[:audio]) or
         supported_status?(capabilities[:video]) or
         supported_status?(capabilities[:file]) or
         supported_status?(capabilities[:send_file]) or
-        supported_status?(capabilities[:post_message])
+        native_post_message?
 
     multi_file_supported? =
       supported_status?(capabilities[:multi_file]) or
-        supported_status?(capabilities[:post_message])
+        native_post_message?
 
     [:text]
     |> maybe_add_capability(:image, media_supported?)

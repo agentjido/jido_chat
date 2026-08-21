@@ -34,6 +34,7 @@ It provides:
 - explicit adapter capability negotiation and fallback behavior (`Jido.Chat.Adapter`, `CapabilityMatrix`)
 - lightweight state and concurrency hooks used by `Jido.Chat` today (`StateAdapter`, `Concurrency`)
 - framework-agnostic AI history conversion (`Jido.Chat.AI`)
+- provider-free ExUnit adapter conformance support (`Jido.Chat.AdapterTestKit`)
 
 ## Installation
 
@@ -65,6 +66,10 @@ upload hook used by the core fallback path for single-upload posts.
 6. Treat `Author.id` as trusted, framework-neutral stable identity. Only pass it through when an application/runtime resolver supplied it. Never derive it from a provider ID, display name, username, or email, and do not make provider profile calls to resolve it for this contract.
 7. Reply context is shallow and uses only data already present in the event. It does not perform replied-message lookup.
 8. Run `mix quality` before publishing adapter changes.
+
+See the [Adapter Test Kit](guides/adapter_test_kit.md) guide for the reusable
+conformance case, deterministic factories and mocks, and provider-extension
+tests.
 
 ## Usage (Core Loop)
 

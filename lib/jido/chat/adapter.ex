@@ -40,6 +40,8 @@ defmodule Jido.Chat.Adapter do
   @type capability_status :: :native | :fallback | :unsupported
   @type capability_matrix :: %{optional(atom()) => capability_status()}
 
+  @capability_statuses [:native, :fallback, :unsupported]
+
   @type send_result :: {:ok, Response.t()} | {:error, term()}
   @type incoming_result :: {:ok, Incoming.t()} | {:error, term()}
   @type delete_result :: :ok | {:error, term()}
@@ -55,6 +57,24 @@ defmodule Jido.Chat.Adapter do
   @type media_result :: {:ok, binary()} | {:error, term()}
   @type file_input :: FileUpload.input()
   @type media_reference :: String.t() | Media.t() | map()
+
+  @core_fallback_capabilities [
+    :initialize,
+    :shutdown,
+    :post_message,
+    :fetch_metadata,
+    :fetch_thread,
+    :post_channel_message,
+    :stream,
+    :webhook,
+    :verify_webhook,
+    :parse_event,
+    :format_webhook_response
+  ]
+
+  @doc "Returns operations that always have a core fallback."
+  @spec core_fallback_capabilities() :: [atom()]
+  def core_fallback_capabilities, do: @core_fallback_capabilities
 
   @callback channel_type() :: atom()
   @callback transform_incoming(raw_payload()) :: incoming_result() | {:ok, map()}
@@ -261,41 +281,14 @@ defmodule Jido.Chat.Adapter do
   @doc "Returns capability matrix for adapter-native vs fallback support."
   @spec capabilities(module()) :: capability_matrix()
   def capabilities(adapter_module) do
-    if callback_exported?(adapter_module, :capabilities, 0) do
-      adapter_module.capabilities()
-      |> normalize_capability_matrix()
-      |> ensure_capability_defaults(adapter_module)
-    else
-      %{
-        initialize: support_status(adapter_module, :initialize, 1, :fallback),
-        shutdown: support_status(adapter_module, :shutdown, 1, :fallback),
-        send_message: :native,
-        send_file: support_status(adapter_module, :send_file, 3),
-        post_message: support_status(adapter_module, :post_message, 3),
-        edit_message: support_status(adapter_module, :edit_message, 4),
-        delete_message: support_status(adapter_module, :delete_message, 3),
-        start_typing: support_status(adapter_module, :start_typing, 2),
-        fetch_metadata: support_status(adapter_module, :fetch_metadata, 2, :fallback),
-        fetch_thread: support_status(adapter_module, :fetch_thread, 2, :fallback),
-        fetch_message: support_status(adapter_module, :fetch_message, 3, :fallback),
-        add_reaction: support_status(adapter_module, :add_reaction, 4),
-        remove_reaction: support_status(adapter_module, :remove_reaction, 4),
-        post_ephemeral: support_status(adapter_module, :post_ephemeral, 4),
-        open_dm: support_status(adapter_module, :open_dm, 2),
-        fetch_messages: support_status(adapter_module, :fetch_messages, 2),
-        fetch_channel_messages: support_status(adapter_module, :fetch_channel_messages, 2),
-        list_threads: support_status(adapter_module, :list_threads, 2),
-        open_thread: support_status(adapter_module, :open_thread, 3),
-        post_channel_message: support_status(adapter_module, :post_channel_message, 3, :fallback),
-        stream: support_status(adapter_module, :stream, 3, :fallback),
-        open_modal: support_status(adapter_module, :open_modal, 3),
-        webhook: support_status(adapter_module, :handle_webhook, 3, :fallback),
-        verify_webhook: support_status(adapter_module, :verify_webhook, 2, :fallback),
-        parse_event: support_status(adapter_module, :parse_event, 2, :fallback),
-        format_webhook_response: support_status(adapter_module, :format_webhook_response, 2, :fallback)
-      }
-      |> ensure_capability_defaults(adapter_module)
-    end
+    declared =
+      if callback_exported?(adapter_module, :capabilities, 0) do
+        normalize_capability_matrix(adapter_module.capabilities())
+      else
+        %{}
+      end
+
+    ensure_capability_defaults(declared, adapter_module)
   end
 
   @doc "Normalizes adapter inbound transformation to `Jido.Chat.Incoming`."
@@ -513,6 +506,21 @@ defmodule Jido.Chat.Adapter do
       with {:ok, message} <-
              adapter_module.fetch_message(external_room_id, external_message_id, opts) do
         {:ok, normalize_message(adapter_module, message, opts)}
+      end
+    else
+      {:error, :unsupported}
+    end
+  end
+
+  @doc "Fetches media bytes when supported by the adapter."
+  @spec fetch_media(module(), media_reference(), keyword()) :: media_result()
+  def fetch_media(adapter_module, reference, opts \\ []) do
+    if callback_exported?(adapter_module, :fetch_media, 2) do
+      case adapter_module.fetch_media(reference, opts) do
+        {:ok, bytes} when is_binary(bytes) -> {:ok, bytes}
+        {:ok, _other} -> {:error, :invalid_media_result}
+        {:error, _reason} = error -> error
+        _other -> {:error, :invalid_media_result}
       end
     else
       {:error, :unsupported}
@@ -815,29 +823,45 @@ defmodule Jido.Chat.Adapter do
   @doc "Validates capability declaration coherence with implemented callbacks."
   @spec validate_capabilities(module()) :: :ok | {:error, term()}
   def validate_capabilities(adapter_module) do
-    declared = capabilities(adapter_module)
+    with {:ok, raw_declared} <- raw_capability_declaration(adapter_module) do
+      invalid =
+        adapter_module
+        |> capabilities()
+        |> Enum.reduce([], fn {capability, status}, acc ->
+          callback = capability_callback(capability)
 
-    invalid =
-      Enum.reduce(declared, [], fn {capability, status}, acc ->
-        callback = capability_callback(capability)
+          case callback do
+            nil ->
+              acc
 
-        case callback do
-          nil ->
-            acc
+            {name, arity} ->
+              exported? = callback_exported?(adapter_module, name, arity)
+              declared_status = Map.get(raw_declared, capability, status)
 
-          {name, arity} ->
-            exported? = callback_exported?(adapter_module, name, arity)
+              case {declared_status, exported?} do
+                {:native, false} ->
+                  [{capability, :missing_callback} | acc]
 
-            case {status, exported?} do
-              {:native, false} -> [{capability, :missing_callback} | acc]
-              _ -> acc
-            end
-        end
-      end)
+                {:fallback, false} ->
+                  if core_fallback_capability?(capability) do
+                    acc
+                  else
+                    [{capability, :missing_fallback} | acc]
+                  end
 
-    case invalid do
-      [] -> :ok
-      _ -> {:error, {:invalid_capability_matrix, Enum.reverse(invalid)}}
+                {:unsupported, true} ->
+                  [{capability, :unsupported_callback} | acc]
+
+                _ ->
+                  acc
+              end
+          end
+        end)
+
+      case invalid do
+        [] -> :ok
+        _ -> {:error, {:invalid_capability_matrix, Enum.reverse(invalid)}}
+      end
     end
   end
 
@@ -859,12 +883,52 @@ defmodule Jido.Chat.Adapter do
     if callback_exported?(adapter_module, callback, arity), do: :native, else: fallback
   end
 
+  defp inferred_capability_status(adapter_module, capability) do
+    case capability_callback(capability) do
+      {callback, arity} ->
+        fallback = if core_fallback_capability?(capability), do: :fallback, else: :unsupported
+        support_status(adapter_module, callback, arity, fallback)
+
+      nil ->
+        :unsupported
+    end
+  end
+
+  defp core_fallback_capability?(capability), do: capability in @core_fallback_capabilities
+
   defp supported_status?(status), do: status in [:native, :fallback]
 
   defp normalize_capability_matrix(matrix) when is_map(matrix),
     do: matrix |> then(&CapabilityMatrix.new(%{capabilities: &1})) |> CapabilityMatrix.as_map()
 
   defp normalize_capability_matrix(_), do: %{}
+
+  defp raw_capability_declaration(adapter_module) do
+    if callback_exported?(adapter_module, :capabilities, 0) do
+      case adapter_module.capabilities() do
+        declaration when is_map(declaration) -> validate_capability_statuses(declaration)
+        _other -> {:error, {:invalid_capability_matrix, [capabilities: :invalid_map]}}
+      end
+    else
+      {:ok, %{}}
+    end
+  end
+
+  defp validate_capability_statuses(declaration) do
+    invalid =
+      Enum.reduce(declaration, [], fn {capability, status}, acc ->
+        if status in @capability_statuses do
+          acc
+        else
+          [{capability, :invalid_status} | acc]
+        end
+      end)
+
+    case invalid do
+      [] -> {:ok, declaration}
+      _ -> {:error, {:invalid_capability_matrix, Enum.reverse(invalid)}}
+    end
+  end
 
   defp normalize_incoming(%Incoming{} = incoming), do: incoming
   defp normalize_incoming(map) when is_map(map), do: Incoming.new(map)
@@ -1228,40 +1292,49 @@ defmodule Jido.Chat.Adapter do
   defp normalize_modal_payload(%{} = modal), do: modal
 
   defp ensure_capability_defaults(matrix, adapter_module) do
+    defaults = %{
+      initialize: inferred_capability_status(adapter_module, :initialize),
+      shutdown: inferred_capability_status(adapter_module, :shutdown),
+      send_message: :native,
+      send_file: inferred_capability_status(adapter_module, :send_file),
+      post_message: inferred_capability_status(adapter_module, :post_message),
+      edit_message: inferred_capability_status(adapter_module, :edit_message),
+      delete_message: inferred_capability_status(adapter_module, :delete_message),
+      start_typing: inferred_capability_status(adapter_module, :start_typing),
+      fetch_metadata: inferred_capability_status(adapter_module, :fetch_metadata),
+      fetch_thread: inferred_capability_status(adapter_module, :fetch_thread),
+      fetch_message: inferred_capability_status(adapter_module, :fetch_message),
+      fetch_media: inferred_capability_status(adapter_module, :fetch_media),
+      add_reaction: inferred_capability_status(adapter_module, :add_reaction),
+      remove_reaction: inferred_capability_status(adapter_module, :remove_reaction),
+      post_ephemeral: inferred_capability_status(adapter_module, :post_ephemeral),
+      open_dm: inferred_capability_status(adapter_module, :open_dm),
+      fetch_messages: inferred_capability_status(adapter_module, :fetch_messages),
+      fetch_channel_messages: inferred_capability_status(adapter_module, :fetch_channel_messages),
+      list_threads: inferred_capability_status(adapter_module, :list_threads),
+      open_thread: inferred_capability_status(adapter_module, :open_thread),
+      post_channel_message: inferred_capability_status(adapter_module, :post_channel_message),
+      stream: inferred_capability_status(adapter_module, :stream),
+      open_modal: inferred_capability_status(adapter_module, :open_modal),
+      webhook: inferred_capability_status(adapter_module, :webhook),
+      verify_webhook: inferred_capability_status(adapter_module, :verify_webhook),
+      parse_event: inferred_capability_status(adapter_module, :parse_event),
+      format_webhook_response: inferred_capability_status(adapter_module, :format_webhook_response)
+    }
+
+    matrix =
+      defaults
+      |> Map.merge(matrix)
+      |> Map.put(:send_message, :native)
+      |> canonicalize_core_fallback_capabilities(adapter_module)
+
     single_upload_supported? =
-      supported_status?(matrix[:send_file]) or supported_status?(matrix[:post_message])
+      supported_status?(matrix[:send_file]) or matrix[:post_message] == :native
 
     multi_upload_supported? =
-      supported_status?(matrix[:multi_file]) or supported_status?(matrix[:post_message])
+      supported_status?(matrix[:multi_file]) or matrix[:post_message] == :native
 
-    defaults = %{
-      initialize: support_status(adapter_module, :initialize, 1, :fallback),
-      shutdown: support_status(adapter_module, :shutdown, 1, :fallback),
-      send_message: :native,
-      send_file: support_status(adapter_module, :send_file, 3),
-      post_message: support_status(adapter_module, :post_message, 3),
-      edit_message: support_status(adapter_module, :edit_message, 4),
-      delete_message: support_status(adapter_module, :delete_message, 3),
-      start_typing: support_status(adapter_module, :start_typing, 2),
-      fetch_metadata: support_status(adapter_module, :fetch_metadata, 2, :fallback),
-      fetch_thread: support_status(adapter_module, :fetch_thread, 2, :fallback),
-      fetch_message: support_status(adapter_module, :fetch_message, 3, :fallback),
-      fetch_media: support_status(adapter_module, :fetch_media, 2),
-      add_reaction: support_status(adapter_module, :add_reaction, 4),
-      remove_reaction: support_status(adapter_module, :remove_reaction, 4),
-      post_ephemeral: support_status(adapter_module, :post_ephemeral, 4),
-      open_dm: support_status(adapter_module, :open_dm, 2),
-      fetch_messages: support_status(adapter_module, :fetch_messages, 2),
-      fetch_channel_messages: support_status(adapter_module, :fetch_channel_messages, 2),
-      list_threads: support_status(adapter_module, :list_threads, 2),
-      open_thread: support_status(adapter_module, :open_thread, 3),
-      post_channel_message: support_status(adapter_module, :post_channel_message, 3, :fallback),
-      stream: support_status(adapter_module, :stream, 3, :fallback),
-      open_modal: support_status(adapter_module, :open_modal, 3),
-      webhook: support_status(adapter_module, :handle_webhook, 3, :fallback),
-      verify_webhook: support_status(adapter_module, :verify_webhook, 2, :fallback),
-      parse_event: support_status(adapter_module, :parse_event, 2, :fallback),
-      format_webhook_response: support_status(adapter_module, :format_webhook_response, 2, :fallback),
+    presentation_defaults = %{
       text: :native,
       image: if(single_upload_supported?, do: :fallback, else: :unsupported),
       audio: if(single_upload_supported?, do: :fallback, else: :unsupported),
@@ -1280,7 +1353,19 @@ defmodule Jido.Chat.Adapter do
       assistant_events: :unsupported
     }
 
-    Map.merge(defaults, matrix)
+    Map.merge(presentation_defaults, matrix)
+  end
+
+  defp canonicalize_core_fallback_capabilities(matrix, adapter_module) do
+    Enum.reduce(@core_fallback_capabilities, matrix, fn capability, acc ->
+      inferred_status = inferred_capability_status(adapter_module, capability)
+
+      case {Map.fetch!(acc, capability), inferred_status} do
+        {:unsupported, status} -> Map.put(acc, capability, status)
+        {:fallback, :native} -> Map.put(acc, capability, :native)
+        _other -> acc
+      end
+    end)
   end
 
   defp normalize_webhook_request(%WebhookRequest{} = request, _opts), do: request
