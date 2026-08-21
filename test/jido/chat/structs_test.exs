@@ -484,7 +484,9 @@ defmodule Jido.Chat.StructsTest do
       assert %StreamChunk{kind: :status, text: "working"} = Enum.at(payload.stream, 1)
       assert %StreamChunk{kind: :step_start} = Enum.at(payload.stream, 2)
       assert %StreamChunk{kind: :text, text: "done"} = Enum.at(payload.stream, 3)
-      assert payload.fallback_text == "helloworkingDraft responsedone"
+
+      assert payload.fallback_text ==
+               "hello\n> **Status:** working\n\n- [ ] Draft response\ndone"
     end
 
     test "event placeholder structs parse cleanly" do

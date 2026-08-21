@@ -175,6 +175,39 @@ defmodule Jido.Chat.AdapterConformanceTest do
     end
   end
 
+  defmodule FailingStreamAdapter do
+    use Adapter
+
+    @impl true
+    def channel_type, do: :failing_stream
+
+    @impl true
+    def transform_incoming(payload), do: {:ok, Incoming.new(payload)}
+
+    @impl true
+    def send_message("send-failure", _text, _opts), do: {:error, :send_failed}
+
+    def send_message(room_id, _text, _opts) do
+      {:ok,
+       Response.new(%{
+         external_message_id: "msg_#{room_id}",
+         external_room_id: room_id
+       })}
+    end
+
+    @impl true
+    def edit_message(_room_id, _message_id, _text, _opts), do: {:error, :edit_failed}
+
+    @impl true
+    def capabilities do
+      %{
+        send_message: :native,
+        edit_message: :native,
+        stream: :fallback
+      }
+    end
+  end
+
   defmodule NilChannelTypeAdapter do
     use Adapter
 
@@ -347,6 +380,85 @@ defmodule Jido.Chat.AdapterConformanceTest do
     assert final_text =~ "alpha"
     assert final_text =~ "Plan"
     assert final_text =~ "- one"
+  end
+
+  test "final stream fallback sends exact Markdown and rejects streams without visible text" do
+    markdown = "Before **bold**\n\n| A |  | C |\n| --- | --- | --- |\n| 1 |  | 3 |"
+    chunks = Jido.Chat.StreamMarkdownFixtures.one_character_chunks(markdown)
+
+    assert Adapter.render_stream(chunks) == markdown
+
+    assert {:ok, %Response{} = response} =
+             Adapter.stream(FallbackAdapter, "room-final", chunks, fallback_mode: :final)
+
+    assert response.metadata.text == markdown
+    assert_received {:send_message, "room-final", ^markdown}
+
+    assert {:error, :empty_stream} =
+             Adapter.stream(FallbackAdapter, "room-empty", [], fallback_mode: :final)
+
+    assert {:error, :empty_stream} =
+             Adapter.stream(FallbackAdapter, "room-empty-edit", [],
+               fallback_mode: :post_edit,
+               placeholder_text: "working"
+             )
+
+    assert {:error, :empty_stream} =
+             Adapter.stream(
+               FallbackAdapter,
+               "room-tool",
+               [%{kind: :data, payload: %{tool: "search"}}],
+               fallback_mode: :final
+             )
+
+    refute_received {:send_message, "room-empty", _text}
+    refute_received {:send_message, "room-empty-edit", _text}
+    refute_received {:send_message, "room-tool", _text}
+  end
+
+  test "post-edit fallback never sends or edits empty text" do
+    assert {:ok, %Response{} = response} =
+             Adapter.stream(
+               FallbackAdapter,
+               "room-visible",
+               ["", "**", "done", "**"],
+               fallback_mode: :post_edit,
+               placeholder_text: "",
+               update_every: 1
+             )
+
+    assert response.metadata.final_text == "**done**"
+
+    assert_received {:send_message, "room-visible", first_text}
+    assert String.trim(first_text) != ""
+
+    edits =
+      Stream.repeatedly(fn ->
+        receive do
+          {:edit_message, "room-visible", _message_id, text} -> {:ok, text}
+        after
+          0 -> :done
+        end
+      end)
+      |> Enum.take_while(&(&1 != :done))
+      |> Enum.map(fn {:ok, text} -> text end)
+
+    assert Enum.all?(edits, &(String.trim(&1) != ""))
+    assert List.last([first_text | edits]) == "**done**"
+  end
+
+  test "post-edit stream fallback returns send and edit failures" do
+    assert {:error, :send_failed} =
+             Adapter.stream(FailingStreamAdapter, "send-failure", ["content"],
+               fallback_mode: :post_edit,
+               placeholder_text: "working"
+             )
+
+    assert {:error, :edit_failed} =
+             Adapter.stream(FailingStreamAdapter, "edit-failure", ["content"],
+               fallback_mode: :post_edit,
+               placeholder_text: "working"
+             )
   end
 
   test "typed card and modal helpers expose stable adapter-facing payloads" do

@@ -9,7 +9,16 @@ defmodule Jido.Chat.StreamChunk do
             __MODULE__,
             %{
               kind:
-                Zoi.enum([:text, :markdown, :status, :plan, :data, :step_start, :step_finish])
+                Zoi.enum([
+                  :text,
+                  :markdown,
+                  :status,
+                  :plan,
+                  :data,
+                  :step_start,
+                  :step_finish,
+                  :timeline
+                ])
                 |> Zoi.default(:text),
               text: Zoi.string() |> Zoi.nullish(),
               payload: Zoi.any() |> Zoi.nullish(),
@@ -52,23 +61,110 @@ defmodule Jido.Chat.StreamChunk do
   @spec fallback_text(t() | String.t()) :: String.t()
   def fallback_text(value) when is_binary(value), do: value
 
+  def fallback_text(%__MODULE__{kind: kind, text: text})
+      when kind in [:text, :markdown] and is_binary(text),
+      do: text
+
   def fallback_text(%__MODULE__{kind: kind, text: text, payload: payload}) do
     cond do
       is_binary(text) and text != "" ->
-        text
+        plain_text(text)
 
-      kind in [:step_start, :step_finish] ->
-        payload_label(payload)
+      kind in [:step_start, :step_finish, :status] ->
+        payload |> payload_label() |> plain_text()
 
       kind == :plan ->
         payload_lines(payload)
 
-      kind == :status ->
-        payload_label(payload)
+      kind == :timeline ->
+        timeline_lines(payload)
 
       true ->
-        payload_label(payload) || ""
+        payload |> payload_label() |> plain_text()
     end
+  end
+
+  @doc "Returns a deterministic Markdown fallback for a text or structured chunk."
+  @spec markdown_fallback(term()) :: String.t()
+  def markdown_fallback(value) when is_binary(value), do: value
+  def markdown_fallback(%{} = value) when not is_struct(value), do: value |> new() |> markdown_fallback()
+
+  def markdown_fallback(%__MODULE__{kind: kind} = chunk) when kind in [:text, :markdown],
+    do: chunk.text || ""
+
+  def markdown_fallback(%__MODULE__{kind: :status} = chunk) do
+    case fallback_text(chunk) do
+      "" -> ""
+      text -> bracketed_markdown("Status", text)
+    end
+  end
+
+  def markdown_fallback(%__MODULE__{kind: :plan} = chunk) do
+    case payload_items(chunk.payload, [:steps, :items]) do
+      [] -> bracketed_markdown("Plan", fallback_text(chunk))
+      items -> "\n**Plan**\n\n" <> Enum.map_join(items, "\n", &("- " <> item_label(&1))) <> "\n"
+    end
+  end
+
+  def markdown_fallback(%__MODULE__{kind: :step_start} = chunk),
+    do: checklist_markdown(" ", fallback_text(chunk))
+
+  def markdown_fallback(%__MODULE__{kind: :step_finish} = chunk),
+    do: checklist_markdown("x", fallback_text(chunk))
+
+  def markdown_fallback(%__MODULE__{kind: :timeline} = chunk) do
+    case payload_items(chunk.payload, [:events, :entries, :items]) do
+      [] ->
+        bracketed_markdown("Timeline", fallback_text(chunk))
+
+      items ->
+        "\n**Timeline**\n\n" <>
+          Enum.map_join(items, "\n", &("- " <> timeline_item(&1))) <> "\n"
+    end
+  end
+
+  def markdown_fallback(%__MODULE__{kind: :data}), do: ""
+  def markdown_fallback(value), do: to_string(value)
+
+  defp checklist_markdown(_mark, ""), do: ""
+  defp checklist_markdown(mark, text), do: "\n- [#{mark}] #{inline_text(text)}\n"
+
+  defp bracketed_markdown(_label, ""), do: ""
+  defp bracketed_markdown(label, text), do: "\n> **#{label}:** #{inline_text(text)}\n"
+
+  defp payload_items(payload, _keys) when is_list(payload), do: payload
+
+  defp payload_items(payload, keys) when is_map(payload) do
+    Enum.find_value(keys, [], fn key ->
+      case Map.get(payload, key, Map.get(payload, Atom.to_string(key))) do
+        items when is_list(items) -> items
+        _other -> nil
+      end
+    end)
+  end
+
+  defp payload_items(_payload, _keys), do: []
+
+  defp timeline_item(item) when is_map(item) do
+    {at, label} = raw_timeline_item(item)
+    label = inline_text(label)
+    if at in [nil, ""], do: label, else: "#{inline_text(at)} — #{label}"
+  end
+
+  defp timeline_item(item), do: item_label(item)
+
+  defp item_label(item), do: item |> raw_item_label() |> inline_text()
+
+  defp map_value(map, keys) do
+    Enum.find_value(keys, fn key -> Map.get(map, key, Map.get(map, Atom.to_string(key))) end)
+  end
+
+  defp inline_text(text) do
+    text
+    |> to_string()
+    |> String.trim()
+    |> String.replace(~r/\s+/u, " ")
+    |> String.replace(~r/([\\`*_\[\]])/u, "\\\\\\1")
   end
 
   @doc "Serializes a stream chunk into a plain map with type marker."
@@ -93,11 +189,54 @@ defmodule Jido.Chat.StreamChunk do
 
   defp payload_lines(payload) when is_list(payload) do
     payload
-    |> Enum.map(&to_string/1)
+    |> Enum.map(&plain_item_label/1)
     |> Enum.join("\n")
   end
 
-  defp payload_lines(payload), do: payload_label(payload) || ""
+  defp payload_lines(payload) when is_map(payload) do
+    case payload_items(payload, [:steps, :items]) do
+      [] -> payload |> payload_label() |> plain_text()
+      items -> Enum.map_join(items, "\n", &plain_item_label/1)
+    end
+  end
+
+  defp payload_lines(payload), do: payload |> payload_label() |> plain_text()
+
+  defp timeline_lines(payload) do
+    case payload_items(payload, [:events, :entries, :items]) do
+      [] -> payload |> payload_label() |> plain_text()
+      items -> Enum.map_join(items, "\n", &plain_timeline_item/1)
+    end
+  end
+
+  defp plain_timeline_item(item) when is_map(item) do
+    {at, label} = raw_timeline_item(item)
+    label = plain_text(label)
+    if at in [nil, ""], do: label, else: "#{plain_text(at)} — #{label}"
+  end
+
+  defp plain_timeline_item(item), do: plain_item_label(item)
+
+  defp plain_item_label(item), do: item |> raw_item_label() |> plain_text()
+
+  defp raw_timeline_item(item) do
+    {map_value(item, [:at, :time, :timestamp]), raw_item_label(item)}
+  end
+
+  defp raw_item_label(item) when is_binary(item), do: item
+
+  defp raw_item_label(item) when is_map(item) do
+    map_value(item, [:label, :title, :text, :description, :name]) ||
+      inspect(item, limit: 50, printable_limit: 200)
+  end
+
+  defp raw_item_label(item), do: to_string(item)
+
+  defp plain_text(nil), do: ""
+
+  defp plain_text(text) do
+    text |> to_string() |> String.trim() |> String.replace(~r/\s+/u, " ")
+  end
 
   defp normalize_opts(opts) when is_list(opts), do: Map.new(opts)
   defp normalize_opts(opts) when is_map(opts), do: opts
