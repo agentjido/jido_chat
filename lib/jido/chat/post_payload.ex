@@ -4,6 +4,7 @@ defmodule Jido.Chat.PostPayload do
   """
 
   alias Jido.Chat.{Attachment, Card, FileUpload, Markdown, StreamChunk, Wire}
+  alias Jido.Chat.Markdown.StreamRenderer
 
   @schema Zoi.struct(
             __MODULE__,
@@ -313,16 +314,7 @@ defmodule Jido.Chat.PostPayload do
   defp normalize_card(card), do: {card, card, to_text_value(card)}
 
   defp stream_fallback_text(chunks) when is_list(chunks) do
-    chunks
-    |> Enum.map(fn
-      %StreamChunk{} = chunk -> StreamChunk.fallback_text(chunk)
-      value when is_binary(value) -> value
-      value when is_map(value) -> value |> StreamChunk.new() |> StreamChunk.fallback_text()
-      value -> to_string(value)
-    end)
-    |> Enum.reject(&(&1 in [nil, ""]))
-    |> Enum.join("")
-    |> blank_to_nil()
+    StreamRenderer.render(chunks)
   rescue
     _ -> nil
   end
@@ -355,9 +347,6 @@ defmodule Jido.Chat.PostPayload do
       {:error, _reason} -> inspect(value)
     end
   end
-
-  defp blank_to_nil(""), do: nil
-  defp blank_to_nil(value), do: value
 
   defp present?(nil), do: false
   defp present?(""), do: false

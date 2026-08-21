@@ -34,13 +34,14 @@ defmodule Jido.Chat.Adapter do
     Postable,
     PostPayload,
     Response,
-    StreamChunk,
     Thread,
     ThreadPage,
     UserInfo,
     WebhookRequest,
     WebhookResponse
   }
+
+  alias Jido.Chat.Markdown.StreamRenderer
 
   @type raw_payload :: map()
   @type external_room_id :: String.t() | integer()
@@ -423,7 +424,14 @@ defmodule Jido.Chat.Adapter do
     end
   end
 
-  @doc "Streams chunked text using adapter stream callback or send fallback."
+  @doc """
+  Streams chunked text with the adapter's native callback or a core fallback.
+
+  Adapters with native or append-only transport receive the original enumerable and
+  can use `Jido.Chat.Markdown.StreamRenderer` to build safe snapshots. Core fallback
+  mode `:post_edit` posts once and edits safe snapshots. Mode `:final` posts the exact
+  final Markdown once.
+  """
   @spec stream(module(), external_room_id(), Enumerable.t(), keyword()) :: send_result()
   def stream(adapter_module, external_room_id, chunks, opts \\ []) do
     if callback_exported?(adapter_module, :stream, 3) do
@@ -432,33 +440,49 @@ defmodule Jido.Chat.Adapter do
       end
     else
       fallback_chunks = Enum.to_list(chunks)
-      fallback_text = stream_fallback_text(fallback_chunks)
       fallback_mode = Keyword.get(opts, :fallback_mode, default_stream_fallback(adapter_module))
       placeholder_text = Keyword.get(opts, :placeholder_text, "Working...")
       update_every = Keyword.get(opts, :update_every, 1)
       stream_opts = Keyword.drop(opts, [:fallback_mode, :placeholder_text, :update_every])
+      fallback_text = StreamRenderer.render(fallback_chunks)
+      chunk_count = length(fallback_chunks)
 
       cond do
+        is_nil(fallback_text) ->
+          {:error, :empty_stream}
+
         fallback_mode == :post_edit and callback_exported?(adapter_module, :edit_message, 4) ->
-          with {:ok, initial_response} <-
-                 send_message(adapter_module, external_room_id, placeholder_text, stream_opts),
-               {:ok, final_response} <-
-                 stream_post_edit_fallback(
-                   adapter_module,
-                   external_room_id,
-                   initial_response,
-                   fallback_chunks,
-                   stream_opts,
-                   update_every
-                 ) do
-            {:ok, final_response}
-          end
+          stream_post_edit_fallback(
+            adapter_module,
+            external_room_id,
+            fallback_chunks,
+            stream_opts,
+            %{
+              placeholder_text: placeholder_text,
+              update_every: update_every,
+              chunk_count: chunk_count,
+              final_text: fallback_text
+            }
+          )
 
         true ->
-          send_message(adapter_module, external_room_id, fallback_text, stream_opts)
+          with {:ok, response} <-
+                 send_message(adapter_module, external_room_id, fallback_text, stream_opts) do
+            {:ok,
+             with_stream_metadata(
+               response,
+               fallback_mode,
+               chunk_count,
+               fallback_text
+             )}
+          end
       end
     end
   end
+
+  @doc "Renders a finite stream with the canonical provider-independent Markdown rules."
+  @spec render_stream(Enumerable.t()) :: String.t() | nil
+  def render_stream(chunks), do: StreamRenderer.render(chunks)
 
   @doc "Normalizes adapter edit results to `Jido.Chat.Response`."
   @spec edit_message(module(), external_room_id(), external_message_id(), String.t(), keyword()) ::
@@ -1424,44 +1448,106 @@ defmodule Jido.Chat.Adapter do
   defp stream_post_edit_fallback(
          adapter_module,
          external_room_id,
-         initial_response,
          chunks,
          stream_opts,
-         update_every
+         stream_state
+       ) do
+    update_every = normalize_update_every(stream_state.update_every)
+
+    with {:ok, initial} <-
+           start_stream_edit(adapter_module, external_room_id, stream_opts, stream_state.placeholder_text),
+         {:ok, streamed} <-
+           apply_stream_chunks(
+             adapter_module,
+             external_room_id,
+             chunks,
+             stream_opts,
+             update_every,
+             initial
+           ),
+         {:ok, completed} <-
+           apply_stream_text(
+             adapter_module,
+             external_room_id,
+             stream_opts,
+             streamed,
+             stream_state.final_text
+           ) do
+      {:ok,
+       with_stream_metadata(
+         completed.response,
+         :post_edit,
+         stream_state.chunk_count,
+         stream_state.final_text
+       )}
+    end
+  end
+
+  defp start_stream_edit(adapter_module, external_room_id, stream_opts, placeholder_text) do
+    if nonblank?(placeholder_text) do
+      with {:ok, response} <-
+             send_message(adapter_module, external_room_id, placeholder_text, stream_opts) do
+        {:ok, %{renderer: StreamRenderer.new(), response: response, last_text: placeholder_text}}
+      end
+    else
+      {:ok, %{renderer: StreamRenderer.new(), response: nil, last_text: nil}}
+    end
+  end
+
+  defp apply_stream_chunks(
+         adapter_module,
+         external_room_id,
+         chunks,
+         stream_opts,
+         update_every,
+         initial
        ) do
     total = length(chunks)
-    update_every = if is_integer(update_every) and update_every > 0, do: update_every, else: 1
 
     chunks
     |> Enum.with_index(1)
-    |> Enum.reduce_while({:ok, "", initial_response}, fn {chunk, index}, {:ok, acc_text, response} ->
-      next_text = acc_text <> render_stream_chunk(chunk)
-      should_update = rem(index, update_every) == 0 or index == total
+    |> Enum.reduce_while({:ok, initial}, fn {chunk, index}, {:ok, state} ->
+      boundary? = rem(index, update_every) == 0 or index == total
 
-      if should_update do
-        case edit_message(
-               adapter_module,
-               external_room_id,
-               initial_response.external_message_id,
-               next_text,
-               stream_opts
-             ) do
-          {:ok, next_response} ->
-            {:cont, {:ok, next_text, with_stream_metadata(next_response, :post_edit, total, next_text)}}
-
-          {:error, _reason} = error ->
-            {:halt, error}
+      {renderer, text} =
+        if boundary? do
+          {renderer, _update} = StreamRenderer.push(state.renderer, chunk)
+          {renderer, StreamRenderer.snapshot(renderer)}
+        else
+          {StreamRenderer.append(state.renderer, chunk), nil}
         end
-      else
-        {:cont, {:ok, next_text, response}}
+
+      state = %{state | renderer: renderer}
+
+      case apply_stream_text(adapter_module, external_room_id, stream_opts, state, text) do
+        {:ok, next_state} -> {:cont, {:ok, next_state}}
+        {:error, _reason} = error -> {:halt, error}
       end
     end)
-    |> case do
-      {:ok, _text, response} ->
-        {:ok, response}
+  end
 
-      {:error, _reason} = error ->
-        error
+  defp apply_stream_text(_adapter_module, _external_room_id, _stream_opts, state, nil),
+    do: {:ok, state}
+
+  defp apply_stream_text(_adapter_module, _external_room_id, _stream_opts, %{last_text: text} = state, text),
+    do: {:ok, state}
+
+  defp apply_stream_text(adapter_module, external_room_id, stream_opts, %{response: nil} = state, text) do
+    with {:ok, response} <- send_message(adapter_module, external_room_id, text, stream_opts) do
+      {:ok, %{state | response: response, last_text: text}}
+    end
+  end
+
+  defp apply_stream_text(adapter_module, external_room_id, stream_opts, state, text) do
+    with {:ok, response} <-
+           edit_message(
+             adapter_module,
+             external_room_id,
+             state.response.external_message_id,
+             text,
+             stream_opts
+           ) do
+      {:ok, %{state | response: response, last_text: text}}
     end
   end
 
@@ -1475,54 +1561,11 @@ defmodule Jido.Chat.Adapter do
     %{response | metadata: metadata}
   end
 
-  defp stream_fallback_text(chunks) do
-    chunks
-    |> Enum.map(&render_stream_chunk/1)
-    |> Enum.join("")
-  end
+  defp normalize_update_every(value) when is_integer(value) and value > 0, do: value
+  defp normalize_update_every(_value), do: 1
 
-  defp render_stream_chunk(%StreamChunk{} = chunk) do
-    case chunk.kind do
-      :text -> chunk.text || ""
-      :markdown -> chunk.text || ""
-      :status -> bracketed_chunk(chunk)
-      :plan -> plan_chunk(chunk)
-      :step_start -> step_chunk(chunk)
-      :step_finish -> "\n"
-      :data -> ""
-    end
-  end
-
-  defp render_stream_chunk(chunk) when is_map(chunk),
-    do: chunk |> StreamChunk.new() |> render_stream_chunk()
-
-  defp render_stream_chunk(chunk), do: to_string(chunk)
-
-  defp bracketed_chunk(%StreamChunk{} = chunk) do
-    case StreamChunk.fallback_text(chunk) do
-      "" -> ""
-      text -> "\n[#{text}]\n"
-    end
-  end
-
-  defp plan_chunk(%StreamChunk{} = chunk) do
-    case chunk.payload do
-      items when is_list(items) ->
-        "\n" <>
-          (items
-           |> Enum.map_join("\n", fn item -> "- " <> to_string(item) end)) <> "\n"
-
-      _other ->
-        bracketed_chunk(chunk)
-    end
-  end
-
-  defp step_chunk(%StreamChunk{} = chunk) do
-    case StreamChunk.fallback_text(chunk) do
-      "" -> ""
-      text -> "\n\n#{text}\n"
-    end
-  end
+  defp nonblank?(text) when is_binary(text), do: String.trim(text) != ""
+  defp nonblank?(_text), do: false
 
   defp normalize_markdown_payload(%Markdown{} = markdown), do: markdown
   defp normalize_markdown_payload(%{} = markdown), do: Markdown.new(markdown)
