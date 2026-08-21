@@ -5,8 +5,8 @@ defmodule Jido.Chat.Serialization do
     ActionEvent,
     AssistantContextChangedEvent,
     AssistantThreadStartedEvent,
-    Card,
     CapabilityMatrix,
+    Card,
     ChannelRef,
     EventEnvelope,
     FileUpload,
@@ -16,11 +16,12 @@ defmodule Jido.Chat.Serialization do
     Message,
     MessageDeletedEvent,
     MessageUpdatedEvent,
+    MessageSubject,
     Modal,
     ModalCloseEvent,
+    ModalResponse,
     ModalResult,
     ModalSubmitEvent,
-    ModalResponse,
     PostPayload,
     ReactionEvent,
     ReplyContext,
@@ -28,6 +29,7 @@ defmodule Jido.Chat.Serialization do
     SlashCommandEvent,
     StreamChunk,
     Thread,
+    UserInfo,
     WebhookRequest,
     WebhookResponse,
     Wire
@@ -112,6 +114,8 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "modal_element"} = map), do: Jido.Chat.Modal.Element.from_map(map)
   def revive(%{"__type__" => "message"} = map), do: Message.from_map(map)
   def revive(%{"__type__" => "reply_context"} = map), do: ReplyContext.from_map(map)
+  def revive(%{"__type__" => "user_info"} = map), do: UserInfo.from_map(map)
+  def revive(%{"__type__" => "message_subject"} = map), do: MessageSubject.from_map(map)
   def revive(%{"__type__" => "file_upload"} = map), do: FileUpload.from_map(map)
   def revive(%{"__type__" => "post_payload"} = map), do: PostPayload.from_map(map)
   def revive(%{"__type__" => "sent_message"} = map), do: SentMessage.from_map(map)

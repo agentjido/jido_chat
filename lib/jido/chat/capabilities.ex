@@ -6,7 +6,7 @@ defmodule Jido.Chat.Capabilities do
   post payloads based on channel capabilities.
   """
 
-  alias Jido.Chat.{Adapter, Attachment, FileUpload, PostPayload, Postable}
+  alias Jido.Chat.{Adapter, Attachment, FileUpload, Postable, PostPayload}
   alias Jido.Chat.Content.{Audio, File, Image, Text, ToolResult, ToolUse, Video}
 
   @type capability ::
@@ -205,6 +205,7 @@ defmodule Jido.Chat.Capabilities do
     )
     |> maybe_add_capability(:typing, supported_status?(capabilities[:start_typing]))
     |> maybe_add_capability(:streaming, supported_status?(capabilities[:stream]))
+    |> maybe_add_capability(:read_receipts, supported_status?(capabilities[:mark_as_read]))
     |> maybe_add_capability(:assistant_events, supported_status?(capabilities[:assistant_events]))
   end
 

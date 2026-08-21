@@ -3,7 +3,7 @@ defmodule Jido.Chat.SentMessage do
   Canonical sent-message handle with follow-up lifecycle operations.
   """
 
-  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, PostPayload, Postable, Response, Wire}
+  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, Postable, PostPayload, Response, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -100,6 +100,35 @@ defmodule Jido.Chat.SentMessage do
       emoji,
       merge_opts(sent, opts)
     )
+  end
+
+  @doc "Marks this provider message as read. Repeated calls are safe when the adapter is compliant."
+  @spec mark_as_read(t(), keyword()) :: :ok | {:error, term()}
+  def mark_as_read(%__MODULE__{} = sent, opts \\ []) do
+    case sent.response.external_message_id do
+      message_id when is_binary(message_id) ->
+        if String.trim(message_id) == "" do
+          {:error, :missing_external_message_id}
+        else
+          Adapter.mark_as_read(
+            sent.adapter,
+            sent.external_room_id,
+            message_id,
+            merge_opts(sent, opts)
+          )
+        end
+
+      message_id when is_integer(message_id) ->
+        Adapter.mark_as_read(
+          sent.adapter,
+          sent.external_room_id,
+          message_id,
+          merge_opts(sent, opts)
+        )
+
+      _ ->
+        {:error, :missing_external_message_id}
+    end
   end
 
   @doc "Serializes the sent message into a plain map with type marker."

@@ -11,10 +11,12 @@ defmodule Jido.Chat.Thread do
     FileUpload,
     Message,
     MessagePage,
+    MessageSubject,
     Modal,
     ModalResult,
-    PostPayload,
+    Participant,
     Postable,
+    PostPayload,
     SentMessage,
     Wire
   }
@@ -247,6 +249,26 @@ defmodule Jido.Chat.Thread do
     with {:ok, %MessagePage{} = page} <- messages(thread, opts) do
       {:ok, page.messages}
     end
+  end
+
+  @doc "Fetches the normalized resource subject for this thread."
+  @spec fetch_subject(t(), keyword()) :: {:ok, MessageSubject.t()} | {:error, term()}
+  def fetch_subject(%__MODULE__{} = thread, opts \\ []) do
+    Adapter.fetch_subject(
+      thread.adapter,
+      thread.external_room_id,
+      with_thread_opts(thread, opts)
+    )
+  end
+
+  @doc "Gets normalized canonical participants for this thread."
+  @spec participants(t(), keyword()) :: {:ok, [Participant.t()]} | {:error, term()}
+  def participants(%__MODULE__{} = thread, opts \\ []) do
+    Adapter.get_thread_participants(
+      thread.adapter,
+      thread.external_room_id,
+      with_thread_opts(thread, opts)
+    )
   end
 
   @doc "Returns a lazy stream over thread messages using cursor pagination."
