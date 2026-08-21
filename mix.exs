@@ -1,7 +1,7 @@
 defmodule Jido.Chat.MixProject do
   use Mix.Project
 
-  @version "1.1.0"
+  @version "1.2.0"
   @source_url "https://github.com/agentjido/jido_chat"
   @description "Core chat SDK types and adapter contracts for the Jido ecosystem"
 

@@ -12,6 +12,29 @@ Initial Hex release of `jido_chat`.
 
 <!-- changelog -->
 
+## [1.2.0](https://github.com/agentjido/jido_chat/compare/v1.1.0...v1.2.0) (2026-08-21)
+
+
+
+
+### Features:
+
+* cards: extend cards and modal inputs (#53) by mikehostetler
+
+* markdown: harden streamed rendering (#52) by mikehostetler
+
+* concurrency: add bounded burst handling (#51) by mikehostetler
+
+* adapter: add resource and receipt contracts (#50) by mikehostetler
+
+* events: add message lifecycle events (#49) by mikehostetler
+
+* test-kit: publish adapter conformance helpers (#48) by mikehostetler
+
+* preserve stable authors and shallow reply context (#46) by mikehostetler
+
+* add media type resolution policy (#34) by mikehostetler
+
 ## [v1.1.0](https://github.com/agentjido/jido_chat/compare/v1.0.2...v1.1.0) (2026-08-06)
 
 
