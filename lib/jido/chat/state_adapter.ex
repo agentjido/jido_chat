@@ -16,12 +16,17 @@ defmodule Jido.Chat.StateAdapter do
           thread_state: %{optional(String.t()) => map()},
           channel_state: %{optional(String.t()) => map()},
           locks: %{optional(String.t()) => map()},
-          pending_locks: %{optional(String.t()) => [map()]}
+          pending_locks: %{optional(String.t()) => [map()]},
+          concurrency_events: [map()]
         }
 
   @type state :: term()
-  @type lock_result :: :acquired | :queued | :debounced | :busy
+  @type lock_result :: :acquired | :queued | :debounced | :bursting | :dropped | :busy
   @type release_result :: {:released, [map()]} | {:error, :not_owner}
+  @type drain_result ::
+          {:drained, map() | nil}
+          | {:waiting, %{remaining_ms: non_neg_integer()}}
+          | {:error, :not_owner}
 
   @callback init(snapshot(), keyword()) :: state()
   @callback snapshot(state()) :: snapshot() | map()
@@ -35,8 +40,16 @@ defmodule Jido.Chat.StateAdapter do
   @callback duplicate?(state(), dedupe_key()) :: boolean()
   @callback mark_dedupe(state(), dedupe_key(), pos_integer()) :: state()
   @callback lock(state(), String.t(), String.t(), atom(), map()) :: {lock_result(), state()}
+  @callback lock_with_options(state(), String.t(), String.t(), atom(), map(), map()) ::
+              {lock_result(), state()}
   @callback release_lock(state(), String.t(), String.t()) :: {release_result(), state()}
+  @callback release_lock_with_options(state(), String.t(), String.t(), non_neg_integer()) ::
+              {release_result(), state()}
   @callback force_release_lock(state(), String.t()) :: {{:released, [map()]}, state()}
+  @callback drain_lock(state(), String.t(), String.t(), non_neg_integer(), String.t()) ::
+              {drain_result(), state()}
+
+  @optional_callbacks drain_lock: 5, lock_with_options: 6, release_lock_with_options: 4
 
   @dialyzer {:nowarn_function, default_snapshot: 0}
 
@@ -124,6 +137,19 @@ defmodule Jido.Chat.StateAdapter do
     adapter_module.lock(state, key, owner, strategy, metadata)
   end
 
+  @doc "Attempts to acquire a lock with optional bounded-concurrency controls."
+  @spec lock(module(), state(), String.t(), String.t(), atom(), map(), map()) ::
+          {lock_result(), state()}
+  def lock(adapter_module, state, key, owner, strategy, metadata, options)
+      when is_atom(adapter_module) and is_binary(key) and is_binary(owner) and is_atom(strategy) and
+             is_map(metadata) and is_map(options) do
+    if function_exported?(adapter_module, :lock_with_options, 6) do
+      adapter_module.lock_with_options(state, key, owner, strategy, metadata, options)
+    else
+      adapter_module.lock(state, key, owner, strategy, metadata)
+    end
+  end
+
   @doc "Releases a held lock and returns any queued/debounced pending entries."
   @spec release_lock(module(), state(), String.t(), String.t()) :: {release_result(), state()}
   def release_lock(adapter_module, state, key, owner)
@@ -131,11 +157,37 @@ defmodule Jido.Chat.StateAdapter do
     adapter_module.release_lock(state, key, owner)
   end
 
+  @doc "Releases a held lock and filters expired entries at the supplied time."
+  @spec release_lock(module(), state(), String.t(), String.t(), non_neg_integer()) ::
+          {release_result(), state()}
+  def release_lock(adapter_module, state, key, owner, now_ms)
+      when is_atom(adapter_module) and is_binary(key) and is_binary(owner) and
+             is_integer(now_ms) and now_ms >= 0 do
+    if function_exported?(adapter_module, :release_lock_with_options, 4) do
+      adapter_module.release_lock_with_options(state, key, owner, now_ms)
+    else
+      filter_released_entries(adapter_module.release_lock(state, key, owner), now_ms)
+    end
+  end
+
   @doc "Force-releases a lock regardless of owner and returns pending entries."
   @spec force_release_lock(module(), state(), String.t()) :: {{:released, [map()]}, state()}
   def force_release_lock(adapter_module, state, key)
       when is_atom(adapter_module) and is_binary(key) do
     adapter_module.force_release_lock(state, key)
+  end
+
+  @doc "Drains a due lock into one dispatch entry with ordered message context."
+  @spec drain_lock(module(), state(), String.t(), String.t(), non_neg_integer(), String.t()) ::
+          {drain_result(), state()}
+  def drain_lock(adapter_module, state, key, owner, now_ms, conversation_key)
+      when is_atom(adapter_module) and is_binary(key) and is_binary(owner) and
+             is_integer(now_ms) and now_ms >= 0 and is_binary(conversation_key) do
+    if function_exported?(adapter_module, :drain_lock, 5) do
+      adapter_module.drain_lock(state, key, owner, now_ms, conversation_key)
+    else
+      fallback_drain(adapter_module, state, key, owner, now_ms, conversation_key)
+    end
   end
 
   @doc "Returns the canonical empty snapshot."
@@ -148,7 +200,8 @@ defmodule Jido.Chat.StateAdapter do
       thread_state: %{},
       channel_state: %{},
       locks: %{},
-      pending_locks: %{}
+      pending_locks: %{},
+      concurrency_events: []
     }
   end
 
@@ -164,7 +217,10 @@ defmodule Jido.Chat.StateAdapter do
       thread_state: snapshot[:thread_state] || snapshot["thread_state"] || defaults.thread_state,
       channel_state: snapshot[:channel_state] || snapshot["channel_state"] || defaults.channel_state,
       locks: snapshot[:locks] || snapshot["locks"] || defaults.locks,
-      pending_locks: snapshot[:pending_locks] || snapshot["pending_locks"] || defaults.pending_locks
+      pending_locks: snapshot[:pending_locks] || snapshot["pending_locks"] || defaults.pending_locks,
+      concurrency_events:
+        snapshot[:concurrency_events] || snapshot["concurrency_events"] ||
+          defaults.concurrency_events
     }
     |> normalize_subscriptions()
     |> normalize_dedupe()
@@ -173,6 +229,7 @@ defmodule Jido.Chat.StateAdapter do
     |> normalize_channel_state()
     |> normalize_locks()
     |> normalize_pending_locks()
+    |> normalize_concurrency_events()
   end
 
   def normalize_snapshot(_snapshot), do: default_snapshot()
@@ -278,8 +335,13 @@ defmodule Jido.Chat.StateAdapter do
   defp normalize_locks(snapshot) do
     locks =
       case snapshot.locks do
-        locks when is_map(locks) -> locks
-        _ -> %{}
+        locks when is_map(locks) ->
+          locks
+          |> Enum.map(fn {key, lock} -> {to_string(key), normalize_lock(lock)} end)
+          |> Map.new()
+
+        _ ->
+          %{}
       end
 
     %{snapshot | locks: locks}
@@ -293,7 +355,9 @@ defmodule Jido.Chat.StateAdapter do
           |> Enum.map(fn {key, entries} ->
             normalized_entries =
               if is_list(entries) do
-                Enum.filter(entries, &is_map/1)
+                entries
+                |> Enum.filter(&is_map/1)
+                |> Enum.map(&normalize_pending_entry/1)
               else
                 []
               end
@@ -307,6 +371,168 @@ defmodule Jido.Chat.StateAdapter do
       end
 
     %{snapshot | pending_locks: pending_locks}
+  end
+
+  defp normalize_concurrency_events(snapshot) do
+    events =
+      case snapshot.concurrency_events do
+        events when is_list(events) ->
+          events
+          |> Enum.filter(&is_map/1)
+          |> Enum.map(&normalize_concurrency_event/1)
+          |> Enum.take(-100)
+
+        _ ->
+          []
+      end
+
+    %{snapshot | concurrency_events: events}
+  end
+
+  defp normalize_concurrency_event(event) do
+    event
+    |> copy_known_fields([
+      :event,
+      :key,
+      :lock_key,
+      :owner,
+      :message_id,
+      :strategy,
+      :at,
+      :queue_depth,
+      :conversation_key,
+      :reason,
+      :overflow_policy,
+      :expired_at,
+      :superseded_by,
+      :skipped_count,
+      :total_count,
+      :drained_count
+    ])
+    |> normalize_event_enum(:event)
+    |> normalize_event_enum(:reason)
+    |> normalize_event_enum(:overflow_policy)
+  end
+
+  defp normalize_event_enum(event, key) do
+    case Map.get(event, key) do
+      value when is_binary(value) ->
+        try do
+          Map.put(event, key, String.to_existing_atom(value))
+        rescue
+          ArgumentError -> event
+        end
+
+      _ ->
+        event
+    end
+  end
+
+  defp normalize_lock(lock) when is_map(lock) do
+    copy_known_fields(lock, [
+      :owner,
+      :owners,
+      :strategy,
+      :metadata,
+      :ready_at,
+      :conversation_key,
+      :max_concurrent
+    ])
+  end
+
+  defp normalize_lock(_lock), do: %{}
+
+  defp normalize_pending_entry(entry) do
+    copy_known_fields(entry, [
+      :owner,
+      :strategy,
+      :metadata,
+      :enqueued_at,
+      :expires_at,
+      :ready_at,
+      :conversation_key
+    ])
+  end
+
+  defp filter_released_entries({{:released, entries}, state}, now_ms) do
+    active =
+      Enum.filter(entries, fn entry ->
+        expires_at = entry[:expires_at] || entry["expires_at"]
+        is_nil(expires_at) or expires_at >= now_ms
+      end)
+
+    {{:released, active}, state}
+  end
+
+  defp filter_released_entries(result, _now_ms), do: result
+
+  defp copy_known_fields(map, fields) do
+    Enum.reduce(fields, map, fn field, acc ->
+      string_field = Atom.to_string(field)
+
+      if Map.has_key?(acc, string_field) and not Map.has_key?(acc, field) do
+        acc |> Map.put(field, Map.get(acc, string_field)) |> Map.delete(string_field)
+      else
+        acc
+      end
+    end)
+    |> normalize_strategy()
+  end
+
+  defp normalize_strategy(%{strategy: strategy} = map) when is_binary(strategy) do
+    try do
+      %{map | strategy: String.to_existing_atom(strategy)}
+    rescue
+      ArgumentError -> map
+    end
+  end
+
+  defp normalize_strategy(map), do: map
+
+  defp fallback_drain(adapter_module, state, key, owner, now_ms, conversation_key) do
+    snapshot = snapshot(adapter_module, state)
+    lock = Map.get(snapshot.locks, key, %{})
+    ready_at = lock[:ready_at] || lock["ready_at"] || 0
+
+    cond do
+      (lock[:owner] || lock["owner"]) != owner ->
+        {{:error, :not_owner}, state}
+
+      ready_at > now_ms ->
+        {{:waiting, %{remaining_ms: ready_at - now_ms}}, state}
+
+      true ->
+        {{:released, entries}, next_state} = adapter_module.release_lock(state, key, owner)
+        dispatch = fallback_dispatch(entries, now_ms, conversation_key)
+        {{:drained, dispatch}, next_state}
+    end
+  end
+
+  defp fallback_dispatch(entries, now_ms, conversation_key) do
+    active =
+      Enum.filter(entries, fn entry ->
+        expires_at = entry[:expires_at] || entry["expires_at"]
+        is_nil(expires_at) or expires_at >= now_ms
+      end)
+
+    case List.last(active) do
+      nil ->
+        nil
+
+      latest ->
+        latest_conversation =
+          latest[:conversation_key] || latest["conversation_key"] || conversation_key
+
+        skipped =
+          active
+          |> Enum.drop(-1)
+          |> Enum.filter(fn entry ->
+            (entry[:conversation_key] || entry["conversation_key"] || conversation_key) ==
+              latest_conversation
+          end)
+
+        Map.put(latest, :context, Jido.Chat.Concurrency.message_context(skipped))
+    end
   end
 
   defp normalize_key_atom(key) when is_atom(key), do: {:ok, key}
