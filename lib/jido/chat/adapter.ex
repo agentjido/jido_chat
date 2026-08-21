@@ -14,28 +14,32 @@ defmodule Jido.Chat.Adapter do
   """
 
   alias Jido.Chat.{
-    Card,
+    Author,
     CapabilityMatrix,
+    Card,
     ChannelInfo,
-    EventEnvelope,
     EphemeralMessage,
-    FileUpload,
+    EventEnvelope,
     FetchOptions,
+    FileUpload,
     Incoming,
     Markdown,
     Media,
-    Modal,
-    ModalResult,
     Message,
     MessagePage,
-    PostPayload,
+    MessageSubject,
+    Modal,
+    ModalResult,
+    Participant,
     Postable,
+    PostPayload,
     Response,
-    WebhookRequest,
-    WebhookResponse,
     StreamChunk,
     Thread,
-    ThreadPage
+    ThreadPage,
+    UserInfo,
+    WebhookRequest,
+    WebhookResponse
   }
 
   @type raw_payload :: map()
@@ -63,6 +67,10 @@ defmodule Jido.Chat.Adapter do
   @type ephemeral_result :: {:ok, EphemeralMessage.t()} | {:error, term()}
   @type modal_result :: {:ok, ModalResult.t()} | {:error, term()}
   @type media_result :: {:ok, binary()} | {:error, term()}
+  @type user_result :: {:ok, UserInfo.t()} | {:error, term()}
+  @type subject_result :: {:ok, MessageSubject.t()} | {:error, term()}
+  @type participants_result :: {:ok, [Participant.t()]} | {:error, term()}
+  @type read_result :: :ok | {:error, term()}
   @type file_input :: FileUpload.input()
   @type media_reference :: String.t() | Media.t() | map()
 
@@ -121,6 +129,25 @@ defmodule Jido.Chat.Adapter do
 
   @callback fetch_message(external_room_id(), external_message_id(), opts :: keyword()) ::
               {:ok, Message.t() | Incoming.t() | map()} | {:error, term()}
+
+  @doc "Returns normalized information for one provider user."
+  @callback get_user(external_user_id(), opts :: keyword()) ::
+              {:ok, UserInfo.t() | map()} | {:error, term()}
+
+  @doc "Returns the resource subject for a room or thread."
+  @callback fetch_subject(external_room_id(), opts :: keyword()) ::
+              {:ok, MessageSubject.t() | map()} | {:error, term()}
+
+  @doc "Returns the canonical participants for a room or thread."
+  @callback get_thread_participants(external_room_id(), opts :: keyword()) ::
+              {:ok, [Participant.t() | UserInfo.t() | Author.t() | map()]} | {:error, term()}
+
+  @doc "Marks a provider message as read. Repeated calls must be safe."
+  @callback mark_as_read(
+              external_room_id(),
+              external_message_id(),
+              opts :: keyword()
+            ) :: :ok | {:ok, term()} | {:error, term()}
 
   @doc """
   Fetches the bytes behind an inbound media reference.
@@ -220,6 +247,10 @@ defmodule Jido.Chat.Adapter do
                       fetch_metadata: 2,
                       fetch_thread: 2,
                       fetch_message: 3,
+                      get_user: 2,
+                      fetch_subject: 2,
+                      get_thread_participants: 2,
+                      mark_as_read: 3,
                       fetch_media: 2,
                       add_reaction: 4,
                       remove_reaction: 4,
@@ -490,8 +521,10 @@ defmodule Jido.Chat.Adapter do
   @spec fetch_thread(module(), external_room_id(), keyword()) :: thread_result()
   def fetch_thread(adapter_module, external_room_id, opts \\ []) do
     if callback_exported?(adapter_module, :fetch_thread, 2) do
-      with {:ok, thread} <- adapter_module.fetch_thread(external_room_id, opts) do
-        {:ok, normalize_thread(adapter_module, thread, external_room_id, opts)}
+      case adapter_module.fetch_thread(external_room_id, opts) do
+        {:ok, thread} -> normalize_thread_result(adapter_module, thread, external_room_id, opts)
+        {:error, _reason} = error -> error
+        _other -> {:error, :invalid_thread_result}
       end
     else
       {:ok,
@@ -514,6 +547,78 @@ defmodule Jido.Chat.Adapter do
       with {:ok, message} <-
              adapter_module.fetch_message(external_room_id, external_message_id, opts) do
         {:ok, normalize_message(adapter_module, message, opts)}
+      end
+    else
+      {:error, :unsupported}
+    end
+  end
+
+  @doc "Gets normalized provider user information when supported."
+  @spec get_user(module(), external_user_id(), keyword()) :: user_result()
+  def get_user(adapter_module, external_user_id, opts \\ []) do
+    if callback_exported?(adapter_module, :get_user, 2) do
+      case adapter_module.get_user(external_user_id, opts) do
+        {:ok, user} -> normalize_user_result(user)
+        {:error, _reason} = error -> error
+        _other -> {:error, :invalid_user_info_result}
+      end
+    else
+      {:error, :unsupported}
+    end
+  end
+
+  @doc "Fetches the normalized resource subject for a room or thread."
+  @spec fetch_subject(module(), external_room_id(), keyword()) :: subject_result()
+  def fetch_subject(adapter_module, external_room_id, opts \\ []) do
+    cond do
+      callback_exported?(adapter_module, :fetch_subject, 2) ->
+        case adapter_module.fetch_subject(external_room_id, opts) do
+          {:ok, subject} -> normalize_subject_result(subject)
+          {:error, _reason} = error -> error
+          _other -> {:error, :invalid_subject_result}
+        end
+
+      callback_exported?(adapter_module, :fetch_thread, 2) ->
+        with {:ok, thread} <- fetch_thread(adapter_module, external_room_id, opts),
+             {:ok, subject} <- explicit_thread_subject(thread) do
+          normalize_subject_result(subject)
+        end
+
+      true ->
+        {:error, :unsupported}
+    end
+  end
+
+  @doc "Gets normalized canonical participants for a room or thread."
+  @spec get_thread_participants(module(), external_room_id(), keyword()) ::
+          participants_result()
+  def get_thread_participants(adapter_module, external_room_id, opts \\ []) do
+    if callback_exported?(adapter_module, :get_thread_participants, 2) do
+      case adapter_module.get_thread_participants(external_room_id, opts) do
+        {:ok, participants} when is_list(participants) ->
+          normalize_participants_result(adapter_module, participants)
+
+        {:error, _reason} = error ->
+          error
+
+        _other ->
+          {:error, :invalid_thread_participants_result}
+      end
+    else
+      {:error, :unsupported}
+    end
+  end
+
+  @doc "Marks a provider message as read when supported."
+  @spec mark_as_read(module(), external_room_id(), external_message_id(), keyword()) ::
+          read_result()
+  def mark_as_read(adapter_module, external_room_id, external_message_id, opts \\ []) do
+    if callback_exported?(adapter_module, :mark_as_read, 3) do
+      case adapter_module.mark_as_read(external_room_id, external_message_id, opts) do
+        :ok -> :ok
+        {:ok, _receipt} -> :ok
+        {:error, _reason} = error -> error
+        _other -> {:error, :invalid_mark_as_read_result}
       end
     else
       {:error, :unsupported}
@@ -851,7 +956,7 @@ defmodule Jido.Chat.Adapter do
                   [{capability, :missing_callback} | acc]
 
                 {:fallback, false} ->
-                  if core_fallback_capability?(capability) do
+                  if fallback_available?(adapter_module, capability) do
                     acc
                   else
                     [{capability, :missing_fallback} | acc]
@@ -903,6 +1008,12 @@ defmodule Jido.Chat.Adapter do
   end
 
   defp core_fallback_capability?(capability), do: capability in @core_fallback_capabilities
+
+  defp fallback_available?(adapter_module, :fetch_subject),
+    do: callback_exported?(adapter_module, :fetch_thread, 2)
+
+  defp fallback_available?(_adapter_module, capability),
+    do: core_fallback_capability?(capability)
 
   defp supported_status?(status), do: status in [:native, :fallback]
 
@@ -1000,6 +1111,12 @@ defmodule Jido.Chat.Adapter do
     })
   end
 
+  defp normalize_thread_result(adapter_module, thread, external_room_id, opts) do
+    {:ok, normalize_thread(adapter_module, thread, external_room_id, opts)}
+  rescue
+    _error -> {:error, :invalid_thread_result}
+  end
+
   defp normalize_message(_adapter_module, %Message{} = message, _opts), do: message
 
   defp normalize_message(adapter_module, %Incoming{} = incoming, opts),
@@ -1023,6 +1140,124 @@ defmodule Jido.Chat.Adapter do
       |> Message.new()
     end
   end
+
+  defp normalize_user_result(%UserInfo{} = user), do: {:ok, user}
+
+  defp normalize_user_result(user) when is_map(user) do
+    {:ok, UserInfo.new(user)}
+  rescue
+    _error -> {:error, :invalid_user_info_result}
+  end
+
+  defp normalize_user_result(_user), do: {:error, :invalid_user_info_result}
+
+  defp normalize_subject_result(%MessageSubject{} = subject), do: {:ok, subject}
+
+  defp normalize_subject_result(subject) when is_map(subject) do
+    {:ok, MessageSubject.new(subject)}
+  rescue
+    _error -> {:error, :invalid_subject_result}
+  end
+
+  defp normalize_subject_result(_subject), do: {:error, :invalid_subject_result}
+
+  defp explicit_thread_subject(%Thread{metadata: metadata}) when is_map(metadata) do
+    case metadata[:subject] || metadata["subject"] do
+      nil -> {:error, :unsupported}
+      subject -> {:ok, subject}
+    end
+  end
+
+  defp normalize_participants_result(adapter_module, participants) do
+    participants
+    |> Enum.reduce_while({:ok, []}, fn participant, {:ok, acc} ->
+      case normalize_participant(adapter_module, participant) do
+        {:ok, normalized} -> {:cont, {:ok, [normalized | acc]}}
+        {:error, _reason} = error -> {:halt, error}
+      end
+    end)
+    |> case do
+      {:ok, normalized} -> {:ok, Enum.reverse(normalized)}
+      {:error, _reason} = error -> error
+    end
+  end
+
+  defp normalize_participant(_adapter_module, %Participant{} = participant),
+    do: {:ok, participant}
+
+  defp normalize_participant(adapter_module, %UserInfo{} = user) do
+    {:ok, participant_from_user(adapter_module, user)}
+  end
+
+  defp normalize_participant(adapter_module, %Author{} = author) do
+    user =
+      UserInfo.new(%{
+        id: author.user_id,
+        username: author.user_name,
+        display_name: author.full_name,
+        is_bot: author.is_bot,
+        metadata: author.metadata
+      })
+
+    {:ok, participant_from_user(adapter_module, user)}
+  rescue
+    _error -> {:error, :invalid_thread_participants_result}
+  end
+
+  defp normalize_participant(adapter_module, participant) when is_map(participant) do
+    if participant_input?(participant) do
+      {:ok, participant |> normalize_participant_attrs() |> Participant.new()}
+    else
+      {:ok, participant_from_user(adapter_module, UserInfo.new(participant))}
+    end
+  rescue
+    _error -> {:error, :invalid_thread_participants_result}
+  end
+
+  defp normalize_participant(_adapter_module, _participant),
+    do: {:error, :invalid_thread_participants_result}
+
+  defp participant_from_user(adapter_module, %UserInfo{} = user) do
+    identity =
+      %{
+        username: user.username,
+        display_name: user.display_name,
+        email: user.email,
+        avatar_url: user.avatar_url
+      }
+      |> Map.filter(fn {_key, value} -> not is_nil(value) end)
+
+    Participant.new(%{
+      id: user.id,
+      type: if(user.is_bot, do: :agent, else: :human),
+      identity: identity,
+      external_ids: %{adapter_type(adapter_module) => user.id},
+      metadata: user.metadata
+    })
+  end
+
+  defp participant_input?(participant) do
+    id = participant[:id] || participant["id"]
+    type = participant[:type] || participant["type"]
+
+    not is_nil(id) and canonical_participant_type?(type)
+  end
+
+  defp canonical_participant_type?(type), do: type in [:human, :agent, :system, "human", "agent", "system"]
+
+  defp normalize_participant_attrs(participant) do
+    type = participant[:type] || participant["type"]
+
+    participant
+    |> Map.delete("type")
+    |> Map.put(:type, normalize_participant_type(type))
+  end
+
+  defp normalize_participant_type(type) when type in [:human, :agent, :system], do: type
+  defp normalize_participant_type("human"), do: :human
+  defp normalize_participant_type("agent"), do: :agent
+  defp normalize_participant_type("system"), do: :system
+  defp normalize_participant_type(type), do: type
 
   defp normalize_message_page(
          _adapter_module,
@@ -1312,6 +1547,10 @@ defmodule Jido.Chat.Adapter do
       fetch_metadata: inferred_capability_status(adapter_module, :fetch_metadata),
       fetch_thread: inferred_capability_status(adapter_module, :fetch_thread),
       fetch_message: inferred_capability_status(adapter_module, :fetch_message),
+      get_user: inferred_capability_status(adapter_module, :get_user),
+      fetch_subject: subject_support_status(adapter_module),
+      get_thread_participants: inferred_capability_status(adapter_module, :get_thread_participants),
+      mark_as_read: inferred_capability_status(adapter_module, :mark_as_read),
       fetch_media: inferred_capability_status(adapter_module, :fetch_media),
       add_reaction: inferred_capability_status(adapter_module, :add_reaction),
       remove_reaction: inferred_capability_status(adapter_module, :remove_reaction),
@@ -1449,6 +1688,10 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:fetch_metadata), do: {:fetch_metadata, 2}
   defp capability_callback(:fetch_thread), do: {:fetch_thread, 2}
   defp capability_callback(:fetch_message), do: {:fetch_message, 3}
+  defp capability_callback(:get_user), do: {:get_user, 2}
+  defp capability_callback(:fetch_subject), do: {:fetch_subject, 2}
+  defp capability_callback(:get_thread_participants), do: {:get_thread_participants, 2}
+  defp capability_callback(:mark_as_read), do: {:mark_as_read, 3}
   defp capability_callback(:fetch_media), do: {:fetch_media, 2}
   defp capability_callback(:add_reaction), do: {:add_reaction, 4}
   defp capability_callback(:remove_reaction), do: {:remove_reaction, 4}
@@ -1469,6 +1712,14 @@ defmodule Jido.Chat.Adapter do
 
   defp callback_exported?(adapter_module, callback, arity) do
     Code.ensure_loaded?(adapter_module) and function_exported?(adapter_module, callback, arity)
+  end
+
+  defp subject_support_status(adapter_module) do
+    cond do
+      callback_exported?(adapter_module, :fetch_subject, 2) -> :native
+      callback_exported?(adapter_module, :fetch_thread, 2) -> :fallback
+      true -> :unsupported
+    end
   end
 
   defp maybe_put_caption(opts, %PostPayload{} = payload) do

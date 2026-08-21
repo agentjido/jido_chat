@@ -11,11 +11,12 @@ defmodule Jido.Chat.ChannelRef do
     MessagePage,
     Modal,
     ModalResult,
-    PostPayload,
     Postable,
+    PostPayload,
     SentMessage,
-    ThreadPage,
     Thread,
+    ThreadPage,
+    UserInfo,
     Wire
   }
 
@@ -191,6 +192,14 @@ defmodule Jido.Chat.ChannelRef do
   @spec fetch_metadata(t(), keyword()) :: {:ok, ChannelInfo.t()} | {:error, term()}
   def fetch_metadata(%__MODULE__{} = channel, opts \\ []) do
     Adapter.fetch_metadata(channel.adapter, channel.external_id, opts)
+  end
+
+  @doc "Gets normalized provider user information through this channel's adapter."
+  @spec get_user(t(), String.t() | integer(), keyword()) ::
+          {:ok, UserInfo.t()} | {:error, term()}
+  def get_user(%__MODULE__{} = channel, user_id, opts \\ []) do
+    opts = Keyword.put_new(opts, :external_room_id, channel.external_id)
+    Adapter.get_user(channel.adapter, user_id, opts)
   end
 
   @doc "Fetches a page of channel-level messages when supported."
