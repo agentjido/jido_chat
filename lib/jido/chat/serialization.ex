@@ -22,6 +22,11 @@ defmodule Jido.Chat.Serialization do
     ModalResponse,
     ModalResult,
     ModalSubmitEvent,
+    OptionsLoadError,
+    OptionsLoadEvent,
+    OptionsLoadOption,
+    OptionsLoadOptionGroup,
+    OptionsLoadResult,
     PostPayload,
     ReactionEvent,
     ReplyContext,
@@ -100,6 +105,14 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "action_event"} = map), do: ActionEvent.from_map(map)
   def revive(%{"__type__" => "modal_submit_event"} = map), do: ModalSubmitEvent.from_map(map)
   def revive(%{"__type__" => "modal_close_event"} = map), do: ModalCloseEvent.from_map(map)
+  def revive(%{"__type__" => "options_load_event"} = map), do: OptionsLoadEvent.from_map(map)
+  def revive(%{"__type__" => "options_load_result"} = map), do: OptionsLoadResult.from_map(map)
+  def revive(%{"__type__" => "options_load_error"} = map), do: OptionsLoadError.from_map(map)
+  def revive(%{"__type__" => "options_load_option"} = map), do: OptionsLoadOption.from_map(map)
+
+  def revive(%{"__type__" => "options_load_option_group"} = map),
+    do: OptionsLoadOptionGroup.from_map(map)
+
   def revive(%{"__type__" => "slash_command_event"} = map), do: SlashCommandEvent.from_map(map)
 
   def revive(%{"__type__" => "assistant_thread_started_event"} = map),
@@ -112,6 +125,13 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "markdown_node"} = map), do: Jido.Chat.Markdown.Node.from_map(map)
   def revive(%{"__type__" => "card"} = map), do: Card.from_map(map)
   def revive(%{"__type__" => "card_component"} = map), do: Jido.Chat.Card.Component.from_map(map)
+
+  def revive(%{"__type__" => "card_chart_data"} = map),
+    do: Jido.Chat.Card.ChartData.from_map(map)
+
+  def revive(%{"__type__" => "card_chart_series"} = map),
+    do: Jido.Chat.Card.ChartSeries.from_map(map)
+
   def revive(%{"__type__" => "modal"} = map), do: Modal.from_map(map)
   def revive(%{"__type__" => "modal_element"} = map), do: Jido.Chat.Modal.Element.from_map(map)
   def revive(%{"__type__" => "message"} = map), do: Message.from_map(map)

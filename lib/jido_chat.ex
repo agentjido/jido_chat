@@ -29,6 +29,9 @@ defmodule Jido.Chat do
     MessageUpdatedEvent,
     ModalCloseEvent,
     ModalSubmitEvent,
+    OptionsLoadError,
+    OptionsLoadEvent,
+    OptionsLoadResult,
     Participant,
     ReactionEvent,
     Room,
@@ -720,6 +723,18 @@ defmodule Jido.Chat do
     end
   end
 
+  @doc "Processes an options-load event through its adapter callback."
+  @spec process_options_load(t(), atom(), OptionsLoadEvent.t() | map(), keyword()) ::
+          {:ok, t(), OptionsLoadResult.t()} | {:error, OptionsLoadError.t() | term()}
+  def process_options_load(%__MODULE__{} = chat, adapter_name, event, opts \\ [])
+      when is_atom(adapter_name) and is_list(opts) do
+    with {:ok, options_event} <- EventRouter.ensure_options_load_event(event, adapter_name),
+         {:ok, adapter_module} <- AdapterRegistry.resolve(chat, adapter_name),
+         {:ok, result} <- Adapter.load_options(adapter_module, options_event, opts) do
+      {:ok, chat, result}
+    end
+  end
+
   @doc "Processes normalized slash command events and dispatches handlers."
   @spec process_slash_command(t(), atom(), SlashCommandEvent.t() | map(), keyword()) ::
           {:ok, t(), SlashCommandEvent.t()} | {:error, term()}
@@ -747,6 +762,7 @@ defmodule Jido.Chat do
       process_action: &process_action/4,
       process_modal_submit: &process_modal_submit/4,
       process_modal_close: &process_modal_close/4,
+      process_options_load: &process_options_load/4,
       process_slash_command: &process_slash_command/4,
       process_assistant_thread_started: &process_assistant_thread_started/3,
       process_assistant_context_changed: &process_assistant_context_changed/3

@@ -30,6 +30,9 @@ defmodule Jido.Chat.Adapter do
     MessageSubject,
     Modal,
     ModalResult,
+    OptionsLoadError,
+    OptionsLoadEvent,
+    OptionsLoadResult,
     Participant,
     Postable,
     PostPayload,
@@ -67,6 +70,8 @@ defmodule Jido.Chat.Adapter do
   @type thread_page_result :: {:ok, ThreadPage.t()} | {:error, term()}
   @type ephemeral_result :: {:ok, EphemeralMessage.t()} | {:error, term()}
   @type modal_result :: {:ok, ModalResult.t()} | {:error, term()}
+  @type options_load_result ::
+          {:ok, OptionsLoadResult.t()} | {:error, OptionsLoadError.t()}
   @type media_result :: {:ok, binary()} | {:error, term()}
   @type user_result :: {:ok, UserInfo.t()} | {:error, term()}
   @type subject_result :: {:ok, MessageSubject.t()} | {:error, term()}
@@ -192,6 +197,10 @@ defmodule Jido.Chat.Adapter do
   @callback open_modal(external_room_id(), payload :: map(), opts :: keyword()) ::
               {:ok, ModalResult.t() | map()} | {:error, term()}
 
+  @callback load_options(OptionsLoadEvent.t(), opts :: keyword()) ::
+              {:ok, OptionsLoadResult.t() | map()}
+              | {:error, OptionsLoadError.t() | map() | :timeout | term()}
+
   @callback fetch_messages(external_room_id(), opts :: keyword()) ::
               {:ok, MessagePage.t() | map()} | {:error, term()}
 
@@ -259,6 +268,7 @@ defmodule Jido.Chat.Adapter do
                       post_channel_message: 3,
                       stream: 3,
                       open_modal: 3,
+                      load_options: 2,
                       fetch_messages: 2,
                       fetch_channel_messages: 2,
                       list_threads: 2,
@@ -957,6 +967,68 @@ defmodule Jido.Chat.Adapter do
     })
   end
 
+  @doc """
+  Loads options for an external or dynamic select.
+
+  Adapters must validate provider-specific option and option-group limits. The
+  canonical result has no provider-specific maximum.
+  """
+  @spec load_options(module(), OptionsLoadEvent.t() | map(), keyword()) :: options_load_result()
+  def load_options(adapter_module, event, opts \\ []) when is_atom(adapter_module) do
+    event = OptionsLoadEvent.new(event)
+    timeout_ms = options_timeout(event, opts)
+
+    if callback_exported?(adapter_module, :load_options, 2) do
+      adapter_module
+      |> invoke_options_loader(event, opts, timeout_ms)
+      |> normalize_options_load_result(timeout_ms)
+    else
+      {:error,
+       OptionsLoadError.new(%{
+         code: "unsupported",
+         message: "Adapter does not support external option loading"
+       })}
+    end
+  end
+
+  defp normalize_options_load_result(:deadline_exceeded, timeout_ms),
+    do: {:error, OptionsLoadError.timeout(timeout_ms)}
+
+  defp normalize_options_load_result({:completed, result}, timeout_ms) do
+    case result do
+      {:ok, %OptionsLoadResult{} = result} ->
+        {:ok, result}
+
+      {:ok, result} when is_map(result) ->
+        {:ok, OptionsLoadResult.new(result)}
+
+      {:error, %OptionsLoadError{} = error} ->
+        {:error, error}
+
+      {:error, :timeout} ->
+        {:error, OptionsLoadError.timeout(timeout_ms)}
+
+      {:error, error} when is_map(error) ->
+        {:error, OptionsLoadError.new(error)}
+
+      {:error, reason} ->
+        {:error,
+         OptionsLoadError.new(%{
+           code: "adapter_error",
+           message: inspect(reason),
+           metadata: %{reason: reason}
+         })}
+
+      other ->
+        {:error,
+         OptionsLoadError.new(%{
+           code: "invalid_options_load_result",
+           message: "Adapter returned an invalid options-load result",
+           metadata: %{result: inspect(other)}
+         })}
+    end
+  end
+
   @doc "Validates capability declaration coherence with implemented callbacks."
   @spec validate_capabilities(module()) :: :ok | {:error, term()}
   def validate_capabilities(adapter_module) do
@@ -1606,6 +1678,7 @@ defmodule Jido.Chat.Adapter do
       post_channel_message: inferred_capability_status(adapter_module, :post_channel_message),
       stream: inferred_capability_status(adapter_module, :stream),
       open_modal: inferred_capability_status(adapter_module, :open_modal),
+      load_options: inferred_capability_status(adapter_module, :load_options),
       webhook: inferred_capability_status(adapter_module, :webhook),
       verify_webhook: inferred_capability_status(adapter_module, :verify_webhook),
       parse_event: inferred_capability_status(adapter_module, :parse_event),
@@ -1634,6 +1707,13 @@ defmodule Jido.Chat.Adapter do
       markdown: :unsupported,
       cards: :unsupported,
       modals: support_status(adapter_module, :open_modal, 3),
+      card_charts: :fallback,
+      card_tables: :fallback,
+      link_action_ids: :fallback,
+      modal_date_input: :unsupported,
+      modal_number_input: :unsupported,
+      external_select: :unsupported,
+      options_load: support_status(adapter_module, :load_options, 2),
       ephemeral:
         cond do
           callback_exported?(adapter_module, :post_ephemeral, 4) -> :native
@@ -1747,6 +1827,8 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:post_channel_message), do: {:post_channel_message, 3}
   defp capability_callback(:stream), do: {:stream, 3}
   defp capability_callback(:open_modal), do: {:open_modal, 3}
+  defp capability_callback(:load_options), do: {:load_options, 2}
+  defp capability_callback(:options_load), do: {:load_options, 2}
   defp capability_callback(:webhook), do: {:handle_webhook, 3}
   defp capability_callback(:verify_webhook), do: {:verify_webhook, 2}
   defp capability_callback(:parse_event), do: {:parse_event, 2}
@@ -1762,6 +1844,58 @@ defmodule Jido.Chat.Adapter do
       callback_exported?(adapter_module, :fetch_subject, 2) -> :native
       callback_exported?(adapter_module, :fetch_thread, 2) -> :fallback
       true -> :unsupported
+    end
+  end
+
+  defp options_timeout(%OptionsLoadEvent{timeout_ms: timeout_ms}, opts) do
+    Keyword.get(opts, :timeout_ms) || timeout_ms || 3_000
+  end
+
+  defp invoke_options_loader(adapter_module, event, opts, timeout_ms) do
+    caller = self()
+    reply_ref = make_ref()
+
+    {worker, monitor_ref} =
+      spawn_monitor(fn ->
+        outcome =
+          try do
+            {:returned, adapter_module.load_options(event, opts)}
+          catch
+            kind, reason -> {:raised, kind, reason, __STACKTRACE__}
+          end
+
+        send(caller, {reply_ref, outcome})
+      end)
+
+    receive do
+      {^reply_ref, {:returned, result}} ->
+        Process.demonitor(monitor_ref, [:flush])
+        {:completed, result}
+
+      {^reply_ref, {:raised, kind, reason, stacktrace}} ->
+        Process.demonitor(monitor_ref, [:flush])
+        :erlang.raise(kind, reason, stacktrace)
+
+      {:DOWN, ^monitor_ref, :process, ^worker, reason} ->
+        exit(reason)
+    after
+      timeout_ms ->
+        stop_options_loader(worker, monitor_ref, reply_ref)
+        :deadline_exceeded
+    end
+  end
+
+  defp stop_options_loader(worker, monitor_ref, reply_ref) do
+    Process.exit(worker, :kill)
+
+    receive do
+      {:DOWN, ^monitor_ref, :process, ^worker, _reason} -> :ok
+    end
+
+    receive do
+      {^reply_ref, _outcome} -> :ok
+    after
+      0 -> :ok
     end
   end
 

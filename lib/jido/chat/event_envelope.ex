@@ -12,6 +12,9 @@ defmodule Jido.Chat.EventEnvelope do
     MessageUpdatedEvent,
     ModalCloseEvent,
     ModalSubmitEvent,
+    OptionsLoadEvent,
+    OptionsLoadError,
+    OptionsLoadResult,
     ReactionEvent,
     Message,
     SlashCommandEvent,
@@ -26,6 +29,7 @@ defmodule Jido.Chat.EventEnvelope do
     :action,
     :modal_submit,
     :modal_close,
+    :options_load,
     :slash_command,
     :assistant_thread_started,
     :assistant_context_changed
@@ -55,6 +59,7 @@ defmodule Jido.Chat.EventEnvelope do
           | :action
           | :modal_submit
           | :modal_close
+          | :options_load
           | :slash_command
           | :assistant_thread_started
           | :assistant_context_changed
@@ -141,6 +146,9 @@ defmodule Jido.Chat.EventEnvelope do
   defp serialize_payload(%ActionEvent{} = payload), do: ActionEvent.to_map(payload)
   defp serialize_payload(%ModalSubmitEvent{} = payload), do: ModalSubmitEvent.to_map(payload)
   defp serialize_payload(%ModalCloseEvent{} = payload), do: ModalCloseEvent.to_map(payload)
+  defp serialize_payload(%OptionsLoadEvent{} = payload), do: OptionsLoadEvent.to_map(payload)
+  defp serialize_payload(%OptionsLoadResult{} = payload), do: OptionsLoadResult.to_map(payload)
+  defp serialize_payload(%OptionsLoadError{} = payload), do: OptionsLoadError.to_map(payload)
   defp serialize_payload(%SlashCommandEvent{} = payload), do: SlashCommandEvent.to_map(payload)
 
   defp serialize_payload(%AssistantThreadStartedEvent{} = payload),
@@ -171,6 +179,15 @@ defmodule Jido.Chat.EventEnvelope do
 
   defp deserialize_payload(%{"__type__" => "modal_close_event"} = payload),
     do: ModalCloseEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "options_load_event"} = payload),
+    do: OptionsLoadEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "options_load_result"} = payload),
+    do: OptionsLoadResult.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "options_load_error"} = payload),
+    do: OptionsLoadError.from_map(payload)
 
   defp deserialize_payload(%{"__type__" => "slash_command_event"} = payload),
     do: SlashCommandEvent.from_map(payload)

@@ -42,6 +42,7 @@ defmodule Jido.Chat.ModalSubmitEvent do
   @doc "Creates a normalized modal submit event payload."
   def new(attrs) when is_map(attrs) do
     attrs
+    |> normalize_values()
     |> normalize_author()
     |> normalize_handles()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
@@ -123,4 +124,22 @@ defmodule Jido.Chat.ModalSubmitEvent do
 
   defp serialize_handle(nil, _fun), do: nil
   defp serialize_handle(value, fun), do: fun.(value)
+
+  defp normalize_values(attrs) do
+    case attrs[:values] || attrs["values"] do
+      %{} = values -> attrs |> Map.delete("values") |> Map.put(:values, stringify_values(values))
+      _ -> attrs
+    end
+  end
+
+  defp stringify_values(%Date{} = value), do: Date.to_iso8601(value)
+  defp stringify_values(value) when is_integer(value), do: Integer.to_string(value)
+  defp stringify_values(value) when is_float(value), do: Float.to_string(value)
+
+  defp stringify_values(value) when is_map(value) do
+    Map.new(value, fn {key, nested} -> {key, stringify_values(nested)} end)
+  end
+
+  defp stringify_values(value) when is_list(value), do: Enum.map(value, &stringify_values/1)
+  defp stringify_values(value), do: value
 end
