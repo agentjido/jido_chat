@@ -7,6 +7,7 @@ defmodule Jido.Chat.AdapterConformanceTest do
     EventEnvelope,
     FileUpload,
     Incoming,
+    Message,
     Modal,
     PostPayload,
     Response,
@@ -306,5 +307,61 @@ defmodule Jido.Chat.AdapterConformanceTest do
     assert {:ok, %EventEnvelope{} = envelope} = Adapter.parse_event(GoodAdapter, request, [])
     assert envelope.event_type == :message
     assert %Incoming{external_message_id: "msg-1"} = envelope.payload
+  end
+
+  test "legacy and trusted enriched inbound payloads use the same adapter callback" do
+    legacy_payload = %{
+      external_room_id: "room-legacy",
+      external_user_id: "provider-user-1",
+      external_message_id: "msg-legacy",
+      text: "hello from an old adapter payload"
+    }
+
+    assert {:ok, %Incoming{} = legacy_incoming} = GoodAdapter.transform_incoming(legacy_payload)
+
+    legacy_message = Message.from_incoming(legacy_incoming, adapter_name: :good)
+
+    assert legacy_message.id == "msg-legacy"
+    assert legacy_message.text == "hello from an old adapter payload"
+    assert legacy_message.external_room_id == "room-legacy"
+    assert legacy_message.author.user_id == "provider-user-1"
+    assert legacy_message.author.id == nil
+    assert legacy_message.external_reply_to_id == nil
+    assert legacy_message.reply_context == nil
+
+    enriched_payload = %{
+      external_room_id: "room-enriched",
+      external_user_id: "provider-user-2",
+      external_message_id: "msg-enriched",
+      text: "reply with trusted identity",
+      author: %{
+        id: "stable-user-2",
+        user_id: "provider-user-2",
+        user_name: "provider-name",
+        full_name: "Provider Name"
+      },
+      external_reply_to_id: "msg-parent",
+      reply_context: %{
+        id: "parent-1",
+        external_message_id: "msg-parent",
+        text: "parent message",
+        author: %{
+          id: "stable-parent",
+          user_id: "provider-parent",
+          user_name: "parent-name"
+        }
+      }
+    }
+
+    assert {:ok, %Incoming{} = enriched_incoming} =
+             GoodAdapter.transform_incoming(enriched_payload)
+
+    enriched_message = Message.from_incoming(enriched_incoming, adapter_name: :good)
+
+    assert enriched_message.author.id == "stable-user-2"
+    assert enriched_message.author.user_id == "provider-user-2"
+    assert enriched_message.external_reply_to_id == "msg-parent"
+    assert enriched_message.reply_context.id == "parent-1"
+    assert enriched_message.reply_context.author.id == "stable-parent"
   end
 end

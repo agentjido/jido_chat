@@ -168,19 +168,31 @@ defmodule Jido.Chat.EventNormalizer do
         map
 
       %{} = user ->
+        provider_user_id = user[:user_id] || user["user_id"]
+        provider_alias_id = user[:id] || user["id"]
+
         normalized_user = %{
-          user_id: to_string(user[:user_id] || user["user_id"] || user[:id] || user["id"] || "unknown"),
+          id:
+            if(Map.has_key?(user, :user_id) or Map.has_key?(user, "user_id"),
+              do: provider_alias_id
+            ),
+          user_id: to_string(provider_user_id || provider_alias_id || "unknown"),
           user_name:
             user[:user_name] || user["user_name"] || user[:username] || user["username"] ||
-              to_string(user[:id] || user["id"] || "unknown"),
+              to_string(provider_alias_id || "unknown"),
           full_name:
             user[:full_name] || user["full_name"] || user[:name] || user["name"] ||
               user[:global_name] || user["global_name"],
+          email: user[:email] || user["email"],
           is_bot: user[:is_bot] || user["is_bot"] || false,
-          is_me: user[:is_me] || user["is_me"] || false
+          is_me: user[:is_me] || user["is_me"] || false,
+          is_system: user[:is_system] || user["is_system"] || false,
+          metadata: user[:metadata] || user["metadata"] || %{}
         }
 
-        Map.put(map, :user, Author.new(normalized_user))
+        map
+        |> Map.delete("user")
+        |> Map.put(:user, Author.new(normalized_user))
 
       _ ->
         map

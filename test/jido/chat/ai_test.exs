@@ -35,6 +35,34 @@ defmodule Jido.Chat.AITest do
            ] = AI.to_messages([assistant, user, system], include_names: true)
   end
 
+  test "system author role takes precedence below explicit role and above is_me" do
+    system_author =
+      Message.new(%{
+        id: "system",
+        text: "system message",
+        author: Author.new(%{user_id: "system", user_name: "policy", is_system: true, is_me: true})
+      })
+
+    explicit_user =
+      Message.new(%{
+        id: "explicit",
+        text: "explicit user",
+        metadata: %{role: :user},
+        author: Author.new(%{user_id: "system", user_name: "policy", is_system: true})
+      })
+
+    explicit_assistant =
+      Message.new(%{
+        id: "explicit-assistant",
+        text: "explicit assistant",
+        metadata: %{role: :assistant},
+        author: Author.new(%{user_id: "system", user_name: "policy", is_system: true})
+      })
+
+    assert [%{role: "system"}, %{role: "user"}, %{role: "assistant"}] =
+             AI.to_messages([system_author, explicit_user, explicit_assistant])
+  end
+
   test "to_messages emits multipart content for images and text-like files" do
     message =
       Message.new(%{

@@ -59,6 +59,60 @@ defmodule Jido.Chat.StructsTest do
       assert message.is_mention == false
     end
 
+    test "Message.from_incoming/2 preserves independent reply identity and context" do
+      incoming =
+        Incoming.new(%{
+          external_room_id: "room_1",
+          external_message_id: "transport-message",
+          external_reply_to_id: "transport-parent",
+          reply_context: %{
+            "id" => "context-parent",
+            "external_message_id" => "quoted-message",
+            "text" => "quoted text",
+            "author" => %{
+              "user_id" => "quoted-user",
+              "user_name" => "quoted-user-name",
+              "id" => "stable-quoted-user"
+            },
+            "nested_reply" => %{id: "must-be-discarded"}
+          }
+        })
+
+      message = Message.from_incoming(incoming)
+
+      assert message.external_reply_to_id == "transport-parent"
+      assert message.reply_context.id == "context-parent"
+      assert message.reply_context.external_message_id == "quoted-message"
+      assert message.reply_context.text == "quoted text"
+      assert message.reply_context.author.user_id == "quoted-user"
+      refute Map.has_key?(Map.from_struct(message.reply_context), :nested_reply)
+    end
+
+    test "Incoming and Message normalize atom and string reply-context maps" do
+      atom_context = %{id: "atom-id", text: "atom text"}
+      string_context = %{"id" => "string-id", "text" => "string text"}
+
+      assert %Chat.ReplyContext{id: "atom-id"} =
+               Incoming.new(%{external_room_id: "room", reply_context: atom_context}).reply_context
+
+      assert %Chat.ReplyContext{id: "string-id"} =
+               Incoming.new(%{"external_room_id" => "room", "reply_context" => string_context}).reply_context
+
+      assert %Chat.ReplyContext{id: "atom-id"} =
+               Message.new(%{id: "m1", reply_context: atom_context}).reply_context
+
+      assert %Chat.ReplyContext{id: "string-id"} =
+               Message.new(%{"id" => "m1", "reply_context" => string_context}).reply_context
+    end
+
+    test "reply transport ID and context do not synthesize each other" do
+      assert %{external_reply_to_id: "parent", reply_context: nil} =
+               Message.new(%{id: "m1", external_reply_to_id: "parent"})
+
+      assert %{external_reply_to_id: nil, reply_context: %Chat.ReplyContext{id: "quoted"}} =
+               Message.new(%{id: "m1", reply_context: %{id: "quoted"}})
+    end
+
     test "Room.new/1 creates room with defaults" do
       room = Room.new(%{type: :direct})
 
@@ -105,6 +159,56 @@ defmodule Jido.Chat.StructsTest do
 
       assert %ChannelMeta{adapter_name: :telegram, external_room_id: "room_1"} =
                incoming.channel_meta
+    end
+
+    test "Author.new/1 preserves stable identity, email, and system state" do
+      author =
+        Chat.Author.new(%{
+          user_id: "provider-1",
+          user_name: "casey",
+          id: "stable-1",
+          email: "casey@example.com",
+          is_system: true
+        })
+
+      assert author.id == "stable-1"
+      assert author.user_id == "provider-1"
+      assert author.email == "casey@example.com"
+      refute author.is_bot
+      assert author.is_system
+    end
+
+    test "legacy human Author.new/1 keeps enriched fields unset and defaults false" do
+      author = Chat.Author.new(%{user_id: "human-1", user_name: "casey"})
+
+      assert author.id == nil
+      assert author.email == nil
+      refute author.is_bot
+      refute author.is_system
+    end
+
+    test "Incoming.new/1 preserves enriched string-key author maps" do
+      incoming =
+        Incoming.new(%{
+          "external_room_id" => "room-1",
+          "external_user_id" => "provider-external",
+          "author" => %{
+            "user_id" => "provider-author",
+            "user_name" => "bot",
+            "id" => "stable-bot",
+            "email" => "bot@example.com",
+            "is_bot" => true,
+            "is_system" => true,
+            "metadata" => %{"source" => "test"}
+          }
+        })
+
+      assert incoming.author.user_id == "provider-author"
+      assert incoming.author.id == "stable-bot"
+      assert incoming.author.email == "bot@example.com"
+      assert incoming.author.is_bot
+      assert incoming.author.is_system
+      assert incoming.author.metadata == %{"source" => "test"}
     end
 
     test "new typed structs normalize canonical bot-loop payloads" do

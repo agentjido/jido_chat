@@ -8,6 +8,7 @@ defmodule Jido.Chat.SerializationTest do
     AssistantContextChangedEvent,
     AssistantThreadStartedEvent,
     Attachment,
+    Author,
     Card,
     CapabilityMatrix,
     ChannelRef,
@@ -17,6 +18,7 @@ defmodule Jido.Chat.SerializationTest do
     IngressResult,
     Markdown,
     Message,
+    ReplyContext,
     Modal,
     ModalCloseEvent,
     ModalResult,
@@ -181,7 +183,8 @@ defmodule Jido.Chat.SerializationTest do
         thread_id: "test:room-1",
         external_room_id: "room-1",
         external_message_id: "m1",
-        text: "hello"
+        text: "hello",
+        author: %{id: "u1", user_id: "u1", user_name: "Ada"}
       })
 
     sent =
@@ -195,13 +198,86 @@ defmodule Jido.Chat.SerializationTest do
         response: Response.new(%{external_message_id: "m1", external_room_id: "room-1"})
       })
 
-    assert %Message{id: "m1", text: "hello"} = message |> Message.to_map() |> Message.from_map()
+    assert %Message{id: "m1", text: "hello", author: %Author{id: "u1", user_name: "Ada"}} =
+             message |> Message.to_map() |> Message.from_map()
 
     assert %SentMessage{id: "m1", adapter: __MODULE__} =
              sent |> SentMessage.to_map() |> SentMessage.from_map()
 
     assert %SentMessage{attachments: [%Attachment{filename: "report.pdf"}]} =
              sent |> SentMessage.to_map() |> SentMessage.from_map()
+  end
+
+  test "reply context, incoming, and message preserve one-level reply data" do
+    assert ReplyContext.new(%{id: 42}).id == "42"
+
+    context =
+      ReplyContext.new(%{
+        id: "quoted-context",
+        external_message_id: "quoted-provider-id",
+        text: "quoted text",
+        author: %{user_id: "u1", user_name: "quoted", id: "stable-u1"},
+        reply_context: %{id: "nested-must-be-dropped"}
+      })
+
+    assert %ReplyContext{author: %Author{id: "stable-u1"}} =
+             context |> ReplyContext.to_map() |> ReplyContext.from_map()
+
+    incoming =
+      Incoming.new(%{
+        external_room_id: "room-1",
+        external_message_id: "transport-id",
+        external_reply_to_id: "transport-parent",
+        reply_context: context
+      })
+
+    message = Message.from_incoming(incoming)
+    encoded = Message.to_map(message)
+
+    assert encoded["external_reply_to_id"] == "transport-parent"
+    assert encoded["reply_context"]["id"] == "quoted-context"
+    refute Map.has_key?(encoded["reply_context"], "reply_context")
+
+    assert %Message{
+             external_reply_to_id: "transport-parent",
+             reply_context: %ReplyContext{external_message_id: "quoted-provider-id"}
+           } = Message.from_map(encoded)
+
+    assert %Incoming{reply_context: %ReplyContext{}} =
+             incoming |> Incoming.to_map() |> Incoming.from_map()
+  end
+
+  test "event envelope revives a message payload with reply data" do
+    reviver = Chat.reviver()
+
+    message =
+      Message.new(%{
+        id: "m1",
+        external_room_id: "room-1",
+        external_message_id: "m1",
+        external_reply_to_id: "parent-1",
+        reply_context: %{id: "quoted-1", text: "quoted"}
+      })
+
+    envelope =
+      EventEnvelope.new(%{adapter_name: :test, event_type: :message, payload: message})
+
+    assert %EventEnvelope{
+             payload: %Message{
+               external_reply_to_id: "parent-1",
+               reply_context: %ReplyContext{id: "quoted-1"}
+             }
+           } = envelope |> EventEnvelope.to_map() |> EventEnvelope.from_map()
+
+    assert %ReplyContext{id: "quoted-1"} = reviver.(ReplyContext.to_map(message.reply_context))
+  end
+
+  test "legacy incoming and message maps revive without reply fields" do
+    assert %Incoming{external_reply_to_id: nil, reply_context: nil} =
+             Incoming.from_map(%{"external_room_id" => "room", "external_message_id" => "m1"})
+
+    assert %Message{external_reply_to_id: nil, reply_context: nil} =
+             Message.from_map(%{"id" => "m1", "external_room_id" => "room"})
   end
 
   test "file upload, stream chunk, and post payload round-trip" do

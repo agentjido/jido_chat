@@ -11,6 +11,7 @@ defmodule Jido.Chat.EventEnvelope do
     ModalCloseEvent,
     ModalSubmitEvent,
     ReactionEvent,
+    Message,
     SlashCommandEvent,
     Wire
   }
@@ -107,6 +108,7 @@ defmodule Jido.Chat.EventEnvelope do
   end
 
   defp serialize_payload(%Incoming{} = payload), do: Incoming.to_map(payload)
+  defp serialize_payload(%Message{} = payload), do: Message.to_map(payload)
   defp serialize_payload(%ReactionEvent{} = payload), do: ReactionEvent.to_map(payload)
   defp serialize_payload(%ActionEvent{} = payload), do: ActionEvent.to_map(payload)
   defp serialize_payload(%ModalSubmitEvent{} = payload), do: ModalSubmitEvent.to_map(payload)
@@ -122,6 +124,7 @@ defmodule Jido.Chat.EventEnvelope do
   defp serialize_payload(payload), do: Wire.to_plain(payload)
 
   defp deserialize_payload(%{"__type__" => "incoming"} = payload), do: Incoming.from_map(payload)
+  defp deserialize_payload(%{"__type__" => "message"} = payload), do: Message.from_map(payload)
 
   defp deserialize_payload(%{"__type__" => "reaction_event"} = payload),
     do: ReactionEvent.from_map(payload)

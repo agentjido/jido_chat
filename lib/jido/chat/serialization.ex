@@ -21,6 +21,7 @@ defmodule Jido.Chat.Serialization do
     ModalResponse,
     PostPayload,
     ReactionEvent,
+    ReplyContext,
     SentMessage,
     SlashCommandEvent,
     StreamChunk,
@@ -106,6 +107,7 @@ defmodule Jido.Chat.Serialization do
   def revive(%{"__type__" => "modal"} = map), do: Modal.from_map(map)
   def revive(%{"__type__" => "modal_element"} = map), do: Jido.Chat.Modal.Element.from_map(map)
   def revive(%{"__type__" => "message"} = map), do: Message.from_map(map)
+  def revive(%{"__type__" => "reply_context"} = map), do: ReplyContext.from_map(map)
   def revive(%{"__type__" => "file_upload"} = map), do: FileUpload.from_map(map)
   def revive(%{"__type__" => "post_payload"} = map), do: PostPayload.from_map(map)
   def revive(%{"__type__" => "sent_message"} = map), do: SentMessage.from_map(map)

@@ -3,7 +3,7 @@ defmodule Jido.Chat.Message do
   Chat SDK-style normalized message model.
   """
 
-  alias Jido.Chat.{Author, Incoming, Media}
+  alias Jido.Chat.{Author, Incoming, Media, ReplyContext}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -21,7 +21,9 @@ defmodule Jido.Chat.Message do
               created_at: Zoi.any() |> Zoi.nullish(),
               updated_at: Zoi.any() |> Zoi.nullish(),
               external_message_id: Zoi.string() |> Zoi.nullish(),
-              external_room_id: Zoi.any() |> Zoi.nullish()
+              external_room_id: Zoi.any() |> Zoi.nullish(),
+              external_reply_to_id: Zoi.any() |> Zoi.nullish(),
+              reply_context: Zoi.struct(ReplyContext) |> Zoi.nullish()
             },
             coerce: true
           )
@@ -39,6 +41,7 @@ defmodule Jido.Chat.Message do
     attrs
     |> attach_defaults()
     |> normalize_author()
+    |> normalize_reply_context()
     |> normalize_attachments()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
@@ -67,7 +70,9 @@ defmodule Jido.Chat.Message do
       is_mention: incoming.was_mentioned,
       created_at: incoming.timestamp,
       external_message_id: stringify(incoming.external_message_id),
-      external_room_id: incoming.external_room_id
+      external_room_id: incoming.external_room_id,
+      external_reply_to_id: incoming.external_reply_to_id,
+      reply_context: incoming.reply_context
     })
   end
 
@@ -117,6 +122,11 @@ defmodule Jido.Chat.Message do
       stringify(attrs[:external_message_id] || attrs["external_message_id"] || id)
     )
     |> Map.put_new(:external_room_id, external_room_id)
+    |> Map.put_new(
+      :external_reply_to_id,
+      attrs[:external_reply_to_id] || attrs["external_reply_to_id"]
+    )
+    |> Map.put_new(:reply_context, attrs[:reply_context] || attrs["reply_context"])
   end
 
   defp normalize_author(%{author: %Author{}} = attrs), do: attrs
@@ -127,9 +137,22 @@ defmodule Jido.Chat.Message do
   defp normalize_author(%{"author" => %Author{}} = attrs), do: attrs
 
   defp normalize_author(%{"author" => author} = attrs) when is_map(author),
-    do: Map.put(attrs, :author, Author.new(author))
+    do: attrs |> Map.delete("author") |> Map.put(:author, Author.new(author))
 
   defp normalize_author(attrs), do: attrs
+
+  defp normalize_reply_context(%{reply_context: %ReplyContext{}} = attrs),
+    do: Map.delete(attrs, "reply_context")
+
+  defp normalize_reply_context(%{reply_context: context} = attrs) when is_map(context),
+    do: attrs |> Map.delete("reply_context") |> Map.put(:reply_context, ReplyContext.new(context))
+
+  defp normalize_reply_context(%{"reply_context" => %ReplyContext{}} = attrs), do: attrs
+
+  defp normalize_reply_context(%{"reply_context" => context} = attrs) when is_map(context),
+    do: attrs |> Map.delete("reply_context") |> Map.put(:reply_context, ReplyContext.new(context))
+
+  defp normalize_reply_context(attrs), do: attrs
 
   defp normalize_attachments(attrs) do
     attachments = attrs[:attachments] || attrs["attachments"] || []
