@@ -3,6 +3,14 @@ defmodule Jido.Chat.Adapter do
   Canonical adapter behavior for Chat SDK style integrations.
 
   Thread-aware channel contract for Chat SDK integrations.
+
+  Adapters return message edits and deletes from `c:parse_event/2` as
+  `Jido.Chat.EventEnvelope` values with event type `:message_updated` or
+  `:message_deleted`. The payload must include the provider `message_id` and
+  should include channel, thread, author, timestamp, metadata, and raw provider
+  context when available. An update should include the changed `message` when
+  available. A delete must leave `message` as `nil` when the provider omits the
+  deleted content. Core does not fetch missing deleted content.
   """
 
   alias Jido.Chat.{

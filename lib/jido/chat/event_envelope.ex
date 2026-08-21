@@ -8,6 +8,8 @@ defmodule Jido.Chat.EventEnvelope do
     AssistantContextChangedEvent,
     AssistantThreadStartedEvent,
     Incoming,
+    MessageDeletedEvent,
+    MessageUpdatedEvent,
     ModalCloseEvent,
     ModalSubmitEvent,
     ReactionEvent,
@@ -18,6 +20,8 @@ defmodule Jido.Chat.EventEnvelope do
 
   @event_types [
     :message,
+    :message_updated,
+    :message_deleted,
     :reaction,
     :action,
     :modal_submit,
@@ -45,6 +49,8 @@ defmodule Jido.Chat.EventEnvelope do
 
   @type event_type ::
           :message
+          | :message_updated
+          | :message_deleted
           | :reaction
           | :action
           | :modal_submit
@@ -129,6 +135,8 @@ defmodule Jido.Chat.EventEnvelope do
 
   defp serialize_payload(%Incoming{} = payload), do: Incoming.to_map(payload)
   defp serialize_payload(%Message{} = payload), do: Message.to_map(payload)
+  defp serialize_payload(%MessageUpdatedEvent{} = payload), do: MessageUpdatedEvent.to_map(payload)
+  defp serialize_payload(%MessageDeletedEvent{} = payload), do: MessageDeletedEvent.to_map(payload)
   defp serialize_payload(%ReactionEvent{} = payload), do: ReactionEvent.to_map(payload)
   defp serialize_payload(%ActionEvent{} = payload), do: ActionEvent.to_map(payload)
   defp serialize_payload(%ModalSubmitEvent{} = payload), do: ModalSubmitEvent.to_map(payload)
@@ -145,6 +153,12 @@ defmodule Jido.Chat.EventEnvelope do
 
   defp deserialize_payload(%{"__type__" => "incoming"} = payload), do: Incoming.from_map(payload)
   defp deserialize_payload(%{"__type__" => "message"} = payload), do: Message.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "message_updated_event"} = payload),
+    do: MessageUpdatedEvent.from_map(payload)
+
+  defp deserialize_payload(%{"__type__" => "message_deleted_event"} = payload),
+    do: MessageDeletedEvent.from_map(payload)
 
   defp deserialize_payload(%{"__type__" => "reaction_event"} = payload),
     do: ReactionEvent.from_map(payload)

@@ -8,6 +8,8 @@ defmodule Jido.Chat.EventNormalizer do
     AssistantThreadStartedEvent,
     EventEnvelope,
     Incoming,
+    MessageDeletedEvent,
+    MessageUpdatedEvent,
     ModalCloseEvent,
     ModalSubmitEvent,
     ReactionEvent,
@@ -18,6 +20,38 @@ defmodule Jido.Chat.EventNormalizer do
   def ensure_incoming(%Incoming{} = incoming), do: {:ok, incoming}
   def ensure_incoming(map) when is_map(map), do: {:ok, Incoming.new(map)}
   def ensure_incoming(other), do: {:error, {:invalid_incoming, other}}
+
+  @spec ensure_message_updated_event(MessageUpdatedEvent.t() | map() | term(), atom()) ::
+          {:ok, MessageUpdatedEvent.t()} | {:error, term()}
+  def ensure_message_updated_event(%MessageUpdatedEvent{} = event, _adapter_name), do: {:ok, event}
+
+  def ensure_message_updated_event(map, adapter_name) when is_map(map),
+    do:
+      ensure_lifecycle_event_struct(
+        map,
+        adapter_name,
+        MessageUpdatedEvent,
+        :invalid_message_updated_event
+      )
+
+  def ensure_message_updated_event(other, _adapter_name),
+    do: {:error, {:invalid_message_updated_event, other}}
+
+  @spec ensure_message_deleted_event(MessageDeletedEvent.t() | map() | term(), atom()) ::
+          {:ok, MessageDeletedEvent.t()} | {:error, term()}
+  def ensure_message_deleted_event(%MessageDeletedEvent{} = event, _adapter_name), do: {:ok, event}
+
+  def ensure_message_deleted_event(map, adapter_name) when is_map(map),
+    do:
+      ensure_lifecycle_event_struct(
+        map,
+        adapter_name,
+        MessageDeletedEvent,
+        :invalid_message_deleted_event
+      )
+
+  def ensure_message_deleted_event(other, _adapter_name),
+    do: {:error, {:invalid_message_deleted_event, other}}
 
   @spec ensure_reaction_event(ReactionEvent.t() | map() | term(), atom()) ::
           {:ok, ReactionEvent.t()} | {:error, term()}
@@ -162,6 +196,12 @@ defmodule Jido.Chat.EventNormalizer do
     _ -> {:error, {error_tag, map}}
   end
 
+  defp ensure_lifecycle_event_struct(map, adapter_name, mod, error_tag) when is_map(map) do
+    {:ok, map |> Map.put_new(:adapter_name, adapter_name) |> mod.new()}
+  rescue
+    _ -> {:error, {error_tag, map}}
+  end
+
   defp normalize_event_user(map) when is_map(map) do
     case map[:user] || map["user"] do
       %Author{} ->
@@ -200,6 +240,8 @@ defmodule Jido.Chat.EventNormalizer do
   end
 
   defp infer_event_type(nil), do: nil
+  defp infer_event_type(%MessageUpdatedEvent{}), do: :message_updated
+  defp infer_event_type(%MessageDeletedEvent{}), do: :message_deleted
 
   defp infer_event_type(payload) when is_map(payload) do
     cond do
@@ -235,6 +277,8 @@ defmodule Jido.Chat.EventNormalizer do
   end
 
   defp payload_thread_id(_adapter_name, %ReactionEvent{} = payload), do: payload.thread_id
+  defp payload_thread_id(_adapter_name, %MessageUpdatedEvent{} = payload), do: payload.thread_id
+  defp payload_thread_id(_adapter_name, %MessageDeletedEvent{} = payload), do: payload.thread_id
   defp payload_thread_id(_adapter_name, %ActionEvent{} = payload), do: payload.thread_id
   defp payload_thread_id(_adapter_name, %ModalSubmitEvent{} = payload), do: payload.thread_id
   defp payload_thread_id(_adapter_name, %ModalCloseEvent{} = payload), do: payload.thread_id
@@ -250,6 +294,8 @@ defmodule Jido.Chat.EventNormalizer do
 
   defp payload_channel_id(%Incoming{} = incoming), do: stringify(incoming.external_room_id)
   defp payload_channel_id(%ReactionEvent{} = payload), do: payload.channel_id
+  defp payload_channel_id(%MessageUpdatedEvent{} = payload), do: payload.channel_id
+  defp payload_channel_id(%MessageDeletedEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%ActionEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%ModalSubmitEvent{} = payload), do: payload.channel_id
   defp payload_channel_id(%ModalCloseEvent{} = payload), do: payload.channel_id
@@ -260,6 +306,8 @@ defmodule Jido.Chat.EventNormalizer do
 
   defp payload_message_id(%Incoming{} = incoming), do: stringify(incoming.external_message_id)
   defp payload_message_id(%ReactionEvent{} = payload), do: payload.message_id
+  defp payload_message_id(%MessageUpdatedEvent{} = payload), do: payload.message_id
+  defp payload_message_id(%MessageDeletedEvent{} = payload), do: payload.message_id
   defp payload_message_id(%ActionEvent{} = payload), do: payload.message_id
   defp payload_message_id(%ModalSubmitEvent{} = payload), do: payload.message_id
   defp payload_message_id(%ModalCloseEvent{} = payload), do: payload.message_id

@@ -25,6 +25,8 @@ defmodule Jido.Chat do
     IngressResult,
     Incoming,
     Message,
+    MessageDeletedEvent,
+    MessageUpdatedEvent,
     ModalCloseEvent,
     ModalSubmitEvent,
     Participant,
@@ -54,6 +56,14 @@ defmodule Jido.Chat do
   @type message_handler :: mention_handler()
   @typedoc "Subscribed-thread handler callback."
   @type subscribed_handler :: mention_handler()
+
+  @typedoc "Message-updated lifecycle handler callback."
+  @type message_updated_handler ::
+          (MessageUpdatedEvent.t() -> term()) | (t(), MessageUpdatedEvent.t() -> t() | term())
+
+  @typedoc "Message-deleted lifecycle handler callback."
+  @type message_deleted_handler ::
+          (MessageDeletedEvent.t() -> term()) | (t(), MessageDeletedEvent.t() -> t() | term())
 
   @typedoc "Reaction event handler callback."
   @type reaction_handler ::
@@ -87,6 +97,8 @@ defmodule Jido.Chat do
           mention: [mention_handler()],
           message: [{Regex.t(), message_handler()}],
           subscribed: [subscribed_handler()],
+          message_updated: [message_updated_handler()],
+          message_deleted: [message_deleted_handler()],
           reaction: [reaction_handler()],
           action: [action_handler()],
           modal_submit: [modal_submit_handler()],
@@ -131,6 +143,8 @@ defmodule Jido.Chat do
     mention: [],
     message: [],
     subscribed: [],
+    message_updated: [],
+    message_deleted: [],
     reaction: [],
     action: [],
     modal_submit: [],
@@ -262,6 +276,18 @@ defmodule Jido.Chat do
   @spec on_subscribed_message(t(), subscribed_handler()) :: t()
   def on_subscribed_message(%__MODULE__{} = chat, handler) when is_function(handler) do
     update_in(chat.handlers.subscribed, &(&1 ++ [handler]))
+  end
+
+  @doc "Registers a message-updated lifecycle handler."
+  @spec on_message_updated(t(), message_updated_handler()) :: t()
+  def on_message_updated(%__MODULE__{} = chat, handler) when is_function(handler) do
+    register_event_handler(chat, :message_updated, handler)
+  end
+
+  @doc "Registers a message-deleted lifecycle handler."
+  @spec on_message_deleted(t(), message_deleted_handler()) :: t()
+  def on_message_deleted(%__MODULE__{} = chat, handler) when is_function(handler) do
+    register_event_handler(chat, :message_deleted, handler)
   end
 
   @doc "Registers a reaction-event handler."
@@ -616,6 +642,40 @@ defmodule Jido.Chat do
     end
   end
 
+  @doc "Processes normalized message-updated events and dispatches lifecycle handlers."
+  @spec process_message_updated(t(), atom(), MessageUpdatedEvent.t() | map(), keyword()) ::
+          {:ok, t(), MessageUpdatedEvent.t()} | {:error, term()}
+  def process_message_updated(%__MODULE__{} = chat, adapter_name, event, opts \\ [])
+      when is_atom(adapter_name) and is_list(opts) do
+    with {:ok, message_updated} <- EventRouter.ensure_message_updated_event(event, adapter_name) do
+      message_updated = enrich_lifecycle_event_context(chat, adapter_name, message_updated)
+
+      {:ok,
+       EventRouter.run_event_handlers(
+         chat,
+         Map.get(chat.handlers, :message_updated, []),
+         message_updated
+       ), message_updated}
+    end
+  end
+
+  @doc "Processes normalized message-deleted events and dispatches lifecycle handlers."
+  @spec process_message_deleted(t(), atom(), MessageDeletedEvent.t() | map(), keyword()) ::
+          {:ok, t(), MessageDeletedEvent.t()} | {:error, term()}
+  def process_message_deleted(%__MODULE__{} = chat, adapter_name, event, opts \\ [])
+      when is_atom(adapter_name) and is_list(opts) do
+    with {:ok, message_deleted} <- EventRouter.ensure_message_deleted_event(event, adapter_name) do
+      message_deleted = enrich_lifecycle_event_context(chat, adapter_name, message_deleted)
+
+      {:ok,
+       EventRouter.run_event_handlers(
+         chat,
+         Map.get(chat.handlers, :message_deleted, []),
+         message_deleted
+       ), message_deleted}
+    end
+  end
+
   @doc "Processes normalized action events and dispatches handlers."
   @spec process_action(t(), atom(), ActionEvent.t() | map(), keyword()) ::
           {:ok, t(), ActionEvent.t()} | {:error, term()}
@@ -672,6 +732,8 @@ defmodule Jido.Chat do
       when is_atom(adapter_name) and is_list(opts) do
     dispatchers = %{
       process_message: &process_message/5,
+      process_message_updated: &process_message_updated/4,
+      process_message_deleted: &process_message_deleted/4,
       process_reaction: &process_reaction/4,
       process_action: &process_action/4,
       process_modal_submit: &process_modal_submit/4,
@@ -913,6 +975,11 @@ defmodule Jido.Chat do
     update_in(chat.handlers[key], &(&1 ++ [{normalized, handler}]))
   end
 
+  defp register_event_handler(%__MODULE__{} = chat, key, handler) do
+    handlers = Map.update(chat.handlers, key, [handler], &(&1 ++ [handler]))
+    %{chat | handlers: handlers}
+  end
+
   defp normalize_handler_selector(selectors) when is_list(selectors),
     do: Enum.map(selectors, &normalize_handler_selector/1)
 
@@ -1027,6 +1094,21 @@ defmodule Jido.Chat do
       thread_id: Map.get(event, :thread_id) || (thread && thread.id),
       channel_id: Map.get(event, :channel_id) || (channel && channel.id),
       message_id: Map.get(event, :message_id) || (message && message.id)
+    )
+  end
+
+  defp enrich_lifecycle_event_context(%__MODULE__{} = chat, adapter_name, event) do
+    adapter = Map.get(chat.adapters, adapter_name)
+    channel = Map.get(event, :channel) || build_channel_handle(chat, adapter_name, event)
+    thread = Map.get(event, :thread) || build_thread_handle(chat, adapter_name, event, channel)
+
+    struct(event,
+      adapter: adapter,
+      adapter_name: adapter_name,
+      thread: thread,
+      channel: channel,
+      thread_id: Map.get(event, :thread_id) || (thread && thread.id),
+      channel_id: Map.get(event, :channel_id) || (channel && channel.id)
     )
   end
 
