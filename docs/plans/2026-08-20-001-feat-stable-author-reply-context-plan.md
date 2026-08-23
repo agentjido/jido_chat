@@ -4,9 +4,13 @@ type: feat
 date: 2026-08-20
 artifact_contract: ce-unified-plan/v1
 artifact_readiness: implementation-ready
+record_status: historical
 product_contract_source: ce-plan-bootstrap
 execution: code
 issue: https://github.com/agentjido/jido_chat/issues/36
+implementation_references:
+  - https://github.com/agentjido/jido_chat/pull/46
+  - https://github.com/agentjido/jido_messaging/pull/71
 target_repositories:
   - agentjido/jido_chat
   - agentjido/jido_messaging
@@ -14,6 +18,24 @@ target_repositories:
 ---
 
 # Stable Author and Reply Context - Plan
+
+## Current Status
+
+This file is a dated record of the plan that was ready for implementation on
+2026-08-20. It is not a list of open work.
+
+| Scope | Result |
+|---|---|
+| Core units U1-U3 | Merged in [`agentjido/jido_chat` PR #46](https://github.com/agentjido/jido_chat/pull/46). |
+| Runtime unit U4 | Merged in [`agentjido/jido_messaging` PR #71](https://github.com/agentjido/jido_messaging/pull/71). |
+| Cross-package proof U5 | The validation records in PR #46 and PR #71 include isolated cross-package checks. |
+| Parent issue | [Issue #36](https://github.com/agentjido/jido_chat/issues/36) is closed. |
+
+Issues #38 and #40 are also closed. Before you use a deferred item, check the
+current code and current issues in its repository. The `artifact_readiness`
+value records the original state of this plan. All present-tense statements
+below describe the repository state on 2026-08-20, before the linked pull
+requests merged.
 
 ## Goal Capsule
 
@@ -123,10 +145,12 @@ Add optional stable identity, email, and system state to the normalized author. 
 - Runtime participant mapping and existing reply-ID preservation.
 - Cross-package compatibility tests and ownership documentation.
 
-#### Deferred to Follow-Up Work
+#### Deferred to Follow-Up Work at Plan Time
 
-- Cross-platform participant pairing, rebinding, collision handling, and participant-scoped history belong to [issue 40](https://github.com/agentjido/jido_chat/issues/40).
-- User lookup and provider-backed participant contracts belong to [issue 38](https://github.com/agentjido/jido_chat/issues/38).
+At the time of this plan:
+
+- Cross-platform participant pairing, rebinding, collision handling, and participant-scoped history belonged to [issue 40](https://github.com/agentjido/jido_chat/issues/40).
+- User lookup and provider-backed participant contracts belonged to [issue 38](https://github.com/agentjido/jido_chat/issues/38).
 
 #### Outside this plan
 
@@ -454,12 +478,12 @@ flowchart TB
 
 ## Sources and Research
 
-- [Issue 36: Extend normalized author and message context with stable identity](https://github.com/agentjido/jido_chat/issues/36) defines this plan.
-- [Issue 40: Add participant-scoped cross-platform history in Jido Messaging](https://github.com/agentjido/jido_chat/issues/40) owns pairing, rebinding, collision policy, and history.
-- [Issue 38: Add user, subject, participant, and read-receipt adapter contracts](https://github.com/agentjido/jido_chat/issues/38) owns provider-backed user lookup and new adapter callbacks.
+- [Issue 36: Extend normalized author and message context with stable identity](https://github.com/agentjido/jido_chat/issues/36) defined this plan.
+- At plan time, [issue 40](https://github.com/agentjido/jido_chat/issues/40) owned pairing, rebinding, collision policy, and history.
+- At plan time, [issue 38](https://github.com/agentjido/jido_chat/issues/38) owned provider-backed user lookup and new adapter callbacks.
 - `lib/jido/chat/author.ex`, `lib/jido/chat/incoming.ex`, `lib/jido/chat/message.ex`, and `lib/jido/chat/serialization.ex` define the core patterns.
 - `lib/jido_messaging/ingest.ex`, `lib/jido_messaging/persistence/ets.ex`, and `lib/jido_messaging/persistence/sqlite.ex` define runtime resolution and binding behavior.
-- `test/cross_package_roundtrip_test.exs` is the current cross-package adapter and runtime proof.
+- At plan time, `test/cross_package_roundtrip_test.exs` was the cross-package adapter and runtime proof.
 
 ---
 
