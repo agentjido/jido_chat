@@ -12,6 +12,19 @@ Initial Hex release of `jido_chat`.
 
 <!-- changelog -->
 
+## [v1.2.1](https://github.com/agentjido/jido_chat/compare/v1.2.0...v1.2.1) (2026-10-08)
+
+
+
+
+### Bug Fixes:
+
+* deps: update Zoi and compatible Jido dependencies by mikehostetler
+
+* deps: update mint for security advisory by mikehostetler
+
+* deps: update Mint to 1.10.0 by mikehostetler
+
 ## [1.2.0](https://github.com/agentjido/jido_chat/compare/v1.1.0...v1.2.0) (2026-08-21)
 
 
