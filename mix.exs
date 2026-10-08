@@ -58,7 +58,7 @@ defmodule Jido.Chat.MixProject do
   defp deps do
     [
       {:jason, "~> 1.4"},
-      {:zoi, "~> 0.17"},
+      {:zoi, "~> 0.18.11"},
       {:splode, "~> 0.3.0"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
