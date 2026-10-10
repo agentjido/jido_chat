@@ -128,3 +128,7 @@ payload =
 The package-level parity matrix and migration notes are tracked in the
 `proj_jido_chat` workspace while this package is moving through the 1.x release
 batch.
+
+## Local Documentation
+
+Run `mix docs` to generate HTML and Markdown documentation in `doc/`, including Markdown pages and `llms.txt`.
