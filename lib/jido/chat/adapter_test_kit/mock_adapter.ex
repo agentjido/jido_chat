@@ -8,26 +8,22 @@ defmodule Jido.Chat.AdapterTestKit.MockAdapter do
 
   use Jido.Chat.Adapter
 
-  alias Jido.Chat.{AdapterTestKit.Factories, Incoming, PostPayload}
+  alias Jido.Chat.{AdapterTestKit.Factories, PostPayload}
   alias Jido.Chat.AdapterTestKit.MockTransport
 
   @impl true
   def channel_type, do: :test
 
   @impl true
-  def transform_incoming(payload) do
-    {:ok,
-     Incoming.new(%{
-       external_room_id: value(payload, :external_room_id, "room-1"),
-       external_user_id: value(payload, :external_user_id, "user-1"),
-       external_message_id: value(payload, :external_message_id, "external-message-1"),
-       external_thread_id: value(payload, :external_thread_id, "provider-thread-1"),
-       text: value(payload, :text, "Hello from the test kit"),
-       username: value(payload, :username, "test-user"),
-       display_name: value(payload, :display_name, "Test User"),
-       media: value(payload, :media, []),
-       raw: payload
-     })}
+  def signal_protocol, do: 1
+
+  @impl true
+  def configure_binding(opts), do: {:ok, opts}
+
+  @impl true
+  def normalize_event(binding, %{"id" => id, "items" => items}) do
+    signals = Enum.map(items, &Factories.message_received(binding, Map.put(&1, "delivery_id", id)))
+    Jido.Chat.Delivery.new(binding, id, signals)
   end
 
   @impl true
@@ -177,10 +173,7 @@ defmodule Jido.Chat.AdapterTestKit.MockAdapter do
       fetch_messages: :native,
       fetch_channel_messages: :native,
       list_threads: :native,
-      open_thread: :native,
-      verify_webhook: :fallback,
-      parse_event: :fallback,
-      format_webhook_response: :fallback
+      open_thread: :native
     }
   end
 
@@ -225,8 +218,4 @@ defmodule Jido.Chat.AdapterTestKit.MockAdapter do
   end
 
   defp public_opts(opts), do: Keyword.delete(opts, :transport)
-
-  defp value(map, key, default) do
-    Map.get(map, key, Map.get(map, Atom.to_string(key), default))
-  end
 end

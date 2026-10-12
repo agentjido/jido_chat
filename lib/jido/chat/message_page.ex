@@ -3,7 +3,7 @@ defmodule Jido.Chat.MessagePage do
   Canonical page of normalized messages for thread/channel history.
   """
 
-  alias Jido.Chat.{Incoming, Message}
+  alias Jido.Chat.Message
 
   @schema Zoi.struct(
             __MODULE__,
@@ -32,8 +32,6 @@ defmodule Jido.Chat.MessagePage do
   end
 
   defp normalize_messages(attrs) do
-    adapter_name = attrs[:adapter_name] || attrs["adapter_name"]
-    thread_id = attrs[:thread_id] || attrs["thread_id"]
     messages = attrs[:messages] || attrs["messages"] || []
 
     normalized =
@@ -41,17 +39,8 @@ defmodule Jido.Chat.MessagePage do
         %Message{} = message ->
           message
 
-        %Incoming{} = incoming ->
-          Message.from_incoming(incoming, adapter_name: adapter_name, thread_id: thread_id)
-
         map when is_map(map) ->
-          if Map.has_key?(map, :external_room_id) || Map.has_key?(map, "external_room_id") do
-            map
-            |> Incoming.new()
-            |> Message.from_incoming(adapter_name: adapter_name, thread_id: thread_id)
-          else
-            Message.new(map)
-          end
+          Message.new(map)
 
         other ->
           other

@@ -1,210 +1,94 @@
 defmodule Jido.Chat.AdapterTestKit.Factories do
-  @moduledoc """
-  Deterministic factories for adapter contract tests.
+  @moduledoc "Deterministic domain values and typed Signal fixtures for provider-free tests."
 
-  Each factory returns a public `Jido.Chat` type. Factories accept a map or a
-  keyword list of shallow field overrides.
-  """
+  @doc "Builds a retained author value."
+  @spec author(map()) :: Jido.Chat.Author.t()
+  def author(overrides \\ %{}),
+    do: Jido.Chat.Author.new(Map.merge(%{user_id: "actor-1", user_name: "test-user"}, overrides))
 
-  alias Jido.Chat.{
-    Author,
-    EventEnvelope,
-    Incoming,
-    Media,
-    Message,
-    PostPayload,
-    Response,
-    WebhookRequest
-  }
+  @doc "Builds a retained media value."
+  @spec media(map()) :: Jido.Chat.Media.t()
+  def media(overrides \\ %{}),
+    do: Jido.Chat.Media.new(Map.merge(%{kind: :image, url: "https://example.com/image.png"}, overrides))
 
-  @doc "Builds a canonical author."
-  @spec author(map() | keyword()) :: Author.t()
-  def author(overrides \\ %{}) do
-    %{
-      user_id: "user-1",
-      user_name: "test-user",
-      full_name: "Test User",
-      is_bot: false,
-      is_me: false,
-      metadata: %{"source" => "adapter-test-kit"}
+  @doc "Builds a retained domain message."
+  @spec message(map()) :: Jido.Chat.Message.t()
+  def message(overrides \\ %{}),
+    do: Jido.Chat.Message.new(Map.merge(%{id: "message-1", text: "hello", external_room_id: "room-1"}, overrides))
+
+  @doc "Builds a private webhook request/control value."
+  @spec webhook_request(map()) :: Jido.Chat.WebhookRequest.t()
+  def webhook_request(overrides \\ %{}),
+    do: Jido.Chat.WebhookRequest.new(Map.merge(%{payload: %{}, method: "POST", path: "/", headers: %{}}, overrides))
+
+  @doc "Builds a retained outbound domain payload."
+  @spec post_payload(map()) :: Jido.Chat.PostPayload.t()
+  def post_payload(overrides \\ %{}), do: Jido.Chat.PostPayload.new(Map.merge(%{kind: :text, text: "hello"}, overrides))
+
+  @doc "Builds a typed message fact with fixed delivery/item and context identities."
+  @spec message_received(Jido.Chat.Binding.t(), map()) :: Jido.Signal.t()
+  def message_received(binding, overrides \\ %{}) do
+    data =
+      Map.merge(
+        %{
+          "item_id" => "item-1",
+          "delivery_id" => "delivery-1",
+          "room_id" => "room-1",
+          "message_id" => "message-1",
+          "sender" => %{"id" => "actor-1"},
+          "text" => "hello"
+        },
+        overrides
+      )
+
+    Jido.Chat.Signal.MessageReceived.new!(data,
+      source: binding.source,
+      subject: Jido.Chat.Signal.Identity.conversation_subject(binding.id, data["room_id"])
+    )
+  end
+
+  @doc "Builds a typed request from a checked definition module and string-key data."
+  @spec request(module(), map()) :: Jido.Signal.t()
+  def request(definition, data), do: definition.new!(data)
+
+  @doc "Builds one valid operation fixture with private resources owned by this caller."
+  @spec operation_request(Jido.Chat.Binding.t(), atom(), map()) :: Jido.Signal.t()
+  def operation_request(binding, operation, overrides \\ %{}) do
+    {_type, {definition, ^operation, fields, _shape, _schema}} =
+      Enum.find(Jido.Chat.Operations.Definitions.all(), fn {_type, {_definition, name, _fields, _shape, _schema}} ->
+        name == operation
+      end)
+
+    values = %{
+      "request_id" => "fixture:" <> Atom.to_string(operation),
+      "room_id" => "room/1",
+      "user_id" => "actor-1",
+      "message_id" => "message-1",
+      "text" => "hello",
+      "reaction" => "👍",
+      "interaction_id" => "interaction-1",
+      "query" => "a",
+      "content" => %{"kind" => "text", "text" => "hello"}
     }
-    |> merge(overrides)
-    |> Author.new()
+
+    data =
+      Enum.reduce(fields, Map.take(values, ["request_id" | fields]), fn field, data ->
+        if field in ["resource_ref", "media_ref", "modal"] and not Map.has_key?(overrides, field) do
+          {kind, value} = fixture_resource(operation, field)
+          {:ok, ref} = Jido.Chat.put_resource(binding, kind, value)
+          Map.put(data, field, ref)
+        else
+          data
+        end
+      end)
+
+    definition.new!(Map.merge(data, overrides))
   end
 
-  @doc "Builds canonical media."
-  @spec media(map() | keyword()) :: Media.t()
-  def media(overrides \\ %{}) do
-    overrides = to_map(overrides)
-    kind = Map.get(overrides, :kind, Map.get(overrides, "kind", :image))
+  defp fixture_resource(:stream, _field), do: {"stream", ["hello", " world"]}
+  defp fixture_resource(_operation, "media_ref"), do: {"media", %{"id" => "provider-media-1"}}
+  defp fixture_resource(_operation, "modal"), do: {"modal", Jido.Chat.Modal.new(%{title: "Fixture"})}
 
-    kind
-    |> media_defaults()
-    |> Map.merge(overrides)
-    |> Media.new()
-  end
-
-  @doc "Builds a canonical incoming message."
-  @spec incoming(map() | keyword()) :: Incoming.t()
-  def incoming(overrides \\ %{}) do
-    %{
-      external_room_id: "room-1",
-      external_user_id: "user-1",
-      external_message_id: "external-message-1",
-      external_thread_id: "provider-thread-1",
-      text: "Hello from the test kit",
-      author: author(),
-      username: "test-user",
-      display_name: "Test User",
-      timestamp: "2026-01-02T03:04:05Z",
-      chat_type: :channel,
-      was_mentioned: false,
-      media: [media()],
-      raw: %{"provider" => "fixture"},
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-    |> merge(overrides)
-    |> Incoming.new()
-  end
-
-  @doc "Builds a canonical normalized message."
-  @spec message(map() | keyword()) :: Message.t()
-  def message(overrides \\ %{}) do
-    %{
-      id: "message-1",
-      thread_id: "test:room-1:provider-thread-1",
-      channel_id: "room-1",
-      text: "Hello from the test kit",
-      formatted: "Hello from the test kit",
-      author: author(),
-      attachments: [media()],
-      created_at: "2026-01-02T03:04:05Z",
-      external_message_id: "external-message-1",
-      external_room_id: "room-1",
-      metadata: %{"source" => "adapter-test-kit"},
-      raw: %{"provider" => "fixture"}
-    }
-    |> merge(overrides)
-    |> Message.new()
-  end
-
-  @doc "Builds a canonical message event envelope."
-  @spec event(map() | keyword()) :: EventEnvelope.t()
-  def event(overrides \\ %{}) do
-    %{
-      id: "event-1",
-      adapter_name: :test,
-      event_type: :message,
-      thread_id: "test:room-1:provider-thread-1",
-      channel_id: "room-1",
-      message_id: "external-message-1",
-      payload: incoming(),
-      raw: %{"provider" => "fixture"},
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-    |> merge(overrides)
-    |> EventEnvelope.new()
-  end
-
-  @doc "Builds a canonical webhook request."
-  @spec webhook_request(map() | keyword()) :: WebhookRequest.t()
-  def webhook_request(overrides \\ %{}) do
-    %{
-      adapter_name: :test,
-      method: "POST",
-      path: "/webhooks/test",
-      headers: %{"content-type" => "application/json", "x-test-signature" => "valid"},
-      payload: %{
-        "external_room_id" => "room-1",
-        "external_user_id" => "user-1",
-        "external_message_id" => "external-message-1",
-        "external_thread_id" => "provider-thread-1",
-        "text" => "Hello from the test kit"
-      },
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-    |> merge(overrides)
-    |> WebhookRequest.new()
-  end
-
-  @doc "Builds a canonical adapter response."
-  @spec response(map() | keyword()) :: Response.t()
-  def response(overrides \\ %{}) do
-    %{
-      external_message_id: "external-message-1",
-      external_room_id: "room-1",
-      timestamp: "2026-01-02T03:04:05Z",
-      channel_type: :test,
-      status: :sent,
-      raw: %{"provider" => "fixture"},
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-    |> merge(overrides)
-    |> Response.new()
-  end
-
-  @doc "Builds a canonical outbound post payload."
-  @spec post_payload(map() | keyword()) :: PostPayload.t()
-  def post_payload(overrides \\ %{}) do
-    %{
-      text: "Hello from the test kit",
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-    |> merge(overrides)
-    |> PostPayload.new()
-  end
-
-  defp media_defaults(kind) when kind in [:image, "image"] do
-    %{
-      kind: :image,
-      url: "https://example.test/sample.png",
-      media_type: "image/png",
-      filename: "sample.png",
-      size_bytes: 128,
-      width: 16,
-      height: 16,
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-  end
-
-  defp media_defaults(kind) when kind in [:audio, "audio"] do
-    %{
-      kind: :audio,
-      url: "https://example.test/sample.mp3",
-      media_type: "audio/mpeg",
-      filename: "sample.mp3",
-      size_bytes: 128,
-      duration: 1,
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-  end
-
-  defp media_defaults(kind) when kind in [:video, "video"] do
-    %{
-      kind: :video,
-      url: "https://example.test/sample.mp4",
-      media_type: "video/mp4",
-      filename: "sample.mp4",
-      size_bytes: 128,
-      width: 16,
-      height: 16,
-      duration: 1,
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-  end
-
-  defp media_defaults(_kind) do
-    %{
-      kind: :file,
-      url: "https://example.test/sample.txt",
-      media_type: "text/plain",
-      filename: "sample.txt",
-      size_bytes: 128,
-      metadata: %{"source" => "adapter-test-kit"}
-    }
-  end
-
-  defp merge(defaults, overrides), do: Map.merge(defaults, to_map(overrides))
-  defp to_map(overrides) when is_map(overrides), do: overrides
-  defp to_map(overrides) when is_list(overrides), do: Map.new(overrides)
+  defp fixture_resource(_operation, _field),
+    do: {"file", Jido.Chat.FileUpload.new(%{filename: "fixture.txt", data: "Zml4dHVyZQ==", media_type: "text/plain"})}
 end

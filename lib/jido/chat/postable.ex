@@ -9,7 +9,7 @@ defmodule Jido.Chat.Postable do
             __MODULE__,
             %{
               kind:
-                Zoi.enum([:raw, :markdown, :ast, :card, :text, :stream])
+                Zoi.enum([:markdown, :ast, :card, :text, :stream])
                 |> Zoi.default(:text),
               text: Zoi.string() |> Zoi.nullish(),
               markdown: Zoi.string() |> Zoi.nullish(),
@@ -75,9 +75,6 @@ defmodule Jido.Chat.Postable do
       })
     )
   end
-
-  @doc "Builds a raw payload wrapper."
-  def raw(value, opts \\ []), do: new(Map.merge(normalize_opts(opts), %{kind: :raw, raw: value}))
 
   @doc "Builds an AST payload wrapper."
   def ast(value, opts \\ []), do: new(Map.merge(normalize_opts(opts), %{kind: :ast, ast: value}))

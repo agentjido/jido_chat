@@ -3,7 +3,7 @@ defmodule Jido.Chat.Message do
   Chat SDK-style normalized message model.
   """
 
-  alias Jido.Chat.{Author, Incoming, Media, ReplyContext}
+  alias Jido.Chat.{Author, Media, ReplyContext}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -44,36 +44,6 @@ defmodule Jido.Chat.Message do
     |> normalize_reply_context()
     |> normalize_attachments()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
-  end
-
-  @doc "Creates a normalized message from canonical incoming payload."
-  @spec from_incoming(Incoming.t(), keyword()) :: t()
-  def from_incoming(%Incoming{} = incoming, opts \\ []) do
-    thread_id =
-      opts[:thread_id] ||
-        build_thread_id(
-          opts[:adapter_name],
-          incoming.external_room_id,
-          incoming.external_thread_id
-        )
-
-    new(%{
-      id: stringify(incoming.external_message_id) || Jido.Chat.ID.generate!(),
-      thread_id: thread_id,
-      channel_id: stringify(incoming.external_room_id),
-      text: incoming.text,
-      formatted: incoming.text,
-      raw: incoming.raw,
-      author: incoming.author,
-      metadata: Map.merge(incoming.metadata || %{}, %{channel_meta: incoming.channel_meta}),
-      attachments: incoming.media,
-      is_mention: incoming.was_mentioned,
-      created_at: incoming.timestamp,
-      external_message_id: stringify(incoming.external_message_id),
-      external_room_id: incoming.external_room_id,
-      external_reply_to_id: incoming.external_reply_to_id,
-      reply_context: incoming.reply_context
-    })
   end
 
   @doc "Serializes the message into a plain map with a revivable type marker."
@@ -168,17 +138,6 @@ defmodule Jido.Chat.Message do
     |> Map.delete("attachments")
     |> Map.put(:attachments, normalized)
   end
-
-  defp build_thread_id(nil, nil, nil), do: nil
-  defp build_thread_id(nil, room_id, nil), do: stringify(room_id)
-
-  defp build_thread_id(nil, room_id, thread_id),
-    do: "#{stringify(room_id)}:#{stringify(thread_id)}"
-
-  defp build_thread_id(adapter_name, room_id, nil), do: "#{adapter_name}:#{room_id}"
-
-  defp build_thread_id(adapter_name, room_id, thread_id),
-    do: "#{adapter_name}:#{room_id}:#{thread_id}"
 
   defp stringify(nil), do: nil
   defp stringify(value) when is_binary(value), do: value

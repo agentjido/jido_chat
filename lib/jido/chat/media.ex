@@ -1,6 +1,6 @@
 defmodule Jido.Chat.Media do
   @moduledoc """
-  Normalized media entry used in `Jido.Chat.Incoming`.
+  Normalized media entry for retained domain records and input builders.
 
   Explicit provider MIME values are normalized with `Jido.Chat.MediaType`.
   Filename and URL hints can recover `kind`, but they do not add an exact

@@ -10,7 +10,7 @@ defmodule Jido.Chat.PostPayload do
             __MODULE__,
             %{
               kind:
-                Zoi.enum([:text, :markdown, :raw, :ast, :card, :stream])
+                Zoi.enum([:text, :markdown, :ast, :card, :stream])
                 |> Zoi.default(:text),
               text: Zoi.string() |> Zoi.nullish(),
               markdown: Zoi.string() |> Zoi.nullish(),
@@ -141,17 +141,6 @@ defmodule Jido.Chat.PostPayload do
     |> Map.put(:formatted, formatted)
   end
 
-  defp normalize_content(%{kind: :raw} = attrs) do
-    raw = attrs[:raw] || attrs["raw"]
-    text = attrs[:text] || attrs["text"] || to_text_value(raw)
-    formatted = attrs[:formatted] || attrs["formatted"] || text
-
-    attrs
-    |> Map.put(:raw, raw)
-    |> Map.put(:text, text)
-    |> Map.put(:formatted, formatted)
-  end
-
   defp normalize_content(%{kind: :ast} = attrs) do
     ast = attrs[:ast] || attrs["ast"] || attrs[:raw] || attrs["raw"]
     raw = attrs[:raw] || attrs["raw"] || ast
@@ -202,6 +191,8 @@ defmodule Jido.Chat.PostPayload do
     |> Map.put(:text, attrs[:text] || attrs["text"])
     |> Map.put(:formatted, formatted)
   end
+
+  defp normalize_content(attrs), do: attrs
 
   defp normalize_metadata(attrs) do
     metadata = attrs[:metadata] || attrs["metadata"] || %{}
@@ -261,7 +252,7 @@ defmodule Jido.Chat.PostPayload do
   end
 
   defp normalize_kind_value(kind)
-       when kind in [:text, :markdown, :raw, :ast, :card, :stream],
+       when kind in [:text, :markdown, :ast, :card, :stream],
        do: kind
 
   defp normalize_kind_value(kind) when is_binary(kind) do

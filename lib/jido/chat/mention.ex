@@ -1,6 +1,6 @@
 defmodule Jido.Chat.Mention do
   @moduledoc """
-  Normalized mention entry used in `Jido.Chat.Incoming`.
+  Normalized mention entry for retained domain records and input builders.
   """
 
   @schema Zoi.struct(

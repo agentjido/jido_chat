@@ -1,6 +1,6 @@
 defmodule Jido.Chat.ChannelMeta do
   @moduledoc """
-  Normalized channel-level metadata for `Jido.Chat.Incoming`.
+  Normalized channel-level metadata for retained domain records and input builders.
   """
 
   @schema Zoi.struct(

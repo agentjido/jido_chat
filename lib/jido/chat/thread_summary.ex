@@ -3,7 +3,7 @@ defmodule Jido.Chat.ThreadSummary do
   Lightweight thread descriptor for channel-level thread listing.
   """
 
-  alias Jido.Chat.{Incoming, Message}
+  alias Jido.Chat.Message
 
   @schema Zoi.struct(
             __MODULE__,
@@ -37,19 +37,11 @@ defmodule Jido.Chat.ThreadSummary do
       %Message{} ->
         attrs
 
-      %Incoming{} = incoming ->
-        Map.put(attrs, :root_message, Message.from_incoming(incoming))
-
       nil ->
         attrs
 
       map when is_map(map) ->
-        if Map.has_key?(map, :external_room_id) || Map.has_key?(map, "external_room_id") do
-          message = map |> Incoming.new() |> Message.from_incoming()
-          Map.put(attrs, :root_message, message)
-        else
-          Map.put(attrs, :root_message, Message.new(map))
-        end
+        Map.put(attrs, :root_message, Message.new(map))
 
       _other ->
         attrs

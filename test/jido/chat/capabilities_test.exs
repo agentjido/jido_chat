@@ -65,7 +65,13 @@ defmodule Jido.Chat.CapabilitiesTest do
       def channel_type, do: :test
 
       @impl true
-      def transform_incoming(_), do: {:error, :not_implemented}
+      def signal_protocol, do: 1
+
+      @impl true
+      def configure_binding(opts), do: {:ok, opts}
+
+      @impl true
+      def normalize_event(_binding, _request), do: {:error, :not_implemented}
 
       @impl true
       def send_message(_, _, _), do: {:error, :not_implemented}
@@ -73,10 +79,7 @@ defmodule Jido.Chat.CapabilitiesTest do
 
     assert Capabilities.channel_capabilities(AdapterWithoutCapabilities) == [
              :text,
-             :streaming,
-             :card_charts,
-             :card_tables,
-             :link_action_ids
+             :streaming
            ]
   end
 
@@ -89,6 +92,18 @@ defmodule Jido.Chat.CapabilitiesTest do
 
       @impl true
       def post_message(_, _, _), do: {:error, :not_implemented}
+
+      @impl true
+      def open_thread(_, _, _), do: {:error, :not_implemented}
+
+      @impl true
+      def list_threads(_, _), do: {:error, :not_implemented}
+
+      @impl true
+      def add_reaction(_, _, _, _), do: {:error, :not_implemented}
+
+      @impl true
+      def remove_reaction(_, _, _, _), do: {:error, :not_implemented}
 
       @impl true
       def capabilities do
@@ -114,7 +129,13 @@ defmodule Jido.Chat.CapabilitiesTest do
       end
 
       @impl true
-      def transform_incoming(_), do: {:error, :not_implemented}
+      def signal_protocol, do: 1
+
+      @impl true
+      def configure_binding(opts), do: {:ok, opts}
+
+      @impl true
+      def normalize_event(_binding, _request), do: {:error, :not_implemented}
 
       @impl true
       def send_message(_, _, _), do: {:error, :not_implemented}
@@ -154,7 +175,13 @@ defmodule Jido.Chat.CapabilitiesTest do
       def capabilities, do: [:text, :image, :threads]
 
       @impl true
-      def transform_incoming(_), do: {:error, :not_implemented}
+      def signal_protocol, do: 1
+
+      @impl true
+      def configure_binding(opts), do: {:ok, opts}
+
+      @impl true
+      def normalize_event(_binding, _request), do: {:error, :not_implemented}
 
       @impl true
       def send_message(_, _, _), do: {:error, :not_implemented}

@@ -1,628 +1,293 @@
 defmodule Jido.Chat.StructsTest do
   use ExUnit.Case, async: true
-
   alias Jido.Chat
 
   alias Jido.Chat.{
-    ActionEvent,
     Attachment,
-    AssistantContextChangedEvent,
-    AssistantThreadStartedEvent,
-    CapabilityMatrix,
-    ChannelInfo,
-    ChannelMeta,
-    EphemeralMessage,
-    EventEnvelope,
     FileUpload,
-    FetchOptions,
-    Incoming,
     Card,
     Media,
     Markdown,
-    Mention,
     Message,
-    MessagePage,
-    Modal,
-    ModalResult,
-    ModalResponse,
-    ModalCloseEvent,
-    ModalSubmitEvent,
     Participant,
     PostPayload,
     Postable,
-    ReactionEvent,
-    Response,
     Room,
-    SentMessage,
-    SlashCommandEvent,
-    StreamChunk,
-    ThreadPage,
-    ThreadSummary,
-    WebhookRequest,
-    WebhookResponse
+    StreamChunk
   }
 
   alias Jido.Chat.Content.{Audio, File, Image, Text, ToolResult, ToolUse, Video}
 
-  describe "core structs" do
-    test "Message.new/1 creates normalized message with defaults" do
-      message =
-        Message.new(%{external_room_id: "room_1", text: "hello", external_message_id: "m1"})
+  test "Message.new/1 creates normalized message with defaults" do
+    message = Message.new(%{external_room_id: "room_1", text: "hello", external_message_id: "m1"})
+    assert message.id == "m1"
+    assert message.channel_id == "room_1"
+    assert message.external_room_id == "room_1"
+    assert message.thread_id == nil
+    assert message.text == "hello"
+    assert message.formatted == "hello"
+    assert message.attachments == []
+    assert message.is_mention == false
+  end
 
-      assert message.id == "m1"
-      assert message.channel_id == "room_1"
-      assert message.external_room_id == "room_1"
-      assert message.thread_id == nil
-      assert message.text == "hello"
-      assert message.formatted == "hello"
-      assert message.attachments == []
-      assert message.is_mention == false
-    end
+  test "reply transport ID and context do not synthesize each other" do
+    assert %{external_reply_to_id: "parent", reply_context: nil} =
+             Message.new(%{id: "m1", external_reply_to_id: "parent"})
 
-    test "Message.from_incoming/2 preserves independent reply identity and context" do
-      incoming =
-        Incoming.new(%{
-          external_room_id: "room_1",
-          external_message_id: "transport-message",
-          external_reply_to_id: "transport-parent",
-          reply_context: %{
-            "id" => "context-parent",
-            "external_message_id" => "quoted-message",
-            "text" => "quoted text",
-            "author" => %{
-              "user_id" => "quoted-user",
-              "user_name" => "quoted-user-name",
-              "id" => "stable-quoted-user"
-            },
-            "nested_reply" => %{id: "must-be-discarded"}
-          }
-        })
+    assert %{external_reply_to_id: nil, reply_context: %Chat.ReplyContext{id: "quoted"}} =
+             Message.new(%{id: "m1", reply_context: %{id: "quoted"}})
+  end
 
-      message = Message.from_incoming(incoming)
+  test "Room.new/1 creates room with defaults" do
+    room = Room.new(%{type: :direct})
+    assert String.starts_with?(room.id, "jch_")
+    assert room.type == :direct
+    assert room.external_bindings == %{}
+    assert %DateTime{} = room.inserted_at
+  end
 
-      assert message.external_reply_to_id == "transport-parent"
-      assert message.reply_context.id == "context-parent"
-      assert message.reply_context.external_message_id == "quoted-message"
-      assert message.reply_context.text == "quoted text"
-      assert message.reply_context.author.user_id == "quoted-user"
-      refute Map.has_key?(Map.from_struct(message.reply_context), :nested_reply)
-    end
+  test "Participant.new/1 creates participant with defaults" do
+    participant = Participant.new(%{type: :human})
+    assert String.starts_with?(participant.id, "jch_")
+    assert participant.presence == :offline
+    assert participant.capabilities == [:text]
+  end
 
-    test "Incoming and Message normalize atom and string reply-context maps" do
-      atom_context = %{id: "atom-id", text: "atom text"}
-      string_context = %{"id" => "string-id", "text" => "string text"}
+  test "Author.new/1 preserves stable identity, email, and system state" do
+    author =
+      Chat.Author.new(%{
+        user_id: "provider-1",
+        user_name: "casey",
+        id: "stable-1",
+        email: "casey@example.com",
+        is_system: true
+      })
 
-      assert %Chat.ReplyContext{id: "atom-id"} =
-               Incoming.new(%{external_room_id: "room", reply_context: atom_context}).reply_context
+    assert author.id == "stable-1"
+    assert author.user_id == "provider-1"
+    assert author.email == "casey@example.com"
+    refute author.is_bot
+    assert author.is_system
+  end
 
-      assert %Chat.ReplyContext{id: "string-id"} =
-               Incoming.new(%{"external_room_id" => "room", "reply_context" => string_context}).reply_context
+  test "legacy human Author.new/1 keeps enriched fields unset and defaults false" do
+    author = Chat.Author.new(%{user_id: "human-1", user_name: "casey"})
+    assert author.id == nil
+    assert author.email == nil
+    refute author.is_bot
+    refute author.is_system
+  end
 
-      assert %Chat.ReplyContext{id: "atom-id"} =
-               Message.new(%{id: "m1", reply_context: atom_context}).reply_context
+  test "Message.new/1 normalizes content attachments into media structs" do
+    message =
+      Message.new(%{
+        external_room_id: "room_1",
+        external_message_id: "m1",
+        attachments: [
+          Video.new("https://example.com/video.mp4", media_type: "video/mp4", duration: 8),
+          File.new("https://example.com/doc.pdf", "doc.pdf", media_type: "application/pdf")
+        ]
+      })
 
-      assert %Chat.ReplyContext{id: "string-id"} =
-               Message.new(%{"id" => "m1", "reply_context" => string_context}).reply_context
-    end
+    assert [
+             %Media{kind: :video, media_type: "video/mp4", duration: 8},
+             %Media{kind: :file, filename: "doc.pdf", media_type: "application/pdf"}
+           ] = message.attachments
+  end
 
-    test "reply transport ID and context do not synthesize each other" do
-      assert %{external_reply_to_id: "parent", reply_context: nil} =
-               Message.new(%{id: "m1", external_reply_to_id: "parent"})
+  test "markdown helpers provide stringify, plain text, walk, and table fallbacks" do
+    markdown =
+      Markdown.root([
+        Markdown.heading(2, "Overview"),
+        Markdown.paragraph([
+          Markdown.text("hello "),
+          Markdown.strong("world"),
+          Markdown.text(" from "),
+          Markdown.link("jido", "https://example.com")
+        ]),
+        Markdown.table([["Name", "Role"], ["Ada", "admin"], ["Bea", "editor"]])
+      ])
 
-      assert %{external_reply_to_id: nil, reply_context: %Chat.ReplyContext{id: "quoted"}} =
-               Message.new(%{id: "m1", reply_context: %{id: "quoted"}})
-    end
+    walked =
+      Markdown.walk(markdown, fn
+        %Jido.Chat.Markdown.Node{type: :text, text: "world"} = node -> %{node | text: "team"}
+        node -> node
+      end)
 
-    test "Room.new/1 creates room with defaults" do
-      room = Room.new(%{type: :direct})
+    assert Markdown.stringify(markdown) =~ "## Overview"
+    assert Markdown.plain_text(walked) =~ "hello team from jido"
+    assert Markdown.table_to_ascii(markdown) =~ "Name"
+    assert Markdown.parse("## Parsed\n\nhello").root.type == :root
+  end
 
-      assert String.starts_with?(room.id, "jch_")
-      assert room.type == :direct
-      assert room.external_bindings == %{}
-      assert %DateTime{} = room.inserted_at
-    end
+  test "typed markdown and card payloads preserve canonical rich content" do
+    markdown =
+      Markdown.root([Markdown.heading(2, "Status"), Markdown.paragraph("Everything is green.")])
 
-    test "Participant.new/1 creates participant with defaults" do
-      participant = Participant.new(%{type: :human})
+    ast_payload = Postable.ast(markdown) |> Postable.to_payload()
+    assert %Markdown{} = ast_payload.ast
+    assert ast_payload.text == "Status\n\nEverything is green."
+    assert ast_payload.formatted =~ "## Status"
 
-      assert String.starts_with?(participant.id, "jch_")
-      assert participant.presence == :offline
-      assert participant.capabilities == [:text]
-    end
-
-    test "Incoming.new/1 normalizes mentions and media to named structs" do
-      incoming =
-        Incoming.new(%{
-          external_room_id: "room_1",
-          mentions: [%{user_id: "u1", username: "jane"}],
-          media: [
-            %{type: :image, url: "telegram://file/abc"},
-            Image.new("https://example.com/photo.jpg",
-              media_type: "image/jpeg",
-              alt_text: "photo"
-            )
-          ],
-          channel_meta: %{adapter_name: :telegram, external_room_id: "room_1"}
-        })
-
-      assert [%Mention{user_id: "u1", username: "jane"}] = incoming.mentions
-
-      assert [
-               %Media{kind: :image, url: "telegram://file/abc"},
-               %Media{
-                 kind: :image,
-                 url: "https://example.com/photo.jpg",
-                 media_type: "image/jpeg",
-                 metadata: %{alt_text: "photo"}
-               }
-             ] = incoming.media
-
-      assert %ChannelMeta{adapter_name: :telegram, external_room_id: "room_1"} =
-               incoming.channel_meta
-    end
-
-    test "Author.new/1 preserves stable identity, email, and system state" do
-      author =
-        Chat.Author.new(%{
-          user_id: "provider-1",
-          user_name: "casey",
-          id: "stable-1",
-          email: "casey@example.com",
-          is_system: true
-        })
-
-      assert author.id == "stable-1"
-      assert author.user_id == "provider-1"
-      assert author.email == "casey@example.com"
-      refute author.is_bot
-      assert author.is_system
-    end
-
-    test "legacy human Author.new/1 keeps enriched fields unset and defaults false" do
-      author = Chat.Author.new(%{user_id: "human-1", user_name: "casey"})
-
-      assert author.id == nil
-      assert author.email == nil
-      refute author.is_bot
-      refute author.is_system
-    end
-
-    test "Incoming.new/1 preserves enriched string-key author maps" do
-      incoming =
-        Incoming.new(%{
-          "external_room_id" => "room-1",
-          "external_user_id" => "provider-external",
-          "author" => %{
-            "user_id" => "provider-author",
-            "user_name" => "bot",
-            "id" => "stable-bot",
-            "email" => "bot@example.com",
-            "is_bot" => true,
-            "is_system" => true,
-            "metadata" => %{"source" => "test"}
-          }
-        })
-
-      assert incoming.author.user_id == "provider-author"
-      assert incoming.author.id == "stable-bot"
-      assert incoming.author.email == "bot@example.com"
-      assert incoming.author.is_bot
-      assert incoming.author.is_system
-      assert incoming.author.metadata == %{"source" => "test"}
-    end
-
-    test "new typed structs normalize canonical bot-loop payloads" do
-      fetch_options = FetchOptions.new(limit: 25, direction: :forward, cursor: "abc")
-      assert fetch_options.limit == 25
-      assert fetch_options.direction == :forward
-      assert fetch_options.cursor == "abc"
-
-      channel_info = ChannelInfo.new(%{id: "chan_1", name: "general", is_dm: false})
-      assert channel_info.name == "general"
-
-      message_page =
-        MessagePage.new(%{
-          messages: [%{external_room_id: "room_1", external_message_id: "m1", text: "hello"}],
-          next_cursor: "next"
-        })
-
-      assert [%Message{external_message_id: "m1"}] = message_page.messages
-
-      thread_summary =
-        ThreadSummary.new(%{
-          id: "thread_1",
-          reply_count: 2,
-          root_message: %{external_room_id: "room_1", external_message_id: "root", text: "root"}
-        })
-
-      assert %Message{external_message_id: "root"} = thread_summary.root_message
-
-      thread_page = ThreadPage.new(%{threads: [thread_summary], next_cursor: nil})
-      assert [^thread_summary] = thread_page.threads
-
-      sent =
-        SentMessage.new(%{
-          id: "msg_1",
-          thread_id: "test:room_1",
-          adapter: __MODULE__,
-          external_room_id: "room_1",
-          response: Response.new(%{external_message_id: "msg_1", external_room_id: "room_1"})
-        })
-
-      assert sent.id == "msg_1"
-
-      ephemeral =
-        EphemeralMessage.new(%{id: "ep_1", thread_id: "test:room_1", used_fallback: true})
-
-      assert ephemeral.used_fallback
-
-      modal = ModalResult.new(%{id: "modal_1", status: :opened, external_room_id: "room_1"})
-      assert modal.status == :opened
-
-      payload = PostPayload.text("hello")
-      assert payload.kind == :text
-      assert payload.formatted == "hello"
-    end
-
-    test "Message.new/1 normalizes content attachments into media structs" do
-      message =
-        Message.new(%{
-          external_room_id: "room_1",
-          external_message_id: "m1",
-          attachments: [
-            Video.new("https://example.com/video.mp4", media_type: "video/mp4", duration: 8),
-            File.new("https://example.com/doc.pdf", "doc.pdf", media_type: "application/pdf")
-          ]
-        })
-
-      assert [
-               %Media{kind: :video, media_type: "video/mp4", duration: 8},
-               %Media{kind: :file, filename: "doc.pdf", media_type: "application/pdf"}
-             ] = message.attachments
-    end
-
-    test "Postable.to_payload/1 preserves encoding intent by kind" do
-      text_payload = Postable.text("hello") |> Postable.to_payload()
-      assert text_payload.text == "hello"
-      assert text_payload.formatted == "hello"
-
-      markdown_payload = Postable.markdown("**hello**") |> Postable.to_payload()
-      assert markdown_payload.markdown == "**hello**"
-      assert markdown_payload.text == "**hello**"
-      assert markdown_payload.metadata.format == :markdown
-
-      raw_payload = Postable.raw(%{hello: "world"}) |> Postable.to_payload()
-      assert raw_payload.raw == %{hello: "world"}
-      assert is_binary(raw_payload.text)
-
-      ast_payload = Postable.ast(%{node: :p}) |> Postable.to_payload()
-      assert %Markdown{} = ast_payload.ast
-      assert ast_payload.raw == %{node: :p}
-      assert ast_payload.metadata.format == :ast
-
-      card_payload =
-        Postable.card(%{title: "Card"}, fallback_text: "fallback card") |> Postable.to_payload()
-
-      assert %Card{title: "Card"} = card_payload.card
-      assert %Card{title: "Card"} = card_payload.raw
-      assert card_payload.fallback_text == "fallback card"
-      assert card_payload.metadata.format == :card
-    end
-
-    test "markdown helpers provide stringify, plain text, walk, and table fallbacks" do
-      markdown =
-        Markdown.root([
-          Markdown.heading(2, "Overview"),
-          Markdown.paragraph([
-            Markdown.text("hello "),
-            Markdown.strong("world"),
-            Markdown.text(" from "),
-            Markdown.link("jido", "https://example.com")
+    card =
+      Card.new(%{
+        title: "Deployment",
+        summary: "Ready to ship",
+        components: [
+          Card.fields([Card.field("Version", "1.2.3"), Card.field("Region", "us-central")]),
+          Card.actions([
+            Card.button("Approve", "deploy:approve", value: "ship"),
+            Card.link_button("Logs", "https://example.com/logs")
           ]),
-          Markdown.table([
-            ["Name", "Role"],
-            ["Ada", "admin"],
-            ["Bea", "editor"]
-          ])
-        ])
+          Card.table(["Name", "State"], [["api", "ok"], ["worker", "ok"]])
+        ]
+      })
 
-      walked =
-        Markdown.walk(markdown, fn
-          %Jido.Chat.Markdown.Node{type: :text, text: "world"} = node ->
-            %{node | text: "team"}
-
-          node ->
-            node
-        end)
-
-      assert Markdown.stringify(markdown) =~ "## Overview"
-      assert Markdown.plain_text(walked) =~ "hello team from jido"
-      assert Markdown.table_to_ascii(markdown) =~ "Name"
-      assert Markdown.parse("## Parsed\n\nhello").root.type == :root
-    end
-
-    test "typed markdown and card payloads preserve canonical rich content" do
-      markdown =
-        Markdown.root([
-          Markdown.heading(2, "Status"),
-          Markdown.paragraph("Everything is green.")
-        ])
-
-      ast_payload = Postable.ast(markdown) |> Postable.to_payload()
-      assert %Markdown{} = ast_payload.ast
-      assert ast_payload.text == "Status\n\nEverything is green."
-      assert ast_payload.formatted =~ "## Status"
-
-      card =
-        Card.new(%{
-          title: "Deployment",
-          summary: "Ready to ship",
-          components: [
-            Card.fields([
-              Card.field("Version", "1.2.3"),
-              Card.field("Region", "us-central")
-            ]),
-            Card.actions([
-              Card.button("Approve", "deploy:approve", value: "ship"),
-              Card.link_button("Logs", "https://example.com/logs")
-            ]),
-            Card.table(["Name", "State"], [["api", "ok"], ["worker", "ok"]])
-          ]
-        })
-
-      card_payload = Postable.card(card) |> Postable.to_payload()
-
-      assert %Card{} = card_payload.card
-      assert card_payload.fallback_text =~ "Deployment"
-      assert card_payload.fallback_text =~ "Version: 1.2.3"
-      assert card_payload.text == card_payload.fallback_text
-    end
-
-    test "modal builders and modal responses normalize canonical lifecycle data" do
-      modal =
-        Modal.new(%{
-          title: "Feedback",
-          callback_id: "feedback",
-          notify_on_close: true,
-          private_metadata: "thread:test:1",
-          elements: [
-            Modal.text_input("summary", "Summary", required: true),
-            Modal.radio_select("sentiment", "Sentiment", [
-              Modal.select_option("Good", "good"),
-              Modal.select_option("Bad", "bad")
-            ])
-          ]
-        })
-
-      assert modal.callback_id == "feedback"
-      assert Enum.map(modal.elements, & &1.kind) == [:text_input, :radio_select]
-
-      assert %ModalResponse{action: :close} = ModalResponse.close()
-
-      assert %ModalResponse{action: :errors, errors: %{"summary" => "required"}} =
-               ModalResponse.errors(%{"summary" => "required"})
-
-      assert %ModalResponse{action: :update, modal: %Modal{title: "Feedback"}} =
-               ModalResponse.update(modal)
-    end
-
-    test "post payloads normalize outbound attachments into typed structs" do
-      payload =
-        Postable.new(%{
-          kind: :text,
-          text: "hello",
-          attachments: [
-            Image.new("https://example.com/photo.jpg",
-              media_type: "image/jpeg",
-              alt_text: "photo"
-            ),
-            %{path: "/tmp/report.pdf", media_type: "application/pdf"}
-          ]
-        })
-        |> Postable.to_payload()
-
-      assert [
-               %Attachment{
-                 kind: :image,
-                 url: "https://example.com/photo.jpg",
-                 media_type: "image/jpeg",
-                 metadata: %{alt_text: "photo"}
-               },
-               %Attachment{
-                 kind: :file,
-                 path: "/tmp/report.pdf",
-                 filename: "report.pdf",
-                 media_type: "application/pdf"
-               }
-             ] = payload.attachments
-    end
-
-    test "post payloads normalize outbound files into typed structs" do
-      payload =
-        Postable.new(%{
-          markdown: "**hello**",
-          files: [
-            "/tmp/report.pdf",
-            %{url: "https://example.com/photo.jpg", media_type: "image/jpeg"}
-          ]
-        })
-        |> Postable.to_payload()
-
-      assert payload.kind == :markdown
-
-      assert [
-               %FileUpload{
-                 kind: :file,
-                 path: "/tmp/report.pdf",
-                 filename: "report.pdf"
-               },
-               %FileUpload{
-                 kind: :image,
-                 url: "https://example.com/photo.jpg",
-                 media_type: "image/jpeg"
-               }
-             ] = payload.files
-
-      assert [
-               %Attachment{filename: "report.pdf", kind: :file},
-               %Attachment{kind: :image, url: "https://example.com/photo.jpg"}
-             ] = PostPayload.outbound_attachments(payload)
-    end
-
-    test "stream postables preserve text chunks and normalize structured chunks" do
-      payload =
-        Postable.stream([
-          "hello",
-          %{kind: :status, text: "working", metadata: %{phase: 1}},
-          %{kind: :step_start, payload: %{label: "Draft response"}},
-          StreamChunk.text("done")
-        ])
-        |> Postable.to_payload()
-
-      assert payload.kind == :stream
-      assert payload.stream |> Enum.at(0) == "hello"
-      assert %StreamChunk{kind: :status, text: "working"} = Enum.at(payload.stream, 1)
-      assert %StreamChunk{kind: :step_start} = Enum.at(payload.stream, 2)
-      assert %StreamChunk{kind: :text, text: "done"} = Enum.at(payload.stream, 3)
-
-      assert payload.fallback_text ==
-               "hello\n> **Status:** working\n\n- [ ] Draft response\ndone"
-    end
-
-    test "event placeholder structs parse cleanly" do
-      assert %ReactionEvent{} = ReactionEvent.new(%{emoji: "👍", added: true})
-      assert %ActionEvent{} = ActionEvent.new(%{action_id: "approve"})
-      assert %ModalSubmitEvent{} = ModalSubmitEvent.new(%{callback_id: "form", values: %{a: "1"}})
-      assert %ModalCloseEvent{} = ModalCloseEvent.new(%{callback_id: "form"})
-      assert %SlashCommandEvent{} = SlashCommandEvent.new(%{command: "/help", text: "topic"})
-      assert %AssistantThreadStartedEvent{} = AssistantThreadStartedEvent.new(%{thread_id: "t1"})
-
-      assert %AssistantContextChangedEvent{} =
-               AssistantContextChangedEvent.new(%{thread_id: "t1", context: %{a: 1}})
-    end
-
-    test "webhook/event/capability structs parse cleanly" do
-      assert %CapabilityMatrix{} =
-               CapabilityMatrix.new(%{
-                 adapter_name: :telegram,
-                 capabilities: %{send_message: :native, fetch_messages: :unsupported}
-               })
-
-      assert %WebhookRequest{} =
-               WebhookRequest.new(%{
-                 adapter_name: :telegram,
-                 headers: %{"X-Test" => "1"},
-                 payload: %{"message" => %{}}
-               })
-
-      assert %WebhookResponse{} = WebhookResponse.new(%{status: 200, body: %{ok: true}})
-
-      assert %EventEnvelope{} =
-               EventEnvelope.new(%{
-                 adapter_name: :telegram,
-                 event_type: :message,
-                 payload: Incoming.new(%{external_room_id: "r1"})
-               })
-    end
-
-    test "schema constructor errors raise Splode validation errors" do
-      assert_raise Jido.Chat.Errors.Validation, fn ->
-        Participant.new(%{})
-      end
-    end
+    card_payload = Postable.card(card) |> Postable.to_payload()
+    assert %Card{} = card_payload.card
+    assert card_payload.fallback_text =~ "Deployment"
+    assert card_payload.fallback_text =~ "Version: 1.2.3"
+    assert card_payload.text == card_payload.fallback_text
   end
 
-  describe "content blocks" do
-    test "Text.new/1" do
-      text = Text.new("hello")
-      assert text.type == :text
-      assert text.text == "hello"
-    end
+  test "post payloads normalize outbound attachments into typed structs" do
+    payload =
+      Postable.new(%{
+        kind: :text,
+        text: "hello",
+        attachments: [
+          Image.new("https://example.com/photo.jpg", media_type: "image/jpeg", alt_text: "photo"),
+          %{path: "/tmp/report.pdf", media_type: "application/pdf"}
+        ]
+      })
+      |> Postable.to_payload()
 
-    test "Image.new/2 and from_base64/3" do
-      image =
-        Image.new("https://example.com/photo.jpg", media_type: "image/jpeg", alt_text: "photo")
-
-      inline = Image.from_base64("base64==", "image/png", alt_text: "inline")
-
-      assert image.url == "https://example.com/photo.jpg"
-      assert image.media_type == "image/jpeg"
-      assert inline.data == "base64=="
-      assert inline.media_type == "image/png"
-    end
-
-    test "Audio.new/2 and from_base64/3" do
-      audio = Audio.new("https://example.com/audio.mp3", duration: 12)
-      inline = Audio.from_base64("base64==", "audio/ogg", duration: 2)
-
-      assert audio.duration == 12
-      assert inline.media_type == "audio/ogg"
-    end
-
-    test "Video.new/2 and from_base64/3" do
-      video = Video.new("https://example.com/video.mp4", width: 640, height: 480)
-      inline = Video.from_base64("base64==", "video/mp4", duration: 8)
-
-      assert video.width == 640
-      assert video.height == 480
-      assert inline.duration == 8
-    end
-
-    test "File.new/3 and from_base64/4" do
-      file = File.new("https://example.com/doc.pdf", "doc.pdf", media_type: "application/pdf")
-      inline = File.from_base64("base64==", "a.txt", "text/plain", size: 7)
-
-      assert file.filename == "doc.pdf"
-      assert inline.size == 7
-    end
-
-    test "Media.normalize/1 preserves typed attachment details" do
-      image = Media.normalize(Image.from_base64("base64==", "image/png", alt_text: "inline"))
-      audio = Media.normalize(Audio.new("https://example.com/audio.mp3", duration: 12))
-      video = Media.normalize(%{type: :video, url: "https://example.com/video.mp4", duration: 8})
-      file = Media.normalize("/tmp/report.pdf")
-
-      assert image.kind == :image
-      assert image.media_type == "image/png"
-      assert image.metadata.alt_text == "inline"
-
-      assert audio.kind == :audio
-      assert audio.duration == 12
-
-      assert video.kind == :video
-      assert video.duration == 8
-
-      assert file.kind == :file
-      assert file.filename == "report.pdf"
-      assert file.metadata.path == "/tmp/report.pdf"
-    end
-
-    test "ToolUse.new/3 and ToolResult.new/3" do
-      tool_use = ToolUse.new("call_1", "search", %{q: "elixir"})
-      result = ToolResult.new("call_1", %{hits: 3})
-
-      assert tool_use.type == :tool_use
-      assert tool_use.name == "search"
-      assert result.type == :tool_result
-      assert result.is_error == false
-    end
+    assert [
+             %Attachment{
+               kind: :image,
+               url: "https://example.com/photo.jpg",
+               media_type: "image/jpeg",
+               metadata: %{alt_text: "photo"}
+             },
+             %Attachment{
+               kind: :file,
+               path: "/tmp/report.pdf",
+               filename: "report.pdf",
+               media_type: "application/pdf"
+             }
+           ] = payload.attachments
   end
 
-  describe "event registration placeholders" do
-    test "chat exposes registration functions for future event ingest" do
-      chat =
-        Chat.new()
-        |> Chat.on_reaction(fn _event -> :ok end)
-        |> Chat.on_action(fn _event -> :ok end)
-        |> Chat.on_modal_submit(fn _event -> :ok end)
-        |> Chat.on_modal_close(fn _event -> :ok end)
-        |> Chat.on_slash_command(fn _event -> :ok end)
+  test "post payloads normalize outbound files into typed structs" do
+    payload =
+      Postable.new(%{
+        markdown: "**hello**",
+        files: [
+          "/tmp/report.pdf",
+          %{url: "https://example.com/photo.jpg", media_type: "image/jpeg"}
+        ]
+      })
+      |> Postable.to_payload()
 
-      assert length(chat.handlers.reaction) == 1
-      assert length(chat.handlers.action) == 1
-      assert length(chat.handlers.modal_submit) == 1
-      assert length(chat.handlers.modal_close) == 1
-      assert length(chat.handlers.slash_command) == 1
-    end
+    assert payload.kind == :markdown
+
+    assert [
+             %FileUpload{kind: :file, path: "/tmp/report.pdf", filename: "report.pdf"},
+             %FileUpload{
+               kind: :image,
+               url: "https://example.com/photo.jpg",
+               media_type: "image/jpeg"
+             }
+           ] = payload.files
+
+    assert [
+             %Attachment{filename: "report.pdf", kind: :file},
+             %Attachment{kind: :image, url: "https://example.com/photo.jpg"}
+           ] = PostPayload.outbound_attachments(payload)
+  end
+
+  test "stream postables preserve text chunks and normalize structured chunks" do
+    payload =
+      Postable.stream([
+        "hello",
+        %{kind: :status, text: "working", metadata: %{phase: 1}},
+        %{kind: :step_start, payload: %{label: "Draft response"}},
+        StreamChunk.text("done")
+      ])
+      |> Postable.to_payload()
+
+    assert payload.kind == :stream
+    assert payload.stream |> Enum.at(0) == "hello"
+    assert %StreamChunk{kind: :status, text: "working"} = Enum.at(payload.stream, 1)
+    assert %StreamChunk{kind: :step_start} = Enum.at(payload.stream, 2)
+    assert %StreamChunk{kind: :text, text: "done"} = Enum.at(payload.stream, 3)
+    assert payload.fallback_text == "hello\n> **Status:** working\n\n- [ ] Draft response\ndone"
+  end
+
+  test "schema constructor errors raise Splode validation errors" do
+    assert_raise Jido.Chat.Errors.Validation, fn -> Participant.new(%{}) end
+  end
+
+  test "Text.new/1" do
+    text = Text.new("hello")
+    assert text.type == :text
+    assert text.text == "hello"
+  end
+
+  test "Image.new/2 and from_base64/3" do
+    image = Image.new("https://example.com/photo.jpg", media_type: "image/jpeg", alt_text: "photo")
+    inline = Image.from_base64("base64==", "image/png", alt_text: "inline")
+    assert image.url == "https://example.com/photo.jpg"
+    assert image.media_type == "image/jpeg"
+    assert inline.data == "base64=="
+    assert inline.media_type == "image/png"
+  end
+
+  test "Audio.new/2 and from_base64/3" do
+    audio = Audio.new("https://example.com/audio.mp3", duration: 12)
+    inline = Audio.from_base64("base64==", "audio/ogg", duration: 2)
+    assert audio.duration == 12
+    assert inline.media_type == "audio/ogg"
+  end
+
+  test "Video.new/2 and from_base64/3" do
+    video = Video.new("https://example.com/video.mp4", width: 640, height: 480)
+    inline = Video.from_base64("base64==", "video/mp4", duration: 8)
+    assert video.width == 640
+    assert video.height == 480
+    assert inline.duration == 8
+  end
+
+  test "File.new/3 and from_base64/4" do
+    file = File.new("https://example.com/doc.pdf", "doc.pdf", media_type: "application/pdf")
+    inline = File.from_base64("base64==", "a.txt", "text/plain", size: 7)
+    assert file.filename == "doc.pdf"
+    assert inline.size == 7
+  end
+
+  test "Media.normalize/1 preserves typed attachment details" do
+    image = Media.normalize(Image.from_base64("base64==", "image/png", alt_text: "inline"))
+    audio = Media.normalize(Audio.new("https://example.com/audio.mp3", duration: 12))
+    video = Media.normalize(%{type: :video, url: "https://example.com/video.mp4", duration: 8})
+    file = Media.normalize("/tmp/report.pdf")
+    assert image.kind == :image
+    assert image.media_type == "image/png"
+    assert image.metadata.alt_text == "inline"
+    assert audio.kind == :audio
+    assert audio.duration == 12
+    assert video.kind == :video
+    assert video.duration == 8
+    assert file.kind == :file
+    assert file.filename == "report.pdf"
+    assert file.metadata.path == "/tmp/report.pdf"
+  end
+
+  test "ToolUse.new/3 and ToolResult.new/3" do
+    tool_use = ToolUse.new("call_1", "search", %{q: "elixir"})
+    result = ToolResult.new("call_1", %{hits: 3})
+    assert tool_use.type == :tool_use
+    assert tool_use.name == "search"
+    assert result.type == :tool_result
+    assert result.is_error == false
   end
 end
