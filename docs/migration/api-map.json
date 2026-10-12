@@ -12079,28 +12079,30 @@
     {
       "arity": 1,
       "base_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
-      "classification": "request-result",
+      "classification": "retained-domain-value",
       "function": "create_room",
       "generated_template": true,
       "kind": "def",
       "module": "Jido.Messaging",
       "package": "jido_messaging",
-      "replacement": "Jido.Messaging.Signal.CreateRoom.new/2 -> Jido.Messaging.execute/3",
+      "replacement": "Jido.Messaging.create_room/1",
       "source": "lib/jido_messaging.ex",
-      "reason": "The public communication command returns a registered runtime result; record and authorization ownership stays in Messaging."
+      "reason": "The low-level helper constructs and stores a Room record without emitting a Signal or calling a provider. Typed authorized room creation uses Signal.CreateRoom and execute/3.",
+      "implementation_state": "retained-record-helper"
     },
     {
       "arity": 2,
       "base_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
-      "classification": "request-result",
+      "classification": "retained-domain-value",
       "function": "create_room",
       "generated_template": false,
       "kind": "def",
       "module": "Jido.Messaging",
       "package": "jido_messaging",
-      "replacement": "Jido.Messaging.Signal.CreateRoom.new/2 -> Jido.Messaging.execute/3",
+      "replacement": "Jido.Messaging.create_room/2",
       "source": "lib/jido_messaging.ex",
-      "reason": "The public communication command returns a registered runtime result; record and authorization ownership stays in Messaging."
+      "reason": "The low-level helper constructs and stores a Room record without emitting a Signal or calling a provider. Typed authorized room creation uses Signal.CreateRoom and execute/3.",
+      "implementation_state": "retained-record-helper"
     },
     {
       "arity": 4,
@@ -45440,6 +45442,34 @@
       "reason": "Generated trusted transport callback; normalize in the adapter layer before the public sink.",
       "source": "generated from inspected use/behaviour",
       "base_sha": "3a230ef9cb9fcc7ff031acb8e85bcbd1d6ed9630"
+    },
+    {
+      "arity": 4,
+      "base_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "classification": "retained-domain-value",
+      "function": "get_message_by_external_id",
+      "generated_template": true,
+      "kind": "def",
+      "module": "Jido.Messaging",
+      "package": "jido_messaging",
+      "replacement": "Jido.Messaging.get_message_by_external_id/4",
+      "source": "lib/jido_messaging.ex",
+      "reason": "The room-scoped canonical record lookup separates provider IDs that repeat across rooms. It is a storage helper, not a communication envelope.",
+      "implementation_state": "added-record-helper"
+    },
+    {
+      "arity": 5,
+      "base_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "classification": "retained-domain-value",
+      "function": "get_message_by_external_id",
+      "generated_template": false,
+      "kind": "def",
+      "module": "Jido.Messaging",
+      "package": "jido_messaging",
+      "replacement": "Jido.Messaging.get_message_by_external_id/5",
+      "source": "lib/jido_messaging.ex",
+      "reason": "The room-scoped canonical record lookup separates provider IDs that repeat across rooms. It is a storage helper, not a communication envelope.",
+      "implementation_state": "added-record-helper"
     }
   ],
   "inventory_rule": "Source exports and quoted macro templates at each verified base. Audit generated runtime exports before G1 passes.",
