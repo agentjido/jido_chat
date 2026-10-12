@@ -4,10 +4,11 @@ defmodule Jido.Chat.Resources do
   alias Jido.Chat.Binding
   alias Jido.Chat.Signal.Policy
   @kinds ~w(file media stream card modal result)
+  @type owner :: Binding.t() | %{required(:id) => String.t(), required(:resources) => :ets.table()}
 
   @doc false
-  @spec put(Binding.t(), String.t(), term(), keyword()) :: {:ok, map()} | {:error, Jido.Chat.Errors.Contract.t()}
-  def put(%Binding{} = binding, kind, value, opts) when is_list(opts) do
+  @spec put(owner(), String.t(), term(), keyword()) :: {:ok, map()} | {:error, Jido.Chat.Errors.Contract.t()}
+  def put(%{id: id, resources: _table} = binding, kind, value, opts) when is_binary(id) and is_list(opts) do
     if kind in @kinds and Keyword.keyword?(opts) do
       id = Jido.Chat.ID.generate!()
       ttl = Keyword.get(opts, :ttl_ms, 60_000)
@@ -32,7 +33,7 @@ defmodule Jido.Chat.Resources do
   def put(_binding, _kind, _value, _opts), do: Policy.error(:invalid_resource)
 
   @doc false
-  @spec resolve(Binding.t(), map()) :: {:ok, term()} | {:error, Jido.Chat.Errors.Contract.t()}
+  @spec resolve(owner(), map()) :: {:ok, term()} | {:error, Jido.Chat.Errors.Contract.t()}
   def resolve(binding, ref) do
     with {:ok, {_key, _owner, _kind, value, _expiry, :active}} <- entry(binding, ref) do
       {:ok, value}
@@ -40,7 +41,7 @@ defmodule Jido.Chat.Resources do
   end
 
   @doc false
-  @spec cancel(Binding.t(), map()) :: :ok | {:error, Jido.Chat.Errors.Contract.t()}
+  @spec cancel(owner(), map()) :: :ok | {:error, Jido.Chat.Errors.Contract.t()}
   def cancel(binding, ref) do
     with {:ok, {key, owner, kind, _value, expiry, :active}} <- entry(binding, ref) do
       :ets.insert(binding.resources, {key, owner, kind, nil, expiry, :cancelled})
@@ -49,7 +50,7 @@ defmodule Jido.Chat.Resources do
   end
 
   @doc false
-  @spec fail(Binding.t(), map()) :: :ok | {:error, Jido.Chat.Errors.Contract.t()}
+  @spec fail(owner(), map()) :: :ok | {:error, Jido.Chat.Errors.Contract.t()}
   def fail(binding, ref) do
     with {:ok, {key, owner, kind, _value, expiry, :active}} <- entry(binding, ref) do
       :ets.insert(binding.resources, {key, owner, kind, nil, expiry, :failed})
@@ -58,16 +59,21 @@ defmodule Jido.Chat.Resources do
   end
 
   @doc false
-  @spec close(Binding.t()) :: :ok
-  def close(%Binding{resources: table}) do
+  @spec close(owner()) :: :ok
+  def close(%{resources: table}) do
     :ets.delete(table)
     :ok
   rescue
     ArgumentError -> :ok
   end
 
-  defp entry(%Binding{} = binding, %{"id" => id, "scope" => "call", "binding_id" => binding_id, "kind" => kind})
-       when binding_id == binding.id do
+  defp entry(%{id: owner_id, resources: _table} = binding, %{
+         "id" => id,
+         "scope" => "call",
+         "binding_id" => binding_id,
+         "kind" => kind
+       })
+       when binding_id == owner_id do
     case :ets.lookup(binding.resources, {:resource, id}) do
       [{_key, owner, _kind, _value, _expiry, _status}] when owner != self() ->
         Policy.error(:resource_owner_mismatch)
