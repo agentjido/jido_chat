@@ -1,0 +1,18 @@
+{
+  "label": "g1-dependency-audit",
+  "command": [
+    "mix",
+    "hex.audit"
+  ],
+  "repository": "integration",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "a72e4b28dc66e0df8eea2aa5cac57f467e046c3a6eea8a989315c143f097f4c3",
+  "started_at": "2026-10-12T17:13:56.400234+00:00",
+  "finished_at": "2026-10-12T17:13:57.944913+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g1/g1-dependency-audit.log",
+  "log_sha256": "fa32402d9df4a6e72b5c48eed68d9d61cf1a4f518618f585a5e9833040316c6e"
+}

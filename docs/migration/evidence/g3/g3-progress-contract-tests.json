@@ -1,0 +1,24 @@
+{
+  "label": "g3-progress-contract-tests",
+  "command": [
+    "mix",
+    "run",
+    "-r",
+    "integration/lib/manifest.ex",
+    "-r",
+    "../jido_messaging/lib/jido_messaging/signal/identity.ex",
+    "-e",
+    "ExUnit.start(seed: 0); Code.require_file(\"integration/test/g1_contract_test.exs\")"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "a60c5f312c7b8443c6ed5a1f33489fbaf07549f4",
+  "source_tree_sha256": "201d0e8c1a7782916a4216dfaf3ef651415af1fe7dce8a445738a63b097ade6f",
+  "started_at": "2026-10-12T23:19:44.343166+00:00",
+  "finished_at": "2026-10-12T23:19:47.131744+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-progress-contract-tests.log",
+  "log_sha256": "f2a5774263fbaa28000471b6918c96cc6b87cb3cbaa9284b16655eb46be546b5"
+}

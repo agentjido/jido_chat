@@ -1,0 +1,27 @@
+{
+  "label": "g3-private-status-and-ingest-integration-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/bridge_status_test.exs",
+    "test/jido_messaging/integration_test.exs",
+    "test/integration/multi_room_integration_test.exs",
+    "--include",
+    "integration",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "d9201d38d1914b96992b9e070a46804e0d2c624c048eb829aa4b65e9ddbe408b",
+  "started_at": "2026-10-12T21:59:27.793067+00:00",
+  "finished_at": "2026-10-12T21:59:30.545121+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-private-status-and-ingest-integration-tests.log",
+  "log_sha256": "4b524c8cc7240f7efd451cedf6899ce817492773e454119150d62272e347d810"
+}

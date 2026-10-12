@@ -1,0 +1,17 @@
+Compiling 8 files (.ex)
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "def handle_call/3" was previously defined (lib/jido_messaging/room_server.ex:207)
+     │
+ 217 │   def handle_call({:execute_change, operation, data, request}, from, state) do
+     │       ~
+     │
+     └─ lib/jido_messaging/room_server.ex:217:7
+
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+......
+16:14:30.509 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.1169.0>, nil}
+.................................................................................................................
+Finished in 7.4 seconds (0.00s async, 7.4s sync)
+
+Result: 119 passed

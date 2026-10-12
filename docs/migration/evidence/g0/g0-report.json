@@ -1,0 +1,327 @@
+{
+  "gate": "G0",
+  "state": "pass",
+  "phase": "consumer-baseline",
+  "source_refs": {
+    "jido_signal": {
+      "repository": "agentjido/jido_signal",
+      "ref": "d6611eca1c95eb507843baceb55991e4801d8421",
+      "declared_version": "3.0.0-beta.4"
+    },
+    "jido": {
+      "repository": "agentjido/jido",
+      "ref": "90763478104f1edbf0afcfcf9444621c3f9755e8",
+      "declared_version": "3.0.0-beta.1"
+    },
+    "jido_action": {
+      "repository": "agentjido/jido_action",
+      "ref": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+      "declared_version": "3.0.0-beta.12"
+    },
+    "jido_ai": {
+      "repository": "agentjido/jido_ai",
+      "ref": "1f19ff262081bc13eb30da7bff8bfe42685d63c8",
+      "declared_version": "2.3.0",
+      "runtime_line": "v3",
+      "optional": true
+    },
+    "zoi": {
+      "repository": "mikehostetler/zoi",
+      "ref": "2fff2a23e23e7ac0b26f62f49bbc1b12f7818ac9",
+      "declared_version": "0.18.11"
+    },
+    "runic": {
+      "hex": "runic",
+      "version": "0.1.0-alpha.11"
+    },
+    "decimal": {
+      "hex": "decimal",
+      "version": "3.2.0"
+    },
+    "req_llm": {
+      "hex": "req_llm",
+      "version": "1.27.0",
+      "optional": true
+    },
+    "llm_db": {
+      "hex": "llm_db",
+      "version": "2026.10.2",
+      "optional": true
+    }
+  },
+  "checks": [
+    {
+      "label": "chat-v3-compile-final",
+      "command": [
+        "mix",
+        "compile",
+        "--warnings-as-errors"
+      ],
+      "repository": "jido_chat",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "7ff6088c709b9f7e3a4910168eab5af1c0d82d56ef4065dbdce2fcf7102b09f2",
+      "started_at": "2026-10-12T16:31:23.813758+00:00",
+      "finished_at": "2026-10-12T16:31:24.439780+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/chat-v3-compile-final.log",
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "evidence": "evidence/g0/chat-v3-compile-final.json"
+    },
+    {
+      "label": "chat-format-g0",
+      "command": [
+        "mix",
+        "format",
+        "--check-formatted"
+      ],
+      "repository": "jido_chat",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "7ff6088c709b9f7e3a4910168eab5af1c0d82d56ef4065dbdce2fcf7102b09f2",
+      "started_at": "2026-10-12T16:31:34.378751+00:00",
+      "finished_at": "2026-10-12T16:31:34.870180+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/chat-format-g0.log",
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "evidence": "evidence/g0/chat-format-g0.json"
+    },
+    {
+      "label": "integration-core-chat-verified",
+      "command": [
+        "mix",
+        "test.chat",
+        "--warnings-as-errors"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "654b8d29bacd5c82755af771de1ff23b1efbf3b1e05126a944714c586a3ed27c",
+      "started_at": "2026-10-12T16:26:17.462028+00:00",
+      "finished_at": "2026-10-12T16:26:19.438581+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/integration-core-chat-verified.log",
+      "log_sha256": "acfbb510d88b26d75301f7d0bd220cb26f090392b279e7bf731f2ae3a7e70be4",
+      "evidence": "evidence/g0/integration-core-chat-verified.json"
+    },
+    {
+      "label": "messaging-v3-compile-final",
+      "command": [
+        "mix",
+        "compile",
+        "--warnings-as-errors"
+      ],
+      "repository": "jido_messaging",
+      "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "source_tree_sha256": "55200fd20f00cb5956e769c340cbf79892730a122003a8b4dae994e4a5238be8",
+      "started_at": "2026-10-12T16:30:20.671570+00:00",
+      "finished_at": "2026-10-12T16:30:22.323916+00:00",
+      "environment": {
+        "MIX_ENV": "test",
+        "JIDO_CHAT_PATH": "../jido_chat"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/messaging-v3-compile-final.log",
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "evidence": "evidence/g0/messaging-v3-compile-final.json"
+    },
+    {
+      "label": "messaging-format-g0",
+      "command": [
+        "mix",
+        "format",
+        "--check-formatted"
+      ],
+      "repository": "jido_messaging",
+      "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "source_tree_sha256": "55200fd20f00cb5956e769c340cbf79892730a122003a8b4dae994e4a5238be8",
+      "started_at": "2026-10-12T16:32:14.881835+00:00",
+      "finished_at": "2026-10-12T16:32:15.418916+00:00",
+      "environment": {
+        "MIX_ENV": "test",
+        "JIDO_CHAT_PATH": "../jido_chat"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/messaging-format-g0.log",
+      "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "evidence": "evidence/g0/messaging-format-g0.json"
+    },
+    {
+      "label": "messaging-baseline-final",
+      "command": [
+        "mix",
+        "test",
+        "--seed",
+        "0",
+        "--exclude",
+        "live",
+        "--warnings-as-errors"
+      ],
+      "repository": "jido_messaging",
+      "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "source_tree_sha256": "55200fd20f00cb5956e769c340cbf79892730a122003a8b4dae994e4a5238be8",
+      "started_at": "2026-10-12T16:30:02.452114+00:00",
+      "finished_at": "2026-10-12T16:30:22.296092+00:00",
+      "environment": {
+        "MIX_ENV": "test",
+        "JIDO_CHAT_PATH": "../jido_chat"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/messaging-baseline-final.log",
+      "log_sha256": "ed5c194f71f0c1b255a8c85e11d24ce857c9e5e7a2ec40947f1c73dc71a1a48b",
+      "evidence": "evidence/g0/messaging-baseline-final.json"
+    },
+    {
+      "label": "integration-core-messaging-final",
+      "command": [
+        "mix",
+        "test.messaging",
+        "--warnings-as-errors"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "f730d190e1921fd72f4cba0e6ced1f74902905e52c45bc879c17da39c5087768",
+      "started_at": "2026-10-12T16:31:22.798058+00:00",
+      "finished_at": "2026-10-12T16:31:44.925315+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/integration-core-messaging-final.log",
+      "log_sha256": "bbca5ed537c716f12b82097691eab957a328833f8fc02e578fe143aa848a725a",
+      "evidence": "evidence/g0/integration-core-messaging-final.json"
+    },
+    {
+      "label": "integration-core-smoke-current",
+      "command": [
+        "mix",
+        "test",
+        "--seed",
+        "0",
+        "--exclude",
+        "live",
+        "--warnings-as-errors"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "412fd09034a6d2b8e8dd4c9a557348289ce1e71f652b92f53612597a7b068996",
+      "started_at": "2026-10-12T16:32:34.702577+00:00",
+      "finished_at": "2026-10-12T16:32:35.894508+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/integration-core-smoke-current.log",
+      "log_sha256": "d742dc6d7f382341465d9aa4f693083190caf4a3b548afcbef3708d18b7bca9e",
+      "evidence": "evidence/g0/integration-core-smoke-current.json"
+    },
+    {
+      "label": "integration-ai-pinned-smoke",
+      "command": [
+        "mix",
+        "test",
+        "--seed",
+        "0",
+        "--exclude",
+        "live",
+        "--warnings-as-errors"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "dfa86b74084f3a8e3d9b2c1ddd79e91a4418265fafbf9c62a8066ea5f394a05d",
+      "started_at": "2026-10-12T16:33:45.881775+00:00",
+      "finished_at": "2026-10-12T16:33:53.203486+00:00",
+      "environment": {
+        "MIX_ENV": "test",
+        "JIDO_INTEGRATION_AI": "1",
+        "MIX_BUILD_PATH": "_build/with_ai"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/integration-ai-pinned-smoke.log",
+      "log_sha256": "c9eba22b8335f4b8e7e8c2756fb774b42f368479646c52a0ef6731c966c71fb8",
+      "evidence": "evidence/g0/integration-ai-pinned-smoke.json"
+    },
+    {
+      "label": "messaging-optional-ai-verified",
+      "command": [
+        "mix",
+        "test.optional_jido_ai"
+      ],
+      "repository": "jido_messaging",
+      "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "source_tree_sha256": "55200fd20f00cb5956e769c340cbf79892730a122003a8b4dae994e4a5238be8",
+      "started_at": "2026-10-12T16:31:34.391951+00:00",
+      "finished_at": "2026-10-12T16:31:39.749691+00:00",
+      "environment": {
+        "MIX_ENV": "test",
+        "JIDO_CHAT_PATH": "../jido_chat"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/messaging-optional-ai-verified.log",
+      "log_sha256": "917f340e8f652917faa750150e7c9b236fc9ddaac861ea869da6931d95543d00",
+      "evidence": "evidence/g0/messaging-optional-ai-verified.json"
+    },
+    {
+      "label": "integration-core-source-verified",
+      "command": [
+        "mix",
+        "run",
+        "scripts/report_dependency_graph.exs"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "3faf36d68c997486eb330d15a765d01e4a454fca221f0f17dc9728e9e4688c5f",
+      "started_at": "2026-10-12T16:36:19.331103+00:00",
+      "finished_at": "2026-10-12T16:36:20.835440+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/integration-core-source-verified.log",
+      "log_sha256": "7cb51ab6773371e8c8ae2d6602c24d3ed831d7999b342fab0f56e23bc17a60fb",
+      "evidence": "evidence/g0/integration-core-source-verified.json"
+    },
+    {
+      "label": "integration-ai-source-verified",
+      "command": [
+        "mix",
+        "run",
+        "scripts/report_dependency_graph.exs"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "3faf36d68c997486eb330d15a765d01e4a454fca221f0f17dc9728e9e4688c5f",
+      "started_at": "2026-10-12T16:36:20.960340+00:00",
+      "finished_at": "2026-10-12T16:36:22.993170+00:00",
+      "environment": {
+        "MIX_ENV": "test",
+        "JIDO_INTEGRATION_AI": "1",
+        "MIX_BUILD_PATH": "_build/with_ai"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g0/integration-ai-source-verified.log",
+      "log_sha256": "4089371cd0db8135746c0f9f414cff960405fd44e88ac44a0477eae38cfd7173",
+      "evidence": "evidence/g0/integration-ai-source-verified.json"
+    }
+  ],
+  "results": {
+    "chat_tests": 248,
+    "messaging_tests": 743,
+    "messaging_preexisting_skipped": 4,
+    "messaging_excluded": 43,
+    "core_only_smoke": 11,
+    "with_ai_smoke": 11,
+    "optional_ai_tests": 4
+  },
+  "notes": [
+    "No quality or coverage gate is claimed by this baseline record. G7 owns the final package quality, coverage, and inclusive suites.",
+    "Failed provisional graphs and the stale-runner regression remain in the command evidence.",
+    "G0 establishes the pinned consumer baseline. New typed API migration and all-adapter conformance remain pending."
+  ]
+}

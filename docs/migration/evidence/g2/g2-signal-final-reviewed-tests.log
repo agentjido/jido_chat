@@ -1,0 +1,10 @@
+==> jido_chat
+Compiling 1 file (.ex)
+==> jido_chat_signal
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live, {:live, true}]
+
+......................................................
+Finished in 1.2 seconds (1.1s async, 0.04s sync)
+
+Result: 54 passed, 1 excluded

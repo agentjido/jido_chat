@@ -1,0 +1,23 @@
+{
+  "label": "g3-core-contract-regression",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "45d1bc1a5cf6cb50866a28bd779a591100b31eb389d5ffabfa8b5f2afb345fee",
+  "started_at": "2026-10-12T19:48:45.755579+00:00",
+  "finished_at": "2026-10-12T19:48:51.406007+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-core-contract-regression.log",
+  "log_sha256": "e8bc26fa5386fd35a31630135f0eeb0295716abbb02b521bd7de4cecd5a77e29"
+}

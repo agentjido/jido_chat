@@ -1,0 +1,26 @@
+{
+  "label": "g3-inclusive-runtime-storage-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "2ef32b55b8499865beb3840e6cbe4fdfb9212d88be328c8c3cf5a10b0269a354",
+  "started_at": "2026-10-12T22:23:27.935021+00:00",
+  "finished_at": "2026-10-12T22:24:02.452998+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-inclusive-runtime-storage-coverage.log",
+  "log_sha256": "e19de0c2c54cb579e879bf31fa5a6ed54e2f1ec991f37977c31261b720d35508"
+}

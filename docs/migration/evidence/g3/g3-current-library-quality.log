@@ -1,0 +1,19 @@
+** (Mix) mix format failed due to --check-formatted.
+The following files are not formatted:
+
+[1m[31m/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/inbound_router_test.exs
+[0m
+         |
+ 58  58  |            "actor_id" => "actor",
+ 59  59  |            "reaction" => payload["emoji"]
+ 60     -|          }, source: binding.source, subject: Identity.conversation_subject(binding.id, payload["room"]))
+     60 +|          },
+     61 +|          source: binding.source,
+     62 +|          subject: Identity.conversation_subject(binding.id, payload["room"])
+     63 +|        )
+ 61  64  |
+ 62  65  |      Jido.Chat.Delivery.new(binding, payload["id"], [fact])
+         |
+
+
+

@@ -1,0 +1,47 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+................................................................................................................................................................................................................................................*.....................................................................................................................    warning: module attribute @impl was not set for function send_file/3 callback (specified in Jido.Chat.Adapter). This either means you forgot to add the "@impl true" annotation before the definition or that you are accidentally overriding this callback
+    │
+ 16 │     def send_file(_room, _file, _opts), do: {:ok, %{id: "file"}}
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/adapter_bridge_test.exs:16: Jido.Messaging.AdapterBridgeTest.MatrixAdapter (module)
+
+    warning: module attribute @impl was not set for function post_ephemeral/4 callback (specified in Jido.Chat.Adapter). This either means you forgot to add the "@impl true" annotation before the definition or that you are accidentally overriding this callback
+    │
+ 17 │     def post_ephemeral(_room, _user, _text, _opts), do: {:ok, %{id: "ephemeral"}}
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/adapter_bridge_test.exs:17: Jido.Messaging.AdapterBridgeTest.MatrixAdapter (module)
+
+    warning: module attribute @impl was not set for function open_thread/3 callback (specified in Jido.Chat.Adapter). This either means you forgot to add the "@impl true" annotation before the definition or that you are accidentally overriding this callback
+    │
+ 18 │     def open_thread(_room, _message, _opts), do: {:ok, %{id: "thread"}}
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/adapter_bridge_test.exs:18: Jido.Messaging.AdapterBridgeTest.MatrixAdapter (module)
+
+    warning: module attribute @impl was not set for function open_modal/3 callback (specified in Jido.Chat.Adapter). This either means you forgot to add the "@impl true" annotation before the definition or that you are accidentally overriding this callback
+    │
+ 19 │     def open_modal(_room, _modal, _opts), do: {:ok, %{opened: true}}
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/adapter_bridge_test.exs:19: Jido.Messaging.AdapterBridgeTest.MatrixAdapter (module)
+
+    warning: module attribute @impl was not set for function add_reaction/4 callback (specified in Jido.Chat.Adapter). This either means you forgot to add the "@impl true" annotation before the definition or that you are accidentally overriding this callback
+    │
+ 20 │     def add_reaction(_room, _message, _reaction, _opts), do: :ok
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/adapter_bridge_test.exs:20: Jido.Messaging.AdapterBridgeTest.MatrixAdapter (module)
+
+..................................................................................................
+17:19:40.365 [debug] [Jido.Messaging.Deliver] Message jch_EHUfaRv-1oWJxNZxuvNKqQ sent to room jch_iKDonk-PGqnMa76OdqalRg via partition 14
+..........................................................................................................................................................................................................................................................................................................................................................................................................................
+Finished in 26.9 seconds (8.2s async, 18.7s sync)
+
+Result: 865 passed (1 doctest, 864 tests), 1 skipped, 43 excluded
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

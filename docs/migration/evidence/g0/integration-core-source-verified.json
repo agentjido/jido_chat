@@ -1,0 +1,19 @@
+{
+  "label": "integration-core-source-verified",
+  "command": [
+    "mix",
+    "run",
+    "scripts/report_dependency_graph.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "3faf36d68c997486eb330d15a765d01e4a454fca221f0f17dc9728e9e4688c5f",
+  "started_at": "2026-10-12T16:36:19.331103+00:00",
+  "finished_at": "2026-10-12T16:36:20.835440+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g0/integration-core-source-verified.log",
+  "log_sha256": "7cb51ab6773371e8c8ae2d6602c24d3ed831d7999b342fab0f56e23bc17a60fb"
+}

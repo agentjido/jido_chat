@@ -1,0 +1,24 @@
+{
+  "label": "g3-all-runtime-provider-execution-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/typed_execution_test.exs",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "e309c5911d31c26ca12c326a186b6da0c1528e28d28083af15118bf0554ec2db",
+  "started_at": "2026-10-12T20:39:06.415822+00:00",
+  "finished_at": "2026-10-12T20:39:12.184687+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-all-runtime-provider-execution-tests.log",
+  "log_sha256": "37ff90fc46986e60d15e56dd146281a1a012256f621f49697f071766b303ed74"
+}

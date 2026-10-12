@@ -1,0 +1,26 @@
+Compiling 82 files (.ex)
+    warning: variable "binding" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 93 │     with {:ok, binding, listener_specs} <- resolve_listener_specs(instance_module, bridge_id, config),
+    │                ~
+    │
+    └─ lib/jido_messaging/bridge_server.ex:93:16: Jido.Messaging.BridgeServer.init/1
+
+    warning: unused alias Events
+    │
+  5 │   alias Jido.Messaging.{Events, Runtime}
+    │   ~
+    │
+    └─ lib/jido_messaging/dispatch.ex:5:3
+
+
+== Compilation error in file lib/jido_messaging/ingress_outcome.ex ==
+** (ArgumentError) Jido.Chat.EventEnvelope.__struct__/1 is undefined, cannot expand struct Jido.Chat.EventEnvelope. Make sure the struct name is correct. If the struct name exists and is correct but it still cannot be found, you likely have cyclic module usage in your code
+    (elixir 1.20.4) lib/macro.ex:982: Macro.struct_info!/2
+    (elixir 1.20.4) lib/kernel/typespec.ex:604: Kernel.Typespec.typespec/4
+    (stdlib 8.1) lists.erl:2673: :lists.mapfoldl_1/3
+    (stdlib 8.1) lists.erl:2674: :lists.mapfoldl_1/3
+    (elixir 1.20.4) lib/kernel/typespec.ex:488: Kernel.Typespec.typespec/4
+    (elixir 1.20.4) lib/kernel/typespec.ex:583: anonymous fn/6 in Kernel.Typespec.typespec/4
+    (stdlib 8.1) lists.erl:2673: :lists.mapfoldl_1/3
+    (stdlib 8.1) lists.erl:2674: :lists.mapfoldl_1/3

@@ -1,0 +1,20 @@
+{
+  "label": "g3-dependency-plt-refreshed-dialyzer",
+  "command": [
+    "mix",
+    "dialyzer",
+    "--force-check"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "96dbcc70784f828d4a2e081133562246b3fd59d6e749cf28a61f9e4d9e10710b",
+  "started_at": "2026-10-12T21:10:05.883803+00:00",
+  "finished_at": "2026-10-12T21:11:18.137580+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-dependency-plt-refreshed-dialyzer.log",
+  "log_sha256": "540ae64bcbea889086e4c8b8ff84b49a35462817b0b15153897df38cd825bfbc"
+}

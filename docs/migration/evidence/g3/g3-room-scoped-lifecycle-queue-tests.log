@@ -1,0 +1,8 @@
+Compiling 14 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+...............................................................
+Finished in 3.5 seconds (0.8s async, 2.6s sync)
+
+Result: 63 passed (1 doctest, 62 tests)

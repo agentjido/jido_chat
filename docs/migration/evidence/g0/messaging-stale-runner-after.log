@@ -1,0 +1,16 @@
+Compiling 8 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+...........
+11:29:10.776 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.1645.0>, nil}
+
+11:29:10.776 [debug] [Jido.Messaging.AgentRunner] Agent alpha stopping in room jch_plHvt0LboR0aS68Q-a_o2A thread jch_dcJXnzAtaiVt0M5ES3q6-w
+
+11:29:10.777 [debug] [signal] type=jido.messaging.room.participant_joined id=01a130f2-56f8-7171-8773-7365f9ef6385
+
+11:29:10.777 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room jch_plHvt0LboR0aS68Q-a_o2A thread jch_dcJXnzAtaiVt0M5ES3q6-w
+....
+Finished in 1.5 seconds (0.00s async, 1.5s sync)
+
+Result: 15 passed

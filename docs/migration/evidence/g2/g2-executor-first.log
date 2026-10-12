@@ -1,0 +1,47 @@
+Compiling 11 files (.ex)
+Compiling 3 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+
+    warning: module attribute @callbacks in code block has no effect as it is never returned (remove the attribute or assign it to _ to avoid warnings)
+    │
+ 14 │     @callbacks
+    │     ~
+    │
+    └─ test/jido/chat/executor_signal_test.exs:14:5: Jido.Chat.ExecutorSignalTest.Native (module)
+
+    warning: undefined module attribute @callbacks, please remove access to @callbacks or explicitly set it before access
+    │
+ 14 │     @callbacks
+    │     ~~~~~~~~~~
+    │
+    └─ test/jido/chat/executor_signal_test.exs:14: Jido.Chat.ExecutorSignalTest.Native (module)
+
+    warning: undefined module attribute @callbacks, please remove access to @callbacks or explicitly set it before access
+    │
+ 47 │     def capabilities, do: Map.new(@callbacks, fn {name, _} -> {name, :native} end)
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido/chat/executor_signal_test.exs:47: Jido.Chat.ExecutorSignalTest.Native (module)
+
+    warning: undefined module attribute @callbacks, please remove access to @callbacks or explicitly set it before access
+    │
+ 49 │     for {operation, arity} <- @callbacks do
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido/chat/executor_signal_test.exs:49: Jido.Chat.ExecutorSignalTest.Native (module)
+
+
+== Compilation error in file test/jido/chat/executor_signal_test.exs ==
+** (Protocol.UndefinedError) protocol Enumerable not implemented for Atom. This protocol is implemented for: Date.Range, File.Stream, Function, GenEvent.Stream, HashDict, HashSet, IO.Stream, Jason.OrderedObject, List, Map, MapSet, Range, Stream
+
+Got value:
+
+    nil
+
+    (elixir 1.20.4) lib/enum.ex:5: Enumerable.impl_for!/1
+    (elixir 1.20.4) lib/enum.ex:184: Enumerable.reduce/3
+    (elixir 1.20.4) lib/enum.ex:4667: Enum.reduce/3
+    test/jido/chat/executor_signal_test.exs:49: (module)
+    test/jido/chat/executor_signal_test.exs:13: (module)
+    (elixir 1.20.4) lib/kernel/parallel_compiler.ex:667: Kernel.ParallelCompiler.require_file/2
+    (elixir 1.20.4) lib/kernel/parallel_compiler.ex:550: anonymous fn/5 in Kernel.ParallelCompiler.spawn_workers/8

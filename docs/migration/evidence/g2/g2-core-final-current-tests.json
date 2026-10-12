@@ -1,0 +1,23 @@
+{
+  "label": "g2-core-final-current-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "15ac2f5cbaa12169906392c0d487db709aed9e00a67ff2da6ed2e72d459f0bf8",
+  "started_at": "2026-10-12T18:21:11.838101+00:00",
+  "finished_at": "2026-10-12T18:21:16.232350+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-final-current-tests.log",
+  "log_sha256": "b6726ed62fb52d569f4f3421f1e7a62ad80daa3529391af36420d8d167e389be"
+}

@@ -1,0 +1,20 @@
+{
+  "label": "g3-optional-ai-progress-commit-tests",
+  "command": [
+    "mix",
+    "run",
+    "test/optional/jido_ai_integration.exs"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "4f2792bed047599d7b03210de83d0dd8447a00d7",
+  "source_tree_sha256": "73106ad52691f622293e53c47cd50b1d6adceb659de83ca641cc99dd939cb03e",
+  "started_at": "2026-10-12T23:16:39.578465+00:00",
+  "finished_at": "2026-10-12T23:16:44.960423+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-optional-ai-progress-commit-tests.log",
+  "log_sha256": "8aae9e6a10c51de6a2e8cb7479b1ba89cbf87cf081ff42e8cd0aae827b13c458"
+}

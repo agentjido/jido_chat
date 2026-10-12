@@ -1,0 +1,19 @@
+** (Mix) mix format failed due to --check-formatted.
+The following files are not formatted:
+
+[1m[31m/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs
+[0m
+         |
+189 189  |        "text" => "help",
+190 190  |        "mentioned" => mentioned
+191     -|      }, source: binding.source, subject: Identity.conversation_subject(binding.id, room))
+    191 +|      },
+    192 +|      source: binding.source,
+    193 +|      subject: Identity.conversation_subject(binding.id, room)
+    194 +|    )
+192 195  |  end
+193 196  |
+         |
+
+
+

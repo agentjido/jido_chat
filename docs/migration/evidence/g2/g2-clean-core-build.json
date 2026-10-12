@@ -1,0 +1,19 @@
+{
+  "label": "g2-clean-core-build",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "6aa1da16557ded5f8c86ab516e9ad0353e456fa6a2468ae8b9d725b387ee232e",
+  "started_at": "2026-10-12T18:31:18.225171+00:00",
+  "finished_at": "2026-10-12T18:31:18.694319+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g2/g2-clean-core-build.log",
+  "log_sha256": "825cfd4bf53225c73ebb4968e9b7a6f3e861716032bf8bb9ca530577f69b6d3d"
+}

@@ -1,0 +1,116 @@
+Compiling 3 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+    warning: unused alias MessagePage
+    │
+  3 │   alias Jido.Chat.{MessagePage, MessagingTarget, ThreadPage}
+    │   ~
+    │
+    └─ test/jido_messaging/chat_actions_test.exs:3:3
+
+    warning: unused alias ThreadPage
+    │
+  3 │   alias Jido.Chat.{MessagePage, MessagingTarget, ThreadPage}
+    │   ~
+    │
+    └─ test/jido_messaging/chat_actions_test.exs:3:3
+
+......
+
+  1) test reader operations and scope strict thread verifies message membership before reads and mutations (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:454
+     Assertion with == failed
+     code:  assert mutation_opts[:external_thread_id] == "thread-1"
+     left:  nil
+     right: "thread-1"
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:518: (test)
+
+....
+
+  2) test reader operations and scope executes the remaining reader seams with normalized results (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:617
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => "thread-1"}}
+             }} =
+              Jido.Exec.run(
+                Jido.Messaging.ChatActions.Reader.FetchThread,
+                %{target: thread_target},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => "thread-1"}}
+             }}
+     right: {:ok,
+             %Jido.Signal{
+               data: %{
+                 "bridge_id" => "full-main",
+                 "operation" => "tool.fetch_thread",
+                 "request_id" => "jch_z3Pler71NI8y7L_K3LYhRw",
+                 "result" => %{
+                   "id" => "full:room-1:",
+                   "room_id" => "room-1"
+                 }
+               },
+               id: "01a13229-68b0-721e-b601-1dea62956e4a",
+               type: "jido.messaging.operation.completed",
+               time: nil,
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_completed:1",
+               extensions: %{
+                 "traceparent" => "00-7558d4ba227a7e5f186bec29bb54d4d3-c277cf1c8a9ccaec-00"
+               },
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:630: (test)
+
+......
+
+  3) test write approval policy executes edit, delete, reaction, typing, channel-post, and subscription operations (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:893
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"items" => [_subscription]}}
+             }} =
+              Jido.Exec.run(
+                Jido.Messaging.ChatActions.Moderator.ListSubscriptions,
+                %{target: room_target},
+                workspace_context
+              )
+     left:  {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"items" => [_subscription]}}
+             }}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_request,
+               field: :data,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:955: (test)
+
+.
+Finished in 2.2 seconds (0.00s async, 2.2s sync)
+
+Result: 17/20 passed
+Failed: 3 tests

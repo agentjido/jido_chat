@@ -1,0 +1,23 @@
+{
+  "label": "g2-core-completion-failure-once",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "4572c08046cf1666a0c115ceb9231f88a657070614a5670b8d76a12f2b7259ae",
+  "started_at": "2026-10-12T18:59:17.304376+00:00",
+  "finished_at": "2026-10-12T18:59:21.944512+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g2/g2-core-completion-failure-once.log",
+  "log_sha256": "e273ebf25e52b4db75cdd99f4b8bd9c59bb474f78512c1e0444964ea98af1c2e"
+}

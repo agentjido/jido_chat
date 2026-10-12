@@ -1,0 +1,25 @@
+{
+  "label": "integration-ai-smoke",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "f730d190e1921fd72f4cba0e6ced1f74902905e52c45bc879c17da39c5087768",
+  "started_at": "2026-10-12T16:30:19.517457+00:00",
+  "finished_at": "2026-10-12T16:31:11.421191+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_INTEGRATION_AI": "1",
+    "MIX_BUILD_PATH": "_build/with_ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g0/integration-ai-smoke.log",
+  "log_sha256": "34565b0501fec87eb821c385ed6c29f1e2a34276657c86ede6d2e625ef28957a"
+}

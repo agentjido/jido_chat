@@ -138,6 +138,17 @@
         "evidence/g3/g3-mattermost-baseline-annotation-compile.json"
       ],
       "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "00721c2c82916cdd96984ea37459b20185e5c018",
+      "subject": "docs(migration): save the contract harness and progress commit rule",
+      "checks": [
+        "evidence/g3/g3-progress-contract-catalog-check.json",
+        "evidence/g3/g3-progress-manifest-check.json",
+        "evidence/g3/g3-progress-contract-tests.json"
+      ],
+      "open_work": "G3-G9 and every final completion requirement remain open."
     }
   ],
   "passed_checks": {
@@ -166,5 +177,6 @@
     "G8: complete major versions, API/export mapping, examples, docs, and package file lists.",
     "G9: push focused PR branches, attach all PRs, resolve review findings, and prove current-head CI."
   ],
-  "coverage_note": "The latest inclusive coverage report is 77.7%. It predates the queue and scoped lookup tests. No new coverage result or floor pass is claimed."
+  "coverage_note": "The latest inclusive coverage report is 77.7%. It predates the queue and scoped lookup tests. No new coverage result or floor pass is claimed.",
+  "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA."
 }

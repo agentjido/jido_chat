@@ -1,0 +1,54 @@
+==> jido_chat
+Compiling 1 file (.ex)
+Generated jido_chat app
+==> jido_chat_signal
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live, {:live, true}]
+
+    warning: function transport_opts/1 is unused
+    │
+ 69 │   defp transport_opts(opts) do
+    │        ~
+    │
+    └─ test/jido_chat_signal/live_integration_test.exs:69:8: Jido.Chat.Signal.LiveIntegrationTest (module)
+
+    warning: function live_gif/0 is unused
+    │
+ 90 │   defp live_gif do
+    │        ~
+    │
+    └─ test/jido_chat_signal/live_integration_test.exs:90:8: Jido.Chat.Signal.LiveIntegrationTest (module)
+
+    warning: function live_attachment_path/1 is unused
+    │
+ 79 │   defp live_attachment_path(text) do
+    │        ~
+    │
+    └─ test/jido_chat_signal/live_integration_test.exs:79:8: Jido.Chat.Signal.LiveIntegrationTest (module)
+
+    warning: unused alias Adapter
+    │
+  4 │   alias Jido.Chat.Signal.{Adapter, Transport.CliClient}
+    │   ~
+    │
+    └─ test/jido_chat_signal/live_integration_test.exs:4:3
+
+    error: imported Kernel.binding/0 conflicts with local function
+    │
+ 21 │   defp binding(opts \\ []) do
+    │        ^
+    │
+    └─ test/jido_chat_signal/adapter_test.exs:21:8: Jido.Chat.Signal.AdapterTest (module)
+
+    error: imported Kernel.binding/1 conflicts with local function
+    │
+ 21 │   defp binding(opts \\ []) do
+    │        ^
+    │
+    └─ test/jido_chat_signal/adapter_test.exs:21:8: Jido.Chat.Signal.AdapterTest (module)
+
+
+== Compilation error in file test/jido_chat_signal/adapter_test.exs ==
+** (CompileError) test/jido_chat_signal/adapter_test.exs: cannot compile module Jido.Chat.Signal.AdapterTest (errors have been logged)
+

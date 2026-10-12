@@ -1,0 +1,31 @@
+{
+  "label": "g3-current-side-effect-count-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/ingress_sink_test.exs",
+    "test/jido_messaging/typed_execution_test.exs",
+    "test/jido_messaging/typed_room_subscription_test.exs",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "test/jido_messaging/agent_runner_test.exs",
+    "test/jido_messaging/inbound_router_test.exs",
+    "test/jido_messaging/bridge_listener_ingress_test.exs",
+    "test/jido_messaging/outbound_gateway_test.exs",
+    "test/jido_messaging/outbound_router_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "999266b5603fae637f36c78a92c031b1c2081a606175ec109488e2b2c871dcce",
+  "started_at": "2026-10-12T21:27:39.465832+00:00",
+  "finished_at": "2026-10-12T21:27:49.628964+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-side-effect-count-tests.log",
+  "log_sha256": "e399b5bf8366f9a1275d6d347986f3e2f675d2b411b47b7e595e9f3efd63cd59"
+}

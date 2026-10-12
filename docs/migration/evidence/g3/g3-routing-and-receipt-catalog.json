@@ -1,0 +1,20 @@
+{
+  "label": "g3-routing-and-receipt-catalog",
+  "command": [
+    "mix",
+    "run",
+    "integration/scripts/verify_g2_catalog.exs",
+    "G3"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "a5516a2c09a2fa4ae2823493805ff5fa9d087fd772d1f8ab79eb46c7ca6c4d85",
+  "started_at": "2026-10-12T21:53:08.162089+00:00",
+  "finished_at": "2026-10-12T21:53:11.764038+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-routing-and-receipt-catalog.log",
+  "log_sha256": "2776bfc6e4c39a3871a7e370a64182cb01bdd99d5c37aefd732bc00655add239"
+}

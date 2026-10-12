@@ -1,0 +1,93 @@
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test one selected provider callback returns a typed runtime result (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:46
+     ** (ArgumentError) issuer_principal_id must be a string
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/authorization_data.ex:40: Jido.Messaging.AuthorizationData.required_id!/2
+       (jido_messaging 1.1.1) lib/jido_messaging/membership.ex:56: Jido.Messaging.Membership.new/1
+       (jido_messaging 1.1.1) lib/jido_messaging/access_control.ex:9: Jido.Messaging.AccessControl.create_membership/2
+       test/jido_messaging/typed_execution_test.exs:21: Jido.Messaging.TypedExecutionTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_execution_test.exs:1: Jido.Messaging.TypedExecutionTest.__ex_unit__/2
+
+
+
+  2) test Signal source and data do not supply the trusted actor (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:65
+     ** (ArgumentError) issuer_principal_id must be a string
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/authorization_data.ex:40: Jido.Messaging.AuthorizationData.required_id!/2
+       (jido_messaging 1.1.1) lib/jido_messaging/membership.ex:56: Jido.Messaging.Membership.new/1
+       (jido_messaging 1.1.1) lib/jido_messaging/access_control.ex:9: Jido.Messaging.AccessControl.create_membership/2
+       test/jido_messaging/typed_execution_test.exs:21: Jido.Messaging.TypedExecutionTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_execution_test.exs:1: Jido.Messaging.TypedExecutionTest.__ex_unit__/2
+
+
+
+  3) test grant revocation is checked before a cached result is returned (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:72
+     ** (ArgumentError) issuer_principal_id must be a string
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/authorization_data.ex:40: Jido.Messaging.AuthorizationData.required_id!/2
+       (jido_messaging 1.1.1) lib/jido_messaging/membership.ex:56: Jido.Messaging.Membership.new/1
+       (jido_messaging 1.1.1) lib/jido_messaging/access_control.ex:9: Jido.Messaging.AccessControl.create_membership/2
+       test/jido_messaging/typed_execution_test.exs:21: Jido.Messaging.TypedExecutionTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_execution_test.exs:1: Jido.Messaging.TypedExecutionTest.__ex_unit__/2
+
+
+
+  4) test canonical scope mismatch causes zero provider calls (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:81
+     ** (ArgumentError) issuer_principal_id must be a string
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/authorization_data.ex:40: Jido.Messaging.AuthorizationData.required_id!/2
+       (jido_messaging 1.1.1) lib/jido_messaging/membership.ex:56: Jido.Messaging.Membership.new/1
+       (jido_messaging 1.1.1) lib/jido_messaging/access_control.ex:9: Jido.Messaging.AccessControl.create_membership/2
+       test/jido_messaging/typed_execution_test.exs:21: Jido.Messaging.TypedExecutionTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_execution_test.exs:1: Jido.Messaging.TypedExecutionTest.__ex_unit__/2
+
+
+
+  5) test a runtime post persists once and returns a native result (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:91
+     ** (ArgumentError) issuer_principal_id must be a string
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/authorization_data.ex:40: Jido.Messaging.AuthorizationData.required_id!/2
+       (jido_messaging 1.1.1) lib/jido_messaging/membership.ex:56: Jido.Messaging.Membership.new/1
+       (jido_messaging 1.1.1) lib/jido_messaging/access_control.ex:9: Jido.Messaging.AccessControl.create_membership/2
+       test/jido_messaging/typed_execution_test.exs:21: Jido.Messaging.TypedExecutionTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_execution_test.exs:1: Jido.Messaging.TypedExecutionTest.__ex_unit__/2
+
+
+
+  6) test a sender ID claim cannot replace the trusted principal (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:109
+     ** (ArgumentError) issuer_principal_id must be a string
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/authorization_data.ex:40: Jido.Messaging.AuthorizationData.required_id!/2
+       (jido_messaging 1.1.1) lib/jido_messaging/membership.ex:56: Jido.Messaging.Membership.new/1
+       (jido_messaging 1.1.1) lib/jido_messaging/access_control.ex:9: Jido.Messaging.AccessControl.create_membership/2
+       test/jido_messaging/typed_execution_test.exs:21: Jido.Messaging.TypedExecutionTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_execution_test.exs:1: Jido.Messaging.TypedExecutionTest.__ex_unit__/2
+
+
+
+  7) test same request identity with different content is a conflict (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:124
+     ** (ArgumentError) issuer_principal_id must be a string
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/authorization_data.ex:40: Jido.Messaging.AuthorizationData.required_id!/2
+       (jido_messaging 1.1.1) lib/jido_messaging/membership.ex:56: Jido.Messaging.Membership.new/1
+       (jido_messaging 1.1.1) lib/jido_messaging/access_control.ex:9: Jido.Messaging.AccessControl.create_membership/2
+       test/jido_messaging/typed_execution_test.exs:21: Jido.Messaging.TypedExecutionTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_execution_test.exs:1: Jido.Messaging.TypedExecutionTest.__ex_unit__/2
+
+
+Finished in 0.4 seconds (0.00s async, 0.4s sync)
+
+Result: 0/7 passed
+Failed: 7 tests

@@ -146,7 +146,9 @@
         "evidence/g3/g3-messaging-progress-commit-quality.json",
         "evidence/g3/g3-optional-ai-progress-commit-tests.json",
         "evidence/g3/g3-mattermost-baseline-annotation-compile.json",
-        "evidence/g3/g3-progress-contract-catalog-check.json"
+        "evidence/g3/g3-progress-contract-catalog-check.json",
+        "evidence/g3/g3-progress-manifest-check.json",
+        "evidence/g3/g3-progress-contract-tests.json"
       ],
       "work_complete": false,
       "completed": [

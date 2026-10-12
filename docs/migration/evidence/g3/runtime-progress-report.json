@@ -1,0 +1,24 @@
+{
+  "gate": "G3",
+  "state": "in-progress",
+  "scope": "working-tree evidence; no PR or CI claim",
+  "created_at": "2026-10-12T23:01:09.021449+00:00",
+  "inclusive_tests": 909,
+  "skipped": 1,
+  "coverage": 77.7,
+  "required_coverage": 90,
+  "database_fixture": {
+    "container": "codex-chat-signal-v3-pg",
+    "image": "postgres:18.6-alpine",
+    "port": 33417,
+    "scope": "temporary isolated local database; no live provider call"
+  },
+  "quality": "evidence/g3/g3-native-admission-quality-fixed.json",
+  "remaining": [
+    "Complete normalized interaction/reaction/receipt acceptance and room-scoped identity checks, including provider ID reuse across rooms.",
+    "Check remaining request admission, encoded size boundaries, private resource ownership, and observation failure paths across every public entry.",
+    "Complete current API export and prohibited-boundary scans; retire remaining communication aliases, including direct record/create-room classification where applicable.",
+    "Add meaningful missing runtime/storage/ownership tests to reach the required 90% Messaging coverage; implement the existing empty skipped queue-limit test.",
+    "Run fresh complete core-only/optional-AI graphs and all required package/quality/coverage checks after final changes."
+  ]
+}
