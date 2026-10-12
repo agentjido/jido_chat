@@ -16,7 +16,7 @@ open work in its commit message and in `progress-commits.json`.
 All final completion requirements stay the same.
 
 The tested work is now saved in progress commits. Fresh checks passed 254 core
-tests, 54 Signal adapter tests, 916 inclusive Messaging tests, and four optional
+tests, 54 Signal adapter tests, 929 inclusive Messaging tests, and four optional
 AI tests. The Messaging run includes local PostgreSQL, integration, and story
 cases. It has no skipped test. One existing Signal provider live test is excluded.
 Core, Messaging, and Signal adapter quality checks pass.
@@ -27,8 +27,23 @@ checks all 1,000 queue places and the rejected next job.
 
 These checks use the combined worktrees. Final current-head PR CI, all-adapter
 conformance, package checks, and the 90 percent Messaging coverage floor are
-still required. G3 remains open. The most recent coverage report is 77.7% and
-predates the last two test changes.
+still required. G3 remains open. The fresh inclusive coverage report is 77.8%. The 90 percent floor is not met.
+
+Automatic thread creation now follows policy and the first message write. A
+later link failure keeps the accepted message and produces a causal failure fact.
+Repeated delivery does not repeat the provider callback. Message facts keep one
+complete text field; a 140,000-byte message remains observable.
+
+The other 13 provider fact types retain their external IDs and context. Messaging
+observes them in order. They do not issue commands or infer canonical record
+changes. Runtime reaction and receipt changes use typed authorized requests.
+
+Typed room allocation keeps its bridge-scoped grant path. A room posting grant
+cannot create an unrelated room. Creation cannot overwrite an existing room.
+The low-level `create_room` function stores a Room record without a Signal.
+The source scan now checks all 369 current core, Messaging, and Signal provider
+library files and records exact source hashes. It has zero findings. Full
+all-provider export and conformance checks remain required.
 
 ## Dependency baseline
 

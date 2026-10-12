@@ -41,7 +41,7 @@
       "base_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
       "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging",
       "state": "progress-committed; final gates pending",
-      "head_sha": "b73792261b0dac91a6243ab70257e3311c688474",
+      "head_sha": "ced3715451413ef3a85ad9a3bfd8a83767e7214e",
       "branch": "codex/public-signal-v3",
       "coverage_floor": 90,
       "rollback_pin": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",

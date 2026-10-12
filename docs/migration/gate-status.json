@@ -148,7 +148,19 @@
         "evidence/g3/g3-mattermost-baseline-annotation-compile.json",
         "evidence/g3/g3-progress-contract-catalog-check.json",
         "evidence/g3/g3-progress-manifest-check.json",
-        "evidence/g3/g3-progress-contract-tests.json"
+        "evidence/g3/g3-progress-contract-tests.json",
+        "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-auto-thread-admission-quality.json",
+        "evidence/g3/g3-large-message-single-projection-tests.json",
+        "evidence/g3/g3-large-message-projection-quality.json",
+        "evidence/g3/g3-provider-fact-observation-tests.json",
+        "evidence/g3/g3-retired-event-option-tests.json",
+        "evidence/g3/g3-create-room-verified-scope-regression.json",
+        "evidence/g3/g3-create-room-scope-current-tests.json",
+        "evidence/g3/g3-create-room-current-quality.json",
+        "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-record-api-contract-check.json",
+        "evidence/g3/g3-current-three-package-boundary-scan.json"
       ],
       "work_complete": false,
       "completed": [
@@ -192,13 +204,19 @@
         "The empty skipped Sender queue-limit case is replaced by a controlled backlog test: 1000 jobs accepted and job 1001 rejected.",
         "Provider message lookup includes the canonical room. Lifecycle updates/deletes and reply mapping preserve scope when the same provider ID occurs in two rooms. ETS, SQLite, and PostgreSQL shared conformance passes.",
         "Core, Messaging, Signal adapter, storage, native tool results, and optional AI changes are saved in focused progress commits. Every commit records passed checks and open work.",
-        "Fresh tests pass: core 254, Signal adapter 54, Messaging inclusive 916, optional AI 4. Core/Messaging/Signal adapter quality checks pass."
+        "Fresh tests pass: core 254, Signal adapter 54, Messaging inclusive 916, optional AI 4. Core/Messaging/Signal adapter quality checks pass.",
+        "Automatic provider thread creation follows message policy and the first canonical write. Four new cases prove denial/store failure zero callbacks, stored-record visibility at callback time, and no callback repeat after a later link-write failure.",
+        "Message facts carry the complete text once. A 140000-byte message keeps received/message-added observations, native JSON identity, parent trace, full stored text, and duplicate suppression.",
+        "All 13 other provider fact types are observed unchanged in order. Native JSON and duplicate checks pass. All stored records, agent message-call count, and provider callback count remain unchanged.",
+        "Remove the unused legacy event-mirror option. The expanded G3 scan checks all 369 core/Messaging/Signal-provider library files with exact source revisions and zero findings.",
+        "Keep typed bridge-scoped room allocation. Room posting authority cannot allocate an unrelated room, and creation cannot replace an existing room. Seven new tests prove scope, write counts, revocation, causal observations, and terminal failure admission.",
+        "The API map retains create_room as a record-only helper and adds both scoped provider-message lookup arities. G1 contract verification passes.",
+        "All 929 inclusive tests pass with seed 0 and warnings as errors, including local PostgreSQL, integration, and story tests. No test is skipped. Current Messaging quality passes. Inclusive coverage is 77.8 percent; the 90 percent floor is not met."
       ],
       "remaining": [
-        "Complete normalized interaction/reaction/receipt acceptance and room-scoped identity checks, with explicit observation and record ownership rules.",
-        "Check remaining request admission, encoded size boundaries, private resource ownership, and observation failure paths across every public entry.",
-        "Complete current API export and prohibited-boundary scans; retire remaining communication aliases, including direct record/create-room classification where applicable.",
-        "Add meaningful missing runtime/storage/ownership tests to reach the required 90% Messaging coverage.",
+        "Finish exact encoded-size, request admission, private resource ownership/lifetime, and observation failure checks across every public entry. Check CreateRoom kind values against the backing Room schema.",
+        "Complete current compiled API export classification and boundary scans across the whole declared group in G7/G8.",
+        "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
         "Run fresh complete core-only/optional-AI graphs and all required package/quality/coverage checks after final changes."
       ]
     },
