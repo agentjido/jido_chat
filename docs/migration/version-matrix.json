@@ -1,0 +1,424 @@
+{
+  "protocol_version": 1,
+  "seed": 0,
+  "environment": {
+    "elixir": "1.20.4",
+    "otp": "29.1",
+    "platform": "macOS arm64"
+  },
+  "packages": [
+    {
+      "package": "jido_chat",
+      "base": "origin/main",
+      "base_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat",
+      "state": "progress-committed; final gates pending",
+      "head_sha": "a60c5f312c7b8443c6ed5a1f33489fbaf07549f4",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": null,
+      "rollback_pin": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "repository": "agentjido/jido_chat",
+      "declared_version": "1.2.1",
+      "intended_version": "2.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat",
+        "releases": [
+          "1.2.1",
+          "1.2.0",
+          "1.1.0",
+          "1.0.2",
+          "1.0.1",
+          "1.0.0"
+        ],
+        "latest": "1.2.1",
+        "checked_date": "2026-10-12"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_messaging",
+      "base": "origin/main",
+      "base_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging",
+      "state": "progress-committed; final gates pending",
+      "head_sha": "b73792261b0dac91a6243ab70257e3311c688474",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": 90,
+      "rollback_pin": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "repository": "agentjido/jido_messaging",
+      "declared_version": "1.1.1",
+      "intended_version": "2.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_messaging",
+        "releases": [
+          "1.1.1",
+          "1.1.0",
+          "1.0.0"
+        ],
+        "latest": "1.1.1",
+        "checked_date": "2026-10-12"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "base": "origin/main",
+      "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram",
+      "state": "implementation-pending",
+      "head_sha": "89601c329d2463fa66110a81b615251bce6e2428",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": null,
+      "rollback_pin": "89601c329d2463fa66110a81b615251bce6e2428",
+      "repository": "agentjido/jido_chat_telegram",
+      "declared_version": "1.2.1",
+      "intended_version": "2.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_telegram",
+        "releases": [
+          "1.2.1",
+          "1.1.0",
+          "1.0.0"
+        ],
+        "latest": "1.2.1",
+        "checked_date": "2026-10-12"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_chat_slack",
+      "base": "origin/main",
+      "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack",
+      "state": "implementation-pending",
+      "head_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": null,
+      "rollback_pin": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "repository": "agentjido/jido_chat_slack",
+      "declared_version": "1.1.0",
+      "intended_version": "2.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_slack",
+        "releases": [
+          "1.1.0",
+          "1.0.0"
+        ],
+        "latest": "1.1.0",
+        "checked_date": "2026-10-12"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_chat_discord",
+      "base": "origin/main",
+      "base_sha": "495b40d9b2ef546d580f303c633be32fb5ec2d3d",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord",
+      "state": "implementation-pending",
+      "head_sha": "495b40d9b2ef546d580f303c633be32fb5ec2d3d",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": null,
+      "rollback_pin": "495b40d9b2ef546d580f303c633be32fb5ec2d3d",
+      "repository": "agentjido/jido_chat_discord",
+      "declared_version": "1.1.0",
+      "intended_version": "2.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_discord",
+        "releases": [
+          "1.1.0",
+          "1.0.0"
+        ],
+        "latest": "1.1.0",
+        "checked_date": "2026-10-12"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_chat_github",
+      "base": "origin/main",
+      "base_sha": "a94f5b35506f506e5441a769086d14190f3ae363",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github",
+      "state": "implementation-pending",
+      "head_sha": "a94f5b35506f506e5441a769086d14190f3ae363",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": null,
+      "rollback_pin": "a94f5b35506f506e5441a769086d14190f3ae363",
+      "repository": "agentjido/jido_chat_github",
+      "declared_version": "1.0.0",
+      "intended_version": "2.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_github",
+        "releases": [
+          "1.0.0"
+        ],
+        "latest": "1.0.0",
+        "checked_date": "2026-10-12"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_chat_signal",
+      "base": "origin/main",
+      "base_sha": "3efc24e44dd6a316dd8f7dda5bee4a1b647490f4",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal",
+      "state": "progress-committed; final gates pending",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": null,
+      "rollback_pin": "3efc24e44dd6a316dd8f7dda5bee4a1b647490f4",
+      "repository": "agentjido/jido_chat_signal",
+      "declared_version": "1.0.0",
+      "intended_version": "2.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_signal",
+        "releases": [
+          "1.0.0"
+        ],
+        "latest": "1.0.0",
+        "checked_date": "2026-10-12"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_chat_mattermost",
+      "base": "upstream/main",
+      "base_sha": "3a230ef9cb9fcc7ff031acb8e85bcbd1d6ed9630",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_mattermost",
+      "state": "progress-committed; final gates pending",
+      "head_sha": "2774d140f4cdffee3c4aaf6437fed498c2d247f7",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": 90,
+      "rollback_pin": "3a230ef9cb9fcc7ff031acb8e85bcbd1d6ed9630",
+      "repository": "www-zaq-ai/jido_chat_mattermost",
+      "declared_version": "1.0.0",
+      "intended_version": "1.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_mattermost",
+        "state": "not-published-on-hex",
+        "error": "HTTP Error 404: Not Found",
+        "checked_date": "2026-10-12",
+        "hex_published": false,
+        "github_releases": [],
+        "rollback_source": "3a230ef9cb9fcc7ff031acb8e85bcbd1d6ed9630"
+      },
+      "version_reason": "No published Hex package or GitHub release was found. Keep 1.0.0 for the first release of this typed boundary; the existing Git base remains the rollback pin."
+    },
+    {
+      "package": "jido_chat_teams",
+      "base": "origin/main",
+      "base_sha": "d3c745a0c32614efe59b260b4404ab3325315455",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams",
+      "state": "implementation-pending",
+      "head_sha": "d3c745a0c32614efe59b260b4404ab3325315455",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": null,
+      "rollback_pin": "d3c745a0c32614efe59b260b4404ab3325315455",
+      "repository": "agentjido/jido_chat_teams",
+      "declared_version": "0.1.0",
+      "intended_version": "0.2.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_teams",
+        "state": "not-published-on-hex",
+        "error": "HTTP Error 404: Not Found",
+        "checked_date": "2026-10-12",
+        "hex_published": false,
+        "github_releases": [],
+        "rollback_source": "d3c745a0c32614efe59b260b4404ab3325315455"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_chat_whatsapp",
+      "base": "origin/main",
+      "base_sha": "1273a4303089430ae325b3fa17aa3ead93995641",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp",
+      "state": "implementation-pending",
+      "head_sha": "1273a4303089430ae325b3fa17aa3ead93995641",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": 80,
+      "rollback_pin": "1273a4303089430ae325b3fa17aa3ead93995641",
+      "repository": "agentjido/jido_chat_whatsapp",
+      "declared_version": "0.1.0",
+      "intended_version": "0.2.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_whatsapp",
+        "state": "not-published-on-hex",
+        "error": "HTTP Error 404: Not Found",
+        "checked_date": "2026-10-12",
+        "hex_published": false,
+        "github_releases": [],
+        "rollback_source": "1273a4303089430ae325b3fa17aa3ead93995641"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_chat_x",
+      "base": "origin/main",
+      "base_sha": "559f6abcc876f55ed2d02b92dc3a36d7dfdbbf40",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x",
+      "state": "implementation-pending",
+      "head_sha": "559f6abcc876f55ed2d02b92dc3a36d7dfdbbf40",
+      "branch": "codex/public-signal-v3",
+      "coverage_floor": null,
+      "rollback_pin": "559f6abcc876f55ed2d02b92dc3a36d7dfdbbf40",
+      "repository": "agentjido/jido_chat_x",
+      "declared_version": "1.0.1",
+      "intended_version": "2.0.0",
+      "publication_history": {
+        "source": "https://hex.pm/api/packages/jido_chat_x",
+        "releases": [
+          "1.0.1",
+          "1.0.0"
+        ],
+        "latest": "1.0.1",
+        "checked_date": "2026-10-12"
+      },
+      "version_reason": "The public communication boundary breaks the released record/envelope API; use the next major, or next minor for a 0.x package."
+    },
+    {
+      "package": "jido_signal",
+      "source_ref": "d6611eca1c95eb507843baceb55991e4801d8421",
+      "source_sha": "d6611eca1c95eb507843baceb55991e4801d8421",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/dependencies/jido_signal",
+      "state": "pending",
+      "head_sha": "d6611eca1c95eb507843baceb55991e4801d8421",
+      "branch": null,
+      "coverage_floor": null,
+      "rollback_pin": null,
+      "repository": "agentjido/jido_signal",
+      "declared_version": "3.0.0-beta.4"
+    },
+    {
+      "package": "jido",
+      "source_ref": "origin/release/v3",
+      "source_sha": "90763478104f1edbf0afcfcf9444621c3f9755e8",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/dependencies/jido",
+      "state": "pending",
+      "head_sha": "90763478104f1edbf0afcfcf9444621c3f9755e8",
+      "branch": null,
+      "coverage_floor": null,
+      "rollback_pin": null,
+      "repository": "agentjido/jido",
+      "declared_version": "3.0.0-beta.1"
+    },
+    {
+      "package": "jido_action",
+      "source_ref": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+      "source_sha": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/dependencies/jido_action",
+      "state": "pending",
+      "head_sha": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+      "branch": null,
+      "coverage_floor": null,
+      "rollback_pin": null,
+      "repository": "agentjido/jido_action",
+      "declared_version": "3.0.0-beta.12"
+    },
+    {
+      "package": "jido_ai",
+      "source_ref": "origin/release/v3",
+      "source_sha": "1f19ff262081bc13eb30da7bff8bfe42685d63c8",
+      "worktree": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/dependencies/jido_ai",
+      "state": "pending",
+      "head_sha": "1f19ff262081bc13eb30da7bff8bfe42685d63c8",
+      "branch": null,
+      "coverage_floor": null,
+      "rollback_pin": null,
+      "repository": "agentjido/jido_ai",
+      "declared_version": "2.3.0"
+    }
+  ],
+  "dependency_graphs": {
+    "core-only": {
+      "state": "pass",
+      "evidence": "evidence/g0/graph-core-only.json",
+      "sha256": "3becd6724a3e494e1ca9a153b36d2d09e5ce1038eeebbadc9f6950e3ab42643d",
+      "dependency_count": 31
+    },
+    "with-ai": {
+      "state": "pass",
+      "evidence": "evidence/g0/graph-with-ai.json",
+      "sha256": "bf3671aca08a49b9cd37a750a105673adb983beaeb2426c2d6e6d9ed99cda185",
+      "dependency_count": 49
+    }
+  },
+  "publish_ready": false,
+  "rejected_candidates": [
+    {
+      "package": "jido_action",
+      "source_sha": "d7358a32cde07429848278d98f994fbb121393ea",
+      "reason": "Removed Jido.Executable and changed Jido.Exec APIs still used by selected Jido and optional AI.",
+      "evidence": "evidence/g0/messaging-v3-compile.json"
+    }
+  ],
+  "upstream_graph": {
+    "jido_signal": {
+      "repository": "agentjido/jido_signal",
+      "ref": "d6611eca1c95eb507843baceb55991e4801d8421",
+      "declared_version": "3.0.0-beta.4"
+    },
+    "jido": {
+      "repository": "agentjido/jido",
+      "ref": "90763478104f1edbf0afcfcf9444621c3f9755e8",
+      "declared_version": "3.0.0-beta.1"
+    },
+    "jido_action": {
+      "repository": "agentjido/jido_action",
+      "ref": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+      "declared_version": "3.0.0-beta.12"
+    },
+    "jido_ai": {
+      "repository": "agentjido/jido_ai",
+      "ref": "1f19ff262081bc13eb30da7bff8bfe42685d63c8",
+      "declared_version": "2.3.0",
+      "runtime_line": "v3",
+      "optional": true
+    },
+    "zoi": {
+      "repository": "mikehostetler/zoi",
+      "ref": "2fff2a23e23e7ac0b26f62f49bbc1b12f7818ac9",
+      "declared_version": "0.18.11"
+    },
+    "runic": {
+      "hex": "runic",
+      "version": "0.1.0-alpha.11"
+    },
+    "decimal": {
+      "hex": "decimal",
+      "version": "3.2.0"
+    },
+    "req_llm": {
+      "hex": "req_llm",
+      "version": "1.27.0",
+      "optional": true
+    },
+    "llm_db": {
+      "hex": "llm_db",
+      "version": "2026.10.2",
+      "optional": true
+    }
+  },
+  "quality_blockers": [
+    {
+      "gate": "G7",
+      "command": "MIX_ENV=test mix hex.audit",
+      "exit_status": 1,
+      "evidence": "evidence/g1/g1-dependency-audit.json",
+      "packages": [
+        {
+          "package": "cowlib",
+          "version": "2.21.0",
+          "advisory": "EEF-CVE-2026-43966"
+        },
+        {
+          "package": "gun",
+          "version": "2.7.0",
+          "advisory": "GHSA-w4f7-4cxr-rv3c"
+        }
+      ],
+      "source": "https://cna.erlef.org/cves/CVE-2026-43966.html",
+      "status": "unresolved",
+      "note": "Gun has an upstream header mitigation. No audit exception or ignore is authorized. The all-adapter audit remains failed."
+    }
+  ]
+}

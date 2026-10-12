@@ -1,0 +1,300 @@
+{
+  "gate": "G3",
+  "state": "in-progress",
+  "entries": [
+    {
+      "test": "returns false when PubSub is not configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "returns true when PubSub is configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "returns error when PubSub is not configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "subscribes and unsubscribes when PubSub is configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "returns error when PubSub is not configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "broadcasts events to subscribers when PubSub is configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "generates correct topic pattern",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "broadcasts message_added event when message is added",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "ported",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "Room changes use one native instance Bus and typed facts."
+    },
+    {
+      "test": "broadcasts participant_joined event when participant is added",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "ported",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "Room changes use one native instance Bus and typed facts."
+    },
+    {
+      "test": "broadcasts participant_left event when participant is removed",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "ported",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "Room changes use one native instance Bus and typed facts."
+    },
+    {
+      "test": "subscribe/1 returns error when PubSub not configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "unsubscribe/1 returns error when PubSub not configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "test": "subscribe/1 and unsubscribe/1 work when PubSub is configured",
+      "source": "test/jido_messaging/pubsub_test.exs",
+      "state": "retired",
+      "replacement": "test/jido_messaging/typed_room_subscription_test.exs",
+      "reason": "The old PubSub helper or alias was removed. Native subscription and export-retirement tests cover the new API."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "routes message payloads into ingest and returns message/context/event",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "returns duplicate marker on repeated payload id in same room",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "routes direct EventEnvelope payloads as non-message events",
+      "state": "retired",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The old wrapper is removed. The new test rejects raw wrappers or checks their absence."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "uses credentials and settings from the selected bridge",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "returns :noop for ack-only webhook events",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "returns typed non-message event without ingesting",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "returns webhook verification errors",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "returns :bridge_not_found for unknown bridge id",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "returns :bridge_disabled for disabled bridge config",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "returns typed webhook response and ingest outcome for noop events",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "maps bridge-not-found to typed 404 response",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "falls back to safe error serialization when adapter formatter fails",
+      "state": "ported",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The private HTTP control uses verification, normalized deliveries, typed facts, and a sanitized response."
+    },
+    {
+      "source": "test/jido_messaging/inbound_router_test.exs",
+      "test": "returns canonical IngressOutcome for webhook mode",
+      "state": "retired",
+      "replacement": "test/jido_messaging/inbound_router_test.exs",
+      "reason": "The old wrapper is removed. The new test rejects raw wrappers or checks their absence."
+    },
+    {
+      "source": "test/jido_messaging/ingress_sink_test.exs",
+      "test": "emit/4 routes webhook payload by default and preserves request metadata",
+      "state": "retired",
+      "replacement": "test/jido_messaging/ingress_sink_test.exs",
+      "reason": "The sink accepts complete typed deliveries. HTTP metadata stays in private HTTP control. Dedupe remains scoped by binding."
+    },
+    {
+      "source": "test/jido_messaging/ingress_sink_test.exs",
+      "test": "emit/4 routes payload mode to route_payload and ingests message events",
+      "state": "ported",
+      "replacement": "test/jido_messaging/ingress_sink_test.exs",
+      "reason": "The sink accepts complete typed deliveries. HTTP metadata stays in private HTTP control. Dedupe remains scoped by binding."
+    },
+    {
+      "source": "test/jido_messaging/ingress_sink_test.exs",
+      "test": "bridge-scoped dedupe remains isolated across bridge ids",
+      "state": "ported",
+      "replacement": "test/jido_messaging/ingress_sink_test.exs",
+      "reason": "The sink accepts complete typed deliveries. HTTP metadata stays in private HTTP control. Dedupe remains scoped by binding."
+    },
+    {
+      "source": "test/jido_messaging/read_receipt_test.exs",
+      "test": "calls the provider before it persists one stable read receipt",
+      "state": "ported",
+      "replacement": "test/jido_messaging/read_receipt_test.exs",
+      "reason": "Typed MarkAsRead execution retains provider/store ordering and receipt idempotence. Trusted principal options supply the reader. Credentials are captured once at binding setup."
+    },
+    {
+      "source": "test/jido_messaging/read_receipt_test.exs",
+      "test": "resolves bridge secrets for mark_as_read before calling the provider",
+      "state": "ported",
+      "replacement": "test/jido_messaging/read_receipt_test.exs",
+      "reason": "Typed MarkAsRead execution retains provider/store ordering and receipt idempotence. Trusted principal options supply the reader. Credentials are captured once at binding setup."
+    },
+    {
+      "source": "test/jido_messaging/read_receipt_test.exs",
+      "test": "does not call the provider or persist when secret resolution fails",
+      "state": "ported",
+      "replacement": "test/jido_messaging/read_receipt_test.exs",
+      "reason": "Typed MarkAsRead execution retains provider/store ordering and receipt idempotence. Trusted principal options supply the reader. Credentials are captured once at binding setup."
+    },
+    {
+      "source": "test/jido_messaging/read_receipt_test.exs",
+      "test": "does not persist a receipt when the provider fails",
+      "state": "ported",
+      "replacement": "test/jido_messaging/read_receipt_test.exs",
+      "reason": "Typed MarkAsRead execution retains provider/store ordering and receipt idempotence. Trusted principal options supply the reader. Credentials are captured once at binding setup."
+    },
+    {
+      "source": "test/jido_messaging/read_receipt_test.exs",
+      "test": "does not claim a receipt for an unsupported adapter",
+      "state": "ported",
+      "replacement": "test/jido_messaging/read_receipt_test.exs",
+      "reason": "Typed MarkAsRead execution retains provider/store ordering and receipt idempotence. Trusted principal options supply the reader. Credentials are captured once at binding setup."
+    },
+    {
+      "source": "test/jido_messaging/read_receipt_test.exs",
+      "test": "rejects an invalid timestamp before it calls the provider",
+      "state": "ported",
+      "replacement": "test/jido_messaging/read_receipt_test.exs",
+      "reason": "Typed MarkAsRead execution retains provider/store ordering and receipt idempotence. Trusted principal options supply the reader. Credentials are captured once at binding setup."
+    },
+    {
+      "source": "test/jido_messaging/events_test.exs",
+      "test": "post_message persists and dispatches a message_added signal",
+      "state": "ported",
+      "replacement": "test/jido_messaging/events_test.exs",
+      "reason": "Typed requests and facts retain record, reaction, presence, typing, and subscription behavior. Public data is closed and JSON-safe; legacy wrapper fields are removed."
+    },
+    {
+      "source": "test/jido_messaging/events_test.exs",
+      "test": "save_message remains a persistence primitive without signal side effects",
+      "state": "ported",
+      "replacement": "test/jido_messaging/events_test.exs",
+      "reason": "Typed requests and facts retain record, reaction, presence, typing, and subscription behavior. Public data is closed and JSON-safe; legacy wrapper fields are removed."
+    },
+    {
+      "source": "test/jido_messaging/events_test.exs",
+      "test": "event metadata is CloudEvents-friendly plain data",
+      "state": "ported",
+      "replacement": "test/jido_messaging/events_test.exs",
+      "reason": "Typed requests and facts retain record, reaction, presence, typing, and subscription behavior. Public data is closed and JSON-safe; legacy wrapper fields are removed."
+    },
+    {
+      "source": "test/jido_messaging/events_test.exs",
+      "test": "event constructors normalize string option keys without creating atoms",
+      "state": "ported",
+      "replacement": "test/jido_messaging/events_test.exs",
+      "reason": "Typed requests and facts retain record, reaction, presence, typing, and subscription behavior. Public data is closed and JSON-safe; legacy wrapper fields are removed."
+    },
+    {
+      "source": "test/jido_messaging/events_test.exs",
+      "test": "reaction commands persist and dispatch reaction signals",
+      "state": "ported",
+      "replacement": "test/jido_messaging/events_test.exs",
+      "reason": "Typed requests and facts retain record, reaction, presence, typing, and subscription behavior. Public data is closed and JSON-safe; legacy wrapper fields are removed."
+    },
+    {
+      "source": "test/jido_messaging/events_test.exs",
+      "test": "participant activity helpers dispatch canonical signals",
+      "state": "ported",
+      "replacement": "test/jido_messaging/events_test.exs",
+      "reason": "Typed requests and facts retain record, reaction, presence, typing, and subscription behavior. Public data is closed and JSON-safe; legacy wrapper fields are removed."
+    },
+    {
+      "source": "test/jido_messaging/chat_actions_test.exs",
+      "state": "ported",
+      "scope": "20 original action-set, read/scope/approval/provider/control/async cases, plus a native request admission case",
+      "replacement": "test/jido_messaging/chat_actions_test.exs",
+      "reason": "Results are native registered Signals. Tests retain provider counts, thread proof, actor claims, private credential capture, provider directory extension, and approval narrowing. Raw audit envelopes and DTO result expectations are removed."
+    }
+  ]
+}

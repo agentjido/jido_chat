@@ -1,0 +1,240 @@
+{
+  "current_gate": "G3",
+  "gates": [
+    {
+      "id": "G0",
+      "state": "pass",
+      "evidence": [
+        {
+          "path": "evidence/g0/g0-report.json",
+          "sha256": "d32794d086504f4ddcf719fbe2966083a6fab42ac349d49c5adc2e601efbf9a2"
+        }
+      ],
+      "phase": "consumer-baseline",
+      "source_refs": {
+        "jido_signal": {
+          "repository": "agentjido/jido_signal",
+          "ref": "d6611eca1c95eb507843baceb55991e4801d8421",
+          "declared_version": "3.0.0-beta.4"
+        },
+        "jido": {
+          "repository": "agentjido/jido",
+          "ref": "90763478104f1edbf0afcfcf9444621c3f9755e8",
+          "declared_version": "3.0.0-beta.1"
+        },
+        "jido_action": {
+          "repository": "agentjido/jido_action",
+          "ref": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+          "declared_version": "3.0.0-beta.12"
+        },
+        "jido_ai": {
+          "repository": "agentjido/jido_ai",
+          "ref": "1f19ff262081bc13eb30da7bff8bfe42685d63c8",
+          "declared_version": "2.3.0",
+          "runtime_line": "v3",
+          "optional": true
+        },
+        "zoi": {
+          "repository": "mikehostetler/zoi",
+          "ref": "2fff2a23e23e7ac0b26f62f49bbc1b12f7818ac9",
+          "declared_version": "0.18.11"
+        },
+        "runic": {
+          "hex": "runic",
+          "version": "0.1.0-alpha.11"
+        },
+        "decimal": {
+          "hex": "decimal",
+          "version": "3.2.0"
+        },
+        "req_llm": {
+          "hex": "req_llm",
+          "version": "1.27.0",
+          "optional": true
+        },
+        "llm_db": {
+          "hex": "llm_db",
+          "version": "2026.10.2",
+          "optional": true
+        }
+      }
+    },
+    {
+      "id": "G1",
+      "state": "pass",
+      "work_complete": true,
+      "evidence": [
+        {
+          "path": "evidence/g1/g1-report.json",
+          "sha256": "019a32bfa561faf2a68aea4115eba7d8a5968c2e923360b0480836688385a4e1"
+        }
+      ]
+    },
+    {
+      "id": "G2",
+      "state": "pass",
+      "work_complete": true,
+      "completed": [
+        "45 Chat and 65 Messaging native definitions with native Catalog JSON tests.",
+        "Uniform structured constructor errors, protected options, safe context, and encoded Signal limit.",
+        "Configured binding startup/protocol checks.",
+        "Private resource expiry, cancellation, owner/binding scope, and lazy streams.",
+        "Ordered delivery validation with zero/one/many items and exact count/failure/byte limits.",
+        "One direct executor covers all 26 request/result mappings; native/unsupported/provider-failure matrix passed.",
+        "Paged query cursors/items, large result references, resource failures, and stream fallback counts passed.",
+        "Native compiled Router fact families and typed application handlers; membership isolation, precedence, deduplication, and native Dispatch observation tests passed.",
+        "Core quality passed: format, warnings-as-errors compile, Credo, Dialyzer, and Doctor; no warnings were skipped.",
+        "In-progress request admission and terminated-caller outcome checks prevent duplicate callback execution.",
+        "Removed 31 old wrappers and state/routing helpers; retained pure domain constructors and value serializers.",
+        "Checked 1,219 compiled core/provider exports and an empty library scan.",
+        "All 110 definition fixtures passed native constructor, trace, JSON, and Catalog checks after cleanup.",
+        "Core 253 tests and full quality pass; Signal provider 54 tests and strict quality pass, seed 0.",
+        "Terminal result errors remain admitted and cannot repeat a provider callback.",
+        "Signal polling normalizes complete deliveries before its sink; private settings are captured at listener setup."
+      ],
+      "remaining": [],
+      "evidence": [
+        {
+          "path": "evidence/g2/g2-report.json",
+          "sha256": "131af8c184f6602c48772cbf7d7e91bafe80274e614aeca484246e93e0fc92ee"
+        }
+      ]
+    },
+    {
+      "id": "G3",
+      "state": "pending",
+      "evidence": [
+        "evidence/g3/g3-library-final-step-compile.json",
+        "evidence/g3/g3-native-ingress-six-contract-tests.json",
+        "evidence/g3/g3-updated-catalog-round-trip.json",
+        "evidence/g3/g3-core-contract-regression.json",
+        "evidence/g3/schema-corrections.json",
+        "evidence/g3/g3-trusted-policy-runtime-tests.json",
+        "evidence/g3/g3-dialyzer-native-shapes.json",
+        "evidence/g3/g3-execution-final-compile.json",
+        "evidence/g3/g3-final-scope-and-count-tests.json",
+        "evidence/g3/g3-core-final-accepted-result-tests.json",
+        "evidence/g3/g3-current-optional-ai-tests.json",
+        "evidence/g3/g3-runtime-quality-doc-fixed.json",
+        "evidence/g3/g3-core-updated-quality.json",
+        "evidence/g3/g3-final-schema-catalog.json",
+        "evidence/g3/g3-current-core-boundary-scan-separated.json",
+        "evidence/g3/g3-current-full-suite-audit.json",
+        "evidence/g3/g3-current-agent-library-quality.json",
+        "evidence/g3/side-effect-count-report.json",
+        "evidence/g3/g3-current-terminal-category-quality.json",
+        "evidence/g3/g3-core-current-terminal-category-quality.json",
+        "evidence/g3/g3-named-terminal-cause-tests.json",
+        "evidence/g3/g3-finite-error-tags-core-full-tests.json",
+        "evidence/g3/g3-terminal-tag-plt-refresh.json",
+        "evidence/g3/g3-provider-read-receipt-tests.json",
+        "evidence/g3/g3-routing-wrapper-retirement-tests.json",
+        "evidence/g3/g3-retained-runtime-event-tests.json",
+        "evidence/g3/g3-serialized-bridge-reconcile-tests.json",
+        "evidence/g3/g3-tool-native-result-fidelity-tests.json",
+        "evidence/g3/g3-inclusive-runtime-storage-coverage.json",
+        "evidence/g3/g3-inclusive-current-owned-runtime-tests.json",
+        "evidence/g3/g3-native-admission-quality-fixed.json",
+        "evidence/g3/g3-core-projected-thread-tests.json",
+        "evidence/g3/g3-all-native-result-schemas.json",
+        "evidence/g3/g3-room-scoped-lifecycle-queue-tests.json",
+        "evidence/g3/g3-core-progress-commit-tests.json",
+        "evidence/g3/g3-core-progress-commit-quality.json",
+        "evidence/g3/g3-signal-progress-commit-tests.json",
+        "evidence/g3/g3-signal-progress-commit-quality.json",
+        "evidence/g3/g3-messaging-progress-commit-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-quality.json",
+        "evidence/g3/g3-optional-ai-progress-commit-tests.json",
+        "evidence/g3/g3-mattermost-baseline-annotation-compile.json",
+        "evidence/g3/g3-progress-contract-catalog-check.json"
+      ],
+      "work_complete": false,
+      "completed": [
+        "One configured native runtime catalog and one instance Bus.",
+        "Configured bridge bindings captured before listener startup.",
+        "Direct typed delivery acceptance; complete validation before processing; ordered facts and memory deduplication.",
+        "Membership observation uses a dedicated branch and does not create room/participant records.",
+        "Agent subscriptions use exact source/subject and read the canonical stored message plus private room context.",
+        "Shared message schemas preserve runtime status, room kind/name, portable mentions, and one-level reply context.",
+        "Typed execute/3 and instance execute/2 implemented for all 26 provider requests and ten runtime requests.",
+        "Trusted principal/scope options feed the existing durable Authorizer; private policy can narrow grants.",
+        "Authorization runs before callbacks and cache reads; revocation and changed request data cannot reuse authority.",
+        "Canonical room/thread targets are resolved from owned records before provider execution.",
+        "Admission memory retains terminal results/errors, including failed observation, without repeating accepted effects.",
+        "Query max_results constraints apply with or without an explicit limit.",
+        "All 26 provider rows have native, unsupported, and provider-failure tests; terminal failures are cached.",
+        "In-flight, terminated-caller, resource ownership/expiry/cancel/failure, and large query result tests pass.",
+        "Core retains finite failure classes in private state; Messaging preserves recoverable/degraded/fatal retry decisions.",
+        "Existing retry scenarios prove two provider callbacks; failover and broadcast each prove two selected provider callbacks.",
+        "Private configured bindings resolve credentials once; listeners and gateway calls reuse the captured binding.",
+        "Room reaction and receipt changes persist inside the owning room process before fact publication; store failure leaves history and fact counts unchanged.",
+        "Agent facts keep the direct room-fact trace parent. Duplicate observations cannot repeat an agent handler within the 1,000-message process cache.",
+        "Agent consumers validate the native codec, Catalog, and public Signal policy before reading canonical records.",
+        "Old post/event/webhook/PubSub aliases, CommandResult, PubSub, and IngressOutcome are removed; 60 original export entries are marked retired.",
+        "The tool authorization bypass is removed. A private policy does not replace a durable grant.",
+        "Page direction and thread topic are preserved in the unreleased typed schemas and checked callback options.",
+        "177 focused Messaging tests, 254 full core tests, and four optional AI profile/example tests pass.",
+        "Core and Messaging library quality checks pass; Dialyzer has zero errors, skipped warnings, and unused ignore entries.",
+        "Known terminal cause tags stay private and preserve the original gateway terminal category; the failover regression checks both category and callback counts.",
+        "Typed MarkAsRead uses the trusted principal participant, resolves provider IDs from the canonical message, and persists a receipt only after confirmation. Provider/store failure, semantic duplicate, timestamp rejection, and disabled binding tests pass.",
+        "Typed SendMessage without bridge_id uses the owned routing policy. All selected routes are authorized before calls. Registered route result variants retain delivered/failed rows and exact counts.",
+        "Raw root read-receipt and route-outbound wrappers are retired. Native tool results replace ChatActions.Result; Action output validation preserves the Signal struct.",
+        "Tool logical request admission retains terminal results and checks grants before cache reads. Repeated logical tool requests cannot repeat provider callbacks.",
+        "Protocol 1 test fixtures replace 47 error-only old parser stubs in 26 files; original assertions remain.",
+        "Lifecycle facts update/delete owned records after room scope checks. ETS/SQLite parity and serialized update/delete race tests pass.",
+        "Private telemetry retains canonical record fields while public Signal data remains closed. Presence emits exact registered facts through the one runtime Bus.",
+        "Bridge manifest validation requires protocol 1, configured bindings, and normalization. Reconciliation is serialized per instance and ignores task exits caused by normal shutdown.",
+        "Inclusive coverage is 77.7%, below the required 90%. No coverage floor or ignore was lowered.",
+        "Current Messaging library quality and all 254 core tests pass.",
+        "916 inclusive runtime tests pass with seed 0 and warnings as errors, including PostgreSQL, integration, and story tests. No test is skipped in this run.",
+        "The empty skipped Sender queue-limit case is replaced by a controlled backlog test: 1000 jobs accepted and job 1001 rejected.",
+        "Provider message lookup includes the canonical room. Lifecycle updates/deletes and reply mapping preserve scope when the same provider ID occurs in two rooms. ETS, SQLite, and PostgreSQL shared conformance passes.",
+        "Core, Messaging, Signal adapter, storage, native tool results, and optional AI changes are saved in focused progress commits. Every commit records passed checks and open work.",
+        "Fresh tests pass: core 254, Signal adapter 54, Messaging inclusive 916, optional AI 4. Core/Messaging/Signal adapter quality checks pass."
+      ],
+      "remaining": [
+        "Complete normalized interaction/reaction/receipt acceptance and room-scoped identity checks, with explicit observation and record ownership rules.",
+        "Check remaining request admission, encoded size boundaries, private resource ownership, and observation failure paths across every public entry.",
+        "Complete current API export and prohibited-boundary scans; retire remaining communication aliases, including direct record/create-room classification where applicable.",
+        "Add meaningful missing runtime/storage/ownership tests to reach the required 90% Messaging coverage.",
+        "Run fresh complete core-only/optional-AI graphs and all required package/quality/coverage checks after final changes."
+      ]
+    },
+    {
+      "id": "G4",
+      "state": "pending",
+      "evidence": []
+    },
+    {
+      "id": "G5",
+      "state": "pending",
+      "evidence": []
+    },
+    {
+      "id": "G6",
+      "state": "pending",
+      "evidence": []
+    },
+    {
+      "id": "G7",
+      "state": "pending",
+      "evidence": []
+    },
+    {
+      "id": "G8",
+      "state": "pending",
+      "evidence": []
+    },
+    {
+      "id": "G9",
+      "state": "pending",
+      "evidence": []
+    }
+  ],
+  "progress_commit_rule": {
+    "requested_at": "2026-10-12",
+    "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
+    "record": "progress-commits.json",
+    "final_requirements_unchanged": true
+  }
+}

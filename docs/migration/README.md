@@ -1,0 +1,161 @@
+# Public Signal migration
+
+This migration is in progress. G0, G1, and G2 have passed. G3–G9 are pending.
+The full package group is not ready for use.
+
+The execution plan is
+[2026-10-12-002-public-signal-boundary-plan.md](../plans/2026-10-12-002-public-signal-boundary-plan.md).
+Issue [#65](https://github.com/agentjido/jido_chat/issues/65) tracks the work.
+Issue [#64](https://github.com/agentjido/jido_chat/issues/64) records the feature request.
+
+## Progress commits
+
+Make a small progress commit after each complete change passes its relevant tests.
+Do not wait for all gates to pass. Keep each commit focused. Put passed checks and
+open work in its commit message and in `progress-commits.json`.
+All final completion requirements stay the same.
+
+The tested work is now saved in progress commits. Fresh checks passed 254 core
+tests, 54 Signal adapter tests, 916 inclusive Messaging tests, and four optional
+AI tests. The Messaging run includes local PostgreSQL, integration, and story
+cases. It has no skipped test. One existing Signal provider live test is excluded.
+Core, Messaging, and Signal adapter quality checks pass.
+
+Provider message lookup now includes the canonical room. Update, delete, and
+reply tests use the same provider ID in two rooms. The Sender capacity test now
+checks all 1,000 queue places and the rejected next job.
+
+These checks use the combined worktrees. Final current-head PR CI, all-adapter
+conformance, package checks, and the 90 percent Messaging coverage floor are
+still required. G3 remains open. The most recent coverage report is 77.7% and
+predates the last two test changes.
+
+## Dependency baseline
+
+The checked source graph uses these immutable refs:
+
+| Package | Ref |
+| --- | --- |
+| Signal | `d6611eca1c95eb507843baceb55991e4801d8421` |
+| Jido | `90763478104f1edbf0afcfcf9444621c3f9755e8` |
+| Action | `8e9b3f7b268e175091b0eb3720bab3b8633d3c24` |
+| Optional AI | `1f19ff262081bc13eb30da7bff8bfe42685d63c8` |
+| Zoi | `2fff2a23e23e7ac0b26f62f49bbc1b12f7818ac9` |
+
+The graph also pins Runic 0.1.0-alpha.11 and Decimal 3.2.0. The AI profile pins
+ReqLLM 1.27.0 and LLM DB 2026.10.2. AI declares version 2.3.0 at its selected
+v3 source ref. The source ref is the compatibility identifier.
+
+The newer Action ref `d7358a32cde07429848278d98f994fbb121393ea` cannot replace
+the selected Action ref in this graph. It removed APIs that Jido and AI still use.
+The failed compile remains in `evidence/g0/`.
+
+## G0 baseline commands
+
+These commands record the G0 baseline. The current consumer sources still need
+the G3–G6 changes before the complete integration run can pass.
+
+The `integration/` project is for development and tests. It is excluded from the
+core Hex package. Place the core and Messaging candidate checkouts in sibling
+folders. Run these commands from the core `integration/` folder:
+
+```text
+MIX_ENV=test mix deps.get
+MIX_ENV=test mix test --seed 0 --exclude live --warnings-as-errors
+MIX_ENV=test mix test.chat --warnings-as-errors
+MIX_ENV=test mix test.messaging --warnings-as-errors
+MIX_ENV=test mix run scripts/report_dependency_graph.exs
+```
+
+For the optional AI profile, use a separate build folder:
+
+```text
+JIDO_INTEGRATION_AI=1 MIX_BUILD_PATH=_build/with_ai MIX_ENV=test mix deps.get
+JIDO_INTEGRATION_AI=1 MIX_BUILD_PATH=_build/with_ai MIX_ENV=test mix test --seed 0 --exclude live --warnings-as-errors
+JIDO_INTEGRATION_AI=1 MIX_BUILD_PATH=_build/with_ai MIX_ENV=test mix run scripts/report_dependency_graph.exs
+```
+
+The Messaging package can use `JIDO_CHAT_PATH=../jido_chat` in development and
+tests. The production dependency source cannot use this path override.
+Run `mix test.optional_jido_ai` from Messaging with the same path setting.
+The optional test loads the Agent/Profile definition and checks its declared
+model, tools, result, and limits. It makes no model or provider call.
+
+G0 does not establish final coverage, package quality, or adapter conformance.
+Those checks remain required in G7. Messaging's baseline has four pre-existing
+skipped tests and excludes 43 tests through its default categories. No new test
+uses a skip or live tag. The inclusive and applicable integration suites remain
+required.
+
+## Contract inventories
+
+`api-map.json`, `catalog.json`, `operations.json`, `adapter-matrix.json`, and
+`protocol.json` record the checked contract. The G1 verifier passed. The catalog
+has 110 native definitions, the operation table has 26 rows, and the adapter
+matrix has all nine source/transport rows. The API map classifies 3,486 source
+and generated exports. The G1 check is:
+
+```text
+MIX_ENV=test mix run scripts/verify_signal_migration.exs --phase G1 --manifest ../docs/migration/version-matrix.json
+```
+
+The final `--phase all` command must also execute C01–C14. That runner is pending.
+The current verifier reports this gap as a failure.
+
+## G2 core boundary checks
+
+Core has one typed executor for all 26 provider operations. It validates native
+Signal metadata, schema, and conversation keys before a callback. It keeps an
+admitted result or error in local memory. A result error cannot repeat the callback.
+This memory does not survive process termination or a restart.
+
+The old Chat object, event wrappers, result DTOs, and core queue/lock helpers are
+removed. Thread and ChannelRef keep their value constructors and serialization.
+They have no transport methods. `core-retired-modules.json` and
+`core-test-migration-map.json` record the changes. `new-major-core-api.json`
+records 1,219 compiled core and Signal-provider library exports.
+
+Core tests pass (253 tests, seed 0). Core quality passes format, compile with
+warnings as errors, Credo, Dialyzer, and Doctor. Signal provider tests pass (54
+tests, seed 0; one existing live test is excluded). Its strict quality check
+passes. The native catalog check builds and checks all 110 definitions through
+JSON. This G2 check compiles Messaging definitions only. Full Messaging runtime
+checks remain in G3 and G7. The source scan has no findings in 133 library files.
+
+Run from core:
+
+```text
+MIX_ENV=test mix test --seed 0 --exclude live --warnings-as-errors
+MIX_ENV=test mix quality
+MIX_ENV=test mix run integration/scripts/verify_g2_catalog.exs
+python3 integration/scripts/scan_public_boundary.py
+```
+
+Run from the sibling Signal provider checkout:
+
+```text
+JIDO_CHAT_PATH=../jido_chat MIX_ENV=test mix quality --seed 0 --warnings-as-errors
+JIDO_CHAT_PATH=../jido_chat MIX_ENV=test mix run ../jido_chat/integration/scripts/export_g2_api.exs
+```
+
+Signal polling sends a checked delivery to its sink. It keeps all receive items
+in order. It reports sink failure and uses polling backoff. The provider can
+consume receive input before sink acceptance. No durable redelivery is claimed.
+The mapper accepts both notification forms in the
+[signal-cli JSON-RPC manual](https://github.com/AsamK/signal-cli/blob/master/man/signal-cli-jsonrpc.5.adoc).
+
+## Consumer migration and release status
+
+Chat owns the `Jido.Chat.Signal.*` definitions and `jido.chat.*` types. Messaging
+owns the `Jido.Messaging.Signal.*` definitions and `jido.messaging.*` types.
+The Signal provider keeps ownership of the `Jido.Chat.Signal` parent module.
+
+The next major line will use configured bindings, typed requests and results,
+ordered normalized deliveries, and direct Messaging acceptance. Old event
+wrappers and tuple event mirrors will be removed. Domain records and input
+builders have a separate classification in the API map.
+
+The old 1.x release line remains available to existing consumers. The version
+matrix records rollback source pins. The new major versions are not published.
+PR review, package publication, and production activation are separate steps.
+No package or PR is ready for release at this stage.
