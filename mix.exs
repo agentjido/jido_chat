@@ -57,6 +57,8 @@ defmodule Jido.Chat.MixProject do
 
   defp deps do
     [
+      {:jido_signal,
+       git: "https://github.com/agentjido/jido_signal.git", ref: "d6611eca1c95eb507843baceb55991e4801d8421"},
       {:jason, "~> 1.4"},
       {:zoi, "~> 0.18.11"},
       {:splode, "~> 0.3.0"},
