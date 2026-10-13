@@ -1,6 +1,6 @@
 {
   "state": "open",
-  "source_head": "e7426bd5667d16a0029855c94b2df55d05bc240d",
+  "source_head": "47847c4fc16b6371062833185337c58059c4ec65",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
@@ -9,15 +9,15 @@
     },
     {
       "file": "lib/jido_messaging.ex and persistence/{ets,sqlite}.ex",
-      "observed": "Activity reference/summary input boundaries, remaining canonical facade and backend cleanup/filter cases still need complete proof. Required coverage is not yet met.",
+      "observed": "Remaining canonical facade, runtime publication/resource result, and backend cleanup/filter cases still need complete proof. Required coverage is not yet met.",
       "required_proof": "Owned/foreign record scope, defined errors and complete content. Reach 90 percent without skips, ignores or reduced thresholds."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Continuity, delegation and advisory evidence input boundaries reject invalid references, fields, enums, revisions, codes, times and bounded lists before save callbacks.",
-    "Whole owned/foreign passive records, rooms, threads and messages remain unchanged after invalid input; authority and admission counts remain zero.",
-    "String-key input reuses exact canonical records; invalid attestation lists cannot become scopes."
+    "Activity inputs reject duplicate logical fields and malformed UTF-8/control references before save callbacks.",
+    "Invalid summaries, enums, revisions, times and codes retain exact complete owned/foreign activity, participant, room, thread and message records with zero authority/admission effects.",
+    "String-key replay returns exact records. All 45 kind/status combinations retain complete maximum-size Unicode labels and codes."
   ]
 }
