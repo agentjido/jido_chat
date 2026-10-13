@@ -1,0 +1,52 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+..............
+
+  1) test Elixir.Jido.Messaging.Persistence.ETS absent records and empty scoped history have explicit results (Jido.Messaging.Persistence.CheckpointStorageContractTest)
+     test/jido_messaging/persistence/checkpoint_storage_contract_test.exs:12
+     match (=) failed
+     code:  assert {:error, :not_found} = adapter.delete_message(state, "missing")
+     left:  {:error, :not_found}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/persistence/checkpoint_storage_contract_test.exs:29: (test)
+
+..
+
+  2) test Elixir.Jido.Messaging.Persistence.ETS deleting a threaded message clears only its indexes (Jido.Messaging.Persistence.CheckpointStorageContractTest)
+     test/jido_messaging/persistence/checkpoint_storage_contract_test.exs:81
+     match (=) failed
+     code:  assert {:error, :not_found} = adapter.delete_message(state, "owned-message")
+     left:  {:error, :not_found}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/persistence/checkpoint_storage_contract_test.exs:95: (test)
+
+
+
+  3) test Elixir.Jido.Messaging.Persistence.SQLite absent records and empty scoped history have explicit results (Jido.Messaging.Persistence.CheckpointStorageContractTest)
+     test/jido_messaging/persistence/checkpoint_storage_contract_test.exs:12
+     match (=) failed
+     code:  assert {:error, :not_found} = adapter.delete_message(state, "missing")
+     left:  {:error, :not_found}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/persistence/checkpoint_storage_contract_test.exs:29: (test)
+
+..
+
+  4) test Elixir.Jido.Messaging.Persistence.SQLite deleting a threaded message clears only its indexes (Jido.Messaging.Persistence.CheckpointStorageContractTest)
+     test/jido_messaging/persistence/checkpoint_storage_contract_test.exs:81
+     match (=) failed
+     code:  assert {:error, :not_found} = adapter.delete_message(state, "owned-message")
+     left:  {:error, :not_found}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/persistence/checkpoint_storage_contract_test.exs:95: (test)
+
+.
+Finished in 0.6 seconds (0.3s async, 0.3s sync)
+
+Result: 19/23 passed
+Failed: 4 tests

@@ -1,0 +1,81 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+...
+
+  1) test private capability and verification hooks have explicit defaults (Jido.Messaging.CheckpointBridgeContractTest)
+     test/jido_messaging/checkpoint_bridge_contract_test.exs:82
+     Assertion with == failed
+     code:  assert AdapterBridge.capabilities(PreferredCapabilities) == [:text, :image]
+     left:  [:text, :image, nil]
+     right: [:text, :image]
+     stacktrace:
+       test/jido_messaging/checkpoint_bridge_contract_test.exs:84: (test)
+
+.
+
+  2) test private operation defaults reject missing bindings without invoking a provider (Jido.Messaging.CheckpointBridgeContractTest)
+     test/jido_messaging/checkpoint_bridge_contract_test.exs:106
+     Assertion with == failed
+     code:  assert result[:message_id] == "sent-room"
+     left:  "mock-message-1"
+     right: "sent-room"
+     stacktrace:
+       test/jido_messaging/checkpoint_bridge_contract_test.exs:114: (test)
+
+.
+
+  3) test onboarding facade defaults preserve terminal state and reject duplicate effects (Jido.Messaging.CheckpointFacadeDefaultsTest)
+     test/jido_messaging/checkpoint_facade_defaults_test.exs:37
+     ** (ArgumentError) unknown registry: Jido.Messaging.CheckpointFacadeDefaultsTest.Instance.Registry.Onboarding
+     code: assert {:ok, flow} = Messaging.start_onboarding(Instance, %{onboarding_id: "cancel-default"})
+     stacktrace:
+       (elixir 1.20.4) lib/registry.ex:1599: Registry.key_info!/1
+       (elixir 1.20.4) lib/registry.ex:674: Registry.lookup/2
+       (jido_messaging 1.1.1) lib/jido_messaging/onboarding/worker.ex:41: Jido.Messaging.Onboarding.Worker.whereis/2
+       (jido_messaging 1.1.1) lib/jido_messaging/onboarding/supervisor.ex:63: Jido.Messaging.Onboarding.Supervisor.get_or_start_worker/3
+       (jido_messaging 1.1.1) lib/jido_messaging/onboarding.ex:94: Jido.Messaging.Onboarding.with_worker/5
+       test/jido_messaging/checkpoint_facade_defaults_test.exs:38: (test)
+
+.
+
+  4) test bridge room configuration retains string fields and exact provider identity (Jido.Messaging.CheckpointFacadeDefaultsTest)
+     test/jido_messaging/checkpoint_facade_defaults_test.exs:61
+     match (=) failed
+     code:  assert {:ok, %Room{id: "checkpoint-room"}} =
+              Instance.create_bridge_room(%{
+                room_id: "checkpoint-room",
+                bridge_configs: [config],
+                bindings: [binding]
+              })
+     left:  {:ok, %Jido.Chat.Room{id: "checkpoint-room"}}
+     right: {:error,
+             {:bridge_config_failed, {:revision_conflict, 3, nil},
+              %{
+                "adapter" => Jido.Chat.AdapterTestKit.MockAdapter,
+                "capabilities" => %{},
+                "credentials" => %{},
+                "delivery_policy" => %{},
+                "id" => "bridge",
+                "opts" => %{},
+                "revision" => 3
+              }}}
+     stacktrace:
+       test/jido_messaging/checkpoint_facade_defaults_test.exs:64: (test)
+
+
+
+  5) test agent registration requires an identity and normalizes default handles (Jido.Messaging.CheckpointFacadeDefaultsTest)
+     test/jido_messaging/checkpoint_facade_defaults_test.exs:78
+     match (=) failed
+     code:  assert {:ok, _} = Instance.unregister_agent(room.id, "Casey")
+     left:  {:ok, _}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/checkpoint_facade_defaults_test.exs:84: (test)
+
+
+Finished in 0.5 seconds (0.00s async, 0.5s sync)
+
+Result: 6/11 passed
+Failed: 5 tests

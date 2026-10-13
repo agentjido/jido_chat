@@ -1,19 +1,24 @@
 # Public Signal migration
 
-This migration is in progress. G0, G1, and G2 have passed. G3–G9 are pending.
-The full package group is not ready for use.
+The B0–B2 Chat and Messaging checkpoint is complete. G0–G3 have passed.
+G4–G9 remain pending. Execution stopped at the user's B2 boundary.
 
-The isolated native PostgreSQL fixture works. Current complete Messaging checks
-pass 1,953 tests with zero skips and 87.2 percent coverage. Both current complete
-runtime profiles pass all 1,953 checks.
-The required 90 percent floor remains unmet.
+Chat passes 257 tests. Both complete Messaging runtime profiles pass 2,006 tests.
+Messaging inclusive coverage is 90.05059 percent. Both package quality checks,
+the native catalog, API audit, and public boundary scan pass.
+See [CHECKPOINT_B0_B2.md](CHECKPOINT_B0_B2.md) for current results and evidence.
 
 The execution plan is
 [2026-10-12-002-public-signal-boundary-plan.md](../plans/2026-10-12-002-public-signal-boundary-plan.md).
 Issue [#65](https://github.com/agentjido/jido_chat/issues/65) tracks the work.
 Issue [#64](https://github.com/agentjido/jido_chat/issues/64) records the feature request.
 
-## Progress commits
+## Progress records before B0–B2
+
+The test counts and open G3 statements below are historical. The checkpoint
+report above contains the current result.
+
+### Progress commits
 
 Make a small progress commit after each complete change passes its relevant tests.
 Do not wait for all gates to pass. Keep each commit focused. Put passed checks and

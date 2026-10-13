@@ -1,7 +1,7 @@
 ---
 title: Jido Chat and Messaging — Public Signal Migration
 date: 2026-10-12
-status: ready-for-goal-preflight
+status: G3-checkpoint-complete; G4-G9-pending
 scope: implementation and reviewable PRs; release execution excluded
 issues:
   - https://github.com/agentjido/jido_chat/issues/57
@@ -274,7 +274,9 @@ Preparatory independent work is allowed while a prerequisite is unresolved, but
 G2–G4 pass status requires the G0 baseline. Do not expand upstream or product
 scope when a gate fails.
 
-Initial state: G0–G9 are pending. No Chat/Messaging implementation gate has passed.
+Initial planning state on October 12: G0–G9 were pending.
+Current state is in `docs/migration/gate-status.json`. G0–G3 now pass.
+The user-authorized B0–B2 checkpoint is complete; execution stopped there.
 The upstream source prerequisite is verified. It is not a completed consumer
 dependency or Chat/Messaging migration gate.
 
@@ -589,4 +591,5 @@ starting the goal: the v3 prerequisite, the major public API change, room-level
 source/subject rules, optional-AI compatibility, all nine adapters, and the G9
 completion boundary. The upstream syntax and source commit are now verified.
 The consumer dependency matrix remains G0 work, not an invitation to recreate
-library features. The plan is ready to start at G0; no goal has been started.
+library features. Read the current gate status and B0–B2 checkpoint report before future work.
+G0–G3 pass. G4–G9 remain pending. The user requested a stop at B2.

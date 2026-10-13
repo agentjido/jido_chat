@@ -1,7 +1,19 @@
 {
-  "state": "open",
-  "source_head": "aa987d585c94a7244d0bde40f14347697c4b3687",
-  "next_checks": [
+  "state": "closed-for-G3-checkpoint",
+  "source_head": "17db6f1b30464493cfdc3ae208a8b80e8dc51770",
+  "coverage_floor": 90,
+  "final_requirements_unchanged": true,
+  "resolved_this_turn": [
+    "ETS recovery removes only the missing room binding rows from all three indexes. Complete old message history and foreign room/binding records remain unchanged. Repeated recovery retains one stable scoped binding.",
+    "Active participant recovery replaces only its stale scoped identity. A revoked missing identity cannot recreate the participant. Foreign identities remain unchanged.",
+    "Membership and invocation scope index recovery preserve foreign records and return exact owned records. All 32 affected tests and package quality pass."
+  ],
+  "updated_at": "2026-10-13T22:09:48.721736+00:00",
+  "checkpoint": "../../checkpoint-b0-b2.json",
+  "remaining_concrete_G3_defects": [],
+  "coverage_percent": 90.05059021922429,
+  "coverage_floor_met": true,
+  "historical_next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
       "observed": "Remaining native result construction errors and canonical facade defaults need exact ownership/effect proof. Coverage floor remains unmet.",
@@ -12,12 +24,5 @@
       "observed": "Remaining canonical facade defaults, backend scope index recovery and cleanup cases still need complete ownership proof. Required coverage is not yet met.",
       "required_proof": "Owned/foreign record scope, defined errors and complete content. Reach 90 percent without skips, ignores or reduced thresholds."
     }
-  ],
-  "coverage_floor": 90,
-  "final_requirements_unchanged": true,
-  "resolved_this_turn": [
-    "ETS recovery removes only the missing room binding rows from all three indexes. Complete old message history and foreign room/binding records remain unchanged. Repeated recovery retains one stable scoped binding.",
-    "Active participant recovery replaces only its stale scoped identity. A revoked missing identity cannot recreate the participant. Foreign identities remain unchanged.",
-    "Membership and invocation scope index recovery preserve foreign records and return exact owned records. All 32 affected tests and package quality pass."
   ]
 }

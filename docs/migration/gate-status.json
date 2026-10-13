@@ -1,5 +1,5 @@
 {
-  "current_gate": "G3",
+  "current_gate": "G4",
   "gates": [
     {
       "id": "G0",
@@ -109,7 +109,7 @@
     },
     {
       "id": "G3",
-      "state": "pending",
+      "state": "pass",
       "evidence": [
         "evidence/g3/canonical-storage-external-fixture-status.json",
         "evidence/g3/current-activity-input-complete-api-exports.json",
@@ -966,9 +966,13 @@
         "evidence/g3/runtime-ai-dependency-graph.json",
         "evidence/g3/runtime-core-dependency-graph.json",
         "evidence/g3/schema-corrections.json",
-        "evidence/g3/side-effect-count-report.json"
+        "evidence/g3/side-effect-count-report.json",
+        {
+          "path": "evidence/checkpoint-b0-b2/checkpoint-report.json",
+          "sha256": "e7ceb8bf29b7a0016cb0ceb2643968532a20c2da3a50297df200cd83701f3eab"
+        }
       ],
-      "work_complete": false,
+      "work_complete": true,
       "completed": [
         "One configured native runtime catalog and one instance Bus.",
         "Configured bridge bindings captured before listener startup.",
@@ -1240,19 +1244,108 @@
         "Active missing participant identity recovery replaces only the requested bridge identity. Revoked missing identities remain denied without recreation. Stale membership/invocation scope indexes recover without changing foreign records. Affected tests and package quality pass; original stale binding failure and separate fixture diagnostics remain in evidence.",
         "Current ETS source checks refresh quality, complete coverage, both full profiles, both runtime harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
         "Current complete inclusive Messaging coverage passes 1953 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.2 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1953 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1953 checks with zero skips.",
+        "B0-B2: seven G3 contract rows pass. Both complete runtime profiles pass 2,006 tests. Inclusive Messaging coverage is 90.05059 percent. Chat has 257 passing tests. Both package quality checks pass."
       ],
-      "remaining": [
-        "R1: authorization and Bus-only commands cause zero provider effects.",
-        "R2: retry, failover, broadcast and admission retain exact callback counts.",
-        "R3: failed publication cannot repeat work or leak result resources.",
-        "R4: parent facts stay unchanged; children retain trace and causation.",
-        "R5: room selection isolates source/subject; thread policy stays in the application.",
-        "R6: core and optional-AI runtime profiles and AI fixtures pass.",
-        "R7: compiled API audit and prohibited-boundary scan pass."
-      ],
+      "remaining": [],
       "depends_on": [
         "G2"
+      ],
+      "acceptance_rows": [
+        {
+          "id": "R1",
+          "state": "pass",
+          "required_result": "Authorization and Bus-only commands have zero provider effects.",
+          "test_files": [
+            "typed_execution_test.exs",
+            "execution_canonical_scope_test.exs",
+            "typed_acceptance_test.exs"
+          ],
+          "checks": [
+            "checkpoint-runtime-core-tests",
+            "checkpoint-runtime-ai-tests"
+          ]
+        },
+        {
+          "id": "R2",
+          "state": "pass",
+          "required_result": "Admission, retry, failover and broadcast retain exact callback counts.",
+          "test_files": [
+            "typed_request_admission_test.exs",
+            "outbound_router_test.exs",
+            "checkpoint_media_delivery_test.exs"
+          ],
+          "checks": [
+            "checkpoint-runtime-core-tests",
+            "checkpoint-runtime-ai-tests"
+          ]
+        },
+        {
+          "id": "R3",
+          "state": "pass",
+          "required_result": "Publication failure cannot repeat accepted work or retain an unpublished result resource.",
+          "test_files": [
+            "provider_result_publication_test.exs",
+            "route_result_resource_test.exs",
+            "local_post_resource_failure_test.exs"
+          ],
+          "checks": [
+            "checkpoint-runtime-core-tests",
+            "checkpoint-runtime-ai-tests"
+          ]
+        },
+        {
+          "id": "R4",
+          "state": "pass",
+          "required_result": "Parents stay unchanged; native children retain trace and direct causation.",
+          "test_files": [
+            "typed_acceptance_test.exs",
+            "typed_execution_test.exs"
+          ],
+          "checks": [
+            "checkpoint-runtime-core-tests",
+            "checkpoint-runtime-ai-tests"
+          ]
+        },
+        {
+          "id": "R5",
+          "state": "pass",
+          "required_result": "Source/subject selection isolates rooms; thread policy remains in the application.",
+          "test_files": [
+            "typed_room_subscription_test.exs",
+            "typed_execution_test.exs"
+          ],
+          "checks": [
+            "checkpoint-runtime-core-tests",
+            "checkpoint-runtime-ai-tests"
+          ]
+        },
+        {
+          "id": "R6",
+          "state": "pass",
+          "required_result": "Both pinned runtime graphs, complete suites, harnesses and optional AI fixtures pass.",
+          "test_files": [],
+          "checks": [
+            "checkpoint-core-graph",
+            "checkpoint-ai-graph",
+            "checkpoint-runtime-core-tests",
+            "checkpoint-runtime-ai-tests",
+            "checkpoint-runtime-core-harness",
+            "checkpoint-runtime-ai-harness",
+            "checkpoint-optional-ai"
+          ]
+        },
+        {
+          "id": "R7",
+          "state": "pass",
+          "required_result": "The compiled API audit, boundary scan and native catalog checks pass.",
+          "test_files": [],
+          "checks": [
+            "checkpoint-api-audit",
+            "checkpoint-source-scan",
+            "checkpoint-catalog"
+          ]
+        }
       ]
     },
     {
@@ -1405,9 +1498,11 @@
         "G6"
       ],
       "remaining": [
-        "Reach at least 90 percent inclusive Messaging coverage without new exclusions or a reduced threshold.",
         "Implement and pass all-nine Conformance.run C01-C14 against candidate sources.",
         "Pass all applicable package tests, quality/coverage checks, runtime graphs and full boundary scan."
+      ],
+      "completed": [
+        "Messaging inclusive coverage meets the 90 percent floor at the B0-B2 candidate. Refresh affected evidence if source changes."
       ]
     },
     {
@@ -1451,14 +1546,15 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T21:37:11.353561+00:00",
+  "updated_at": "2026-10-13T22:09:48.721736+00:00",
   "completion_batches": {
     "plan": "../plans/2026-10-13-003-public-signal-migration-closeout-plan.md",
     "authorized_through": "B2",
     "stop_after": "Chat and Messaging implementation checkpoint",
     "B0": "pass",
-    "B1": "running",
-    "B2": "pending",
-    "B3_B6": "not authorized in this run"
+    "B1": "pass",
+    "B2": "pass",
+    "B3_B6": "not started; user stop boundary is B2",
+    "stop_reached": true
   }
 }

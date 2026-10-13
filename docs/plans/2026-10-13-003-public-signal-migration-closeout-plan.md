@@ -1,7 +1,7 @@
 ---
 title: Public Signal Migration — Remaining Work and Completion Plan
 date: 2026-10-13
-status: approved-through-B2
+status: B0-B2-complete; stopped-at-user-boundary
 primary_plan: 2026-10-12-002-public-signal-boundary-plan.md
 scope: same implementation and PR scope as the primary plan
 ---
@@ -15,7 +15,14 @@ the 90 percent Messaging coverage requirement, package checks, PR review,
 and current-head CI remain required. This analysis did not change gate status,
 application code, dependencies, or existing test results.
 
-## Current state
+## B0–B2 result
+
+B0, B1, and B2 passed. G3 is complete. Messaging coverage is 90.05059 percent.
+Both runtime profiles pass 2,006 tests. Chat passes 257 tests. Package quality,
+catalog, API, and source checks pass. Execution stopped at B2.
+See [the checkpoint report](../migration/CHECKPOINT_B0_B2.md).
+
+## State before this checkpoint
 
 The implementation folder is `.worktrees/public-signal-v3/`. Reuse its
 `codex/public-signal-v3` branches. The main checkouts contain older code.
@@ -267,6 +274,6 @@ exact open defects, current coverage and measured deficit, adapter rows passed,
 saved commit IDs, and the next batch. The report must show what is still required
 to finish. Do not use command count or commit count as a completion percentage.
 
-The next checkpoint is B0–B2: close the finite Messaging contract list and meet
-its coverage requirement. Estimate later duration after B0 and the first new
-adapter row. The current records do not support a reliable total time estimate.
+The B0–B2 checkpoint is complete. The next planned batch is B3. It did not
+start. Later execution requires a new user instruction. The current records
+do not support a reliable total time estimate.
