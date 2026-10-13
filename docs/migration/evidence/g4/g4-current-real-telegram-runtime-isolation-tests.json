@@ -1,0 +1,23 @@
+{
+  "label": "g4-current-real-telegram-runtime-isolation-tests",
+  "command": [
+    "mix",
+    "run",
+    "scripts/run_telegram_membership_runtime_tests.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "01d7b8df396d280bb2617bf45b4dd8bd4189216d",
+  "source_tree_sha256": "a8ca1e552f70e55abf60585696b5a922dd4dcb07939f33b91e792710051ccb53",
+  "started_at": "2026-10-13T01:24:03.657942+00:00",
+  "finished_at": "2026-10-13T01:24:06.020651+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "telegram",
+    "MIX_BUILD_PATH": "_build/telegram-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g4/g4-current-real-telegram-runtime-isolation-tests.log",
+  "log_sha256": "8976be05c6dad409e6c98b14b8465850dd503c829f2a8a0b5aaedaab2ce4617a"
+}

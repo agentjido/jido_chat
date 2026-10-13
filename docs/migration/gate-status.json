@@ -304,7 +304,15 @@
         "evidence/g4/g4-telegram-unused-lock-check.json",
         "evidence/g4/g4-telegram-dependency-audit.json",
         "evidence/g4/g4-telegram-package-metadata-build.json",
-        "evidence/g4/telegram-test-migration-ledger.json"
+        "evidence/g4/telegram-test-migration-ledger.json",
+        "evidence/g4/g4-telegram-runtime-graph-deps.json",
+        "evidence/g4/g4-telegram-runtime-graph-compile.json",
+        "evidence/g4/g4-real-telegram-membership-isolation-tests.json",
+        "evidence/g4/g4-real-telegram-harness-profile-tests.json",
+        "evidence/g4/g4-real-telegram-graph-report.json",
+        "evidence/g4/g4-slack-partial-membership-schema-tests.json",
+        "evidence/g4/g4-current-real-telegram-runtime-isolation-tests.json",
+        "evidence/g4/telegram-runtime-dependency-graph.json"
       ],
       "completed": [
         "Telegram membership mapper preparation passes 20 warning-free native fixtures for join, leave, removal, roles, restrictions, restricted is_member, reaction/tag permissions, expiry, bot-self, absent actor/prior state, stable item identity, portable selection, and invalid input rejection.",
@@ -314,20 +322,33 @@
         "Strict compilation and 44 focused protocol/normalizer/membership tests pass. Forty-five polling/normalizer/membership tests pass with no sleeps. Whole-batch validation runs before the typed sink; offset advances after acceptance only. Sink error/raise/throw/exit/invalid outcomes and size rejection retain the original checkpoint.",
         "All 172 named original Telegram source cases have a ledger entry. Port all 57 channel cases, extension mapping cases, and excluded live fixture code. Full package suite passes 209 tests with the same 16 live cases excluded and no new skip/live tags.",
         "Retire the duplicate Extensions.parse_update parser and UpdateEnvelope/CallbackQuery types. Normalization is the one native mapping path. Preserve media dimensions/provider metadata privately, deduplicate animation/document pointers, retain MIME fallback and channel publisher identity.",
-        "Telegram package quality passes format, strict compile, Credo, Dialyzer (zero errors/skips), and Doctor. Coverage is 79.7 percent. Dependency audit and unused-lock checks pass. The production metadata Hex build passes with no development path override. Final version/docs and release dependency availability remain G8 work."
+        "Telegram package quality passes format, strict compile, Credo, Dialyzer (zero errors/skips), and Doctor. Coverage is 79.7 percent. Dependency audit and unused-lock checks pass. The production metadata Hex build passes with no development path override. Final version/docs and release dependency availability remain G8 work.",
+        "Eight real Telegram-to-Messaging tests pass in the exact pinned four-package graph with an active agent, canonical membership/grants, and room presence. Membership facts preserve parent JSON/trace, emit one semantic observation across repeated webhook/polling items, and cause zero provider/message/mention/agent calls or canonical/room-state mutations.",
+        "The Telegram integration profile compiles core, Messaging, Signal provider, and Telegram against the pinned v3 source set. All 241 native harness tests and a verified 42-dependency report pass. The default all-nine-adapter profile is unchanged.",
+        "Five primary-source Slack partial membership fixtures pass the shared closed schema and native JSON. Missing/blank inviter and absent prior state remain explicit; no removal or complete participant set is inferred. Full native Slack mapping remains G5 work.",
+        "A dedicated Telegram membership sink rejection fixture retains the original checkpoint and stable retry item identity. Lazy/cancelled stream tests prove enumeration and provider-call counts."
       ],
       "remaining": [
-        "Verify real Telegram-to-Messaging membership isolation with active agents, grants, membership, and presence snapshots.",
-        "Complete all 26 native/fallback/unsupported operation mappings, full interaction/media/stream cases, and the declared adapter conformance matrix.",
-        "Complete standalone handler and Slack partial membership fixtures.",
-        "Refresh exact whole-group graphs and all final checks in G7. Complete final versions/docs/package readiness, PR review, and current-head CI in G8-G9.",
-        "Finish the full G3-G9 goal; Messaging coverage remains below 90 percent."
+        "Finish final Telegram event/interaction/resource matrix and cross-runtime paths; native 26-operation mappings and membership isolation now pass.",
+        "Complete full native Slack and the remaining provider adapter ports.",
+        "Finish G3 ownership/90 percent Messaging coverage and refresh affected core-only/optional-AI evidence.",
+        "Complete whole-group G7 conformance, final G8 versions/docs/package readiness, G9 PR review and current-head CI."
       ]
     },
     {
       "id": "G5",
       "state": "pending",
-      "evidence": []
+      "evidence": [
+        "evidence/g5/g5-telegram-real-operation-matrix-final-tests.json",
+        "evidence/g5/g5-telegram-all-operation-package-tests.json",
+        "evidence/g5/g5-telegram-all-operation-package-quality.json",
+        "evidence/g5/g5-telegram-stream-membership-checkpoint-tests.json",
+        "evidence/g5/g5-telegram-current-complete-package-tests.json"
+      ],
+      "completed": [
+        "All 26 native/fallback/unsupported Telegram operation mappings pass registered result/Catalog/trace checks with exact expected transport method counts/order and zero cached repeat calls. Provider timeout has one typed cached failure.",
+        "The package has 240 passing non-live tests and the same 16 existing live exclusions. Current library quality passes. Lazy and cancelled stream fixtures, membership checkpoint rejection, and all native operation matrix tests pass."
+      ]
     },
     {
       "id": "G6",

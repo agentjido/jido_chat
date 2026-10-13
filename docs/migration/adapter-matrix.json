@@ -121,7 +121,18 @@
         ]
       },
       "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "operation_conformance": {
+        "state": "pass",
+        "scope": "All 26 operations through the real Telegram adapter with deterministic fixture transport.",
+        "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+        "evidence": "evidence/g5/g5-telegram-real-operation-matrix-final-tests.json"
+      },
+      "membership_runtime_conformance": {
+        "state": "pass",
+        "scope": "Real adapter to Messaging with active agent and unchanged grants/membership/presence/records.",
+        "evidence": "evidence/g4/g4-current-real-telegram-runtime-isolation-tests.json"
+      }
     },
     {
       "package": "jido_chat_slack",

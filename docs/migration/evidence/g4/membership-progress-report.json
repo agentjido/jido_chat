@@ -1,7 +1,7 @@
 {
   "gate": "G4",
   "state": "pending",
-  "updated_at": "2026-10-13T01:15:53.958711+00:00",
+  "updated_at": "2026-10-13T01:25:13.428740+00:00",
   "scope": "Current Telegram package-local migration and quality. Cross-runtime/full matrix and whole-group gates remain pending.",
   "source_heads": {
     "jido_chat": "4fa1b9360b3927e82498e4293bfcf84673908b19",
@@ -19,37 +19,38 @@
     "https://core.telegram.org/bots/api#chatmemberrestricted"
   ],
   "passed": {
-    "package_tests": 209,
-    "live_existing_excluded": 16,
-    "quality": true,
-    "coverage_percent": 79.7,
-    "dependency_audit": true,
-    "unused_lock_check": true,
-    "prod_metadata_build": true,
-    "original_named_source_cases": 172,
-    "unmapped_original_named_cases": 0
+    "real_runtime_membership_cases": 8,
+    "slack_partial_schema_cases": 5,
+    "native_harness_tests": 241,
+    "pinned_graph_dependencies": 42,
+    "operation_rows": 26,
+    "package_tests": 240,
+    "live_existing_excluded": 16
   },
   "checks": [
-    "evidence/g4/g4-telegram-private-media-final-tests.json",
-    "evidence/g4/g4-telegram-original-surface-ported-tests.json",
-    "evidence/g4/g4-telegram-retired-extension-native-tests.json",
-    "evidence/g4/g4-telegram-all-tests-native-fixtures.json",
-    "evidence/g4/g4-telegram-current-package-quality.json",
-    "evidence/g4/g4-telegram-current-coverage.json",
-    "evidence/g4/g4-telegram-unused-lock-check.json",
-    "evidence/g4/g4-telegram-dependency-audit.json",
-    "evidence/g4/g4-telegram-package-metadata-build.json"
+    "evidence/g4/g4-telegram-runtime-graph-deps.json",
+    "evidence/g4/g4-telegram-runtime-graph-compile.json",
+    "evidence/g4/g4-real-telegram-membership-isolation-tests.json",
+    "evidence/g4/g4-real-telegram-harness-profile-tests.json",
+    "evidence/g4/g4-real-telegram-graph-report.json",
+    "evidence/g4/g4-slack-partial-membership-schema-tests.json",
+    "evidence/g4/g4-current-real-telegram-runtime-isolation-tests.json",
+    "evidence/g5/g5-telegram-real-operation-matrix-final-tests.json",
+    "evidence/g5/g5-telegram-all-operation-package-tests.json",
+    "evidence/g5/g5-telegram-all-operation-package-quality.json",
+    "evidence/g5/g5-telegram-stream-membership-checkpoint-tests.json",
+    "evidence/g5/g5-telegram-current-complete-package-tests.json"
   ],
   "remaining": [
-    "Verify real Telegram-to-Messaging membership isolation with active agents, grants, membership, and presence snapshots.",
-    "Complete all 26 native/fallback/unsupported operation mappings, full interaction/media/stream cases, and the declared adapter conformance matrix.",
-    "Complete standalone handler and Slack partial membership fixtures.",
-    "Refresh exact whole-group graphs and all final checks in G7. Complete final versions/docs/package readiness, PR review, and current-head CI in G8-G9.",
-    "Finish the full G3-G9 goal; Messaging coverage remains below 90 percent."
+    "Finish final Telegram event/interaction/resource matrix and cross-runtime paths; native 26-operation mappings and membership isolation now pass.",
+    "Complete full native Slack and the remaining provider adapter ports.",
+    "Finish G3 ownership/90 percent Messaging coverage and refresh affected core-only/optional-AI evidence.",
+    "Complete whole-group G7 conformance, final G8 versions/docs/package readiness, G9 PR review and current-head CI."
   ],
-  "telegram_head": "67890bbe538a46e1d004a7b14a1d8f10fe96d04a",
+  "telegram_head": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
   "notes": [
     "The first private-media commit was saved before its failed test result was inspected. Fixed the finite atom mapping and amended only that unpublished agent commit after all 18 relevant tests passed. Failed logs remain.",
     "The Hex build with a development path override failed, as required for non-Hex dependencies. The production metadata build without the override passed. This does not prove future release dependency availability or final version readiness."
-  ]
+  ],
+  "core_head": "01d7b8df396d280bb2617bf45b4dd8bd4189216d"
 }

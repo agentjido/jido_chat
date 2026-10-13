@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T01:15:53.958711+00:00",
+  "updated_at": "2026-10-13T01:25:13.428740+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -572,6 +572,47 @@
         "evidence/g4/g4-telegram-package-metadata-build.json"
       ],
       "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "76eab25861201330eae3d7fb8d6357c9a90d4ffe",
+      "subject": "test(membership): verify real Telegram runtime isolation in the pinned graph",
+      "checks": [
+        "evidence/g4/g4-real-telegram-membership-isolation-tests.json",
+        "evidence/g4/g4-real-telegram-harness-profile-tests.json",
+        "evidence/g4/g4-real-telegram-graph-report.json"
+      ],
+      "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "01d7b8df396d280bb2617bf45b4dd8bd4189216d",
+      "subject": "test(membership): validate partial Slack events against the shared schema",
+      "checks": [
+        "evidence/g4/g4-slack-partial-membership-schema-tests.json"
+      ],
+      "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "f8c1ed6644f6b7eeb5091fd6aa2f11d43b323dc0",
+      "subject": "test(telegram): verify every native Signal operation mapping",
+      "checks": [
+        "evidence/g5/g5-telegram-real-operation-matrix-final-tests.json",
+        "evidence/g5/g5-telegram-all-operation-package-tests.json",
+        "evidence/g5/g5-telegram-all-operation-package-quality.json"
+      ],
+      "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "subject": "test(telegram): prove lazy streams and membership checkpoint rejection",
+      "checks": [
+        "evidence/g5/g5-telegram-stream-membership-checkpoint-tests.json",
+        "evidence/g5/g5-telegram-current-complete-package-tests.json"
+      ],
+      "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
     }
   ],
   "passed_checks": {
@@ -600,7 +641,7 @@
     "telegram_membership_runtime_tests": 2,
     "telegram_protocol_normalizer_membership_tests": 44,
     "telegram_polling_normalizer_membership_tests": 45,
-    "telegram_package_tests": 209,
+    "telegram_package_tests": 240,
     "telegram_existing_live_excluded": 16,
     "telegram_package_quality": "pass",
     "telegram_package_audit": "pass",
@@ -608,7 +649,13 @@
     "telegram_prod_metadata_build": "pass",
     "telegram_coverage_percent": 79.7,
     "telegram_original_named_source_cases": 172,
-    "telegram_unmapped_original_named_cases": 0
+    "telegram_unmapped_original_named_cases": 0,
+    "real_telegram_runtime_membership_tests": 8,
+    "slack_partial_schema_tests": 5,
+    "real_telegram_operation_rows": 26,
+    "telegram_operation_matrix_tests": 30,
+    "telegram_operation_polling_tests": 41,
+    "telegram_pinned_graph_dependencies": 42
   },
   "open_work": [
     "Finish the remaining acceptance exception/partial-effect and direct facade ownership checks. Membership lookup failures and returned message/lifecycle store errors now have safe contract errors and tested claim release.",
