@@ -1,10 +1,10 @@
 {
   "state": "open",
-  "source_head": "47847c4fc16b6371062833185337c58059c4ec65",
+  "source_head": "82f15f47216dfe721eda56861541330814099e4a",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
-      "observed": "Remaining typed execution and canonical facade defaults have unverified exact error/result branches.",
+      "observed": "Remaining provider result publication/resource outcomes and canonical facade defaults need exact ownership and retry proof.",
       "required_proof": "Invalid/denied input causes zero effects. Accepted work, native results and retry counts remain complete and exact."
     },
     {
@@ -16,8 +16,8 @@
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Activity inputs reject duplicate logical fields and malformed UTF-8/control references before save callbacks.",
-    "Invalid summaries, enums, revisions, times and codes retain exact complete owned/foreign activity, participant, room, thread and message records with zero authority/admission effects.",
-    "String-key replay returns exact records. All 45 kind/status combinations retain complete maximum-size Unicode labels and codes."
+    "Local post error/raise/throw/exit/invalid store outcomes cancel both prepared resources with one save attempt and cached retry.",
+    "Confirmed after-write or failed fact publication state retains the complete canonical message; foreign records and parent signal stay unchanged.",
+    "Failed fact publication clears unpublished references without a repeated store write or provider call."
   ]
 }

@@ -1,0 +1,139 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test error before storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert :ets.info(Runtime.request_table(context.runtime), :size) == 1
+     left:  3
+     right: 1
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:177: Jido.Messaging.LocalPostResourceFailureTest.assert_state/2
+       test/jido_messaging/local_post_resource_failure_test.exs:121: (test)
+
+
+
+  2) test raise before storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert states == [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     left:  [{"result", false, :active}, {"result", false, :active}]
+     right: [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:120: (test)
+
+
+
+  3) test throw before storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert states == [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     left:  [{"result", false, :active}, {"result", false, :active}]
+     right: [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:120: (test)
+
+
+
+  4) test exit before storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert states == [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     left:  [{"result", false, :active}, {"result", false, :active}]
+     right: [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:120: (test)
+
+
+
+  5) test invalid before storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert :ets.info(Runtime.request_table(context.runtime), :size) == 1
+     left:  3
+     right: 1
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:177: Jido.Messaging.LocalPostResourceFailureTest.assert_state/2
+       test/jido_messaging/local_post_resource_failure_test.exs:121: (test)
+
+
+
+  6) test error after storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert :ets.info(Runtime.request_table(context.runtime), :size) == 1
+     left:  3
+     right: 1
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:177: Jido.Messaging.LocalPostResourceFailureTest.assert_state/2
+       test/jido_messaging/local_post_resource_failure_test.exs:121: (test)
+
+
+
+  7) test raise after storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert states == [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     left:  [{"result", false, :active}, {"result", false, :active}]
+     right: [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:120: (test)
+
+
+
+  8) test throw after storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert states == [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     left:  [{"result", false, :active}, {"result", false, :active}]
+     right: [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:120: (test)
+
+
+
+  9) test exit after storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert states == [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     left:  [{"result", false, :active}, {"result", false, :active}]
+     right: [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:120: (test)
+
+
+
+ 10) test invalid after storage keeps confirmed state and cancels both prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:112
+     Assertion with == failed
+     code:  assert :ets.info(Runtime.request_table(context.runtime), :size) == 1
+     left:  3
+     right: 1
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:177: Jido.Messaging.LocalPostResourceFailureTest.assert_state/2
+       test/jido_messaging/local_post_resource_failure_test.exs:121: (test)
+
+
+
+ 11) test failed fact publication keeps one complete write and cancels prepared resources (Jido.Messaging.LocalPostResourceFailureTest)
+     test/jido_messaging/local_post_resource_failure_test.exs:132
+     Assertion with == failed
+     code:  assert states == [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     left:  [{"result", false, :active}, {"result", false, :active}]
+     right: [{"result", true, :cancelled}, {"result", true, :cancelled}]
+     stacktrace:
+       test/jido_messaging/local_post_resource_failure_test.exs:139: (test)
+
+     The following output was logged:
+
+     05:23:17.822 [error] Dispatch bus target not found bus_name=Elixir.Jido.Messaging.LocalPostResourceFailureTest.Instance.SignalBus
+
+     05:23:17.832 [error] Dispatch bus target not found bus_name=Elixir.Jido.Messaging.LocalPostResourceFailureTest.Instance.SignalBus
+
+
+Finished in 0.9 seconds (0.00s async, 0.9s sync)
+
+Result: 0/11 passed
+Failed: 11 tests

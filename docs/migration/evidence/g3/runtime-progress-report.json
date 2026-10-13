@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T10:18:05.533451+00:00",
-  "messaging_head": "47847c4fc16b6371062833185337c58059c4ec65",
-  "core_head": "5f025f602623edecac7f85e11c3b8078168ae961",
-  "inclusive_tests": 1915,
+  "updated_at": "2026-10-13T10:36:22.837445+00:00",
+  "messaging_head": "82f15f47216dfe721eda56861541330814099e4a",
+  "core_head": "6f4a91994f4e9511adad6d23cf1578a0f79ced45",
+  "inclusive_tests": 1926,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 87.1,
+  "coverage_percent": 87.2,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -243,6 +243,13 @@
     "g3-current-jidoka-input-ai-full-tests",
     "g3-current-jidoka-input-core-full-tests",
     "g3-current-jidoka-input-inclusive-coverage",
+    "g3-current-local-post-resource-ai-full-tests",
+    "g3-current-local-post-resource-ai-harness",
+    "g3-current-local-post-resource-api-audit",
+    "g3-current-local-post-resource-core-full-tests",
+    "g3-current-local-post-resource-core-harness",
+    "g3-current-local-post-resource-inclusive-coverage",
+    "g3-current-local-post-resource-optional-ai",
     "g3-current-media-retry-yaml-ai-full-tests",
     "g3-current-media-retry-yaml-ai-graph",
     "g3-current-media-retry-yaml-ai-harness",
@@ -414,6 +421,8 @@
     "g3-jidoka-record-input-quality",
     "g3-jidoka-record-input-tests",
     "g3-lifecycle-exception-and-partial-effect-tests",
+    "g3-local-post-resource-failure-quality",
+    "g3-local-post-resource-failure-warning-free-tests",
     "g3-media-private-payload-final-tests",
     "g3-message-store-exception-reconciliation-tests",
     "g3-native-acceptance-audit-final-source-tests",
@@ -530,7 +539,8 @@
     "g3-directory-limit-order-tests: 78 test assertions passed but three compile warnings failed the required check. Current grouped clauses pass without warnings.",
     "g3-canonical-timeline-order-regressions: six failures from nil timestamp sorting and unstable equal-timestamp order; all now pass.",
     "g3-durable-record-input-active-fixture-regressions: explicit nil endpoint metadata and duplicate normalized constraints were accepted. Both are rejected before store writes.",
-    "g3-activity-input-boundary-regressions: three failures from accepted duplicate fields or malformed references. Current input rejects all of them before save callbacks."
+    "g3-activity-input-boundary-regressions: three failures from accepted duplicate fields or malformed references. Current input rejects all of them before save callbacks.",
+    "g3-local-post-resource-failure-bounded-regressions: six raised/thrown/exited store outcomes and one fact publication failure left prepared resources active. Current source cancels both resources and retains exact confirmed writes."
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -730,7 +740,12 @@
     "Valid string-key replay retains exact canonical records. All 45 kind/status string combinations retain complete 512-byte Unicode labels and 128-byte codes without truncation. Original three failed regressions remain in evidence.",
     "Current ActivityData source checks refresh quality, complete coverage, both full profiles, both runtime harnesses, optional AI fixture, API audit and source scan. Unchanged core and dependency graph proof is reused after exact source comparison.",
     "Current complete inclusive Messaging coverage passes 1915 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1915 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1915 checks with zero skips.",
+    "Large local posts contain store error/raise/throw/exit/invalid outcomes and clear both prepared message/result resources before returning a failed result. Confirmed after-write state remains complete; retry is cached with one save attempt and no repeated write or provider call.",
+    "Failed fact publication clears prepared resources while retaining the complete committed message and unchanged foreign record. Parent signal, causation and complete content remain exact. All 128 affected checks pass without warnings; package quality passes. Seven original cleanup failures and test-count/compiler corrections remain in evidence.",
+    "Current private execution source checks refresh quality, complete coverage, both full runtime profiles, both harnesses, optional AI, API audit and source scan. Unchanged core and dependency graph proof is reused only after exact source comparison.",
+    "Current complete inclusive Messaging coverage passes 1926 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.2 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1926 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -745,7 +760,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1915,
+    "messaging_tests_per_profile": 1926,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -756,39 +771,41 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1915,
+        "passed": 1926,
         "failures": 0,
-        "check": "g3-current-activity-input-core-full-tests.json"
+        "check": "g3-current-local-post-resource-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1915,
+        "passed": 1926,
         "failures": 0,
-        "check": "g3-current-activity-input-ai-full-tests.json"
+        "check": "g3-current-local-post-resource-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current activity-input runtime harnesses pass 241 checks.",
-    "optional_ai_evidence": "Current activity-input optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current local-post-resource runtime harnesses pass 241 checks.",
+    "optional_ai_evidence": "Current local-post-resource optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-activity-input-complete-api-exports.json",
+    "current_report": "current-local-post-resource-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1915 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-activity-input-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1926 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-local-post-resource-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-activity-input-source-proof.json",
+  "reused_library_proof": "current-local-post-resource-source-proof.json",
   "fixture_corrections": [
     "Timeline test used an incorrect membership query name. It now calls list_memberships and retains the zero-effect assertion.",
     "Durable input setup used expired credentials and incorrect endpoint facade names. It now uses current valid credentials and the existing facade names.",
-    "A valid new endpoint fixture reused an occupied principal. A separate agent principal now preserves the one-endpoint ownership rule."
+    "A valid new endpoint fixture reused an occupied principal. A separate agent principal now preserves the one-endpoint ownership rule.",
+    "Local post test now counts four-field admission rows because call resource rows share the same ETS table. All logical admission and resource assertions remain exact.",
+    "Initial local post diagnostic output printed synthetic fixture text. The saved log omits that payload and retains its raw hash; a bounded rerun records each failure."
   ]
 }

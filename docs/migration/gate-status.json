@@ -182,6 +182,9 @@
         "evidence/g3/current-identity-unregister-prohibited-runtime-boundary-scan.json",
         "evidence/g3/current-identity-unregister-source-proof.json",
         "evidence/g3/current-jidoka-input-source-proof.json",
+        "evidence/g3/current-local-post-resource-complete-api-exports.json",
+        "evidence/g3/current-local-post-resource-runtime-boundary-scan.json",
+        "evidence/g3/current-local-post-resource-source-proof.json",
         "evidence/g3/current-media-retry-yaml-complete-api-exports.json",
         "evidence/g3/current-media-retry-yaml-coverage-gaps.json",
         "evidence/g3/current-media-retry-yaml-runtime-ai-graph.json",
@@ -501,6 +504,13 @@
         "evidence/g3/g3-current-jidoka-input-ai-full-tests.json",
         "evidence/g3/g3-current-jidoka-input-core-full-tests.json",
         "evidence/g3/g3-current-jidoka-input-inclusive-coverage.json",
+        "evidence/g3/g3-current-local-post-resource-ai-full-tests.json",
+        "evidence/g3/g3-current-local-post-resource-ai-harness.json",
+        "evidence/g3/g3-current-local-post-resource-api-audit.json",
+        "evidence/g3/g3-current-local-post-resource-core-full-tests.json",
+        "evidence/g3/g3-current-local-post-resource-core-harness.json",
+        "evidence/g3/g3-current-local-post-resource-inclusive-coverage.json",
+        "evidence/g3/g3-current-local-post-resource-optional-ai.json",
         "evidence/g3/g3-current-media-retry-yaml-ai-full-tests.json",
         "evidence/g3/g3-current-media-retry-yaml-ai-graph.json",
         "evidence/g3/g3-current-media-retry-yaml-ai-harness.json",
@@ -715,6 +725,11 @@
         "evidence/g3/g3-large-message-single-projection-tests.json",
         "evidence/g3/g3-library-final-step-compile.json",
         "evidence/g3/g3-lifecycle-exception-and-partial-effect-tests.json",
+        "evidence/g3/g3-local-post-resource-failure-bounded-regressions.json",
+        "evidence/g3/g3-local-post-resource-failure-quality.json",
+        "evidence/g3/g3-local-post-resource-failure-regressions.json",
+        "evidence/g3/g3-local-post-resource-failure-tests.json",
+        "evidence/g3/g3-local-post-resource-failure-warning-free-tests.json",
         "evidence/g3/g3-mattermost-baseline-annotation-compile.json",
         "evidence/g3/g3-media-private-payload-final-tests.json",
         "evidence/g3/g3-message-store-exception-reconciliation-tests.json",
@@ -1135,7 +1150,12 @@
         "Valid string-key replay retains exact canonical records. All 45 kind/status string combinations retain complete 512-byte Unicode labels and 128-byte codes without truncation. Original three failed regressions remain in evidence.",
         "Current ActivityData source checks refresh quality, complete coverage, both full profiles, both runtime harnesses, optional AI fixture, API audit and source scan. Unchanged core and dependency graph proof is reused after exact source comparison.",
         "Current complete inclusive Messaging coverage passes 1915 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1915 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1915 checks with zero skips.",
+        "Large local posts contain store error/raise/throw/exit/invalid outcomes and clear both prepared message/result resources before returning a failed result. Confirmed after-write state remains complete; retry is cached with one save attempt and no repeated write or provider call.",
+        "Failed fact publication clears prepared resources while retaining the complete committed message and unchanged foreign record. Parent signal, causation and complete content remain exact. All 128 affected checks pass without warnings; package quality passes. Seven original cleanup failures and test-count/compiler corrections remain in evidence.",
+        "Current private execution source checks refresh quality, complete coverage, both full runtime profiles, both harnesses, optional AI, API audit and source scan. Unchanged core and dependency graph proof is reused only after exact source comparison.",
+        "Current complete inclusive Messaging coverage passes 1926 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.2 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1926 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1305,5 +1325,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T10:18:05.533451+00:00"
+  "updated_at": "2026-10-13T10:36:22.837445+00:00"
 }

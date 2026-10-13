@@ -1,0 +1,66 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "6f4a91994f4e9511adad6d23cf1578a0f79ced45",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "47847c4fc16b6371062833185337c58059c4ec65",
+      "library_test_files": 398,
+      "library_test_sha256": "f29dcc1d9dd8e89e057243ccc04eacd050bbc771975c0c66bc29ac3ba9a97a15"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-local-post-resource-failure-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/local_post_resource_failure_test.exs",
+    "test/jido_messaging/message_fact_size_test.exs",
+    "test/jido_messaging/typed_execution_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "47847c4fc16b6371062833185337c58059c4ec65",
+  "source_tree_sha256": "ac6bd913091487ebe0b7404b6ef588f6d4eb99fda8a064c854b055d322df5a30",
+  "started_at": "2026-10-13T10:24:56.819281+00:00",
+  "finished_at": "2026-10-13T10:25:08.224017+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-local-post-resource-failure-tests.log",
+  "log_sha256": "ed0f6f2a7a0f7cd6771c6b60623e5332844b33c2c4925841ee0f29b10755bcb8",
+  "verification_state": "failed_compile_warning",
+  "test_count": 128,
+  "warning_count": 1,
+  "note": "The test assertions passed but a clause-grouping compile warning failed the required warning-free check. Current grouped source is verified separately.",
+  "result": {
+    "passed": 128,
+    "total": 128,
+    "failed": 0
+  }
+}
