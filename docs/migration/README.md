@@ -4,10 +4,9 @@ This migration is in progress. G0, G1, and G2 have passed. G3–G9 are pending.
 The full package group is not ready for use.
 
 The isolated native PostgreSQL fixture works. Current complete Messaging checks
-pass 1,116 tests with zero skips and 81.6 percent coverage. The core runtime
-profile passes all 1,116 checks. The complete AI recheck passes all 1,116 checks
-with the same source and all original test checks. The earlier timing failure
-remains in the evidence record. The required 90 percent floor is unmet.
+pass 1,170 tests with zero skips and 82.1 percent coverage. Both complete runtime
+profiles pass all 1,170 checks with the same source and all original test checks.
+The required 90 percent coverage floor remains unmet.
 
 The execution plan is
 [2026-10-12-002-public-signal-boundary-plan.md](../plans/2026-10-12-002-public-signal-boundary-plan.md).
@@ -35,7 +34,7 @@ checks all 1,000 queue places and the rejected next job.
 
 These checks use the combined worktrees. Final current-head PR CI, all-adapter
 conformance, package checks, and the 90 percent Messaging coverage floor are
-still required. G3 remains open. Inclusive coverage is 81.6 percent. The required
+still required. G3 remains open. Inclusive coverage is 82.1 percent. The required
 90 percent package coverage is not met.
 
 Automatic thread creation now follows policy and the first message write. A
@@ -78,7 +77,7 @@ and the accepted claim. It emits a registered failure fact when the Bus is
 available. Repeated delivery cannot repeat that message write.
 
 The CreateRoom kind now matches the four stored Room types. Unknown kind fails at
-the constructor. Current checks pass 1,116 complete Messaging checks. The unchanged core has
+the constructor. Current checks pass 1,170 complete Messaging checks. The unchanged core has
 257 passing tests. Four optional AI tests pass. The Catalog has 110 native definitions.
 Coverage remains 80.5 percent, below the required 90 percent.
 

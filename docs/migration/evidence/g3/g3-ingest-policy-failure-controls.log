@@ -1,0 +1,255 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+    warning: function moderate/2 required by behaviour Jido.Messaging.Moderation is not implemented (in module Jido.Messaging.IngestPolicyFailureTest.Moderator)
+    │
+ 40 │   defmodule Moderator do
+    │   ~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/ingest_policy_failure_test.exs:40: Jido.Messaging.IngestPolicyFailureTest.Moderator (module)
+
+    warning: got "@impl true" for function check/3 but no behaviour specifies such callback. The known callbacks are:
+
+      * Jido.Messaging.Moderation.moderate/2 (function)
+
+    │
+ 43 │     def check(_context, _message, opts), do: Gater.fail(opts)
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/ingest_policy_failure_test.exs:43: Jido.Messaging.IngestPolicyFailureTest.Moderator (module)
+
+
+23:54:20.710 [error] GenServer #PID<0.568.0> terminating
+** (RuntimeError) private policy failure
+    test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.564.0>, {%RuntimeError{message: "private policy failure"}, [{Jido.Messaging.IngestPolicyFailureTest.Gater, :fail, 1, [file: ~c"test/jido_messaging/ingest_policy_failure_test.exs", line: 31, error_info: %{module: Exception}]}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.568.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.570.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101953.168106>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.564.0>]}}
+
+
+  1) test gating raise denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.564.0>) an exception was raised:
+         ** (RuntimeError) private policy failure
+             test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+  2) test gating raise fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.657.0>) an exception was raised:
+         ** (RuntimeError) private policy failure
+             test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:20.723 [error] GenServer #PID<0.751.0> terminating
+** (stop) {:nocatch, :private_policy_failure}
+    test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.747.0>, {{:nocatch, :private_policy_failure}, [{Jido.Messaging.IngestPolicyFailureTest.Gater, :fail, 1, [file: ~c"test/jido_messaging/ingest_policy_failure_test.exs", line: 32]}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.751.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.752.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101953.168895>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.747.0>]}}
+
+
+  3) test gating throw denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.747.0>) an exception was raised:
+         ** (ErlangError) Erlang error: {:nocatch, :private_policy_failure}
+             test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:20.731 [error] GenServer #PID<0.841.0> terminating
+** (stop) {:nocatch, :private_policy_failure}
+    test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.837.0>, {{:nocatch, :private_policy_failure}, [{Jido.Messaging.IngestPolicyFailureTest.Gater, :fail, 1, [file: ~c"test/jido_messaging/ingest_policy_failure_test.exs", line: 32]}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.841.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.842.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101953.169539>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.837.0>]}}
+
+
+  4) test gating throw fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.837.0>) an exception was raised:
+         ** (ErlangError) Erlang error: {:nocatch, :private_policy_failure}
+             test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:20.735 [error] GenServer #PID<0.931.0> terminating
+** (stop) :private_policy_failure
+Last message: {:EXIT, #PID<0.927.0>, :private_policy_failure}
+State: {:state, {#PID<0.931.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.932.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101953.170026>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.927.0>]}}
+
+
+  5) test gating exit denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.927.0>) :private_policy_failure
+
+
+
+  6) test gating exit fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1017.0>) :private_policy_failure
+
+
+23:54:20.742 [error] GenServer #PID<0.1111.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.1107.0>, :killed}
+State: {:state, {#PID<0.1111.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1112.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101953.170896>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1107.0>]}}
+
+
+  7) test gating kill denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.1107.0>) killed
+
+
+
+  8) test gating kill fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1196.0>) killed
+
+..
+
+  9) test moderation raise denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.1468.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_Ia1_05qfewUAd_UDYxPTJw", role: :user, room_id: "jch_yXVFfXwwTHoPeH9YrGTpqw", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.796628Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.796628Z], sender_id: "jch_v1sGz3aEv7eAMj7oLRUDxQ", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.796592Z], participant_id: "jch_v1sGz3aEv7eAMj7oLRUDxQ", principal_id: "jch_v1sGz3aEv7eAMj7oLRUDxQ", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_6uuO5XjfO0MBh2bIGTQ1Yg"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1468.0>, failure: :raise])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+ 10) test moderation raise fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1555.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_4upr-X999oIHHmwr36wAVw", role: :user, room_id: "jch_t2qJQmbLblz3xpqEq4Gjgg", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.805633Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.805633Z], sender_id: "jch_3xJuLsB0Emq29VXaG5TbqQ", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.805591Z], participant_id: "jch_3xJuLsB0Emq29VXaG5TbqQ", principal_id: "jch_3xJuLsB0Emq29VXaG5TbqQ", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_ssGnfJka0uhXIf7jx0wCMg"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1555.0>, failure: :raise])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:20.811 [error] GenServer #PID<0.1652.0> terminating
+** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+    Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch__upAk13pzswkDcIon4bumQ", role: :user, room_id: "jch_-owo63lcJTHzI2hxwU9vhA", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.810195Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.810195Z], sender_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.810162Z], participant_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", principal_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_pRT_-ne_R0AO1CPRxYVelw"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1648.0>, failure: :throw])
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.1648.0>, {:undef, [{Jido.Messaging.IngestPolicyFailureTest.Moderator, :moderate, [%Jido.Messaging.Message{id: "jch__upAk13pzswkDcIon4bumQ", role: :user, room_id: "jch_-owo63lcJTHzI2hxwU9vhA", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.810195Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.810195Z], sender_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.810162Z], participant_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", principal_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_pRT_-ne_R0AO1CPRxYVelw"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1648.0>, failure: :throw]], []}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.1652.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1653.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101954.153060>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1648.0>]}}
+
+
+ 11) test moderation throw denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.1648.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch__upAk13pzswkDcIon4bumQ", role: :user, room_id: "jch_-owo63lcJTHzI2hxwU9vhA", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.810195Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.810195Z], sender_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.810162Z], participant_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", principal_id: "jch_nqcg2lZzFOjFfUKU3TEL4A", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_pRT_-ne_R0AO1CPRxYVelw"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1648.0>, failure: :throw])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+ 12) test moderation throw fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1738.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_9V2nrRw3TVi1XbrORVT5dg", role: :user, room_id: "jch__SbSS2AsOjADkylfho3Otw", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.815666Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.815666Z], sender_id: "jch_12wf8SBTtpqAFKqTfsWPCg", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.815627Z], participant_id: "jch_12wf8SBTtpqAFKqTfsWPCg", principal_id: "jch_12wf8SBTtpqAFKqTfsWPCg", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_xvpNVvD2-Dxlqy_NMrZ-YA"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1738.0>, failure: :throw])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:20.822 [error] GenServer #PID<0.1832.0> terminating
+** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+    Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_UjcyAGDGiLmwiC34LqtSeg", role: :user, room_id: "jch_eNlUZlNIEAe6o30-Eqo0Ag", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.820887Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.820887Z], sender_id: "jch_jIU_Kaicud8hAwNjHKu8iw", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.820844Z], participant_id: "jch_jIU_Kaicud8hAwNjHKu8iw", principal_id: "jch_jIU_Kaicud8hAwNjHKu8iw", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_WJVoA1qqE34knmgqv0IErQ"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1828.0>, failure: :exit])
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.1828.0>, {:undef, [{Jido.Messaging.IngestPolicyFailureTest.Moderator, :moderate, [%Jido.Messaging.Message{id: "jch_UjcyAGDGiLmwiC34LqtSeg", role: :user, room_id: "jch_eNlUZlNIEAe6o30-Eqo0Ag", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.820887Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.820887Z], sender_id: "jch_jIU_Kaicud8hAwNjHKu8iw", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.820844Z], participant_id: "jch_jIU_Kaicud8hAwNjHKu8iw", principal_id: "jch_jIU_Kaicud8hAwNjHKu8iw", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_WJVoA1qqE34knmgqv0IErQ"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1828.0>, failure: :exit]], []}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.1832.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1833.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101953.174132>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1828.0>]}}
+
+
+ 13) test moderation exit denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.1828.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_UjcyAGDGiLmwiC34LqtSeg", role: :user, room_id: "jch_eNlUZlNIEAe6o30-Eqo0Ag", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.820887Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.820887Z], sender_id: "jch_jIU_Kaicud8hAwNjHKu8iw", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.820844Z], participant_id: "jch_jIU_Kaicud8hAwNjHKu8iw", principal_id: "jch_jIU_Kaicud8hAwNjHKu8iw", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_WJVoA1qqE34knmgqv0IErQ"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1828.0>, failure: :exit])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:20.826 [error] GenServer #PID<0.1922.0> terminating
+** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+    Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_LszHFI0tqgVUEWpYsbyKAQ", role: :user, room_id: "jch_x3fxsJ9uIB2ZcQc6QfChtw", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.825495Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.825495Z], sender_id: "jch_2MGLOhxWWo32KKX2V2qxJA", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.825450Z], participant_id: "jch_2MGLOhxWWo32KKX2V2qxJA", principal_id: "jch_2MGLOhxWWo32KKX2V2qxJA", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_JNOBd_UH-pMmWFRWO1YhiQ"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1918.0>, failure: :exit])
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.1918.0>, {:undef, [{Jido.Messaging.IngestPolicyFailureTest.Moderator, :moderate, [%Jido.Messaging.Message{id: "jch_LszHFI0tqgVUEWpYsbyKAQ", role: :user, room_id: "jch_x3fxsJ9uIB2ZcQc6QfChtw", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.825495Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.825495Z], sender_id: "jch_2MGLOhxWWo32KKX2V2qxJA", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.825450Z], participant_id: "jch_2MGLOhxWWo32KKX2V2qxJA", principal_id: "jch_2MGLOhxWWo32KKX2V2qxJA", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_JNOBd_UH-pMmWFRWO1YhiQ"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1918.0>, failure: :exit]], []}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.1922.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1923.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101955.151512>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1918.0>]}}
+
+
+ 14) test moderation exit fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1918.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_LszHFI0tqgVUEWpYsbyKAQ", role: :user, room_id: "jch_x3fxsJ9uIB2ZcQc6QfChtw", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.825495Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.825495Z], sender_id: "jch_2MGLOhxWWo32KKX2V2qxJA", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.825450Z], participant_id: "jch_2MGLOhxWWo32KKX2V2qxJA", principal_id: "jch_2MGLOhxWWo32KKX2V2qxJA", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_JNOBd_UH-pMmWFRWO1YhiQ"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.1918.0>, failure: :exit])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+ 15) test moderation kill denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.2008.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_Dp6mnwKSp7CL7WuEsEiWXA", role: :user, room_id: "jch_f9yh9ULrhJERNuCSnoDwAA", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.830184Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.830184Z], sender_id: "jch_cy7VkZcLbOmB8NUquQfFfw", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.830144Z], participant_id: "jch_cy7VkZcLbOmB8NUquQfFfw", principal_id: "jch_cy7VkZcLbOmB8NUquQfFfw", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_GxbClkpFzbL_7NoOHZXwug"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.2008.0>, failure: :kill])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:20.838 [error] GenServer #PID<0.2102.0> terminating
+** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+    Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_F3dRu0v6UgkUhXG4mTz_Zg", role: :user, room_id: "jch_FFFb8P3pS_ko3VRYpMgNpg", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.837328Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.837328Z], sender_id: "jch_aifNeuh1-tMDr5DtYzl61w", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.837296Z], participant_id: "jch_aifNeuh1-tMDr5DtYzl61w", principal_id: "jch_aifNeuh1-tMDr5DtYzl61w", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_H1qWVFJMQKDMQ5w8IXjrLA"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.2098.0>, failure: :kill])
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.2098.0>, {:undef, [{Jido.Messaging.IngestPolicyFailureTest.Moderator, :moderate, [%Jido.Messaging.Message{id: "jch_F3dRu0v6UgkUhXG4mTz_Zg", role: :user, room_id: "jch_FFFb8P3pS_ko3VRYpMgNpg", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.837328Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.837328Z], sender_id: "jch_aifNeuh1-tMDr5DtYzl61w", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.837296Z], participant_id: "jch_aifNeuh1-tMDr5DtYzl61w", principal_id: "jch_aifNeuh1-tMDr5DtYzl61w", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_H1qWVFJMQKDMQ5w8IXjrLA"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.2098.0>, failure: :kill]], []}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.2102.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.2103.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.900546991.1103101955.152351>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.2098.0>]}}
+
+
+ 16) test moderation kill fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.2098.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_F3dRu0v6UgkUhXG4mTz_Zg", role: :user, room_id: "jch_FFFb8P3pS_ko3VRYpMgNpg", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.837328Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.837328Z], sender_id: "jch_aifNeuh1-tMDr5DtYzl61w", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.837296Z], participant_id: "jch_aifNeuh1-tMDr5DtYzl61w", principal_id: "jch_aifNeuh1-tMDr5DtYzl61w", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_H1qWVFJMQKDMQ5w8IXjrLA"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.2098.0>, failure: :kill])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+ 17) test moderation invalid denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.2188.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_XoT9sw3p7PHqspSpTzS-_Q", role: :user, room_id: "jch_XDI5vs3EsGGWm3yyZ0WSsA", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.841857Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.841857Z], sender_id: "jch_d-AyMSVJyxzq0A849Iphsg", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.841816Z], participant_id: "jch_d-AyMSVJyxzq0A849Iphsg", principal_id: "jch_d-AyMSVJyxzq0A849Iphsg", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_oXevOkufOjixOx_t11r5VQ"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.2188.0>, failure: :invalid])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+ 18) test moderation invalid fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.2278.0>) an exception was raised:
+         ** (UndefinedFunctionError) function Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate/2 is undefined or private
+             Jido.Messaging.IngestPolicyFailureTest.Moderator.moderate(%Jido.Messaging.Message{id: "jch_FMO7oc7fKFBW32DrKqZ63A", role: :user, room_id: "jch_8f5jJIeNrenT9-gx8N5UKw", thread_id: nil, external_thread_id: nil, delivery_external_room_id: nil, external_id: "owned-message", updated_at: ~U[2026-10-13 04:54:20.853738Z], external_reply_to_id: nil, reply_to_id: nil, inserted_at: ~U[2026-10-13 04:54:20.853738Z], sender_id: "jch_Emk1MwmBrr9_kUrTyfJI9Q", status: :sent, metadata: %{channel: :policy_failure_test, external_message_id: "owned-message", authorship: %{metadata: %{}, asserted_at: ~U[2026-10-13 04:54:20.853138Z], participant_id: "jch_Emk1MwmBrr9_kUrTyfJI9Q", principal_id: "jch_Emk1MwmBrr9_kUrTyfJI9Q", proof_ref: nil, runtime_execution_id: nil, assurance: :asserted, external_identity_binding_id: "jch_ZWBV90OhQYNNKOO7uLqVQQ"}, bridge_id: "owned-bridge", security: %{verify: %{metadata: %{}, decision: %{mode: :permissive, action: :allow, policy: :allow, outcome: :allow, stage: :verify, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.IngestPolicyFailureTest.Channel, elapsed_ms: 0, classification: :allow}}}, provider_self: false, reply_context: nil, signal_media: nil}, reactions: %{}, content: [%Jido.Chat.Content.Text{text: "owned payload", type: :text}], receipts: %{}}, [test_pid: #PID<0.2278.0>, failure: :invalid])
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+Finished in 0.9 seconds (0.9s async, 0.00s sync)
+
+Result: 2/20 passed
+Failed: 18 tests

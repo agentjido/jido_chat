@@ -1,0 +1,31 @@
+{
+  "scope": [
+    "jido_chat",
+    "jido_messaging"
+  ],
+  "state": "pass",
+  "inputs": {
+    "api-map": "54411a8eee814229172f72e1b08687410b47cdb57c275b9bd21f4829ae8be02f",
+    "catalog": "4f9f50119d96fd48496cabff6e7b1b12f581d2fb7e526ec2e3ebc3825797e636",
+    "core-retired-modules": "234eafd161ea0957499883bda6ca812bdb51c613e5a5a2f5f77ad24069126ce4",
+    "new-major-core-api": "dc8cde5d03e21cc114908da3fc21fbe1b0a5f01939cac5fe4812f24f125f11ea",
+    "version-matrix": "ed1dab35736fdda21cc90e5dda25dad94d906e518649da4c8f852af6d431e155"
+  },
+  "note": "This audit checks compiled API mappings and retired exports. Behavioral tests, all-adapter conformance, coverage, and current-head CI remain separate requirements.",
+  "failures": [],
+  "gate": "G3",
+  "export_count": 5031,
+  "generated_instance_export_count": 1200,
+  "source_revisions": {
+    "jido_chat": {
+      "head_sha": "437a5161f02f8a4ee1f0a49ac24da88eb9c47056",
+      "compiled_source_files": 126,
+      "source_sha256": "04ebe4c977b3f5b5e4d937e2d4196867d2516f759726b8aea901038fc2f287cc"
+    },
+    "jido_messaging": {
+      "head_sha": "c60bbe76ff043e0a4b059da6b93504e08f1a7584",
+      "compiled_source_files": 233,
+      "source_sha256": "389db38a28cbbe5469e1f661311084096dd908b87cbe44ff37d90964835e82f8"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+..................................    warning: comparison between distinct types found:
+
+        stage == :verify
+
+    given types:
+
+        :sanitize == :verify
+
+    where "stage" was given the type:
+
+        # type: :sanitize
+        # from: test/jido_messaging/security_hook_failure_test.exs:88:13
+        stage = :sanitize
+
+    While Elixir can compare across all types, you are comparing across types which are always disjoint, and the result is either always true or always false
+
+    type warning found at:
+    │
+ 93 │         if stage == :verify,
+    │                  ~
+    │
+    └─ test/jido_messaging/security_hook_failure_test.exs:93:18: Jido.Messaging.SecurityHookFailureTest."test sanitize timeout kills the hook and clears its monitor"/1
+
+
+23:53:20.630 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.978.0>, nil}
+...................................................
+Finished in 1.7 seconds (1.6s async, 0.1s sync)
+
+Result: 85 passed
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

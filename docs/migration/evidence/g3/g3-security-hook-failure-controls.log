@@ -1,0 +1,60 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test :raise verify failure preserves the caller and deny policy (Jido.Messaging.SecurityHookFailureTest)
+     test/jido_messaging/security_hook_failure_test.exs:34
+     ** (EXIT from #PID<0.560.0>) an exception was raised:
+         ** (RuntimeError) private security failure
+             test/jido_messaging/security_hook_failure_test.exs:25: Jido.Messaging.SecurityHookFailureTest.FailureAdapter.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+  2) test :raise sanitize failure preserves the caller and original policy (Jido.Messaging.SecurityHookFailureTest)
+     test/jido_messaging/security_hook_failure_test.exs:46
+     ** (EXIT from #PID<0.567.0>) an exception was raised:
+         ** (RuntimeError) private security failure
+             test/jido_messaging/security_hook_failure_test.exs:25: Jido.Messaging.SecurityHookFailureTest.FailureAdapter.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+  3) test :throw verify failure preserves the caller and deny policy (Jido.Messaging.SecurityHookFailureTest)
+     test/jido_messaging/security_hook_failure_test.exs:34
+     ** (EXIT from #PID<0.577.0>) an exception was raised:
+         ** (ErlangError) Erlang error: {:nocatch, :private_security_failure}
+             test/jido_messaging/security_hook_failure_test.exs:26: Jido.Messaging.SecurityHookFailureTest.FailureAdapter.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+  4) test :throw sanitize failure preserves the caller and original policy (Jido.Messaging.SecurityHookFailureTest)
+     test/jido_messaging/security_hook_failure_test.exs:46
+     ** (EXIT from #PID<0.586.0>) an exception was raised:
+         ** (ErlangError) Erlang error: {:nocatch, :private_security_failure}
+             test/jido_messaging/security_hook_failure_test.exs:26: Jido.Messaging.SecurityHookFailureTest.FailureAdapter.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+  5) test :exit verify failure preserves the caller and deny policy (Jido.Messaging.SecurityHookFailureTest)
+     test/jido_messaging/security_hook_failure_test.exs:34
+     ** (EXIT from #PID<0.597.0>) :private_security_failure
+
+
+
+  6) test :exit sanitize failure preserves the caller and original policy (Jido.Messaging.SecurityHookFailureTest)
+     test/jido_messaging/security_hook_failure_test.exs:46
+     ** (EXIT from #PID<0.607.0>) :private_security_failure
+
+....
+Finished in 0.1 seconds (0.1s async, 0.00s sync)
+
+Result: 4/10 passed
+Failed: 6 tests

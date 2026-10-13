@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T04:51:59.257559+00:00",
-  "messaging_head": "89690d09ec1415a85359f1a9ebdb3b71487bf27b",
-  "core_head": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
-  "inclusive_tests": 1116,
+  "updated_at": "2026-10-13T04:59:53.757019+00:00",
+  "messaging_head": "bb03e31e4b40ca7c3de45d11bffc787e0b73075a",
+  "core_head": "437a5161f02f8a4ee1f0a49ac24da88eb9c47056",
+  "inclusive_tests": 1170,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 81.6,
+  "coverage_percent": 82.1,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -20,7 +20,10 @@
     "g3-ai-pressure-barrier-tests",
     "g3-ai-profile-concurrency-failure-recheck",
     "g3-ai-sqlite-isolated-paths-final-tests",
+    "g3-config-record-fields-and-scope-final-tests",
+    "g3-config-record-keys-quality",
     "g3-current-callback-and-lock-ai-graph",
+    "g3-current-callback-and-lock-ai-uncontended-recheck",
     "g3-current-callback-and-lock-complete-api-audit",
     "g3-current-callback-and-lock-contract-manifest",
     "g3-current-callback-and-lock-core-full-tests",
@@ -34,6 +37,16 @@
     "g3-current-canonical-storage-core-harness-tests",
     "g3-current-canonical-storage-non-postgres-tests",
     "g3-current-canonical-storage-source-scan",
+    "g3-current-config-and-hook-ai-full-tests",
+    "g3-current-config-and-hook-ai-graph",
+    "g3-current-config-and-hook-ai-harness",
+    "g3-current-config-and-hook-api-audit",
+    "g3-current-config-and-hook-core-full-tests",
+    "g3-current-config-and-hook-core-graph",
+    "g3-current-config-and-hook-core-harness",
+    "g3-current-config-and-hook-inclusive-coverage",
+    "g3-current-config-and-hook-optional-ai",
+    "g3-current-config-and-hook-source-scan",
     "g3-current-control-plane-ai-graph-report",
     "g3-current-control-plane-ai-harness-tests",
     "g3-current-control-plane-ai-messaging-tests",
@@ -48,6 +61,13 @@
     "g3-current-control-plane-slack-membership-tests",
     "g3-current-control-plane-source-scan",
     "g3-current-control-plane-telegram-membership-tests",
+    "g3-current-hook-failure-ai-full-tests",
+    "g3-current-hook-failure-ai-graph",
+    "g3-current-hook-failure-api-audit",
+    "g3-current-hook-failure-core-full-tests",
+    "g3-current-hook-failure-core-graph",
+    "g3-current-hook-failure-inclusive-coverage",
+    "g3-current-hook-failure-source-scan",
     "g3-current-message-outcome-and-context-inclusive-coverage",
     "g3-current-message-outcome-api-export-audit",
     "g3-current-message-outcome-formatted-quality",
@@ -93,23 +113,26 @@
     "g3-demo-cli-sourced-environment-final-tests",
     "g3-demo-cli-typed-environment-source-tests",
     "g3-facade-record-ownership-tests",
+    "g3-ingest-policy-lifetime-and-ownership-final-tests",
     "g3-ingress-subscription-scope-and-page-tests",
     "g3-lifecycle-exception-and-partial-effect-tests",
     "g3-message-store-exception-reconciliation-tests",
     "g3-native-postgres-recovery-clean-storage-tests",
     "g3-original-ingest-confirmation-fixture-tests",
+    "g3-policy-hook-isolation-quality",
     "g3-private-mention-normalization-final-tests",
     "g3-projection-canonical-identity-and-lifetime-final-tests",
     "g3-safe-acceptance-current-quality",
     "g3-safe-acceptance-membership-current-quality",
     "g3-safe-acceptance-storage-failure-tests",
+    "g3-security-hook-isolation-quality",
+    "g3-security-hook-runtime-ownership-tests",
     "g3-sqlite-lock-final-focused-tests",
     "g3-sqlite-lock-typed-quality",
     "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
     "g3-topology-owner-and-sections-warning-free-tests",
-    "g3-uncertain-write-and-accepted-runtime-final-tests",
-    "g3-current-callback-and-lock-ai-uncontended-recheck"
+    "g3-uncertain-write-and-accepted-runtime-final-tests"
   ],
   "confirmed_regressions": [
     "g3-acceptance-storage-failure-confirmed",
@@ -156,7 +179,13 @@
     "New 29-case listener/subscription ownership matrix exposed recoverable/degraded class atoms wrongly mapped to crash. The fix preserves retry/degrade and one selected callback; 54 boundary/subscription and 58 AI runtime tests pass.",
     "Current complete inclusive run and core runtime profile each pass 1116 checks with native PostgreSQL and zero skips. Package coverage is 81.6 percent, below 90 percent.",
     "Both earlier complete profiles pass 1087 checks after the initial failure fixes. Current AI expanded suite passes 1115/1116; one lifecycle SQLite gate wait exceeded 100 milliseconds during concurrent load. A complete unchanged uncontended recheck is active. No assertion or test is removed.",
-    "Current Messaging quality has zero Dialyzer errors/skips. API audit has 5031 exports including 1200 generated instance exports. Source scan checks 369 files with zero findings. Both current exact source graphs pass with 39 and 51 dependencies. Core 257, harness 241 per profile and optional AI 4 prior proof remains subject to source scope."
+    "Current Messaging quality has zero Dialyzer errors/skips. API audit has 5031 exports including 1200 generated instance exports. Source scan checks 369 files with zero findings. Both current exact source graphs pass with 39 and 51 dependencies. Core 257, harness 241 per profile and optional AI 4 prior proof remains subject to source scope.",
+    "Security hook controls prove exceptions, throws and exits could terminate the caller. Monitored hook invocation now preserves configured deny/allow/fallback decisions. Thirty new policy/lifetime tests include real ingest zero-write and gateway zero-provider-call then recovery proof. The 87 affected tests pass.",
+    "Gating and moderation hook controls confirm the same linked-task crash. Monitored calls preserve deny or allow_with_flag. Twenty-two cases prove no message on denial, one later retry, one flagged fallback record, duplicates without another hook and timeout cleanup. The 88 affected tests and quality pass.",
+    "ConfigStore now retains five routing policy fields from fixed string keys. PID and struct record round trips preserve revisions, stale conflict checks, disabled bridge state and same subscription ID in separate bridges. All 38 affected config/routing/subscription tests and current quality pass.",
+    "Current complete inclusive suite and both current runtime profiles each pass 1170 checks with native PostgreSQL, integration and story and no skipped test. Current package coverage is 82.1 percent; required 90 percent remains unmet.",
+    "Current harnesses pass 241 cases each. Current exact pinned source graphs pass with 39/51 dependencies. API audit checks 5031 exports including 1200 generated instance exports. Source scan checks 369 files and has zero findings. Core 257-case proof uses unchanged library/test source and pinned refs.",
+    "Four current optional AI fixtures pass without a model call."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -171,7 +200,7 @@
     ],
     "with_and_without_ai": "pass for current source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1116,
+    "messaging_tests_per_profile": 1170,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -181,15 +210,14 @@
     "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
     "current_messaging_profile_state": {
       "core": {
-        "passed": 1116,
+        "passed": 1170,
         "failures": 0,
-        "check": "g3-current-callback-and-lock-core-full-tests.json"
+        "check": "g3-current-config-and-hook-core-full-tests.json"
       },
       "ai": {
-        "passed": 1116,
+        "passed": 1170,
         "failures": 0,
-        "check": "g3-current-callback-and-lock-ai-uncontended-recheck.json",
-        "previous_timing_failure": "g3-current-callback-and-lock-ai-full-tests.json"
+        "check": "g3-current-config-and-hook-ai-full-tests.json"
       }
     }
   },
@@ -198,10 +226,10 @@
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-callback-and-lock-complete-api-exports.json"
+    "current_report": "current-config-and-hook-complete-api-exports.json"
   },
-  "current_full_inclusive_state": "pass: 1116 checks including native PostgreSQL",
+  "current_full_inclusive_state": "pass: 1170 checks including native PostgreSQL",
   "current_non_postgres_checks": 1041,
   "current_postgres_checks_excluded": 38,
-  "coverage_percent_source": "g3-current-callback-and-lock-inclusive-coverage.json"
+  "coverage_percent_source": "g3-current-config-and-hook-inclusive-coverage.json"
 }

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T04:51:59.257559+00:00",
+  "updated_at": "2026-10-13T04:59:53.757019+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -925,13 +925,44 @@
         "evidence/g3/g3-ai-callback-disposition-runtime-tests.json"
       ],
       "open_work": "Current full-source refresh and 90 percent coverage remain. All final G4-G9 adapter, conformance, audit, package, docs, versions, PR, review and current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a749b52569884ec7ad7c27f953089f7fa445f755",
+      "subject": "fix(security): isolate failed hooks from runtime callers",
+      "checks": [
+        "evidence/g3/g3-security-hook-runtime-ownership-tests.json",
+        "evidence/g3/g3-security-hook-isolation-quality.json"
+      ],
+      "open_work": "Current source profile refresh, required 90 percent Messaging coverage, remaining provider ports and every final G4-G9 requirement stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c60bbe76ff043e0a4b059da6b93504e08f1a7584",
+      "subject": "fix(ingest): isolate policy hook failures and preserve retry claims",
+      "checks": [
+        "evidence/g3/g3-ingest-policy-lifetime-and-ownership-final-tests.json",
+        "evidence/g3/g3-policy-hook-isolation-quality.json",
+        "evidence/g3/g3-current-hook-failure-inclusive-coverage.json"
+      ],
+      "open_work": "Current source profile refresh, required 90 percent Messaging coverage, remaining provider ports and every final G4-G9 requirement stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "bb03e31e4b40ca7c3de45d11bffc787e0b73075a",
+      "subject": "fix(config): preserve routing policy fields from string keys",
+      "checks": [
+        "evidence/g3/g3-config-record-fields-and-scope-final-tests.json",
+        "evidence/g3/g3-config-record-keys-quality.json"
+      ],
+      "open_work": "Current complete suites and 90 percent coverage remain; all final G4-G9 requirements stay unchanged."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1116,
+    "messaging_inclusive_tests": 1170,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -979,7 +1010,7 @@
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current complete inclusive coverage is 81.6 percent. The required 90 percent floor is unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 82.1 percent. The required 90 percent floor remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -993,8 +1024,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1116,
-    "total": 1116,
-    "check": "evidence/g3/g3-current-callback-and-lock-ai-uncontended-recheck.json"
+    "passed": 1170,
+    "total": 1170,
+    "check": "evidence/g3/g3-current-config-and-hook-ai-full-tests.json"
   }
 }
