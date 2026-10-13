@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T04:59:53.757019+00:00",
-  "messaging_head": "bb03e31e4b40ca7c3de45d11bffc787e0b73075a",
-  "core_head": "437a5161f02f8a4ee1f0a49ac24da88eb9c47056",
-  "inclusive_tests": 1170,
+  "updated_at": "2026-10-13T05:10:38.184371+00:00",
+  "messaging_head": "487992f93130c27827cd87cabd76a4acef4d6236",
+  "core_head": "4ffc0cca17c83122ddd16e0122e5e2b6c89c7850",
+  "inclusive_tests": 1197,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 82.1,
+  "coverage_percent": 82.8,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -20,6 +20,9 @@
     "g3-ai-pressure-barrier-tests",
     "g3-ai-profile-concurrency-failure-recheck",
     "g3-ai-sqlite-isolated-paths-final-tests",
+    "g3-config-read-scope-and-failure-final-tests",
+    "g3-config-read-typed-final-quality",
+    "g3-config-read-typed-final-tests",
     "g3-config-record-fields-and-scope-final-tests",
     "g3-config-record-keys-quality",
     "g3-current-callback-and-lock-ai-graph",
@@ -61,6 +64,16 @@
     "g3-current-control-plane-slack-membership-tests",
     "g3-current-control-plane-source-scan",
     "g3-current-control-plane-telegram-membership-tests",
+    "g3-current-demo-room-config-ai-full-tests",
+    "g3-current-demo-room-config-ai-graph",
+    "g3-current-demo-room-config-ai-harness",
+    "g3-current-demo-room-config-api-audit",
+    "g3-current-demo-room-config-core-full-tests",
+    "g3-current-demo-room-config-core-graph",
+    "g3-current-demo-room-config-core-harness",
+    "g3-current-demo-room-config-inclusive-coverage",
+    "g3-current-demo-room-config-optional-ai",
+    "g3-current-demo-room-config-source-scan",
     "g3-current-hook-failure-ai-full-tests",
     "g3-current-hook-failure-ai-graph",
     "g3-current-hook-failure-api-audit",
@@ -112,6 +125,8 @@
     "g3-delete-and-runtime-unavailable-final-tests",
     "g3-demo-cli-sourced-environment-final-tests",
     "g3-demo-cli-typed-environment-source-tests",
+    "g3-demo-configured-actor-and-native-final-tests",
+    "g3-demo-final-native-quality",
     "g3-facade-record-ownership-tests",
     "g3-ingest-policy-lifetime-and-ownership-final-tests",
     "g3-ingress-subscription-scope-and-page-tests",
@@ -122,6 +137,9 @@
     "g3-policy-hook-isolation-quality",
     "g3-private-mention-normalization-final-tests",
     "g3-projection-canonical-identity-and-lifetime-final-tests",
+    "g3-room-context-pruning-quality",
+    "g3-room-state-context-and-receipt-final-tests",
+    "g3-room-typing-timeout-controls",
     "g3-safe-acceptance-current-quality",
     "g3-safe-acceptance-membership-current-quality",
     "g3-safe-acceptance-storage-failure-tests",
@@ -185,7 +203,13 @@
     "ConfigStore now retains five routing policy fields from fixed string keys. PID and struct record round trips preserve revisions, stale conflict checks, disabled bridge state and same subscription ID in separate bridges. All 38 affected config/routing/subscription tests and current quality pass.",
     "Current complete inclusive suite and both current runtime profiles each pass 1170 checks with native PostgreSQL, integration and story and no skipped test. Current package coverage is 82.1 percent; required 90 percent remains unmet.",
     "Current harnesses pass 241 cases each. Current exact pinned source graphs pass with 39/51 dependencies. API audit checks 5031 exports including 1200 generated instance exports. Source scan checks 369 files and has zero findings. Core 257-case proof uses unchanged library/test source and pinned refs.",
-    "Four current optional AI fixtures pass without a model call."
+    "Four current optional AI fixtures pass without a model call.",
+    "Fourteen before-write ConfigStore cases prove returned error/raise/throw/exit/invalid/foreign-record failure cannot write or terminate the process. Selected record type and ID are required. Existing revision is retained and one later update succeeds. All 30 affected tests and quality pass.",
+    "A real typing lifecycle test proves exact source/subject native facts, stale/unknown timer no-effect, false expiry and no duplicate stop fact without sleeps.",
+    "Room thread reply history now removes context for evicted records. Real all-recipient receipt/duplicate timestamps, bounded thread history and agent assignment cleanup scenarios pass. All 45 room tests and quality pass.",
+    "Demo bridge uses exact source/subject/type selection, native codec/Catalog/policy validation and canonical stored room/message ownership. Typed authorized sends use captured binding, explicit actor and existing grants. Stable per-message/bridge admission prevents repeat sends. Revoked grants are checked before cached requests.",
+    "Typed execution resolves indexed owned room bindings. Disabled, inbound-only or ambiguous explicit routes reject without a provider callback. Legacy room fields apply only when no explicit indexed row exists. The demo supervisor preserves the explicit actor; no grant is inferred. All 141 demo/typed/CLI tests and quality pass.",
+    "Current complete inclusive checks and both current full runtime profiles pass 1197 checks including native PostgreSQL, integration and story and zero skips. Package coverage is 82.8 percent, below required 90 percent. Current API audit checks 5031 exports including 1200 generated instance exports; source scan 369 files has zero findings; current pinned graphs pass 39/51 dependencies."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -200,7 +224,7 @@
     ],
     "with_and_without_ai": "pass for current source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1170,
+    "messaging_tests_per_profile": 1197,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -210,14 +234,14 @@
     "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
     "current_messaging_profile_state": {
       "core": {
-        "passed": 1170,
+        "passed": 1197,
         "failures": 0,
-        "check": "g3-current-config-and-hook-core-full-tests.json"
+        "check": "g3-current-demo-room-config-core-full-tests.json"
       },
       "ai": {
-        "passed": 1170,
+        "passed": 1197,
         "failures": 0,
-        "check": "g3-current-config-and-hook-ai-full-tests.json"
+        "check": "g3-current-demo-room-config-ai-full-tests.json"
       }
     }
   },
@@ -226,10 +250,10 @@
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-config-and-hook-complete-api-exports.json"
+    "current_report": "current-demo-room-config-complete-api-exports.json"
   },
-  "current_full_inclusive_state": "pass: 1170 checks including native PostgreSQL",
+  "current_full_inclusive_state": "pass:1197 checks including native PostgreSQL",
   "current_non_postgres_checks": 1041,
   "current_postgres_checks_excluded": 38,
-  "coverage_percent_source": "g3-current-config-and-hook-inclusive-coverage.json"
+  "coverage_percent_source": "g3-current-demo-room-config-inclusive-coverage.json"
 }

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T04:59:53.757019+00:00",
+  "updated_at": "2026-10-13T05:10:38.184371+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -956,13 +956,61 @@
         "evidence/g3/g3-config-record-keys-quality.json"
       ],
       "open_work": "Current complete suites and 90 percent coverage remain; all final G4-G9 requirements stay unchanged."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "fa567577170552c075b37a65bcc6d7e3ef7d4d15",
+      "subject": "fix(config): reject failed existing-record reads before writes",
+      "checks": [
+        "evidence/g3/g3-config-read-scope-and-failure-final-tests.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a9be7231584b5d8abed30978622e9de5de2f247c",
+      "subject": "refactor(config): remove unreachable plain existing-record branch",
+      "checks": [
+        "evidence/g3/g3-config-read-typed-final-tests.json",
+        "evidence/g3/g3-config-read-typed-final-quality.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "72f30f62855a0bb8eabb4bbd8d9bad0f31f02146",
+      "subject": "test(room): verify typing timer ownership and native facts",
+      "checks": [
+        "evidence/g3/g3-room-typing-timeout-controls.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "523114511b90e29924dc1bb4de1927e8c773906c",
+      "subject": "fix(room): drop private context when thread history evicts messages",
+      "checks": [
+        "evidence/g3/g3-room-state-context-and-receipt-final-tests.json",
+        "evidence/g3/g3-room-context-pruning-quality.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "487992f93130c27827cd87cabd76a4acef4d6236",
+      "subject": "fix(demo): forward validated room facts through authorized requests",
+      "checks": [
+        "evidence/g3/g3-demo-configured-actor-and-native-final-tests.json",
+        "evidence/g3/g3-demo-final-native-quality.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1170,
+    "messaging_inclusive_tests": 1197,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1010,7 +1058,7 @@
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current complete inclusive coverage is 82.1 percent. The required 90 percent floor remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 82.8 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1024,8 +1072,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1170,
-    "total": 1170,
-    "check": "evidence/g3/g3-current-config-and-hook-ai-full-tests.json"
+    "passed": 1197,
+    "total": 1197,
+    "check": "evidence/g3/g3-current-demo-room-config-ai-full-tests.json"
   }
 }

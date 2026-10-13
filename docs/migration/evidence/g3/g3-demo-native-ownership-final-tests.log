@@ -1,0 +1,52 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.....................
+
+  1) test stored facts forward once to the other captured binding (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:87
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:provider_send, :discord, "dc-room", "[TG alice] hello"}
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:91: (test)
+
+     The following output was logged:
+     
+     00:05:15.345 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+     
+     00:05:15.345 [info] [Bridge] Created binding bind_45f3cf6a87ee11f4: telegram/tg/tg-room -> demo:lobby
+     
+     00:05:15.345 [info] [Bridge] Created binding bind_f5cbd0ebae034fc7: discord/dc/dc-room -> demo:lobby
+     
+     00:05:15.345 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+     
+     00:05:15.345 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+     
+.
+
+  2) test revocation precedes repeated request cache access (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:125
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:provider_send, :discord, "dc-room", _}
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:129: (test)
+
+     The following output was logged:
+     
+     00:05:15.465 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+     
+     00:05:15.465 [info] [Bridge] Created binding bind_4f7bbfa3ac5d16fc: telegram/tg/tg-room -> demo:lobby
+     
+     00:05:15.465 [info] [Bridge] Created binding bind_043e73f1e6a09d09: discord/dc/dc-room -> demo:lobby
+     
+     00:05:15.465 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+     
+     00:05:15.466 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+     
+
+Finished in 1.9 seconds (0.00s async, 1.9s sync)
+
+Result: 22/24 passed
+Failed: 2 tests

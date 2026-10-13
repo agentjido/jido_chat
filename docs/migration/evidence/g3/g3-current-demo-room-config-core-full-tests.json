@@ -1,0 +1,62 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "4ffc0cca17c83122ddd16e0122e5e2b6c89c7850",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "487992f93130c27827cd87cabd76a4acef4d6236",
+      "library_test_files": 343,
+      "library_test_sha256": "04b163caf06e2be9c4782a8f4b3cb6d08a8191fbf6ba774cb29ec35fa3d90ee6"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-current-demo-room-config-core-full-tests",
+  "command": [
+    "mix",
+    "test",
+    "../../jido_messaging/test",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "4ffc0cca17c83122ddd16e0122e5e2b6c89c7850",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T05:08:17.710414+00:00",
+  "finished_at": "2026-10-13T05:09:41.044577+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-demo-room-config-core-full-tests.log",
+  "log_sha256": "ac0ce08e7d34a3f60708aa5106c307f52bc7020bcbec379c08f88bac28eea99b"
+}

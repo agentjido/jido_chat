@@ -1,0 +1,31 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+............................
+
+  1) test native Bus delivery keeps instance and room selection (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:203
+     match (=) failed
+     code:  assert {:ok, _} = Jido.Signal.Bus.publish(bus, %{fact | source: "urn:foreign:instance"})
+     left:  {:ok, _}
+     right: {:error, :invalid_signals}
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:206: (test)
+
+     The following output was logged:
+     
+     00:07:31.000 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+     
+     00:07:31.000 [info] [Bridge] Created binding bind_9ebb9b92d0c3996f: telegram/tg/tg-room -> demo:lobby
+     
+     00:07:31.000 [info] [Bridge] Created binding bind_664ff8048cba1d7a: discord/dc/dc-room -> demo:lobby
+     
+     00:07:31.000 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+     
+     00:07:31.000 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+     
+...............................................................................................................
+Finished in 8.0 seconds (0.00s async, 8.0s sync)
+
+Result: 139/140 passed
+Failed: 1 test

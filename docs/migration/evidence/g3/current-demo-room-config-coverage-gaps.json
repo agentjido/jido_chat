@@ -1,0 +1,850 @@
+{
+  "source_check": "g3-current-demo-room-config-inclusive-coverage.json",
+  "passed_checks": 1197,
+  "skipped_checks": 0,
+  "coverage_percent": 82.8,
+  "coverage_floor": 90,
+  "coverage_floor_met": false,
+  "largest_remaining_gaps": [
+    {
+      "displayed_path": "lib/jido_messaging.ex",
+      "coverage_percent": 78.1,
+      "relevant_lines": 619,
+      "missed_lines": 135
+    },
+    {
+      "displayed_path": "lib/jido_messaging/persistence/ets.ex",
+      "coverage_percent": 86.9,
+      "relevant_lines": 958,
+      "missed_lines": 125
+    },
+    {
+      "displayed_path": "lib/jido_messaging/persistence/sqlite.ex",
+      "coverage_percent": 88.1,
+      "relevant_lines": 937,
+      "missed_lines": 111
+    },
+    {
+      "displayed_path": "lib/jido_messaging/ingest.ex",
+      "coverage_percent": 85.5,
+      "relevant_lines": 437,
+      "missed_lines": 63
+    },
+    {
+      "displayed_path": "lib/jido_messaging/demo/topology.ex",
+      "coverage_percent": 69.1,
+      "relevant_lines": 198,
+      "missed_lines": 61
+    },
+    {
+      "displayed_path": "lib/jido_messaging/audit_logger.ex",
+      "coverage_percent": 52.1,
+      "relevant_lines": 94,
+      "missed_lines": 45
+    },
+    {
+      "displayed_path": "lib/jido_messaging/execution.ex",
+      "coverage_percent": 86.7,
+      "relevant_lines": 318,
+      "missed_lines": 42
+    },
+    {
+      "displayed_path": "lib/jido_messaging/adapter_bridge.ex",
+      "coverage_percent": 75.1,
+      "relevant_lines": 165,
+      "missed_lines": 41
+    },
+    {
+      "displayed_path": "lib/jido_messaging/outbound_gateway.ex",
+      "coverage_percent": 70.7,
+      "relevant_lines": 140,
+      "missed_lines": 41
+    },
+    {
+      "displayed_path": "lib/jido_messaging/media_policy.ex",
+      "coverage_percent": 79.1,
+      "relevant_lines": 187,
+      "missed_lines": 39
+    },
+    {
+      "displayed_path": "lib/jido_messaging/bridge_registry.ex",
+      "coverage_percent": 79.6,
+      "relevant_lines": 187,
+      "missed_lines": 38
+    },
+    {
+      "displayed_path": "lib/jido_messaging/events.ex",
+      "coverage_percent": 78.3,
+      "relevant_lines": 166,
+      "missed_lines": 36
+    },
+    {
+      "displayed_path": "lib/jido_messaging/outbound_gateway/part",
+      "coverage_percent": 87.3,
+      "relevant_lines": 284,
+      "missed_lines": 36
+    },
+    {
+      "displayed_path": "lib/jido_messaging/ingress_subscription.",
+      "coverage_percent": 40.6,
+      "relevant_lines": 59,
+      "missed_lines": 35
+    },
+    {
+      "displayed_path": "lib/jido_messaging/demo/bridge.ex",
+      "coverage_percent": 68.5,
+      "relevant_lines": 108,
+      "missed_lines": 34
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions/executor",
+      "coverage_percent": 85.7,
+      "relevant_lines": 231,
+      "missed_lines": 33
+    },
+    {
+      "displayed_path": "lib/jido_messaging/persistence/postgres.",
+      "coverage_percent": 93.5,
+      "relevant_lines": 498,
+      "missed_lines": 32
+    },
+    {
+      "displayed_path": "lib/jido_messaging/deliver.ex",
+      "coverage_percent": 80.8,
+      "relevant_lines": 162,
+      "missed_lines": 31
+    },
+    {
+      "displayed_path": "lib/jido_messaging/session_manager/parti",
+      "coverage_percent": 78.0,
+      "relevant_lines": 141,
+      "missed_lines": 31
+    },
+    {
+      "displayed_path": "lib/mix/tasks/jido_messaging.demo.ex",
+      "coverage_percent": 79.1,
+      "relevant_lines": 139,
+      "missed_lines": 29
+    },
+    {
+      "displayed_path": "lib/jido_messaging/instance_reconnect_wo",
+      "coverage_percent": 71.8,
+      "relevant_lines": 96,
+      "missed_lines": 27
+    },
+    {
+      "displayed_path": "lib/jido_messaging/presence.ex",
+      "coverage_percent": 88.5,
+      "relevant_lines": 219,
+      "missed_lines": 25
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_directory.ex",
+      "coverage_percent": 78.5,
+      "relevant_lines": 107,
+      "missed_lines": 23
+    },
+    {
+      "displayed_path": "lib/jido_messaging/identity.ex",
+      "coverage_percent": 83.9,
+      "relevant_lines": 137,
+      "missed_lines": 22
+    },
+    {
+      "displayed_path": "lib/jido_messaging/bridge_config.ex",
+      "coverage_percent": 34.3,
+      "relevant_lines": 32,
+      "missed_lines": 21
+    },
+    {
+      "displayed_path": "lib/jido_messaging/trust_evidence_data.e",
+      "coverage_percent": 71.2,
+      "relevant_lines": 73,
+      "missed_lines": 21
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_directory_data.",
+      "coverage_percent": 71.8,
+      "relevant_lines": 71,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_endpoints.ex",
+      "coverage_percent": 86.6,
+      "relevant_lines": 150,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/config_store.ex",
+      "coverage_percent": 88.3,
+      "relevant_lines": 172,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/continuity_data.ex",
+      "coverage_percent": 66.1,
+      "relevant_lines": 59,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/delegation_data.ex",
+      "coverage_percent": 70.1,
+      "relevant_lines": 67,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/ingress_subscriptions",
+      "coverage_percent": 80.3,
+      "relevant_lines": 102,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/webhook_plug.ex",
+      "coverage_percent": 66.1,
+      "relevant_lines": 59,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_runner.ex",
+      "coverage_percent": 82.2,
+      "relevant_lines": 107,
+      "missed_lines": 19
+    },
+    {
+      "displayed_path": "lib/jido_messaging/identity_credential.e",
+      "coverage_percent": 73.6,
+      "relevant_lines": 72,
+      "missed_lines": 19
+    },
+    {
+      "displayed_path": "lib/jido_messaging/security.ex",
+      "coverage_percent": 87.0,
+      "relevant_lines": 147,
+      "missed_lines": 19
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_supervisor.ex",
+      "coverage_percent": 68.4,
+      "relevant_lines": 57,
+      "missed_lines": 18
+    },
+    {
+      "displayed_path": "lib/jido_messaging/external_identity_bin",
+      "coverage_percent": 55.0,
+      "relevant_lines": 40,
+      "missed_lines": 18
+    },
+    {
+      "displayed_path": "lib/jido_messaging/sender.ex",
+      "coverage_percent": 83.4,
+      "relevant_lines": 109,
+      "missed_lines": 18
+    },
+    {
+      "displayed_path": "lib/jido_messaging/identity_credentials.",
+      "coverage_percent": 80.2,
+      "relevant_lines": 86,
+      "missed_lines": 17
+    },
+    {
+      "displayed_path": "lib/jido_messaging/room_server.ex",
+      "coverage_percent": 93.7,
+      "relevant_lines": 271,
+      "missed_lines": 17
+    },
+    {
+      "displayed_path": "lib/jido_messaging/routing_policy.ex",
+      "coverage_percent": 26.0,
+      "relevant_lines": 23,
+      "missed_lines": 17
+    },
+    {
+      "displayed_path": "lib/jido_messaging/security/default_adap",
+      "coverage_percent": 65.3,
+      "relevant_lines": 49,
+      "missed_lines": 17
+    },
+    {
+      "displayed_path": "lib/jido_messaging/trust_evidence_servic",
+      "coverage_percent": 83.0,
+      "relevant_lines": 100,
+      "missed_lines": 17
+    },
+    {
+      "displayed_path": "lib/jido_messaging/authorization_data.ex",
+      "coverage_percent": 61.9,
+      "relevant_lines": 42,
+      "missed_lines": 16
+    },
+    {
+      "displayed_path": "lib/jido_messaging/msg_context/normalize",
+      "coverage_percent": 90.2,
+      "relevant_lines": 164,
+      "missed_lines": 16
+    },
+    {
+      "displayed_path": "lib/jido_messaging/secret_resolver.ex",
+      "coverage_percent": 60.5,
+      "relevant_lines": 38,
+      "missed_lines": 15
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions/resolver",
+      "coverage_percent": 74.0,
+      "relevant_lines": 54,
+      "missed_lines": 14
+    },
+    {
+      "displayed_path": "lib/jido_messaging/dead_letter/replay_wo",
+      "coverage_percent": 72.0,
+      "relevant_lines": 50,
+      "missed_lines": 14
+    },
+    {
+      "displayed_path": "lib/jido_messaging/identity_data.ex",
+      "coverage_percent": 64.1,
+      "relevant_lines": 39,
+      "missed_lines": 14
+    },
+    {
+      "displayed_path": "lib/jido_messaging/identity_verifier.ex",
+      "coverage_percent": 87.9,
+      "relevant_lines": 116,
+      "missed_lines": 14
+    },
+    {
+      "displayed_path": "lib/jido_messaging/access_control.ex",
+      "coverage_percent": 87.2,
+      "relevant_lines": 102,
+      "missed_lines": 13
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_endpoint_delive",
+      "coverage_percent": 77.5,
+      "relevant_lines": 58,
+      "missed_lines": 13
+    },
+    {
+      "displayed_path": "lib/jido_messaging/message_lifecycle.ex",
+      "coverage_percent": 77.9,
+      "relevant_lines": 59,
+      "missed_lines": 13
+    },
+    {
+      "displayed_path": "lib/jido_messaging/messaging_activity_en",
+      "coverage_percent": 80.0,
+      "relevant_lines": 60,
+      "missed_lines": 12
+    },
+    {
+      "displayed_path": "lib/jido_messaging/activity_data.ex",
+      "coverage_percent": 71.7,
+      "relevant_lines": 39,
+      "missed_lines": 11
+    },
+    {
+      "displayed_path": "lib/jido_messaging/authorizer.ex",
+      "coverage_percent": 85.5,
+      "relevant_lines": 76,
+      "missed_lines": 11
+    },
+    {
+      "displayed_path": "lib/jido_messaging/continuity.ex",
+      "coverage_percent": 88.8,
+      "relevant_lines": 99,
+      "missed_lines": 11
+    },
+    {
+      "displayed_path": "lib/jido_messaging/messaging_activity_su",
+      "coverage_percent": 26.6,
+      "relevant_lines": 15,
+      "missed_lines": 11
+    },
+    {
+      "displayed_path": "lib/jido_messaging/session_manager.ex",
+      "coverage_percent": 77.0,
+      "relevant_lines": 48,
+      "missed_lines": 11
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_endpoint_data.e",
+      "coverage_percent": 73.6,
+      "relevant_lines": 38,
+      "missed_lines": 10
+    },
+    {
+      "displayed_path": "lib/jido_messaging/instance_server.ex",
+      "coverage_percent": 91.3,
+      "relevant_lines": 115,
+      "missed_lines": 10
+    },
+    {
+      "displayed_path": "lib/jido_messaging/jidoka_execution_ref.",
+      "coverage_percent": 69.6,
+      "relevant_lines": 33,
+      "missed_lines": 10
+    },
+    {
+      "displayed_path": "lib/jido_messaging/acceptance.ex",
+      "coverage_percent": 86.9,
+      "relevant_lines": 69,
+      "missed_lines": 9
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions.ex",
+      "coverage_percent": 79.5,
+      "relevant_lines": 44,
+      "missed_lines": 9
+    },
+    {
+      "displayed_path": "lib/jido_messaging/directory.ex",
+      "coverage_percent": 43.7,
+      "relevant_lines": 16,
+      "missed_lines": 9
+    },
+    {
+      "displayed_path": "lib/jido_messaging/onboarding.ex",
+      "coverage_percent": 67.8,
+      "relevant_lines": 28,
+      "missed_lines": 9
+    },
+    {
+      "displayed_path": "lib/jido_messaging/authorization_scope.e",
+      "coverage_percent": 84.9,
+      "relevant_lines": 53,
+      "missed_lines": 8
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions/schemas.",
+      "coverage_percent": 0.0,
+      "relevant_lines": 8,
+      "missed_lines": 8
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions/signal_r",
+      "coverage_percent": 77.7,
+      "relevant_lines": 36,
+      "missed_lines": 8
+    },
+    {
+      "displayed_path": "lib/jido_messaging/invocation_policy.ex",
+      "coverage_percent": 80.4,
+      "relevant_lines": 41,
+      "missed_lines": 8
+    },
+    {
+      "displayed_path": "lib/jido_messaging/activity_page.ex",
+      "coverage_percent": 65.0,
+      "relevant_lines": 20,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/event_options.ex",
+      "coverage_percent": 56.2,
+      "relevant_lines": 16,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/instance_supervisor.e",
+      "coverage_percent": 88.5,
+      "relevant_lines": 61,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/jidoka_delegation_eve",
+      "coverage_percent": 84.0,
+      "relevant_lines": 44,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/onboarding/supervisor",
+      "coverage_percent": 63.1,
+      "relevant_lines": 19,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/onboarding/worker.ex",
+      "coverage_percent": 84.7,
+      "relevant_lines": 46,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/read_receipt.ex",
+      "coverage_percent": 83.3,
+      "relevant_lines": 42,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/thread_continuity_lin",
+      "coverage_percent": 88.3,
+      "relevant_lines": 60,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/topology_validator.ex",
+      "coverage_percent": 87.0,
+      "relevant_lines": 54,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/trust_evidence.ex",
+      "coverage_percent": 80.5,
+      "relevant_lines": 36,
+      "missed_lines": 7
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions/scope.ex",
+      "coverage_percent": 89.4,
+      "relevant_lines": 57,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/deduper.ex",
+      "coverage_percent": 92.9,
+      "relevant_lines": 85,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/demo/supervisor.ex",
+      "coverage_percent": 71.4,
+      "relevant_lines": 21,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/grant.ex",
+      "coverage_percent": 83.7,
+      "relevant_lines": 37,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/msg_context/command_p",
+      "coverage_percent": 86.3,
+      "relevant_lines": 44,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/onboarding/state_mach",
+      "coverage_percent": 83.3,
+      "relevant_lines": 36,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/outbound_router.ex",
+      "coverage_percent": 92.5,
+      "relevant_lines": 80,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/runtime.ex",
+      "coverage_percent": 92.1,
+      "relevant_lines": 76,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/signal.ex",
+      "coverage_percent": 75.0,
+      "relevant_lines": 24,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "test/support/test_helpers.ex",
+      "coverage_percent": 60.0,
+      "relevant_lines": 15,
+      "missed_lines": 6
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_messaging_endpo",
+      "coverage_percent": 77.2,
+      "relevant_lines": 22,
+      "missed_lines": 5
+    },
+    {
+      "displayed_path": "lib/jido_messaging/bridge_supervisor.ex",
+      "coverage_percent": 89.3,
+      "relevant_lines": 47,
+      "missed_lines": 5
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions/action.e",
+      "coverage_percent": 0.0,
+      "relevant_lines": 5,
+      "missed_lines": 5
+    },
+    {
+      "displayed_path": "lib/jido_messaging/delegation_transport.",
+      "coverage_percent": 90.9,
+      "relevant_lines": 55,
+      "missed_lines": 5
+    },
+    {
+      "displayed_path": "lib/jido_messaging/inbound_router.ex",
+      "coverage_percent": 88.0,
+      "relevant_lines": 42,
+      "missed_lines": 5
+    },
+    {
+      "displayed_path": "lib/jido_messaging/jidoka_delegation_ref",
+      "coverage_percent": 77.2,
+      "relevant_lines": 22,
+      "missed_lines": 5
+    },
+    {
+      "displayed_path": "lib/jido_messaging/jidoka_delegation_sco",
+      "coverage_percent": 66.6,
+      "relevant_lines": 15,
+      "missed_lines": 5
+    },
+    {
+      "displayed_path": "lib/jido_messaging/principal.ex",
+      "coverage_percent": 82.1,
+      "relevant_lines": 28,
+      "missed_lines": 5
+    },
+    {
+      "displayed_path": "lib/jido_messaging/activity_projection.e",
+      "coverage_percent": 89.7,
+      "relevant_lines": 39,
+      "missed_lines": 4
+    },
+    {
+      "displayed_path": "lib/jido_messaging/history_scope.ex",
+      "coverage_percent": 42.8,
+      "relevant_lines": 7,
+      "missed_lines": 4
+    },
+    {
+      "displayed_path": "lib/jido_messaging/trust_evidence_query.",
+      "coverage_percent": 91.3,
+      "relevant_lines": 46,
+      "missed_lines": 4
+    },
+    {
+      "displayed_path": "lib/jido_messaging/trust_evidence_scope.",
+      "coverage_percent": 66.6,
+      "relevant_lines": 12,
+      "missed_lines": 4
+    },
+    {
+      "displayed_path": "lib/jido_messaging/authorship.ex",
+      "coverage_percent": 83.3,
+      "relevant_lines": 18,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/dead_letter.ex",
+      "coverage_percent": 97.9,
+      "relevant_lines": 147,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/demo/heartbeat_sensor",
+      "coverage_percent": 90.0,
+      "relevant_lines": 30,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/dispatch.ex",
+      "coverage_percent": 86.9,
+      "relevant_lines": 23,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/identity_evidence.ex",
+      "coverage_percent": 90.9,
+      "relevant_lines": 33,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/jidoka_continuity_ref",
+      "coverage_percent": 57.1,
+      "relevant_lines": 7,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/jidoka_emission_ref.e",
+      "coverage_percent": 85.0,
+      "relevant_lines": 20,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/room_supervisor.ex",
+      "coverage_percent": 87.5,
+      "relevant_lines": 24,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/trust_evidence_source",
+      "coverage_percent": 78.5,
+      "relevant_lines": 14,
+      "missed_lines": 3
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_directory_endpo",
+      "coverage_percent": 75.0,
+      "relevant_lines": 8,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_directory_proje",
+      "coverage_percent": 88.8,
+      "relevant_lines": 18,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_directory_scope",
+      "coverage_percent": 80.0,
+      "relevant_lines": 10,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_invocation_summ",
+      "coverage_percent": 60.0,
+      "relevant_lines": 5,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_thread_route.ex",
+      "coverage_percent": 90.4,
+      "relevant_lines": 21,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/authorization_action.",
+      "coverage_percent": 60.0,
+      "relevant_lines": 5,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions/policy.e",
+      "coverage_percent": 95.4,
+      "relevant_lines": 44,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/context.ex",
+      "coverage_percent": 60.0,
+      "relevant_lines": 5,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/delivery_policy.ex",
+      "coverage_percent": 50.0,
+      "relevant_lines": 4,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/identity_credential_c",
+      "coverage_percent": 71.4,
+      "relevant_lines": 7,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/ingress_sink.ex",
+      "coverage_percent": 77.7,
+      "relevant_lines": 9,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/membership.ex",
+      "coverage_percent": 85.7,
+      "relevant_lines": 14,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/signal/identity.ex",
+      "coverage_percent": 66.6,
+      "relevant_lines": 6,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/transcript.ex",
+      "coverage_percent": 90.4,
+      "relevant_lines": 21,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/transcript_entry.ex",
+      "coverage_percent": 91.3,
+      "relevant_lines": 23,
+      "missed_lines": 2
+    },
+    {
+      "displayed_path": "lib/jido_messaging/bridge_room_spec.ex",
+      "coverage_percent": 50.0,
+      "relevant_lines": 2,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/bridge_status.ex",
+      "coverage_percent": 50.0,
+      "relevant_lines": 2,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/moderators/keyword_fi",
+      "coverage_percent": 95.0,
+      "relevant_lines": 20,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/moderators/rate_limit",
+      "coverage_percent": 96.5,
+      "relevant_lines": 29,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/msg_context.ex",
+      "coverage_percent": 96.2,
+      "relevant_lines": 27,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/onboarding/flow.ex",
+      "coverage_percent": 66.6,
+      "relevant_lines": 3,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/room_binding.ex",
+      "coverage_percent": 85.7,
+      "relevant_lines": 7,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/room_membership.ex",
+      "coverage_percent": 88.8,
+      "relevant_lines": 9,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/signal/context.ex",
+      "coverage_percent": 92.3,
+      "relevant_lines": 13,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/streaming.ex",
+      "coverage_percent": 97.2,
+      "relevant_lines": 37,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/supervisor.ex",
+      "coverage_percent": 97.6,
+      "relevant_lines": 42,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/jido_messaging/trust_evidence_result",
+      "coverage_percent": 90.0,
+      "relevant_lines": 10,
+      "missed_lines": 1
+    },
+    {
+      "displayed_path": "lib/mix/tasks/jido_messaging.postgres.mi",
+      "coverage_percent": 91.6,
+      "relevant_lines": 12,
+      "missed_lines": 1
+    }
+  ]
+}

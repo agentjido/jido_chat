@@ -1,41 +1,29 @@
 {
   "state": "open",
-  "source_head": "bb03e31e4b40ca7c3de45d11bffc787e0b73075a",
+  "source_head": "487992f93130c27827cd87cabd76a4acef4d6236",
   "next_checks": [
     {
       "file": "lib/jido_messaging/demo/bridge.ex",
-      "lines": [
-        108,
-        133,
-        245,
-        259
-      ],
-      "observed": "Subscriptions select only type, delivered maps skip native/catalog/source/subject checks, and forwarding passes empty binding options. Current tests check only process survival.",
-      "required_proof": "Real stored-message routing with captured bindings, source/subject/type conjunction, whole native validation, caller-owned grants and exact provider counts. Do not create authority automatically."
+      "observed": "Shared room setup ignores a failed room-binding write and treats any existing external binding as already ready.",
+      "required_proof": "Whole configured topology is compatible before subscription, failed binding creation retries, foreign room ownership does not result in a ready bridge."
     },
     {
       "file": "lib/jido_messaging/config_store.ex",
-      "lines": [
-        382,
-        391
-      ],
-      "observed": "Existing-record lookup handles only success or not_found. Returned backend read errors can crash ConfigStore.",
-      "required_proof": "No write or reconcile on failed existing-record read; explicit backend error; process remains usable."
+      "observed": "Before-write reads are safe; explicit save failure and late reconcile failure paths still need direct record/count checks.",
+      "required_proof": "No duplicate canonical write and exact accepted record/reconcile outcome."
     },
     {
-      "file": "lib/jido_messaging/room_server.ex",
-      "lines": [
-        563,
-        583,
-        594,
-        637,
-        706,
-        723
-      ],
-      "observed": "Thread/receipt and typing timeout branches remain untested in current complete coverdata.",
-      "required_proof": "Real room state, causal facts, bounded contexts and persisted records across failure or stale timer cases."
+      "file": "lib/jido_messaging/ingest.ex",
+      "observed": "Remaining meaningful line gaps in max-size/media/context/durable recovery branches.",
+      "required_proof": "Full payload preservation and exact storage/provider/observation counts."
     }
   ],
   "coverage_floor": 90,
-  "final_requirements_unchanged": true
+  "final_requirements_unchanged": true,
+  "resolved_this_turn": [
+    "Config existing-record read errors and wrong type/ID reject before writes, preserve process and one later revision.",
+    "Thread reply history prunes evicted private context; receipt and assignment scenarios pass.",
+    "Typing stale/unknown/expired timer ownership and native false fact pass.",
+    "Demo native source/subject/type validation, captured bindings, typed authorized sends and indexed route constraints pass 141 tests."
+  ]
 }

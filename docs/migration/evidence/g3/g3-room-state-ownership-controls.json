@@ -1,0 +1,55 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "4ffc0cca17c83122ddd16e0122e5e2b6c89c7850",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "72f30f62855a0bb8eabb4bbd8d9bad0f31f02146",
+      "library_test_files": 342,
+      "library_test_sha256": "7eb245ca016a128c25bfd50774155fd21fa4dcb48b291c1344f536a68063d809"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-room-state-ownership-controls",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/room_state_ownership_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "72f30f62855a0bb8eabb4bbd8d9bad0f31f02146",
+  "source_tree_sha256": "e7fce77569a4a8dae2dc96c4b1bce74eadc9c678865aceab392ce9753709cd4c",
+  "started_at": "2026-10-13T05:03:17.309528+00:00",
+  "finished_at": "2026-10-13T05:03:20.978557+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-room-state-ownership-controls.log",
+  "log_sha256": "a05989242710cf3ecaf4fa34aceeae56661a3c2f631ba9146e88c6a10211eaaf"
+}
