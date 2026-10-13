@@ -1,23 +1,22 @@
 {
   "state": "open",
-  "source_head": "00bb2df25e2170bf1ef3303eaa66b96ae3f219ce",
+  "source_head": "3421cf18d1be58318eecad50f398fef8d004294c",
   "next_checks": [
     {
-      "file": "lib/jido_messaging.ex",
-      "observed": "Projection callback exceptions/invalid returns and paged canonical store read failures still lack complete safe outcome proof.",
-      "required_proof": "Failed projection cannot corrupt canonical state or silently return partial rebuild; safe errors and no inferred effects."
+      "file": "lib/jido_messaging/persistence/ets.ex and sqlite.ex",
+      "observed": "Directory projection and advisory activity/trust filter and malformed revision branches remain uncovered.",
+      "required_proof": "Exact principal/room/instance scope and no authority expansion on invalid revisions, unsafe metadata or foreign cursors."
     },
     {
-      "file": "lib/jido_messaging/persistence/ets.ex and sqlite.ex",
-      "observed": "Identity credential, directory and advisory record malformed revision/filter queries retain uncovered paths.",
-      "required_proof": "Real records reject unsafe or mismatched fields and preserve explicit principal/room/instance scope."
+      "file": "lib/jido_messaging/ingest.ex",
+      "observed": "Remaining thread auto-create/assignment error outcomes and safe metadata branches need compound proof.",
+      "required_proof": "Accepted record retains whole input and exact provider/agent effect counts when later thread state fails."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Root transcript scope validates manually constructed invalid room/metadata fields before every projection admission.",
-    "Real ETS/SQLite cursor/limit and complete paged rebuild preserve owned records and order.",
-    "Three revisioned authority record types retain immutable identity, exact terminal revocation and scoped indexes in both real backends."
+    "Projection exception/invalid outcomes return safely; failed later canonical pages cannot admit a partial rebuild; canonical upsert/search validation failures reject without source mutation.",
+    "Real ETS/SQLite credential immutable fields, terminal status, scope filters and rejected/valid rotation lineage have exact record proof."
   ]
 }

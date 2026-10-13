@@ -4,8 +4,8 @@ This migration is in progress. G0, G1, and G2 have passed. G3–G9 are pending.
 The full package group is not ready for use.
 
 The isolated native PostgreSQL fixture works. Current complete Messaging checks
-pass 1,388 tests with zero skips and 84.7 percent coverage. Both current complete
-runtime profiles pass all 1,388 checks.
+pass 1,427 tests with zero skips and 84.9 percent coverage. Both current complete
+runtime profiles pass all 1,427 checks.
 The required 90 percent floor remains unmet.
 
 The execution plan is
@@ -27,6 +27,11 @@ Current Messaging quality, API audit and source scan pass.
 
 Do not add GitHub issue progress comments or change the issue body for progress.
 Record progress in this chat, local files and commit messages.
+
+Projection failures return safe errors and keep canonical messages intact. A
+failed later history page cannot start a partial rebuild. Credential rotation
+checks preserve immutable proof identity and reject invalid lineage before
+either record changes. The relevant changes and tests are committed.
 
 History scope is validated before transcript queries and projection callbacks.
 Real ETS and SQLite paging rejects foreign cursors and keeps complete rebuild
@@ -64,7 +69,7 @@ checks all 1,000 queue places and the rejected next job.
 
 These checks use the combined worktrees. Final current-head PR CI, all-adapter
 conformance, package checks, and the 90 percent Messaging coverage floor are
-still required. G3 remains open. Inclusive coverage is 84.7 percent. The required
+still required. G3 remains open. Inclusive coverage is 84.9 percent. The required
 90 percent package coverage is not met.
 
 Automatic thread creation now follows policy and the first message write. A
@@ -107,9 +112,9 @@ and the accepted claim. It emits a registered failure fact when the Bus is
 available. Repeated delivery cannot repeat that message write.
 
 The CreateRoom kind now matches the four stored Room types. Unknown kind fails at
-the constructor. Current checks pass 1,388 complete Messaging checks. The unchanged core has
+the constructor. Current checks pass 1,427 complete Messaging checks. The unchanged core has
 257 passing tests. Four optional AI tests pass. The Catalog has 110 native definitions.
-Current coverage is 84.7 percent, below the required 90 percent.
+Current coverage is 84.9 percent, below the required 90 percent.
 
 Lifecycle delete failures keep safe errors and exact store counts. A stopped
 runtime or deduper rejects acceptance before a store or provider call. Private
