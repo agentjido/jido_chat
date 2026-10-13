@@ -39,6 +39,9 @@ defmodule Jido.Chat.Integration.BaselineTest do
         "telegram" ->
           runtime ++ [:jido_chat_telegram]
 
+        "telegram_slack" ->
+          runtime ++ [:jido_chat_telegram, :jido_chat_slack]
+
         "all" ->
           runtime ++
             [

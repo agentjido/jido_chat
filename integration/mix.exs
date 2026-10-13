@@ -64,7 +64,8 @@ defmodule Jido.Chat.Integration.MixProject do
         "all" -> @adapter_apps
         "runtime" -> [:jido_chat_signal]
         "telegram" -> [:jido_chat_signal, :jido_chat_telegram]
-        other -> Mix.raise("Unknown integration profile: #{other}. Use all, runtime, or telegram.")
+        "telegram_slack" -> [:jido_chat_signal, :jido_chat_telegram, :jido_chat_slack]
+        other -> Mix.raise("Unknown integration profile: #{other}. Use all, runtime, telegram, or telegram_slack.")
       end
 
     adapters =

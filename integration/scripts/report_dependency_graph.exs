@@ -88,9 +88,17 @@ result = %{
   "dependencies" => rows,
   "note" =>
     case scope do
-      "runtime" -> "Core, Messaging, and the Signal provider. All nine adapters remain required for G7."
-      "telegram" -> "Core, Messaging, Signal provider, and Telegram. All nine adapters remain required for G7."
-      "all" -> "Whole-group dependency graph."
+      "runtime" ->
+        "Core, Messaging, and the Signal provider. All nine adapters remain required for G7."
+
+      "telegram" ->
+        "Core, Messaging, Signal provider, and Telegram. All nine adapters remain required for G7."
+
+      "telegram_slack" ->
+        "Core, Messaging, Signal provider, Telegram, and Slack. All nine adapters remain required for G7."
+
+      "all" ->
+        "Whole-group dependency graph."
     end
 }
 
