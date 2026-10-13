@@ -1,0 +1,190 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test grant invalid nested metadata cannot write or change an owned or foreign record (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:44
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+  2) test grant invalid required and optional references cannot write (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:60
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+  3) test grant valid nested metadata retains complete values (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:74
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+  4) test credential invalid nested metadata cannot write or change an owned or foreign record (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:44
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+  5) test credential invalid required and optional references cannot write (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:60
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+  6) test credential valid nested metadata retains complete values (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:74
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+  7) test endpoint invalid nested metadata cannot write or change an owned or foreign record (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:44
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+  8) test endpoint invalid required and optional references cannot write (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:60
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+  9) test endpoint valid nested metadata retains complete values (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:74
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+ 10) test grant oversized metadata and bounded lists reject before a write (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:93
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+ 11) test credential oversized metadata and bounded lists reject before a write (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:93
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+ 12) test grant constraint type errors cannot change authority (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:101
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+
+ 13) test duplicate normalized grant constraints reject before changing authority (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:116
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_expired}
+
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:35: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:34: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit_setup_0/1
+       test/jido_messaging/durable_record_input_boundary_test.exs:1: Jido.Messaging.DurableRecordInputBoundaryTest.__ex_unit__/2
+
+
+Finished in 0.4 seconds (0.00s async, 0.4s sync)
+
+Result: 0/13 passed
+Failed: 13 tests

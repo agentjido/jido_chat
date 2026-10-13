@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T09:23:01.269349+00:00",
-  "messaging_head": "ab751299976622b056cedaeba8dff2362163d9a3",
-  "core_head": "7c426ea010049cffc361d46302546cd9af664c1a",
-  "inclusive_tests": 1873,
+  "updated_at": "2026-10-13T09:54:41.204879+00:00",
+  "messaging_head": "a9132abb136a11554db6a4d18efc775ff9113d93",
+  "core_head": "f5243ec78786eab679b682b7a41c231727039393",
+  "inclusive_tests": 1892,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 86.2,
+  "coverage_percent": 86.6,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -43,6 +43,8 @@
     "g3-bridge-inventory-complete-ordered-record-final-tests",
     "g3-bridge-inventory-safe-reconcile-quality",
     "g3-bridge-inventory-whole-filter-and-topology-final-tests",
+    "g3-canonical-timeline-order-final-tests",
+    "g3-canonical-timeline-order-quality",
     "g3-config-facade-exact-room-quality",
     "g3-config-facade-exact-room-read-delete-final-tests",
     "g3-config-facade-read-delete-final-tests",
@@ -108,6 +110,13 @@
     "g3-current-callback-and-lock-quality",
     "g3-current-callback-and-lock-source-scan",
     "g3-current-canonical-history-and-storage-quality",
+    "g3-current-canonical-record-ai-full-tests",
+    "g3-current-canonical-record-ai-harness",
+    "g3-current-canonical-record-api-audit",
+    "g3-current-canonical-record-core-full-tests",
+    "g3-current-canonical-record-core-harness",
+    "g3-current-canonical-record-inclusive-coverage",
+    "g3-current-canonical-record-optional-ai",
     "g3-current-canonical-storage-ai-harness-tests",
     "g3-current-canonical-storage-complete-api-audit",
     "g3-current-canonical-storage-core-harness-tests",
@@ -377,6 +386,8 @@
     "g3-directory-normalized-scope-quality",
     "g3-directory-query-and-onboarding-scope-tests",
     "g3-directory-whole-list-and-semantic-save-final-tests",
+    "g3-durable-record-input-final-tests",
+    "g3-durable-record-input-quality",
     "g3-execution-admission-target-and-result-final-tests",
     "g3-facade-record-ownership-tests",
     "g3-gateway-cold-adapter-quality",
@@ -502,7 +513,9 @@
     "g3-read-receipt-callback-regressions: foreign record, incomplete receipt and invalid change produced false success; all three now pass.",
     "g3-topology-room-binding-callback-regressions: 26 failures from escaped store outcomes or false room/binding success. All affected checks now pass.",
     "g3-directory-limit-order-regressions: ten tests failed from pre-filter truncation or ignored limits. Current ordered complete matches pass.",
-    "g3-directory-limit-order-tests: 78 test assertions passed but three compile warnings failed the required check. Current grouped clauses pass without warnings."
+    "g3-directory-limit-order-tests: 78 test assertions passed but three compile warnings failed the required check. Current grouped clauses pass without warnings.",
+    "g3-canonical-timeline-order-regressions: six failures from nil timestamp sorting and unstable equal-timestamp order; all now pass.",
+    "g3-durable-record-input-active-fixture-regressions: explicit nil endpoint metadata and duplicate normalized constraints were accepted. Both are rejected before store writes."
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -688,7 +701,12 @@
     "All 78 affected directory and storage conformance checks pass without warnings; package quality passes. Tests retain exact stored records, match after 501 unrelated candidates, return 502 complete records and reject invalid limits. Initial ten failed regressions and the failed compile-warning run remain.",
     "Current directory store source refreshes complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency evidence is reused after exact source comparison.",
     "Current complete inclusive Messaging coverage passes 1873 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1873 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1873 checks with zero skips.",
+    "Canonical timeline queries retain nil timestamps and stable ID order for equal instants. Complete message, thread, orphan reply and cursor ownership checks pass across ETS/SQLite/PostgreSQL. All 34 affected tests and package quality pass.",
+    "Grant constraints reject duplicate normalized fields before any write. Endpoint metadata preserves explicit invalid values for validation. Invalid nested metadata, bounded data and references cause zero writes and retain complete owned/foreign records; valid nested metadata remains complete. All 38 affected checks and package quality pass.",
+    "Current query/input source checks refresh complete coverage, both full runtime profiles, both harnesses, optional AI, API audit and source scan. Unchanged core and pinned dependency evidence is reused after exact source comparison.",
+    "Current complete inclusive Messaging coverage passes 1892 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.6 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1892 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -703,7 +721,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1873,
+    "messaging_tests_per_profile": 1892,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -714,34 +732,39 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1873,
+        "passed": 1892,
         "failures": 0,
-        "check": "g3-current-directory-pagination-core-full-tests.json"
+        "check": "g3-current-canonical-record-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1873,
+        "passed": 1892,
         "failures": 0,
-        "check": "g3-current-directory-pagination-ai-full-tests.json"
+        "check": "g3-current-canonical-record-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current directory-pagination runtime harnesses pass 241 checks.",
-    "optional_ai_evidence": "Current directory-pagination AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current canonical-record runtime harnesses pass 241 checks.",
+    "optional_ai_evidence": "Current canonical-record optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-directory-pagination-complete-api-exports.json",
+    "current_report": "current-canonical-record-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1873 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-directory-pagination-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1892 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-canonical-record-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-directory-pagination-source-proof.json"
+  "reused_library_proof": "current-canonical-record-source-proof.json",
+  "fixture_corrections": [
+    "Timeline test used an incorrect membership query name. It now calls list_memberships and retains the zero-effect assertion.",
+    "Durable input setup used expired credentials and incorrect endpoint facade names. It now uses current valid credentials and the existing facade names.",
+    "A valid new endpoint fixture reused an occupied principal. A separate agent principal now preserves the one-endpoint ownership rule."
+  ]
 }

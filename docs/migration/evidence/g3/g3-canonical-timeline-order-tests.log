@@ -1,0 +1,28 @@
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+.....
+
+  1) test instance and root facade timelines preserve full owned records and no communication effects (Jido.Messaging.CanonicalTimelineOrderTest)
+     test/jido_messaging/canonical_timeline_order_test.exs:64
+     ** (UndefinedFunctionError) function Jido.Messaging.CanonicalTimelineOrderTest.ETSInstance.list_room_members/1 is undefined or private. Did you mean:
+
+         * list_agent_room_memberships/1
+         * list_room_bindings/1
+         * list_room_servers/0
+         * list_rooms/0
+         * list_rooms/1
+
+     code: for instance <- [ETSInstance, SQLiteInstance] do
+     stacktrace:
+       Jido.Messaging.CanonicalTimelineOrderTest.ETSInstance.list_room_members("owned-room")
+       test/jido_messaging/canonical_timeline_order_test.exs:82: anonymous fn/1 in Jido.Messaging.CanonicalTimelineOrderTest."test instance and root facade timelines preserve full owned records and no communication effects"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/canonical_timeline_order_test.exs:70: (test)
+
+............................
+Finished in 2.1 seconds (0.00s async, 2.1s sync)
+
+Result: 33/34 passed
+Failed: 1 test

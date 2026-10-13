@@ -130,6 +130,9 @@
         "evidence/g3/current-callback-and-lock-coverage-gaps.json",
         "evidence/g3/current-callback-and-lock-runtime-ai-graph.json",
         "evidence/g3/current-callback-and-lock-runtime-core-graph.json",
+        "evidence/g3/current-canonical-record-complete-api-exports.json",
+        "evidence/g3/current-canonical-record-runtime-boundary-scan.json",
+        "evidence/g3/current-canonical-record-source-proof.json",
         "evidence/g3/current-canonical-storage-complete-api-exports.json",
         "evidence/g3/current-config-and-hook-complete-api-exports.json",
         "evidence/g3/current-config-and-hook-coverage-gaps.json",
@@ -265,6 +268,10 @@
         "evidence/g3/g3-bridge-inventory-whole-filter-and-topology-final-tests.json",
         "evidence/g3/g3-call-lifetime-final-core-tests.json",
         "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-canonical-timeline-order-final-tests.json",
+        "evidence/g3/g3-canonical-timeline-order-quality.json",
+        "evidence/g3/g3-canonical-timeline-order-regressions.json",
+        "evidence/g3/g3-canonical-timeline-order-tests.json",
         "evidence/g3/g3-config-facade-exact-room-quality.json",
         "evidence/g3/g3-config-facade-exact-room-read-delete-final-tests.json",
         "evidence/g3/g3-config-facade-read-delete-final-tests.json",
@@ -352,6 +359,13 @@
         "evidence/g3/g3-current-callback-and-lock-quality.json",
         "evidence/g3/g3-current-callback-and-lock-source-scan.json",
         "evidence/g3/g3-current-canonical-history-and-storage-quality.json",
+        "evidence/g3/g3-current-canonical-record-ai-full-tests.json",
+        "evidence/g3/g3-current-canonical-record-ai-harness.json",
+        "evidence/g3/g3-current-canonical-record-api-audit.json",
+        "evidence/g3/g3-current-canonical-record-core-full-tests.json",
+        "evidence/g3/g3-current-canonical-record-core-harness.json",
+        "evidence/g3/g3-current-canonical-record-inclusive-coverage.json",
+        "evidence/g3/g3-current-canonical-record-optional-ai.json",
         "evidence/g3/g3-current-canonical-storage-ai-harness-tests.json",
         "evidence/g3/g3-current-canonical-storage-and-facade-inclusive-coverage.json",
         "evidence/g3/g3-current-canonical-storage-complete-api-audit.json",
@@ -645,6 +659,11 @@
         "evidence/g3/g3-directory-normalized-scope-quality.json",
         "evidence/g3/g3-directory-query-and-onboarding-scope-tests.json",
         "evidence/g3/g3-directory-whole-list-and-semantic-save-final-tests.json",
+        "evidence/g3/g3-durable-record-input-active-fixture-regressions.json",
+        "evidence/g3/g3-durable-record-input-final-tests.json",
+        "evidence/g3/g3-durable-record-input-quality.json",
+        "evidence/g3/g3-durable-record-input-regressions.json",
+        "evidence/g3/g3-durable-record-input-valid-fixture-regressions.json",
         "evidence/g3/g3-execution-admission-target-and-result-final-tests.json",
         "evidence/g3/g3-execution-admission-target-and-result-tests.json",
         "evidence/g3/g3-execution-final-compile.json",
@@ -1083,7 +1102,12 @@
         "All 78 affected directory and storage conformance checks pass without warnings; package quality passes. Tests retain exact stored records, match after 501 unrelated candidates, return 502 complete records and reject invalid limits. Initial ten failed regressions and the failed compile-warning run remain.",
         "Current directory store source refreshes complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency evidence is reused after exact source comparison.",
         "Current complete inclusive Messaging coverage passes 1873 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1873 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1873 checks with zero skips.",
+        "Canonical timeline queries retain nil timestamps and stable ID order for equal instants. Complete message, thread, orphan reply and cursor ownership checks pass across ETS/SQLite/PostgreSQL. All 34 affected tests and package quality pass.",
+        "Grant constraints reject duplicate normalized fields before any write. Endpoint metadata preserves explicit invalid values for validation. Invalid nested metadata, bounded data and references cause zero writes and retain complete owned/foreign records; valid nested metadata remains complete. All 38 affected checks and package quality pass.",
+        "Current query/input source checks refresh complete coverage, both full runtime profiles, both harnesses, optional AI, API audit and source scan. Unchanged core and pinned dependency evidence is reused after exact source comparison.",
+        "Current complete inclusive Messaging coverage passes 1892 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.6 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1892 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1253,5 +1277,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T09:23:01.269349+00:00"
+  "updated_at": "2026-10-13T09:54:41.204879+00:00"
 }

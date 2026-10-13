@@ -1,6 +1,6 @@
 {
   "state": "open",
-  "source_head": "ab751299976622b056cedaeba8dff2362163d9a3",
+  "source_head": "a9132abb136a11554db6a4d18efc775ff9113d93",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
@@ -9,15 +9,15 @@
     },
     {
       "file": "lib/jido_messaging.ex and persistence/{ets,sqlite}.ex",
-      "observed": "Some canonical facade/default and backend invalid-filter/cleanup cases remain uncovered.",
+      "observed": "Remaining canonical record reference, enum, time and transition input boundaries plus backend cleanup/filter cases need complete current proof.",
       "required_proof": "Owned/foreign record scope, defined errors and complete content. Reach 90 percent without skips, ignores or reduced thresholds."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "ETS/SQLite/PostgreSQL participant and room searches apply limits after complete matching and ID ordering.",
-    "SQL searches retain matches beyond the first 500 candidates by scanning bounded pages. A 502-record result remains complete and ordered.",
-    "Lookup cannot hide ambiguity with a search limit. Invalid limits return a defined error; stored records remain unchanged."
+    "Canonical timeline queries accept nil timestamps and use stable message IDs without changing any stored record or thread contents.",
+    "Grant constraint normalization rejects duplicate logical fields; endpoint metadata preserves explicit invalid values for rejection.",
+    "Invalid durable input causes zero writes and keeps complete owned/foreign records and authority state; valid nested metadata stays complete."
   ]
 }
