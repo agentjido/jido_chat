@@ -1,6 +1,6 @@
 {
   "state": "open",
-  "source_head": "a9132abb136a11554db6a4d18efc775ff9113d93",
+  "source_head": "e7426bd5667d16a0029855c94b2df55d05bc240d",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
@@ -9,15 +9,15 @@
     },
     {
       "file": "lib/jido_messaging.ex and persistence/{ets,sqlite}.ex",
-      "observed": "Remaining canonical record reference, enum, time and transition input boundaries plus backend cleanup/filter cases need complete current proof.",
+      "observed": "Activity reference/summary input boundaries, remaining canonical facade and backend cleanup/filter cases still need complete proof. Required coverage is not yet met.",
       "required_proof": "Owned/foreign record scope, defined errors and complete content. Reach 90 percent without skips, ignores or reduced thresholds."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Canonical timeline queries accept nil timestamps and use stable message IDs without changing any stored record or thread contents.",
-    "Grant constraint normalization rejects duplicate logical fields; endpoint metadata preserves explicit invalid values for rejection.",
-    "Invalid durable input causes zero writes and keeps complete owned/foreign records and authority state; valid nested metadata stays complete."
+    "Continuity, delegation and advisory evidence input boundaries reject invalid references, fields, enums, revisions, codes, times and bounded lists before save callbacks.",
+    "Whole owned/foreign passive records, rooms, threads and messages remain unchanged after invalid input; authority and admission counts remain zero.",
+    "String-key input reuses exact canonical records; invalid attestation lists cannot become scopes."
   ]
 }

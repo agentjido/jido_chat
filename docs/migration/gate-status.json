@@ -178,6 +178,7 @@
         "evidence/g3/current-identity-unregister-coverage-gaps.json",
         "evidence/g3/current-identity-unregister-prohibited-runtime-boundary-scan.json",
         "evidence/g3/current-identity-unregister-source-proof.json",
+        "evidence/g3/current-jidoka-input-source-proof.json",
         "evidence/g3/current-media-retry-yaml-complete-api-exports.json",
         "evidence/g3/current-media-retry-yaml-coverage-gaps.json",
         "evidence/g3/current-media-retry-yaml-runtime-ai-graph.json",
@@ -484,6 +485,9 @@
         "evidence/g3/g3-current-identity-unregister-inclusive-coverage.json",
         "evidence/g3/g3-current-identity-unregister-optional-ai.json",
         "evidence/g3/g3-current-identity-unregister-source-scan.json",
+        "evidence/g3/g3-current-jidoka-input-ai-full-tests.json",
+        "evidence/g3/g3-current-jidoka-input-core-full-tests.json",
+        "evidence/g3/g3-current-jidoka-input-inclusive-coverage.json",
         "evidence/g3/g3-current-media-retry-yaml-ai-full-tests.json",
         "evidence/g3/g3-current-media-retry-yaml-ai-graph.json",
         "evidence/g3/g3-current-media-retry-yaml-ai-harness.json",
@@ -692,6 +696,8 @@
         "evidence/g3/g3-inclusive-runtime-storage-coverage.json",
         "evidence/g3/g3-ingest-policy-lifetime-and-ownership-final-tests.json",
         "evidence/g3/g3-ingress-subscription-scope-and-page-tests.json",
+        "evidence/g3/g3-jidoka-record-input-quality.json",
+        "evidence/g3/g3-jidoka-record-input-tests.json",
         "evidence/g3/g3-large-message-projection-quality.json",
         "evidence/g3/g3-large-message-single-projection-tests.json",
         "evidence/g3/g3-library-final-step-compile.json",
@@ -1107,7 +1113,11 @@
         "Grant constraints reject duplicate normalized fields before any write. Endpoint metadata preserves explicit invalid values for validation. Invalid nested metadata, bounded data and references cause zero writes and retain complete owned/foreign records; valid nested metadata remains complete. All 38 affected checks and package quality pass.",
         "Current query/input source checks refresh complete coverage, both full runtime profiles, both harnesses, optional AI, API audit and source scan. Unchanged core and pinned dependency evidence is reused after exact source comparison.",
         "Current complete inclusive Messaging coverage passes 1892 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.6 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1892 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1892 checks with zero skips.",
+        "Public continuity, delegation and advisory evidence inputs reject malformed references, unsafe/duplicate fields, enums, revisions, codes, times and bounded lists before save callbacks. Complete owned/foreign records, room/thread/message content and authority stay unchanged. String-key replay returns complete existing records. All 55 affected checks pass.",
+        "Only a test file changed. Exact production library, core/test/harness, optional fixtures, manifest and lock comparisons permit reuse of production API/source scan, both harnesses, optional AI fixture and pinned dependency graph evidence. Quality is rerun for the new test source, along with complete current Messaging profiles and coverage.",
+        "Current complete inclusive Messaging coverage passes 1908 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.9 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1908 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1277,5 +1287,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T09:54:41.204879+00:00"
+  "updated_at": "2026-10-13T10:05:16.234824+00:00"
 }

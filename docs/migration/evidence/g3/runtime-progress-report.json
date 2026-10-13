@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T09:54:41.204879+00:00",
-  "messaging_head": "a9132abb136a11554db6a4d18efc775ff9113d93",
-  "core_head": "f5243ec78786eab679b682b7a41c231727039393",
-  "inclusive_tests": 1892,
+  "updated_at": "2026-10-13T10:05:16.234824+00:00",
+  "messaging_head": "e7426bd5667d16a0029855c94b2df55d05bc240d",
+  "core_head": "e122927be11f867c0ae47c742061840d24324bb5",
+  "inclusive_tests": 1908,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 86.6,
+  "coverage_percent": 86.9,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -231,6 +231,9 @@
     "g3-current-identity-unregister-inclusive-coverage",
     "g3-current-identity-unregister-optional-ai",
     "g3-current-identity-unregister-source-scan",
+    "g3-current-jidoka-input-ai-full-tests",
+    "g3-current-jidoka-input-core-full-tests",
+    "g3-current-jidoka-input-inclusive-coverage",
     "g3-current-media-retry-yaml-ai-full-tests",
     "g3-current-media-retry-yaml-ai-graph",
     "g3-current-media-retry-yaml-ai-harness",
@@ -399,6 +402,8 @@
     "g3-identity-root-facade-defaults-tests",
     "g3-ingest-policy-lifetime-and-ownership-final-tests",
     "g3-ingress-subscription-scope-and-page-tests",
+    "g3-jidoka-record-input-quality",
+    "g3-jidoka-record-input-tests",
     "g3-lifecycle-exception-and-partial-effect-tests",
     "g3-media-private-payload-final-tests",
     "g3-message-store-exception-reconciliation-tests",
@@ -706,7 +711,11 @@
     "Grant constraints reject duplicate normalized fields before any write. Endpoint metadata preserves explicit invalid values for validation. Invalid nested metadata, bounded data and references cause zero writes and retain complete owned/foreign records; valid nested metadata remains complete. All 38 affected checks and package quality pass.",
     "Current query/input source checks refresh complete coverage, both full runtime profiles, both harnesses, optional AI, API audit and source scan. Unchanged core and pinned dependency evidence is reused after exact source comparison.",
     "Current complete inclusive Messaging coverage passes 1892 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.6 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1892 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1892 checks with zero skips.",
+    "Public continuity, delegation and advisory evidence inputs reject malformed references, unsafe/duplicate fields, enums, revisions, codes, times and bounded lists before save callbacks. Complete owned/foreign records, room/thread/message content and authority stay unchanged. String-key replay returns complete existing records. All 55 affected checks pass.",
+    "Only a test file changed. Exact production library, core/test/harness, optional fixtures, manifest and lock comparisons permit reuse of production API/source scan, both harnesses, optional AI fixture and pinned dependency graph evidence. Quality is rerun for the new test source, along with complete current Messaging profiles and coverage.",
+    "Current complete inclusive Messaging coverage passes 1908 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.9 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1908 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -721,7 +730,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1892,
+    "messaging_tests_per_profile": 1908,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -732,19 +741,19 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1892,
+        "passed": 1908,
         "failures": 0,
-        "check": "g3-current-canonical-record-core-full-tests.json"
+        "check": "g3-current-jidoka-input-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1892,
+        "passed": 1908,
         "failures": 0,
-        "check": "g3-current-canonical-record-ai-full-tests.json"
+        "check": "g3-current-jidoka-input-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current canonical-record runtime harnesses pass 241 checks.",
-    "optional_ai_evidence": "Current canonical-record optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Reuse both canonical-record runtime harnesses: 241 checks each. Exact production/support/harness inputs remain unchanged; current-jidoka-input-source-proof.json verifies reuse.",
+    "optional_ai_evidence": "Reuse four canonical-record optional AI checks. Optional fixture and exact production inputs remain unchanged."
   },
   "compiled_api_audit": {
     "state": "pass",
@@ -754,17 +763,21 @@
     "current_report": "current-canonical-record-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1892 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-canonical-record-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1908 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-jidoka-input-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-canonical-record-source-proof.json",
+  "reused_library_proof": "current-jidoka-input-source-proof.json",
   "fixture_corrections": [
     "Timeline test used an incorrect membership query name. It now calls list_memberships and retains the zero-effect assertion.",
     "Durable input setup used expired credentials and incorrect endpoint facade names. It now uses current valid credentials and the existing facade names.",
     "A valid new endpoint fixture reused an occupied principal. A separate agent principal now preserves the one-endpoint ownership rule."
+  ],
+  "reused_current_production_checks": [
+    "g3-current-canonical-record-api-audit.json",
+    "current-canonical-record-runtime-boundary-scan.json"
   ]
 }
