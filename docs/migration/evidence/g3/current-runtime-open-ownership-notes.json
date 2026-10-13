@@ -1,6 +1,6 @@
 {
   "state": "open",
-  "source_head": "397be2a66bade144fba0ec31ec4819e84158beac",
+  "source_head": "aa987d585c94a7244d0bde40f14347697c4b3687",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
@@ -16,8 +16,8 @@
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "ETS/SQLite/PostgreSQL message queries reject invalid limits with invalid_limit and retain exact complete owned/foreign records.",
-    "ETS reuses strict transcript pagination; positive pages preserve timestamp/ID order and room/thread cursor ownership.",
-    "SQLite test still verifies real SQL binding-error statement cleanup and exact adapter usability after failure, alongside the new pre-query limit guard."
+    "ETS recovery removes only the missing room binding rows from all three indexes. Complete old message history and foreign room/binding records remain unchanged. Repeated recovery retains one stable scoped binding.",
+    "Active participant recovery replaces only its stale scoped identity. A revoked missing identity cannot recreate the participant. Foreign identities remain unchanged.",
+    "Membership and invocation scope index recovery preserve foreign records and return exact owned records. All 32 affected tests and package quality pass."
   ]
 }

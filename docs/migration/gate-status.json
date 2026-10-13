@@ -166,6 +166,9 @@
         "evidence/g3/current-directory-pagination-complete-api-exports.json",
         "evidence/g3/current-directory-pagination-runtime-boundary-scan.json",
         "evidence/g3/current-directory-pagination-source-proof.json",
+        "evidence/g3/current-ets-recovery-complete-api-exports.json",
+        "evidence/g3/current-ets-recovery-runtime-boundary-scan.json",
+        "evidence/g3/current-ets-recovery-source-proof.json",
         "evidence/g3/current-event-projection-complete-api-exports.json",
         "evidence/g3/current-event-projection-runtime-boundary-scan.json",
         "evidence/g3/current-event-projection-source-proof.json",
@@ -467,6 +470,13 @@
         "evidence/g3/g3-current-directory-pagination-core-harness.json",
         "evidence/g3/g3-current-directory-pagination-inclusive-coverage.json",
         "evidence/g3/g3-current-directory-pagination-optional-ai.json",
+        "evidence/g3/g3-current-ets-recovery-ai-full-tests.json",
+        "evidence/g3/g3-current-ets-recovery-ai-harness.json",
+        "evidence/g3/g3-current-ets-recovery-api-audit.json",
+        "evidence/g3/g3-current-ets-recovery-core-full-tests.json",
+        "evidence/g3/g3-current-ets-recovery-core-harness.json",
+        "evidence/g3/g3-current-ets-recovery-inclusive-coverage.json",
+        "evidence/g3/g3-current-ets-recovery-optional-ai.json",
         "evidence/g3/g3-current-event-projection-ai-full-tests.json",
         "evidence/g3/g3-current-event-projection-ai-harness.json",
         "evidence/g3/g3-current-event-projection-api-audit.json",
@@ -722,6 +732,10 @@
         "evidence/g3/g3-durable-record-input-quality.json",
         "evidence/g3/g3-durable-record-input-regressions.json",
         "evidence/g3/g3-durable-record-input-valid-fixture-regressions.json",
+        "evidence/g3/g3-ets-scope-index-recovery-quality.json",
+        "evidence/g3/g3-ets-scope-index-recovery-regressions.json",
+        "evidence/g3/g3-ets-scope-index-recovery-tests.json",
+        "evidence/g3/g3-ets-scope-index-recovery-valid-regressions.json",
         "evidence/g3/g3-event-projection-scope-final-tests.json",
         "evidence/g3/g3-event-projection-scope-quality.json",
         "evidence/g3/g3-event-projection-scope-regressions.json",
@@ -1214,7 +1228,12 @@
         "All 73 initial affected checks and 93 expanded query/SQLite/storage conformance/timeline/transcript checks pass without warnings, plus package quality. Positive pages retain complete records, stable timestamp/ID order and exact room/thread cursor ownership. Invalid limits and cursors change no owned/foreign record. Original three invalid-limit failures and the failed inclusive SQLite cleanup run remain in evidence. The updated cleanup test still forces a real bind error and verifies statement release, alongside strict limit validation.",
         "Current store source checks refresh quality, complete coverage, both full profiles, both runtime harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
         "Current complete inclusive Messaging coverage passes 1948 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1948 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1948 checks with zero skips.",
+        "ETS missing-room recovery removes exact stale binding rows from all three indexes before recreating the scoped room binding. It retains old message history, foreign canonical rooms and bindings, and stable replay without duplicate binding rows.",
+        "Active missing participant identity recovery replaces only the requested bridge identity. Revoked missing identities remain denied without recreation. Stale membership/invocation scope indexes recover without changing foreign records. Affected tests and package quality pass; original stale binding failure and separate fixture diagnostics remain in evidence.",
+        "Current ETS source checks refresh quality, complete coverage, both full profiles, both runtime harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
+        "Current complete inclusive Messaging coverage passes 1953 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.2 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1953 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1384,5 +1403,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T11:29:33.883982+00:00"
+  "updated_at": "2026-10-13T11:45:17.531971+00:00"
 }
