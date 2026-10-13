@@ -8,4 +8,4 @@ ExUnit.start(seed: 0, capture_log: true)
   end)
 
 if Enum.any?(diagnostics, &(&1.severity == :warning)), do: raise("Telegram membership mapper has compiler warnings")
-Code.require_file(Path.join(root, "jido_chat_telegram/test/jido/chat/telegram/membership_runtime_test.exs"))
+Code.require_file(Path.join(root, "jido_chat/integration/fixtures/telegram_membership_runtime_test.exs"))
