@@ -40,6 +40,15 @@ The graph report checks the exact pinned Git commits and package versions.
 It records source hashes for the path dependencies. Set
 `JIDO_INTEGRATION_GRAPH_OUTPUT` to save the report at a selected evidence path.
 
+For G4 tests with the real Telegram adapter, use
+`JIDO_INTEGRATION_PROFILE=telegram` and `MIX_BUILD_PATH=_build/telegram-core`.
+This profile adds Telegram to the compiled runtime graph. Run `mix deps.get`,
+then `mix compile --warnings-as-errors` and
+`mix run scripts/run_telegram_membership_runtime_tests.exs`.
+The fixture starts an active agent and checks unchanged grants, membership,
+presence, and stored records. It uses a fake transport and makes no live call.
+The default `all` profile still includes all nine adapters for G7.
+
 For final checks, set `JIDO_INTEGRATION_PROFILE=all` and use separate whole-group
 build paths. The API audit also requires the full group when `--phase G7` is used:
 

@@ -87,10 +87,11 @@ result = %{
   "package_scope" => scope,
   "dependencies" => rows,
   "note" =>
-    if(scope == "runtime",
-      do: "Core, Messaging, and the Signal provider. All nine adapters remain required for G7.",
-      else: "Whole-group dependency graph."
-    )
+    case scope do
+      "runtime" -> "Core, Messaging, and the Signal provider. All nine adapters remain required for G7."
+      "telegram" -> "Core, Messaging, Signal provider, and Telegram. All nine adapters remain required for G7."
+      "all" -> "Whole-group dependency graph."
+    end
 }
 
 File.write!(output, Jason.encode!(result, pretty: true) <> "\n")
