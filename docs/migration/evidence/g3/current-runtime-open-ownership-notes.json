@@ -1,29 +1,28 @@
 {
   "state": "open",
-  "source_head": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
+  "source_head": "0e7899794256c2d302f37401a58823570c5281b8",
   "next_checks": [
     {
+      "file": "lib/jido_messaging/inbound_router.ex",
+      "observed": "Private request construction and bridge status observation after acceptance have failure branches not covered by the new callback suite.",
+      "required_proof": "No repeat accepted store effect; safe transport failure if request fields are malformed; parent native delivery unchanged."
+    },
+    {
       "file": "lib/jido_messaging/ingest.ex",
-      "observed": "Meaningful remaining coverage gaps include contextual reply mapping, media acceptance and resolver error branches.",
-      "required_proof": "Original full payload/canonical context and exact accepted write/deduper/observation counts on failure."
+      "observed": "Current meaningful gaps include contextual replies, media resolver limits and room/thread record error paths.",
+      "required_proof": "Full portable payload, exact canonical record/context scope and write/deduper/observation counts."
     },
     {
       "file": "lib/jido_messaging/persistence/ets.ex",
-      "observed": "Remaining revisioned endpoint, route, principal identity and activity cleanup branches from full coverage.",
-      "required_proof": "Composite real backend ownership with same IDs/scopes and foreign records retained."
-    },
-    {
-      "file": "lib/jido_messaging/webhook_plug.ex",
-      "observed": "Malformed parse/auth headers and full native sink outcome matrix require exact transport checks.",
-      "required_proof": "No raw-map fallback; validate before sink; declared status/ACK on error, raise, throw, exit and invalid result."
+      "observed": "Endpoint, agent directory, activity projection and identity cleanup/revision branch gaps remain.",
+      "required_proof": "Real backend compound records with same IDs across scopes; foreign data and authority stay unchanged."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Demo complete route owner preflight and failed binding retry before subscription pass eleven cases.",
-    "Config before/after-save failure records preserve old or committed revision, exact write counts and stale-retry rejection; twenty new cases pass.",
-    "Image/audio/video/file complete payload order, bytes, metadata and limits pass four cases.",
-    "Real ETS/SQLite room and participant deletion authority scope cleanup pass two composite cases."
+    "Webhook verifier error/raise/throw/exit/invalid result rejects before normalization. Formatter exceptions after accepted writes preserve transport outcome and one stored message.",
+    "Missing instance and resolver exceptions return controlled HTTP responses before ingress/body reads. Twenty config/body chunk/error cases pass.",
+    "Normalizer exception and mixed valid/invalid schema delivery have zero room/message writes; successful response map preserves private transport status/headers/body. Six new cases pass."
   ]
 }

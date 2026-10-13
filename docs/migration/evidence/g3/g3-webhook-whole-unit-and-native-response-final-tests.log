@@ -1,0 +1,9 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.......................................
+Finished in 2.6 seconds (1.9s async, 0.7s sync)
+
+Result: 39 passed
+
+00:24:53.947 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.3889.0>, nil}

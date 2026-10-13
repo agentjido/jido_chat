@@ -1,0 +1,55 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "e4881fcd8b6d682d6ff5e9b0cb3fabe41b8efef0",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
+      "library_test_files": 347,
+      "library_test_sha256": "0e9893e0d12df18e1ec3b707dfeb9c9d49c8049a67347a7b2be2b2403201b59d"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-webhook-callback-failure-controls",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/webhook_callback_failure_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
+  "source_tree_sha256": "3494da0ad4778ea42d7873b425d5f16ef55d84403ef28eccd209af3a079d5a54",
+  "started_at": "2026-10-13T05:21:31.518199+00:00",
+  "finished_at": "2026-10-13T05:21:35.818820+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-webhook-callback-failure-controls.log",
+  "log_sha256": "9395a769ed1950e132684e828063e643c1e44edec90df4a6bc5930bd1b25ffb1"
+}

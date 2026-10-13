@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T05:20:46.499875+00:00",
-  "messaging_head": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
-  "core_head": "4242af836de22ebad1dc209c5e5d68c71745d231",
-  "inclusive_tests": 1234,
+  "updated_at": "2026-10-13T05:35:28.142047+00:00",
+  "messaging_head": "73fe2b6098af6bd3bc90452659675cfae4ffd750",
+  "core_head": "e4881fcd8b6d682d6ff5e9b0cb3fabe41b8efef0",
+  "inclusive_tests": 1268,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 83.1,
+  "coverage_percent": 83.3,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -134,7 +134,19 @@
     "g3-current-topology-slack-membership-tests",
     "g3-current-topology-source-scan",
     "g3-current-topology-telegram-membership-tests",
+    "g3-current-webhook-failure-ai-full-tests",
+    "g3-current-webhook-failure-ai-graph",
+    "g3-current-webhook-failure-ai-harness",
+    "g3-current-webhook-failure-api-audit",
+    "g3-current-webhook-failure-core-graph",
+    "g3-current-webhook-failure-core-harness",
+    "g3-current-webhook-failure-quality",
+    "g3-current-webhook-failure-source-scan",
+    "g3-current-webhook-owned-expiry-ai-full-tests",
+    "g3-current-webhook-owned-expiry-core-full-tests",
+    "g3-current-webhook-owned-expiry-inclusive-coverage",
     "g3-dead-letter-ownership-controls",
+    "g3-deduper-owned-clock-and-room-final-tests",
     "g3-delete-and-runtime-unavailable-final-tests",
     "g3-demo-cli-sourced-environment-final-tests",
     "g3-demo-cli-typed-environment-source-tests",
@@ -167,7 +179,12 @@
     "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
     "g3-topology-owner-and-sections-warning-free-tests",
-    "g3-uncertain-write-and-accepted-runtime-final-tests"
+    "g3-uncertain-write-and-accepted-runtime-final-tests",
+    "g3-webhook-callback-failure-quality",
+    "g3-webhook-complete-unit-verified-final-tests",
+    "g3-webhook-http-config-and-body-final-tests",
+    "g3-webhook-http-config-quality",
+    "g3-webhook-native-acceptance-failure-final-tests"
   ],
   "confirmed_regressions": [
     "g3-acceptance-storage-failure-confirmed",
@@ -232,7 +249,14 @@
     "Four complete private media scenarios preserve image/audio/video/file bytes, order, captions/transcripts/dimensions and exact count/size limits. Invalid middle media cannot return truncated success. All 55 affected media/ingest/gateway tests pass.",
     "Composite real ETS/SQLite room deletion removes only scoped membership/grant/policy records and indexes. Shared participant and foreign room records remain. Participant deletion then clears remaining authority without removing the foreign room. Nine cleanup/authorization tests pass.",
     "Current complete inclusive suite and both complete pinned runtime profiles pass 1234 checks with native PostgreSQL, integration and story and zero skips. Inclusive coverage is 83.1 percent; required 90 percent remains unmet. Current quality passes with zero Dialyzer errors/skips.",
-    "Both current harnesses pass 241 tests each and four optional AI fixtures pass without a model call. Current exact graphs pass with 39/51 dependencies. Compiled API audit has 5031 exports including 1200 generated instance exports. The 369-file source scan has zero findings."
+    "Both current harnesses pass 241 tests each and four optional AI fixtures pass without a model call. Current exact graphs pass with 39/51 dependencies. Compiled API audit has 5031 exports including 1200 generated instance exports. The 369-file source scan has zero findings.",
+    "Webhook verifier controls confirm raises, throws, exits and invalid results escaped or bypassed safe routing. Only :ok proceeds to normalization; safe errors retain adapter transport formatting. Formatter failure after accepted message preserves one canonical write on a repeated webhook. Eight cases and 15 affected ingress tests pass.",
+    "WebhookPlug now rejects nil runtime configuration before resolver/body/ingress and contains bridge resolver exceptions as controlled 400 missing-bridge responses. Twenty transport cases cover fixed route precedence, body chunks, timeout/size/read errors, blank bodies and non-object JSON. All 33 HTTP tests and quality pass.",
+    "Six further normalizer/response cases prove error/raise/throw/exit/invalid normalization and a valid first item followed by invalid schema cause zero room/message writes. Successful response maps retain status, headers and body. All 39 affected webhook tests pass.",
+    "Concurrent complete core and coverage first attempts passed 1266/1268. A 20 ms deduper duplicate assertion and a 5 second room participant call timed out under process load. Initial failed evidence is retained; 83.3 percent from the failed attempt is not current complete proof. AI full suite passes 1268.",
+    "Replace the TTL test sleep with a future deadline proof and an explicit past deadline set inside the private table owner. Production TTL is unchanged.18 deduper/room cases pass. The isolated complete coverage rerun passes 1268 checks with no skips and 83.3 percent coverage. Required 90 percent remains unmet.",
+    "Current production source quality, 5031-export API audit, 369-file scan, 39/51 pinned graphs and both 241-case harnesses pass. The final expiry change is test-only. Complete current core recheck is running, then AI current test-source recheck remains.",
+    "Both final current runtime profiles pass all 1268 checks with native PostgreSQL, integration/story and zero skips. Their source hashes match the isolated complete coverage rerun. Earlier timing failures remain recorded."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -245,9 +269,9 @@
       "jido_messaging",
       "jido_chat_signal"
     ],
-    "with_and_without_ai": "pass for current source",
+    "with_and_without_ai": "pass for current complete library and test source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1234,
+    "messaging_tests_per_profile": 1268,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -257,14 +281,14 @@
     "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
     "current_messaging_profile_state": {
       "core": {
-        "passed": 1234,
+        "passed": 1268,
         "failures": 0,
-        "check": "g3-current-setup-write-cleanup-core-full-tests.json"
+        "check": "g3-current-webhook-owned-expiry-core-full-tests.json"
       },
       "ai": {
-        "passed": 1234,
+        "passed": 1268,
         "failures": 0,
-        "check": "g3-current-setup-write-cleanup-ai-full-tests.json"
+        "check": "g3-current-webhook-owned-expiry-ai-full-tests.json"
       }
     }
   },
@@ -273,10 +297,10 @@
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-setup-write-cleanup-complete-api-exports.json"
+    "current_report": "current-webhook-failure-complete-api-exports.json"
   },
-  "current_full_inclusive_state": "pass:1234 checks including native PostgreSQL",
+  "current_full_inclusive_state": "pass: 1268 checks including native PostgreSQL in isolated rerun",
   "current_non_postgres_checks": 1041,
   "current_postgres_checks_excluded": 38,
-  "coverage_percent_source": "g3-current-setup-write-cleanup-inclusive-coverage.json"
+  "coverage_percent_source": "g3-current-webhook-owned-expiry-inclusive-coverage.json"
 }

@@ -1,0 +1,21 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live, :postgres]
+
+..............
+
+  1) test TTL expiration keys expire after TTL (Jido.Messaging.DeduperTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/deduper_test.exs:138
+     ** (ArgumentError) errors were found at the given arguments:
+
+       * 1st argument: the table identifier refers to an ETS table with insufficient access rights
+
+     code: [{^key, :seen, expires_at}] = :ets.lookup(table, key)
+     stacktrace:
+       (stdlib 8.1) :ets.lookup(#Reference<0.3811821526.3525181444.82588>, {:expire, "test"})
+       /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/deduper_test.exs:145: (test)
+
+...
+Finished in 1.2 seconds (1.2s async, 0.00s sync)
+
+Result: 17/18 passed
+Failed: 1 test
