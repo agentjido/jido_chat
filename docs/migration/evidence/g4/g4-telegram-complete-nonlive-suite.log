@@ -1,0 +1,79 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+.......................................................................................................................................................     warning: Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     │
+ 261 │       Chat.new(user_name: "jido", adapters: %{telegram: Adapter})
+     │            ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:261:12: Jido.Chat.Telegram.LiveIntegrationTest."test webhook handling pipeline processes Telegram-shaped payload"/1
+     └─ test/jido/chat/telegram/live_integration_test.exs:538:17: Jido.Chat.Telegram.LiveIntegrationTest."test webhook handling supports channel_post and edited_channel_post shapes"/1
+
+     warning: Jido.Chat.on_slash_command/2 is undefined or private
+     │
+ 262 │       |> Chat.on_slash_command(fn _event -> send(self(), :slash_seen) end)
+     │               ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:262:15: Jido.Chat.Telegram.LiveIntegrationTest."test webhook handling pipeline processes Telegram-shaped payload"/1
+
+.............     warning: Jido.Chat.Telegram.Adapter.handle_webhook/3 is undefined or private
+     │
+ 273 │     assert {:ok, _chat, _incoming} = Adapter.handle_webhook(chat, payload, ctx.opts)
+     │                                              ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:273:46: Jido.Chat.Telegram.LiveIntegrationTest."test webhook handling pipeline processes Telegram-shaped payload"/1
+     └─ test/jido/chat/telegram/live_integration_test.exs:558:47: Jido.Chat.Telegram.LiveIntegrationTest."test webhook handling supports channel_post and edited_channel_post shapes"/1
+     └─ test/jido/chat/telegram/live_integration_test.exs:561:47: Jido.Chat.Telegram.LiveIntegrationTest."test webhook handling supports channel_post and edited_channel_post shapes"/1
+
+.............     warning: Jido.Chat.Telegram.Adapter.transform_incoming/1 is undefined or private
+     │
+ 299 │     assert {:ok, incoming} = Adapter.transform_incoming(%{message: photo.raw})
+     │                                      ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:299:38: Jido.Chat.Telegram.LiveIntegrationTest."test extension media sends succeed against live Telegram Bot API"/1
+     └─ test/jido/chat/telegram/live_integration_test.exs:633:38: Jido.Chat.Telegram.LiveIntegrationTest.assert_live_media/4
+
+..     warning: Jido.Chat.Adapter.post_message/4 is undefined or private
+     │
+ 437 │              Jido.Chat.Adapter.post_message(Adapter, ctx.chat_id, payload, ctx.opts)
+     │                                ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:437:32: Jido.Chat.Telegram.LiveIntegrationTest."test canonical media sends succeed through send_file and core post_message"/1
+
+     warning: Jido.Chat.Adapter.fetch_messages/3 is undefined or private
+     │
+ 566 │     assert {:error, :unsupported} = Jido.Chat.Adapter.fetch_messages(Adapter, ctx.chat_id, ctx.opts)
+     │                                                       ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:566:55: Jido.Chat.Telegram.LiveIntegrationTest."test unsupported core surfaces remain explicit unsupported contracts"/1
+
+...     warning: Jido.Chat.Adapter.fetch_channel_messages/3 is undefined or private
+     │
+ 569 │              Jido.Chat.Adapter.fetch_channel_messages(Adapter, ctx.chat_id, ctx.opts)
+     │                                ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:569:32: Jido.Chat.Telegram.LiveIntegrationTest."test unsupported core surfaces remain explicit unsupported contracts"/1
+
+     warning: Jido.Chat.Adapter.list_threads/3 is undefined or private
+     │
+ 571 │     assert {:error, :unsupported} = Jido.Chat.Adapter.list_threads(Adapter, ctx.chat_id, ctx.opts)
+     │                                                       ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:571:55: Jido.Chat.Telegram.LiveIntegrationTest."test unsupported core surfaces remain explicit unsupported contracts"/1
+
+.     warning: Jido.Chat.Adapter.open_modal/4 is undefined or private
+     │
+ 577 │              Jido.Chat.Adapter.open_modal(Adapter, ctx.chat_id, %{title: "modal"}, ctx.opts)
+     │                                ~
+     │
+     └─ test/jido/chat/telegram/live_integration_test.exs:577:32: Jido.Chat.Telegram.LiveIntegrationTest."test unsupported core surfaces remain explicit unsupported contracts"/1
+
+..........................
+Finished in 0.6 seconds (0.6s async, 0.04s sync)
+
+Result: 209 passed, 16 excluded
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

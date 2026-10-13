@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T01:00:43.994032+00:00",
+  "updated_at": "2026-10-13T01:15:53.958711+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -531,6 +531,47 @@
         "evidence/g4/g4-telegram-typed-polling-final-tests.json"
       ],
       "open_work": "Full Telegram test/extension/operation migration and package checks remain open. G3-G9 and final completion requirements remain unchanged."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "25f3fbcbcab7f6ee27d84fcb46e2ccbf2a246393",
+      "subject": "fix(telegram): preserve private media details and channel publisher identity",
+      "checks": [
+        "evidence/g4/g4-telegram-private-media-final-tests.json"
+      ],
+      "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "f1243bde48f4987a93ad9e26ec12c4742113c613",
+      "subject": "test(telegram): migrate original adapter cases to native Signal boundaries",
+      "checks": [
+        "evidence/g4/g4-telegram-original-surface-ported-tests.json"
+      ],
+      "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "a7eb66308f8c2c52f42d8cc3efe7084c220d8428",
+      "subject": "refactor(telegram)!: retire the duplicate update envelope parser",
+      "checks": [
+        "evidence/g4/g4-telegram-retired-extension-native-tests.json"
+      ],
+      "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "67890bbe538a46e1d004a7b14a1d8f10fe96d04a",
+      "subject": "test(telegram): migrate excluded live fixtures to the native contract",
+      "checks": [
+        "evidence/g4/g4-telegram-all-tests-native-fixtures.json",
+        "evidence/g4/g4-telegram-current-package-quality.json",
+        "evidence/g4/g4-telegram-current-coverage.json",
+        "evidence/g4/g4-telegram-unused-lock-check.json",
+        "evidence/g4/g4-telegram-dependency-audit.json",
+        "evidence/g4/g4-telegram-package-metadata-build.json"
+      ],
+      "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
     }
   ],
   "passed_checks": {
@@ -558,7 +599,16 @@
     "telegram_membership_mapper_tests": 20,
     "telegram_membership_runtime_tests": 2,
     "telegram_protocol_normalizer_membership_tests": 44,
-    "telegram_polling_normalizer_membership_tests": 45
+    "telegram_polling_normalizer_membership_tests": 45,
+    "telegram_package_tests": 209,
+    "telegram_existing_live_excluded": 16,
+    "telegram_package_quality": "pass",
+    "telegram_package_audit": "pass",
+    "telegram_unused_lock_check": "pass",
+    "telegram_prod_metadata_build": "pass",
+    "telegram_coverage_percent": 79.7,
+    "telegram_original_named_source_cases": 172,
+    "telegram_unmapped_original_named_cases": 0
   },
   "open_work": [
     "Finish the remaining acceptance exception/partial-effect and direct facade ownership checks. Membership lookup failures and returned message/lifecycle store errors now have safe contract errors and tested claim release.",

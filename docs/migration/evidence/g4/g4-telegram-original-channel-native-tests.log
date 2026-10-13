@@ -1,0 +1,29 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+     warning: variable "webhook_incoming" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 449 │     assert {:ok, _chat, webhook_incoming} = Adapter.handle_webhook(chat, update)
+     │                         ~~~~~~~~~~~~~~~~
+     │
+     └─ test/jido/chat/telegram/channel_test.exs:449:25: Jido.Chat.Telegram.AdapterSurfaceTest."test transform_incoming/1 accepts ExGram update and message structs"/1
+
+    error: imported Kernel.binding/0 conflicts with local function
+    │
+ 10 │   defp binding(extra \\ []) do
+    │        ^
+    │
+    └─ test/jido/chat/telegram/channel_test.exs:10:8: Jido.Chat.Telegram.AdapterSurfaceTest (module)
+
+    error: imported Kernel.binding/1 conflicts with local function
+    │
+ 10 │   defp binding(extra \\ []) do
+    │        ^
+    │
+    └─ test/jido/chat/telegram/channel_test.exs:10:8: Jido.Chat.Telegram.AdapterSurfaceTest (module)
+
+
+== Compilation error in file test/jido/chat/telegram/channel_test.exs ==
+** (CompileError) test/jido/chat/telegram/channel_test.exs: cannot compile module Jido.Chat.Telegram.AdapterSurfaceTest (errors have been logged)
+

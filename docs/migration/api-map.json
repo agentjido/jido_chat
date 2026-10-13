@@ -34108,9 +34108,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.CallbackQuery",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.CallbackQuery.from_map/1",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/callback_query.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -34121,9 +34122,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.CallbackQuery",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.CallbackQuery.new/1",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/callback_query.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 0,
@@ -34134,9 +34136,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.CallbackQuery",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.CallbackQuery.schema/0",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/callback_query.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -34147,9 +34150,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.CallbackQuery",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.CallbackQuery.to_map/1",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/callback_query.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -34433,9 +34437,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.Extensions",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.Extensions.parse_update/1",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/extensions.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 2,
@@ -35161,9 +35166,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.UpdateEnvelope",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.UpdateEnvelope.from_map/1",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/update_envelope.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -35174,9 +35180,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.UpdateEnvelope",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.UpdateEnvelope.new/1",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/update_envelope.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 0,
@@ -35187,9 +35194,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.UpdateEnvelope",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.UpdateEnvelope.schema/0",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/update_envelope.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -35200,9 +35208,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.UpdateEnvelope",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.Telegram.UpdateEnvelope.to_map/1",
+      "replacement": "Jido.Chat.normalize_event/2 with the captured Telegram binding and the shared registered facts.",
       "source": "lib/jido/chat/telegram/update_envelope.ex",
-      "reason": "Retain provider input builders, option values, formatters, and pure value helpers. They do not replace the typed Signal boundary."
+      "reason": "Remove the duplicate parser and public envelope/DTO projection. All original extension mapping cases are ported to the one native normalizer.",
+      "implementation_state": "retired"
     },
     {
       "arity": 0,

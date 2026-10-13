@@ -1,0 +1,53 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+......
+
+  1) test media pointers remain private and retain all selected media items (Jido.Chat.Telegram.NormalizerTest)
+     test/jido/chat/telegram/normalizer_test.exs:113
+     match (=) failed
+     code:  assert {:ok, %Delivery{} = delivery} = Jido.Chat.normalize_event(binding, input)
+     left:  {:ok, %Jido.Chat.Delivery{} = delivery}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_delivery,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido/chat/telegram/normalizer_test.exs:28: Jido.Chat.Telegram.NormalizerTest.normalized/2
+       test/jido/chat/telegram/normalizer_test.exs:126: (test)
+
+.......
+
+  2) test invalid media projection cancels resources instead of leaving active private values (Jido.Chat.Telegram.NormalizerTest)
+     test/jido/chat/telegram/normalizer_test.exs:237
+     match (=) failed
+     code:  assert {:ok, %Delivery{} = delivery} = Jido.Chat.normalize_event(binding, input)
+     left:  {:ok, %Jido.Chat.Delivery{} = delivery}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_delivery,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido/chat/telegram/normalizer_test.exs:28: Jido.Chat.Telegram.NormalizerTest.normalized/2
+       test/jido/chat/telegram/normalizer_test.exs:239: (test)
+
+
+Finished in 0.2 seconds (0.2s async, 0.00s sync)
+
+Result: 13/15 passed
+Failed: 2 tests

@@ -1,0 +1,24 @@
+{
+  "label": "g4-telegram-retired-extension-native-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido/chat/telegram/extensions_test.exs",
+    "test/jido/chat/telegram/channel_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_telegram",
+  "head_sha": "f1243bde48f4987a93ad9e26ec12c4742113c613",
+  "source_tree_sha256": "55b244307e38e328cc59ce76d8d95d5fc368cce1c948381704912e9bc1fb176b",
+  "started_at": "2026-10-13T01:09:36.402319+00:00",
+  "finished_at": "2026-10-13T01:09:38.015275+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g4/g4-telegram-retired-extension-native-tests.log",
+  "log_sha256": "c123536a3343a2541e921cb06674a91cab93abf63b57895c38d499876d5e8c10"
+}
