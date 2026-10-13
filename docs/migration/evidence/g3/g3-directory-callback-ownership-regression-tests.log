@@ -1,0 +1,460 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.
+
+  1) test projection participant raise has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (RuntimeError) private directory callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:44: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:32: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+  2) test projection participant throw has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (throw) :private_directory_callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:45: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:32: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+  3) test projection participant exit has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (exit) :private_directory_callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:46: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:32: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+  4) test projection participant invalid has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} =
+              Instance.project_jidoka_agent(
+                Map.merge(context.attrs, %{source_revision: 2, name: "Next Complete Name"})
+              )
+     left:  {:error, ^expected}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:97: (test)
+
+
+
+  5) test projection participant invalid_record has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} =
+              Instance.project_jidoka_agent(
+                Map.merge(context.attrs, %{source_revision: 2, name: "Next Complete Name"})
+              )
+     left:  {:error, ^expected}
+     right: {:ok, %{id: "invalid"}}
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:97: (test)
+
+.
+
+  6) test projection endpoint raise has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (RuntimeError) private directory callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:44: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:238: Jido.Messaging.AgentDirectory.validate_endpoint/3
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:34: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+  7) test projection endpoint throw has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (throw) :private_directory_callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:45: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:238: Jido.Messaging.AgentDirectory.validate_endpoint/3
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:34: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+  8) test projection endpoint exit has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (exit) :private_directory_callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:46: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:238: Jido.Messaging.AgentDirectory.validate_endpoint/3
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:34: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+  9) test projection endpoint invalid has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:238: Jido.Messaging.AgentDirectory.validate_endpoint/3
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:34: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+ 10) test projection endpoint invalid_record has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (CaseClauseError) no case clause matching:
+
+         {:ok, %{id: "invalid"}}
+
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:238: Jido.Messaging.AgentDirectory.validate_endpoint/3
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:34: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+.
+
+ 11) test projection save raise has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (RuntimeError) private directory callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:44: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:35: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+ 12) test projection save throw has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (throw) :private_directory_callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:45: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:35: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+ 13) test projection save exit has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     ** (exit) :private_directory_callback
+     code: Instance.project_jidoka_agent(
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:46: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:35: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:98: (test)
+
+
+
+ 14) test projection save invalid has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} =
+              Instance.project_jidoka_agent(
+                Map.merge(context.attrs, %{source_revision: 2, name: "Next Complete Name"})
+              )
+     left:  {:error, ^expected}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:97: (test)
+
+
+
+ 15) test projection save invalid_record has a safe outcome and no record replacement (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:93
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} =
+              Instance.project_jidoka_agent(
+                Map.merge(context.attrs, %{source_revision: 2, name: "Next Complete Name"})
+              )
+     left:  {:error, ^expected}
+     right: {:ok, %{id: "invalid"}}
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:97: (test)
+
+.
+
+ 16) test directory get raise is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     ** (RuntimeError) private directory callback
+     code: do: Instance.get_jidoka_agent_projection(context.projection.id),
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:44: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       test/jido_messaging/directory_callback_outcome_test.exs:114: (test)
+
+
+
+ 17) test directory get throw is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     ** (throw) :private_directory_callback
+     code: do: Instance.get_jidoka_agent_projection(context.projection.id),
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:45: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       test/jido_messaging/directory_callback_outcome_test.exs:114: (test)
+
+
+
+ 18) test directory get exit is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     ** (exit) :private_directory_callback
+     code: do: Instance.get_jidoka_agent_projection(context.projection.id),
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:46: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       test/jido_messaging/directory_callback_outcome_test.exs:114: (test)
+
+
+
+ 19) test directory get invalid is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = result
+     left:  {:error, ^expected}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:117: (test)
+
+
+
+ 20) test directory get invalid_record is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = result
+     left:  {:error, ^expected}
+     right: {:ok, %{id: "invalid"}}
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:117: (test)
+
+.
+
+ 21) test directory list raise is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     ** (RuntimeError) private directory callback
+     code: else: Instance.search_jidoka_agents(%{}, context.scope)
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:44: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:77: Jido.Messaging.AgentDirectory.search/5
+       test/jido_messaging/directory_callback_outcome_test.exs:115: (test)
+
+
+
+ 22) test directory list throw is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     ** (throw) :private_directory_callback
+     code: else: Instance.search_jidoka_agents(%{}, context.scope)
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:45: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:77: Jido.Messaging.AgentDirectory.search/5
+       test/jido_messaging/directory_callback_outcome_test.exs:115: (test)
+
+
+
+ 23) test directory list exit is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     ** (exit) :private_directory_callback
+     code: else: Instance.search_jidoka_agents(%{}, context.scope)
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:46: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:77: Jido.Messaging.AgentDirectory.search/5
+       test/jido_messaging/directory_callback_outcome_test.exs:115: (test)
+
+
+
+ 24) test directory list invalid is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = result
+     left:  {:error, ^expected}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:117: (test)
+
+
+
+ 25) test directory list invalid_record is a failure and cannot return partial discovery (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:108
+     ** (FunctionClauseError) no function clause matching in Jido.Messaging.AgentDirectory.filter_projections/4
+
+     The following arguments were given to Jido.Messaging.AgentDirectory.filter_projections/4:
+
+         # 1
+         %{id: "invalid"}
+
+         # 2
+         %{}
+
+         # 3
+         %Jido.Messaging.AgentDirectoryScope{instance_module: Jido.Messaging.DirectoryCallbackOutcomeTest.Instance, endpoint_principals: %{"owned-endpoint" => "owned-agent"}, metadata: %{}}
+
+         # 4
+         []
+
+     Attempted function clauses (showing 1 out of 1):
+
+         def filter_projections(projections, query, %Jido.Messaging.AgentDirectoryScope{} = scope, opts) when -is_list(projections)- and is_map(query) and is_list(opts)
+
+     code: else: Instance.search_jidoka_agents(%{}, context.scope)
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:126: Jido.Messaging.AgentDirectory.filter_projections/4
+       test/jido_messaging/directory_callback_outcome_test.exs:115: (test)
+
+.
+
+ 26) test projection raise after-write outcome retains one complete accepted revision (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:123
+     ** (RuntimeError) private directory callback
+     code: assert {:error, ^expected} = Instance.project_jidoka_agent(next)
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:44: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:35: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:127: (test)
+
+
+
+ 27) test projection throw after-write outcome retains one complete accepted revision (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:123
+     ** (throw) :private_directory_callback
+     code: assert {:error, ^expected} = Instance.project_jidoka_agent(next)
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:45: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:35: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:127: (test)
+
+
+
+ 28) test projection exit after-write outcome retains one complete accepted revision (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:123
+     ** (exit) :private_directory_callback
+     code: assert {:error, ^expected} = Instance.project_jidoka_agent(next)
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:46: Jido.Messaging.DirectoryCallbackOutcomeTest.Store.fail/2
+       (jido_messaging 1.1.1) lib/jido_messaging/agent_directory.ex:35: Jido.Messaging.AgentDirectory.project/2
+       test/jido_messaging/directory_callback_outcome_test.exs:127: (test)
+
+
+
+ 29) test projection invalid after-write outcome retains one complete accepted revision (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:123
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = Instance.project_jidoka_agent(next)
+     left:  {:error, ^expected}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:127: (test)
+
+
+
+ 30) test foreign participant and endpoint identities cannot accept a directory projection (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:139
+     match (=) failed
+     code:  assert {:error, :persistence_failed} =
+              Instance.project_jidoka_agent(Map.put(context.attrs, :source_revision, 2))
+     left:  {:error, :persistence_failed}
+     right: {:ok,
+             %Jido.Messaging.AgentDirectoryProjection{
+               id: "jadp_VyrgxWDniULXkgrxb_-X3pcbndSOwykfxEN53UWfLGk",
+               name: "Complete Agent Name",
+               version: "1",
+               description: "Complete display",
+               capabilities: ["text"],
+               updated_at: ~U[2026-10-13 08:06:17.895709Z],
+               inserted_at: ~U[2026-10-13 08:06:17.895531Z],
+               principal_id: "owned-agent",
+               availability: :available,
+               verification_state: :unverified,
+               listing_state: :listed,
+               endpoint_ref: %Jido.Messaging.AgentDirectoryEndpointRef{
+                 id: "owned-endpoint",
+                 system: "jido_messaging"
+               },
+               jidoka_agent_ref: %{
+                 "id" => "owned",
+                 "system" => "jidoka"
+               },
+               invocation_summary: %Jido.Messaging.AgentInvocationSummary{
+                 mode: :thread,
+                 approval: :unknown
+               },
+               source_revision: 2,
+               source_updated_at: ~U[2026-10-13 08:06:17.895513Z],
+               fresh_until: ~U[2026-10-13 08:11:17.895513Z]
+             }}
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:145: anonymous fn/3 in Jido.Messaging.DirectoryCallbackOutcomeTest."test foreign participant and endpoint identities cannot accept a directory projection"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/directory_callback_outcome_test.exs:140: (test)
+
+
+
+ 31) test foreign get identity and a mixed invalid list cannot yield a successful partial result (Jido.Messaging.DirectoryCallbackOutcomeTest)
+     test/jido_messaging/directory_callback_outcome_test.exs:151
+     match (=) failed
+     code:  assert {:error, :persistence_failed} = Instance.get_jidoka_agent_projection(context.projection.id)
+     left:  {:error, :persistence_failed}
+     right: {:ok,
+             %Jido.Messaging.AgentDirectoryProjection{
+               id: "foreign",
+               name: "Complete Agent Name",
+               version: "1",
+               description: "Complete display",
+               capabilities: ["text"],
+               updated_at: ~U[2026-10-13 08:06:17.903849Z],
+               inserted_at: ~U[2026-10-13 08:06:17.903849Z],
+               principal_id: "owned-agent",
+               availability: :available,
+               verification_state: :unverified,
+               listing_state: :listed,
+               endpoint_ref: %Jido.Messaging.AgentDirectoryEndpointRef{
+                 id: "owned-endpoint",
+                 system: "jido_messaging"
+               },
+               jidoka_agent_ref: %{
+                 "id" => "owned",
+                 "system" => "jidoka"
+               },
+               invocation_summary: %Jido.Messaging.AgentInvocationSummary{
+                 mode: :thread,
+                 approval: :unknown
+               },
+               source_revision: 1,
+               source_updated_at: ~U[2026-10-13 08:06:17.903832Z],
+               fresh_until: ~U[2026-10-13 08:11:17.903832Z]
+             }}
+     stacktrace:
+       test/jido_messaging/directory_callback_outcome_test.exs:153: (test)
+
+
+Finished in 1.7 seconds (0.00s async, 1.7s sync)
+
+Result: 6/37 passed
+Failed: 31 tests

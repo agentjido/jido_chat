@@ -1,0 +1,53 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "307b9c0646cd9ab778480dfadcb5bfb3f3605648",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "8c7a4548a087a09a748cf2fab4e7be8b62fbe338",
+      "library_test_files": 381,
+      "library_test_sha256": "8bec145817eb44d5608e678fce91d862c60871723b126c12f56aa9762e554353"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-directory-callback-safe-outcome-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "8c7a4548a087a09a748cf2fab4e7be8b62fbe338",
+  "source_tree_sha256": "a0c717ee01444348393db708538be388f15ebd7f7b605e45fe71df8aff9bf598",
+  "started_at": "2026-10-13T08:07:25.647246+00:00",
+  "finished_at": "2026-10-13T08:07:33.475942+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-directory-callback-safe-outcome-quality.log",
+  "log_sha256": "5587cac6146f08fddfad385bf978fb9e99762eed9316cf52796584581812284e",
+  "raw_log_sha256": "79c6231bf1ac2fec801b413b4e0323b2bb78e308ff899ebe3e3f94df8ff723d7",
+  "log_normalization": "Removed trailing whitespace and blank lines at EOF; retained original log SHA256."
+}
