@@ -552,6 +552,9 @@ completion. Do not repeat unrelated tests merely to fill time.
 
 ## Resume, failure, and stop rules
 
+Do not post progress comments to the GitHub tracking issue. The user stopped
+those updates. Keep progress records in local files, commits, and this chat.
+
 Make small progress commits after each complete change passes its relevant tests.
 First, commit completed and tested work already in the worktrees. Do not wait for
 all gates to pass. Keep each commit focused. Record passed checks and open work.

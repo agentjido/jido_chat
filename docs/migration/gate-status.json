@@ -276,5 +276,14 @@
     "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
     "record": "progress-commits.json",
     "final_requirements_unchanged": true
+  },
+  "progress_reporting": {
+    "github_issue_progress_comments": "disabled_by_user",
+    "destinations": [
+      "local files",
+      "commit messages",
+      "current chat"
+    ],
+    "final_completion_requirements_unchanged": true
   }
 }
