@@ -1,0 +1,19 @@
+{
+  "label": "g3-sqlite-lock-typed-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "3080d69116156c0f981596c8d4258ceb314a7862",
+  "source_tree_sha256": "6a242763db46ebc77505d51134bac61190c74ce30781998bbbcd8ea878e30f61",
+  "started_at": "2026-10-13T04:27:20.979377+00:00",
+  "finished_at": "2026-10-13T04:28:08.991018+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-sqlite-lock-typed-quality.log",
+  "log_sha256": "c272dd908a2345f06f22f6b58479cdf4bcfacd8595dd9f0e82240efadc59c2d4"
+}

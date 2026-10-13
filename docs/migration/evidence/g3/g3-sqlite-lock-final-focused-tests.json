@@ -1,0 +1,29 @@
+{
+  "label": "g3-sqlite-lock-final-focused-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/persistence/sqlite_test.exs",
+    "test/jido_messaging/persistence/conformance_test.exs",
+    "test/jido_messaging/identity_credentials_test.exs",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "3080d69116156c0f981596c8d4258ceb314a7862",
+  "source_tree_sha256": "413b059eac514b407e78a5ed5ea3adc9a27f150b4b0a474f642bb784b1b870eb",
+  "started_at": "2026-10-13T04:28:15.710525+00:00",
+  "finished_at": "2026-10-13T04:29:00.897382+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-sqlite-lock-final-focused-tests.log",
+  "log_sha256": "753fae48d3811c0c6fc0331458222ce3534d58223672ed551e4e534810562aba"
+}

@@ -105,6 +105,10 @@
       "state": "pending",
       "evidence": [
         "evidence/g3/canonical-storage-external-fixture-status.json",
+        "evidence/g3/current-callback-and-lock-complete-api-exports.json",
+        "evidence/g3/current-callback-and-lock-coverage-gaps.json",
+        "evidence/g3/current-callback-and-lock-runtime-ai-graph.json",
+        "evidence/g3/current-callback-and-lock-runtime-core-graph.json",
         "evidence/g3/current-canonical-storage-complete-api-exports.json",
         "evidence/g3/current-control-plane-complete-api-exports.json",
         "evidence/g3/current-control-plane-coverage-gaps.json",
@@ -117,8 +121,13 @@
         "evidence/g3/current-topology-complete-api-exports.json",
         "evidence/g3/current-topology-coverage-gaps.json",
         "evidence/g3/g3-accepted-message-failure-quality.json",
+        "evidence/g3/g3-adapter-callback-disposition-final-tests.json",
         "evidence/g3/g3-admission-presence-current-quality.json",
+        "evidence/g3/g3-ai-callback-disposition-runtime-tests.json",
+        "evidence/g3/g3-ai-identity-isolated-files-tests.json",
+        "evidence/g3/g3-ai-pressure-barrier-tests.json",
         "evidence/g3/g3-ai-profile-concurrency-failure-recheck.json",
+        "evidence/g3/g3-ai-sqlite-isolated-paths-final-tests.json",
         "evidence/g3/g3-all-native-result-schemas.json",
         "evidence/g3/g3-all-request-admission-tests.json",
         "evidence/g3/g3-auto-thread-admission-quality.json",
@@ -136,6 +145,15 @@
         "evidence/g3/g3-create-room-scope-current-tests.json",
         "evidence/g3/g3-create-room-verified-scope-regression.json",
         "evidence/g3/g3-current-agent-library-quality.json",
+        "evidence/g3/g3-current-callback-and-lock-ai-full-tests.json",
+        "evidence/g3/g3-current-callback-and-lock-ai-graph.json",
+        "evidence/g3/g3-current-callback-and-lock-complete-api-audit.json",
+        "evidence/g3/g3-current-callback-and-lock-contract-manifest.json",
+        "evidence/g3/g3-current-callback-and-lock-core-full-tests.json",
+        "evidence/g3/g3-current-callback-and-lock-core-graph.json",
+        "evidence/g3/g3-current-callback-and-lock-inclusive-coverage.json",
+        "evidence/g3/g3-current-callback-and-lock-quality.json",
+        "evidence/g3/g3-current-callback-and-lock-source-scan.json",
         "evidence/g3/g3-current-canonical-history-and-storage-quality.json",
         "evidence/g3/g3-current-canonical-storage-ai-harness-tests.json",
         "evidence/g3/g3-current-canonical-storage-and-facade-inclusive-coverage.json",
@@ -281,6 +299,8 @@
         "evidence/g3/g3-serialized-bridge-reconcile-tests.json",
         "evidence/g3/g3-signal-progress-commit-quality.json",
         "evidence/g3/g3-signal-progress-commit-tests.json",
+        "evidence/g3/g3-sqlite-lock-final-focused-tests.json",
+        "evidence/g3/g3-sqlite-lock-typed-quality.json",
         "evidence/g3/g3-storage-scope-and-unsupported-admission-final-tests.json",
         "evidence/g3/g3-subscription-malformed-wrapper-final-tests.json",
         "evidence/g3/g3-terminal-tag-plt-refresh.json",
@@ -378,12 +398,17 @@
         "An isolated native PostgreSQL fixture restores all storage checks. All 76 PostgreSQL and shared storage tests pass. No shared service was restarted.",
         "Current complete Messaging coverage passes 1086 checks with zero skips and 81.4 percent coverage. The required 90 percent floor is unmet. The current core runtime Messaging profile passes 1086 checks.",
         "Current AI full recheck passes 1084 of 1086 checks. An identity credential conflict and a SQLite concurrent room timeout remain. Its max-cases 4 setting keeps internal 40-call concurrency and all assertions. The earlier focused 34-case recheck passed.",
-        "Current quality, 5031-export audit, 369-file source scan, 39/51 dependency graphs, both 241-case harnesses, four optional AI fixtures, eight Telegram membership cases, seven Slack membership cases and four Slack execution cases pass. Core 257-case proof reuses unchanged library/test source and pinned refs."
+        "Current quality, 5031-export audit, 369-file source scan, 39/51 dependency graphs, both 241-case harnesses, four optional AI fixtures, eight Telegram membership cases, seven Slack membership cases and four Slack execution cases pass. Core 257-case proof reuses unchanged library/test source and pinned refs.",
+        "Six focused Messaging commits isolate SQLite fixtures, control queue pressure, shorten binding lock retries, remove unreachable aborted branches, and preserve callback class dispositions. Every commit records passed checks and open work.",
+        "New 29-case listener/subscription ownership matrix exposed recoverable/degraded class atoms wrongly mapped to crash. The fix preserves retry/degrade and one selected callback; 54 boundary/subscription and 58 AI runtime tests pass.",
+        "Current complete inclusive run and core runtime profile each pass 1116 checks with native PostgreSQL and zero skips. Package coverage is 81.6 percent, below 90 percent.",
+        "Both earlier complete profiles pass 1087 checks after the initial failure fixes. Current AI expanded suite passes 1115/1116; one lifecycle SQLite gate wait exceeded 100 milliseconds during concurrent load. A complete unchanged uncontended recheck is active. No assertion or test is removed.",
+        "Current Messaging quality has zero Dialyzer errors/skips. API audit has 5031 exports including 1200 generated instance exports. Source scan checks 369 files with zero findings. Both current exact source graphs pass with 39 and 51 dependencies. Core 257, harness 241 per profile and optional AI 4 prior proof remains subject to source scope."
       ],
       "remaining": [
-        "Fix the current AI profile identity credential conflict and SQLite concurrency timeout, then rerun the affected full suite.",
+        "Complete the current full AI recheck after one 100 millisecond lifecycle gate wait failed under concurrent suite load. Keep all lifecycle assertions.",
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
-        "Complete the remaining provider ports and all-nine G7 Conformance.run C01-C14.",
+        "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
         "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
       ]
     },
@@ -549,5 +574,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T04:21:23.689614+00:00"
+  "updated_at": "2026-10-13T04:34:51.600287+00:00"
 }

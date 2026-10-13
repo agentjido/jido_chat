@@ -1,0 +1,25 @@
+{
+  "label": "g3-adapter-callback-disposition-final-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/adapter_bridge_test.exs",
+    "test/jido_messaging/adapter_callback_ownership_test.exs",
+    "test/jido_messaging/ingress_subscriptions_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "a91ce63e514667ab578cb1eb6f5881532f5c3a04",
+  "source_tree_sha256": "5e2e48c53d325bea708dcc225d8f3b7ed55c3052eb82507416d03a6127bdc237",
+  "started_at": "2026-10-13T04:28:31.523873+00:00",
+  "finished_at": "2026-10-13T04:29:12.684062+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-adapter-callback-disposition-final-tests.log",
+  "log_sha256": "516c77e12c257653e9118f143764ed8963c4d02ac04bbe4b956e8acd0a287626"
+}

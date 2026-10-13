@@ -1,0 +1,11 @@
+==> jido_messaging
+Compiling 1 file (.ex)
+==> jido_chat_integration
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+Including tags: [:integration, :story]
+
+........................................................................................
+Finished in 16.6 seconds (4.7s async, 11.9s sync)
+
+Result: 88 passed

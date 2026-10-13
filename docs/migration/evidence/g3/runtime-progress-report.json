@@ -1,20 +1,33 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T04:21:23.689614+00:00",
-  "messaging_head": "5830b25f528a452ca510a10df8009ec9c172eb57",
-  "core_head": "7739066503bab4e3e329e9d762c3f06193ad4510",
-  "inclusive_tests": 1086,
+  "updated_at": "2026-10-13T04:34:51.600287+00:00",
+  "messaging_head": "89690d09ec1415a85359f1a9ebdb3b71487bf27b",
+  "core_head": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
+  "inclusive_tests": 1116,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 81.4,
+  "coverage_percent": 81.6,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
   "new_passed_checks": [
     "g3-accepted-message-failure-quality",
+    "g3-adapter-callback-disposition-final-tests",
+    "g3-ai-callback-disposition-runtime-tests",
+    "g3-ai-identity-isolated-files-tests",
+    "g3-ai-pressure-barrier-tests",
     "g3-ai-profile-concurrency-failure-recheck",
+    "g3-ai-sqlite-isolated-paths-final-tests",
+    "g3-current-callback-and-lock-ai-graph",
+    "g3-current-callback-and-lock-complete-api-audit",
+    "g3-current-callback-and-lock-contract-manifest",
+    "g3-current-callback-and-lock-core-full-tests",
+    "g3-current-callback-and-lock-core-graph",
+    "g3-current-callback-and-lock-inclusive-coverage",
+    "g3-current-callback-and-lock-quality",
+    "g3-current-callback-and-lock-source-scan",
     "g3-current-canonical-history-and-storage-quality",
     "g3-current-canonical-storage-ai-harness-tests",
     "g3-current-canonical-storage-complete-api-audit",
@@ -90,6 +103,8 @@
     "g3-safe-acceptance-current-quality",
     "g3-safe-acceptance-membership-current-quality",
     "g3-safe-acceptance-storage-failure-tests",
+    "g3-sqlite-lock-final-focused-tests",
+    "g3-sqlite-lock-typed-quality",
     "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
     "g3-topology-owner-and-sections-warning-free-tests",
@@ -135,12 +150,17 @@
     "An isolated native PostgreSQL fixture restores all storage checks. All 76 PostgreSQL and shared storage tests pass. No shared service was restarted.",
     "Current complete Messaging coverage passes 1086 checks with zero skips and 81.4 percent coverage. The required 90 percent floor is unmet. The current core runtime Messaging profile passes 1086 checks.",
     "Current AI full recheck passes 1084 of 1086 checks. An identity credential conflict and a SQLite concurrent room timeout remain. Its max-cases 4 setting keeps internal 40-call concurrency and all assertions. The earlier focused 34-case recheck passed.",
-    "Current quality, 5031-export audit, 369-file source scan, 39/51 dependency graphs, both 241-case harnesses, four optional AI fixtures, eight Telegram membership cases, seven Slack membership cases and four Slack execution cases pass. Core 257-case proof reuses unchanged library/test source and pinned refs."
+    "Current quality, 5031-export audit, 369-file source scan, 39/51 dependency graphs, both 241-case harnesses, four optional AI fixtures, eight Telegram membership cases, seven Slack membership cases and four Slack execution cases pass. Core 257-case proof reuses unchanged library/test source and pinned refs.",
+    "Six focused Messaging commits isolate SQLite fixtures, control queue pressure, shorten binding lock retries, remove unreachable aborted branches, and preserve callback class dispositions. Every commit records passed checks and open work.",
+    "New 29-case listener/subscription ownership matrix exposed recoverable/degraded class atoms wrongly mapped to crash. The fix preserves retry/degrade and one selected callback; 54 boundary/subscription and 58 AI runtime tests pass.",
+    "Current complete inclusive run and core runtime profile each pass 1116 checks with native PostgreSQL and zero skips. Package coverage is 81.6 percent, below 90 percent.",
+    "Both earlier complete profiles pass 1087 checks after the initial failure fixes. Current AI expanded suite passes 1115/1116; one lifecycle SQLite gate wait exceeded 100 milliseconds during concurrent load. A complete unchanged uncontended recheck is active. No assertion or test is removed.",
+    "Current Messaging quality has zero Dialyzer errors/skips. API audit has 5031 exports including 1200 generated instance exports. Source scan checks 369 files with zero findings. Both current exact source graphs pass with 39 and 51 dependencies. Core 257, harness 241 per profile and optional AI 4 prior proof remains subject to source scope."
   ],
   "remaining": [
-    "Fix the current AI profile identity credential conflict and SQLite concurrency timeout, then rerun the affected full suite.",
+    "Complete the current full AI recheck after one 100 millisecond lifecycle gate wait failed under concurrent suite load. Keep all lifecycle assertions.",
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
-    "Complete the remaining provider ports and all-nine G7 Conformance.run C01-C14.",
+    "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
   "runtime_profile": {
@@ -149,7 +169,7 @@
       "jido_messaging",
       "jido_chat_signal"
     ],
-    "with_and_without_ai": "pending: current core profile passes; current AI full suite has two failures",
+    "with_and_without_ai": "pending current AI recheck; core full suite passes",
     "core_tests_per_profile": 257,
     "messaging_tests_per_profile": null,
     "harness_tests_per_profile": 241,
@@ -161,15 +181,16 @@
     "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
     "current_messaging_profile_state": {
       "core": {
-        "passed": 1086,
-        "failures": 0
+        "passed": 1116,
+        "failures": 0,
+        "check": "g3-current-callback-and-lock-core-full-tests.json"
       },
       "ai": {
-        "passed": 1084,
-        "total": 1086,
-        "failures": 2,
-        "max_cases": 4,
-        "check": "g3-current-topology-native-ai-complete-recheck.json"
+        "passed": 1115,
+        "total": 1116,
+        "failures": 1,
+        "check": "g3-current-callback-and-lock-ai-full-tests.json",
+        "recheck": "g3-current-callback-and-lock-ai-uncontended-recheck: running"
       }
     }
   },
@@ -178,10 +199,10 @@
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-topology-complete-api-exports.json"
+    "current_report": "current-callback-and-lock-complete-api-exports.json"
   },
-  "current_full_inclusive_state": "pass with isolated native PostgreSQL fixture",
+  "current_full_inclusive_state": "pass: 1116 checks including native PostgreSQL",
   "current_non_postgres_checks": 1041,
   "current_postgres_checks_excluded": 38,
-  "coverage_percent_source": "Current complete inclusive run: g3-current-topology-native-postgres-inclusive-coverage.json"
+  "coverage_percent_source": "g3-current-callback-and-lock-inclusive-coverage.json"
 }
