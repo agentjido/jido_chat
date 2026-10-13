@@ -59,8 +59,15 @@ defmodule Jido.Chat.Integration.MixProject do
       {:decimal, "== " <> graph["decimal"]["version"], override: true}
     ]
 
+    selected_adapters =
+      case System.get_env("JIDO_INTEGRATION_PROFILE", "all") do
+        "all" -> @adapter_apps
+        "runtime" -> [:jido_chat_signal]
+        other -> Mix.raise("Unknown integration profile: #{other}. Use all or runtime.")
+      end
+
     adapters =
-      Enum.map(@adapter_apps, fn app ->
+      Enum.map(selected_adapters, fn app ->
         row = Enum.find(manifest["packages"], &(&1["package"] == Atom.to_string(app)))
         if is_nil(row), do: Mix.raise("Missing adapter source in version matrix: #{app}")
         root = System.get_env("JIDO_INTEGRATION_SOURCE_ROOT") || Path.expand("../..", __DIR__)
@@ -89,9 +96,6 @@ defmodule Jido.Chat.Integration.MixProject do
   defp git_dep(app, graph) do
     source = Map.fetch!(graph, Atom.to_string(app))
 
-    {app,
-     git: "https://github.com/" <> source["repository"] <> ".git",
-     ref: source["ref"],
-     override: true}
+    {app, git: "https://github.com/" <> source["repository"] <> ".git", ref: source["ref"], override: true}
   end
 end

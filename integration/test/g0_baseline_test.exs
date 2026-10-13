@@ -27,4 +27,34 @@ defmodule Jido.Chat.Integration.BaselineTest do
       refute Enum.any?(Application.loaded_applications(), fn {app, _, _} -> app == :jido_ai end)
     end
   end
+
+  test "the selected package profile contains every required package" do
+    runtime = [:jido_chat, :jido_messaging, :jido_chat_signal]
+
+    expected =
+      case System.get_env("JIDO_INTEGRATION_PROFILE", "all") do
+        "runtime" ->
+          runtime
+
+        "all" ->
+          runtime ++
+            [
+              :jido_chat_telegram,
+              :jido_chat_slack,
+              :jido_chat_discord,
+              :jido_chat_github,
+              :jido_chat_mattermost,
+              :jido_chat_teams,
+              :jido_chat_whatsapp,
+              :jido_chat_x
+            ]
+      end
+
+    actual =
+      Mix.Dep.cached()
+      |> Enum.map(& &1.app)
+      |> Enum.filter(fn app -> app == :jido_messaging or String.starts_with?(Atom.to_string(app), "jido_chat") end)
+
+    assert MapSet.new(actual) == MapSet.new(expected)
+  end
 end
