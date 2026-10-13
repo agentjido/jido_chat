@@ -155,6 +155,27 @@ defmodule Jido.Chat.Telegram.MembershipRuntimeTest do
     refute_received :unexpected_provider_call
   end
 
+  test "bot-self membership remains observation only with an active agent", context do
+    update = payload(13, member("left"), member("administrator"))
+    update = Map.put(update, "my_chat_member", update["chat_member"]) |> Map.delete("chat_member")
+    before = snapshot()
+    room_before = :sys.get_state(context.server)
+    assert {:ok, %{signals: [parent]} = unit} = Jido.Chat.normalize_event(context.binding, update)
+    assert parent.data["bot_self"]
+    assert {:ok, [observed]} = Instance.accept_delivery(unit)
+    assert observed.data["bot_self"]
+    assert observed.data["current"] == parent.data["current"]
+    assert {:ok, []} = Instance.accept_delivery(unit)
+    _ = :sys.get_state(context.runner)
+    assert snapshot() == before
+    assert :sys.get_state(context.server) == room_before
+    refute_received :agent_handled
+    refute_received :unexpected_provider_call
+    {:ok, catalog} = Runtime.catalog(Instance.__jido_messaging__(:runtime))
+    assert {:ok, json} = Jido.Signal.Serialization.serialize(observed)
+    assert {:ok, ^observed} = Jido.Signal.Catalog.decode(catalog, json)
+  end
+
   test "standalone membership handler never selects message or mention handlers", context do
     {:ok, handlers} = Handlers.new()
 

@@ -27,6 +27,11 @@ defmodule Jido.Chat.Slack.ExecutionRuntimeTest do
        }}
     end
 
+    def open_modal(trigger, view, opts) do
+      record(opts, {:open_modal, trigger, view["title"]["text"]})
+      {:ok, %{"view" => %{"id" => "V1"}}}
+    end
+
     defp record(opts, call), do: Agent.update(opts[:req][:capture], &(&1 ++ [call]))
   end
 
@@ -134,6 +139,37 @@ defmodule Jido.Chat.Slack.ExecutionRuntimeTest do
 
     assert denied.data["code"] == "authorization_denied"
     assert calls(context) == []
+  end
+
+  test "a private interaction opens a modal through Messaging and retains its conversation", context do
+    assert {:ok, %{signals: [action]} = delivery} =
+             Jido.Chat.normalize_event(context.binding, %{
+               "type" => "block_actions",
+               "container" => %{"channel_id" => "C1"},
+               "trigger_id" => "private-trigger",
+               "actions" => [%{"action_id" => "open"}]
+             })
+
+    assert {:ok, []} = Instance.accept_delivery(delivery)
+    assert {:ok, modal} = Adapter.prepare_modal(context.binding, action.data["interaction_id"], %{title: "Modal"})
+    parent = request(context, Jido.Messaging.Signal.OpenModal, %{"modal" => modal})
+    before = Jido.Signal.to_map(parent)
+    assert {:ok, result} = Instance.execute(parent, actor(context))
+    portable_result(context, parent, result)
+    assert result.data["result"] == %{"opened" => true, "id" => "V1"}
+    assert calls(context) == [{:open_modal, "private-trigger", "Modal"}]
+    assert {:ok, ^result} = Instance.execute(parent, actor(context))
+    assert calls(context) == [{:open_modal, "private-trigger", "Modal"}]
+    assert Jido.Signal.to_map(parent) == before
+
+    assert {:ok, %{signals: [submitted]} = submission} =
+             Jido.Chat.normalize_event(context.binding, %{"type" => "view_submission", "view" => %{"id" => "V1"}})
+
+    assert submitted.subject == Jido.Chat.Signal.Identity.conversation_subject(context.binding.id, "C1")
+    assert {:ok, []} = Instance.accept_delivery(submission)
+    assert {:ok, json} = Jido.Signal.Serialization.serialize(submitted)
+    refute json =~ "private-trigger"
+    assert {:ok, []} = Instance.list_messages(context.room.id)
   end
 
   test "native Slack interaction observation selects the exact binding and conversation", context do
