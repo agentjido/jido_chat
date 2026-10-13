@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T08:13:14.662446+00:00",
-  "messaging_head": "069dce789fb9b847dcb602e25d46ea92a2fb6912",
-  "core_head": "307b9c0646cd9ab778480dfadcb5bfb3f3605648",
-  "inclusive_tests": 1613,
+  "updated_at": "2026-10-13T08:22:43.951673+00:00",
+  "messaging_head": "6513e4682d60e4b85d13f0c032b5935a5ad5ba69",
+  "core_head": "1e27cffae9fb27b1200ae595d64c1a83360904d1",
+  "inclusive_tests": 1623,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 85.7,
+  "coverage_percent": 85.8,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -34,6 +34,9 @@
     "g3-ai-profile-concurrency-failure-recheck",
     "g3-ai-sqlite-isolated-paths-final-tests",
     "g3-authorization-backend-terminal-revision-final-tests",
+    "g3-bridge-inventory-complete-ordered-record-final-tests",
+    "g3-bridge-inventory-safe-reconcile-quality",
+    "g3-bridge-inventory-whole-filter-and-topology-final-tests",
     "g3-config-facade-exact-room-quality",
     "g3-config-facade-exact-room-read-delete-final-tests",
     "g3-config-facade-read-delete-final-tests",
@@ -70,6 +73,14 @@
     "g3-current-auto-thread-query-ai-full-tests",
     "g3-current-auto-thread-query-core-full-tests",
     "g3-current-auto-thread-query-inclusive-coverage",
+    "g3-current-bridge-inventory-ai-full-tests",
+    "g3-current-bridge-inventory-ai-harness",
+    "g3-current-bridge-inventory-api-audit",
+    "g3-current-bridge-inventory-core-full-tests",
+    "g3-current-bridge-inventory-core-harness",
+    "g3-current-bridge-inventory-inclusive-coverage",
+    "g3-current-bridge-inventory-optional-ai",
+    "g3-current-bridge-inventory-source-scan",
     "g3-current-callback-and-lock-ai-graph",
     "g3-current-callback-and-lock-ai-uncontended-recheck",
     "g3-current-callback-and-lock-complete-api-audit",
@@ -557,7 +568,11 @@
     "Routing reads validate record ID and canonical room ID. Routing/bridge deletes contain callback failures before and after the confirmed delete. OutboundRouter propagates read failures before route construction; only not_found selects the existing default. All 77 affected tests and package quality pass.",
     "Current directory/config/router source changed; quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
     "Current complete inclusive Messaging coverage passes 1613 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.7 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1613 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1613 checks with zero skips.",
+    "Bridge inventories preserve the successful list API and return errors on failed or malformed store results. Complete schema/identity/filter validation rejects duplicate IDs, credentials and invalid records before any partial reconciliation. Failed reads retain both running bridge PIDs, stored configs and zero room/admission effects. Confirmed deletion stops only its own worker. All 32 affected tests and package quality pass.",
+    "Current config/inventory reconciliation/router/topology source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
+    "Current complete inclusive Messaging coverage passes 1623 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.8 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1623 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -572,7 +587,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1613,
+    "messaging_tests_per_profile": 1623,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -583,34 +598,34 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1613,
+        "passed": 1623,
         "failures": 0,
-        "check": "g3-current-directory-config-core-full-tests.json"
+        "check": "g3-current-bridge-inventory-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1613,
+        "passed": 1623,
         "failures": 0,
-        "check": "g3-current-directory-config-ai-full-tests.json"
+        "check": "g3-current-bridge-inventory-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current directory-config runtime harnesses pass 241 checks on the current Messaging source.",
-    "optional_ai_evidence": "Current directory-config optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current bridge-inventory runtime harnesses pass 241 checks on current Messaging source.",
+    "optional_ai_evidence": "Current bridge-inventory optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-directory-config-complete-api-exports.json",
+    "current_report": "current-bridge-inventory-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1613 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-directory-config-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1623 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-bridge-inventory-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-directory-config-source-proof.json"
+  "reused_library_proof": "current-bridge-inventory-source-proof.json"
 }

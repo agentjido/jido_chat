@@ -118,6 +118,10 @@
         "evidence/g3/current-audit-recovery-runtime-core-graph.json",
         "evidence/g3/current-auto-thread-query-coverage-gaps.json",
         "evidence/g3/current-auto-thread-query-reused-library-proof.json",
+        "evidence/g3/current-bridge-inventory-complete-api-exports.json",
+        "evidence/g3/current-bridge-inventory-coverage-gaps.json",
+        "evidence/g3/current-bridge-inventory-prohibited-runtime-boundary-scan.json",
+        "evidence/g3/current-bridge-inventory-source-proof.json",
         "evidence/g3/current-callback-and-lock-complete-api-exports.json",
         "evidence/g3/current-callback-and-lock-coverage-gaps.json",
         "evidence/g3/current-callback-and-lock-runtime-ai-graph.json",
@@ -220,6 +224,11 @@
         "evidence/g3/g3-authorization-backend-terminal-revision-final-tests.json",
         "evidence/g3/g3-auto-thread-admission-quality.json",
         "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-bridge-inventory-complete-ordered-record-final-tests.json",
+        "evidence/g3/g3-bridge-inventory-reconcile-final-tests.json",
+        "evidence/g3/g3-bridge-inventory-reconcile-regression-tests.json",
+        "evidence/g3/g3-bridge-inventory-safe-reconcile-quality.json",
+        "evidence/g3/g3-bridge-inventory-whole-filter-and-topology-final-tests.json",
         "evidence/g3/g3-call-lifetime-final-core-tests.json",
         "evidence/g3/g3-call-resource-lifetime-core-quality.json",
         "evidence/g3/g3-config-facade-exact-room-quality.json",
@@ -278,6 +287,14 @@
         "evidence/g3/g3-current-auto-thread-query-ai-full-tests.json",
         "evidence/g3/g3-current-auto-thread-query-core-full-tests.json",
         "evidence/g3/g3-current-auto-thread-query-inclusive-coverage.json",
+        "evidence/g3/g3-current-bridge-inventory-ai-full-tests.json",
+        "evidence/g3/g3-current-bridge-inventory-ai-harness.json",
+        "evidence/g3/g3-current-bridge-inventory-api-audit.json",
+        "evidence/g3/g3-current-bridge-inventory-core-full-tests.json",
+        "evidence/g3/g3-current-bridge-inventory-core-harness.json",
+        "evidence/g3/g3-current-bridge-inventory-inclusive-coverage.json",
+        "evidence/g3/g3-current-bridge-inventory-optional-ai.json",
+        "evidence/g3/g3-current-bridge-inventory-source-scan.json",
         "evidence/g3/g3-current-callback-and-lock-ai-full-tests.json",
         "evidence/g3/g3-current-callback-and-lock-ai-graph.json",
         "evidence/g3/g3-current-callback-and-lock-ai-uncontended-recheck.json",
@@ -912,7 +929,11 @@
         "Routing reads validate record ID and canonical room ID. Routing/bridge deletes contain callback failures before and after the confirmed delete. OutboundRouter propagates read failures before route construction; only not_found selects the existing default. All 77 affected tests and package quality pass.",
         "Current directory/config/router source changed; quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
         "Current complete inclusive Messaging coverage passes 1613 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.7 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1613 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1613 checks with zero skips.",
+        "Bridge inventories preserve the successful list API and return errors on failed or malformed store results. Complete schema/identity/filter validation rejects duplicate IDs, credentials and invalid records before any partial reconciliation. Failed reads retain both running bridge PIDs, stored configs and zero room/admission effects. Confirmed deletion stops only its own worker. All 32 affected tests and package quality pass.",
+        "Current config/inventory reconciliation/router/topology source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
+        "Current complete inclusive Messaging coverage passes 1623 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.8 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1623 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1082,5 +1103,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T08:13:14.662446+00:00"
+  "updated_at": "2026-10-13T08:22:43.951673+00:00"
 }

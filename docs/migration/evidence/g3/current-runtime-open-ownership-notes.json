@@ -1,24 +1,24 @@
 {
   "state": "open",
-  "source_head": "069dce789fb9b847dcb602e25d46ea92a2fb6912",
+  "source_head": "6513e4682d60e4b85d13f0c032b5935a5ad5ba69",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/config_store.ex and bridge_supervisor.ex",
-      "observed": "Bridge list errors currently become an empty list. Reconciliation can interpret an empty result as no configured bridges. Raises/throws/exits/invalid list records are direct callback results.",
-      "required_proof": "Retain the existing successful list API. Failed metadata reads cannot remove running bridges or claim a complete empty inventory. Reject whole malformed lists without partial reconciliation."
+      "file": "lib/jido_messaging.ex and persistence/{ets,sqlite}.ex",
+      "observed": "Canonical facade and backend cleanup paths still have missed scope and failure cases.",
+      "required_proof": "Exact owned record deletion/index cleanup, preserved foreign records and defined failure results. Required coverage remains 90 percent."
     },
     {
-      "file": "lib/jido_messaging.ex and persistence callbacks",
-      "observed": "Remaining facade and backend scope cleanup paths still have coverage gaps.",
-      "required_proof": "Defined errors, exact records/effects, no foreign scope changes and required 90 percent coverage."
+      "file": "lib/jido_messaging/execution.ex and demo/topology.ex",
+      "observed": "Remaining execution/setup result branches still lack complete direct side-effect-count proof.",
+      "required_proof": "Invalid or denied requests create no provider/admission effects; accepted work and full result data retain exact retry behavior."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Directory persistence callbacks return safe failures and validate identities and whole lists.",
-    "Confirmed directory writes retain complete data and idempotent revision retries.",
-    "Routing reads reject foreign record/room IDs and return errors before route construction.",
-    "Routing/bridge deletes retain exact before/after-write outcomes and live ConfigStore."
+    "Bridge metadata read failures cannot become a false complete empty list.",
+    "Malformed/duplicate/credential-bearing/wrong-filter records reject as a whole inventory.",
+    "Failed reconciliation preserves both worker PIDs and stored configs.",
+    "Routing/topology failures return before mutation; confirmed bridge deletion still affects only its own worker."
   ]
 }
