@@ -1,10 +1,10 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T11:12:06.288459+00:00",
-  "messaging_head": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
-  "core_head": "b51e40039662fb5be70971081f168eafd5a07fb3",
-  "inclusive_tests": 1942,
+  "updated_at": "2026-10-13T11:29:33.883982+00:00",
+  "messaging_head": "397be2a66bade144fba0ec31ec4819e84158beac",
+  "core_head": "440c7b0472a777753bbc7bbc3a78fcbee0945abb",
+  "inclusive_tests": 1948,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
@@ -272,6 +272,11 @@
     "g3-current-message-outcome-formatted-quality",
     "g3-current-message-outcome-inclusive-final-tests",
     "g3-current-message-outcome-source-scan",
+    "g3-current-message-query-final-ai-full-tests",
+    "g3-current-message-query-final-api-audit",
+    "g3-current-message-query-final-core-full-tests",
+    "g3-current-message-query-final-inclusive-coverage",
+    "g3-current-message-query-final-optional-ai",
     "g3-current-native-media-reply-ai-full-tests",
     "g3-current-native-media-reply-ai-graph",
     "g3-current-native-media-reply-ai-harness",
@@ -440,6 +445,10 @@
     "g3-local-post-resource-failure-quality",
     "g3-local-post-resource-failure-warning-free-tests",
     "g3-media-private-payload-final-tests",
+    "g3-message-query-bind-cleanup-quality",
+    "g3-message-query-bind-cleanup-tests",
+    "g3-message-query-limit-scope-quality",
+    "g3-message-query-limit-scope-tests",
     "g3-message-store-exception-reconciliation-tests",
     "g3-native-acceptance-audit-final-source-tests",
     "g3-native-acceptance-audit-quality",
@@ -560,7 +569,8 @@
     "g3-activity-input-boundary-regressions: three failures from accepted duplicate fields or malformed references. Current input rejects all of them before save callbacks.",
     "g3-local-post-resource-failure-bounded-regressions: six raised/thrown/exited store outcomes and one fact publication failure left prepared resources active. Current source cancels both resources and retains exact confirmed writes.",
     "g3-provider-result-publication-resource-regressions: failed result publication left the selected result handle active. Current source clears it before returning cached observation_failed.",
-    "g3-event-projection-scope-regressions: six foreign canonical message/summary cases were built under the owned room subject. Current construction rejects them before resources or publication."
+    "g3-event-projection-scope-regressions: six foreign canonical message/summary cases were built under the owned room subject. Current construction rejects them before resources or publication.",
+    "g3-message-query-limit-scope-regressions: all three stores accepted zero limits and did not apply a consistent invalid_limit contract. Current limits reject before returning a page."
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -775,7 +785,12 @@
     "Participant/presence/false typing/thread alias and failure projections preserve complete declared data and redact private inputs. Native type/source/subject selectors use conjunction without record or authority mutations. Affected checks and package quality pass. Six original scope failures and the distinct selector fixture correction remain in evidence.",
     "Current Events source checks refresh quality, complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
     "Current complete inclusive Messaging coverage passes 1942 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1942 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1942 checks with zero skips.",
+    "ETS/SQLite/PostgreSQL canonical message queries reject non-positive/non-integer limits with invalid_limit. SQL validates before querying; ETS reuses the existing strict transcript paginator instead of duplicate cursor/order logic.",
+    "All 73 initial affected checks and 93 expanded query/SQLite/storage conformance/timeline/transcript checks pass without warnings, plus package quality. Positive pages retain complete records, stable timestamp/ID order and exact room/thread cursor ownership. Invalid limits and cursors change no owned/foreign record. Original three invalid-limit failures and the failed inclusive SQLite cleanup run remain in evidence. The updated cleanup test still forces a real bind error and verifies statement release, alongside strict limit validation.",
+    "Current store source checks refresh quality, complete coverage, both full profiles, both runtime harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
+    "Current complete inclusive Messaging coverage passes 1948 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1948 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -790,7 +805,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1942,
+    "messaging_tests_per_profile": 1948,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -801,36 +816,36 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1942,
+        "passed": 1948,
         "failures": 0,
-        "check": "g3-current-event-projection-core-full-tests.json"
+        "check": "g3-current-message-query-final-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1942,
+        "passed": 1948,
         "failures": 0,
-        "check": "g3-current-event-projection-ai-full-tests.json"
+        "check": "g3-current-message-query-final-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current event-projection runtime harnesses pass 241 checks.",
-    "optional_ai_evidence": "Current event-projection optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Reuse both current message-query runtime harnesses: 241 checks each. Only the SQLite test correction followed them; library/support/harness inputs remain unchanged.",
+    "optional_ai_evidence": "Current message-query-final optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-event-projection-complete-api-exports.json",
+    "current_report": "current-message-query-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1942 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-event-projection-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1948 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-message-query-final-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-event-projection-source-proof.json",
+  "reused_library_proof": "current-message-query-source-proof.json",
   "fixture_corrections": [
     "Timeline test used an incorrect membership query name. It now calls list_memberships and retains the zero-effect assertion.",
     "Durable input setup used expired credentials and incorrect endpoint facade names. It now uses current valid credentials and the existing facade names.",
@@ -839,6 +854,7 @@
     "Initial local post diagnostic output printed synthetic fixture text. The saved log omits that payload and retains its raw hash; a bounded rerun records each failure.",
     "Provider result test now filters exact resource rows because core request cache rows share the binding table. Full cache/resource retry comparison remains exact.",
     "Event Bus test uses the pinned native selector keyword list for source/subject conjunction.",
-    "First event scope repair treated Message structs as enumerable maps. The complete affected suite caught this; current code handles owned/foreign Message structs explicitly and preserves all assertions."
+    "First event scope repair treated Message structs as enumerable maps. The complete affected suite caught this; current code handles owned/foreign Message structs explicitly and preserves all assertions.",
+    "The existing SQLite cleanup test now supplies a malformed room SQL parameter to retain its actual binding-error and statement-release assertion. A separate assertion checks malformed limits are rejected before SQL. The failed earlier full run remains failed evidence."
   ]
 }

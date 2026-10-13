@@ -192,6 +192,9 @@
         "evidence/g3/current-media-retry-yaml-coverage-gaps.json",
         "evidence/g3/current-media-retry-yaml-runtime-ai-graph.json",
         "evidence/g3/current-media-retry-yaml-runtime-core-graph.json",
+        "evidence/g3/current-message-query-complete-api-exports.json",
+        "evidence/g3/current-message-query-runtime-boundary-scan.json",
+        "evidence/g3/current-message-query-source-proof.json",
         "evidence/g3/current-native-media-reply-complete-api-exports.json",
         "evidence/g3/current-native-media-reply-coverage-gaps.json",
         "evidence/g3/current-native-media-reply-runtime-ai-graph.json",
@@ -539,6 +542,14 @@
         "evidence/g3/g3-current-message-outcome-formatted-quality.json",
         "evidence/g3/g3-current-message-outcome-inclusive-final-tests.json",
         "evidence/g3/g3-current-message-outcome-source-scan.json",
+        "evidence/g3/g3-current-message-query-ai-harness.json",
+        "evidence/g3/g3-current-message-query-core-harness.json",
+        "evidence/g3/g3-current-message-query-final-ai-full-tests.json",
+        "evidence/g3/g3-current-message-query-final-api-audit.json",
+        "evidence/g3/g3-current-message-query-final-core-full-tests.json",
+        "evidence/g3/g3-current-message-query-final-inclusive-coverage.json",
+        "evidence/g3/g3-current-message-query-final-optional-ai.json",
+        "evidence/g3/g3-current-message-query-inclusive-coverage.json",
         "evidence/g3/g3-current-native-media-reply-ai-full-tests.json",
         "evidence/g3/g3-current-native-media-reply-ai-graph.json",
         "evidence/g3/g3-current-native-media-reply-ai-harness.json",
@@ -756,6 +767,11 @@
         "evidence/g3/g3-local-post-resource-failure-warning-free-tests.json",
         "evidence/g3/g3-mattermost-baseline-annotation-compile.json",
         "evidence/g3/g3-media-private-payload-final-tests.json",
+        "evidence/g3/g3-message-query-bind-cleanup-quality.json",
+        "evidence/g3/g3-message-query-bind-cleanup-tests.json",
+        "evidence/g3/g3-message-query-limit-scope-quality.json",
+        "evidence/g3/g3-message-query-limit-scope-regressions.json",
+        "evidence/g3/g3-message-query-limit-scope-tests.json",
         "evidence/g3/g3-message-store-exception-reconciliation-tests.json",
         "evidence/g3/g3-messaging-progress-commit-quality.json",
         "evidence/g3/g3-messaging-progress-commit-tests.json",
@@ -1193,7 +1209,12 @@
         "Participant/presence/false typing/thread alias and failure projections preserve complete declared data and redact private inputs. Native type/source/subject selectors use conjunction without record or authority mutations. Affected checks and package quality pass. Six original scope failures and the distinct selector fixture correction remain in evidence.",
         "Current Events source checks refresh quality, complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
         "Current complete inclusive Messaging coverage passes 1942 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1942 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1942 checks with zero skips.",
+        "ETS/SQLite/PostgreSQL canonical message queries reject non-positive/non-integer limits with invalid_limit. SQL validates before querying; ETS reuses the existing strict transcript paginator instead of duplicate cursor/order logic.",
+        "All 73 initial affected checks and 93 expanded query/SQLite/storage conformance/timeline/transcript checks pass without warnings, plus package quality. Positive pages retain complete records, stable timestamp/ID order and exact room/thread cursor ownership. Invalid limits and cursors change no owned/foreign record. Original three invalid-limit failures and the failed inclusive SQLite cleanup run remain in evidence. The updated cleanup test still forces a real bind error and verifies statement release, alongside strict limit validation.",
+        "Current store source checks refresh quality, complete coverage, both full profiles, both runtime harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
+        "Current complete inclusive Messaging coverage passes 1948 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1948 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1363,5 +1384,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T11:12:06.288459+00:00"
+  "updated_at": "2026-10-13T11:29:33.883982+00:00"
 }

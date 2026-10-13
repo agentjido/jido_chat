@@ -1,6 +1,6 @@
 {
   "state": "open",
-  "source_head": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
+  "source_head": "397be2a66bade144fba0ec31ec4819e84158beac",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
@@ -9,15 +9,15 @@
     },
     {
       "file": "lib/jido_messaging.ex and persistence/{ets,sqlite}.ex",
-      "observed": "Remaining canonical facade, runtime publication/resource result, and backend cleanup/filter cases still need complete proof. Required coverage is not yet met.",
+      "observed": "Remaining canonical facade defaults, backend scope index recovery and cleanup cases still need complete ownership proof. Required coverage is not yet met.",
       "required_proof": "Owned/foreign record scope, defined errors and complete content. Reach 90 percent without skips, ignores or reduced thresholds."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Foreign canonical message records and summaries cannot be projected under an owned room subject; rejection occurs before resource allocation.",
-    "Owned projections retain complete safe fields, native JSON, original parent trace and causation. Scalar aliases and defined failure codes preserve declared values without private data.",
-    "Native type/source/subject selectors isolate observation with zero canonical record, admission, membership, grant or agent registration mutations."
+    "ETS/SQLite/PostgreSQL message queries reject invalid limits with invalid_limit and retain exact complete owned/foreign records.",
+    "ETS reuses strict transcript pagination; positive pages preserve timestamp/ID order and room/thread cursor ownership.",
+    "SQLite test still verifies real SQL binding-error statement cleanup and exact adapter usability after failure, alongside the new pre-query limit guard."
   ]
 }

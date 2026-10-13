@@ -1,0 +1,60 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "440c7b0472a777753bbc7bbc3a78fcbee0945abb",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
+      "library_test_files": 401,
+      "library_test_sha256": "97dbe4c3f48142f0e1637d2e9daa8a01f35bc29c7bf322154f09df8808af5202"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-message-query-limit-scope-regressions",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/persistence/message_query_limit_scope_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
+  "source_tree_sha256": "800f903b329fc6846e961783f7683b5462072005f9a74e3663703be7c3b39c6b",
+  "started_at": "2026-10-13T11:15:46.788867+00:00",
+  "finished_at": "2026-10-13T11:15:48.594897+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-message-query-limit-scope-regressions.log",
+  "log_sha256": "79f4c3a215be2a7974a580b11c5d353206e10c663dbe449d3f6af6b704830067",
+  "result": {
+    "passed": 3,
+    "total": 6,
+    "failed": 3
+  }
+}
