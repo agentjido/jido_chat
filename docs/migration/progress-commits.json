@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T09:06:44.058327+00:00",
+  "updated_at": "2026-10-13T09:12:57.504256+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1549,13 +1549,24 @@
       ],
       "passed_checks": "31 receipt checks with warnings as errors.",
       "open_work": "Complete current source profiles, remaining runtime/facade cases, 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "04bbd680522787ea15f77ac33570090ef6f08335",
+      "subject": "fix(topology): contain room and binding setup failures",
+      "checks": [
+        "evidence/g3/g3-topology-room-binding-owned-tests.json",
+        "evidence/g3/g3-topology-room-binding-owned-quality.json"
+      ],
+      "passed_checks": "67 affected topology and bridge-room checks with warnings as errors and package quality.",
+      "open_work": "Remaining facade/backend failure checks, 90 percent coverage and all final G3-G9 requirements."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1829,
+    "messaging_inclusive_tests": 1861,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1619,8 +1630,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1829,
-    "total": 1829,
-    "check": "evidence/g3/g3-current-read-receipt-ai-full-tests.json"
+    "passed": 1861,
+    "total": 1861,
+    "check": "evidence/g3/g3-current-topology-ai-full-tests.json"
   }
 }

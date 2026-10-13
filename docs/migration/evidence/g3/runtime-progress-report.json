@@ -1,10 +1,10 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T09:06:44.058327+00:00",
-  "messaging_head": "d82ba5c4c9592b7f863512386e7c42dd6fb57c5a",
-  "core_head": "7339c599d120194627db091783aef70bed057244",
-  "inclusive_tests": 1829,
+  "updated_at": "2026-10-13T09:12:57.504256+00:00",
+  "messaging_head": "04bbd680522787ea15f77ac33570090ef6f08335",
+  "core_head": "c923d3ca0adee45004d32473ee3b17f188a89329",
+  "inclusive_tests": 1861,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
@@ -319,14 +319,21 @@
     "g3-current-subscription-binding-inclusive-coverage",
     "g3-current-subscription-binding-optional-ai",
     "g3-current-subscription-binding-source-scan",
+    "g3-current-topology-ai-full-tests",
     "g3-current-topology-ai-graph-report",
+    "g3-current-topology-ai-harness",
     "g3-current-topology-ai-harness-tests",
+    "g3-current-topology-api-audit",
     "g3-current-topology-complete-api-audit",
     "g3-current-topology-contract-manifest-check",
+    "g3-current-topology-core-full-tests",
     "g3-current-topology-core-graph-report",
+    "g3-current-topology-core-harness",
     "g3-current-topology-core-harness-tests",
+    "g3-current-topology-inclusive-coverage",
     "g3-current-topology-native-core-messaging-tests",
     "g3-current-topology-native-postgres-inclusive-coverage",
+    "g3-current-topology-optional-ai",
     "g3-current-topology-optional-ai-fixtures",
     "g3-current-topology-ownership-quality",
     "g3-current-topology-slack-execution-tests",
@@ -439,10 +446,13 @@
     "g3-subscription-store-outcome-final-quality",
     "g3-subscription-store-safe-spec-final-tests",
     "g3-topology-and-facade-missing-identity-final-tests",
+    "g3-topology-complete-binding-identity-final-tests",
     "g3-topology-missing-binding-identity-final-tests",
     "g3-topology-owned-identity-final-quality",
     "g3-topology-owned-identity-warning-free-tests",
     "g3-topology-owner-and-sections-warning-free-tests",
+    "g3-topology-room-binding-owned-quality",
+    "g3-topology-room-binding-owned-tests",
     "g3-topology-routing-string-enums-final-tests",
     "g3-topology-routing-yaml-execution-final-tests",
     "g3-transcript-all-admission-scope-final-tests",
@@ -480,7 +490,8 @@
     "g3-subscription-malformed-wrapper-controls",
     "g3-topology-invalid-and-partial-outcome-tests",
     "g3-transcript-invalid-scope-controls",
-    "g3-read-receipt-callback-regressions: foreign record, incomplete receipt and invalid change produced false success; all three now pass."
+    "g3-read-receipt-callback-regressions: foreign record, incomplete receipt and invalid change produced false success; all three now pass.",
+    "g3-topology-room-binding-callback-regressions: 26 failures from escaped store outcomes or false room/binding success. All affected checks now pass."
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -656,7 +667,12 @@
     "Receipt publication failure retains one complete receipt without repeated provider/store effects. A second request preserves the first timestamp; private delivery room mapping retains canonical ownership. All 31 affected tests pass.",
     "Current private receipt source changed; quality, full profiles, coverage, runtime harness, optional AI, API audit and source scan are refreshed. Unchanged core tests and pinned dependency graphs are reused only after source comparison.",
     "Current complete inclusive Messaging coverage passes 1829 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1829 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1829 checks with zero skips.",
+    "Topology room/binding callbacks contain error, raise, throw, exit and invalid outcomes. Room results validate canonical identity and complete record; binding results validate exact provider scope and options. All 67 affected checks and package quality pass; original 26 failed regressions remain.",
+    "Before-write failures cause zero writes, routing, admission, membership, grant or agent effects. Confirmed writes stay complete after failure; retry reuses one room/binding and foreign records remain unchanged.",
+    "Current topology source checks refresh complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and dependency graph proof is reused only after exact source comparison.",
+    "Current complete inclusive Messaging coverage passes 1861 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1861 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -671,7 +687,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1829,
+    "messaging_tests_per_profile": 1861,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -682,34 +698,34 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1829,
+        "passed": 1861,
         "failures": 0,
-        "check": "g3-current-read-receipt-core-full-tests.json"
+        "check": "g3-current-topology-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1829,
+        "passed": 1861,
         "failures": 0,
-        "check": "g3-current-read-receipt-ai-full-tests.json"
+        "check": "g3-current-topology-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current read-receipt harnesses pass 241 checks on current Messaging source.",
-    "optional_ai_evidence": "Current read-receipt optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current topology runtime harnesses pass 241 checks.",
+    "optional_ai_evidence": "Current topology optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-read-receipt-complete-api-exports.json",
+    "current_report": "current-topology-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1829 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-read-receipt-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1861 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-topology-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-read-receipt-source-proof.json"
+  "reused_library_proof": "current-topology-source-proof.json"
 }

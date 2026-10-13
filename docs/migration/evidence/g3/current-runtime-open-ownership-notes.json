@@ -1,10 +1,10 @@
 {
   "state": "open",
-  "source_head": "d82ba5c4c9592b7f863512386e7c42dd6fb57c5a",
+  "source_head": "04bbd680522787ea15f77ac33570090ef6f08335",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/execution.ex and demo/topology.ex",
-      "observed": "Remaining typed execution and setup failures still have uncovered exact effect and safe result branches.",
+      "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
+      "observed": "Remaining typed execution and canonical facade defaults have unverified exact error/result branches.",
       "required_proof": "Invalid/denied input causes zero effects. Accepted work, native results and retry counts remain complete and exact."
     },
     {
@@ -16,8 +16,8 @@
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Canonical message and thread scope tests prove owned IDs, safe failures and zero denied provider/admission effects.",
-    "Receipt store results validate complete owned record, receipt content and change value. Failed outcomes cache exact provider/write effects.",
-    "Receipt publication failure retains a complete read record without repeating the provider. New requests retain stable deduplication and private delivery room mapping."
+    "Topology room/binding store failures return defined errors and stop before routing, grants, membership, agent or admission effects.",
+    "Canonical identity and complete saved records are checked before setup continues. Foreign record success is rejected.",
+    "Confirmed writes stay complete after failure; retry reuses the same room or binding without duplicate writes."
   ]
 }
