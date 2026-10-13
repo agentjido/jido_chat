@@ -1,0 +1,74 @@
+{
+  "state": "running",
+  "scope": "B0-B2 only",
+  "acceptance_rows": [
+    {
+      "id": "R1",
+      "state": "missing-current-candidate-proof",
+      "existing_proof": [
+        "typed_execution_test.exs",
+        "authorization_test.exs"
+      ]
+    },
+    {
+      "id": "R2",
+      "state": "missing-current-candidate-proof",
+      "existing_proof": [
+        "typed_request_admission_test.exs",
+        "outbound_router_test.exs"
+      ]
+    },
+    {
+      "id": "R3",
+      "state": "missing-current-candidate-proof",
+      "existing_proof": [
+        "provider_result_publication_test.exs",
+        "route_result_resource_test.exs",
+        "local_post_resource_failure_test.exs"
+      ]
+    },
+    {
+      "id": "R4",
+      "state": "missing-current-candidate-proof",
+      "existing_proof": [
+        "typed_acceptance_test.exs"
+      ]
+    },
+    {
+      "id": "R5",
+      "state": "missing-current-candidate-proof",
+      "existing_proof": [
+        "typed_room_subscription_test.exs"
+      ]
+    },
+    {
+      "id": "R6",
+      "state": "missing-current-candidate-proof",
+      "existing_proof": [
+        "complete core runtime profile",
+        "complete AI runtime profile",
+        "optional AI fixtures"
+      ]
+    },
+    {
+      "id": "R7",
+      "state": "missing-current-candidate-proof",
+      "existing_proof": [
+        "compiled API audit",
+        "G3 source scan"
+      ]
+    }
+  ],
+  "coverage": {
+    "required_percent": 90,
+    "last_saved_percent": 87.2,
+    "state": "pending"
+  },
+  "later_batches": "not started",
+  "B0": {
+    "state": "pass",
+    "saved_messaging_commit": "35ed1e6ce03836fc388a1fd03e270b5333c7c06c",
+    "tracker_dependencies": "acyclic",
+    "unfinished_checks": "129 focused tests and package quality passed"
+  }
+}

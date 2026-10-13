@@ -1,0 +1,60 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+....
+
+  1) test large all-failed result retains every route and failure detail without a repeat (Jido.Messaging.RouteResultResourceTest)
+     test/jido_messaging/route_result_resource_test.exs:138
+     match (=) failed
+     code:  assert {:ok, %{"complete" => id}} = Instance.resolve_resource(ref)
+     left:  {:ok, %{"complete" => id}}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_resource,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido_messaging/route_result_resource_test.exs:218: anonymous fn/2 in Jido.Messaging.RouteResultResourceTest.assert_existing/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/route_result_resource_test.exs:216: Jido.Messaging.RouteResultResourceTest.assert_existing/1
+       test/jido_messaging/route_result_resource_test.exs:164: (test)
+
+
+
+  2) test failed publication of a large failure result cancels its reference and preserves callbacks (Jido.Messaging.RouteResultResourceTest)
+     test/jido_messaging/route_result_resource_test.exs:168
+     match (=) failed
+     code:  assert {:ok, %{"complete" => id}} = Instance.resolve_resource(ref)
+     left:  {:ok, %{"complete" => id}}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_resource,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido_messaging/route_result_resource_test.exs:218: anonymous fn/2 in Jido.Messaging.RouteResultResourceTest.assert_existing/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/route_result_resource_test.exs:216: Jido.Messaging.RouteResultResourceTest.assert_existing/1
+       test/jido_messaging/route_result_resource_test.exs:188: (test)
+
+     The following output was logged:
+     
+     06:51:15.409 [error] Dispatch bus target not found bus_name=Elixir.Jido.Messaging.RouteResultResourceTest.Instance.SignalBus
+     
+...........................................................................................................................
+Finished in 21.4 seconds (0.00s async, 21.4s sync)
+
+Result: 127/129 passed
+Failed: 2 tests

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T11:45:17.531971+00:00",
+  "updated_at": "2026-10-13T21:38:09.732813+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1681,6 +1681,16 @@
       ],
       "passed_checks": "32 affected ETS/index/authorization/agent ownership checks without warnings plus package quality.",
       "open_work": "Remaining G3 native result/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "35ed1e6ce03836fc388a1fd03e270b5333c7c06c",
+      "subject": "test(execution): preserve large route results and owned resources",
+      "checks": [
+        "evidence/checkpoint-b0-b2/b0-route-resource-tests.json",
+        "evidence/checkpoint-b0-b2/b0-quality.json"
+      ],
+      "open_work": "B1 contract checks and B2 coverage remain open. Stop after the Chat and Messaging checkpoint."
     }
   ],
   "passed_checks": {

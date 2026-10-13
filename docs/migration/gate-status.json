@@ -57,7 +57,8 @@
           "version": "2026.10.2",
           "optional": true
         }
-      }
+      },
+      "depends_on": []
     },
     {
       "id": "G1",
@@ -68,6 +69,9 @@
           "path": "evidence/g1/g1-report.json",
           "sha256": "019a32bfa561faf2a68aea4115eba7d8a5968c2e923360b0480836688385a4e1"
         }
+      ],
+      "depends_on": [
+        "G0"
       ]
     },
     {
@@ -98,6 +102,9 @@
           "path": "evidence/g2/g2-report.json",
           "sha256": "131af8c184f6602c48772cbf7d7e91bafe80274e614aeca484246e93e0fc92ee"
         }
+      ],
+      "depends_on": [
+        "G1"
       ]
     },
     {
@@ -1236,9 +1243,16 @@
         "Both current complete pinned runtime profiles pass 1953 checks with zero skips."
       ],
       "remaining": [
-        "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
-        "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
-        "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
+        "R1: authorization and Bus-only commands cause zero provider effects.",
+        "R2: retry, failover, broadcast and admission retain exact callback counts.",
+        "R3: failed publication cannot repeat work or leak result resources.",
+        "R4: parent facts stay unchanged; children retain trace and causation.",
+        "R5: room selection isolates source/subject; thread policy stays in the application.",
+        "R6: core and optional-AI runtime profiles and AI fixtures pass.",
+        "R7: compiled API audit and prohibited-boundary scan pass."
+      ],
+      "depends_on": [
+        "G2"
       ]
     },
     {
@@ -1292,10 +1306,13 @@
         "A dedicated Telegram membership sink rejection fixture retains the original checkpoint and stable retry item identity. Lazy/cancelled stream tests prove enumeration and provider-call counts."
       ],
       "remaining": [
-        "Finish final Telegram event/interaction/resource matrix and cross-runtime paths; native 26-operation mappings and membership isolation now pass.",
-        "Complete full native Slack and the remaining provider adapter ports.",
-        "Finish G3 ownership/90 percent Messaging coverage and refresh affected core-only/optional-AI evidence.",
-        "Complete whole-group G7 conformance, final G8 versions/docs/package readiness, G9 PR review and current-head CI."
+        "Verify every named membership condition in the G4 plan against current fixtures.",
+        "Verify Telegram webhook/polling acceptance, semantic duplicates and checkpoint rejection.",
+        "Verify shared Slack membership schemas and zero message/agent/authority/presence effects."
+      ],
+      "depends_on": [
+        "G2",
+        "G3"
       ]
     },
     {
@@ -1360,31 +1377,62 @@
         "Four actual Slack-to-Messaging execution fixtures verify one send, cached results after authority checks, revoked grants, canonical scope rejection, complete history items/cursor and grant limit, native result decoding/trace, and interaction observation selection by exact source and subject."
       ],
       "remaining": [
-        "Complete final adapter event/resource/interaction and transport exception matrix. Socket sink exception behavior and global modal scope require review.",
-        "Complete G3 acceptance exception/partial-effect and direct facade ownership checks, and meaningful Messaging coverage to at least 90 percent.",
-        "Refresh affected core-only and optional-AI source checks; finish remaining provider ports and all-nine G7 Conformance.run C01-C14.",
-        "Finish G8 version/docs/example/package readiness and G9 review, focused attached PRs and current-head CI. No final completion requirement changes."
+        "Complete Telegram and Slack event/resource/interaction and transport rejection rows.",
+        "Verify Slack Socket sink errors, exceptions and invalid returns against acknowledgement order.",
+        "Verify Slack modal conversation scope and private resource/token lifetime.",
+        "Complete actual send, query, interaction, membership and context selection paths through Messaging."
+      ],
+      "depends_on": [
+        "G4"
       ]
     },
     {
       "id": "G6",
       "state": "pending",
-      "evidence": []
+      "evidence": [],
+      "depends_on": [
+        "G5"
+      ],
+      "remaining": [
+        "Complete provider contract and package checks for Discord, GitHub, Signal, Mattermost, Teams, WhatsApp and X."
+      ]
     },
     {
       "id": "G7",
       "state": "pending",
-      "evidence": []
+      "evidence": [],
+      "depends_on": [
+        "G6"
+      ],
+      "remaining": [
+        "Reach at least 90 percent inclusive Messaging coverage without new exclusions or a reduced threshold.",
+        "Implement and pass all-nine Conformance.run C01-C14 against candidate sources.",
+        "Pass all applicable package tests, quality/coverage checks, runtime graphs and full boundary scan."
+      ]
     },
     {
       "id": "G8",
       "state": "pending",
-      "evidence": []
+      "evidence": [],
+      "depends_on": [
+        "G7"
+      ],
+      "remaining": [
+        "Complete migration docs, runnable examples, proposed versions and production dependency metadata.",
+        "Verify package builds/file lists, publication order and rollback pins; identify external release blockers."
+      ]
     },
     {
       "id": "G9",
       "state": "pending",
-      "evidence": []
+      "evidence": [],
+      "depends_on": [
+        "G8"
+      ],
+      "remaining": [
+        "Review and commit verified source trees; fix actionable defects.",
+        "Push focused branches, open/attach required PRs, verify current-head CI and complete the PR/evidence index."
+      ]
     }
   ],
   "progress_commit_rule": {
@@ -1403,5 +1451,14 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T11:45:17.531971+00:00"
+  "updated_at": "2026-10-13T21:37:11.353561+00:00",
+  "completion_batches": {
+    "plan": "../plans/2026-10-13-003-public-signal-migration-closeout-plan.md",
+    "authorized_through": "B2",
+    "stop_after": "Chat and Messaging implementation checkpoint",
+    "B0": "pass",
+    "B1": "running",
+    "B2": "pending",
+    "B3_B6": "not authorized in this run"
+  }
 }
