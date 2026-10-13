@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T07:04:59.785890+00:00",
-  "messaging_head": "3421cf18d1be58318eecad50f398fef8d004294c",
-  "core_head": "7956751e3b4bec53c7c29589b73ce94c5b065896",
-  "inclusive_tests": 1427,
+  "updated_at": "2026-10-13T07:12:40.780788+00:00",
+  "messaging_head": "9095ede1ad0bddfae6dc84cd9480d8234ec4c5b0",
+  "core_head": "62b8a5d6c11f65c0a152be0b5fbfeaa0e7749d07",
+  "inclusive_tests": 1445,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 84.9,
+  "coverage_percent": 85.1,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -18,6 +18,7 @@
     "g3-adapter-callback-disposition-final-tests",
     "g3-adapter-fixed-option-scope-tests",
     "g3-adapter-thread-page-scope-tests",
+    "g3-advisory-backend-claim-scope-tests",
     "g3-agent-assignment-exact-supervisor-final-tests",
     "g3-agent-assignment-explicit-recovery-tests",
     "g3-agent-assignment-safe-save-and-restoration-tests",
@@ -111,6 +112,9 @@
     "g3-current-demo-room-config-inclusive-coverage",
     "g3-current-demo-room-config-optional-ai",
     "g3-current-demo-room-config-source-scan",
+    "g3-current-directory-advisory-thread-ai-full-tests",
+    "g3-current-directory-advisory-thread-core-full-tests",
+    "g3-current-directory-advisory-thread-inclusive-coverage",
     "g3-current-history-revision-ai-full-tests",
     "g3-current-history-revision-ai-graph",
     "g3-current-history-revision-ai-harness",
@@ -252,6 +256,7 @@
     "g3-demo-final-native-quality",
     "g3-demo-setup-errors-and-ownership-final-tests",
     "g3-demo-setup-ownership-quality",
+    "g3-directory-backend-owned-endpoint-final-tests",
     "g3-facade-record-ownership-tests",
     "g3-ingest-policy-lifetime-and-ownership-final-tests",
     "g3-ingress-subscription-scope-and-page-tests",
@@ -273,6 +278,8 @@
     "g3-native-postgres-recovery-clean-storage-tests",
     "g3-native-reply-context-verified-final-tests",
     "g3-native-reply-parent-and-context-final-tests",
+    "g3-native-thread-merge-safe-outcome-tests",
+    "g3-native-thread-verified-before-after-final-tests",
     "g3-original-ingest-confirmation-fixture-tests",
     "g3-policy-hook-isolation-quality",
     "g3-principal-projection-and-controller-ownership-tests",
@@ -456,7 +463,14 @@
     "Real ETS and SQLite credential record proof rejects invalid initial revision/status and changed immutable identity, stale state or terminal reactivation. Rotation rejects wrong revocation/replacement/lineage/relation before either write; valid rotation and exact scope filters pass. All 16 affected tests pass without external provider operations.",
     "Current complete inclusive Messaging coverage passes 1427 checks with native PostgreSQL, integration, story and zero skips. Coverage is 84.9 percent; required 90 percent remains unmet.",
     "Initial optional projection/page controls passed 5/25 and confirmed exceptions/invalid values escaping. Final checked outcomes pass without removing callback/store-failure assertions. Credential rotation fixture initially used an invalid transition option and failed warnings-as-errors; corrected option-only fixture is warning free and its failed evidence is retained.",
-    "Both current complete pinned runtime profiles pass 1427 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1427 checks with zero skips.",
+    "Real ETS/SQLite directory revisions, endpoint filtering and participant deletion preserve owned/foreign projections. All 12 affected tests pass.",
+    "Real ETS/SQLite advisory claims retain exact room/principal scope, immutable revision conflict, newest-first order and foreign records after room/issuer cleanup. All 18 affected tests pass.",
+    "Native explicit thread error/raise/throw/exit/invalid before message acceptance rejects without a write and permits one later retry. Backfill failure after acceptance retains full text/thread identity, one message and one causal failure; duplicate delivery makes no provider calls. All 18 affected tests pass.",
+    "Production libraries and pinned inputs are unchanged. Reuse verified prior quality, 4071-row consumer API audit, 369-file source scan and 39/51 dependency graphs. Current library hashes and exact source comparisons are recorded in current-directory-advisory-thread-reused-library-proof.json. Complete test/coverage profiles are refreshed for the new test source.",
+    "Current complete inclusive Messaging coverage passes 1445 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.1 percent; required 90 percent remains unmet.",
+    "Initial directory fixture assumed an unsupported principal filter and delete API; final proof uses declared endpoint filters and participant deletion. Initial native-thread fixture defined Instance after generated tests and failed warnings-as-errors; final definition order passes. Failed fixtures stay recorded.",
+    "Both current complete pinned runtime profiles pass 1445 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -471,7 +485,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1427,
+    "messaging_tests_per_profile": 1445,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -482,17 +496,19 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1427,
+        "passed": 1445,
         "failures": 0,
-        "check": "g3-current-projection-credential-core-full-tests.json"
+        "check": "g3-current-directory-advisory-thread-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1427,
+        "passed": 1445,
         "failures": 0,
-        "check": "g3-current-projection-credential-ai-full-tests.json"
+        "check": "g3-current-directory-advisory-thread-ai-full-tests.json"
       }
-    }
+    },
+    "harness_test_evidence": "Reuse 241-case harness checks from current-projection-credential: core library/test, Messaging production/support libraries and integration harness source/pinned refs are unchanged. New Messaging ExUnit files are verified by complete profiles.",
+    "optional_ai_evidence": "Reuse four optional AI fixture checks from current-projection-credential: optional fixture/library source and pinned refs unchanged; no model calls."
   },
   "compiled_api_audit": {
     "state": "pass",
@@ -502,11 +518,12 @@
     "current_report": "current-projection-credential-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1427 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-projection-credential-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1445 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-directory-advisory-thread-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
-  }
+  },
+  "reused_library_proof": "current-directory-advisory-thread-reused-library-proof.json"
 }

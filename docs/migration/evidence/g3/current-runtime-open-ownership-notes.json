@@ -1,22 +1,23 @@
 {
   "state": "open",
-  "source_head": "3421cf18d1be58318eecad50f398fef8d004294c",
+  "source_head": "9095ede1ad0bddfae6dc84cd9480d8234ec4c5b0",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/persistence/ets.ex and sqlite.ex",
-      "observed": "Directory projection and advisory activity/trust filter and malformed revision branches remain uncovered.",
-      "required_proof": "Exact principal/room/instance scope and no authority expansion on invalid revisions, unsafe metadata or foreign cursors."
+      "file": "lib/jido_messaging/ingest.ex",
+      "observed": "Automatic provider thread open/assignment and context normalization still have uncovered failure branches.",
+      "required_proof": "Whole accepted records and exact provider/agent effects under runtime failure, without inferred grants."
     },
     {
-      "file": "lib/jido_messaging/ingest.ex",
-      "observed": "Remaining thread auto-create/assignment error outcomes and safe metadata branches need compound proof.",
-      "required_proof": "Accepted record retains whole input and exact provider/agent effect counts when later thread state fails."
+      "file": "lib/jido_messaging/persistence/ets.ex and sqlite.ex",
+      "observed": "Remaining directory, onboarding and bounded filter error paths still contribute to unmet 90 percent coverage.",
+      "required_proof": "Real valid/invalid query data retain scope, canonical identities and defined error outcomes."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Projection exception/invalid outcomes return safely; failed later canonical pages cannot admit a partial rebuild; canonical upsert/search validation failures reject without source mutation.",
-    "Real ETS/SQLite credential immutable fields, terminal status, scope filters and rejected/valid rotation lineage have exact record proof."
+    "Real directory backend revision/endpoint filter/participant deletion ownership is tested.",
+    "Advisory evidence query/order/conflict and room/issuer cleanup retain foreign records in both backends.",
+    "Native thread store failures before message write reject and retry once; backfill failure after write preserves accepted whole input and one causal failure without provider callbacks."
   ]
 }

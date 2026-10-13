@@ -133,6 +133,8 @@
         "evidence/g3/current-demo-room-config-coverage-gaps.json",
         "evidence/g3/current-demo-room-config-runtime-ai-graph.json",
         "evidence/g3/current-demo-room-config-runtime-core-graph.json",
+        "evidence/g3/current-directory-advisory-thread-coverage-gaps.json",
+        "evidence/g3/current-directory-advisory-thread-reused-library-proof.json",
         "evidence/g3/current-history-revision-complete-api-exports.json",
         "evidence/g3/current-history-revision-coverage-gaps.json",
         "evidence/g3/current-history-revision-runtime-ai-graph.json",
@@ -178,6 +180,7 @@
         "evidence/g3/g3-adapter-fixed-option-scope-tests.json",
         "evidence/g3/g3-adapter-thread-page-scope-tests.json",
         "evidence/g3/g3-admission-presence-current-quality.json",
+        "evidence/g3/g3-advisory-backend-claim-scope-tests.json",
         "evidence/g3/g3-agent-assignment-exact-supervisor-final-tests.json",
         "evidence/g3/g3-agent-assignment-explicit-recovery-tests.json",
         "evidence/g3/g3-agent-assignment-safe-save-and-restoration-tests.json",
@@ -302,6 +305,9 @@
         "evidence/g3/g3-current-demo-room-config-inclusive-coverage.json",
         "evidence/g3/g3-current-demo-room-config-optional-ai.json",
         "evidence/g3/g3-current-demo-room-config-source-scan.json",
+        "evidence/g3/g3-current-directory-advisory-thread-ai-full-tests.json",
+        "evidence/g3/g3-current-directory-advisory-thread-core-full-tests.json",
+        "evidence/g3/g3-current-directory-advisory-thread-inclusive-coverage.json",
         "evidence/g3/g3-current-full-suite-audit.json",
         "evidence/g3/g3-current-history-revision-ai-full-tests.json",
         "evidence/g3/g3-current-history-revision-ai-graph.json",
@@ -458,6 +464,8 @@
         "evidence/g3/g3-demo-setup-errors-and-ownership-final-tests.json",
         "evidence/g3/g3-demo-setup-ownership-quality.json",
         "evidence/g3/g3-dialyzer-native-shapes.json",
+        "evidence/g3/g3-directory-backend-owned-endpoint-final-tests.json",
+        "evidence/g3/g3-directory-backend-revision-scope-tests.json",
         "evidence/g3/g3-execution-final-compile.json",
         "evidence/g3/g3-expanded-export-api-manifest-check.json",
         "evidence/g3/g3-facade-record-ownership-tests.json",
@@ -506,6 +514,9 @@
         "evidence/g3/g3-native-reply-context-room-ownership-tests.json",
         "evidence/g3/g3-native-reply-context-verified-final-tests.json",
         "evidence/g3/g3-native-reply-parent-and-context-final-tests.json",
+        "evidence/g3/g3-native-thread-before-after-acceptance-final-tests.json",
+        "evidence/g3/g3-native-thread-merge-safe-outcome-tests.json",
+        "evidence/g3/g3-native-thread-verified-before-after-final-tests.json",
         "evidence/g3/g3-optional-ai-progress-commit-tests.json",
         "evidence/g3/g3-original-ingest-confirmation-fixture-tests.json",
         "evidence/g3/g3-owned-resource-core-tests.json",
@@ -777,7 +788,13 @@
         "Projection/page controls exposed exceptions and invalid results escaping. Checked optional callback return shapes and safe canonical read boundaries now reject without source mutation or partial rebuild. Canonical search cannot trust failed source verification; upsert failed read has zero callback. All 51 affected tests and quality pass.",
         "Real ETS and SQLite credential record proof rejects invalid initial revision/status and changed immutable identity, stale state or terminal reactivation. Rotation rejects wrong revocation/replacement/lineage/relation before either write; valid rotation and exact scope filters pass. All 16 affected tests pass without external provider operations.",
         "Current complete inclusive Messaging coverage passes 1427 checks with native PostgreSQL, integration, story and zero skips. Coverage is 84.9 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1427 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1427 checks with zero skips.",
+        "Real ETS/SQLite directory revisions, endpoint filtering and participant deletion preserve owned/foreign projections. All 12 affected tests pass.",
+        "Real ETS/SQLite advisory claims retain exact room/principal scope, immutable revision conflict, newest-first order and foreign records after room/issuer cleanup. All 18 affected tests pass.",
+        "Native explicit thread error/raise/throw/exit/invalid before message acceptance rejects without a write and permits one later retry. Backfill failure after acceptance retains full text/thread identity, one message and one causal failure; duplicate delivery makes no provider calls. All 18 affected tests pass.",
+        "Production libraries and pinned inputs are unchanged. Reuse verified prior quality, 4071-row consumer API audit, 369-file source scan and 39/51 dependency graphs. Current library hashes and exact source comparisons are recorded in current-directory-advisory-thread-reused-library-proof.json. Complete test/coverage profiles are refreshed for the new test source.",
+        "Current complete inclusive Messaging coverage passes 1445 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.1 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1445 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -947,5 +964,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T07:04:59.785890+00:00"
+  "updated_at": "2026-10-13T07:12:40.780788+00:00"
 }

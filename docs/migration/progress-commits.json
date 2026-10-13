@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T07:04:59.785890+00:00",
+  "updated_at": "2026-10-13T07:12:40.780788+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1307,13 +1307,40 @@
         "evidence/g3/g3-credential-backend-lineage-and-terminal-final-tests.json"
       ],
       "open_work": "Complete current source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6b2109abb0b9340836ae7561abac263fd39a8edc",
+      "subject": "test(directory): verify backend source revisions and endpoint scope",
+      "checks": [
+        "evidence/g3/g3-directory-backend-owned-endpoint-final-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a2ddad9b92d56bed88a6c9fb7a4eda62162e1ab5",
+      "subject": "test(storage): verify advisory claim scope and cleanup ownership",
+      "checks": [
+        "evidence/g3/g3-advisory-backend-claim-scope-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "9095ede1ad0bddfae6dc84cd9480d8234ec4c5b0",
+      "subject": "test(ingest): verify native thread store outcomes before and after acceptance",
+      "checks": [
+        "evidence/g3/g3-native-thread-verified-before-after-final-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1427,
+    "messaging_inclusive_tests": 1445,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1363,7 +1390,7 @@
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current complete inclusive coverage is 84.9 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 85.1 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1377,8 +1404,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1427,
-    "total": 1427,
-    "check": "evidence/g3/g3-current-projection-credential-ai-full-tests.json"
+    "passed": 1445,
+    "total": 1445,
+    "check": "evidence/g3/g3-current-directory-advisory-thread-ai-full-tests.json"
   }
 }
