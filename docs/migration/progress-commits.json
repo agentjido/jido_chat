@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T10:36:22.837445+00:00",
+  "updated_at": "2026-10-13T10:54:14.461444+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1626,13 +1626,24 @@
       ],
       "passed_checks": "128 affected local post/resource/size/typed execution checks without warnings and package quality.",
       "open_work": "Remaining G3 runtime/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "3187b43e139d51f80b20a1983e42d49913871ff5",
+      "subject": "fix(execution): clear result resources after publication failure",
+      "checks": [
+        "evidence/g3/g3-provider-result-publication-tests.json",
+        "evidence/g3/g3-provider-result-publication-quality.json"
+      ],
+      "passed_checks": "130 affected provider result/local post/resource/size/typed execution checks without warnings and package quality.",
+      "open_work": "Remaining G3 runtime/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1926,
+    "messaging_inclusive_tests": 1928,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1682,7 +1693,7 @@
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current complete inclusive coverage is 87.2 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 87.1 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1696,8 +1707,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1926,
-    "total": 1926,
-    "check": "evidence/g3/g3-current-local-post-resource-ai-full-tests.json"
+    "passed": 1928,
+    "total": 1928,
+    "check": "evidence/g3/g3-current-provider-result-ai-full-tests.json"
   }
 }

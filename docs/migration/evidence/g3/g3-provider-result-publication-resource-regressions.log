@@ -1,0 +1,23 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test failed result publication cancels only its prepared result and cannot repeat the query (Jido.Messaging.ProviderResultPublicationTest)
+     test/jido_messaging/provider_result_publication_test.exs:99
+     Assertion with == failed
+     code:  assert states == [{"result", true, :cancelled}]
+     left:  [{"result", false, :active}]
+     right: [{"result", true, :cancelled}]
+     stacktrace:
+       test/jido_messaging/provider_result_publication_test.exs:116: (test)
+
+     The following output was logged:
+
+     05:40:50.850 [error] Dispatch bus target not found bus_name=Elixir.Jido.Messaging.ProviderResultPublicationTest.Instance.SignalBus
+
+.
+Finished in 0.6 seconds (0.00s async, 0.6s sync)
+
+Result: 1/2 passed
+Failed: 1 test

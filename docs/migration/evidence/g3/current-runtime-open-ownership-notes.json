@@ -1,10 +1,10 @@
 {
   "state": "open",
-  "source_head": "82f15f47216dfe721eda56861541330814099e4a",
+  "source_head": "3187b43e139d51f80b20a1983e42d49913871ff5",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
-      "observed": "Remaining provider result publication/resource outcomes and canonical facade defaults need exact ownership and retry proof.",
+      "observed": "Remaining native result construction failures, event projections and canonical facade defaults need exact ownership and effect proof.",
       "required_proof": "Invalid/denied input causes zero effects. Accepted work, native results and retry counts remain complete and exact."
     },
     {
@@ -16,8 +16,8 @@
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Local post error/raise/throw/exit/invalid store outcomes cancel both prepared resources with one save attempt and cached retry.",
-    "Confirmed after-write or failed fact publication state retains the complete canonical message; foreign records and parent signal stay unchanged.",
-    "Failed fact publication clears unpublished references without a repeated store write or provider call."
+    "Failed provider result publication clears the selected result resource and returns cached observation_failed with exactly one callback.",
+    "Other caller result/file handles and complete owned/foreign canonical records stay unchanged; retry adds no resource or provider call.",
+    "Published results retain the complete query page/cursor, original parent causation and call ownership."
   ]
 }
