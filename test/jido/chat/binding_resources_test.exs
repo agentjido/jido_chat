@@ -64,4 +64,27 @@ defmodule Jido.Chat.BindingResourcesTest do
     assert_received {:enumerated, "one"}
     assert_received {:enumerated, "two"}
   end
+
+  test "a completed creator call cannot leave its private value available" do
+    scope = %{id: "runtime-owner", resources: :ets.new(:call_resources, [:set, :public])}
+    task = Task.async(fn -> Jido.Chat.Resources.put(scope, "result", "private-result", []) end)
+    assert {:ok, ref} = Task.await(task)
+    assert {:error, %Contract{code: :resource_expired}} = Jido.Chat.Resources.resolve(scope, ref)
+    assert [{{:resource, _}, _, "result", nil, _, :expired}] = :ets.lookup(scope.resources, {:resource, ref["id"]})
+  end
+
+  test "expiry clears a private value even when a different caller checks it" do
+    assert {:ok, binding} = Jido.Chat.bind(Adapter, id: "binding-1")
+    assert {:ok, ref} = Jido.Chat.put_resource(binding, "result", "private-result", ttl_ms: 0)
+    task = Task.async(fn -> Jido.Chat.resolve_resource(binding, ref) end)
+    assert {:error, %Contract{code: :resource_expired}} = Task.await(task)
+    assert [{{:resource, _}, _, "result", nil, _, :expired}] = :ets.lookup(binding.resources, {:resource, ref["id"]})
+  end
+
+  test "a resource kind mismatch cannot reuse a terminal resource state" do
+    assert {:ok, binding} = Jido.Chat.bind(Adapter, id: "binding-1")
+    assert {:ok, ref} = Jido.Chat.put_resource(binding, "result", "private-result")
+    assert :ok = Jido.Chat.cancel_resource(binding, ref)
+    assert {:error, %Contract{code: :invalid_resource}} = Jido.Chat.resolve_resource(binding, %{ref | "kind" => "file"})
+  end
 end

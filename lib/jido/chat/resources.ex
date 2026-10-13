@@ -75,26 +75,8 @@ defmodule Jido.Chat.Resources do
        })
        when binding_id == owner_id do
     case :ets.lookup(binding.resources, {:resource, id}) do
-      [{_key, owner, _kind, _value, _expiry, _status}] when owner != self() ->
-        Policy.error(:resource_owner_mismatch)
-
-      [{_key, _owner, _kind, _value, _expiry, :cancelled}] ->
-        Policy.error(:resource_cancelled)
-
-      [{_key, _owner, _kind, _value, _expiry, :failed}] ->
-        Policy.error(:resource_failure)
-
-      [{_key, _owner, ^kind, _value, expiry, :active} = value] ->
-        if expiry > System.monotonic_time(:millisecond) do
-          {:ok, value}
-        else
-          {key, owner, kind, _private_value, expiry, _status} = value
-          :ets.insert(binding.resources, {key, owner, kind, nil, expiry, :expired})
-          Policy.error(:resource_expired)
-        end
-
-      [{_key, _owner, _kind, _value, _expiry, :expired}] ->
-        Policy.error(:resource_expired)
+      [{_key, _owner, ^kind, _value, _expiry, _status} = value] ->
+        validate_entry(binding, value)
 
       _ ->
         Policy.error(:invalid_resource)
@@ -104,4 +86,30 @@ defmodule Jido.Chat.Resources do
   end
 
   defp entry(_binding, _ref), do: Policy.error(:invalid_resource)
+
+  defp validate_entry(binding, {key, owner, kind, _value, expiry, status} = entry) do
+    cond do
+      status == :active and (expiry <= System.monotonic_time(:millisecond) or not Process.alive?(owner)) ->
+        :ets.insert(binding.resources, {key, owner, kind, nil, expiry, :expired})
+        Policy.error(:resource_expired)
+
+      owner != self() ->
+        Policy.error(:resource_owner_mismatch)
+
+      status == :cancelled ->
+        Policy.error(:resource_cancelled)
+
+      status == :failed ->
+        Policy.error(:resource_failure)
+
+      status == :expired ->
+        Policy.error(:resource_expired)
+
+      status == :active ->
+        {:ok, entry}
+
+      true ->
+        Policy.error(:invalid_resource)
+    end
+  end
 end
