@@ -1,0 +1,14 @@
+Compiling 1 file (.ex)
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp entry/2" was previously defined (lib/jido/chat/resources.ex:70)
+     │
+ 114 │   defp entry(_binding, _ref), do: Policy.error(:invalid_resource)
+     │        ~
+     │
+     └─ lib/jido/chat/resources.ex:114:8
+
+Running ExUnit with seed: 0, max_cases: 20
+
+.................................................................................................................................................................................................................................................................
+Finished in 4.5 seconds (4.5s async, 0.00s sync)
+
+Result: 257 passed

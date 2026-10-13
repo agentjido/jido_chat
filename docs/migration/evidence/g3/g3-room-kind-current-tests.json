@@ -1,0 +1,24 @@
+{
+  "label": "g3-room-kind-current-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/typed_room_creation_test.exs",
+    "test/jido_messaging/typed_execution_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "824df2d60c1a8efa8ff887212bd49eadd6183edf",
+  "source_tree_sha256": "2e5ee25027ab45caab58b122057952e76fb29ec186315a80988191f620fe8575",
+  "started_at": "2026-10-13T00:03:37.227801+00:00",
+  "finished_at": "2026-10-13T00:03:47.891894+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-room-kind-current-tests.log",
+  "log_sha256": "8be6d9e6ea7f548bb4b317cecc4855576f7028ab67d8f562622cde16f65c6844"
+}

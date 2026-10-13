@@ -160,7 +160,21 @@
         "evidence/g3/g3-create-room-current-quality.json",
         "evidence/g3/g3-current-owned-ingress-coverage.json",
         "evidence/g3/g3-current-record-api-contract-check.json",
-        "evidence/g3/g3-current-three-package-boundary-scan.json"
+        "evidence/g3/g3-current-three-package-boundary-scan.json",
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
       ],
       "work_complete": false,
       "completed": [
@@ -211,13 +225,19 @@
         "Remove the unused legacy event-mirror option. The expanded G3 scan checks all 369 core/Messaging/Signal-provider library files with exact source revisions and zero findings.",
         "Keep typed bridge-scoped room allocation. Room posting authority cannot allocate an unrelated room, and creation cannot replace an existing room. Seven new tests prove scope, write counts, revocation, causal observations, and terminal failure admission.",
         "The API map retains create_room as a record-only helper and adds both scoped provider-message lookup arities. G1 contract verification passes.",
-        "All 929 inclusive tests pass with seed 0 and warnings as errors, including local PostgreSQL, integration, and story tests. No test is skipped. Current Messaging quality passes. Inclusive coverage is 77.8 percent; the 90 percent floor is not met."
+        "All 929 inclusive tests pass with seed 0 and warnings as errors, including local PostgreSQL, integration, and story tests. No test is skipped. Current Messaging quality passes. Inclusive coverage is 77.8 percent; the 90 percent floor is not met.",
+        "An exact 256 KiB Chat parent remains accepted. Runtime message facts retain canonical IDs and a closed call-scoped result reference. Complete portable text remains in owned records and private snapshots; one byte over the parent limit rejects the whole unit before writes.",
+        "Local maximum-size posts keep full content and return bounded native result references. Output is built and validated before storage. A failed write cancels prepared private resources and retains terminal failure admission without repeat effects.",
+        "The runtime resource owner uses existing private runtime state. Root/instance resolve and cancel helpers preserve creator-process checks and reject unknown owners with contract errors. No provider adapter or process tree is added.",
+        "Call expiry and creator exit clear the private value on resource access. Kind is checked before terminal state. Three regression tests pass; core has 257 passing tests and passing quality.",
+        "CreateRoom accepts exactly the four backing Room kinds. All four kinds pass execution tests; unknown kind fails the constructor before execution.",
+        "Current verification passes 936 inclusive Messaging tests with zero skips, 257 core tests, four optional AI tests, 110 native Catalog definitions, current core/Messaging quality, and the 369-file three-package source scan. Inclusive Messaging coverage remains 77.8 percent."
       ],
       "remaining": [
-        "Finish exact encoded-size, request admission, private resource ownership/lifetime, and observation failure checks across every public entry. Check CreateRoom kind values against the backing Room schema.",
-        "Complete current compiled API export classification and boundary scans across the whole declared group in G7/G8.",
+        "Finish the remaining admission, authoritative observation, and compiled API/export audits across every public entry. Resource references remain call scoped; no durable or restart-safe replay claim is made.",
         "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
-        "Run fresh complete core-only/optional-AI graphs and all required package/quality/coverage checks after final changes."
+        "Complete whole-group adapter checks and fresh core-only/optional-AI integration graphs in G7 after all provider ports.",
+        "Complete every remaining package, quality, coverage, dependency audit, PR/review/current-head CI requirement in G4-G9."
       ]
     },
     {

@@ -1,0 +1,25 @@
+{
+  "label": "g3-resource-control-api-manifest-check",
+  "command": [
+    "mix",
+    "run",
+    "-r",
+    "integration/lib/manifest.ex",
+    "integration/scripts/verify_signal_migration.exs",
+    "--phase",
+    "G1",
+    "--manifest",
+    "docs/migration/version-matrix.json"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c1de4eddf125d5e59129a9179f38cd977f19e628",
+  "source_tree_sha256": "64a48414a656dba39fab51ba8bda92d7546ebe94a26db405afd5a0d2c1d8a350",
+  "started_at": "2026-10-13T00:04:00.039166+00:00",
+  "finished_at": "2026-10-13T00:04:01.713441+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-resource-control-api-manifest-check.log",
+  "log_sha256": "69a0b5d76a0bb375178a8d467f531e2374d47c9ee1c3071bc711a0297be6ee31"
+}

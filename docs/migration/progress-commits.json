@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-12T23:41:59.077414+00:00",
+  "updated_at": "2026-10-13T00:07:14.839437+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -282,13 +282,123 @@
         "evidence/g3/g3-current-three-package-boundary-scan.json"
       ],
       "open_work": "G3-G9 remain open. All final completion requirements stay in place."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "9c5b290565a5ad7c4c027e1090dc5847300ec5da",
+      "subject": "refactor(resources): support a captured runtime resource owner",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "c1de4eddf125d5e59129a9179f38cd977f19e628",
+      "subject": "fix(resources): clear values after call expiry or creator exit",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "2a93487099876af5935e681f643c66c5fe206d0f",
+      "subject": "docs(contract): record runtime resource references and controls",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "824df2d60c1a8efa8ff887212bd49eadd6183edf",
+      "subject": "fix(messaging): retain maximum-size messages through scoped runtime resources",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "ea7d46b8466ecb648e66df4d87993d7ce6210fc9",
+      "subject": "fix(schema): match room creation kinds to stored room types",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
     }
   ],
   "passed_checks": {
-    "core_tests": 254,
+    "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 929,
+    "messaging_inclusive_tests": 936,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -302,14 +412,11 @@
     "current_library_scan_findings": 0
   },
   "open_work": [
-    "Finish exact encoded-size, request admission, private resource ownership/lifetime, and observation failure checks across every public entry. Check CreateRoom kind values against the backing Room schema.",
-    "Complete current compiled API export classification and boundary scans across the whole declared group in G7/G8.",
+    "Finish the remaining admission, authoritative observation, and compiled API/export audits across every public entry. Resource references remain call scoped; no durable or restart-safe replay claim is made.",
     "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
-    "Run fresh complete core-only/optional-AI graphs and all required package/quality/coverage checks after final changes.",
-    "G4-G6: complete all nine provider ports and normalized membership.",
-    "G7: C01-C14, all required checks and coverage, exact pinned graphs, unresolved Gun/Cowlib dependency audit.",
-    "G8-G9: versions, complete API/docs/package evidence, focused PRs, attachments, review, and current-head CI."
+    "Complete whole-group adapter checks and fresh core-only/optional-AI integration graphs in G7 after all provider ports.",
+    "Complete every remaining package, quality, coverage, dependency audit, PR/review/current-head CI requirement in G4-G9."
   ],
-  "coverage_note": "The fresh inclusive coverage report is 77.8 percent on the current Messaging code commit. The required 90 percent floor is not met.",
+  "coverage_note": "Current inclusive coverage is 77.8 percent. The required 90 percent floor is not met. No threshold, skip, or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA."
 }

@@ -15,8 +15,8 @@ Do not wait for all gates to pass. Keep each commit focused. Put passed checks a
 open work in its commit message and in `progress-commits.json`.
 All final completion requirements stay the same.
 
-The tested work is now saved in progress commits. Fresh checks passed 254 core
-tests, 54 Signal adapter tests, 929 inclusive Messaging tests, and four optional
+The tested work is now saved in progress commits. Fresh checks passed 257 core
+tests, 54 Signal adapter tests, 936 inclusive Messaging tests, and four optional
 AI tests. The Messaging run includes local PostgreSQL, integration, and story
 cases. It has no skipped test. One existing Signal provider live test is excluded.
 Core, Messaging, and Signal adapter quality checks pass.
@@ -44,6 +44,22 @@ The low-level `create_room` function stores a Room record without a Signal.
 The source scan now checks all 369 current core, Messaging, and Signal provider
 library files and records exact source hashes. It has zero findings. Full
 all-provider export and conformance checks remain required.
+
+A maximum-size Chat message keeps its complete content in owned storage. Its
+runtime fact uses canonical IDs and a closed result reference when needed.
+Maximum-size local posts use the same private runtime resource owner for their
+facts and results. The result is validated before the canonical write. Storage
+failure cancels the prepared resources. Repeated execution does not repeat a write.
+
+Use `resolve_resource` and `cancel_resource` on the instance for private resource
+control. A reference belongs to its creator process. A different active caller
+gets an ownership error. An expired or completed creator call cannot resolve the
+value; lookup clears it. A call-scoped reference has no restart-safe replay claim.
+
+The CreateRoom kind now matches the four stored Room types. Unknown kind fails at
+the constructor. Current checks pass 936 inclusive runtime tests, 257 core tests,
+four optional AI tests, and all 110 native Catalog definitions. Coverage remains
+77.8 percent, below the required 90 percent.
 
 ## Dependency baseline
 
