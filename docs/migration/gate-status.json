@@ -160,6 +160,10 @@
         "evidence/g3/current-history-revision-coverage-gaps.json",
         "evidence/g3/current-history-revision-runtime-ai-graph.json",
         "evidence/g3/current-history-revision-runtime-core-graph.json",
+        "evidence/g3/current-identity-callback-complete-api-exports.json",
+        "evidence/g3/current-identity-callback-coverage-gaps.json",
+        "evidence/g3/current-identity-callback-prohibited-runtime-boundary-scan.json",
+        "evidence/g3/current-identity-callback-source-proof.json",
         "evidence/g3/current-identity-unregister-complete-api-exports.json",
         "evidence/g3/current-identity-unregister-coverage-gaps.json",
         "evidence/g3/current-identity-unregister-prohibited-runtime-boundary-scan.json",
@@ -418,6 +422,14 @@
         "evidence/g3/g3-current-hook-failure-core-graph.json",
         "evidence/g3/g3-current-hook-failure-inclusive-coverage.json",
         "evidence/g3/g3-current-hook-failure-source-scan.json",
+        "evidence/g3/g3-current-identity-callback-ai-full-tests.json",
+        "evidence/g3/g3-current-identity-callback-ai-harness.json",
+        "evidence/g3/g3-current-identity-callback-api-audit.json",
+        "evidence/g3/g3-current-identity-callback-core-full-tests.json",
+        "evidence/g3/g3-current-identity-callback-core-harness.json",
+        "evidence/g3/g3-current-identity-callback-inclusive-coverage.json",
+        "evidence/g3/g3-current-identity-callback-optional-ai.json",
+        "evidence/g3/g3-current-identity-callback-source-scan.json",
         "evidence/g3/g3-current-identity-unregister-ai-full-tests.json",
         "evidence/g3/g3-current-identity-unregister-ai-harness.json",
         "evidence/g3/g3-current-identity-unregister-api-audit.json",
@@ -599,6 +611,11 @@
         "evidence/g3/g3-gateway-route-validation-and-stopped-partition-tests.json",
         "evidence/g3/g3-gateway-route-validation-and-unavailable-final-tests.json",
         "evidence/g3/g3-gateway-route-validation-and-unavailable-tests.json",
+        "evidence/g3/g3-identity-callback-authorship-and-scope-final-tests.json",
+        "evidence/g3/g3-identity-callback-owned-outcome-final-tests.json",
+        "evidence/g3/g3-identity-callback-owned-outcome-regression-tests.json",
+        "evidence/g3/g3-identity-callback-safe-result-quality.json",
+        "evidence/g3/g3-identity-callback-warning-free-owned-final-tests.json",
         "evidence/g3/g3-identity-root-facade-defaults-tests.json",
         "evidence/g3/g3-inclusive-admission-presence-coverage.json",
         "evidence/g3/g3-inclusive-current-owned-runtime-tests.json",
@@ -977,7 +994,11 @@
         "Complete assignment inventories validate owned room, thread ID, assigned agent ID and duplicate identities before register/unregister effects. Error/raise/throw/exit/invalid reads retain registration, both owned/foreign thread records and runner PIDs with zero writes/admissions. Explicit restoration returns failures, including runner start failure; startup handles error results safely. All 75 affected tests and package quality pass.",
         "Current root and AgentSupervisor source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
         "Current complete inclusive Messaging coverage passes 1661 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.0 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1661 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1661 checks with zero skips.",
+        "Principal/binding read/write callbacks return safe defined failures for error/raise/throw/exit/invalid results. Schema and requested identity/provider scope checks reject foreign records; whole invalid binding lists fail. Writes validate complete semantics while preserving backend-owned binding identity/insertion time. Before/after-write failures retain exact complete effects with no false authorship/promotion or authority. All 72 affected tests and package quality pass; failed regression and warning-failed records remain.",
+        "Current private Identity source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
+        "Current complete inclusive Messaging coverage passes 1711 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.0 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1711 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1147,5 +1168,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T08:38:31.779528+00:00"
+  "updated_at": "2026-10-13T08:46:09.904922+00:00"
 }

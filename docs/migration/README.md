@@ -4,8 +4,8 @@ This migration is in progress. G0, G1, and G2 have passed. G3–G9 are pending.
 The full package group is not ready for use.
 
 The isolated native PostgreSQL fixture works. Current complete Messaging checks
-pass 1,661 tests with zero skips and 86.0 percent coverage. Both current complete
-runtime profiles pass all 1,661 checks.
+pass 1,711 tests with zero skips and 86.0 percent coverage. Both current complete
+runtime profiles pass all 1,711 checks.
 The required 90 percent floor remains unmet.
 
 The execution plan is
@@ -27,6 +27,11 @@ Current Messaging quality, API audit and source scan pass.
 
 Do not add GitHub issue progress comments or change the issue body for progress.
 Record progress in this chat, local files and commit messages.
+
+Identity store callbacks now return defined failures and validate complete
+principal and binding records. Foreign IDs/provider scope and partial invalid
+lists are rejected. Confirmed writes remain exact after failure; a failed
+binding save cannot return authorship or false principal promotion.
 
 Assignment inventories now fail before registration or cleanup changes. Whole
 foreign, malformed or duplicate thread lists are rejected. Explicit restoration
@@ -149,7 +154,7 @@ and the accepted claim. It emits a registered failure fact when the Bus is
 available. Repeated delivery cannot repeat that message write.
 
 The CreateRoom kind now matches the four stored Room types. Unknown kind fails at
-the constructor. Current checks pass 1,661 complete Messaging checks. The unchanged core has
+the constructor. Current checks pass 1,711 complete Messaging checks. The unchanged core has
 257 passing tests. Four optional AI tests pass. The Catalog has 110 native definitions.
 Current coverage is 86.0 percent, below the required 90 percent.
 

@@ -1,24 +1,24 @@
 {
   "state": "open",
-  "source_head": "e49a0c88e91bde13a21f1ca0e115946d5f930e78",
+  "source_head": "cd49f6cfcb342eefc37546c6ae53ad224bd3806a",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/identity.ex and identity_credentials.ex",
-      "observed": "Principal/binding and credential persistence callbacks still have direct read/write error, raise, throw, exit and invalid identity result paths.",
-      "required_proof": "Defined failures, complete owned records, exact confirmed writes and no false identity promotion/authorization/provider/admission effects."
+      "file": "lib/jido_messaging/identity_credentials.ex and identity_verifier.ex",
+      "observed": "Credential participant/room/get/list/save/rotate/assertion persistence callbacks are still direct in some paths. Read/write errors, exceptions, throws, exits and invalid records lack complete safe outcome proof.",
+      "required_proof": "Defined failures, exact confirmed lifecycle/rotation/replay effects, no false assurance or foreign scope and no grants/provider/admission effects before valid inputs."
     },
     {
       "file": "lib/jido_messaging/execution.ex and demo/topology.ex",
-      "observed": "Remaining typed execution and setup failure branches have missed exact-effect tests.",
-      "required_proof": "Invalid or denied input has zero effects; accepted work and full results retain exact retry behavior. Required coverage remains 90 percent."
+      "observed": "Remaining typed execution/setup branches still have missed direct effect-count tests.",
+      "required_proof": "Invalid/denied input has zero effects; accepted work and complete results preserve exact retry behavior. Required coverage remains 90 percent."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Complete assignment list failures preserve registration, owned/foreign records and runner PIDs with zero writes/admissions.",
-    "Register validates inventory before adding the agent.",
-    "Unregister rejects malformed, duplicate and foreign-room thread inventories before cleanup.",
-    "Explicit restoration returns read/start errors and keeps accepted registration/assignment state for retry; startup handles those errors."
+    "Identity principal and binding callbacks contain failures and validate schema/requested IDs.",
+    "Provider-scope reads and whole binding lists reject foreign or malformed results.",
+    "Confirmed strengthening/promotion writes remain exact after failure; no false success is returned.",
+    "Failed authorship binding saves produce no authorship or false principal promotion, grants, membership or admissions."
   ]
 }
