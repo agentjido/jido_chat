@@ -5338,6 +5338,16 @@
                       },
                       "can_manage_topics": {
                         "type": "boolean"
+                      },
+                      "can_react_to_messages": {
+                        "type": "boolean"
+                      },
+                      "can_edit_tag": {
+                        "type": "boolean"
+                      },
+                      "until_date": {
+                        "type": "integer",
+                        "minimum": 0
                       }
                     },
                     "required": [],
@@ -5433,6 +5443,16 @@
                   },
                   "can_manage_topics": {
                     "type": "boolean"
+                  },
+                  "can_react_to_messages": {
+                    "type": "boolean"
+                  },
+                  "can_edit_tag": {
+                    "type": "boolean"
+                  },
+                  "until_date": {
+                    "type": "integer",
+                    "minimum": 0
                   }
                 },
                 "required": [],
@@ -11786,6 +11806,16 @@
                       },
                       "can_manage_topics": {
                         "type": "boolean"
+                      },
+                      "can_react_to_messages": {
+                        "type": "boolean"
+                      },
+                      "can_edit_tag": {
+                        "type": "boolean"
+                      },
+                      "until_date": {
+                        "type": "integer",
+                        "minimum": 0
                       }
                     },
                     "required": [],
@@ -11881,6 +11911,16 @@
                   },
                   "can_manage_topics": {
                     "type": "boolean"
+                  },
+                  "can_react_to_messages": {
+                    "type": "boolean"
+                  },
+                  "can_edit_tag": {
+                    "type": "boolean"
+                  },
+                  "until_date": {
+                    "type": "integer",
+                    "minimum": 0
                   }
                 },
                 "required": [],
