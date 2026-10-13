@@ -1,6 +1,6 @@
 {
   "state": "pass",
-  "checked_at": "2026-10-13T22:31:51.602360+00:00",
+  "checked_at": "2026-10-13T22:52:29.367621+00:00",
   "checks": [
     "G0-G5 pass; G6-G9 pending",
     "current gate G6; authorized through B3; stop reached",
@@ -12,5 +12,15 @@
     "adapter dependency and live-exclusion files unchanged",
     "git diff --check passes"
   ],
-  "notes": "The source verification record confirms all final tests match saved source. The checkpoint report records the remaining goal work."
+  "notes": "The source verification record confirms all final tests match saved source. The checkpoint report records the remaining goal work.",
+  "log_format_correction": {
+    "files": [
+      "telegram-quality-final.log",
+      "adapter-pair-matrix-first.log",
+      "slack-quality-final.log"
+    ],
+    "cause": "Staged diff check found whitespace in raw tool logs after the earlier unstaged check passed.",
+    "action": "Normalize saved log whitespace, retain original hashes and update saved log hashes.",
+    "source_and_test_results_unchanged": true
+  }
 }

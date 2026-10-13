@@ -30,33 +30,33 @@ done (passed successfully)
 Doctor file not found. Using defaults.
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Doc Cov  Spec Cov  Module                                   File                                                      Functions  No Docs  No Specs  Module Doc  Struct Spec
-100%     100%      Jido.Chat.Telegram                       lib/jido/chat/telegram.ex                                 1          0        0         Yes         N/A        
-100%     100%      Jido.Chat.Telegram.Adapter               lib/jido/chat/telegram/adapter.ex                         24         0        0         Yes         N/A        
-100%     50%       Jido.Chat.Telegram.CallbackAnswerOption  lib/jido/chat/telegram/callback_answer_options.ex         4          0        2         Yes         Yes        
-100%     50%       Jido.Chat.Telegram.CallbackAnswerResult  lib/jido/chat/telegram/callback_answer_result.ex          2          0        1         Yes         Yes        
-100%     33%       Jido.Chat.Telegram.DeleteOptions         lib/jido/chat/telegram/delete_options.ex                  3          0        2         Yes         Yes        
-100%     50%       Jido.Chat.Telegram.DocumentOptions       lib/jido/chat/telegram/document_options.ex                4          0        2         Yes         Yes        
-100%     60%       Jido.Chat.Telegram.EditOptions           lib/jido/chat/telegram/edit_options.ex                    5          0        2         Yes         Yes        
-100%     100%      Jido.Chat.Telegram.ExGramAdapter         lib/jido/chat/telegram/ex_gram_adapter.ex                 1          0        0         Yes         N/A        
-100%     100%      Jido.Chat.Telegram.Extensions            lib/jido/chat/telegram/extensions.ex                      6          0        0         Yes         N/A        
-100%     0%        Jido.Chat.Telegram.FileInfo              lib/jido/chat/telegram/file_info.ex                       2          0        2         Yes         Yes        
-100%     33%       Jido.Chat.Telegram.FileOptions           lib/jido/chat/telegram/file_options.ex                    3          0        2         Yes         Yes        
-100%     100%      Jido.Chat.Telegram.Ingress               lib/jido/chat/telegram/ingress.ex                         5          0        0         Yes         N/A        
-100%     67%       Jido.Chat.Telegram.InlineKeyboard        lib/jido/chat/telegram/inline_keyboard.ex                 3          0        1         Yes         Yes        
-100%     67%       Jido.Chat.Telegram.InlineKeyboardButton  lib/jido/chat/telegram/inline_keyboard_button.ex          3          0        1         Yes         Yes        
-100%     75%       Jido.Chat.Telegram.MediaMessage          lib/jido/chat/telegram/media_message.ex                   4          0        1         Yes         Yes        
-100%     100%      Jido.Chat.Telegram.Membership            lib/jido/chat/telegram/membership.ex                      1          0        0         Yes         N/A        
-100%     33%       Jido.Chat.Telegram.MetadataOptions       lib/jido/chat/telegram/metadata_options.ex                3          0        2         Yes         Yes        
-100%     100%      Jido.Chat.Telegram.Normalizer            lib/jido/chat/telegram/normalizer.ex                      1          0        0         Yes         N/A        
-100%     100%      Jido.Chat.Telegram.ParseMode             lib/jido/chat/telegram/parse_mode.ex                      2          0        0         Yes         N/A        
-100%     50%       Jido.Chat.Telegram.PhotoOptions          lib/jido/chat/telegram/photo_options.ex                   4          0        2         Yes         Yes        
-67%      100%      Jido.Chat.Telegram.PollingWorker         lib/jido/chat/telegram/polling_worker.ex                  3          1        0         Yes         N/A        
-100%     50%       Jido.Chat.Telegram.ReactionOptions       lib/jido/chat/telegram/reaction_options.ex                4          0        2         Yes         Yes        
-100%     60%       Jido.Chat.Telegram.SendOptions           lib/jido/chat/telegram/send_options.ex                    5          0        2         Yes         Yes        
-100%     60%       Jido.Chat.Telegram.StreamOptions         lib/jido/chat/telegram/stream_options.ex                  5          0        2         Yes         Yes        
-N/A      N/A       Jido.Chat.Telegram.Transport             lib/jido/chat/telegram/transport.ex                       0          0        0         Yes         N/A        
-100%     100%      Jido.Chat.Telegram.Transport.ExGramClie  lib/jido/chat/telegram/transport/ex_gram_client.ex        1          0        0         Yes         N/A        
-100%     50%       Jido.Chat.Telegram.TypingOptions         lib/jido/chat/telegram/typing_options.ex                  4          0        2         Yes         Yes        
+100%     100%      Jido.Chat.Telegram                       lib/jido/chat/telegram.ex                                 1          0        0         Yes         N/A
+100%     100%      Jido.Chat.Telegram.Adapter               lib/jido/chat/telegram/adapter.ex                         24         0        0         Yes         N/A
+100%     50%       Jido.Chat.Telegram.CallbackAnswerOption  lib/jido/chat/telegram/callback_answer_options.ex         4          0        2         Yes         Yes
+100%     50%       Jido.Chat.Telegram.CallbackAnswerResult  lib/jido/chat/telegram/callback_answer_result.ex          2          0        1         Yes         Yes
+100%     33%       Jido.Chat.Telegram.DeleteOptions         lib/jido/chat/telegram/delete_options.ex                  3          0        2         Yes         Yes
+100%     50%       Jido.Chat.Telegram.DocumentOptions       lib/jido/chat/telegram/document_options.ex                4          0        2         Yes         Yes
+100%     60%       Jido.Chat.Telegram.EditOptions           lib/jido/chat/telegram/edit_options.ex                    5          0        2         Yes         Yes
+100%     100%      Jido.Chat.Telegram.ExGramAdapter         lib/jido/chat/telegram/ex_gram_adapter.ex                 1          0        0         Yes         N/A
+100%     100%      Jido.Chat.Telegram.Extensions            lib/jido/chat/telegram/extensions.ex                      6          0        0         Yes         N/A
+100%     0%        Jido.Chat.Telegram.FileInfo              lib/jido/chat/telegram/file_info.ex                       2          0        2         Yes         Yes
+100%     33%       Jido.Chat.Telegram.FileOptions           lib/jido/chat/telegram/file_options.ex                    3          0        2         Yes         Yes
+100%     100%      Jido.Chat.Telegram.Ingress               lib/jido/chat/telegram/ingress.ex                         5          0        0         Yes         N/A
+100%     67%       Jido.Chat.Telegram.InlineKeyboard        lib/jido/chat/telegram/inline_keyboard.ex                 3          0        1         Yes         Yes
+100%     67%       Jido.Chat.Telegram.InlineKeyboardButton  lib/jido/chat/telegram/inline_keyboard_button.ex          3          0        1         Yes         Yes
+100%     75%       Jido.Chat.Telegram.MediaMessage          lib/jido/chat/telegram/media_message.ex                   4          0        1         Yes         Yes
+100%     100%      Jido.Chat.Telegram.Membership            lib/jido/chat/telegram/membership.ex                      1          0        0         Yes         N/A
+100%     33%       Jido.Chat.Telegram.MetadataOptions       lib/jido/chat/telegram/metadata_options.ex                3          0        2         Yes         Yes
+100%     100%      Jido.Chat.Telegram.Normalizer            lib/jido/chat/telegram/normalizer.ex                      1          0        0         Yes         N/A
+100%     100%      Jido.Chat.Telegram.ParseMode             lib/jido/chat/telegram/parse_mode.ex                      2          0        0         Yes         N/A
+100%     50%       Jido.Chat.Telegram.PhotoOptions          lib/jido/chat/telegram/photo_options.ex                   4          0        2         Yes         Yes
+67%      100%      Jido.Chat.Telegram.PollingWorker         lib/jido/chat/telegram/polling_worker.ex                  3          1        0         Yes         N/A
+100%     50%       Jido.Chat.Telegram.ReactionOptions       lib/jido/chat/telegram/reaction_options.ex                4          0        2         Yes         Yes
+100%     60%       Jido.Chat.Telegram.SendOptions           lib/jido/chat/telegram/send_options.ex                    5          0        2         Yes         Yes
+100%     60%       Jido.Chat.Telegram.StreamOptions         lib/jido/chat/telegram/stream_options.ex                  5          0        2         Yes         Yes
+N/A      N/A       Jido.Chat.Telegram.Transport             lib/jido/chat/telegram/transport.ex                       0          0        0         Yes         N/A
+100%     100%      Jido.Chat.Telegram.Transport.ExGramClie  lib/jido/chat/telegram/transport/ex_gram_client.ex        1          0        0         Yes         N/A
+100%     50%       Jido.Chat.Telegram.TypingOptions         lib/jido/chat/telegram/typing_options.ex                  4          0        2         Yes         Yes
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Summary:
 

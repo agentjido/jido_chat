@@ -173,7 +173,7 @@
     }
   },
   "log": "evidence/checkpoint-b3/adapter-pair-matrix-first.log",
-  "log_sha256": "2ab45c3b114a2193d2f44d78513bee2c45eeec0e03b076c2a38678238c687507",
+  "log_sha256": "a332f337caf75acb69d31c38a079cc9e5a22604885588a7fe1659b09dd7ab545",
   "sources_at_end": {
     "jido_chat": {
       "lib": {
@@ -325,5 +325,7 @@
       "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
     }
   },
-  "sources_unchanged": true
+  "sources_unchanged": true,
+  "raw_log_sha256": "2ab45c3b114a2193d2f44d78513bee2c45eeec0e03b076c2a38678238c687507",
+  "saved_log_format": "Trailing spaces and blank lines at EOF removed; content and test results unchanged. Original output digest retained in raw_log_sha256."
 }

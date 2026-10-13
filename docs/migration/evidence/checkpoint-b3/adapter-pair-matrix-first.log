@@ -14,4 +14,3 @@ Generated jido_chat_integration app
     └─ fixtures/adapter_pair_conformance_test.exs:12:8: Jido.Chat.AdapterPairConformanceTest (module)
 
 ** (CompileError) fixtures/adapter_pair_conformance_test.exs: cannot compile module Jido.Chat.AdapterPairConformanceTest (errors have been logged)
-
