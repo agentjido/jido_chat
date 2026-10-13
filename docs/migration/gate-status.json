@@ -304,6 +304,7 @@
         "evidence/g3/g3-current-webhook-owned-expiry-ai-full-tests.json",
         "evidence/g3/g3-current-webhook-owned-expiry-core-full-tests.json",
         "evidence/g3/g3-current-webhook-owned-expiry-inclusive-coverage.json",
+        "evidence/g3/g3-current-webhook-owned-expiry-optional-ai.json",
         "evidence/g3/g3-dead-letter-ownership-controls.json",
         "evidence/g3/g3-deduper-owned-clock-and-room-final-tests.json",
         "evidence/g3/g3-delete-and-runtime-unavailable-final-tests.json",
@@ -527,7 +528,8 @@
         "Replace the TTL test sleep with a future deadline proof and an explicit past deadline set inside the private table owner. Production TTL is unchanged.18 deduper/room cases pass. The isolated complete coverage rerun passes 1268 checks with no skips and 83.3 percent coverage. Required 90 percent remains unmet.",
         "Current production source quality, 5031-export API audit, 369-file scan, 39/51 pinned graphs and both 241-case harnesses pass. The final expiry change is test-only. Complete current core recheck is running, then AI current test-source recheck remains.",
         "The complete current core profile rerun passes all 1268 checks with native PostgreSQL and zero skips. Final current AI test-source rerun is active.",
-        "Both final current full runtime profiles pass 1268 checks with native PostgreSQL and zero skips. Required 90 percent coverage remains unmet."
+        "Both final current full runtime profiles pass 1268 checks with native PostgreSQL and zero skips. Required 90 percent coverage remains unmet.",
+        "All four final-source optional AI fixtures pass without a model call."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
