@@ -1,28 +1,29 @@
 {
   "state": "open",
-  "source_head": "0e7899794256c2d302f37401a58823570c5281b8",
+  "source_head": "d1bcc8234a4509bca079f690e8b5a6747af143f2",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/inbound_router.ex",
-      "observed": "Private request construction and bridge status observation after acceptance have failure branches not covered by the new callback suite.",
-      "required_proof": "No repeat accepted store effect; safe transport failure if request fields are malformed; parent native delivery unchanged."
+      "file": "lib/jido_messaging/persistence/ets.ex",
+      "observed": "Revisioned identity/endpoint and scoped query validation gaps remain from complete coverage.",
+      "required_proof": "Real records with malformed or stale revisions; scoped page/cursor filters cannot infer authority."
     },
     {
       "file": "lib/jido_messaging/ingest.ex",
-      "observed": "Current meaningful gaps include contextual replies, media resolver limits and room/thread record error paths.",
-      "required_proof": "Full portable payload, exact canonical record/context scope and write/deduper/observation counts."
+      "observed": "Reply context, maximum-media/result resource and resolver failure branches still need complete outcome proof.",
+      "required_proof": "Full canonical message context/payload, exact accepted write and observation counts."
     },
     {
-      "file": "lib/jido_messaging/persistence/ets.ex",
-      "observed": "Endpoint, agent directory, activity projection and identity cleanup/revision branch gaps remain.",
-      "required_proof": "Real backend compound records with same IDs across scopes; foreign data and authority stay unchanged."
+      "file": "lib/jido_messaging/demo/topology.ex",
+      "observed": "Remaining safe config key and ordered topology section failure paths are not all covered.",
+      "required_proof": "No writes for invalid complete sections; exact declared canonical room binding ownership."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Webhook verifier error/raise/throw/exit/invalid result rejects before normalization. Formatter exceptions after accepted writes preserve transport outcome and one stored message.",
-    "Missing instance and resolver exceptions return controlled HTTP responses before ingress/body reads. Twenty config/body chunk/error cases pass.",
-    "Normalizer exception and mixed valid/invalid schema delivery have zero room/message writes; successful response map preserves private transport status/headers/body. Six new cases pass."
+    "Agent route room identity is immutable in ETS/SQLite; deliberate endpoint reroute remains supported and clears previous endpoint correlation refs.",
+    "Real endpoint/membership/route compound record identity, filtered lookups and room/principal cleanup pass.",
+    "Activity cleanup clears owned indexes, retains foreign principal/room data and rejects foreign cursor.",
+    "Principal projection and controller failure branches reject without changing owned records."
   ]
 }

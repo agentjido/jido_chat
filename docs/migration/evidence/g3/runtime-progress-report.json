@@ -1,20 +1,23 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T05:35:28.142047+00:00",
-  "messaging_head": "73fe2b6098af6bd3bc90452659675cfae4ffd750",
-  "core_head": "e4881fcd8b6d682d6ff5e9b0cb3fabe41b8efef0",
-  "inclusive_tests": 1268,
+  "updated_at": "2026-10-13T05:44:25.583072+00:00",
+  "messaging_head": "d1bcc8234a4509bca079f690e8b5a6747af143f2",
+  "core_head": "de6e2314a50da0c8b1906b3d7f38a312ad8e5175",
+  "inclusive_tests": 1278,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 83.3,
+  "coverage_percent": 83.5,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
   "new_passed_checks": [
     "g3-accepted-message-failure-quality",
+    "g3-activity-cleanup-index-and-scope-final-tests",
     "g3-adapter-callback-disposition-final-tests",
+    "g3-agent-route-reroute-preserved-final-tests",
+    "g3-agent-route-room-final-quality",
     "g3-ai-callback-disposition-runtime-tests",
     "g3-ai-identity-isolated-files-tests",
     "g3-ai-pressure-barrier-tests",
@@ -106,6 +109,17 @@
     "g3-current-outcome-runtime-ai-graph-report",
     "g3-current-outcome-runtime-core-graph-report",
     "g3-current-ownership-typed-environment-quality",
+    "g3-current-route-projection-ai-full-tests",
+    "g3-current-route-projection-ai-graph",
+    "g3-current-route-projection-ai-harness",
+    "g3-current-route-projection-api-audit",
+    "g3-current-route-projection-core-full-tests",
+    "g3-current-route-projection-core-graph",
+    "g3-current-route-projection-core-harness",
+    "g3-current-route-projection-inclusive-coverage",
+    "g3-current-route-projection-optional-ai",
+    "g3-current-route-projection-quality",
+    "g3-current-route-projection-source-scan",
     "g3-current-safe-acceptance-api-audit",
     "g3-current-safe-acceptance-boundary-scan",
     "g3-current-safe-acceptance-inclusive-coverage",
@@ -164,6 +178,7 @@
     "g3-native-postgres-recovery-clean-storage-tests",
     "g3-original-ingest-confirmation-fixture-tests",
     "g3-policy-hook-isolation-quality",
+    "g3-principal-projection-and-controller-ownership-tests",
     "g3-private-mention-normalization-final-tests",
     "g3-projection-canonical-identity-and-lifetime-final-tests",
     "g3-room-and-principal-authority-cleanup-final-tests",
@@ -258,7 +273,14 @@
     "Replace the TTL test sleep with a future deadline proof and an explicit past deadline set inside the private table owner. Production TTL is unchanged.18 deduper/room cases pass. The isolated complete coverage rerun passes 1268 checks with no skips and 83.3 percent coverage. Required 90 percent remains unmet.",
     "Current production source quality, 5031-export API audit, 369-file scan, 39/51 pinned graphs and both 241-case harnesses pass. The final expiry change is test-only. Complete current core recheck is running, then AI current test-source recheck remains.",
     "Both final current runtime profiles pass all 1268 checks with native PostgreSQL, integration/story and zero skips. Their source hashes match the isolated complete coverage rerun. Earlier timing failures remain recorded.",
-    "All four final-source optional AI fixtures pass without a model call."
+    "All four final-source optional AI fixtures pass without a model call.",
+    "New compound backend scenarios found ETS and SQLite accepted changed canonical room ownership for an existing agent thread route. Both now reject that change. Explicit facade endpoint reroute stays supported, keeps canonical room/thread, increments delivery revision and clears former endpoint correlation refs. All 20 affected endpoint/backend/facade cases and final quality pass.",
+    "Real endpoint, room membership and thread route records test immutable identity/conflicts, availability/status filters, valid correlation updates, revocation, room deletion and participant cleanup without inferred agent starts.",
+    "Composite activity cleanup tests retain foreign room/principal activities, clear owned principal index entries and reject a foreign cursor. All 14 affected activity tests pass.",
+    "Principal projection/controller scenarios reject changed ID/type, missing/self/inactive controller and revoked controller verification without replacing owned principal/participant records. Active controller update succeeds. All 13 affected identity tests pass.",
+    "Complete isolated inclusive coverage and current core profile each pass 1278 checks including native PostgreSQL/integration/story and zero skips. Package coverage 83.5 percent remains below required 90 percent. Final current AI full check is running.",
+    "Current final quality has zero Dialyzer errors/skips; API audit 5031 exports including 1200 generated instance exports; source scan 369 files has zero findings; current pinned graphs 39/51 dependencies pass. Current harness/optional-AI refresh follows the full AI check.",
+    "Both current harnesses pass 241 checks each; four optional AI fixtures pass without a model call."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -271,9 +293,9 @@
       "jido_messaging",
       "jido_chat_signal"
     ],
-    "with_and_without_ai": "pass for current complete library and test source",
+    "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1268,
+    "messaging_tests_per_profile": 1278,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -283,14 +305,14 @@
     "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
     "current_messaging_profile_state": {
       "core": {
-        "passed": 1268,
+        "passed": 1278,
         "failures": 0,
-        "check": "g3-current-webhook-owned-expiry-core-full-tests.json"
+        "check": "g3-current-route-projection-core-full-tests.json"
       },
       "ai": {
-        "passed": 1268,
+        "passed": 1278,
         "failures": 0,
-        "check": "g3-current-webhook-owned-expiry-ai-full-tests.json"
+        "check": "g3-current-route-projection-ai-full-tests.json"
       }
     }
   },
@@ -299,10 +321,10 @@
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-webhook-failure-complete-api-exports.json"
+    "current_report": "current-route-projection-complete-api-exports.json"
   },
-  "current_full_inclusive_state": "pass: 1268 checks including native PostgreSQL in isolated rerun",
+  "current_full_inclusive_state": "pass:1278 checks including native PostgreSQL",
   "current_non_postgres_checks": 1041,
   "current_postgres_checks_excluded": 38,
-  "coverage_percent_source": "g3-current-webhook-owned-expiry-inclusive-coverage.json"
+  "coverage_percent_source": "g3-current-route-projection-inclusive-coverage.json"
 }

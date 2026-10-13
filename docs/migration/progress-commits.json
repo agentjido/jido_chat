@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T05:35:28.142047+00:00",
+  "updated_at": "2026-10-13T05:44:25.583072+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1080,13 +1080,41 @@
         "evidence/g3/g3-deduper-owned-clock-and-room-final-tests.json"
       ],
       "open_work": "Complete current source rechecks and required 90 percent coverage; all final G4-G9 requirements stay unchanged."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "04c346f84be6fc8a338360d0410879a13c7f8995",
+      "subject": "fix(storage): preserve canonical room ownership of agent thread routes",
+      "checks": [
+        "evidence/g3/g3-agent-route-reroute-preserved-final-tests.json",
+        "evidence/g3/g3-agent-route-room-final-quality.json"
+      ],
+      "open_work": "Current full source verification, meaningful 90 percent coverage and all final G4-G9 requirements remain unchanged."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "4c65c022332d50a5ea11880ec90396adeb98372e",
+      "subject": "test(storage): verify activity cleanup and scoped cursor indexes",
+      "checks": [
+        "evidence/g3/g3-activity-cleanup-index-and-scope-final-tests.json"
+      ],
+      "open_work": "Current full source verification, meaningful 90 percent coverage and all final G4-G9 requirements remain unchanged."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "d1bcc8234a4509bca079f690e8b5a6747af143f2",
+      "subject": "test(identity): verify principal projection and controller ownership",
+      "checks": [
+        "evidence/g3/g3-principal-projection-and-controller-ownership-tests.json"
+      ],
+      "open_work": "Current full source verification, required 90 percent coverage and all final G4-G9 requirements stay open."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1268,
+    "messaging_inclusive_tests": 1278,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1134,7 +1162,7 @@
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current isolated complete inclusive coverage is 83.3 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 83.5 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1148,8 +1176,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1268,
-    "total": 1268,
-    "check": "evidence/g3/g3-current-webhook-owned-expiry-ai-full-tests.json"
+    "passed": 1278,
+    "total": 1278,
+    "check": "evidence/g3/g3-current-route-projection-ai-full-tests.json"
   }
 }
