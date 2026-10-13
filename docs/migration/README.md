@@ -4,8 +4,8 @@ This migration is in progress. G0, G1, and G2 have passed. G3–G9 are pending.
 The full package group is not ready for use.
 
 The isolated native PostgreSQL fixture works. Current complete Messaging checks
-pass 1,861 tests with zero skips and 86.2 percent coverage. Both current complete
-runtime profiles pass all 1,861 checks.
+pass 1,873 tests with zero skips and 86.2 percent coverage. Both current complete
+runtime profiles pass all 1,873 checks.
 The required 90 percent floor remains unmet.
 
 The execution plan is
@@ -159,7 +159,7 @@ and the accepted claim. It emits a registered failure fact when the Bus is
 available. Repeated delivery cannot repeat that message write.
 
 The CreateRoom kind now matches the four stored Room types. Unknown kind fails at
-the constructor. Current checks pass 1,861 complete Messaging checks. The unchanged core has
+the constructor. Current checks pass 1,873 complete Messaging checks. The unchanged core has
 257 passing tests. Four optional AI tests pass. The Catalog has 110 native definitions.
 Current coverage is 86.2 percent, below the required 90 percent.
 

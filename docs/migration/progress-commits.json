@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T09:12:57.504256+00:00",
+  "updated_at": "2026-10-13T09:23:01.269349+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1560,13 +1560,24 @@
       ],
       "passed_checks": "67 affected topology and bridge-room checks with warnings as errors and package quality.",
       "open_work": "Remaining facade/backend failure checks, 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "ab751299976622b056cedaeba8dff2362163d9a3",
+      "subject": "fix(directory): apply search limits after complete ordered matching",
+      "checks": [
+        "evidence/g3/g3-directory-limit-order-warning-free-tests.json",
+        "evidence/g3/g3-directory-limit-order-quality.json"
+      ],
+      "passed_checks": "78 affected directory and storage conformance checks without warnings plus package quality.",
+      "open_work": "Remaining runtime/facade/storage cases, Messaging coverage at least 90 percent and all final G3-G9 requirements."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1861,
+    "messaging_inclusive_tests": 1873,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1630,8 +1641,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1861,
-    "total": 1861,
-    "check": "evidence/g3/g3-current-topology-ai-full-tests.json"
+    "passed": 1873,
+    "total": 1873,
+    "check": "evidence/g3/g3-current-directory-pagination-ai-full-tests.json"
   }
 }

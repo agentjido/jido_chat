@@ -1,10 +1,10 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T09:12:57.504256+00:00",
-  "messaging_head": "04bbd680522787ea15f77ac33570090ef6f08335",
-  "core_head": "c923d3ca0adee45004d32473ee3b17f188a89329",
-  "inclusive_tests": 1861,
+  "updated_at": "2026-10-13T09:23:01.269349+00:00",
+  "messaging_head": "ab751299976622b056cedaeba8dff2362163d9a3",
+  "core_head": "7c426ea010049cffc361d46302546cd9af664c1a",
+  "inclusive_tests": 1873,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
@@ -174,6 +174,13 @@
     "g3-current-directory-context-inclusive-coverage",
     "g3-current-directory-context-optional-ai",
     "g3-current-directory-context-source-scan",
+    "g3-current-directory-pagination-ai-full-tests",
+    "g3-current-directory-pagination-ai-harness",
+    "g3-current-directory-pagination-api-audit",
+    "g3-current-directory-pagination-core-full-tests",
+    "g3-current-directory-pagination-core-harness",
+    "g3-current-directory-pagination-inclusive-coverage",
+    "g3-current-directory-pagination-optional-ai",
     "g3-current-execution-gateway-ai-full-tests",
     "g3-current-execution-gateway-ai-harness",
     "g3-current-execution-gateway-api-audit",
@@ -365,6 +372,8 @@
     "g3-directory-callback-ownership-final-tests",
     "g3-directory-callback-safe-outcome-quality",
     "g3-directory-input-and-normalized-scope-final-tests",
+    "g3-directory-limit-order-quality",
+    "g3-directory-limit-order-warning-free-tests",
     "g3-directory-normalized-scope-quality",
     "g3-directory-query-and-onboarding-scope-tests",
     "g3-directory-whole-list-and-semantic-save-final-tests",
@@ -491,7 +500,9 @@
     "g3-topology-invalid-and-partial-outcome-tests",
     "g3-transcript-invalid-scope-controls",
     "g3-read-receipt-callback-regressions: foreign record, incomplete receipt and invalid change produced false success; all three now pass.",
-    "g3-topology-room-binding-callback-regressions: 26 failures from escaped store outcomes or false room/binding success. All affected checks now pass."
+    "g3-topology-room-binding-callback-regressions: 26 failures from escaped store outcomes or false room/binding success. All affected checks now pass.",
+    "g3-directory-limit-order-regressions: ten tests failed from pre-filter truncation or ignored limits. Current ordered complete matches pass.",
+    "g3-directory-limit-order-tests: 78 test assertions passed but three compile warnings failed the required check. Current grouped clauses pass without warnings."
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -672,7 +683,12 @@
     "Before-write failures cause zero writes, routing, admission, membership, grant or agent effects. Confirmed writes stay complete after failure; retry reuses one room/binding and foreign records remain unchanged.",
     "Current topology source checks refresh complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and dependency graph proof is reused only after exact source comparison.",
     "Current complete inclusive Messaging coverage passes 1861 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1861 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1861 checks with zero skips.",
+    "ETS/SQLite/PostgreSQL directory queries match complete records and order by ID before the requested limit. SQL scans bounded candidate pages so records beyond the first 500 remain discoverable. Lookup preserves ambiguity with a search limit of one.",
+    "All 78 affected directory and storage conformance checks pass without warnings; package quality passes. Tests retain exact stored records, match after 501 unrelated candidates, return 502 complete records and reject invalid limits. Initial ten failed regressions and the failed compile-warning run remain.",
+    "Current directory store source refreshes complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency evidence is reused after exact source comparison.",
+    "Current complete inclusive Messaging coverage passes 1873 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1873 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -687,7 +703,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1861,
+    "messaging_tests_per_profile": 1873,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -698,34 +714,34 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1861,
+        "passed": 1873,
         "failures": 0,
-        "check": "g3-current-topology-core-full-tests.json"
+        "check": "g3-current-directory-pagination-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1861,
+        "passed": 1873,
         "failures": 0,
-        "check": "g3-current-topology-ai-full-tests.json"
+        "check": "g3-current-directory-pagination-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current topology runtime harnesses pass 241 checks.",
-    "optional_ai_evidence": "Current topology optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current directory-pagination runtime harnesses pass 241 checks.",
+    "optional_ai_evidence": "Current directory-pagination AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-topology-complete-api-exports.json",
+    "current_report": "current-directory-pagination-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1861 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-topology-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1873 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-directory-pagination-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-topology-source-proof.json"
+  "reused_library_proof": "current-directory-pagination-source-proof.json"
 }

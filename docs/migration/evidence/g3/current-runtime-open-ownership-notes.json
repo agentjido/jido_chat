@@ -1,6 +1,6 @@
 {
   "state": "open",
-  "source_head": "04bbd680522787ea15f77ac33570090ef6f08335",
+  "source_head": "ab751299976622b056cedaeba8dff2362163d9a3",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
@@ -16,8 +16,8 @@
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Topology room/binding store failures return defined errors and stop before routing, grants, membership, agent or admission effects.",
-    "Canonical identity and complete saved records are checked before setup continues. Foreign record success is rejected.",
-    "Confirmed writes stay complete after failure; retry reuses the same room or binding without duplicate writes."
+    "ETS/SQLite/PostgreSQL participant and room searches apply limits after complete matching and ID ordering.",
+    "SQL searches retain matches beyond the first 500 candidates by scanning bounded pages. A 502-record result remains complete and ordered.",
+    "Lookup cannot hide ambiguity with a search limit. Invalid limits return a defined error; stored records remain unchanged."
   ]
 }

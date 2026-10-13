@@ -157,6 +157,9 @@
         "evidence/g3/current-directory-context-coverage-gaps.json",
         "evidence/g3/current-directory-context-prohibited-runtime-boundary-scan.json",
         "evidence/g3/current-directory-context-source-proof.json",
+        "evidence/g3/current-directory-pagination-complete-api-exports.json",
+        "evidence/g3/current-directory-pagination-runtime-boundary-scan.json",
+        "evidence/g3/current-directory-pagination-source-proof.json",
         "evidence/g3/current-execution-gateway-complete-api-exports.json",
         "evidence/g3/current-execution-gateway-prohibited-runtime-boundary-scan.json",
         "evidence/g3/current-execution-gateway-source-proof.json",
@@ -417,6 +420,13 @@
         "evidence/g3/g3-current-directory-context-inclusive-coverage.json",
         "evidence/g3/g3-current-directory-context-optional-ai.json",
         "evidence/g3/g3-current-directory-context-source-scan.json",
+        "evidence/g3/g3-current-directory-pagination-ai-full-tests.json",
+        "evidence/g3/g3-current-directory-pagination-ai-harness.json",
+        "evidence/g3/g3-current-directory-pagination-api-audit.json",
+        "evidence/g3/g3-current-directory-pagination-core-full-tests.json",
+        "evidence/g3/g3-current-directory-pagination-core-harness.json",
+        "evidence/g3/g3-current-directory-pagination-inclusive-coverage.json",
+        "evidence/g3/g3-current-directory-pagination-optional-ai.json",
         "evidence/g3/g3-current-execution-gateway-ai-full-tests.json",
         "evidence/g3/g3-current-execution-gateway-ai-harness.json",
         "evidence/g3/g3-current-execution-gateway-api-audit.json",
@@ -628,6 +638,10 @@
         "evidence/g3/g3-directory-input-and-normalized-scope-before-fix-tests.json",
         "evidence/g3/g3-directory-input-and-normalized-scope-final-tests.json",
         "evidence/g3/g3-directory-input-and-normalized-scope-regression-tests.json",
+        "evidence/g3/g3-directory-limit-order-quality.json",
+        "evidence/g3/g3-directory-limit-order-regressions.json",
+        "evidence/g3/g3-directory-limit-order-tests.json",
+        "evidence/g3/g3-directory-limit-order-warning-free-tests.json",
         "evidence/g3/g3-directory-normalized-scope-quality.json",
         "evidence/g3/g3-directory-query-and-onboarding-scope-tests.json",
         "evidence/g3/g3-directory-whole-list-and-semantic-save-final-tests.json",
@@ -1064,7 +1078,12 @@
         "Before-write failures cause zero writes, routing, admission, membership, grant or agent effects. Confirmed writes stay complete after failure; retry reuses one room/binding and foreign records remain unchanged.",
         "Current topology source checks refresh complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and dependency graph proof is reused only after exact source comparison.",
         "Current complete inclusive Messaging coverage passes 1861 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1861 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1861 checks with zero skips.",
+        "ETS/SQLite/PostgreSQL directory queries match complete records and order by ID before the requested limit. SQL scans bounded candidate pages so records beyond the first 500 remain discoverable. Lookup preserves ambiguity with a search limit of one.",
+        "All 78 affected directory and storage conformance checks pass without warnings; package quality passes. Tests retain exact stored records, match after 501 unrelated candidates, return 502 complete records and reject invalid limits. Initial ten failed regressions and the failed compile-warning run remain.",
+        "Current directory store source refreshes complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency evidence is reused after exact source comparison.",
+        "Current complete inclusive Messaging coverage passes 1873 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1873 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1234,5 +1253,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T09:12:57.504256+00:00"
+  "updated_at": "2026-10-13T09:23:01.269349+00:00"
 }
