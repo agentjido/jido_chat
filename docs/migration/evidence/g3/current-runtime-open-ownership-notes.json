@@ -1,23 +1,22 @@
 {
   "state": "open",
-  "source_head": "9095ede1ad0bddfae6dc84cd9480d8234ec4c5b0",
+  "source_head": "cd1db80d499cc4d894ce2d949860e682f938ad43",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/ingest.ex",
-      "observed": "Automatic provider thread open/assignment and context normalization still have uncovered failure branches.",
-      "required_proof": "Whole accepted records and exact provider/agent effects under runtime failure, without inferred grants."
+      "file": "lib/jido_messaging/execution.ex and outbound_gateway.ex",
+      "observed": "Remaining safe request/setup/callback failures and native result-field admission branches are not all exercised.",
+      "required_proof": "Invalid or denied operations cannot call providers or add admissions; completed effects and full result data remain exact."
     },
     {
-      "file": "lib/jido_messaging/persistence/ets.ex and sqlite.ex",
-      "observed": "Remaining directory, onboarding and bounded filter error paths still contribute to unmet 90 percent coverage.",
-      "required_proof": "Real valid/invalid query data retain scope, canonical identities and defined error outcomes."
+      "file": "lib/jido_messaging/msg_context/normalizer.ex and typed record constructors",
+      "observed": "Malformed/over-limit metadata and context construction still have missed validation branches.",
+      "required_proof": "Whole inputs preserve valid content; invalid unsafe/over-limit records cannot create authority or leak private material."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Real directory backend revision/endpoint filter/participant deletion ownership is tested.",
-    "Advisory evidence query/order/conflict and room/issuer cleanup retain foreign records in both backends.",
-    "Native thread store failures before message write reject and retry once; backfill failure after write preserves accepted whole input and one causal failure without provider callbacks."
+    "Automatic provider/store/runner thread failure retains one accepted full message with exact insert/link update/provider counts and duplicate suppression.",
+    "ETS/SQLite participant/room query partial provider identity, ambiguity, binding deletion and onboarding record IDs preserve exact scoped outcomes."
   ]
 }

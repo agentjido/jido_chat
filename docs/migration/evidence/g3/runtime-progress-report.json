@@ -1,10 +1,10 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T07:12:40.780788+00:00",
-  "messaging_head": "9095ede1ad0bddfae6dc84cd9480d8234ec4c5b0",
-  "core_head": "62b8a5d6c11f65c0a152be0b5fbfeaa0e7749d07",
-  "inclusive_tests": 1445,
+  "updated_at": "2026-10-13T07:22:17.896271+00:00",
+  "messaging_head": "cd1db80d499cc4d894ce2d949860e682f938ad43",
+  "core_head": "9c1fa2404e08b771e185fb10e1c6e6a74df84fe3",
+  "inclusive_tests": 1463,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
@@ -63,6 +63,9 @@
     "g3-current-audit-recovery-inclusive-coverage",
     "g3-current-audit-recovery-optional-ai",
     "g3-current-audit-recovery-source-scan",
+    "g3-current-auto-thread-query-ai-full-tests",
+    "g3-current-auto-thread-query-core-full-tests",
+    "g3-current-auto-thread-query-inclusive-coverage",
     "g3-current-callback-and-lock-ai-graph",
     "g3-current-callback-and-lock-ai-uncontended-recheck",
     "g3-current-callback-and-lock-complete-api-audit",
@@ -257,6 +260,7 @@
     "g3-demo-setup-errors-and-ownership-final-tests",
     "g3-demo-setup-ownership-quality",
     "g3-directory-backend-owned-endpoint-final-tests",
+    "g3-directory-query-and-onboarding-scope-tests",
     "g3-facade-record-ownership-tests",
     "g3-ingest-policy-lifetime-and-ownership-final-tests",
     "g3-ingress-subscription-scope-and-page-tests",
@@ -269,6 +273,8 @@
     "g3-native-acceptance-record-and-summary-audit-tests",
     "g3-native-audit-identity-quality",
     "g3-native-audit-parent-and-room-final-tests",
+    "g3-native-auto-thread-exact-insert-update-final-tests",
+    "g3-native-auto-thread-owned-callback-final-tests",
     "g3-native-media-complete-kinds-and-lifetime-tests",
     "g3-native-media-lifetime-and-retry-final-tests",
     "g3-native-media-owned-resolution-tests",
@@ -470,7 +476,13 @@
     "Production libraries and pinned inputs are unchanged. Reuse verified prior quality, 4071-row consumer API audit, 369-file source scan and 39/51 dependency graphs. Current library hashes and exact source comparisons are recorded in current-directory-advisory-thread-reused-library-proof.json. Complete test/coverage profiles are refreshed for the new test source.",
     "Current complete inclusive Messaging coverage passes 1445 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.1 percent; required 90 percent remains unmet.",
     "Initial directory fixture assumed an unsupported principal filter and delete API; final proof uses declared endpoint filters and participant deletion. Initial native-thread fixture defined Instance after generated tests and failed warnings-as-errors; final definition order passes. Failed fixtures stay recorded.",
-    "Both current complete pinned runtime profiles pass 1445 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1445 checks with zero skips.",
+    "Automatic thread provider/store error, raise, throw, exit and invalid outcomes retain one inserted accepted full message and duplicate suppression. Ambiguous mentions select neither agent. Unavailable runner supervisor retains one unassigned opened thread and the expected message link update after one provider callback. All 38 affected tests pass.",
+    "Real ETS/SQLite participant and room directory queries retain exact name/id/provider matches, ambiguity/not-found and partial identity rejection. Same external room ID remains bridge-scoped; binding deletion preserves foreign route/room. Onboarding records retain string IDs and invalid IDs reject. All nine affected tests pass.",
+    "Production, support, optional fixture and integration harness inputs are unchanged; exact source comparisons and library hashes justify bounded reuse of prior quality, API audit, scan and pinned graph/harness proof. Current new Messaging tests use complete refreshed profiles.",
+    "Current complete inclusive Messaging coverage passes 1463 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.1 percent; required 90 percent remains unmet.",
+    "Initial automatic thread test fixtures failed because the mock recorder ran a failing callback in its own server and one case counted a message link update as an insert. The final fixture runs the callback in the accepting caller and counts the insert and update separately. Failed check logs remain in this evidence bundle.",
+    "Both current complete pinned runtime profiles pass 1463 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -485,7 +497,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1445,
+    "messaging_tests_per_profile": 1463,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -496,15 +508,15 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1445,
+        "passed": 1463,
         "failures": 0,
-        "check": "g3-current-directory-advisory-thread-core-full-tests.json"
+        "check": "g3-current-auto-thread-query-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1445,
+        "passed": 1463,
         "failures": 0,
-        "check": "g3-current-directory-advisory-thread-ai-full-tests.json"
+        "check": "g3-current-auto-thread-query-ai-full-tests.json"
       }
     },
     "harness_test_evidence": "Reuse 241-case harness checks from current-projection-credential: core library/test, Messaging production/support libraries and integration harness source/pinned refs are unchanged. New Messaging ExUnit files are verified by complete profiles.",
@@ -518,12 +530,12 @@
     "current_report": "current-projection-credential-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1445 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-directory-advisory-thread-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1463 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-auto-thread-query-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-directory-advisory-thread-reused-library-proof.json"
+  "reused_library_proof": "current-auto-thread-query-reused-library-proof.json"
 }

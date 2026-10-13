@@ -116,6 +116,8 @@
         "evidence/g3/current-audit-recovery-coverage-gaps.json",
         "evidence/g3/current-audit-recovery-runtime-ai-graph.json",
         "evidence/g3/current-audit-recovery-runtime-core-graph.json",
+        "evidence/g3/current-auto-thread-query-coverage-gaps.json",
+        "evidence/g3/current-auto-thread-query-reused-library-proof.json",
         "evidence/g3/current-callback-and-lock-complete-api-exports.json",
         "evidence/g3/current-callback-and-lock-coverage-gaps.json",
         "evidence/g3/current-callback-and-lock-runtime-ai-graph.json",
@@ -253,6 +255,9 @@
         "evidence/g3/g3-current-audit-recovery-inclusive-coverage.json",
         "evidence/g3/g3-current-audit-recovery-optional-ai.json",
         "evidence/g3/g3-current-audit-recovery-source-scan.json",
+        "evidence/g3/g3-current-auto-thread-query-ai-full-tests.json",
+        "evidence/g3/g3-current-auto-thread-query-core-full-tests.json",
+        "evidence/g3/g3-current-auto-thread-query-inclusive-coverage.json",
         "evidence/g3/g3-current-callback-and-lock-ai-full-tests.json",
         "evidence/g3/g3-current-callback-and-lock-ai-graph.json",
         "evidence/g3/g3-current-callback-and-lock-ai-uncontended-recheck.json",
@@ -466,6 +471,7 @@
         "evidence/g3/g3-dialyzer-native-shapes.json",
         "evidence/g3/g3-directory-backend-owned-endpoint-final-tests.json",
         "evidence/g3/g3-directory-backend-revision-scope-tests.json",
+        "evidence/g3/g3-directory-query-and-onboarding-scope-tests.json",
         "evidence/g3/g3-execution-final-compile.json",
         "evidence/g3/g3-expanded-export-api-manifest-check.json",
         "evidence/g3/g3-facade-record-ownership-tests.json",
@@ -501,6 +507,10 @@
         "evidence/g3/g3-native-audit-native-identity-tests.json",
         "evidence/g3/g3-native-audit-parent-and-room-final-tests.json",
         "evidence/g3/g3-native-audit-runtime-controls.json",
+        "evidence/g3/g3-native-auto-thread-exact-insert-update-final-tests.json",
+        "evidence/g3/g3-native-auto-thread-owned-callback-final-tests.json",
+        "evidence/g3/g3-native-auto-thread-provider-store-outcome-tests.json",
+        "evidence/g3/g3-native-auto-thread-provider-store-runner-final-tests.json",
         "evidence/g3/g3-native-ingress-six-contract-tests.json",
         "evidence/g3/g3-native-media-complete-kinds-and-lifetime-tests.json",
         "evidence/g3/g3-native-media-lifetime-and-retry-final-tests.json",
@@ -794,7 +804,12 @@
         "Native explicit thread error/raise/throw/exit/invalid before message acceptance rejects without a write and permits one later retry. Backfill failure after acceptance retains full text/thread identity, one message and one causal failure; duplicate delivery makes no provider calls. All 18 affected tests pass.",
         "Production libraries and pinned inputs are unchanged. Reuse verified prior quality, 4071-row consumer API audit, 369-file source scan and 39/51 dependency graphs. Current library hashes and exact source comparisons are recorded in current-directory-advisory-thread-reused-library-proof.json. Complete test/coverage profiles are refreshed for the new test source.",
         "Current complete inclusive Messaging coverage passes 1445 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.1 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1445 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1445 checks with zero skips.",
+        "Automatic thread provider/store error, raise, throw, exit and invalid outcomes retain one inserted accepted full message and duplicate suppression. Ambiguous mentions select neither agent. Unavailable runner supervisor retains one unassigned opened thread and the expected message link update after one provider callback. All 38 affected tests pass.",
+        "Real ETS/SQLite participant and room directory queries retain exact name/id/provider matches, ambiguity/not-found and partial identity rejection. Same external room ID remains bridge-scoped; binding deletion preserves foreign route/room. Onboarding records retain string IDs and invalid IDs reject. All nine affected tests pass.",
+        "Production, support, optional fixture and integration harness inputs are unchanged; exact source comparisons and library hashes justify bounded reuse of prior quality, API audit, scan and pinned graph/harness proof. Current new Messaging tests use complete refreshed profiles.",
+        "Current complete inclusive Messaging coverage passes 1463 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.1 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1463 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -964,5 +979,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T07:12:40.780788+00:00"
+  "updated_at": "2026-10-13T07:22:17.896271+00:00"
 }
