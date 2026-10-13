@@ -48606,6 +48606,20 @@
       "replacement": "Jido.Chat.signal_definitions/0",
       "reason": "Use native typed communication, direct Catalog definitions, and captured private resource controls.",
       "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_telegram",
+      "module": "Jido.Chat.Telegram.Membership",
+      "function": "normalize",
+      "arity": 4,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
+      "source": "lib/jido/chat/telegram/membership.ex",
+      "classification": "private-implementation",
+      "replacement": "Private Telegram membership mapper used by the typed adapter normalizer.",
+      "reason": "Select verified portable membership state and build one registered shared fact. Full adapter normalizer and transport wiring remain pending.",
+      "implementation_state": "implemented"
     }
   ],
   "inventory_rule": "Source exports and quoted macro templates at each verified base. Audit generated runtime exports before G1 passes.",

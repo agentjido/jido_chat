@@ -197,7 +197,13 @@
         "evidence/g3/g3-runtime-ai-optional-fixture.json",
         "evidence/g3/g3-runtime-ai-graph-report.json",
         "evidence/g3/runtime-core-dependency-graph.json",
-        "evidence/g3/runtime-ai-dependency-graph.json"
+        "evidence/g3/runtime-ai-dependency-graph.json",
+        "evidence/g3/g3-safe-acceptance-storage-failure-tests.json",
+        "evidence/g3/g3-safe-acceptance-current-quality.json",
+        "evidence/g3/g3-safe-acceptance-membership-current-quality.json",
+        "evidence/g3/g3-current-safe-acceptance-inclusive-coverage.json",
+        "evidence/g3/g3-current-safe-acceptance-api-audit.json",
+        "evidence/g3/g3-current-safe-acceptance-boundary-scan.json"
       ],
       "work_complete": false,
       "completed": [
@@ -260,19 +266,44 @@
         "The compiled API audit checks 5029 core/Messaging exports and 1200 generated instance exports with no unmapped or retired export. Four versioned rejection controls prove missing applications, missing rows, unmapped functions, and retired functions cannot pass.",
         "All 955 inclusive Messaging tests pass with local PostgreSQL and zero skips. Current Messaging quality passes. Coverage is 78.2 percent; the 90 percent floor remains open.",
         "The G3 runtime graph covers core, Messaging, and Signal provider. Both isolated AI profiles pass 257 core tests, 955 inclusive Messaging tests, and 241 harness tests. The four optional AI fixtures pass without a model call. Graph reports verify exact pinned v3 refs and versions: 39 dependencies without AI, 51 with AI.",
-        "Story fixture paths now resolve from the test source. Separate complete suite processes retain colliding test module names. The default all-nine-adapter profile remains unchanged for G7."
+        "Story fixture paths now resolve from the test source. Separate complete suite processes retain colliding test module names. The default all-nine-adapter profile remains unchanged for G7.",
+        "Eight acceptance regression cases pass. A membership lookup error, raise, throw, exit, or invalid result returns a safe handler_failed contract error, performs no canonical write/observation, releases the claim, and permits one retry. A middle-item failure retains the first observation and retries the ordered remaining items only.",
+        "Returned message/lifecycle store errors no longer expose private backend maps through accept_delivery. Original error/retry/write count assertions remain.",
+        "Current core and Messaging quality pass. All 257 core tests and 963 inclusive Messaging tests pass with local PostgreSQL and zero skips. Coverage is 78.1 percent; the 90 percent floor remains open. Current 5029-export API audit and 369-file three-package source scan pass."
       ],
       "remaining": [
-        "Finish the remaining acceptance storage-failure and authoritative observation ownership checks. All 36 public runtime request admission cases and the compiled core/Messaging API audit now pass.",
+        "Finish the remaining acceptance exception/partial-effect and direct facade ownership checks. Membership lookup failures and returned message/lifecycle store errors now have safe contract errors and tested claim release.",
         "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
-        "Complete fresh whole-group core-only and optional-AI graphs in G7 after all nine provider ports. The G3 runtime profile covers core, Messaging, and the Signal provider.",
-        "Complete every remaining package, quality, coverage, dependency audit, PR/review/current-head CI requirement in G4-G9."
+        "Refresh affected core-only and optional-AI graph evidence after current source changes. Whole-group graph proof remains required in G7 after all provider ports.",
+        "Complete all nine adapters and every remaining G4-G9 quality, coverage, dependency audit, package, PR/review, and current-head CI requirement."
       ]
     },
     {
       "id": "G4",
       "state": "pending",
-      "evidence": []
+      "evidence": [
+        "evidence/g4/g4-telegram-membership-warning-free-tests.json",
+        "evidence/g4/g4-updated-membership-native-catalog-tests.json",
+        "evidence/g4/g4-telegram-membership-runtime-tests.json",
+        "evidence/g4/g4-versioned-membership-runtime-fixtures.json",
+        "evidence/g4/g4-current-membership-core-quality.json",
+        "evidence/g4/g4-current-shared-membership-core-tests.json",
+        "evidence/g4/g4-membership-contract-manifest-check.json",
+        "evidence/g4/membership-progress-report.json"
+      ],
+      "completed": [
+        "Telegram membership mapper preparation passes 20 warning-free native fixtures for join, leave, removal, roles, restrictions, restricted is_member, reaction/tag permissions, expiry, bot-self, absent actor/prior state, stable item identity, portable selection, and invalid input rejection.",
+        "Both closed membership schemas retain verified reaction/tag permission and nonnegative expiry fields. All 111 Catalog checks pass. Two resolved/unresolved room runtime fixtures prove native JSON, unchanged parent trace/identity, unchanged canonical records, and semantic duplicate suppression.",
+        "Cross-package runtime fixtures are owned by the dev-only core harness. No Messaging dependency is added to the Telegram package."
+      ],
+      "remaining": [
+        "Wire the mapper through the complete Telegram protocol 1 normalizer.",
+        "Port webhook and polling ingress to complete validated deliveries.",
+        "Prove sink rejection prevents checkpoint advancement.",
+        "Complete the standalone handler and Slack fixture acceptance matrix.",
+        "Finish every Telegram operation, interaction, and resource path in G5.",
+        "Complete G3-G9 and the unchanged final goal requirements."
+      ]
     },
     {
       "id": "G5",

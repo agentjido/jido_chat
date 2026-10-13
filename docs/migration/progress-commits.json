@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T00:28:29.094322+00:00",
+  "updated_at": "2026-10-13T00:44:53.603640+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -451,13 +451,72 @@
         "evidence/g3/g3-runtime-ai-graph-report.json"
       ],
       "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "5839fc3e0fa41ad0723ed31326a2d0f17ea7030d",
+      "subject": "fix(acceptance): retain safe errors and retry failed membership lookups",
+      "checks": [
+        "evidence/g3/g3-safe-acceptance-storage-failure-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "9f6c91715ba7cc82bb26552a09286c701dc42378",
+      "subject": "feat(schema): retain verified membership permission and expiry fields",
+      "checks": [
+        "evidence/g4/g4-updated-membership-native-catalog-tests.json",
+        "evidence/g4/g4-telegram-membership-runtime-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "a405ff3a0c3b66734d7c949ba84a70ad5f1b1f24",
+      "subject": "feat(membership): map Telegram status and restriction evidence to typed facts",
+      "checks": [
+        "evidence/g4/g4-telegram-membership-warning-free-tests.json",
+        "evidence/g4/g4-updated-membership-native-catalog-tests.json",
+        "evidence/g4/g4-telegram-membership-runtime-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "9d2921d7c60dd906dcce9748973d062242416460",
+      "subject": "test(membership): keep cross-package runtime fixtures in the harness",
+      "checks": [
+        "evidence/g4/g4-versioned-membership-runtime-fixtures.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "0ea7e2d6a6f6195934321902d21da695e9302cc5",
+      "subject": "feat(contract): retain verified membership restrictions in shared schemas",
+      "checks": [
+        "evidence/g4/g4-telegram-membership-warning-free-tests.json",
+        "evidence/g4/g4-updated-membership-native-catalog-tests.json",
+        "evidence/g4/g4-telegram-membership-runtime-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "4fa1b9360b3927e82498e4293bfcf84673908b19",
+      "subject": "test(integration): own Telegram membership runtime fixtures in the harness",
+      "checks": [
+        "evidence/g4/g4-versioned-membership-runtime-fixtures.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 955,
+    "messaging_inclusive_tests": 963,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -474,15 +533,17 @@
     "compiled_generated_instance_exports": 1200,
     "public_runtime_request_admission_rows": 36,
     "runtime_dependency_count_without_ai": 39,
-    "runtime_dependency_count_with_ai": 51
+    "runtime_dependency_count_with_ai": 51,
+    "telegram_membership_mapper_tests": 20,
+    "telegram_membership_runtime_tests": 2
   },
   "open_work": [
-    "Finish the remaining acceptance storage-failure and authoritative observation ownership checks. All 36 public runtime request admission cases and the compiled core/Messaging API audit now pass.",
+    "Finish the remaining acceptance exception/partial-effect and direct facade ownership checks. Membership lookup failures and returned message/lifecycle store errors now have safe contract errors and tested claim release.",
     "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
-    "Complete fresh whole-group core-only and optional-AI graphs in G7 after all nine provider ports. The G3 runtime profile covers core, Messaging, and the Signal provider.",
-    "Complete every remaining package, quality, coverage, dependency audit, PR/review/current-head CI requirement in G4-G9."
+    "Refresh affected core-only and optional-AI graph evidence after current source changes. Whole-group graph proof remains required in G7 after all provider ports.",
+    "Complete all nine adapters and every remaining G4-G9 quality, coverage, dependency audit, package, PR/review, and current-head CI requirement."
   ],
-  "coverage_note": "Inclusive Messaging coverage is 78.2 percent. The required 90 percent floor is not met. No threshold, skip, or ignore is reduced.",
+  "coverage_note": "Current inclusive Messaging coverage is 78.1 percent. The required 90 percent floor is not met. No threshold, skip, or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",

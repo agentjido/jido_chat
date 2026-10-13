@@ -1,0 +1,128 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test membership lookup error rejects the item and permits a safe retry (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:88
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, %{pid: #PID<0.558.0>, token: "private-store-detail"}}
+
+     code: assert_safe_error(Instance.accept_delivery(unit))
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:82: Jido.Messaging.Acceptance.process/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:39: Jido.Messaging.Acceptance.accept_item/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:18: anonymous fn/4 in Jido.Messaging.Acceptance.accept/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       test/jido_messaging/acceptance_failure_test.exs:101: (test)
+
+
+
+  2) test membership lookup raise rejects the item and permits a safe retry (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:88
+     ** (RuntimeError) private-store-detail
+     code: assert_safe_error(Instance.accept_delivery(unit))
+     stacktrace:
+       test/jido_messaging/acceptance_failure_test.exs:22: Jido.Messaging.AcceptanceFailureTest.ControlledPersistence.get_room_by_external_binding/4
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:82: Jido.Messaging.Acceptance.process/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:39: Jido.Messaging.Acceptance.accept_item/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:18: anonymous fn/4 in Jido.Messaging.Acceptance.accept/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       test/jido_messaging/acceptance_failure_test.exs:101: (test)
+
+
+
+  3) test membership lookup throw rejects the item and permits a safe retry (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:88
+     ** (throw) {:private_store_detail, #PID<0.726.0>}
+     code: assert_safe_error(Instance.accept_delivery(unit))
+     stacktrace:
+       test/jido_messaging/acceptance_failure_test.exs:23: Jido.Messaging.AcceptanceFailureTest.ControlledPersistence.get_room_by_external_binding/4
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:82: Jido.Messaging.Acceptance.process/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:39: Jido.Messaging.Acceptance.accept_item/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:18: anonymous fn/4 in Jido.Messaging.Acceptance.accept/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       test/jido_messaging/acceptance_failure_test.exs:101: (test)
+
+
+
+  4) test membership lookup exit rejects the item and permits a safe retry (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:88
+     ** (exit) {:private_store_detail, #PID<0.810.0>}
+     code: assert_safe_error(Instance.accept_delivery(unit))
+     stacktrace:
+       test/jido_messaging/acceptance_failure_test.exs:24: Jido.Messaging.AcceptanceFailureTest.ControlledPersistence.get_room_by_external_binding/4
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:82: Jido.Messaging.Acceptance.process/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:39: Jido.Messaging.Acceptance.accept_item/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:18: anonymous fn/4 in Jido.Messaging.Acceptance.accept/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       test/jido_messaging/acceptance_failure_test.exs:101: (test)
+
+
+
+  5) test membership lookup invalid rejects the item and permits a safe retry (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:88
+     ** (CaseClauseError) no case clause matching:
+
+         :private_store_detail
+
+     code: assert_safe_error(Instance.accept_delivery(unit))
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:82: Jido.Messaging.Acceptance.process/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:39: Jido.Messaging.Acceptance.accept_item/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:18: anonymous fn/4 in Jido.Messaging.Acceptance.accept/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       test/jido_messaging/acceptance_failure_test.exs:101: (test)
+
+
+
+  6) test a failed middle item keeps the first observation and retries the remaining ordered items (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:120
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, %{pid: #PID<0.978.0>, token: "private-store-detail"}}
+
+     code: assert_safe_error(Instance.accept_delivery(unit))
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:82: Jido.Messaging.Acceptance.process/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:39: Jido.Messaging.Acceptance.accept_item/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:18: anonymous fn/4 in Jido.Messaging.Acceptance.accept/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       test/jido_messaging/acceptance_failure_test.exs:132: (test)
+
+
+
+  7) test a message write error remains private and releases both acceptance claims (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:154
+     match (=) failed
+     code:  assert {:error, %Contract{code: :handler_failed}} = error
+     left:  {:error, %Jido.Chat.Errors.Contract{code: :handler_failed}}
+     right: {:error, %{pid: #PID<0.1062.0>, token: "private-store-detail"}}
+     stacktrace:
+       test/jido_messaging/acceptance_failure_test.exs:83: Jido.Messaging.AcceptanceFailureTest.assert_safe_error/1
+       test/jido_messaging/acceptance_failure_test.exs:172: (test)
+
+
+
+  8) test a lifecycle write error has no parent observation and can be retried once (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:187
+     match (=) failed
+     code:  assert {:error, %Contract{code: :handler_failed}} = error
+     left:  {:error, %Jido.Chat.Errors.Contract{code: :handler_failed}}
+     right: {:error, %{pid: #PID<0.1148.0>, token: "private-store-detail"}}
+     stacktrace:
+       test/jido_messaging/acceptance_failure_test.exs:83: Jido.Messaging.AcceptanceFailureTest.assert_safe_error/1
+       test/jido_messaging/acceptance_failure_test.exs:217: (test)
+
+
+Finished in 0.8 seconds (0.00s async, 0.8s sync)
+
+Result: 0/8 passed
+Failed: 8 tests

@@ -154,5 +154,15 @@
     "on": "Jido.Chat.Handlers.on(handler_value, exact_fact_module, callback, mode: fact|message|mention|subscribed, pattern: regex)",
     "handle": "Jido.Chat.Handlers.handle(handler_value, fact) -> {:ok, updated_value, observation_result}; callback failure returns {:error, Contract, claimed_value}",
     "ownership": "Keep the returned claimed value after callback failure. The native Router selects exact fact targets; application policy decides message precedence; native Dispatch observes the unchanged Signal."
+  },
+  "acceptance_failure_rule": "A failed read-only membership lookup returns Contract handler_failed, releases its item claim, and emits no observation. Private message/lifecycle store error values are converted to handler_failed. Previously accepted items in a partial unit remain claimed; retry preserves order without repeating their observations.",
+  "membership_restrictions": {
+    "new_fields": {
+      "can_react_to_messages": "boolean",
+      "can_edit_tag": "boolean",
+      "until_date": "nonnegative integer; zero retains the provider forever value"
+    },
+    "source": "https://core.telegram.org/bots/api#chatmemberrestricted",
+    "scope": "Portable previous/current membership evidence only. It cannot change canonical grants, membership, or presence."
   }
 }

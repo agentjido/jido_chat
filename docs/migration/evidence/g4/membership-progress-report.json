@@ -1,0 +1,39 @@
+{
+  "gate": "G4",
+  "state": "pending",
+  "updated_at": "2026-10-13T00:42:35.663221+00:00",
+  "scope": "Telegram membership mapper and shared schemas; full adapter and transport checks remain pending.",
+  "source_heads": {
+    "jido_chat": "4fa1b9360b3927e82498e4293bfcf84673908b19",
+    "jido_messaging": "9f6c91715ba7cc82bb26552a09286c701dc42378",
+    "jido_chat_telegram": "9d2921d7c60dd906dcce9748973d062242416460"
+  },
+  "source_files": {
+    "jido_chat_telegram/lib/jido/chat/telegram/membership.ex": "06493ee2e7fd2697d91801aaa24928ab65bc8964531ac8a15b6265f151eb4428",
+    "jido_chat_telegram/test/jido/chat/telegram/membership_test.exs": "ac160e1667d7b21a9eaa7c5d02be09d4b1af0b35f71374322711d8d6b2abb2ca",
+    "jido_chat/integration/fixtures/telegram_membership_runtime_test.exs": "566e802d2c8ff574da8b501c51659108564ac49e83f3f6e9ccc7095de2d05f2c"
+  },
+  "provider_sources": [
+    "https://core.telegram.org/bots/api#chatmemberupdated",
+    "https://core.telegram.org/bots/api#chatmemberrestricted"
+  ],
+  "passed": {
+    "mapper_cases": 20,
+    "compiler_warnings": 0,
+    "native_catalog_cases": 111,
+    "messaging_ownership_cases": 2
+  },
+  "checks": [
+    "evidence/g4/g4-telegram-membership-warning-free-tests.json",
+    "evidence/g4/g4-updated-membership-native-catalog-tests.json",
+    "evidence/g4/g4-versioned-membership-runtime-fixtures.json"
+  ],
+  "remaining": [
+    "Wire the mapper through the complete Telegram protocol 1 normalizer.",
+    "Port webhook and polling ingress to complete validated deliveries.",
+    "Prove sink rejection prevents checkpoint advancement.",
+    "Complete the standalone handler and Slack fixture acceptance matrix.",
+    "Finish every Telegram operation, interaction, and resource path in G5.",
+    "Complete G3-G9 and the unchanged final goal requirements."
+  ]
+}
