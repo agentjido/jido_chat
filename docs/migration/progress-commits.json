@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T00:44:53.603640+00:00",
+  "updated_at": "2026-10-13T01:00:43.994032+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -510,6 +510,27 @@
         "evidence/g4/g4-versioned-membership-runtime-fixtures.json"
       ],
       "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "b92ad1154335eb665cadad955051f13646a03d06",
+      "subject": "feat(telegram)!: use captured Signal v3 bindings and native deliveries",
+      "checks": [
+        "evidence/g4/g4-telegram-protocol-graph-deps.json",
+        "evidence/g4/g4-telegram-native-protocol-clean-compile.json",
+        "evidence/g4/g4-telegram-native-normalizer-final-tests.json",
+        "evidence/g4/g4-telegram-captured-protocol-final-tests.json"
+      ],
+      "open_work": "Full Telegram test/extension/operation migration and package checks remain open. G3-G9 and final completion requirements remain unchanged."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "953611b0462e79ff6746724da2461d6759be9047",
+      "subject": "feat(telegram): validate typed polling batches before sink and checkpoint",
+      "checks": [
+        "evidence/g4/g4-telegram-typed-polling-final-tests.json"
+      ],
+      "open_work": "Full Telegram test/extension/operation migration and package checks remain open. G3-G9 and final completion requirements remain unchanged."
     }
   ],
   "passed_checks": {
@@ -535,7 +556,9 @@
     "runtime_dependency_count_without_ai": 39,
     "runtime_dependency_count_with_ai": 51,
     "telegram_membership_mapper_tests": 20,
-    "telegram_membership_runtime_tests": 2
+    "telegram_membership_runtime_tests": 2,
+    "telegram_protocol_normalizer_membership_tests": 44,
+    "telegram_polling_normalizer_membership_tests": 45
   },
   "open_work": [
     "Finish the remaining acceptance exception/partial-effect and direct facade ownership checks. Membership lookup failures and returned message/lifecycle store errors now have safe contract errors and tested claim release.",

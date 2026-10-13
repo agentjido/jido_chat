@@ -1,39 +1,42 @@
 {
   "gate": "G4",
   "state": "pending",
-  "updated_at": "2026-10-13T00:42:35.663221+00:00",
-  "scope": "Telegram membership mapper and shared schemas; full adapter and transport checks remain pending.",
+  "updated_at": "2026-10-13T01:00:43.994032+00:00",
+  "scope": "Telegram captured binding, complete native normalizer, selected operation paths, and typed polling. Full package and cross-runtime conformance remain pending.",
   "source_heads": {
     "jido_chat": "4fa1b9360b3927e82498e4293bfcf84673908b19",
     "jido_messaging": "9f6c91715ba7cc82bb26552a09286c701dc42378",
     "jido_chat_telegram": "9d2921d7c60dd906dcce9748973d062242416460"
   },
   "source_files": {
-    "jido_chat_telegram/lib/jido/chat/telegram/membership.ex": "06493ee2e7fd2697d91801aaa24928ab65bc8964531ac8a15b6265f151eb4428",
-    "jido_chat_telegram/test/jido/chat/telegram/membership_test.exs": "ac160e1667d7b21a9eaa7c5d02be09d4b1af0b35f71374322711d8d6b2abb2ca",
-    "jido_chat/integration/fixtures/telegram_membership_runtime_test.exs": "566e802d2c8ff574da8b501c51659108564ac49e83f3f6e9ccc7095de2d05f2c"
+    "jido_chat_telegram/lib/jido/chat/telegram/adapter.ex": "986b3c7deccf294149ce79cdc09b6e5b38a42790977a782ef2eb110f5aa4e26a",
+    "jido_chat_telegram/lib/jido/chat/telegram/normalizer.ex": "c99ae96be3b85c0d3cc92b3324b742b6f7fe35702c8bb0ea9310378df30c0891",
+    "jido_chat_telegram/lib/jido/chat/telegram/polling_worker.ex": "5834791df8b165ae6102d8ee34ac50c5e58a22d3f389469e5780776c09831a2b",
+    "jido_chat_telegram/lib/jido/chat/telegram/membership.ex": "8312ac6aef4b0c244894d1a11148ed918788edfeb9eeb1959df98a08efa5021a"
   },
   "provider_sources": [
     "https://core.telegram.org/bots/api#chatmemberupdated",
     "https://core.telegram.org/bots/api#chatmemberrestricted"
   ],
   "passed": {
-    "mapper_cases": 20,
-    "compiler_warnings": 0,
-    "native_catalog_cases": 111,
-    "messaging_ownership_cases": 2
+    "strict_compile": true,
+    "protocol_normalizer_membership_tests": 44,
+    "polling_normalizer_membership_tests": 45,
+    "full_package_suite": false
   },
   "checks": [
-    "evidence/g4/g4-telegram-membership-warning-free-tests.json",
-    "evidence/g4/g4-updated-membership-native-catalog-tests.json",
-    "evidence/g4/g4-versioned-membership-runtime-fixtures.json"
+    "evidence/g4/g4-telegram-protocol-graph-deps.json",
+    "evidence/g4/g4-telegram-native-protocol-clean-compile.json",
+    "evidence/g4/g4-telegram-native-normalizer-final-tests.json",
+    "evidence/g4/g4-telegram-captured-protocol-final-tests.json",
+    "evidence/g4/g4-telegram-typed-polling-final-tests.json"
   ],
   "remaining": [
-    "Wire the mapper through the complete Telegram protocol 1 normalizer.",
-    "Port webhook and polling ingress to complete validated deliveries.",
-    "Prove sink rejection prevents checkpoint advancement.",
-    "Complete the standalone handler and Slack fixture acceptance matrix.",
-    "Finish every Telegram operation, interaction, and resource path in G5.",
-    "Complete G3-G9 and the unchanged final goal requirements."
-  ]
+    "Migrate all original Telegram package tests to native boundaries without hiding supported assertions. The current full suite stops at retired capability_test/3.",
+    "Retire the duplicate extension update-envelope parser and wrapper types.",
+    "Complete all 26 operation matrix, interaction, media, and streaming cases; run full package quality/coverage/audit/build checks.",
+    "Complete standalone handler and Slack fixture acceptance, plus runtime membership mutation/agent-trigger isolation with the real adapter.",
+    "Complete G3-G9 and all unchanged final completion requirements."
+  ],
+  "telegram_head": "953611b0462e79ff6746724da2461d6759be9047"
 }

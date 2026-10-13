@@ -33674,9 +33674,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.Adapter",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, provider_input) and direct typed acceptance. The old envelope/state mutation path is removed.",
       "source": "lib/jido/chat/telegram/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit.",
+      "implementation_state": "retired"
     },
     {
       "arity": 3,
@@ -33687,9 +33688,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.Adapter",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, provider_input) and direct typed acceptance. The old envelope/state mutation path is removed.",
       "source": "lib/jido/chat/telegram/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -33804,9 +33806,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.Adapter",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, provider_input) and direct typed acceptance. The old envelope/state mutation path is removed.",
       "source": "lib/jido/chat/telegram/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit.",
+      "implementation_state": "retired"
     },
     {
       "arity": 2,
@@ -33817,9 +33820,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.Adapter",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, provider_input) and direct typed acceptance. The old envelope/state mutation path is removed.",
       "source": "lib/jido/chat/telegram/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit.",
+      "implementation_state": "retired"
     },
     {
       "arity": 3,
@@ -33986,9 +33990,10 @@
       "kind": "def",
       "module": "Jido.Chat.Telegram.Adapter",
       "package": "jido_chat_telegram",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, provider_input) and direct typed acceptance. The old envelope/state mutation path is removed.",
       "source": "lib/jido/chat/telegram/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -48619,6 +48624,76 @@
       "classification": "private-implementation",
       "replacement": "Private Telegram membership mapper used by the typed adapter normalizer.",
       "reason": "Select verified portable membership state and build one registered shared fact. Full adapter normalizer and transport wiring remain pending.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_telegram",
+      "module": "Jido.Chat.Telegram.Adapter",
+      "function": "signal_protocol",
+      "arity": 0,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
+      "source": "lib/jido/chat/telegram/adapter.ex",
+      "classification": "private-implementation",
+      "replacement": "Captured protocol 1 binding and one complete native delivery normalizer.",
+      "reason": "The public communication path uses Jido.Chat.bind/2, normalize_event/2, and execute/2. Provider controls and mapping remain private.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_telegram",
+      "module": "Jido.Chat.Telegram.Adapter",
+      "function": "configure_binding",
+      "arity": 1,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
+      "source": "lib/jido/chat/telegram/adapter.ex",
+      "classification": "private-implementation",
+      "replacement": "Captured protocol 1 binding and one complete native delivery normalizer.",
+      "reason": "The public communication path uses Jido.Chat.bind/2, normalize_event/2, and execute/2. Provider controls and mapping remain private.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_telegram",
+      "module": "Jido.Chat.Telegram.Adapter",
+      "function": "normalize_event",
+      "arity": 2,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
+      "source": "lib/jido/chat/telegram/adapter.ex",
+      "classification": "private-implementation",
+      "replacement": "Captured protocol 1 binding and one complete native delivery normalizer.",
+      "reason": "The public communication path uses Jido.Chat.bind/2, normalize_event/2, and execute/2. Provider controls and mapping remain private.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_telegram",
+      "module": "Jido.Chat.Telegram.Normalizer",
+      "function": "normalize",
+      "arity": 2,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
+      "source": "lib/jido/chat/telegram/normalizer.ex",
+      "classification": "private-implementation",
+      "replacement": "Captured protocol 1 binding and one complete native delivery normalizer.",
+      "reason": "The public communication path uses Jido.Chat.bind/2, normalize_event/2, and execute/2. Provider controls and mapping remain private.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_telegram",
+      "module": "Jido.Chat.Telegram.Membership",
+      "function": "normalize",
+      "arity": 5,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
+      "source": "lib/jido/chat/telegram/membership.ex",
+      "classification": "private-implementation",
+      "replacement": "Captured protocol 1 binding and one complete native delivery normalizer.",
+      "reason": "The public communication path uses Jido.Chat.bind/2, normalize_event/2, and execute/2. Provider controls and mapping remain private.",
       "implementation_state": "implemented"
     }
   ],
