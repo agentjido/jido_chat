@@ -1,0 +1,23 @@
+{
+  "label": "g3-compiled-runtime-export-audit",
+  "command": [
+    "mix",
+    "run",
+    "--no-start",
+    "../jido_chat/integration/scripts/audit_api_exports.exs",
+    "--phase",
+    "G3"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "7d044199c05f40d8e41fc1271f003e21300047c8",
+  "source_tree_sha256": "4dfe5369b3cf06b4169be2c7dde603de222750f8ab4dbffc53e802d9dfc3a8f3",
+  "started_at": "2026-10-13T00:17:13.662895+00:00",
+  "finished_at": "2026-10-13T00:17:16.467301+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-compiled-runtime-export-audit.log",
+  "log_sha256": "d4dc87dbc512882f28e23ec309061ae97b629352aa5ef0f8918070ccc1b69a6a"
+}

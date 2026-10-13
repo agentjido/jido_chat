@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T00:07:14.839437+00:00",
+  "updated_at": "2026-10-13T00:28:29.094322+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -392,13 +392,72 @@
         "evidence/g3/g3-room-kind-current-tests.json"
       ],
       "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "924bb8f62624d01da308713b68da2fc13e4a4f3d",
+      "subject": "test(messaging): verify admission across all public runtime requests",
+      "checks": [
+        "evidence/g3/g3-all-request-admission-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "7d044199c05f40d8e41fc1271f003e21300047c8",
+      "subject": "test(presence): verify native facts and session ownership",
+      "checks": [
+        "evidence/g3/g3-presence-ownership-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "8d0ef375e99a42dd4de6fd16ec636bb32b3bece3",
+      "subject": "test(story): resolve specification fixtures from the test source",
+      "checks": [
+        "evidence/g3/g3-runtime-core-story-fixture-paths.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "ccf85aa84bf947239a76562745a708e6b54d6ed4",
+      "subject": "test(contract): audit compiled runtime and generated API exports",
+      "checks": [
+        "evidence/g3/g3-final-compiled-runtime-export-audit.json",
+        "evidence/g3/g3-versioned-api-audit-controls.json",
+        "evidence/g3/g3-expanded-export-api-manifest-check.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "938533b664456b16ba47b992a6706c011fd6b29a",
+      "subject": "test(integration): verify runtime graphs with and without optional AI",
+      "checks": [
+        "evidence/g3/g3-runtime-core-corrected-graph-deps.json",
+        "evidence/g3/g3-runtime-core-graph-compile.json",
+        "evidence/g3/g3-runtime-core-chat-suite.json",
+        "evidence/g3/g3-runtime-core-messaging-inclusive-suite.json",
+        "evidence/g3/g3-final-runtime-core-harness-suite.json",
+        "evidence/g3/g3-runtime-core-graph-report.json",
+        "evidence/g3/g3-runtime-ai-graph-deps.json",
+        "evidence/g3/g3-runtime-ai-graph-compile.json",
+        "evidence/g3/g3-runtime-ai-chat-suite.json",
+        "evidence/g3/g3-runtime-ai-messaging-inclusive-suite.json",
+        "evidence/g3/g3-runtime-ai-harness-suite.json",
+        "evidence/g3/g3-runtime-ai-optional-fixture.json",
+        "evidence/g3/g3-runtime-ai-graph-report.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 936,
+    "messaging_inclusive_tests": 955,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -409,15 +468,21 @@
       "signal_adapter"
     ],
     "current_library_scan_files": 369,
-    "current_library_scan_findings": 0
+    "current_library_scan_findings": 0,
+    "runtime_harness_tests_per_profile": 241,
+    "compiled_core_messaging_exports": 5029,
+    "compiled_generated_instance_exports": 1200,
+    "public_runtime_request_admission_rows": 36,
+    "runtime_dependency_count_without_ai": 39,
+    "runtime_dependency_count_with_ai": 51
   },
   "open_work": [
-    "Finish the remaining admission, authoritative observation, and compiled API/export audits across every public entry. Resource references remain call scoped; no durable or restart-safe replay claim is made.",
+    "Finish the remaining acceptance storage-failure and authoritative observation ownership checks. All 36 public runtime request admission cases and the compiled core/Messaging API audit now pass.",
     "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
-    "Complete whole-group adapter checks and fresh core-only/optional-AI integration graphs in G7 after all provider ports.",
+    "Complete fresh whole-group core-only and optional-AI graphs in G7 after all nine provider ports. The G3 runtime profile covers core, Messaging, and the Signal provider.",
     "Complete every remaining package, quality, coverage, dependency audit, PR/review/current-head CI requirement in G4-G9."
   ],
-  "coverage_note": "Current inclusive coverage is 77.8 percent. The required 90 percent floor is not met. No threshold, skip, or ignore is reduced.",
+  "coverage_note": "Inclusive Messaging coverage is 78.2 percent. The required 90 percent floor is not met. No threshold, skip, or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",

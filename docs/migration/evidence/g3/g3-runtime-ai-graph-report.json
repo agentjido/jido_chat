@@ -1,0 +1,23 @@
+{
+  "label": "g3-runtime-ai-graph-report",
+  "command": [
+    "mix",
+    "run",
+    "scripts/report_dependency_graph.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "ccf85aa84bf947239a76562745a708e6b54d6ed4",
+  "source_tree_sha256": "41c7419267ed879e2c9a4ae3de0f0875e60541620dac2e321901f66e14bb6111",
+  "started_at": "2026-10-13T00:27:01.850489+00:00",
+  "finished_at": "2026-10-13T00:27:03.815089+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "1",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-runtime-ai-graph-report.log",
+  "log_sha256": "a8b39d767cd66188cc42fda5c1b4cf523358405fef0771c49002acb6bb0eee90"
+}

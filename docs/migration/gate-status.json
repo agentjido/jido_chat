@@ -174,7 +174,30 @@
         "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
         "evidence/g3/g3-current-resource-boundary-scan.json",
         "evidence/g3/g3-current-resource-optional-ai-tests.json",
-        "evidence/g3/g3-room-kind-current-tests.json"
+        "evidence/g3/g3-room-kind-current-tests.json",
+        "evidence/g3/g3-all-request-admission-tests.json",
+        "evidence/g3/g3-presence-ownership-tests.json",
+        "evidence/g3/g3-expanded-export-api-manifest-check.json",
+        "evidence/g3/g3-final-compiled-runtime-export-audit.json",
+        "evidence/g3/g3-versioned-api-audit-controls.json",
+        "evidence/g3/g3-admission-presence-current-quality.json",
+        "evidence/g3/g3-inclusive-admission-presence-coverage.json",
+        "evidence/g3/g3-runtime-core-corrected-graph-deps.json",
+        "evidence/g3/g3-runtime-core-graph-compile.json",
+        "evidence/g3/g3-runtime-core-story-fixture-paths.json",
+        "evidence/g3/g3-runtime-core-chat-suite.json",
+        "evidence/g3/g3-runtime-core-messaging-inclusive-suite.json",
+        "evidence/g3/g3-final-runtime-core-harness-suite.json",
+        "evidence/g3/g3-runtime-core-graph-report.json",
+        "evidence/g3/g3-runtime-ai-graph-deps.json",
+        "evidence/g3/g3-runtime-ai-graph-compile.json",
+        "evidence/g3/g3-runtime-ai-chat-suite.json",
+        "evidence/g3/g3-runtime-ai-messaging-inclusive-suite.json",
+        "evidence/g3/g3-runtime-ai-harness-suite.json",
+        "evidence/g3/g3-runtime-ai-optional-fixture.json",
+        "evidence/g3/g3-runtime-ai-graph-report.json",
+        "evidence/g3/runtime-core-dependency-graph.json",
+        "evidence/g3/runtime-ai-dependency-graph.json"
       ],
       "work_complete": false,
       "completed": [
@@ -231,12 +254,18 @@
         "The runtime resource owner uses existing private runtime state. Root/instance resolve and cancel helpers preserve creator-process checks and reject unknown owners with contract errors. No provider adapter or process tree is added.",
         "Call expiry and creator exit clear the private value on resource access. Kind is checked before terminal state. Three regression tests pass; core has 257 passing tests and passing quality.",
         "CreateRoom accepts exactly the four backing Room kinds. All four kinds pass execution tests; unknown kind fails the constructor before execution.",
-        "Current verification passes 936 inclusive Messaging tests with zero skips, 257 core tests, four optional AI tests, 110 native Catalog definitions, current core/Messaging quality, and the 369-file three-package source scan. Inclusive Messaging coverage remains 77.8 percent."
+        "Current verification passes 936 inclusive Messaging tests with zero skips, 257 core tests, four optional AI tests, 110 native Catalog definitions, current core/Messaging quality, and the 369-file three-package source scan. Inclusive Messaging coverage remains 77.8 percent.",
+        "All 36 public runtime requests have Bus-only and rejected-admission tests with zero canonical record changes, request admissions, and provider callbacks. Grant revision conflicts and repeated logical request identity retain one callback.",
+        "Eleven additional Presence cases prove ordered room moves, occupied-room suppression, transport failure state retention, session recovery, mixed expiry, reset, stopped adapters, and private tracking metadata. The expiry sleep is replaced by a call barrier.",
+        "The compiled API audit checks 5029 core/Messaging exports and 1200 generated instance exports with no unmapped or retired export. Four versioned rejection controls prove missing applications, missing rows, unmapped functions, and retired functions cannot pass.",
+        "All 955 inclusive Messaging tests pass with local PostgreSQL and zero skips. Current Messaging quality passes. Coverage is 78.2 percent; the 90 percent floor remains open.",
+        "The G3 runtime graph covers core, Messaging, and Signal provider. Both isolated AI profiles pass 257 core tests, 955 inclusive Messaging tests, and 241 harness tests. The four optional AI fixtures pass without a model call. Graph reports verify exact pinned v3 refs and versions: 39 dependencies without AI, 51 with AI.",
+        "Story fixture paths now resolve from the test source. Separate complete suite processes retain colliding test module names. The default all-nine-adapter profile remains unchanged for G7."
       ],
       "remaining": [
-        "Finish the remaining admission, authoritative observation, and compiled API/export audits across every public entry. Resource references remain call scoped; no durable or restart-safe replay claim is made.",
+        "Finish the remaining acceptance storage-failure and authoritative observation ownership checks. All 36 public runtime request admission cases and the compiled core/Messaging API audit now pass.",
         "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
-        "Complete whole-group adapter checks and fresh core-only/optional-AI integration graphs in G7 after all provider ports.",
+        "Complete fresh whole-group core-only and optional-AI graphs in G7 after all nine provider ports. The G3 runtime profile covers core, Messaging, and the Signal provider.",
         "Complete every remaining package, quality, coverage, dependency audit, PR/review/current-head CI requirement in G4-G9."
       ]
     },

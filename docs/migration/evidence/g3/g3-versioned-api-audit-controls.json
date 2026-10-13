@@ -1,0 +1,19 @@
+{
+  "label": "g3-versioned-api-audit-controls",
+  "command": [
+    "python3",
+    "integration/scripts/test_api_export_audit.py"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "7a14301e6f70df960164fc2c5e5b32a91280dea0",
+  "source_tree_sha256": "0a9a8aea9ac2e9060b53a837df214af48d16bee4ecce0109222dafac6161665d",
+  "started_at": "2026-10-13T00:18:39.835454+00:00",
+  "finished_at": "2026-10-13T00:18:54.154006+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-versioned-api-audit-controls.log",
+  "log_sha256": "02cdbb9953662dc64aa4c739d03b47744c2b59c25af5752cb1b43a50946c102e"
+}
