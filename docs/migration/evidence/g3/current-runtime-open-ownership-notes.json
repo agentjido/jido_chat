@@ -1,22 +1,23 @@
 {
   "state": "open",
-  "source_head": "2768b005b051c00924bc439580a4421c4f4340c4",
+  "source_head": "00bb2df25e2170bf1ef3303eaa66b96ae3f219ce",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/persistence/ets.ex and sqlite.ex",
-      "observed": "Scoped record queries, cursor validation and terminal revision paths still have substantial missed branches.",
-      "required_proof": "Real owned records and invalid/foreign scope cannot alter authority or leak records; exact cursor/revision errors and later valid operations."
+      "file": "lib/jido_messaging.ex",
+      "observed": "Projection callback exceptions/invalid returns and paged canonical store read failures still lack complete safe outcome proof.",
+      "required_proof": "Failed projection cannot corrupt canonical state or silently return partial rebuild; safe errors and no inferred effects."
     },
     {
-      "file": "lib/jido_messaging.ex",
-      "observed": "Transcript/projection empty/error and paged rebuild paths remain partly unverified.",
-      "required_proof": "Complete canonical history within exact instance/room scope, safe projection admission and exact page ordering."
+      "file": "lib/jido_messaging/persistence/ets.ex and sqlite.ex",
+      "observed": "Identity credential, directory and advisory record malformed revision/filter queries retain uncovered paths.",
+      "required_proof": "Real records reject unsafe or mismatched fields and preserve explicit principal/room/instance scope."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Assignment persistence exceptions/invalid or foreign records return safely; before/after-write errors restore original storage, room state and one owned runner. Failed rollback reports the complete failure.",
-    "Missing binding identities stay absent instead of nil-derived strings; fixed channel guards reject before binding writes. Real topology invalid/partial/existing record outcomes pass."
+    "Root transcript scope validates manually constructed invalid room/metadata fields before every projection admission.",
+    "Real ETS/SQLite cursor/limit and complete paged rebuild preserve owned records and order.",
+    "Three revisioned authority record types retain immutable identity, exact terminal revocation and scoped indexes in both real backends."
   ]
 }
