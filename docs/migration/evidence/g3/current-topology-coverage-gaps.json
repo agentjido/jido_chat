@@ -1,0 +1,219 @@
+{
+  "source_check": "g3-current-topology-native-postgres-inclusive-coverage.json",
+  "coverage_percent": 81.4,
+  "coverage_floor": 90,
+  "coverage_floor_met": false,
+  "note": "Console paths are shortened. No threshold/ignore/skip change. Complete PostgreSQL cases use the isolated native fixture.",
+  "largest_remaining_gaps": [
+    {
+      "displayed_path": "lib/jido_messaging.ex",
+      "coverage_percent": 78.1,
+      "relevant_lines": 619,
+      "missed_lines": 135
+    },
+    {
+      "displayed_path": "lib/jido_messaging/persistence/ets.ex",
+      "coverage_percent": 86.9,
+      "relevant_lines": 958,
+      "missed_lines": 125
+    },
+    {
+      "displayed_path": "lib/jido_messaging/persistence/sqlite.ex",
+      "coverage_percent": 87.4,
+      "relevant_lines": 934,
+      "missed_lines": 117
+    },
+    {
+      "displayed_path": "lib/jido_messaging/ingest.ex",
+      "coverage_percent": 80.5,
+      "relevant_lines": 426,
+      "missed_lines": 83
+    },
+    {
+      "displayed_path": "lib/jido_messaging/room_server.ex",
+      "coverage_percent": 75.5,
+      "relevant_lines": 270,
+      "missed_lines": 66
+    },
+    {
+      "displayed_path": "lib/jido_messaging/demo/bridge.ex",
+      "coverage_percent": 40.0,
+      "relevant_lines": 105,
+      "missed_lines": 63
+    },
+    {
+      "displayed_path": "lib/jido_messaging/demo/topology.ex",
+      "coverage_percent": 69.1,
+      "relevant_lines": 198,
+      "missed_lines": 61
+    },
+    {
+      "displayed_path": "lib/jido_messaging/adapter_bridge.ex",
+      "coverage_percent": 65.8,
+      "relevant_lines": 164,
+      "missed_lines": 56
+    },
+    {
+      "displayed_path": "lib/jido_messaging/audit_logger.ex",
+      "coverage_percent": 52.1,
+      "relevant_lines": 94,
+      "missed_lines": 45
+    },
+    {
+      "displayed_path": "lib/jido_messaging/security.ex",
+      "coverage_percent": 67.6,
+      "relevant_lines": 133,
+      "missed_lines": 43
+    },
+    {
+      "displayed_path": "lib/jido_messaging/execution.ex",
+      "coverage_percent": 86.5,
+      "relevant_lines": 313,
+      "missed_lines": 42
+    },
+    {
+      "displayed_path": "lib/jido_messaging/outbound_gateway.ex",
+      "coverage_percent": 70.7,
+      "relevant_lines": 140,
+      "missed_lines": 41
+    },
+    {
+      "displayed_path": "lib/jido_messaging/config_store.ex",
+      "coverage_percent": 76.2,
+      "relevant_lines": 164,
+      "missed_lines": 39
+    },
+    {
+      "displayed_path": "lib/jido_messaging/events.ex",
+      "coverage_percent": 76.5,
+      "relevant_lines": 166,
+      "missed_lines": 39
+    },
+    {
+      "displayed_path": "lib/jido_messaging/media_policy.ex",
+      "coverage_percent": 79.1,
+      "relevant_lines": 187,
+      "missed_lines": 39
+    },
+    {
+      "displayed_path": "lib/jido_messaging/bridge_registry.ex",
+      "coverage_percent": 79.6,
+      "relevant_lines": 187,
+      "missed_lines": 38
+    },
+    {
+      "displayed_path": "lib/jido_messaging/ingress_subscription.",
+      "coverage_percent": 38.9,
+      "relevant_lines": 59,
+      "missed_lines": 36
+    },
+    {
+      "displayed_path": "lib/jido_messaging/outbound_gateway/part",
+      "coverage_percent": 87.3,
+      "relevant_lines": 284,
+      "missed_lines": 36
+    },
+    {
+      "displayed_path": "lib/jido_messaging/chat_actions/executor",
+      "coverage_percent": 85.7,
+      "relevant_lines": 231,
+      "missed_lines": 33
+    },
+    {
+      "displayed_path": "lib/jido_messaging/persistence/postgres.",
+      "coverage_percent": 93.5,
+      "relevant_lines": 498,
+      "missed_lines": 32
+    },
+    {
+      "displayed_path": "lib/jido_messaging/deliver.ex",
+      "coverage_percent": 80.8,
+      "relevant_lines": 162,
+      "missed_lines": 31
+    },
+    {
+      "displayed_path": "lib/jido_messaging/session_manager/parti",
+      "coverage_percent": 78.0,
+      "relevant_lines": 141,
+      "missed_lines": 31
+    },
+    {
+      "displayed_path": "lib/mix/tasks/jido_messaging.demo.ex",
+      "coverage_percent": 79.1,
+      "relevant_lines": 139,
+      "missed_lines": 29
+    },
+    {
+      "displayed_path": "lib/jido_messaging/instance_reconnect_wo",
+      "coverage_percent": 71.8,
+      "relevant_lines": 96,
+      "missed_lines": 27
+    },
+    {
+      "displayed_path": "lib/jido_messaging/presence.ex",
+      "coverage_percent": 88.5,
+      "relevant_lines": 219,
+      "missed_lines": 25
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_directory.ex",
+      "coverage_percent": 78.5,
+      "relevant_lines": 107,
+      "missed_lines": 23
+    },
+    {
+      "displayed_path": "lib/jido_messaging/identity.ex",
+      "coverage_percent": 83.9,
+      "relevant_lines": 137,
+      "missed_lines": 22
+    },
+    {
+      "displayed_path": "lib/jido_messaging/bridge_config.ex",
+      "coverage_percent": 34.3,
+      "relevant_lines": 32,
+      "missed_lines": 21
+    },
+    {
+      "displayed_path": "lib/jido_messaging/trust_evidence_data.e",
+      "coverage_percent": 71.2,
+      "relevant_lines": 73,
+      "missed_lines": 21
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_directory_data.",
+      "coverage_percent": 71.8,
+      "relevant_lines": 71,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/agent_endpoints.ex",
+      "coverage_percent": 86.6,
+      "relevant_lines": 150,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/continuity_data.ex",
+      "coverage_percent": 66.1,
+      "relevant_lines": 59,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/delegation_data.ex",
+      "coverage_percent": 70.1,
+      "relevant_lines": 67,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/ingress_subscriptions",
+      "coverage_percent": 80.3,
+      "relevant_lines": 102,
+      "missed_lines": 20
+    },
+    {
+      "displayed_path": "lib/jido_messaging/webhook_plug.ex",
+      "coverage_percent": 66.1,
+      "relevant_lines": 59,
+      "missed_lines": 20
+    }
+  ]
+}

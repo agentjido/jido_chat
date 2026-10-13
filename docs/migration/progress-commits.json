@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T03:43:03.902236+00:00",
+  "updated_at": "2026-10-13T04:21:23.689614+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -858,13 +858,24 @@
         "evidence/g3/g3-projection-canonical-identity-and-lifetime-final-tests.json"
       ],
       "open_work": "Restore local PostgreSQL fixture and rerun affected inclusive/profile checks; finish remaining ownership and 90 percent Messaging coverage; all adapter and final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "5830b25f528a452ca510a10df8009ec9c172eb57",
+      "subject": "fix(topology): reject foreign bindings and malformed sections before writes",
+      "checks": [
+        "evidence/g3/g3-topology-owner-and-sections-warning-free-tests.json",
+        "evidence/g3/g3-current-topology-ownership-quality.json",
+        "evidence/g3/g3-current-topology-native-postgres-inclusive-coverage.json"
+      ],
+      "open_work": "Required 90 percent Messaging coverage, remaining ownership/storage/runtime cases, remaining adapters and all final G4-G9 requirements remain open."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 963,
+    "messaging_inclusive_tests": 1086,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -877,7 +888,7 @@
     "current_library_scan_files": 369,
     "current_library_scan_findings": 0,
     "runtime_harness_tests_per_profile": 241,
-    "compiled_core_messaging_exports": 5029,
+    "compiled_core_messaging_exports": 5031,
     "compiled_generated_instance_exports": 1200,
     "public_runtime_request_admission_rows": 36,
     "runtime_dependency_count_without_ai": 39,
@@ -903,15 +914,17 @@
     "telegram_pinned_graph_dependencies": 42,
     "slack_native_mapper_cases": 15,
     "slack_native_protocol_mapper_socket_cases": 27,
-    "slack_library_quality": "pass"
+    "slack_library_quality": "pass",
+    "real_slack_runtime_membership_tests": 7,
+    "real_slack_runtime_execution_tests": 4
   },
   "open_work": [
-    "Finish the remaining acceptance exception/partial-effect and direct facade ownership checks. Membership lookup failures and returned message/lifecycle store errors now have safe contract errors and tested claim release.",
-    "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
-    "Refresh affected core-only and optional-AI graph evidence after current source changes. Whole-group graph proof remains required in G7 after all provider ports.",
-    "Complete all nine adapters and every remaining G4-G9 quality, coverage, dependency audit, package, PR/review, and current-head CI requirement."
+    "Fix the current AI profile identity credential conflict and SQLite concurrency timeout, then rerun the affected full suite.",
+    "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
+    "Complete the remaining provider ports and all-nine G7 Conformance.run C01-C14.",
+    "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current inclusive Messaging coverage is 78.1 percent. The required 90 percent floor is not met. No threshold, skip, or ignore is reduced.",
+  "coverage_note": "Current complete inclusive Messaging coverage is 81.4 percent. The required 90 percent floor is unmet. No threshold, skip, or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -920,6 +933,13 @@
       "commit messages",
       "current chat"
     ],
-    "final_completion_requirements_unchanged": true
+    "final_completion_requirements_unchanged": true,
+    "github_issue_progress_body_updates": "disabled_by_user"
+  },
+  "current_ai_profile": {
+    "state": "fail",
+    "passed": 1084,
+    "total": 1086,
+    "check": "evidence/g3/g3-current-topology-native-ai-complete-recheck.json"
   }
 }

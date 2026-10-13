@@ -1,19 +1,20 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T03:44:42.315126+00:00",
-  "messaging_head": "528e06dd16ed8ca52346de29876b23419023f517",
-  "core_head": "7218766544fc4383c1a3147d4e81829da410a855",
-  "inclusive_tests": 1050,
+  "updated_at": "2026-10-13T04:21:23.689614+00:00",
+  "messaging_head": "5830b25f528a452ca510a10df8009ec9c172eb57",
+  "core_head": "7739066503bab4e3e329e9d762c3f06193ad4510",
+  "inclusive_tests": 1086,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 80.5,
+  "coverage_percent": 81.4,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
   "new_passed_checks": [
     "g3-accepted-message-failure-quality",
+    "g3-ai-profile-concurrency-failure-recheck",
     "g3-current-canonical-history-and-storage-quality",
     "g3-current-canonical-storage-ai-harness-tests",
     "g3-current-canonical-storage-complete-api-audit",
@@ -60,6 +61,20 @@
     "g3-current-safe-acceptance-api-audit",
     "g3-current-safe-acceptance-boundary-scan",
     "g3-current-safe-acceptance-inclusive-coverage",
+    "g3-current-topology-ai-graph-report",
+    "g3-current-topology-ai-harness-tests",
+    "g3-current-topology-complete-api-audit",
+    "g3-current-topology-contract-manifest-check",
+    "g3-current-topology-core-graph-report",
+    "g3-current-topology-core-harness-tests",
+    "g3-current-topology-native-core-messaging-tests",
+    "g3-current-topology-native-postgres-inclusive-coverage",
+    "g3-current-topology-optional-ai-fixtures",
+    "g3-current-topology-ownership-quality",
+    "g3-current-topology-slack-execution-tests",
+    "g3-current-topology-slack-membership-tests",
+    "g3-current-topology-source-scan",
+    "g3-current-topology-telegram-membership-tests",
     "g3-dead-letter-ownership-controls",
     "g3-delete-and-runtime-unavailable-final-tests",
     "g3-demo-cli-sourced-environment-final-tests",
@@ -68,6 +83,7 @@
     "g3-ingress-subscription-scope-and-page-tests",
     "g3-lifecycle-exception-and-partial-effect-tests",
     "g3-message-store-exception-reconciliation-tests",
+    "g3-native-postgres-recovery-clean-storage-tests",
     "g3-original-ingest-confirmation-fixture-tests",
     "g3-private-mention-normalization-final-tests",
     "g3-projection-canonical-identity-and-lifetime-final-tests",
@@ -76,6 +92,7 @@
     "g3-safe-acceptance-storage-failure-tests",
     "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
+    "g3-topology-owner-and-sections-warning-free-tests",
     "g3-uncertain-write-and-accepted-runtime-final-tests"
   ],
   "confirmed_regressions": [
@@ -113,13 +130,18 @@
     "Direct facade composite tests use identical IDs across real ETS/SQLite runtimes and prove record isolation, terminal revision/revocation, no request admissions, no communication observations, no inferred grants or agent starts.",
     "Optional search results are compared with canonical stored messages, participants and immutable authorship. Changed principals, forged assurance, fabricated content and deleted records are rejected. Timestamp-less valid history remains readable.",
     "Current quality passes with zero Dialyzer errors/skips, both harnesses pass 241 cases, API audit has 5031 exports including 1200 generated instance exports, and the source scan checks 369 files with zero findings.",
-    "The attempted full current coverage run ended with 1041/1079 checks passing and 38 failures, all PostgreSQL cases. Docker inspect, info and database diagnostic requests stopped responding although OrbStack reports Running. The terminal failure log is retained. Fresh non-PostgreSQL verification passes 1041 checks with the same 38 existing PostgreSQL cases excluded. This is partial evidence only."
+    "The attempted full current coverage run ended with 1041/1079 checks passing and 38 failures, all PostgreSQL cases. Docker inspect, info and database diagnostic requests stopped responding although OrbStack reports Running. The terminal failure log is retained. Fresh non-PostgreSQL verification passes 1041 checks with the same 38 existing PostgreSQL cases excluded. This is partial evidence only.",
+    "Topology validates all five sections before writes. A binding owned by another room returns a scope conflict. All 24 topology and CLI tests pass.",
+    "An isolated native PostgreSQL fixture restores all storage checks. All 76 PostgreSQL and shared storage tests pass. No shared service was restarted.",
+    "Current complete Messaging coverage passes 1086 checks with zero skips and 81.4 percent coverage. The required 90 percent floor is unmet. The current core runtime Messaging profile passes 1086 checks.",
+    "Current AI full recheck passes 1084 of 1086 checks. An identity credential conflict and a SQLite concurrent room timeout remain. Its max-cases 4 setting keeps internal 40-call concurrency and all assertions. The earlier focused 34-case recheck passed.",
+    "Current quality, 5031-export audit, 369-file source scan, 39/51 dependency graphs, both 241-case harnesses, four optional AI fixtures, eight Telegram membership cases, seven Slack membership cases and four Slack execution cases pass. Core 257-case proof reuses unchanged library/test source and pinned refs."
   ],
   "remaining": [
-    "Restore access to the local PostgreSQL fixture and rerun current inclusive coverage and both affected runtime profile suites. Do not use the failed 77.9 percent run or prior-source 80.5 percent result as current complete evidence.",
-    "Finish remaining runtime/facade/storage ownership and failure cases. Reach at least 90 percent Messaging coverage without lowering thresholds or adding ignores/skips.",
-    "Refresh affected checks after source changes. Finish remaining provider ports and real all-nine G7 Conformance.run C01-C14.",
-    "Complete all remaining G4-G9 quality/coverage/audit, final package/docs/version, focused PR/review and current-head CI requirements."
+    "Fix the current AI profile identity credential conflict and SQLite concurrency timeout, then rerun the affected full suite.",
+    "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
+    "Complete the remaining provider ports and all-nine G7 Conformance.run C01-C14.",
+    "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
   "runtime_profile": {
     "scope": [
@@ -127,9 +149,9 @@
       "jido_messaging",
       "jido_chat_signal"
     ],
-    "with_and_without_ai": "pass",
+    "with_and_without_ai": "pending: current core profile passes; current AI full suite has two failures",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1050,
+    "messaging_tests_per_profile": null,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -137,17 +159,29 @@
       51
     ],
     "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
-    "current_messaging_profile_state": "pending: PostgreSQL fixture recovery required"
+    "current_messaging_profile_state": {
+      "core": {
+        "passed": 1086,
+        "failures": 0
+      },
+      "ai": {
+        "passed": 1084,
+        "total": 1086,
+        "failures": 2,
+        "max_cases": 4,
+        "check": "g3-current-topology-native-ai-complete-recheck.json"
+      }
+    }
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-canonical-storage-complete-api-exports.json"
+    "current_report": "current-topology-complete-api-exports.json"
   },
-  "current_full_inclusive_state": "unproven: local PostgreSQL service unavailable",
+  "current_full_inclusive_state": "pass with isolated native PostgreSQL fixture",
   "current_non_postgres_checks": 1041,
   "current_postgres_checks_excluded": 38,
-  "coverage_percent_source": "80.5 percent is the last complete prior-source inclusive run; current inclusive coverage is unproven."
+  "coverage_percent_source": "Current complete inclusive run: g3-current-topology-native-postgres-inclusive-coverage.json"
 }

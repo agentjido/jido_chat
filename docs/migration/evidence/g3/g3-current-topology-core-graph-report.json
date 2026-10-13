@@ -1,0 +1,23 @@
+{
+  "label": "g3-current-topology-core-graph-report",
+  "command": [
+    "mix",
+    "run",
+    "scripts/report_dependency_graph.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "7739066503bab4e3e329e9d762c3f06193ad4510",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T04:07:11.388507+00:00",
+  "finished_at": "2026-10-13T04:07:16.730337+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-topology-core-graph-report.log",
+  "log_sha256": "930244f8642410a04598572b41e38b79009601673ecfa7f478810ec69c1cfc4e"
+}

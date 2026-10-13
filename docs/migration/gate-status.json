@@ -114,8 +114,11 @@
         "evidence/g3/current-outcome-coverage-gaps.json",
         "evidence/g3/current-outcome-runtime-ai-dependency-graph.json",
         "evidence/g3/current-outcome-runtime-core-dependency-graph.json",
+        "evidence/g3/current-topology-complete-api-exports.json",
+        "evidence/g3/current-topology-coverage-gaps.json",
         "evidence/g3/g3-accepted-message-failure-quality.json",
         "evidence/g3/g3-admission-presence-current-quality.json",
+        "evidence/g3/g3-ai-profile-concurrency-failure-recheck.json",
         "evidence/g3/g3-all-native-result-schemas.json",
         "evidence/g3/g3-all-request-admission-tests.json",
         "evidence/g3/g3-auto-thread-admission-quality.json",
@@ -191,6 +194,22 @@
         "evidence/g3/g3-current-safe-acceptance-inclusive-coverage.json",
         "evidence/g3/g3-current-terminal-category-quality.json",
         "evidence/g3/g3-current-three-package-boundary-scan.json",
+        "evidence/g3/g3-current-topology-ai-graph-report.json",
+        "evidence/g3/g3-current-topology-ai-harness-tests.json",
+        "evidence/g3/g3-current-topology-complete-api-audit.json",
+        "evidence/g3/g3-current-topology-contract-manifest-check.json",
+        "evidence/g3/g3-current-topology-core-graph-report.json",
+        "evidence/g3/g3-current-topology-core-harness-tests.json",
+        "evidence/g3/g3-current-topology-native-ai-complete-recheck.json",
+        "evidence/g3/g3-current-topology-native-ai-messaging-tests.json",
+        "evidence/g3/g3-current-topology-native-core-messaging-tests.json",
+        "evidence/g3/g3-current-topology-native-postgres-inclusive-coverage.json",
+        "evidence/g3/g3-current-topology-optional-ai-fixtures.json",
+        "evidence/g3/g3-current-topology-ownership-quality.json",
+        "evidence/g3/g3-current-topology-slack-execution-tests.json",
+        "evidence/g3/g3-current-topology-slack-membership-tests.json",
+        "evidence/g3/g3-current-topology-source-scan.json",
+        "evidence/g3/g3-current-topology-telegram-membership-tests.json",
         "evidence/g3/g3-dead-letter-ownership-controls.json",
         "evidence/g3/g3-delete-and-runtime-unavailable-final-tests.json",
         "evidence/g3/g3-demo-cli-sourced-environment-final-tests.json",
@@ -220,6 +239,7 @@
         "evidence/g3/g3-named-terminal-cause-tests.json",
         "evidence/g3/g3-native-admission-quality-fixed.json",
         "evidence/g3/g3-native-ingress-six-contract-tests.json",
+        "evidence/g3/g3-native-postgres-recovery-clean-storage-tests.json",
         "evidence/g3/g3-optional-ai-progress-commit-tests.json",
         "evidence/g3/g3-original-ingest-confirmation-fixture-tests.json",
         "evidence/g3/g3-owned-resource-core-tests.json",
@@ -265,10 +285,12 @@
         "evidence/g3/g3-subscription-malformed-wrapper-final-tests.json",
         "evidence/g3/g3-terminal-tag-plt-refresh.json",
         "evidence/g3/g3-tool-native-result-fidelity-tests.json",
+        "evidence/g3/g3-topology-owner-and-sections-warning-free-tests.json",
         "evidence/g3/g3-trusted-policy-runtime-tests.json",
         "evidence/g3/g3-uncertain-write-and-accepted-runtime-final-tests.json",
         "evidence/g3/g3-updated-catalog-round-trip.json",
         "evidence/g3/g3-versioned-api-audit-controls.json",
+        "evidence/g3/native-postgres-fixture.json",
         "evidence/g3/runtime-ai-dependency-graph.json",
         "evidence/g3/runtime-core-dependency-graph.json",
         "evidence/g3/schema-corrections.json",
@@ -351,13 +373,18 @@
         "Current quality passes with zero Dialyzer errors/skips. Both pinned runtime profiles pass 1050 inclusive Messaging checks and 241 harness tests; optional AI fixtures pass 4 tests without a model call. The current 5031-export audit and 369-file source scan pass. Package coverage is 80.5 percent; the required 90 percent is unmet.",
         "The expanded 57-case shared storage suite passed on ETS, SQLite and local PostgreSQL. Fix PostgreSQL participant directory selection to include the requested bridge. Test declared optional callback rejection without adding skips or new PostgreSQL authorization features.",
         "Composite direct facade scenarios prove canonical record/identity/revision/endpoint ownership on real ETS and SQLite with no communication effects or inferred authority. Optional search projection data now must match authoritative stored messages, participants and authorship; malformed identity/content and deleted records are rejected.",
-        "Current quality and 5031-export/369-file audits pass. Both current harness profiles pass 241 tests. Current non-PostgreSQL suite passes 1041 checks. The full inclusive run failed 38 PostgreSQL checks after the local container service became unresponsive; current inclusive coverage/profile evidence remains unproven."
+        "Current quality and 5031-export/369-file audits pass. Both current harness profiles pass 241 tests. Current non-PostgreSQL suite passes 1041 checks. The full inclusive run failed 38 PostgreSQL checks after the local container service became unresponsive; current inclusive coverage/profile evidence remains unproven.",
+        "Topology validates all five sections before writes. A binding owned by another room returns a scope conflict. All 24 topology and CLI tests pass.",
+        "An isolated native PostgreSQL fixture restores all storage checks. All 76 PostgreSQL and shared storage tests pass. No shared service was restarted.",
+        "Current complete Messaging coverage passes 1086 checks with zero skips and 81.4 percent coverage. The required 90 percent floor is unmet. The current core runtime Messaging profile passes 1086 checks.",
+        "Current AI full recheck passes 1084 of 1086 checks. An identity credential conflict and a SQLite concurrent room timeout remain. Its max-cases 4 setting keeps internal 40-call concurrency and all assertions. The earlier focused 34-case recheck passed.",
+        "Current quality, 5031-export audit, 369-file source scan, 39/51 dependency graphs, both 241-case harnesses, four optional AI fixtures, eight Telegram membership cases, seven Slack membership cases and four Slack execution cases pass. Core 257-case proof reuses unchanged library/test source and pinned refs."
       ],
       "remaining": [
-        "Restore access to the local PostgreSQL fixture and rerun current inclusive coverage and both affected runtime profile suites. Do not use the failed 77.9 percent run or prior-source 80.5 percent result as current complete evidence.",
-        "Finish remaining runtime/facade/storage ownership and failure cases. Reach at least 90 percent Messaging coverage without lowering thresholds or adding ignores/skips.",
-        "Refresh affected checks after source changes. Finish remaining provider ports and real all-nine G7 Conformance.run C01-C14.",
-        "Complete all remaining G4-G9 quality/coverage/audit, final package/docs/version, focused PR/review and current-head CI requirements."
+        "Fix the current AI profile identity credential conflict and SQLite concurrency timeout, then rerun the affected full suite.",
+        "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
+        "Complete the remaining provider ports and all-nine G7 Conformance.run C01-C14.",
+        "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
       ]
     },
     {
@@ -519,7 +546,8 @@
       "commit messages",
       "current chat"
     ],
-    "final_completion_requirements_unchanged": true
+    "final_completion_requirements_unchanged": true,
+    "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T03:44:42.315126+00:00"
+  "updated_at": "2026-10-13T04:21:23.689614+00:00"
 }

@@ -1,0 +1,17 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+    warning: key "rooms" will be overridden in map
+    │
+ 35 │       topology = %{"rooms" => [%{"id" => "must-not-exist", "type" => "group"}], unquote(section) => :invalid}
+    │                  ~
+    │
+    └─ test/jido_messaging/demo/topology_test.exs:35:18
+
+........................
+Finished in 0.5 seconds (0.00s async, 0.5s sync)
+
+Result: 24 passed
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

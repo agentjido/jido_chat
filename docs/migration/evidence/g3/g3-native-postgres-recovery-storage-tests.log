@@ -1,0 +1,35 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+.....................
+
+  1) test requires migrations and installs them in a host schema (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:56
+     ** (MatchError) no match of right hand side value:
+
+         ["codex_signal"]
+
+     code: database_options()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:674: Jido.Messaging.Persistence.PostgresTest.database_options/0
+       test/jido_messaging/persistence/postgres_test.exs:62: (test)
+
+
+
+  2) test supports connection option boundaries and validates configuration (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:91
+     ** (MatchError) no match of right hand side value:
+
+         ["codex_signal"]
+
+     code: database_options() ++
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:674: Jido.Messaging.Persistence.PostgresTest.database_options/0
+       test/jido_messaging/persistence/postgres_test.exs:94: (test)
+
+.............Jido Messaging PostgreSQL migrations are current
+........................................
+Finished in 10.1 seconds (3.3s async, 6.7s sync)
+
+Result: 74/76 passed
+Failed: 2 tests

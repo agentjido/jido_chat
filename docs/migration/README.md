@@ -3,11 +3,11 @@
 This migration is in progress. G0, G1, and G2 have passed. G3–G9 are pending.
 The full package group is not ready for use.
 
-Current verification is partial. The latest Messaging source passes 1,041
-non-PostgreSQL checks and package quality. The full run failed 38 PostgreSQL
-checks after the local container service stopped responding. Current inclusive
-coverage and runtime-profile proof require fixture recovery and new checks.
-The 80.5 percent result below is the last complete prior-source run.
+The isolated native PostgreSQL fixture works. Current complete Messaging checks
+pass 1,086 tests with zero skips and 81.4 percent coverage. The core runtime
+profile passes all 1,086 checks. The AI profile passes 1,084 of 1,086 checks.
+An identity credential conflict and a SQLite concurrency timeout remain open.
+The required 90 percent coverage floor is unmet.
 
 The execution plan is
 [2026-10-12-002-public-signal-boundary-plan.md](../plans/2026-10-12-002-public-signal-boundary-plan.md).
@@ -21,11 +21,13 @@ Do not wait for all gates to pass. Keep each commit focused. Put passed checks a
 open work in its commit message and in `progress-commits.json`.
 All final completion requirements stay the same.
 
-The tested work is saved in progress commits. The latest runtime profiles pass
-257 core tests, 1,050 inclusive Messaging checks, 241 integration tests, and four
-optional AI tests. Both profiles use the pinned v3 sources. The Messaging runs
-include local PostgreSQL, integration, and story cases, with no skipped test.
-Current Messaging quality passes. Provider checks are recorded separately.
+The tested work is saved in focused progress commits. Both runtime harnesses
+pass 241 checks. Four optional AI fixtures pass without a model call. Core proof
+reuses 257 passing tests because its library, tests and pinned refs are unchanged.
+Current Messaging quality, API audit and source scan pass.
+
+Do not add GitHub issue progress comments or change the issue body for progress.
+Record progress in this chat, local files and commit messages.
 
 Provider message lookup now includes the canonical room. Update, delete, and
 reply tests use the same provider ID in two rooms. The Sender capacity test now
@@ -33,7 +35,7 @@ checks all 1,000 queue places and the rejected next job.
 
 These checks use the combined worktrees. Final current-head PR CI, all-adapter
 conformance, package checks, and the 90 percent Messaging coverage floor are
-still required. G3 remains open. Inclusive coverage is 80.5 percent. The required
+still required. G3 remains open. Inclusive coverage is 81.4 percent. The required
 90 percent package coverage is not met.
 
 Automatic thread creation now follows policy and the first message write. A
@@ -76,8 +78,8 @@ and the accepted claim. It emits a registered failure fact when the Bus is
 available. Repeated delivery cannot repeat that message write.
 
 The CreateRoom kind now matches the four stored Room types. Unknown kind fails at
-the constructor. Current checks pass 1,050 inclusive runtime checks, 257 core
-tests, and four optional AI tests. The Catalog has 110 native definitions.
+the constructor. Current checks pass 1,086 complete Messaging checks. The unchanged core has
+257 passing tests. Four optional AI tests pass. The Catalog has 110 native definitions.
 Coverage remains 80.5 percent, below the required 90 percent.
 
 Lifecycle delete failures keep safe errors and exact store counts. A stopped
