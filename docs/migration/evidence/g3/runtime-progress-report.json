@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T05:10:38.184371+00:00",
-  "messaging_head": "487992f93130c27827cd87cabd76a4acef4d6236",
-  "core_head": "4ffc0cca17c83122ddd16e0122e5e2b6c89c7850",
-  "inclusive_tests": 1197,
+  "updated_at": "2026-10-13T05:20:46.499875+00:00",
+  "messaging_head": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
+  "core_head": "4242af836de22ebad1dc209c5e5d68c71745d231",
+  "inclusive_tests": 1234,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 82.8,
+  "coverage_percent": 83.1,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -25,6 +25,8 @@
     "g3-config-read-typed-final-tests",
     "g3-config-record-fields-and-scope-final-tests",
     "g3-config-record-keys-quality",
+    "g3-config-write-before-after-outcome-final-tests",
+    "g3-config-write-outcome-quality",
     "g3-current-callback-and-lock-ai-graph",
     "g3-current-callback-and-lock-ai-uncontended-recheck",
     "g3-current-callback-and-lock-complete-api-audit",
@@ -107,6 +109,17 @@
     "g3-current-safe-acceptance-api-audit",
     "g3-current-safe-acceptance-boundary-scan",
     "g3-current-safe-acceptance-inclusive-coverage",
+    "g3-current-setup-write-cleanup-ai-full-tests",
+    "g3-current-setup-write-cleanup-ai-graph",
+    "g3-current-setup-write-cleanup-ai-harness",
+    "g3-current-setup-write-cleanup-api-audit",
+    "g3-current-setup-write-cleanup-core-full-tests",
+    "g3-current-setup-write-cleanup-core-graph",
+    "g3-current-setup-write-cleanup-core-harness",
+    "g3-current-setup-write-cleanup-inclusive-coverage",
+    "g3-current-setup-write-cleanup-optional-ai",
+    "g3-current-setup-write-cleanup-quality",
+    "g3-current-setup-write-cleanup-source-scan",
     "g3-current-topology-ai-graph-report",
     "g3-current-topology-ai-harness-tests",
     "g3-current-topology-complete-api-audit",
@@ -127,16 +140,20 @@
     "g3-demo-cli-typed-environment-source-tests",
     "g3-demo-configured-actor-and-native-final-tests",
     "g3-demo-final-native-quality",
+    "g3-demo-setup-errors-and-ownership-final-tests",
+    "g3-demo-setup-ownership-quality",
     "g3-facade-record-ownership-tests",
     "g3-ingest-policy-lifetime-and-ownership-final-tests",
     "g3-ingress-subscription-scope-and-page-tests",
     "g3-lifecycle-exception-and-partial-effect-tests",
+    "g3-media-private-payload-final-tests",
     "g3-message-store-exception-reconciliation-tests",
     "g3-native-postgres-recovery-clean-storage-tests",
     "g3-original-ingest-confirmation-fixture-tests",
     "g3-policy-hook-isolation-quality",
     "g3-private-mention-normalization-final-tests",
     "g3-projection-canonical-identity-and-lifetime-final-tests",
+    "g3-room-and-principal-authority-cleanup-final-tests",
     "g3-room-context-pruning-quality",
     "g3-room-state-context-and-receipt-final-tests",
     "g3-room-typing-timeout-controls",
@@ -209,7 +226,13 @@
     "Room thread reply history now removes context for evicted records. Real all-recipient receipt/duplicate timestamps, bounded thread history and agent assignment cleanup scenarios pass. All 45 room tests and quality pass.",
     "Demo bridge uses exact source/subject/type selection, native codec/Catalog/policy validation and canonical stored room/message ownership. Typed authorized sends use captured binding, explicit actor and existing grants. Stable per-message/bridge admission prevents repeat sends. Revoked grants are checked before cached requests.",
     "Typed execution resolves indexed owned room bindings. Disabled, inbound-only or ambiguous explicit routes reject without a provider callback. Legacy room fields apply only when no explicit indexed row exists. The demo supervisor preserves the explicit actor; no grant is inferred. All 141 demo/typed/CLI tests and quality pass.",
-    "Current complete inclusive checks and both current full runtime profiles pass 1197 checks including native PostgreSQL, integration and story and zero skips. Package coverage is 82.8 percent, below required 90 percent. Current API audit checks 5031 exports including 1200 generated instance exports; source scan 369 files has zero findings; current pinned graphs pass 39/51 dependencies."
+    "Current complete inclusive checks and both current full runtime profiles pass 1197 checks including native PostgreSQL, integration and story and zero skips. Package coverage is 82.8 percent, below required 90 percent. Current API audit checks 5031 exports including 1200 generated instance exports; source scan 369 files has zero findings; current pinned graphs pass 39/51 dependencies.",
+    "Demo setup validates all route owners before writes. Failed second binding creation keeps the first owned binding and retries; subscription follows complete success only. Eleven callback/lookup/foreign-room cases and all 41 affected demo/CLI tests pass.",
+    "Config save callbacks return safe failures for error/raise/throw/exit/invalid responses. Twenty before/after-write scenarios preserve process, exact counts and old or committed revision. A stale retry cannot repeat a committed write. All 50 affected record/routing cases and quality pass.",
+    "Four complete private media scenarios preserve image/audio/video/file bytes, order, captions/transcripts/dimensions and exact count/size limits. Invalid middle media cannot return truncated success. All 55 affected media/ingest/gateway tests pass.",
+    "Composite real ETS/SQLite room deletion removes only scoped membership/grant/policy records and indexes. Shared participant and foreign room records remain. Participant deletion then clears remaining authority without removing the foreign room. Nine cleanup/authorization tests pass.",
+    "Current complete inclusive suite and both complete pinned runtime profiles pass 1234 checks with native PostgreSQL, integration and story and zero skips. Inclusive coverage is 83.1 percent; required 90 percent remains unmet. Current quality passes with zero Dialyzer errors/skips.",
+    "Both current harnesses pass 241 tests each and four optional AI fixtures pass without a model call. Current exact graphs pass with 39/51 dependencies. Compiled API audit has 5031 exports including 1200 generated instance exports. The 369-file source scan has zero findings."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -224,7 +247,7 @@
     ],
     "with_and_without_ai": "pass for current source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1197,
+    "messaging_tests_per_profile": 1234,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -234,14 +257,14 @@
     "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
     "current_messaging_profile_state": {
       "core": {
-        "passed": 1197,
+        "passed": 1234,
         "failures": 0,
-        "check": "g3-current-demo-room-config-core-full-tests.json"
+        "check": "g3-current-setup-write-cleanup-core-full-tests.json"
       },
       "ai": {
-        "passed": 1197,
+        "passed": 1234,
         "failures": 0,
-        "check": "g3-current-demo-room-config-ai-full-tests.json"
+        "check": "g3-current-setup-write-cleanup-ai-full-tests.json"
       }
     }
   },
@@ -250,10 +273,10 @@
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-demo-room-config-complete-api-exports.json"
+    "current_report": "current-setup-write-cleanup-complete-api-exports.json"
   },
-  "current_full_inclusive_state": "pass:1197 checks including native PostgreSQL",
+  "current_full_inclusive_state": "pass:1234 checks including native PostgreSQL",
   "current_non_postgres_checks": 1041,
   "current_postgres_checks_excluded": 38,
-  "coverage_percent_source": "g3-current-demo-room-config-inclusive-coverage.json"
+  "coverage_percent_source": "g3-current-setup-write-cleanup-inclusive-coverage.json"
 }

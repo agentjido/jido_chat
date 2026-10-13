@@ -1,29 +1,29 @@
 {
   "state": "open",
-  "source_head": "487992f93130c27827cd87cabd76a4acef4d6236",
+  "source_head": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/demo/bridge.ex",
-      "observed": "Shared room setup ignores a failed room-binding write and treats any existing external binding as already ready.",
-      "required_proof": "Whole configured topology is compatible before subscription, failed binding creation retries, foreign room ownership does not result in a ready bridge."
-    },
-    {
-      "file": "lib/jido_messaging/config_store.ex",
-      "observed": "Before-write reads are safe; explicit save failure and late reconcile failure paths still need direct record/count checks.",
-      "required_proof": "No duplicate canonical write and exact accepted record/reconcile outcome."
-    },
-    {
       "file": "lib/jido_messaging/ingest.ex",
-      "observed": "Remaining meaningful line gaps in max-size/media/context/durable recovery branches.",
-      "required_proof": "Full payload preservation and exact storage/provider/observation counts."
+      "observed": "Meaningful remaining coverage gaps include contextual reply mapping, media acceptance and resolver error branches.",
+      "required_proof": "Original full payload/canonical context and exact accepted write/deduper/observation counts on failure."
+    },
+    {
+      "file": "lib/jido_messaging/persistence/ets.ex",
+      "observed": "Remaining revisioned endpoint, route, principal identity and activity cleanup branches from full coverage.",
+      "required_proof": "Composite real backend ownership with same IDs/scopes and foreign records retained."
+    },
+    {
+      "file": "lib/jido_messaging/webhook_plug.ex",
+      "observed": "Malformed parse/auth headers and full native sink outcome matrix require exact transport checks.",
+      "required_proof": "No raw-map fallback; validate before sink; declared status/ACK on error, raise, throw, exit and invalid result."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Config existing-record read errors and wrong type/ID reject before writes, preserve process and one later revision.",
-    "Thread reply history prunes evicted private context; receipt and assignment scenarios pass.",
-    "Typing stale/unknown/expired timer ownership and native false fact pass.",
-    "Demo native source/subject/type validation, captured bindings, typed authorized sends and indexed route constraints pass 141 tests."
+    "Demo complete route owner preflight and failed binding retry before subscription pass eleven cases.",
+    "Config before/after-save failure records preserve old or committed revision, exact write counts and stale-retry rejection; twenty new cases pass.",
+    "Image/audio/video/file complete payload order, bytes, metadata and limits pass four cases.",
+    "Real ETS/SQLite room and participant deletion authority scope cleanup pass two composite cases."
   ]
 }

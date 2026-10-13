@@ -1,0 +1,32 @@
+[0mWaiting for lock on the build directory (held by process 93245)
+{
+  "scope": [
+    "jido_chat",
+    "jido_messaging"
+  ],
+  "state": "pass",
+  "inputs": {
+    "api-map": "54411a8eee814229172f72e1b08687410b47cdb57c275b9bd21f4829ae8be02f",
+    "catalog": "4f9f50119d96fd48496cabff6e7b1b12f581d2fb7e526ec2e3ebc3825797e636",
+    "core-retired-modules": "234eafd161ea0957499883bda6ca812bdb51c613e5a5a2f5f77ad24069126ce4",
+    "new-major-core-api": "dc8cde5d03e21cc114908da3fc21fbe1b0a5f01939cac5fe4812f24f125f11ea",
+    "version-matrix": "bffa9d5c2744383315a598f31e2575ac351d0f98a81453959e59195a43e8a832"
+  },
+  "note": "This audit checks compiled API mappings and retired exports. Behavioral tests, all-adapter conformance, coverage, and current-head CI remain separate requirements.",
+  "failures": [],
+  "gate": "G3",
+  "export_count": 5031,
+  "generated_instance_export_count": 1200,
+  "source_revisions": {
+    "jido_chat": {
+      "head_sha": "4242af836de22ebad1dc209c5e5d68c71745d231",
+      "compiled_source_files": 126,
+      "source_sha256": "04ebe4c977b3f5b5e4d937e2d4196867d2516f759726b8aea901038fc2f287cc"
+    },
+    "jido_messaging": {
+      "head_sha": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
+      "compiled_source_files": 233,
+      "source_sha256": "3ee5f2af0a78b7ba6350f28b621b8930ae92d02fce43e4a242abbfbefaf89bc1"
+    }
+  }
+}

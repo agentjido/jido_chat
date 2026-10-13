@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T05:10:38.184371+00:00",
+  "updated_at": "2026-10-13T05:20:46.499875+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1004,13 +1004,51 @@
         "evidence/g3/g3-demo-final-native-quality.json"
       ],
       "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "eb415d53c2cc467c6421da47b10ca5458730bfc8",
+      "subject": "fix(demo): complete owned room setup before subscription",
+      "checks": [
+        "evidence/g3/g3-demo-setup-errors-and-ownership-final-tests.json",
+        "evidence/g3/g3-demo-setup-ownership-quality.json"
+      ],
+      "open_work": "Current full verification, meaningful coverage to 90 percent and all final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6365d011d9cd3cfc2ca188e715286c10dd8f7d60",
+      "subject": "fix(config): preserve record outcomes after failed save callbacks",
+      "checks": [
+        "evidence/g3/g3-config-write-before-after-outcome-final-tests.json",
+        "evidence/g3/g3-config-write-outcome-quality.json"
+      ],
+      "open_work": "Current full verification, meaningful coverage to 90 percent and all final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "1ed7ee3e084620cac5ba4b08af6e65e352b02160",
+      "subject": "test(media): verify complete private payload units and limits",
+      "checks": [
+        "evidence/g3/g3-media-private-payload-final-tests.json"
+      ],
+      "open_work": "Current full verification, meaningful coverage to 90 percent and all final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
+      "subject": "test(storage): verify scoped authority cleanup on record deletion",
+      "checks": [
+        "evidence/g3/g3-room-and-principal-authority-cleanup-final-tests.json"
+      ],
+      "open_work": "Current full verification, meaningful coverage to 90 percent and all final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirements stay open."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1197,
+    "messaging_inclusive_tests": 1234,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1058,7 +1096,7 @@
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current complete inclusive coverage is 82.8 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 83.1 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1072,8 +1110,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1197,
-    "total": 1197,
-    "check": "evidence/g3/g3-current-demo-room-config-ai-full-tests.json"
+    "passed": 1234,
+    "total": 1234,
+    "check": "evidence/g3/g3-current-setup-write-cleanup-ai-full-tests.json"
   }
 }
