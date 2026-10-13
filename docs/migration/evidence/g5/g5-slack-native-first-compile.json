@@ -1,0 +1,20 @@
+{
+  "label": "g5-slack-native-first-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_slack",
+  "head_sha": "51d426c461d2ac5b2bb2ec65f0a3c879c5535ce7",
+  "source_tree_sha256": "c6958119de5fc73fcc67c18315b07c3d6cda5928e74986bc939653bde81850b1",
+  "started_at": "2026-10-13T01:34:11.676571+00:00",
+  "finished_at": "2026-10-13T01:34:25.146723+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g5/g5-slack-native-first-compile.log",
+  "log_sha256": "a3eff81b00c0713cd46f1452c3eae197e7e3bb0c3698a017596a6b56b2f4327f"
+}

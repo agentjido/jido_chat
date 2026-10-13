@@ -1,0 +1,38 @@
+{
+  "gate": "G5",
+  "state": "pending",
+  "scope": "Native Slack mapper, configured adapter, selected operation/query paths, and captured typed Socket worker. Full original package/runtime conformance is pending.",
+  "updated_at": "2026-10-13T01:44:41.731341+00:00",
+  "source_head": "d4412e02d1c0ab38961fe338b9ebe611233bcda9",
+  "source_files": {
+    "lib/jido/chat/slack/adapter.ex": "135f0fecfc4204728c75d76c7c911300f66f4d5c618b28cd7b260cd7e7d653c4",
+    "lib/jido/chat/slack/normalizer.ex": "243c76c66c5462a054f45f6e3323791fe6c837d23cbabbca20b9374682cdc681",
+    "lib/jido/chat/slack/socket_mode_worker.ex": "2b4f001bc483d3257fdab1ecebc6fae768d958646b4288fc48568dac774ff9e9",
+    "lib/jido/chat/slack/interaction_response.ex": "2620064fc4855005adfb8106a894c7101072dffaa617aa0b662386a8a6f9fd38",
+    "lib/jido/chat/slack/renderer.ex": "6e6fb741a229f5679d61fe98d5fce9c14865732a62107e24c5ad1e664dc62792"
+  },
+  "passed": {
+    "native_mapper_cases": 15,
+    "native_protocol_mapper_socket_cases": 27,
+    "strict_library_compile": true,
+    "library_quality": true,
+    "dialyzer_errors": 0,
+    "dialyzer_skips": 0,
+    "full_package_suite": false
+  },
+  "checks": [
+    "evidence/g5/g5-slack-native-normalizer-complete-tests.json",
+    "evidence/g5/g5-slack-native-graph-deps.json",
+    "evidence/g5/g5-slack-native-protocol-compile.json",
+    "evidence/g5/g5-slack-captured-socket-clean-compile.json",
+    "evidence/g5/g5-slack-current-scoped-protocol-tests.json",
+    "evidence/g5/g5-slack-native-protocol-order-final-tests.json",
+    "evidence/g5/g5-slack-current-library-quality.json"
+  ],
+  "remaining": [
+    "Migrate every original Slack channel/cards/modal/lifecycle/live fixture test to native boundaries with no hidden supported assertions. The current full suite stops at retired types.",
+    "Verify every declared Slack operation mapping and the final event/resource/interaction matrix.",
+    "Complete real Slack Messaging send/page/interaction/membership paths and context isolation.",
+    "Run current full package coverage/audit/build and whole-group checks. Finish G3 ownership/90 percent Messaging coverage, all remaining adapters, final G8 versions/docs/package readiness, and G9 PR review/current-head CI."
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T01:25:13.428740+00:00",
+  "updated_at": "2026-10-13T01:44:41.731341+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -613,6 +613,41 @@
         "evidence/g5/g5-telegram-current-complete-package-tests.json"
       ],
       "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "51d426c461d2ac5b2bb2ec65f0a3c879c5535ce7",
+      "subject": "feat(slack): normalize complete native facts with private interaction controls",
+      "checks": [
+        "evidence/g5/g5-slack-native-normalizer-complete-tests.json"
+      ],
+      "open_work": "Full original Slack test migration, all declared operation/event/resource/interaction matrix cases, package/runtime checks, G3 coverage, remaining adapters, and all G4-G9 final requirements remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "6a0be6a469f476ef2ab0820a3354f9c25a8e6594",
+      "subject": "feat(slack)!: use captured native Signal bindings and selected query results",
+      "checks": [
+        "evidence/g5/g5-slack-native-graph-deps.json",
+        "evidence/g5/g5-slack-native-protocol-compile.json",
+        "evidence/g5/g5-slack-captured-socket-clean-compile.json",
+        "evidence/g5/g5-slack-current-scoped-protocol-tests.json",
+        "evidence/g5/g5-slack-native-protocol-order-final-tests.json",
+        "evidence/g5/g5-slack-current-library-quality.json"
+      ],
+      "open_work": "Full original Slack test migration, all declared operation/event/resource/interaction matrix cases, package/runtime checks, G3 coverage, remaining adapters, and all G4-G9 final requirements remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "d4412e02d1c0ab38961fe338b9ebe611233bcda9",
+      "subject": "feat(slack): deliver validated native Socket Mode units with retained ack timing",
+      "checks": [
+        "evidence/g5/g5-slack-captured-socket-clean-compile.json",
+        "evidence/g5/g5-slack-current-scoped-protocol-tests.json",
+        "evidence/g5/g5-slack-native-protocol-order-final-tests.json",
+        "evidence/g5/g5-slack-current-library-quality.json"
+      ],
+      "open_work": "Full original Slack test migration, all declared operation/event/resource/interaction matrix cases, package/runtime checks, G3 coverage, remaining adapters, and all G4-G9 final requirements remain open."
     }
   ],
   "passed_checks": {
@@ -655,7 +690,10 @@
     "real_telegram_operation_rows": 26,
     "telegram_operation_matrix_tests": 30,
     "telegram_operation_polling_tests": 41,
-    "telegram_pinned_graph_dependencies": 42
+    "telegram_pinned_graph_dependencies": 42,
+    "slack_native_mapper_cases": 15,
+    "slack_native_protocol_mapper_socket_cases": 27,
+    "slack_library_quality": "pass"
   },
   "open_work": [
     "Finish the remaining acceptance exception/partial-effect and direct facade ownership checks. Membership lookup failures and returned message/lifecycle store errors now have safe contract errors and tested claim release.",

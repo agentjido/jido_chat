@@ -35599,9 +35599,10 @@
       "kind": "def",
       "module": "Jido.Chat.Slack.Adapter",
       "package": "jido_chat_slack",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, private_provider_input) and direct typed acceptance.",
       "source": "lib/jido/chat/slack/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Remove the old DTO/envelope and duplicate state router in the new major line.",
+      "implementation_state": "retired"
     },
     {
       "arity": 3,
@@ -35612,9 +35613,10 @@
       "kind": "def",
       "module": "Jido.Chat.Slack.Adapter",
       "package": "jido_chat_slack",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, private_provider_input) and direct typed acceptance.",
       "source": "lib/jido/chat/slack/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Remove the old DTO/envelope and duplicate state router in the new major line.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -35807,9 +35809,10 @@
       "kind": "def",
       "module": "Jido.Chat.Slack.Adapter",
       "package": "jido_chat_slack",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, private_provider_input) and direct typed acceptance.",
       "source": "lib/jido/chat/slack/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Remove the old DTO/envelope and duplicate state router in the new major line.",
+      "implementation_state": "retired"
     },
     {
       "arity": 2,
@@ -35820,9 +35823,10 @@
       "kind": "def",
       "module": "Jido.Chat.Slack.Adapter",
       "package": "jido_chat_slack",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, private_provider_input) and direct typed acceptance.",
       "source": "lib/jido/chat/slack/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Remove the old DTO/envelope and duplicate state router in the new major line.",
+      "implementation_state": "retired"
     },
     {
       "arity": 3,
@@ -35963,9 +35967,10 @@
       "kind": "def",
       "module": "Jido.Chat.Slack.Adapter",
       "package": "jido_chat_slack",
-      "replacement": "Jido.Chat.normalize_event/2 -> ordered Jido.Chat.Delivery of registered Signals",
+      "replacement": "Jido.Chat.normalize_event(binding, private_provider_input) and direct typed acceptance.",
       "source": "lib/jido/chat/slack/adapter.ex",
-      "reason": "Replace the old DTO/envelope path with one mapper per protocol form. Transport identity, zero/one/many order, and rejection are explicit."
+      "reason": "Remove the old DTO/envelope and duplicate state router in the new major line.",
+      "implementation_state": "retired"
     },
     {
       "arity": 1,
@@ -48703,6 +48708,90 @@
       "classification": "private-implementation",
       "replacement": "Captured protocol 1 binding and one complete native delivery normalizer.",
       "reason": "The public communication path uses Jido.Chat.bind/2, normalize_event/2, and execute/2. Provider controls and mapping remain private.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_slack",
+      "module": "Jido.Chat.Slack.Normalizer",
+      "function": "normalize",
+      "arity": 2,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "source": "lib/jido/chat/slack/normalizer.ex",
+      "classification": "private-implementation",
+      "replacement": "Configured native Signal facade and captured private Slack protocol/resources.",
+      "reason": "Use one complete native normalizer. Interaction controls stay private in binding-owned resources; modal preparation returns only a scoped reference.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_slack",
+      "module": "Jido.Chat.Slack.Normalizer",
+      "function": "interaction",
+      "arity": 2,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "source": "lib/jido/chat/slack/normalizer.ex",
+      "classification": "private-implementation",
+      "replacement": "Configured native Signal facade and captured private Slack protocol/resources.",
+      "reason": "Use one complete native normalizer. Interaction controls stay private in binding-owned resources; modal preparation returns only a scoped reference.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_slack",
+      "module": "Jido.Chat.Slack.Adapter",
+      "function": "signal_protocol",
+      "arity": 0,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "source": "lib/jido/chat/slack/adapter.ex",
+      "classification": "private-implementation",
+      "replacement": "Configured native Signal facade and captured private Slack protocol/resources.",
+      "reason": "Use one complete native normalizer. Interaction controls stay private in binding-owned resources; modal preparation returns only a scoped reference.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_slack",
+      "module": "Jido.Chat.Slack.Adapter",
+      "function": "configure_binding",
+      "arity": 1,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "source": "lib/jido/chat/slack/adapter.ex",
+      "classification": "private-implementation",
+      "replacement": "Configured native Signal facade and captured private Slack protocol/resources.",
+      "reason": "Use one complete native normalizer. Interaction controls stay private in binding-owned resources; modal preparation returns only a scoped reference.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_slack",
+      "module": "Jido.Chat.Slack.Adapter",
+      "function": "normalize_event",
+      "arity": 2,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "source": "lib/jido/chat/slack/adapter.ex",
+      "classification": "private-implementation",
+      "replacement": "Configured native Signal facade and captured private Slack protocol/resources.",
+      "reason": "Use one complete native normalizer. Interaction controls stay private in binding-owned resources; modal preparation returns only a scoped reference.",
+      "implementation_state": "implemented"
+    },
+    {
+      "package": "jido_chat_slack",
+      "module": "Jido.Chat.Slack.Adapter",
+      "function": "prepare_modal",
+      "arity": 3,
+      "generated_template": false,
+      "kind": "def",
+      "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "source": "lib/jido/chat/slack/adapter.ex",
+      "classification": "transport-control",
+      "replacement": "Configured native Signal facade and captured private Slack protocol/resources.",
+      "reason": "Use one complete native normalizer. Interaction controls stay private in binding-owned resources; modal preparation returns only a scoped reference.",
       "implementation_state": "implemented"
     }
   ],

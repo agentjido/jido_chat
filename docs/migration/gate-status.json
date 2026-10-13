@@ -343,11 +343,28 @@
         "evidence/g5/g5-telegram-all-operation-package-tests.json",
         "evidence/g5/g5-telegram-all-operation-package-quality.json",
         "evidence/g5/g5-telegram-stream-membership-checkpoint-tests.json",
-        "evidence/g5/g5-telegram-current-complete-package-tests.json"
+        "evidence/g5/g5-telegram-current-complete-package-tests.json",
+        "evidence/g5/g5-slack-native-normalizer-complete-tests.json",
+        "evidence/g5/g5-slack-native-graph-deps.json",
+        "evidence/g5/g5-slack-native-protocol-compile.json",
+        "evidence/g5/g5-slack-captured-socket-clean-compile.json",
+        "evidence/g5/g5-slack-current-scoped-protocol-tests.json",
+        "evidence/g5/g5-slack-native-protocol-order-final-tests.json",
+        "evidence/g5/g5-slack-current-library-quality.json",
+        "evidence/g5/slack-progress-report.json"
       ],
       "completed": [
         "All 26 native/fallback/unsupported Telegram operation mappings pass registered result/Catalog/trace checks with exact expected transport method counts/order and zero cached repeat calls. Provider timeout has one typed cached failure.",
-        "The package has 240 passing non-live tests and the same 16 existing live exclusions. Current library quality passes. Lazy and cancelled stream fixtures, membership checkpoint rejection, and all native operation matrix tests pass."
+        "The package has 240 passing non-live tests and the same 16 existing live exclusions. Current library quality passes. Lazy and cancelled stream fixtures, membership checkpoint rejection, and all native operation matrix tests pass.",
+        "Slack native mapper passes 15 warning-free constructor/Catalog fixtures across webhook/JSON/form/Socket forms. Messages/lifecycle, app mentions, partial membership, reactions, all actions, modals/options/slash, assistant context, and private media references use one mapper. Valid actions survive around registered failures. Unit limits reject whole deliveries and cancel resources.",
+        "Slack protocol 1 captures credentials, signing/app tokens, transport, and options loader once. Selected query pages retain all items/cursors. Native options results replace old DTOs. Observed participant sets remain complete false. Private interaction controls prepare modal resources and retain later view conversation scope.",
+        "Captured Slack Socket worker validates the complete unit before sink/ack. Ordered test messages prove ordinary ack-before-sink and response-bearing sink-before-ack. Whole-payload size rejection has zero ack/sink calls. Twenty-seven current focused protocol/normalizer/Socket tests and strict library quality pass, including Dialyzer zero errors/skips."
+      ],
+      "remaining": [
+        "Migrate every original Slack channel/cards/modal/lifecycle/live fixture test to native boundaries with no hidden supported assertions. The current full suite stops at retired types.",
+        "Verify every declared Slack operation mapping and the final event/resource/interaction matrix.",
+        "Complete real Slack Messaging send/page/interaction/membership paths and context isolation.",
+        "Run current full package coverage/audit/build and whole-group checks. Finish G3 ownership/90 percent Messaging coverage, all remaining adapters, final G8 versions/docs/package readiness, and G9 PR review/current-head CI."
       ]
     },
     {

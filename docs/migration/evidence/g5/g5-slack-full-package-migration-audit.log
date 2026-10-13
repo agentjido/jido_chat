@@ -1,0 +1,729 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+................
+
+  1) test parses a Slack message_changed callback into a typed update event (Jido.Chat.Slack.MessageLifecycleEventTest)
+     test/jido/chat/slack/message_lifecycle_event_test.exs:8
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     code: } = envelope} = parse(payload)
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.parse_event(%Jido.Chat.WebhookRequest{raw: %{"event" => %{"channel" => "C123", "event_ts" => "1706745700.000200", "message" => %{"text" => "after", "thread_ts" => "1706745500.000010", "ts" => "1706745600.000100", "type" => "message", "user" => "U123", "username" => "alice"}, "previous_message" => %{"text" => "before", "thread_ts" => "1706745500.000010", "ts" => "1706745600.000100", "type" => "message", "user" => "U123"}, "subtype" => "message_changed", "type" => "message"}, "event_id" => "Ev-update-1", "team_id" => "T123", "type" => "event_callback"}, path: "/slack/events", adapter_name: :slack, metadata: %{}, query: %{}, headers: %{}, method: "POST", payload: %{"event" => %{"channel" => "C123", "event_ts" => "1706745700.000200", "message" => %{"text" => "after", "thread_ts" => "1706745500.000010", "ts" => "1706745600.000100", "type" => "message", "user" => "U123", "username" => "alice"}, "previous_message" => %{"text" => "before", "thread_ts" => "1706745500.000010", "ts" => "1706745600.000100", "type" => "message", "user" => "U123"}, "subtype" => "message_changed", "type" => "message"}, "event_id" => "Ev-update-1", "team_id" => "T123", "type" => "event_callback"}}, [])
+       test/jido/chat/slack/message_lifecycle_event_test.exs:42: (test)
+
+
+
+  2) test accepts atom-key Slack provider maps for message_changed (Jido.Chat.Slack.MessageLifecycleEventTest)
+     test/jido/chat/slack/message_lifecycle_event_test.exs:64
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     code: assert {:ok, %EventEnvelope{payload: %MessageUpdatedEvent{} = event}} = parse(payload)
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.parse_event(%Jido.Chat.WebhookRequest{raw: %{type: "event_callback", event: %{message: %{type: "message", text: "updated by bot", ts: "1706745750.000250"}, type: :message, subtype: :message_changed, previous_message: %{type: "message", text: "old", username: "helper", bot_id: "B234"}, channel: "C234", event_ts: "1706745800.000300"}, event_id: "Ev-update-atom"}, path: "/slack/events", adapter_name: :slack, metadata: %{}, query: %{}, headers: %{}, method: "POST", payload: %{type: "event_callback", event: %{message: %{type: "message", text: "updated by bot", ts: "1706745750.000250"}, type: :message, subtype: :message_changed, previous_message: %{type: "message", text: "old", username: "helper", bot_id: "B234"}, channel: "C234", event_ts: "1706745800.000300"}, event_id: "Ev-update-atom"}}, [])
+       test/jido/chat/slack/message_lifecycle_event_test.exs:87: (test)
+
+
+
+  3) test parses a Slack message_deleted callback without deleted content (Jido.Chat.Slack.MessageLifecycleEventTest)
+     test/jido/chat/slack/message_lifecycle_event_test.exs:97
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     code: } = envelope} = parse(payload)
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.parse_event(%Jido.Chat.WebhookRequest{raw: %{"event" => %{"channel" => "C345", "deleted_ts" => "1706745950.000450", "event_ts" => "1706746000.000500", "previous_message" => %{"text" => "deleted text must not become lifecycle content", "thread_ts" => "1706745900.000400", "ts" => "1706745950.000450", "type" => "message", "user" => "U345", "username" => "casey"}, "subtype" => "message_deleted", "type" => "message"}, "event_id" => "Ev-delete-1", "type" => "event_callback"}, path: "/slack/events", adapter_name: :slack, metadata: %{}, query: %{}, headers: %{}, method: "POST", payload: %{"event" => %{"channel" => "C345", "deleted_ts" => "1706745950.000450", "event_ts" => "1706746000.000500", "previous_message" => %{"text" => "deleted text must not become lifecycle content", "thread_ts" => "1706745900.000400", "ts" => "1706745950.000450", "type" => "message", "user" => "U345", "username" => "casey"}, "subtype" => "message_deleted", "type" => "message"}, "event_id" => "Ev-delete-1", "type" => "event_callback"}}, [])
+       test/jido/chat/slack/message_lifecycle_event_test.exs:124: (test)
+
+
+
+  4) test accepts a minimal atom-key delete and keeps unavailable values absent (Jido.Chat.Slack.MessageLifecycleEventTest)
+     test/jido/chat/slack/message_lifecycle_event_test.exs:141
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     code: assert {:ok, %EventEnvelope{payload: %MessageDeletedEvent{} = event}} = parse(payload)
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.parse_event(%Jido.Chat.WebhookRequest{raw: %{type: "event_callback", event: %{type: :message, subtype: :message_deleted, channel: "C456", deleted_ts: "1706746100.000600"}}, path: "/slack/events", adapter_name: :slack, metadata: %{}, query: %{}, headers: %{}, method: "POST", payload: %{type: "event_callback", event: %{type: :message, subtype: :message_deleted, channel: "C456", deleted_ts: "1706746100.000600"}}}, [])
+       test/jido/chat/slack/message_lifecycle_event_test.exs:152: (test)
+
+
+
+  5) test routes lifecycle callbacks only to lifecycle handlers and preserves create routing (Jido.Chat.Slack.MessageLifecycleEventTest)
+     test/jido/chat/slack/message_lifecycle_event_test.exs:161
+     ** (UndefinedFunctionError) function Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     code: Chat.new(adapters: %{slack: Adapter})
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.new([adapters: %{slack: Jido.Chat.Slack.Adapter}])
+       test/jido/chat/slack/message_lifecycle_event_test.exs:163: (test)
+
+.
+
+  6) test card posts preserve stable link action IDs (Jido.Chat.Slack.CardsModalsTest)
+     test/jido/chat/slack/cards_modals_test.exs:90
+     ** (UndefinedFunctionError) function Jido.Chat.Adapter.post_message/4 is undefined or private
+     code: ChatAdapter.post_message(
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.Adapter.post_message(Jido.Chat.Slack.Adapter, "C123", %Jido.Chat.PostPayload{raw: %Jido.Chat.Card{id: nil, title: nil, summary: nil, markdown: nil, metadata: %{}, components: [%Jido.Chat.Card.Component{id: nil, label: nil, value: nil, title: nil, text: nil, kind: :actions, url: nil, alt_text: nil, markdown: nil, fallback_text: nil, style: nil, options_source: nil, min_query_length: nil, timeout_ms: nil, caption: nil, page_size: nil, image_url: nil, data: [], disabled: false, options: [], metadata: %{}, items: [%Jido.Chat.Card.Component{id: "runbook", label: "Runbook", value: nil, title: nil, text: nil, kind: :link_button, url: "https://example.test", alt_text: nil, markdown: nil, fallback_text: nil, style: nil, options_source: nil, min_query_length: nil, timeout_ms: nil, caption: nil, page_size: nil, image_url: nil, data: [], disabled: false, options: [], metadata: %{}, items: [], columns: [], rows: [], option_groups: [], categories: [], series: []}], columns: [], rows: [], option_groups: [], categories: [], series: []}]}, stream: nil, text: "Runbook", ast: nil, formatted: "Runbook", markdown: nil, card: %Jido.Chat.Card{id: nil, title: nil, summary: nil, markdown: nil, metadata: %{}, components: [%Jido.Chat.Card.Component{id: nil, label: nil, value: nil, title: nil, text: nil, kind: :actions, url: nil, alt_text: nil, markdown: nil, fallback_text: nil, style: nil, options_source: nil, min_query_length: nil, timeout_ms: nil, caption: nil, page_size: nil, image_url: nil, data: [], disabled: false, options: [], metadata: %{}, items: [%Jido.Chat.Card.Component{id: "runbook", label: "Runbook", value: nil, title: nil, text: nil, kind: :link_button, url: "https://example.test", alt_text: nil, markdown: nil, fallback_text: nil, style: nil, options_source: nil, min_query_length: nil, timeout_ms: nil, caption: nil, page_size: nil, image_url: nil, data: [], disabled: false, options: [], metadata: %{}, items: [], columns: [], rows: [], option_groups: [], categories: [], series: []}], columns: [], rows: [], option_groups: [], categories: [], series: []}]}, fallback_text: "Runbook", metadata: %{format: :card}, files: [], kind: :card, attachments: []}, [transport: Jido.Chat.Slack.CardsModalsTest.MockTransport])
+       test/jido/chat/slack/cards_modals_test.exs:97: (test)
+
+..
+
+  7) test modal renderer maps date, number, and external select inputs (Jido.Chat.Slack.CardsModalsTest)
+     test/jido/chat/slack/cards_modals_test.exs:155
+     ** (UndefinedFunctionError) function Jido.Chat.Adapter.open_modal/4 is undefined or private
+     code: ChatAdapter.open_modal(Jido.Chat.Slack.Adapter, "C123", modal,
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.Adapter.open_modal(Jido.Chat.Slack.Adapter, "C123", %Jido.Chat.Modal{id: nil, title: "Report", callback_id: "report", private_metadata: nil, metadata: %{}, elements: [%Jido.Chat.Modal.Element{id: "day", label: "Day", value: "2026-08-20", max_length: nil, step: nil, kind: :date_input, min_length: nil, fallback_text: nil, options_source: nil, min_query_length: nil, timeout_ms: nil, placeholder: nil, help_text: nil, min_date: nil, max_date: nil, min_value: nil, max_value: nil, multiline: false, options: [], metadata: %{}, required: false, option_groups: []}, %Jido.Chat.Modal.Element{id: "count", label: "Count", value: "12.5", max_length: nil, step: nil, kind: :number_input, min_length: nil, fallback_text: nil, options_source: nil, min_query_length: nil, timeout_ms: nil, placeholder: nil, help_text: nil, min_date: nil, max_date: nil, min_value: 0, max_value: 100, multiline: false, options: [], metadata: %{}, required: false, option_groups: []}, %Jido.Chat.Modal.Element{id: "owner", label: "Owner", value: nil, max_length: nil, step: nil, kind: :external_select, min_length: nil, fallback_text: nil, options_source: :external, min_query_length: 2, timeout_ms: nil, placeholder: nil, help_text: nil, min_date: nil, max_date: nil, min_value: nil, max_value: nil, multiline: false, options: [], metadata: %{}, required: false, option_groups: []}], submit_label: "Submit", close_label: "Cancel", notify_on_close: false}, [transport: Jido.Chat.Slack.CardsModalsTest.MockTransport, trigger_id: "1337.42"])
+       test/jido/chat/slack/cards_modals_test.exs:168: (test)
+
+.....
+
+  8) test block suggestions normalize and option loaders enforce Slack limits (Jido.Chat.Slack.CardsModalsTest)
+     test/jido/chat/slack/cards_modals_test.exs:278
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     code: Jido.Chat.Slack.Adapter.parse_event(request, [])
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.parse_event(%Jido.Chat.WebhookRequest{raw: nil, path: nil, adapter_name: :slack, metadata: %{}, query: %{}, headers: %{}, method: "POST", payload: %{"action_id" => "owner", "type" => "block_suggestion", "user" => %{"id" => "U123", "username" => "ada"}, "value" => "ad", "view" => %{"id" => "V123"}}}, [])
+       test/jido/chat/slack/cards_modals_test.exs:292: (test)
+
+
+
+  9) test options-load webhook replies use Slack's response shape (Jido.Chat.Slack.CardsModalsTest)
+     test/jido/chat/slack/cards_modals_test.exs:317
+     ** (UndefinedFunctionError) function Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     code: chat = Jido.Chat.new(adapters: %{slack: Jido.Chat.Slack.Adapter})
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.new([adapters: %{slack: Jido.Chat.Slack.Adapter}])
+       test/jido/chat/slack/cards_modals_test.exs:318: (test)
+
+
+
+ 10) test option loader timeouts stay typed at the core boundary (Jido.Chat.Slack.CardsModalsTest)
+     test/jido/chat/slack/cards_modals_test.exs:353
+     ** (UndefinedFunctionError) function Jido.Chat.OptionsLoadEvent.new/1 is undefined (module Jido.Chat.OptionsLoadEvent is not available)
+     code: event = OptionsLoadEvent.new(%{action_id: "owner", query: "ad", timeout_ms: 25})
+     stacktrace:
+       Jido.Chat.OptionsLoadEvent.new(%{query: "ad", action_id: "owner", timeout_ms: 25})
+       test/jido/chat/slack/cards_modals_test.exs:354: (test)
+
+......................
+
+ 11) test get_thread_participants/2 follows cursors, de-duplicates users, and includes bots (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:419
+     ** (UndefinedFunctionError) function Jido.Chat.Adapter.get_thread_participants/3 is undefined or private
+     code: ChatAdapter.get_thread_participants(Adapter, "C123",
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.Adapter.get_thread_participants(Jido.Chat.Slack.Adapter, "C123", [external_thread_id: "1", transport: Jido.Chat.Slack.AdapterSurfaceTest.PaginatedParticipantsTransport, limit: 3, page_size: 2])
+       test/jido/chat/slack/channel_test.exs:426: (test)
+
+
+
+ 12) test get_thread_participants/2 enforces participant and page limits (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:437
+     ** (UndefinedFunctionError) function Jido.Chat.Adapter.get_thread_participants/3 is undefined or private
+     code: ChatAdapter.get_thread_participants(Adapter, "C123",
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.Adapter.get_thread_participants(Jido.Chat.Slack.Adapter, "C123", [external_thread_id: "1", transport: Jido.Chat.Slack.AdapterSurfaceTest.PaginatedParticipantsTransport, limit: 1])
+       test/jido/chat/slack/channel_test.exs:439: (test)
+
+
+
+ 13) test thread handles pass the external Slack thread timestamp to resource helpers (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:454
+     ** (UndefinedFunctionError) function Jido.Chat.Thread.fetch_subject/2 is undefined or private
+     code: Thread.fetch_subject(thread, transport: MockTransport)
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.Thread.fetch_subject(%Jido.Chat.Thread{id: "slack:C123:1", adapter: Jido.Chat.Slack.Adapter, external_room_id: "C123", adapter_name: :slack, external_thread_id: "1", channel_id: nil, metadata: %{}, is_dm: false}, [transport: Jido.Chat.Slack.AdapterSurfaceTest.MockTransport])
+       test/jido/chat/slack/channel_test.exs:465: (test)
+
+
+
+ 14) test mark_as_read/3 delegates an idempotent Slack receipt (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:475
+     ** (UndefinedFunctionError) function Jido.Chat.Adapter.mark_as_read/4 is undefined or private
+     code: ChatAdapter.mark_as_read(Adapter, "C123", "1706745600.000100", transport: MockTransport)
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.Adapter.mark_as_read(Jido.Chat.Slack.Adapter, "C123", "1706745600.000100", [transport: Jido.Chat.Slack.AdapterSurfaceTest.MockTransport])
+       test/jido/chat/slack/channel_test.exs:477: (test)
+
+
+
+ 15) test transform_incoming/1 normalizes a slack message map (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:486
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.transform_incoming/1 is undefined or private
+     code: assert {:ok, incoming} = Adapter.transform_incoming(message)
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.transform_incoming(%{"channel" => "C123", "text" => "Hello <@U999>", "ts" => "1706745600.000100", "type" => "message", "user" => "U123"})
+       test/jido/chat/slack/channel_test.exs:495: (test)
+
+
+
+ 16) test transform_incoming/1 extracts files as media (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:504
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.transform_incoming/1 is undefined or private
+     code: assert {:ok, incoming} = Adapter.transform_incoming(message)
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.transform_incoming(%{"channel" => "C123", "files" => [%{"id" => "F1", "mimetype" => "image/png", "name" => "image.png", "url_private" => "https://files.slack.com/image.png", "url_private_download" => "https://files.slack.com/image-download.png"}, %{"id" => "F2", "mimetype" => nil, "name" => "fallback.png", "url_private_download" => "https://files.slack.com/download/F2"}, %{"filetype" => "png", "id" => "F3", "mimetype" => " ", "name" => "extensionless", "url_private_download" => "https://files.slack.com/download/F3"}, %{"filetype" => "unknown", "id" => "F4", "mimetype" => nil, "name" => "archive.unknown", "url_private_download" => "https://files.slack.com/download/F4"}, %{"id" => "F5", "mimetype" => nil, "name" => " ", "url_private" => "https://files.slack.com/files/photo.PNG?token=signed", "url_private_download" => " "}, %{"filetype" => "PNG", "id" => "F6", "mimetype" => " application/pdf; charset=binary ", "name" => "misleading.png", "url_private_download" => "https://files.slack.com/download/F6"}], "text" => nil, "ts" => "1706745600.000100", "type" => "message", "user" => "U123"})
+       test/jido/chat/slack/channel_test.exs:556: (test)
+
+
+
+ 17) test transform_incoming/1 preserves file share comments (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:585
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.transform_incoming/1 is undefined or private
+     code: assert {:ok, current} = Adapter.transform_incoming(current_message)
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.transform_incoming(%{"channel" => "C123", "files" => [%{"id" => "F1", "url_private" => "https://files.slack.com/file.txt"}], "subtype" => "file_share", "text" => "Current file comment", "ts" => "1706745600.000100", "type" => "message", "user" => "U123"})
+       test/jido/chat/slack/channel_test.exs:596: (test)
+
+.
+
+ 18) test send/edit/delete/fetch metadata methods work (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:633
+     ** (KeyError) key :message_id not found in:
+
+         %{
+           "id" => "1706745600.000100",
+           "room_id" => "C123",
+           "status" => "sent",
+           "text" => "hi",
+           "timestamp" => "1706745600.000100"
+         }
+
+     code: assert result.message_id == "1706745600.000100"
+     stacktrace:
+       test/jido/chat/slack/channel_test.exs:636: (test)
+
+.
+
+ 19) test send_file/3 uploads path-backed and in-memory files (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:666
+     ** (KeyError) key :external_message_id not found in:
+
+         %{
+           "id" => "1706745609.000900",
+           "room_id" => "C123",
+           "status" => "sent",
+           "timestamp" => "1706745609.000900"
+         }
+
+     code: assert path_result.external_message_id == "1706745609.000900"
+     stacktrace:
+       test/jido/chat/slack/channel_test.exs:688: (test)
+
+.
+
+ 20) test open_dm, post_ephemeral, reactions, and history helpers (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:746
+     ** (KeyError) key :used_fallback not found in:
+
+         %{
+           "id" => "1706745602.000300",
+           "room_id" => "C123",
+           "status" => "sent",
+           "text" => "secret"
+         }
+
+     code: assert ephemeral.used_fallback == false
+     stacktrace:
+       test/jido/chat/slack/channel_test.exs:754: (test)
+
+
+
+ 21) test fetch_message/3 preserves channel id when Slack omits it from the payload (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:782
+     ** (KeyError) key :external_room_id not found in:
+
+         %{
+           "id" => "1706745600.000100",
+           "room_id" => "C123",
+           "text" => "single",
+           "timestamp" => "1706745600.000100"
+         }
+
+     code: assert message.external_room_id == "C123"
+     stacktrace:
+       test/jido/chat/slack/channel_test.exs:787: (test)
+
+
+
+ 22) test core post_message/4 routes a single file through Slack send_file/3 (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:792
+     ** (UndefinedFunctionError) function Jido.Chat.Adapter.post_message/4 is undefined or private
+     code: ChatAdapter.post_message(Adapter, "C123", payload, transport: MockTransport)
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.Adapter.post_message(Jido.Chat.Slack.Adapter, "C123", %Jido.Chat.PostPayload{raw: nil, stream: nil, text: "slack canonical upload", ast: nil, formatted: "slack canonical upload", markdown: nil, card: nil, fallback_text: nil, metadata: %{}, files: [%Jido.Chat.FileUpload{data: "slack canonical bytes\n", filename: "canonical.txt", path: nil, width: nil, url: nil, duration: nil, media_type: "text/plain", size_bytes: nil, height: nil, metadata: %{}, kind: :file}], kind: :text, attachments: []}, [transport: Jido.Chat.Slack.AdapterSurfaceTest.MockTransport])
+       test/jido/chat/slack/channel_test.exs:807: (test)
+
+.    warning: Jido.Chat.Adapter.stream/4 is undefined or private
+    │
+ 74 │              ChatAdapter.stream(
+    │                          ~
+    │
+    └─ test/jido/chat/slack/live_integration_test.exs:74:26: Jido.Chat.Slack.LiveIntegrationTest."test stream fallback edits a visible draft and leaves the final content"/1
+
+
+
+    warning: struct Jido.Chat.EventEnvelope is undefined (module Jido.Chat.EventEnvelope is not available or is yet to be defined)
+    │
+ 39 │             %EventEnvelope{
+    │             ~
+    │
+    └─ test/jido/chat/slack/message_lifecycle_event_test.exs:39:13: Jido.Chat.Slack.MessageLifecycleEventTest."test parses a Slack message_changed callback into a typed update event"/1
+    └─ test/jido/chat/slack/message_lifecycle_event_test.exs:87:18: Jido.Chat.Slack.MessageLifecycleEventTest."test accepts atom-key Slack provider maps for message_changed"/1
+    └─ test/jido/chat/slack/message_lifecycle_event_test.exs:121:13: Jido.Chat.Slack.MessageLifecycleEventTest."test parses a Slack message_deleted callback without deleted content"/1
+    └─ test/jido/chat/slack/message_lifecycle_event_test.exs:152:18: Jido.Chat.Slack.MessageLifecycleEventTest."test accepts a minimal atom-key delete and keeps unavailable values absent"/1
+
+ 23) test open_modal/3 requires trigger_id and normalizes result (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:824
+     ** (FunctionClauseError) no function clause matching in Jido.Chat.Slack.Adapter.open_modal/3
+
+     The following arguments were given to Jido.Chat.Slack.Adapter.open_modal/3:
+
+         # 1
+         "C123"
+
+         # 2
+         %{type: "modal", title: %{type: "plain_text", text: "Feedback"}, callback_id: "feedback"}
+
+         # 3
+         [transport: Jido.Chat.Slack.AdapterSurfaceTest.MockTransport, trigger_id: "1337.42"]
+
+     Attempted function clauses (showing 1 out of 1):
+
+         def open_modal(channel_id, -%Jido.Chat.Modal{} = modal-, opts)
+
+     code: Adapter.open_modal(
+     stacktrace:
+       (jido_chat_slack 1.1.0) lib/jido/chat/slack/adapter.ex:415: Jido.Chat.Slack.Adapter.open_modal/3
+       test/jido/chat/slack/channel_test.exs:826: (test)
+
+     warning: Jido.Chat.Adapter.post_message/4 is undefined or private
+     │
+ 209 │     assert {:ok, sent} = ChatAdapter.post_message(Adapter, ctx.channel_id, payload, ctx.opts)
+     │                                      ~
+     │
+     └─ test/jido/chat/slack/live_integration_test.exs:209:38: Jido.Chat.Slack.LiveIntegrationTest."test core post_message routes canonical single-file payloads through Slack send_file"/1
+
+     warning: Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     │
+ 163 │       Chat.new(adapters: %{slack: Adapter})
+     │            ~
+     │
+     └─ test/jido/chat/slack/message_lifecycle_event_test.exs:163:12: Jido.Chat.Slack.MessageLifecycleEventTest."test routes lifecycle callbacks only to lifecycle handlers and preserves create routing"/1
+
+
+
+ 24) test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:850
+     ** (UndefinedFunctionError) function Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     code: Chat.new(user_name: "jido", adapters: %{slack: Jido.Chat.Slack.Adapter})
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.new([user_name: "jido", adapters: %{slack: Jido.Chat.Slack.Adapter}])
+       test/jido/chat/slack/channel_test.exs:852: (test)
+
+     warning: Jido.Chat.on_new_message/3 is undefined or private
+     │
+ 164 │       |> Chat.on_new_message(~r/.*/, fn _thread, incoming ->
+     │               ~
+     │
+     └─ test/jido/chat/slack/message_lifecycle_event_test.exs:164:15: Jido.Chat.Slack.MessageLifecycleEventTest."test routes lifecycle callbacks only to lifecycle handlers and preserves create routing"/1
+
+
+
+ 25) test parse_event/2 noop and webhook response handle Slack url verification (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:938
+     ** (UndefinedFunctionError) function Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     code: assert {:ok, :noop} = Jido.Chat.Slack.Adapter.parse_event(request, [])
+     stacktrace:
+       (jido_chat_slack 1.1.0) Jido.Chat.Slack.Adapter.parse_event(%Jido.Chat.WebhookRequest{raw: nil, path: nil, adapter_name: :slack, metadata: %{}, query: %{}, headers: %{}, method: "POST", payload: %{"challenge" => "hello-challenge", "type" => "url_verification"}}, [])
+       test/jido/chat/slack/channel_test.exs:945: (test)
+
+     warning: Jido.Chat.on_message_updated/2 is undefined or private. Did you mean:
+
+         * message/1
+
+     │
+ 167 │       |> Chat.on_message_updated(fn event ->
+     │               ~
+     │
+     └─ test/jido/chat/slack/message_lifecycle_event_test.exs:167:15: Jido.Chat.Slack.MessageLifecycleEventTest."test routes lifecycle callbacks only to lifecycle handlers and preserves create routing"/1
+
+
+
+ 26) test webhook pipeline uses chat metadata slack_response for interaction replies (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:956
+     ** (UndefinedFunctionError) function Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     code: Chat.new(adapters: %{slack: Jido.Chat.Slack.Adapter})
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.new([adapters: %{slack: Jido.Chat.Slack.Adapter}])
+       test/jido/chat/slack/channel_test.exs:958: (test)
+
+
+
+ 27) test handle_webhook/3 fails closed when signature verification fails (Jido.Chat.Slack.AdapterSurfaceTest)
+     test/jido/chat/slack/channel_test.exs:984
+     ** (UndefinedFunctionError) function Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     code: chat = Chat.new(adapters: %{slack: Jido.Chat.Slack.Adapter})
+     stacktrace:
+       (jido_chat 1.2.1) Jido.Chat.new([adapters: %{slack: Jido.Chat.Slack.Adapter}])
+       test/jido/chat/slack/channel_test.exs:985: (test)
+
+     warning: Jido.Chat.route_request/3 is undefined or private
+     │
+ 186 │     assert {:ok, update_result} = Chat.route_request(chat, :slack, update_payload)
+     │                                        ~
+     │
+     └─ test/jido/chat/slack/message_lifecycle_event_test.exs:186:40: Jido.Chat.Slack.MessageLifecycleEventTest."test routes lifecycle callbacks only to lifecycle handlers and preserves create routing"/1
+     └─ test/jido/chat/slack/message_lifecycle_event_test.exs:202:40: Jido.Chat.Slack.MessageLifecycleEventTest."test routes lifecycle callbacks only to lifecycle handlers and preserves create routing"/1
+
+     warning: Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     │
+ 216 │     Adapter.parse_event(request, [])
+     │             ~
+     │
+     └─ test/jido/chat/slack/message_lifecycle_event_test.exs:216:13: Jido.Chat.Slack.MessageLifecycleEventTest.parse/1
+
+     warning: Jido.Chat.Adapter.get_thread_participants/3 is undefined or private
+     │
+ 426 │              ChatAdapter.get_thread_participants(Adapter, "C123",
+     │                          ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:426:26: Jido.Chat.Slack.AdapterSurfaceTest."test get_thread_participants/2 follows cursors, de-duplicates users, and includes bots"/1
+     └─ test/jido/chat/slack/channel_test.exs:439:26: Jido.Chat.Slack.AdapterSurfaceTest."test get_thread_participants/2 enforces participant and page limits"/1
+     └─ test/jido/chat/slack/channel_test.exs:446:26: Jido.Chat.Slack.AdapterSurfaceTest."test get_thread_participants/2 enforces participant and page limits"/1
+
+     warning: Jido.Chat.Thread.fetch_subject/2 is undefined or private
+     │
+ 465 │              Thread.fetch_subject(thread, transport: MockTransport)
+     │                     ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:465:21: Jido.Chat.Slack.AdapterSurfaceTest."test thread handles pass the external Slack thread timestamp to resource helpers"/1
+
+     warning: Jido.Chat.Thread.participants/2 is undefined or private
+     │
+ 472 │             ]} = Thread.participants(thread, transport: PaginatedParticipantsTransport, limit: 3)
+     │                         ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:472:25: Jido.Chat.Slack.AdapterSurfaceTest."test thread handles pass the external Slack thread timestamp to resource helpers"/1
+
+     warning: Jido.Chat.Adapter.mark_as_read/4 is undefined or private
+     │
+ 477 │              ChatAdapter.mark_as_read(Adapter, "C123", "1706745600.000100", transport: MockTransport)
+     │                          ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:477:26: Jido.Chat.Slack.AdapterSurfaceTest."test mark_as_read/3 delegates an idempotent Slack receipt"/1
+     └─ test/jido/chat/slack/channel_test.exs:480:26: Jido.Chat.Slack.AdapterSurfaceTest."test mark_as_read/3 delegates an idempotent Slack receipt"/1
+
+     warning: Jido.Chat.Slack.Adapter.transform_incoming/1 is undefined or private
+     │
+ 495 │     assert {:ok, incoming} = Adapter.transform_incoming(message)
+     │                                      ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:495:38: Jido.Chat.Slack.AdapterSurfaceTest."test transform_incoming/1 normalizes a slack message map"/1
+     └─ test/jido/chat/slack/channel_test.exs:556:38: Jido.Chat.Slack.AdapterSurfaceTest."test transform_incoming/1 extracts files as media"/1
+     └─ test/jido/chat/slack/channel_test.exs:596:37: Jido.Chat.Slack.AdapterSurfaceTest."test transform_incoming/1 preserves file share comments"/1
+     └─ test/jido/chat/slack/channel_test.exs:606:36: Jido.Chat.Slack.AdapterSurfaceTest."test transform_incoming/1 preserves file share comments"/1
+
+     warning: Jido.Chat.Adapter.post_message/4 is undefined or private
+     │
+ 807 │              ChatAdapter.post_message(Adapter, "C123", payload, transport: MockTransport)
+     │                          ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:807:26: Jido.Chat.Slack.AdapterSurfaceTest."test core post_message/4 routes a single file through Slack send_file/3"/1
+
+     warning: incompatible types given to Jido.Chat.Slack.Adapter.open_modal/3:
+
+         Jido.Chat.Slack.Adapter.open_modal(
+           "C123",
+           %{type: "modal", callback_id: "feedback", title: %{type: "plain_text", text: "Feedback"}},
+           transport: Jido.Chat.Slack.AdapterSurfaceTest.MockTransport,
+           trigger_id: "1337.42"
+         )
+
+     given types:
+
+         (
+           binary(),
+           -%{callback_id: binary(), title: %{text: binary(), type: binary()}, type: binary()}-,
+           non_empty_list(
+             {:transport, Jido.Chat.Slack.AdapterSurfaceTest.MockTransport} or {:trigger_id, binary()}
+           )
+         )
+
+     but expected one of:
+
+         term(), %Jido.Chat.Modal{}, empty_list() or non_empty_list(term(), term())
+
+     type warning found at:
+     │
+ 826 │              Adapter.open_modal(
+     │                      ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:826:22: Jido.Chat.Slack.AdapterSurfaceTest."test open_modal/3 requires trigger_id and normalizes result"/1
+
+     warning: Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     │
+ 852 │       Chat.new(user_name: "jido", adapters: %{slack: Jido.Chat.Slack.Adapter})
+     │            ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:852:12: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+     └─ test/jido/chat/slack/channel_test.exs:949:20: Jido.Chat.Slack.AdapterSurfaceTest."test parse_event/2 noop and webhook response handle Slack url verification"/1
+     └─ test/jido/chat/slack/channel_test.exs:958:12: Jido.Chat.Slack.AdapterSurfaceTest."test webhook pipeline uses chat metadata slack_response for interaction replies"/1
+     └─ test/jido/chat/slack/channel_test.exs:985:17: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 fails closed when signature verification fails"/1
+
+     warning: Jido.Chat.on_new_mention/2 is undefined or private
+     │
+ 853 │       |> Chat.on_new_mention(fn _thread, _incoming -> send(self(), :mention_hit) end)
+     │               ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:853:15: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+
+     warning: Jido.Chat.on_slash_command/2 is undefined or private
+     │
+ 854 │       |> Chat.on_slash_command(fn _event -> send(self(), :slash_hit) end)
+     │               ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:854:15: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+     └─ test/jido/chat/slack/channel_test.exs:959:15: Jido.Chat.Slack.AdapterSurfaceTest."test webhook pipeline uses chat metadata slack_response for interaction replies"/1
+
+     warning: Jido.Chat.on_action/2 is undefined or private
+     │
+ 855 │       |> Chat.on_action(fn _event -> send(self(), :action_hit) end)
+     │               ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:855:15: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+
+     warning: Jido.Chat.on_modal_submit/2 is undefined or private
+     │
+ 856 │       |> Chat.on_modal_submit(fn _event -> send(self(), :modal_submit_hit) end)
+     │               ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:856:15: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+
+     warning: Jido.Chat.on_reaction/2 is undefined or private
+     │
+ 857 │       |> Chat.on_reaction(fn _event -> send(self(), :reaction_hit) end)
+     │               ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:857:15: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+
+     error: struct Jido.Chat.Incoming is undefined (module Jido.Chat.Incoming is not available or is yet to be defined)
+     │
+ 870 │     assert {:ok, _chat, %Jido.Chat.Incoming{} = incoming} =
+     │                         ^
+     │
+     └─ test/jido/chat/slack/channel_test.exs:870:25: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+
+     warning: Jido.Chat.Slack.Adapter.handle_webhook/3 is undefined or private
+     │
+ 871 │              Adapter.handle_webhook(chat, mention_payload, [])
+     │                      ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:871:22: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+     └─ test/jido/chat/slack/channel_test.exs:885:46: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+     └─ test/jido/chat/slack/channel_test.exs:900:22: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+     └─ test/jido/chat/slack/channel_test.exs:920:22: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+     └─ test/jido/chat/slack/channel_test.exs:934:46: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 routes app_mention, slash, action, modal, and reaction events"/1
+     └─ test/jido/chat/slack/channel_test.exs:989:22: Jido.Chat.Slack.AdapterSurfaceTest."test handle_webhook/3 fails closed when signature verification fails"/1
+
+     warning: Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     │
+ 945 │     assert {:ok, :noop} = Jido.Chat.Slack.Adapter.parse_event(request, [])
+     │                                                   ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:945:51: Jido.Chat.Slack.AdapterSurfaceTest."test parse_event/2 noop and webhook response handle Slack url verification"/1
+
+     warning: incompatible types given to Jido.Chat.Slack.Adapter.format_webhook_response/2:
+
+         Jido.Chat.Slack.Adapter.format_webhook_response(
+           {:ok, Jido.Chat.new(adapters: %{slack: Jido.Chat.Slack.Adapter}), :noop},
+           request: request
+         )
+
+     given types:
+
+         -dynamic({:ok, term(), :noop})-, dynamic(non_empty_list({:request, term()}))
+
+     but expected one of:
+
+         #1
+         (
+           {:ok, term()},
+           %{..., __struct__: atom()} or nil or empty_list() or non_empty_list(term(), term()) or
+             non_struct_map()
+         )
+
+         #2
+         {:error, term()}, term()
+
+     where "request" was given the type:
+
+         # type: dynamic()
+         # from: test/jido/chat/slack/channel_test.exs:939:13
+         request =
+           Jido.Chat.WebhookRequest.new(%{
+             adapter_name: :slack,
+             payload: %{"type" => "url_verification", "challenge" => "hello-challenge"}
+           })
+
+     type warning found at:
+     │
+ 948 │       Jido.Chat.Slack.Adapter.format_webhook_response(
+     │                               ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:948:31: Jido.Chat.Slack.AdapterSurfaceTest."test parse_event/2 noop and webhook response handle Slack url verification"/1
+
+    warning: Jido.Chat.Adapter.post_message/4 is undefined or private
+    │
+ 97 │              ChatAdapter.post_message(
+    │                          ~
+    │
+    └─ test/jido/chat/slack/cards_modals_test.exs:97:26: Jido.Chat.Slack.CardsModalsTest."test card posts preserve stable link action IDs"/1
+
+     warning: struct Jido.Chat.EventEnvelope is undefined (module Jido.Chat.EventEnvelope is not available or is yet to be defined)
+     │
+ 124 │     assert {:ok, %EventEnvelope{payload: action}} =
+     │                  ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:124:18: Jido.Chat.Slack.CardsModalsTest."test card posts preserve stable link action IDs"/1
+     └─ test/jido/chat/slack/cards_modals_test.exs:291:18: Jido.Chat.Slack.CardsModalsTest."test block suggestions normalize and option loaders enforce Slack limits"/1
+     └─ test/jido/chat/slack/cards_modals_test.exs:331:25: Jido.Chat.Slack.CardsModalsTest."test options-load webhook replies use Slack's response shape"/1
+
+     warning: Jido.Chat.Slack.Adapter.parse_event/2 is undefined or private
+     │
+ 125 │              Jido.Chat.Slack.Adapter.parse_event(request, [])
+     │                                      ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:125:38: Jido.Chat.Slack.CardsModalsTest."test card posts preserve stable link action IDs"/1
+     └─ test/jido/chat/slack/cards_modals_test.exs:292:38: Jido.Chat.Slack.CardsModalsTest."test block suggestions normalize and option loaders enforce Slack limits"/1
+
+     warning: Jido.Chat.WebhookPipeline.handle_request/6 is undefined (module Jido.Chat.WebhookPipeline is not available or is yet to be defined)
+     │
+ 964 │              Jido.Chat.WebhookPipeline.handle_request(
+     │                                        ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:964:40: Jido.Chat.Slack.AdapterSurfaceTest."test webhook pipeline uses chat metadata slack_response for interaction replies"/1
+
+     warning: Jido.Chat.Adapter.open_modal/4 is undefined or private
+     │
+ 168 │              ChatAdapter.open_modal(Jido.Chat.Slack.Adapter, "C123", modal,
+     │                          ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:168:26: Jido.Chat.Slack.CardsModalsTest."test modal renderer maps date, number, and external select inputs"/1
+
+     warning: Jido.Chat.new/1 is undefined or private. Did you mean:
+
+         * new_room/1
+
+     │
+ 318 │     chat = Jido.Chat.new(adapters: %{slack: Jido.Chat.Slack.Adapter})
+     │                      ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:318:22: Jido.Chat.Slack.CardsModalsTest."test options-load webhook replies use Slack's response shape"/1
+
+     warning: unknown key .used_fallback in expression:
+
+         ephemeral.used_fallback
+
+     the given type does not have the given key:
+
+         dynamic(%{binary() => term()})
+
+     where "ephemeral" was given the type:
+
+         # type: dynamic(%{binary() => term()})
+         # from: test/jido/chat/slack/channel_test.exs:750
+         {ephemeral} =
+           case right do
+             ...
+           end
+
+     type warning found at:
+     │
+ 754 │     assert ephemeral.used_fallback == false
+     │                      ~~~~~~~~~~~~~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:754:22: Jido.Chat.Slack.AdapterSurfaceTest."test open_dm, post_ephemeral, reactions, and history helpers"/1
+
+     warning: Jido.Chat.WebhookPipeline.handle_request/6 is undefined (module Jido.Chat.WebhookPipeline is not available or is yet to be defined)
+     │
+ 332 │              Jido.Chat.WebhookPipeline.handle_request(
+     │                                        ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:332:40: Jido.Chat.Slack.CardsModalsTest."test options-load webhook replies use Slack's response shape"/1
+
+     warning: Jido.Chat.OptionsLoadEvent.new/1 is undefined (module Jido.Chat.OptionsLoadEvent is not available or is yet to be defined)
+     │
+ 354 │     event = OptionsLoadEvent.new(%{action_id: "owner", query: "ad", timeout_ms: 25})
+     │                              ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:354:30: Jido.Chat.Slack.CardsModalsTest."test option loader timeouts stay typed at the core boundary"/1
+
+     error: struct Jido.Chat.OptionsLoadError is undefined (module Jido.Chat.OptionsLoadError is not available or is yet to be defined)
+     │
+ 356 │     assert {:error, %OptionsLoadError{kind: :timeout, timeout_ms: 25}} =
+     │                     ^
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:356:21: Jido.Chat.Slack.CardsModalsTest."test option loader timeouts stay typed at the core boundary"/1
+
+     warning: Jido.Chat.get_adapter/2 is undefined or private
+     │
+ 976 │                &Jido.Chat.get_adapter/2,
+     │                           ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:976:27: Jido.Chat.Slack.AdapterSurfaceTest."test webhook pipeline uses chat metadata slack_response for interaction replies"/1
+
+     warning: Jido.Chat.Adapter.load_options/3 is undefined or private
+     │
+ 357 │              ChatAdapter.load_options(Jido.Chat.Slack.Adapter, event,
+     │                          ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:357:26: Jido.Chat.Slack.CardsModalsTest."test option loader timeouts stay typed at the core boundary"/1
+     └─ test/jido/chat/slack/cards_modals_test.exs:362:26: Jido.Chat.Slack.CardsModalsTest."test option loader timeouts stay typed at the core boundary"/1
+
+     warning: Jido.Chat.OptionsLoadError.timeout/1 is undefined (module Jido.Chat.OptionsLoadError is not available or is yet to be defined)
+     │
+ 370 │     error = OptionsLoadError.timeout(25)
+     │                              ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:370:30: Jido.Chat.Slack.CardsModalsTest."test option loader timeouts stay typed at the core boundary"/1
+
+     warning: Jido.Chat.process_event/4 is undefined or private
+     │
+ 977 │                &Jido.Chat.process_event/4
+     │                           ~
+     │
+     └─ test/jido/chat/slack/channel_test.exs:977:27: Jido.Chat.Slack.AdapterSurfaceTest."test webhook pipeline uses chat metadata slack_response for interaction replies"/1
+
+     warning: Jido.Chat.get_adapter/2 is undefined or private
+     │
+ 337 │                &Jido.Chat.get_adapter/2,
+     │                           ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:337:27: Jido.Chat.Slack.CardsModalsTest."test options-load webhook replies use Slack's response shape"/1
+
+     warning: Jido.Chat.process_event/4 is undefined or private
+     │
+ 338 │                &Jido.Chat.process_event/4
+     │                           ~
+     │
+     └─ test/jido/chat/slack/cards_modals_test.exs:338:27: Jido.Chat.Slack.CardsModalsTest."test options-load webhook replies use Slack's response shape"/1
+
+== Type checking failed with errors ==
