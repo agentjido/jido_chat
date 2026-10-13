@@ -1,7 +1,8 @@
 # Public Signal migration
 
 B0–B3 are complete. G0–G5 pass. G6–G9 remain pending.
-Execution stopped at the user's B3 boundary.
+B4 is now in progress. It is waiting for two decisions. G6 remains pending.
+See [the B4 status report](CHECKPOINT_B4.md). B5–B6 did not start.
 
 Telegram passes 243 tests with 16 existing live exclusions. Slack passes 142
 with 8 existing live exclusions. Both package quality gates pass. The B3 runtime

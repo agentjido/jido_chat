@@ -1483,7 +1483,10 @@
     {
       "id": "G6",
       "state": "pending",
-      "evidence": [],
+      "evidence": [
+        "evidence/checkpoint-b4/original-test-cases.json",
+        "evidence/checkpoint-b4/pending-report.json"
+      ],
       "depends_on": [
         "G5"
       ],
@@ -1547,16 +1550,17 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T22:25:53.203756+00:00",
+  "updated_at": "2026-10-13T23:11:19.176032+00:00",
   "completion_batches": {
     "plan": "../plans/2026-10-13-003-public-signal-migration-closeout-plan.md",
-    "authorized_through": "B3",
-    "stop_after": "Membership and Telegram/Slack checkpoint",
+    "authorized_through": "B4",
+    "stop_after": "Remaining seven adapters and G6",
     "B0": "pass",
     "B1": "pass",
     "B2": "pass",
-    "stop_reached": true,
+    "stop_reached": false,
     "B3": "pass",
-    "B4_B6": "not started; user stop boundary is B3"
+    "B4": "in progress; waiting for Discord test conversion approval and shared schema decision",
+    "B5_B6": "not started"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T22:25:53.203756+00:00",
+  "updated_at": "2026-10-13T23:12:02.188656+00:00",
   "goal_state": "incomplete",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1847,7 +1847,7 @@
     "check": "evidence/g3/g3-current-ets-recovery-ai-full-tests.json"
   },
   "checkpoint_state": "B0-B3 complete",
-  "execution_state": "stopped_at_B3_per_user",
+  "execution_state": "B4_waiting_for_decisions",
   "evidence_corrections": [
     {
       "commit": "416ae44",
@@ -1856,5 +1856,6 @@
       "record": "evidence/checkpoint-b0-b2/b2-batches-one-two-tests.json"
     }
   ],
-  "B3_report": "evidence/checkpoint-b3/checkpoint-report.json"
+  "B3_report": "evidence/checkpoint-b3/checkpoint-report.json",
+  "B4_pending_record": "evidence/checkpoint-b4/pending-report.json"
 }

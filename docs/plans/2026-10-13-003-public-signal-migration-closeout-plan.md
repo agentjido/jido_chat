@@ -1,7 +1,7 @@
 ---
 title: Public Signal Migration — Remaining Work and Completion Plan
 date: 2026-10-13
-status: B0-B3-complete; stopped-at-user-boundary
+status: B4-in-progress; waiting-for-decisions
 primary_plan: 2026-10-12-002-public-signal-boundary-plan.md
 scope: same implementation and PR scope as the primary plan
 ---
@@ -286,3 +286,11 @@ B0–B3 are complete. G0–G5 pass. Execution stopped at B3. B4–B6 did not
 start. Later execution requires a new user instruction. See
 [the B3 report](../migration/CHECKPOINT_B3.md) for results. The current records
 do not support a reliable total time estimate.
+
+
+## B4 execution status — October 13
+
+The user authorized B4. G6 is pending. Discord migration has started.
+The Gateway test conversion needs approval after an automatic review rejection.
+A valid partial update also needs a decision on the frozen shared text schema.
+See [the B4 status report](../migration/CHECKPOINT_B4.md). B5–B6 did not start.

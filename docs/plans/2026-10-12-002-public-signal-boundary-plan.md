@@ -1,7 +1,7 @@
 ---
 title: Jido Chat and Messaging — Public Signal Migration
 date: 2026-10-12
-status: B3-checkpoint-complete; G0-G5-pass; G6-G9-pending
+status: B4-in-progress; G0-G5-pass; G6-G9-pending
 scope: implementation and reviewable PRs; release execution excluded
 issues:
   - https://github.com/agentjido/jido_chat/issues/57
@@ -601,3 +601,11 @@ G0–G5 pass. Membership and the Telegram/Slack pair meet their own acceptance
 conditions. The B3 report maps each condition to current assertions and evidence.
 Execution stopped at B3, as the user requested. G6–G9 remain pending.
 See [CHECKPOINT_B3.md](../migration/CHECKPOINT_B3.md).
+
+
+## B4 execution status — October 13
+
+B4 is authorized and incomplete. G6 remains pending. The current Discord
+conversion needs a Gateway test approval and a decision on partial update text.
+Unfinished work and current checks are saved in
+[CHECKPOINT_B4.md](../migration/CHECKPOINT_B4.md). B5–B6 did not start.

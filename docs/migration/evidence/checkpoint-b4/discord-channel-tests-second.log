@@ -1,0 +1,74 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+.....................
+
+  1) test send_message/3 delegates to transport (Jido.Chat.Discord.AdapterSurfaceTest)
+     test/jido/chat/discord/channel_test.exs:418
+     Assertion with == failed
+     code:  assert result.message_id == "42"
+     left:  42
+     right: "42"
+     stacktrace:
+       test/jido/chat/discord/channel_test.exs:422: (test)
+
+.........
+
+  2) test handle_webhook/3 fails closed when signature verification fails (Jido.Chat.Discord.AdapterSurfaceTest)
+     test/jido/chat/discord/channel_test.exs:644
+     match (=) failed
+     code:  assert {:error, :invalid_signature} = Chat.normalize_event(binding, request)
+     left:  {:error, :invalid_signature}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_delivery,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido/chat/discord/channel_test.exs:655: (test)
+
+.
+
+  3) test gateway helper routes message lifecycle events without changing message create (Jido.Chat.Discord.AdapterSurfaceTest)
+     test/jido/chat/discord/channel_test.exs:672
+     Assertion with == failed
+     code:  assert updated.type == "jido.chat.message.updated"
+     left:  "jido.chat.normalization.failed"
+     right: "jido.chat.message.updated"
+     stacktrace:
+       test/jido/chat/discord/channel_test.exs:679: (test)
+
+
+
+  4) test gateway helper rejects invalid lifecycle payloads and still routes the next event (Jido.Chat.Discord.AdapterSurfaceTest)
+     test/jido/chat/discord/channel_test.exs:699
+     match (=) failed
+     code:  assert {:ok, %{signals: facts}} = Chat.normalize_event(binding, payload)
+     left:  {:ok, %{signals: facts}}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_delivery,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido/chat/discord/channel_test.exs:230: Jido.Chat.Discord.AdapterSurfaceTest.normalized/2
+       test/jido/chat/discord/channel_test.exs:707: (test)
+
+.......
+Finished in 0.3 seconds (0.3s async, 0.02s sync)
+
+Result: 38/42 passed
+Failed: 4 tests
