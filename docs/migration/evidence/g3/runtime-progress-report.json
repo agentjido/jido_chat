@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T07:55:01.556452+00:00",
-  "messaging_head": "6b89b59adf253e0d93d02a7c9c29700d162fdfa3",
-  "core_head": "8d39dcf45aa04e43e0c7373bb4f75895d48fb954",
-  "inclusive_tests": 1493,
+  "updated_at": "2026-10-13T08:04:31.648473+00:00",
+  "messaging_head": "8c7a4548a087a09a748cf2fab4e7be8b62fbe338",
+  "core_head": "5232b83378aa0c66746e5b9a1ad1a3e5a3b5933c",
+  "inclusive_tests": 1547,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 85.5,
+  "coverage_percent": 85.6,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -240,6 +240,14 @@
     "g3-current-setup-write-cleanup-optional-ai",
     "g3-current-setup-write-cleanup-quality",
     "g3-current-setup-write-cleanup-source-scan",
+    "g3-current-subscription-binding-ai-full-tests",
+    "g3-current-subscription-binding-ai-harness",
+    "g3-current-subscription-binding-api-audit",
+    "g3-current-subscription-binding-core-full-tests",
+    "g3-current-subscription-binding-core-harness",
+    "g3-current-subscription-binding-inclusive-coverage",
+    "g3-current-subscription-binding-optional-ai",
+    "g3-current-subscription-binding-source-scan",
     "g3-current-topology-ai-graph-report",
     "g3-current-topology-ai-harness-tests",
     "g3-current-topology-complete-api-audit",
@@ -332,6 +340,8 @@
     "g3-room-state-context-and-receipt-final-tests",
     "g3-room-typing-timeout-controls",
     "g3-routing-yaml-enums-quality",
+    "g3-runtime-binding-read-final-tests",
+    "g3-runtime-binding-read-quality",
     "g3-safe-acceptance-current-quality",
     "g3-safe-acceptance-membership-current-quality",
     "g3-safe-acceptance-storage-failure-tests",
@@ -342,6 +352,10 @@
     "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
     "g3-subscription-private-record-normalization-tests",
+    "g3-subscription-store-complete-before-after-final-tests",
+    "g3-subscription-store-isolated-config-final-tests",
+    "g3-subscription-store-outcome-final-quality",
+    "g3-subscription-store-safe-spec-final-tests",
     "g3-topology-and-facade-missing-identity-final-tests",
     "g3-topology-missing-binding-identity-final-tests",
     "g3-topology-owned-identity-final-quality",
@@ -518,7 +532,12 @@
     "Invalid target maps and malformed retained Mention IDs previously crashed context normalization. Supported target types and schema/UTF-8 validation now reject invalid private values while keeping complete valid identity/metadata, body and command arguments. All 62 affected context/ingest tests and package quality pass.",
     "Current production scope/normalizer source changed; quality, API audit, source scan and complete profiles are refreshed. Unchanged core tests and pinned dependency inputs retain only their exact scoped proof. Current runtime harness and optional AI checks are refreshed.",
     "Current complete inclusive Messaging coverage passes 1493 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.5 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1493 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1493 checks with zero skips.",
+    "Subscription lists stop on a failed save and preserve only earlier confirmed writes. Malformed delete responses cannot remove local state; provider delete acknowledgements retain the requested identity. ConfigStore contains bridge and subscription callback failures, including before/after-write outcomes. All 95 affected tests and final quality pass.",
+    "Runtime validates bridge record identity and safely contains read error/raise/throw/exit/invalid/foreign outcomes. A failed create read cannot configure an adapter or add a binding. Failed lookup retains its complete owned binding. SecretResolver returns the read error. All 39 affected tests and package quality pass.",
+    "Current production config/subscription/runtime/secret source changed; quality, API audit, scan, complete profiles and runtime harness/optional fixtures are refreshed. Only unchanged core test and pinned dependency evidence is reused within its exact scope.",
+    "Current complete inclusive Messaging coverage passes 1547 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.6 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1547 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -533,7 +552,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1493,
+    "messaging_tests_per_profile": 1547,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -544,34 +563,34 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1493,
+        "passed": 1547,
         "failures": 0,
-        "check": "g3-current-directory-context-core-full-tests.json"
+        "check": "g3-current-subscription-binding-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1493,
+        "passed": 1547,
         "failures": 0,
-        "check": "g3-current-directory-context-ai-full-tests.json"
+        "check": "g3-current-subscription-binding-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current directory-context runtime harnesses pass 241 checks on the current Messaging source.",
-    "optional_ai_evidence": "Current directory-context optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current subscription-binding runtime harnesses pass 241 checks on current source.",
+    "optional_ai_evidence": "Current subscription-binding optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-directory-context-complete-api-exports.json",
+    "current_report": "current-subscription-binding-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1493 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-directory-context-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1547 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-subscription-binding-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-directory-context-source-proof.json"
+  "reused_library_proof": "current-subscription-binding-source-proof.json"
 }

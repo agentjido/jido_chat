@@ -1,24 +1,24 @@
 {
   "state": "open",
-  "source_head": "6b89b59adf253e0d93d02a7c9c29700d162fdfa3",
+  "source_head": "8c7a4548a087a09a748cf2fab4e7be8b62fbe338",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/ingress_subscriptions.ex and config_store.ex",
-      "observed": "The list path does not inspect each ConfigStore save result; the delete path removes local state before validating the returned record. Bridge read errors beyond not_found have no matching branch.",
-      "required_proof": "Provider and store errors must return a defined outcome. Malformed results cannot delete local records. Partial confirmed writes remain exact and cannot be reported as a complete successful list."
+      "file": "lib/jido_messaging/agent_directory.ex",
+      "observed": "Projection participant/endpoint/save/get/list persistence callbacks are direct. Error, raise, throw, exit, invalid record and partial list results lack complete outcome validation.",
+      "required_proof": "Safe defined failures, exact confirmed writes, valid principal/endpoint identity, whole scoped lists and no grants/agents/admissions."
     },
     {
-      "file": "lib/jido_messaging/agent_directory.ex",
-      "observed": "Optional projection persistence callbacks are invoked directly; error, raise, throw, exit and invalid results lack complete outcome tests.",
-      "required_proof": "Read/write failures return safe errors, preserve valid records and create no grants, agents or admissions."
+      "file": "lib/jido_messaging/config_store.ex",
+      "observed": "Bridge list/delete and routing get/delete callbacks still invoke store callbacks directly.",
+      "required_proof": "Store failure cannot stop the process, create false success or change unrelated records. Preserve existing list API shape."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Directory input limits preserve complete stored ETS/SQLite projections with no authority effects.",
-    "Duplicate normalized endpoint scope keys are rejected.",
-    "Invalid target values and malformed retained Mention structs cannot crash normalization or supply identity.",
-    "Complete valid mention data and Unicode message/command content remain intact."
+    "Subscription list stops at the first failed save and retains earlier confirmed records.",
+    "Malformed provider delete response cannot remove local state; deleted result retains requested identity.",
+    "ConfigStore safely contains bridge read and subscription callbacks before and after writes.",
+    "Runtime bridge reads validate identity and preserve process/binding state; SecretResolver propagates errors."
   ]
 }

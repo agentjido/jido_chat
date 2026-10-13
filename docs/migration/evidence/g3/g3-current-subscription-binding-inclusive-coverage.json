@@ -1,0 +1,58 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "5232b83378aa0c66746e5b9a1ad1a3e5a3b5933c",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "8c7a4548a087a09a748cf2fab4e7be8b62fbe338",
+      "library_test_files": 380,
+      "library_test_sha256": "86896504dcd64e7a5a2a4d44b815d83d2e99f831889af35c4e06db19ed4cad29"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-current-subscription-binding-inclusive-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "8c7a4548a087a09a748cf2fab4e7be8b62fbe338",
+  "source_tree_sha256": "acaa3c2b37278dbe054de4650870f793b2380dff2dd42850cc663ae0b30e8582",
+  "started_at": "2026-10-13T08:01:36.152177+00:00",
+  "finished_at": "2026-10-13T08:02:10.889925+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-subscription-binding-inclusive-coverage.log",
+  "log_sha256": "76905e810647d9ddc2722bb1e6e203d40c96b8e89d3884548c7d62286f9fae65"
+}

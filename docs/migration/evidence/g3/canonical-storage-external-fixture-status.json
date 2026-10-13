@@ -1,6 +1,6 @@
 {
   "state": "recovered with isolated native PostgreSQL fixture",
-  "updated_at": "2026-10-13T07:55:01.556452+00:00",
+  "updated_at": "2026-10-13T08:04:31.648473+00:00",
   "messaging_head": "528e06dd16ed8ca52346de29876b23419023f517",
   "inclusive_run": {
     "state": "fail",
@@ -28,15 +28,15 @@
   "final_requirements_unchanged": true,
   "recovery_fixture": "native-postgres-fixture.json",
   "docker_fixture": "still unavailable; no shared service restart",
-  "current_inclusive_check": "g3-current-directory-context-inclusive-coverage.json",
-  "current_inclusive_checks": 1493,
-  "current_inclusive_coverage_percent": 85.5,
+  "current_inclusive_check": "g3-current-subscription-binding-inclusive-coverage.json",
+  "current_inclusive_checks": 1547,
+  "current_inclusive_coverage_percent": 85.6,
   "runtime_profile_recheck": {
-    "core": "1493 pass current source",
+    "core": "1547 pass current source",
     "ai_first_full_attempt": "1083/1086; one pressure timing race and two SQLite task deadline failures",
     "ai_focused_recheck": "34 affected-file tests pass",
     "ai_complete_recheck": "1084/1086; identity credential conflict and SQLite concurrent room task timeout. max-cases 4; internal 40-call concurrency and all assertions unchanged.",
-    "ai_current": "1493 pass current source"
+    "ai_current": "1547 pass current source"
   },
   "recovery_messaging_head": "d1bcc8234a4509bca079f690e8b5a6747af143f2"
 }
