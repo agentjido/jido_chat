@@ -48807,6 +48807,20 @@
       "source": "lib/jido_messaging/deduper.ex",
       "reason": "Private claim state holds an uncertain store outcome in the current runtime. Repeated native acceptance returns a contract error and cannot replay or acknowledge unknown work. The state is lost on explicit clearing or runtime shutdown.",
       "introduced_in": "public-signal-v3"
+    },
+    {
+      "arity": 1,
+      "base_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "classification": "private-implementation",
+      "function": "start_demo",
+      "generated_template": false,
+      "kind": "def",
+      "module": "Mix.Tasks.Jido.Messaging.Demo",
+      "package": "jido_messaging",
+      "replacement": "Runtime ownership remains here; consume or emit exact registered Signals at communication boundaries",
+      "source": "lib/mix/tasks/jido_messaging.demo.ex",
+      "reason": "Private CLI startup helper owns a demo process tree and returns its PID internally. Separate startup from the terminal wait to verify native runtime configuration without provider/model calls.",
+      "introduced_in": "public-signal-v3"
     }
   ],
   "inventory_rule": "Source exports and quoted macro templates at each verified base. Audit generated runtime exports before G1 passes.",

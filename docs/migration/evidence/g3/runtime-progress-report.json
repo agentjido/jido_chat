@@ -1,19 +1,33 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T02:20:59.304925+00:00",
-  "messaging_head": "4a38782802c1bf9e5511e78c9f04ea9b093e0244",
-  "core_head": "f51ecaee046451e01e58d570996f81cf86cc09aa",
-  "inclusive_tests": 1003,
+  "updated_at": "2026-10-13T02:47:36.229490+00:00",
+  "messaging_head": "fbe11f5049cae4ea67da3916dba4a41a29dc53bb",
+  "core_head": "9ab08e88473136350d2685bc0ca5db5ad21eb939",
+  "inclusive_tests": 1050,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 78.9,
+  "coverage_percent": 80.5,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
   "new_passed_checks": [
     "g3-accepted-message-failure-quality",
+    "g3-current-control-plane-ai-graph-report",
+    "g3-current-control-plane-ai-harness-tests",
+    "g3-current-control-plane-ai-messaging-tests",
+    "g3-current-control-plane-and-cli-inclusive-coverage",
+    "g3-current-control-plane-complete-api-audit",
+    "g3-current-control-plane-contract-manifest-check",
+    "g3-current-control-plane-core-graph-report",
+    "g3-current-control-plane-core-harness-tests",
+    "g3-current-control-plane-core-messaging-tests",
+    "g3-current-control-plane-optional-ai-fixtures",
+    "g3-current-control-plane-slack-execution-tests",
+    "g3-current-control-plane-slack-membership-tests",
+    "g3-current-control-plane-source-scan",
+    "g3-current-control-plane-telegram-membership-tests",
     "g3-current-message-outcome-and-context-inclusive-coverage",
     "g3-current-message-outcome-api-export-audit",
     "g3-current-message-outcome-formatted-quality",
@@ -36,9 +50,15 @@
     "g3-current-outcome-real-telegram-membership-tests",
     "g3-current-outcome-runtime-ai-graph-report",
     "g3-current-outcome-runtime-core-graph-report",
+    "g3-current-ownership-typed-environment-quality",
     "g3-current-safe-acceptance-api-audit",
     "g3-current-safe-acceptance-boundary-scan",
     "g3-current-safe-acceptance-inclusive-coverage",
+    "g3-dead-letter-ownership-controls",
+    "g3-delete-and-runtime-unavailable-final-tests",
+    "g3-demo-cli-sourced-environment-final-tests",
+    "g3-demo-cli-typed-environment-source-tests",
+    "g3-ingress-subscription-scope-and-page-tests",
     "g3-lifecycle-exception-and-partial-effect-tests",
     "g3-message-store-exception-reconciliation-tests",
     "g3-original-ingest-confirmation-fixture-tests",
@@ -46,17 +66,21 @@
     "g3-safe-acceptance-current-quality",
     "g3-safe-acceptance-membership-current-quality",
     "g3-safe-acceptance-storage-failure-tests",
+    "g3-subscription-malformed-wrapper-final-tests",
     "g3-uncertain-write-and-accepted-runtime-final-tests"
   ],
   "confirmed_regressions": [
     "g3-acceptance-storage-failure-confirmed",
     "g3-call-resource-lifetime-regression",
+    "g3-delete-and-runtime-unavailable-controls",
+    "g3-ingress-subscription-scope-controls",
     "g3-local-post-size-before-write-regression",
     "g3-maximum-message-fact-regression",
     "g3-message-store-exception-controls",
     "g3-private-mention-parser-failure-controls",
     "g3-room-kind-constructor-regression",
-    "g3-runtime-core-graph-full-tests"
+    "g3-runtime-core-graph-full-tests",
+    "g3-subscription-malformed-wrapper-controls"
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -70,13 +94,18 @@
     "A stopped room supervisor after the write keeps the accepted message and emits a registered observation failure. Lifecycle update exceptions before or after writes return safe errors; retry does not repeat a confirmed update.",
     "Fourteen private mention-parser tests cover helper arities, exception fallbacks, text limits, malformed metadata, command selection and Unicode spans. A span that cuts a Unicode code point no longer crashes or removes text. Normalizer coverage is 90.2 percent; package coverage is 78.9 percent.",
     "The first full message-outcome run exposed an incomplete old test store with no confirmation read. Add the real ETS read and preserve its original retry assertions. Initial failure logs remain in this bundle.",
-    "Refresh the actual Telegram/Slack runtime fixtures after the Messaging change: 7 Slack membership, 4 Slack execution/selection, and 8 Telegram membership cases pass in the pinned pair profile."
+    "Refresh the actual Telegram/Slack runtime fixtures after the Messaging change: 7 Slack membership, 4 Slack execution/selection, and 8 Telegram membership cases pass in the pinned pair profile.",
+    "Ten lifecycle delete failure cases preserve safe errors, parent identity and exact delete counts. A retry cannot repeat an already completed delete. Stopped runtime and deduper cases return safe contract errors before any store/provider call.",
+    "Private ingress subscription metadata stays in caller bridge/adapter scope for map/struct responses and all four page wrappers. Malformed page records or wrappers fail before metadata writes. Deletion preserves foreign bridge records.",
+    "Nine dead-letter record tests prove capacity/order, archive/purge ownership, replay admission/cache/force rules, failure retry and missing/unavailable state without executing a provider operation.",
+    "Twelve provider-free CLI cases cover runtime-only startup, dotenv/system variables, CLI/YAML bridge routes, missing credentials/IDs/modules and invalid files/topology. Echo needs no provider credential. Correct Dotenvy defaults and the typed source/2 call preserve environment precedence. A failed topology stops its newly started supervisor.",
+    "Current inclusive checks pass 1050 checks in each pinned runtime profile, including local PostgreSQL. Harness 241 per profile and optional AI 4 pass. Package quality has zero Dialyzer errors/skips; compiled audit has 5031 exports including 1200 generated instance exports. Coverage is 80.5 percent, still below 90 percent."
   ],
   "remaining": [
-    "Audit lifecycle delete outcomes, failures in acceptance validation/runtime state, and remaining direct facade helpers. Message-save and update exception matrices and post-write room failures now pass.",
-    "Add meaningful runtime, storage, facade and command helper cases to reach at least 90 percent Messaging coverage. See current-outcome-coverage-gaps.json. Do not lower thresholds or add ignores/skips.",
-    "Refresh affected checks after further source changes. The current core-only and optional-AI graphs pass. Finish all remaining provider ports and actual all-nine G7 Conformance.run C01-C14.",
-    "Complete all remaining G4-G9 quality, coverage, dependency audit, package/docs/version, focused PR/review and current-head CI requirements."
+    "Finish remaining direct facade, record and runtime ownership checks. Lifecycle delete exceptions and stopped runtime/deduper acceptance checks now pass.",
+    "Reach the required 90 percent Messaging coverage with meaningful facade, storage, room, topology, bridge and authorization behavior tests. See current-control-plane-coverage-gaps.json. Do not lower thresholds or add ignores/skips.",
+    "Refresh affected checks after source changes. Finish the remaining provider ports and real all-nine G7 Conformance.run C01-C14.",
+    "Complete all remaining G4-G9 quality/coverage/audit, final package/docs/version, focused PR/review and current-head CI requirements."
   ],
   "runtime_profile": {
     "scope": [
@@ -86,19 +115,20 @@
     ],
     "with_and_without_ai": "pass",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1003,
+    "messaging_tests_per_profile": 1050,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
       39,
       51
-    ]
+    ],
+    "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests."
   },
   "compiled_api_audit": {
     "state": "pass",
-    "exports": 5030,
+    "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-outcome-context-versioned-api-exports.json"
+    "current_report": "current-control-plane-complete-api-exports.json"
   }
 }

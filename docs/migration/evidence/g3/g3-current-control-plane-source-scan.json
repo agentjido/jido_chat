@@ -1,0 +1,23 @@
+{
+  "label": "g3-current-control-plane-source-scan",
+  "command": [
+    "python3",
+    "scripts/scan_public_boundary.py",
+    "G3"
+  ],
+  "repository": "integration",
+  "head_sha": "9ab08e88473136350d2685bc0ca5db5ad21eb939",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T02:42:35.105660+00:00",
+  "finished_at": "2026-10-13T02:42:35.462788+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-control-plane-source-scan.log",
+  "log_sha256": "9400c080cac5be14b848c07a4fc0be5e22740a54290336fb90ee02bb64e3754f"
+}

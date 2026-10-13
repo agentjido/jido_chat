@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T02:22:05.610136+00:00",
+  "updated_at": "2026-10-13T02:46:00.966033+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -777,6 +777,60 @@
         "evidence/g3/g3-current-outcome-context-quality.json"
       ],
       "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "655f23f492488b1cb9d35b84b2a3747a12e44489",
+      "subject": "fix(ingress): return safe errors when acceptance state is unavailable",
+      "checks": [
+        "evidence/g3/g3-delete-and-runtime-unavailable-final-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "721cc6d241305f8d66c22b73c12bbd01d4b73b69",
+      "subject": "fix(subscriptions): retain caller scope for provider metadata",
+      "checks": [
+        "evidence/g3/g3-ingress-subscription-scope-and-page-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "60df299fd502ba6207bbf04f91c2e172d7701c66",
+      "subject": "fix(subscriptions): reject malformed page wrappers before writes",
+      "checks": [
+        "evidence/g3/g3-subscription-malformed-wrapper-final-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "0a712c28d6b96aa0adda29550e3c56d7bc651f83",
+      "subject": "test(dead-letter): verify bounded record and replay ownership",
+      "checks": [
+        "evidence/g3/g3-dead-letter-ownership-controls.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "039cc8bf6b107e91c8f91391ace445dab810ee4d",
+      "subject": "fix(demo): start the typed runtime without provider credentials in echo mode",
+      "checks": [
+        "evidence/g3/g3-demo-cli-sourced-environment-final-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "fbe11f5049cae4ea67da3916dba4a41a29dc53bb",
+      "subject": "fix(demo): use the typed environment source API",
+      "checks": [
+        "evidence/g3/g3-demo-cli-typed-environment-source-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
     }
   ],
   "passed_checks": {

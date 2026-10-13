@@ -1,0 +1,23 @@
+{
+  "label": "g3-demo-cli-provider-free-startup-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/mix/tasks/jido_messaging_demo_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "0a712c28d6b96aa0adda29550e3c56d7bc651f83",
+  "source_tree_sha256": "64ca5cca005b0b48147be0fa295116628c87f0e4d74482cc70cf3d3a246d737a",
+  "started_at": "2026-10-13T02:37:33.248619+00:00",
+  "finished_at": "2026-10-13T02:37:39.148383+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-demo-cli-provider-free-startup-tests.log",
+  "log_sha256": "ab41a2d865a07b292c11cfe98f6f72cf20309b350fd3d08c5fcbb99489e8d109"
+}

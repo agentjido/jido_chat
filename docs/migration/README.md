@@ -16,7 +16,7 @@ open work in its commit message and in `progress-commits.json`.
 All final completion requirements stay the same.
 
 The tested work is saved in progress commits. The latest runtime profiles pass
-257 core tests, 1,003 inclusive Messaging checks, 241 integration tests, and four
+257 core tests, 1,050 inclusive Messaging checks, 241 integration tests, and four
 optional AI tests. Both profiles use the pinned v3 sources. The Messaging runs
 include local PostgreSQL, integration, and story cases, with no skipped test.
 Current Messaging quality passes. Provider checks are recorded separately.
@@ -27,7 +27,7 @@ checks all 1,000 queue places and the rejected next job.
 
 These checks use the combined worktrees. Final current-head PR CI, all-adapter
 conformance, package checks, and the 90 percent Messaging coverage floor are
-still required. G3 remains open. Inclusive coverage is 78.9 percent. The required
+still required. G3 remains open. Inclusive coverage is 80.5 percent. The required
 90 percent package coverage is not met.
 
 Automatic thread creation now follows policy and the first message write. A
@@ -70,9 +70,18 @@ and the accepted claim. It emits a registered failure fact when the Bus is
 available. Repeated delivery cannot repeat that message write.
 
 The CreateRoom kind now matches the four stored Room types. Unknown kind fails at
-the constructor. Current checks pass 1,003 inclusive runtime checks, 257 core
+the constructor. Current checks pass 1,050 inclusive runtime checks, 257 core
 tests, and four optional AI tests. The Catalog has 110 native definitions.
-Coverage remains 78.9 percent, below the required 90 percent.
+Coverage remains 80.5 percent, below the required 90 percent.
+
+Lifecycle delete failures keep safe errors and exact store counts. A stopped
+runtime or deduper rejects acceptance before a store or provider call. Private
+subscription records keep the caller's bridge and adapter scope. Malformed
+pages cannot create records or change another bridge's records.
+
+The demo CLI can start its local runtime without a provider token. Its startup
+tests use fake adapters and no provider or model operation. CLI, dotenv, and
+YAML settings retain their intended route IDs and environment precedence.
 
 ## Dependency baseline
 

@@ -104,6 +104,10 @@
       "id": "G3",
       "state": "pending",
       "evidence": [
+        "evidence/g3/current-control-plane-complete-api-exports.json",
+        "evidence/g3/current-control-plane-coverage-gaps.json",
+        "evidence/g3/current-control-plane-runtime-ai-graph.json",
+        "evidence/g3/current-control-plane-runtime-core-graph.json",
         "evidence/g3/current-outcome-context-versioned-api-exports.json",
         "evidence/g3/current-outcome-coverage-gaps.json",
         "evidence/g3/current-outcome-runtime-ai-dependency-graph.json",
@@ -127,6 +131,20 @@
         "evidence/g3/g3-create-room-scope-current-tests.json",
         "evidence/g3/g3-create-room-verified-scope-regression.json",
         "evidence/g3/g3-current-agent-library-quality.json",
+        "evidence/g3/g3-current-control-plane-ai-graph-report.json",
+        "evidence/g3/g3-current-control-plane-ai-harness-tests.json",
+        "evidence/g3/g3-current-control-plane-ai-messaging-tests.json",
+        "evidence/g3/g3-current-control-plane-and-cli-inclusive-coverage.json",
+        "evidence/g3/g3-current-control-plane-complete-api-audit.json",
+        "evidence/g3/g3-current-control-plane-contract-manifest-check.json",
+        "evidence/g3/g3-current-control-plane-core-graph-report.json",
+        "evidence/g3/g3-current-control-plane-core-harness-tests.json",
+        "evidence/g3/g3-current-control-plane-core-messaging-tests.json",
+        "evidence/g3/g3-current-control-plane-optional-ai-fixtures.json",
+        "evidence/g3/g3-current-control-plane-slack-execution-tests.json",
+        "evidence/g3/g3-current-control-plane-slack-membership-tests.json",
+        "evidence/g3/g3-current-control-plane-source-scan.json",
+        "evidence/g3/g3-current-control-plane-telegram-membership-tests.json",
         "evidence/g3/g3-current-core-boundary-scan-separated.json",
         "evidence/g3/g3-current-full-suite-audit.json",
         "evidence/g3/g3-current-message-outcome-and-context-inclusive-coverage.json",
@@ -153,6 +171,7 @@
         "evidence/g3/g3-current-outcome-runtime-ai-graph-report.json",
         "evidence/g3/g3-current-outcome-runtime-core-graph-report.json",
         "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-ownership-typed-environment-quality.json",
         "evidence/g3/g3-current-record-api-contract-check.json",
         "evidence/g3/g3-current-resource-boundary-scan.json",
         "evidence/g3/g3-current-resource-optional-ai-tests.json",
@@ -163,6 +182,10 @@
         "evidence/g3/g3-current-safe-acceptance-inclusive-coverage.json",
         "evidence/g3/g3-current-terminal-category-quality.json",
         "evidence/g3/g3-current-three-package-boundary-scan.json",
+        "evidence/g3/g3-dead-letter-ownership-controls.json",
+        "evidence/g3/g3-delete-and-runtime-unavailable-final-tests.json",
+        "evidence/g3/g3-demo-cli-sourced-environment-final-tests.json",
+        "evidence/g3/g3-demo-cli-typed-environment-source-tests.json",
         "evidence/g3/g3-dialyzer-native-shapes.json",
         "evidence/g3/g3-execution-final-compile.json",
         "evidence/g3/g3-expanded-export-api-manifest-check.json",
@@ -175,6 +198,7 @@
         "evidence/g3/g3-inclusive-current-owned-runtime-tests.json",
         "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
         "evidence/g3/g3-inclusive-runtime-storage-coverage.json",
+        "evidence/g3/g3-ingress-subscription-scope-and-page-tests.json",
         "evidence/g3/g3-large-message-projection-quality.json",
         "evidence/g3/g3-large-message-single-projection-tests.json",
         "evidence/g3/g3-library-final-step-compile.json",
@@ -226,6 +250,7 @@
         "evidence/g3/g3-serialized-bridge-reconcile-tests.json",
         "evidence/g3/g3-signal-progress-commit-quality.json",
         "evidence/g3/g3-signal-progress-commit-tests.json",
+        "evidence/g3/g3-subscription-malformed-wrapper-final-tests.json",
         "evidence/g3/g3-terminal-tag-plt-refresh.json",
         "evidence/g3/g3-tool-native-result-fidelity-tests.json",
         "evidence/g3/g3-trusted-policy-runtime-tests.json",
@@ -306,13 +331,18 @@
         "A stopped room supervisor after a confirmed message write keeps the accepted claim and emits a registered observation failure. Nine lifecycle update cases keep private error details out of the contract and retry without another confirmed update write.",
         "Fourteen private mention-normalizer cases prove helper arities, failure fallbacks, text limits, malformed spans/metadata and command/agent selection. A Unicode-splitting span keeps full valid text. Normalizer coverage is 90.2 percent.",
         "Both current pinned runtime profiles pass 257 core tests, 1003 inclusive Messaging checks and 241 harness tests; four optional AI fixtures pass without a model call. Graph reports verify 39/51 dependencies. Current Messaging quality passes. Package coverage is 78.9 percent and does not meet the 90 percent floor.",
-        "The current compiled API audit checks 5030 core/Messaging exports including 1200 generated instance exports, with no unmapped or retired export. The current 369-file source scan has zero findings."
+        "The current compiled API audit checks 5030 core/Messaging exports including 1200 generated instance exports, with no unmapped or retired export. The current 369-file source scan has zero findings.",
+        "Ten delete error/partial-effect cases preserve safe errors, unchanged parents and exact store counts. Stopped runtime/deduper acceptance returns safe contract errors before claims or writes. Later observation errors cannot repeat accepted work.",
+        "Ingress subscription metadata retains caller bridge and selected adapter ownership for provider map/struct responses and all supported page forms. Whole-page validation precedes metadata writes; invalid wrappers do not produce inferred records. Foreign bridge records survive deletion.",
+        "Nine private dead-letter record/control tests prove bounded storage, order, archive/purge ownership, one replay admission, cached success/force/failure rules and unavailable storage. No provider replay runs in these tests.",
+        "Twelve CLI tests exercise real native demo runtime startup using fake adapters and no model/provider calls. Echo uses no provider token. Correct environment defaults and sourced system/file precedence replace invalid keyword-list defaults. Topology failure stops its new supervisor.",
+        "Current quality passes with zero Dialyzer errors/skips. Both pinned runtime profiles pass 1050 inclusive Messaging checks and 241 harness tests; optional AI fixtures pass 4 tests without a model call. The current 5031-export audit and 369-file source scan pass. Package coverage is 80.5 percent; the required 90 percent is unmet."
       ],
       "remaining": [
-        "Audit lifecycle delete outcomes, failures in acceptance validation/runtime state, and remaining direct facade helpers. Message-save and update exception matrices and post-write room failures now pass.",
-        "Add meaningful runtime, storage, facade and command helper cases to reach at least 90 percent Messaging coverage. See current-outcome-coverage-gaps.json. Do not lower thresholds or add ignores/skips.",
-        "Refresh affected checks after further source changes. The current core-only and optional-AI graphs pass. Finish all remaining provider ports and actual all-nine G7 Conformance.run C01-C14.",
-        "Complete all remaining G4-G9 quality, coverage, dependency audit, package/docs/version, focused PR/review and current-head CI requirements."
+        "Finish remaining direct facade, record and runtime ownership checks. Lifecycle delete exceptions and stopped runtime/deduper acceptance checks now pass.",
+        "Reach the required 90 percent Messaging coverage with meaningful facade, storage, room, topology, bridge and authorization behavior tests. See current-control-plane-coverage-gaps.json. Do not lower thresholds or add ignores/skips.",
+        "Refresh affected checks after source changes. Finish the remaining provider ports and real all-nine G7 Conformance.run C01-C14.",
+        "Complete all remaining G4-G9 quality/coverage/audit, final package/docs/version, focused PR/review and current-head CI requirements."
       ]
     },
     {
@@ -476,5 +506,5 @@
     ],
     "final_completion_requirements_unchanged": true
   },
-  "updated_at": "2026-10-13T02:20:59.304925+00:00"
+  "updated_at": "2026-10-13T02:47:36.229490+00:00"
 }
