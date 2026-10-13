@@ -192,6 +192,9 @@
         "evidence/g3/current-projection-credential-coverage-gaps.json",
         "evidence/g3/current-projection-credential-runtime-ai-graph.json",
         "evidence/g3/current-projection-credential-runtime-core-graph.json",
+        "evidence/g3/current-read-receipt-complete-api-exports.json",
+        "evidence/g3/current-read-receipt-runtime-boundary-scan.json",
+        "evidence/g3/current-read-receipt-source-proof.json",
         "evidence/g3/current-route-projection-complete-api-exports.json",
         "evidence/g3/current-route-projection-coverage-gaps.json",
         "evidence/g3/current-route-projection-runtime-ai-graph.json",
@@ -519,6 +522,13 @@
         "evidence/g3/g3-current-projection-credential-inclusive-coverage.json",
         "evidence/g3/g3-current-projection-credential-optional-ai.json",
         "evidence/g3/g3-current-projection-credential-source-scan.json",
+        "evidence/g3/g3-current-read-receipt-ai-full-tests.json",
+        "evidence/g3/g3-current-read-receipt-ai-harness.json",
+        "evidence/g3/g3-current-read-receipt-api-audit.json",
+        "evidence/g3/g3-current-read-receipt-core-full-tests.json",
+        "evidence/g3/g3-current-read-receipt-core-harness.json",
+        "evidence/g3/g3-current-read-receipt-inclusive-coverage.json",
+        "evidence/g3/g3-current-read-receipt-optional-ai.json",
         "evidence/g3/g3-current-record-api-contract-check.json",
         "evidence/g3/g3-current-resource-boundary-scan.json",
         "evidence/g3/g3-current-resource-optional-ai-tests.json",
@@ -715,6 +725,11 @@
         "evidence/g3/g3-provider-media-real-runtime-tests.json",
         "evidence/g3/g3-provider-media-real-runtime-warning-free-tests.json",
         "evidence/g3/g3-provider-read-receipt-tests.json",
+        "evidence/g3/g3-read-receipt-callback-owned-tests.json",
+        "evidence/g3/g3-read-receipt-callback-regressions.json",
+        "evidence/g3/g3-read-receipt-current-compile.json",
+        "evidence/g3/g3-read-receipt-owned-quality.json",
+        "evidence/g3/g3-read-receipt-publication-retry-tests.json",
         "evidence/g3/g3-resource-control-api-manifest-check.json",
         "evidence/g3/g3-resource-owner-core-quality.json",
         "evidence/g3/g3-retained-runtime-event-tests.json",
@@ -1021,7 +1036,13 @@
         "Verifier uses the checked credential boundary and validates participant/room identities before any proof callback. Assertion callback failures produce no evidence; confirmed consumed marker stays replayed. Optional lower assurance also requires valid owned records. All 104 affected tests and package quality pass; failed regression evidence remains.",
         "Current credential/verifier source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
         "Current complete inclusive Messaging coverage passes 1800 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.0 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1800 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1800 checks with zero skips.",
+        "Canonical message/thread scope checks accept owned canonical/provider IDs and reject failed reads before admission or provider effects. All 123 affected tests pass.",
+        "Receipt store success validates complete owned record, provider receipt and change value. Before/after-write failures return defined failure and cache one provider call and one store attempt; confirmed writes retain full state. All 151 affected checks and package quality pass. Three original false-success regressions remain in evidence.",
+        "Receipt publication failure retains one complete receipt without repeated provider/store effects. A second request preserves the first timestamp; private delivery room mapping retains canonical ownership. All 31 affected tests pass.",
+        "Current private receipt source changed; quality, full profiles, coverage, runtime harness, optional AI, API audit and source scan are refreshed. Unchanged core tests and pinned dependency graphs are reused only after source comparison.",
+        "Current complete inclusive Messaging coverage passes 1829 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1829 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1191,5 +1212,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T08:54:34.411809+00:00"
+  "updated_at": "2026-10-13T09:06:44.058327+00:00"
 }

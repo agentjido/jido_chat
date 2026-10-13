@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T08:54:34.411809+00:00",
-  "messaging_head": "83a31475a0b28d9ec0dcd6c95724fa794b4e77cb",
-  "core_head": "aca2fe2715f607df9b8233f9f31aa4682c46592a",
-  "inclusive_tests": 1800,
+  "updated_at": "2026-10-13T09:06:44.058327+00:00",
+  "messaging_head": "d82ba5c4c9592b7f863512386e7c42dd6fb57c5a",
+  "core_head": "7339c599d120194627db091783aef70bed057244",
+  "inclusive_tests": 1829,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 86.0,
+  "coverage_percent": 86.2,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -279,6 +279,13 @@
     "g3-current-projection-credential-inclusive-coverage",
     "g3-current-projection-credential-optional-ai",
     "g3-current-projection-credential-source-scan",
+    "g3-current-read-receipt-ai-full-tests",
+    "g3-current-read-receipt-ai-harness",
+    "g3-current-read-receipt-api-audit",
+    "g3-current-read-receipt-core-full-tests",
+    "g3-current-read-receipt-core-harness",
+    "g3-current-read-receipt-inclusive-coverage",
+    "g3-current-read-receipt-optional-ai",
     "g3-current-route-projection-ai-full-tests",
     "g3-current-route-projection-ai-graph",
     "g3-current-route-projection-ai-harness",
@@ -406,6 +413,10 @@
     "g3-projection-typed-failure-and-whole-rebuild-final-tests",
     "g3-provider-media-real-runtime-final-tests",
     "g3-provider-media-real-runtime-tests",
+    "g3-read-receipt-callback-owned-tests",
+    "g3-read-receipt-current-compile",
+    "g3-read-receipt-owned-quality",
+    "g3-read-receipt-publication-retry-tests",
     "g3-room-and-principal-authority-cleanup-final-tests",
     "g3-room-context-pruning-quality",
     "g3-room-state-context-and-receipt-final-tests",
@@ -468,7 +479,8 @@
     "g3-runtime-core-graph-full-tests",
     "g3-subscription-malformed-wrapper-controls",
     "g3-topology-invalid-and-partial-outcome-tests",
-    "g3-transcript-invalid-scope-controls"
+    "g3-transcript-invalid-scope-controls",
+    "g3-read-receipt-callback-regressions: foreign record, incomplete receipt and invalid change produced false success; all three now pass."
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -638,7 +650,13 @@
     "Verifier uses the checked credential boundary and validates participant/room identities before any proof callback. Assertion callback failures produce no evidence; confirmed consumed marker stays replayed. Optional lower assurance also requires valid owned records. All 104 affected tests and package quality pass; failed regression evidence remains.",
     "Current credential/verifier source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
     "Current complete inclusive Messaging coverage passes 1800 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.0 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1800 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1800 checks with zero skips.",
+    "Canonical message/thread scope checks accept owned canonical/provider IDs and reject failed reads before admission or provider effects. All 123 affected tests pass.",
+    "Receipt store success validates complete owned record, provider receipt and change value. Before/after-write failures return defined failure and cache one provider call and one store attempt; confirmed writes retain full state. All 151 affected checks and package quality pass. Three original false-success regressions remain in evidence.",
+    "Receipt publication failure retains one complete receipt without repeated provider/store effects. A second request preserves the first timestamp; private delivery room mapping retains canonical ownership. All 31 affected tests pass.",
+    "Current private receipt source changed; quality, full profiles, coverage, runtime harness, optional AI, API audit and source scan are refreshed. Unchanged core tests and pinned dependency graphs are reused only after source comparison.",
+    "Current complete inclusive Messaging coverage passes 1829 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.2 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1829 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -653,7 +671,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1800,
+    "messaging_tests_per_profile": 1829,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -664,34 +682,34 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1800,
+        "passed": 1829,
         "failures": 0,
-        "check": "g3-current-credential-verifier-core-full-tests.json"
+        "check": "g3-current-read-receipt-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1800,
+        "passed": 1829,
         "failures": 0,
-        "check": "g3-current-credential-verifier-ai-full-tests.json"
+        "check": "g3-current-read-receipt-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current credential-verifier runtime harnesses pass 241 checks on current Messaging source.",
-    "optional_ai_evidence": "Current credential-verifier optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current read-receipt harnesses pass 241 checks on current Messaging source.",
+    "optional_ai_evidence": "Current read-receipt optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-credential-verifier-complete-api-exports.json",
+    "current_report": "current-read-receipt-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1800 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-credential-verifier-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1829 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-read-receipt-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-credential-verifier-source-proof.json"
+  "reused_library_proof": "current-read-receipt-source-proof.json"
 }

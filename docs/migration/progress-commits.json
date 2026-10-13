@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T09:00:23.163519+00:00",
+  "updated_at": "2026-10-13T09:06:44.058327+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1528,13 +1528,34 @@
       ],
       "passed_checks": "123 canonical scope and typed execution checks with warnings as errors.",
       "open_work": "Remaining execution, receipt, setup and facade failure paths; at least 90 percent Messaging coverage; all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "20468bf6636999c6e02edc06bdb93c19828acb0f",
+      "subject": "fix(receipts): validate complete owned store results before acknowledgment",
+      "checks": [
+        "evidence/g3/g3-read-receipt-callback-owned-tests.json",
+        "evidence/g3/g3-read-receipt-owned-quality.json"
+      ],
+      "passed_checks": "151 receipt/execution/scope checks with warnings as errors and package quality.",
+      "open_work": "Complete current source profiles, remaining runtime/facade cases, 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "d82ba5c4c9592b7f863512386e7c42dd6fb57c5a",
+      "subject": "test(receipts): verify publication failure and stable retry ownership",
+      "checks": [
+        "evidence/g3/g3-read-receipt-publication-retry-tests.json"
+      ],
+      "passed_checks": "31 receipt checks with warnings as errors.",
+      "open_work": "Complete current source profiles, remaining runtime/facade cases, 90 percent coverage and all final G3-G9 requirements."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1800,
+    "messaging_inclusive_tests": 1829,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1577,14 +1598,14 @@
     "real_slack_runtime_membership_tests": 7,
     "real_slack_runtime_execution_tests": 4,
     "provider_media_real_runtime_tests": 2,
-    "compiled_api_scope": "Consumer runtime plus two generated support instances; historical full test-support audit is retained separately."
+    "compiled_api_scope": "Consumer runtime API audit: 4071 exports, 240 generated instance exports; no mapping failures."
   },
   "open_work": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current complete inclusive coverage is 86.0 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 86.2 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1598,8 +1619,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1800,
-    "total": 1800,
-    "check": "evidence/g3/g3-current-credential-verifier-ai-full-tests.json"
+    "passed": 1829,
+    "total": 1829,
+    "check": "evidence/g3/g3-current-read-receipt-ai-full-tests.json"
   }
 }
