@@ -1,24 +1,24 @@
 {
   "state": "open",
-  "source_head": "6513e4682d60e4b85d13f0c032b5935a5ad5ba69",
+  "source_head": "590daeb0c1d2fc483b78c96d0e42a63f12ac9f06",
   "next_checks": [
     {
-      "file": "lib/jido_messaging.ex and persistence/{ets,sqlite}.ex",
-      "observed": "Canonical facade and backend cleanup paths still have missed scope and failure cases.",
-      "required_proof": "Exact owned record deletion/index cleanup, preserved foreign records and defined failure results. Required coverage remains 90 percent."
+      "file": "lib/jido_messaging.ex agent registration/unregistration helpers",
+      "observed": "Thread-list reads during registration/restoration and unregister inventory can still swallow errors or invoke callbacks directly.",
+      "required_proof": "A failed assignment inventory cannot remove registration or claim complete cleanup. Exact earlier effects and foreign thread scope remain preserved."
     },
     {
-      "file": "lib/jido_messaging/execution.ex and demo/topology.ex",
-      "observed": "Remaining execution/setup result branches still lack complete direct side-effect-count proof.",
-      "required_proof": "Invalid or denied requests create no provider/admission effects; accepted work and full result data retain exact retry behavior."
+      "file": "lib/jido_messaging/identity.ex and identity_credentials.ex",
+      "observed": "Private principal/binding and credential callback read/write failure paths are still direct in some cases.",
+      "required_proof": "Defined failure outcomes, complete owned records, no false identity promotion and no authorization/provider/admission effects."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Bridge metadata read failures cannot become a false complete empty list.",
-    "Malformed/duplicate/credential-bearing/wrong-filter records reject as a whole inventory.",
-    "Failed reconciliation preserves both worker PIDs and stored configs.",
-    "Routing/topology failures return before mutation; confirmed bridge deletion still affects only its own worker."
+    "Participant credential cleanup covers both issuer and subject relations and scoped replay markers.",
+    "Root identity defaults preserve lifecycle, binding scope and optional lower assurance with zero authority/communication effects.",
+    "Unregister store errors use checked unassign/rollback and retain registration and previous assignment.",
+    "Missing thread cleanup and double rollback failures retain defined exact outcomes."
   ]
 }

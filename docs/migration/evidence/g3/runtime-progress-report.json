@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T08:22:43.951673+00:00",
-  "messaging_head": "6513e4682d60e4b85d13f0c032b5935a5ad5ba69",
-  "core_head": "1e27cffae9fb27b1200ae595d64c1a83360904d1",
-  "inclusive_tests": 1623,
+  "updated_at": "2026-10-13T08:31:41.884473+00:00",
+  "messaging_head": "590daeb0c1d2fc483b78c96d0e42a63f12ac9f06",
+  "core_head": "177c8a3173950a4f779b0cd175df6473a1dadb95",
+  "inclusive_tests": 1643,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 85.8,
+  "coverage_percent": 85.9,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -28,6 +28,9 @@
     "g3-agent-route-room-final-quality",
     "g3-agent-runner-stopped-registry-final-tests",
     "g3-agent-runner-stopped-registry-quality",
+    "g3-agent-unregister-exact-cleanup-rollback-final-tests",
+    "g3-agent-unregister-store-outcome-final-tests",
+    "g3-agent-unregister-store-quality",
     "g3-ai-callback-disposition-runtime-tests",
     "g3-ai-identity-isolated-files-tests",
     "g3-ai-pressure-barrier-tests",
@@ -49,6 +52,7 @@
     "g3-config-write-before-after-outcome-final-tests",
     "g3-config-write-outcome-quality",
     "g3-credential-backend-lineage-and-terminal-final-tests",
+    "g3-credential-cleanup-and-expired-replay-tests",
     "g3-current-assignment-topology-final-ai-full-tests",
     "g3-current-assignment-topology-final-ai-graph",
     "g3-current-assignment-topology-final-ai-harness",
@@ -174,6 +178,14 @@
     "g3-current-hook-failure-core-graph",
     "g3-current-hook-failure-inclusive-coverage",
     "g3-current-hook-failure-source-scan",
+    "g3-current-identity-unregister-ai-full-tests",
+    "g3-current-identity-unregister-ai-harness",
+    "g3-current-identity-unregister-api-audit",
+    "g3-current-identity-unregister-core-full-tests",
+    "g3-current-identity-unregister-core-harness",
+    "g3-current-identity-unregister-inclusive-coverage",
+    "g3-current-identity-unregister-optional-ai",
+    "g3-current-identity-unregister-source-scan",
     "g3-current-media-retry-yaml-ai-full-tests",
     "g3-current-media-retry-yaml-ai-graph",
     "g3-current-media-retry-yaml-ai-harness",
@@ -318,6 +330,7 @@
     "g3-gateway-cold-adapter-quality",
     "g3-gateway-cold-adapter-route-final-tests",
     "g3-gateway-route-validation-and-stopped-partition-tests",
+    "g3-identity-root-facade-defaults-tests",
     "g3-ingest-policy-lifetime-and-ownership-final-tests",
     "g3-ingress-subscription-scope-and-page-tests",
     "g3-lifecycle-exception-and-partial-effect-tests",
@@ -572,7 +585,13 @@
     "Bridge inventories preserve the successful list API and return errors on failed or malformed store results. Complete schema/identity/filter validation rejects duplicate IDs, credentials and invalid records before any partial reconciliation. Failed reads retain both running bridge PIDs, stored configs and zero room/admission effects. Confirmed deletion stops only its own worker. All 32 affected tests and package quality pass.",
     "Current config/inventory reconciliation/router/topology source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
     "Current complete inclusive Messaging coverage passes 1623 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.8 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1623 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1623 checks with zero skips.",
+    "Real ETS/SQLite participant deletion removes only credentials for its subject/issuer relation and their consumed replay markers. Foreign credentials/principals/participants/markers remain complete. Expired replay permits one replacement. Eight affected cleanup/rotation tests pass.",
+    "Root identity facade defaults preserve credential lifecycle revisions, terminal revocation, principal/provider binding scope and lower optional assurance. Missing proof provider rejects without promotion. No grants, membership, messages, agents or admissions are created. All 26 affected tests pass.",
+    "Unregister now uses checked unassign and rollback instead of ignoring thread save failure. Before/after-write failures retain registration and exact previous assignment with one runner; missing stored thread clears runtime state without a write. Double failure reports cleanup and rollback errors. All 57 affected tests and package quality pass.",
+    "Current Messaging root source changed; quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
+    "Current complete inclusive Messaging coverage passes 1643 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.9 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1643 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -587,7 +606,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1623,
+    "messaging_tests_per_profile": 1643,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -598,34 +617,34 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1623,
+        "passed": 1643,
         "failures": 0,
-        "check": "g3-current-bridge-inventory-core-full-tests.json"
+        "check": "g3-current-identity-unregister-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1623,
+        "passed": 1643,
         "failures": 0,
-        "check": "g3-current-bridge-inventory-ai-full-tests.json"
+        "check": "g3-current-identity-unregister-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current bridge-inventory runtime harnesses pass 241 checks on current Messaging source.",
-    "optional_ai_evidence": "Current bridge-inventory optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current identity-unregister runtime harnesses pass 241 checks on current Messaging source.",
+    "optional_ai_evidence": "Current identity-unregister optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-bridge-inventory-complete-api-exports.json",
+    "current_report": "current-identity-unregister-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1623 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-bridge-inventory-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1643 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-identity-unregister-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-bridge-inventory-source-proof.json"
+  "reused_library_proof": "current-identity-unregister-source-proof.json"
 }
