@@ -1,24 +1,24 @@
 {
   "state": "open",
-  "source_head": "c8ca43fb4b03bcd7e4444e620864fb9aec9fdacf",
+  "source_head": "6b89b59adf253e0d93d02a7c9c29700d162fdfa3",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/msg_context/normalizer.ex and typed record constructors",
-      "observed": "Malformed mention metadata, target data and bounded record fields still have missed validation branches.",
-      "required_proof": "Whole valid inputs retain complete content. Invalid input must not create authority or expose private data."
+      "file": "lib/jido_messaging/ingress_subscriptions.ex and config_store.ex",
+      "observed": "The list path does not inspect each ConfigStore save result; the delete path removes local state before validating the returned record. Bridge read errors beyond not_found have no matching branch.",
+      "required_proof": "Provider and store errors must return a defined outcome. Malformed results cannot delete local records. Partial confirmed writes remain exact and cannot be reported as a complete successful list."
     },
     {
-      "file": "lib/jido_messaging.ex and persistence callbacks",
-      "observed": "Some facade callback failures and scope cleanup paths remain uncovered.",
-      "required_proof": "Safe failure results, exact record counts and no foreign scope changes."
+      "file": "lib/jido_messaging/agent_directory.ex",
+      "observed": "Optional projection persistence callbacks are invoked directly; error, raise, throw, exit and invalid results lack complete outcome tests.",
+      "required_proof": "Read/write failures return safe errors, preserve valid records and create no grants, agents or admissions."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Invalid request/context/trusted scope produces zero admission and provider effects.",
-    "Missing/disabled/inbound-only targets and private provider failures preserve exact cached outcomes.",
-    "Gateway route, thread, delivery endpoint and unavailable partition effects are tested.",
-    "Cold adapter lookup uses the declared channel type before provider dispatch."
+    "Directory input limits preserve complete stored ETS/SQLite projections with no authority effects.",
+    "Duplicate normalized endpoint scope keys are rejected.",
+    "Invalid target values and malformed retained Mention structs cannot crash normalization or supply identity.",
+    "Complete valid mention data and Unicode message/command content remain intact."
   ]
 }

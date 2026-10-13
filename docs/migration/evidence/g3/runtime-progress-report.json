@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T07:47:23.829985+00:00",
-  "messaging_head": "c8ca43fb4b03bcd7e4444e620864fb9aec9fdacf",
-  "core_head": "f589557bba258361470c6bbe451b09022275cd2e",
-  "inclusive_tests": 1485,
+  "updated_at": "2026-10-13T07:55:01.556452+00:00",
+  "messaging_head": "6b89b59adf253e0d93d02a7c9c29700d162fdfa3",
+  "core_head": "8d39dcf45aa04e43e0c7373bb4f75895d48fb954",
+  "inclusive_tests": 1493,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 85.3,
+  "coverage_percent": 85.5,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -118,6 +118,14 @@
     "g3-current-directory-advisory-thread-ai-full-tests",
     "g3-current-directory-advisory-thread-core-full-tests",
     "g3-current-directory-advisory-thread-inclusive-coverage",
+    "g3-current-directory-context-ai-full-tests",
+    "g3-current-directory-context-ai-harness",
+    "g3-current-directory-context-api-audit",
+    "g3-current-directory-context-core-full-tests",
+    "g3-current-directory-context-core-harness",
+    "g3-current-directory-context-inclusive-coverage",
+    "g3-current-directory-context-optional-ai",
+    "g3-current-directory-context-source-scan",
     "g3-current-execution-gateway-ai-full-tests",
     "g3-current-execution-gateway-ai-harness",
     "g3-current-execution-gateway-api-audit",
@@ -268,6 +276,8 @@
     "g3-demo-setup-errors-and-ownership-final-tests",
     "g3-demo-setup-ownership-quality",
     "g3-directory-backend-owned-endpoint-final-tests",
+    "g3-directory-input-and-normalized-scope-final-tests",
+    "g3-directory-normalized-scope-quality",
     "g3-directory-query-and-onboarding-scope-tests",
     "g3-execution-admission-target-and-result-final-tests",
     "g3-facade-record-ownership-tests",
@@ -298,6 +308,9 @@
     "g3-native-reply-parent-and-context-final-tests",
     "g3-native-thread-merge-safe-outcome-tests",
     "g3-native-thread-verified-before-after-final-tests",
+    "g3-normalizer-invalid-target-and-retained-record-final-tests",
+    "g3-normalizer-retained-record-quality",
+    "g3-normalizer-whole-record-and-invalid-target-final-tests",
     "g3-original-ingest-confirmation-fixture-tests",
     "g3-policy-hook-isolation-quality",
     "g3-principal-projection-and-controller-ownership-tests",
@@ -500,7 +513,12 @@
     "Current production gateway source changed; package quality, API audit, source scan and complete profiles are refreshed. Dependency graphs and unchanged core tests retain their exact scoped proof. Runtime harness and optional AI fixtures are refreshed for the production change.",
     "Current complete inclusive Messaging coverage passes 1485 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.3 percent; required 90 percent remains unmet.",
     "Both current complete pinned runtime profiles pass 1485 checks with zero skips.",
-    "The first current coverage run failed one PostgreSQL test because concurrent full runs changed the same schema migration table. The final coverage run has exclusive database access and passes all 1,485 checks. Later PostgreSQL runs must be sequential unless each has a separate database/schema. Failed evidence is retained."
+    "The first current coverage run failed one PostgreSQL test because concurrent full runs changed the same schema migration table. The final coverage run has exclusive database access and passes all 1,485 checks. Later PostgreSQL runs must be sequential unless each has a separate database/schema. Failed evidence is retained.",
+    "Directory scope rejects two endpoint keys that become one key after normalization. ETS/SQLite invalid and over-limit display fields cannot replace a complete stored projection or add grants/agents/rooms/admissions. Maximum valid Unicode text remains complete; query and limit errors cannot broaden the scope. All 16 affected tests and quality pass.",
+    "Invalid target maps and malformed retained Mention IDs previously crashed context normalization. Supported target types and schema/UTF-8 validation now reject invalid private values while keeping complete valid identity/metadata, body and command arguments. All 62 affected context/ingest tests and package quality pass.",
+    "Current production scope/normalizer source changed; quality, API audit, source scan and complete profiles are refreshed. Unchanged core tests and pinned dependency inputs retain only their exact scoped proof. Current runtime harness and optional AI checks are refreshed.",
+    "Current complete inclusive Messaging coverage passes 1493 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.5 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1493 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -515,7 +533,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1485,
+    "messaging_tests_per_profile": 1493,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -526,34 +544,34 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1485,
+        "passed": 1493,
         "failures": 0,
-        "check": "g3-current-execution-gateway-core-full-tests.json"
+        "check": "g3-current-directory-context-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1485,
+        "passed": 1493,
         "failures": 0,
-        "check": "g3-current-execution-gateway-ai-full-tests.json"
+        "check": "g3-current-directory-context-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current execution-gateway runtime harnesses pass 241 checks on the current Messaging source.",
-    "optional_ai_evidence": "The current execution-gateway optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current directory-context runtime harnesses pass 241 checks on the current Messaging source.",
+    "optional_ai_evidence": "Current directory-context optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-execution-gateway-complete-api-exports.json",
+    "current_report": "current-directory-context-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1485 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-execution-gateway-inclusive-isolated-coverage.json",
+  "current_full_inclusive_state": "pass:1493 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-directory-context-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-execution-gateway-source-proof.json"
+  "reused_library_proof": "current-directory-context-source-proof.json"
 }

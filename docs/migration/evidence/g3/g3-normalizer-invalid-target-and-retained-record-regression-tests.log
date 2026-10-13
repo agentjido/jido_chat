@@ -1,0 +1,54 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+..................
+
+  1) test invalid target values cannot crash command and mention normalization (Jido.Messaging.MsgContext.NormalizerTest)
+     test/jido_messaging/msg_context/normalizer_test.exs:142
+     ** (Protocol.UndefinedError) protocol String.Chars not implemented for Map. This protocol is implemented for: Atom, BitString, Date, DateTime, Decimal, Exqlite.Query, Float, Integer, JSV.Ref, List, NaiveDateTime, Postgrex.Copy, Postgrex.Query, Postgrex.TextQuery, Runic.Identity, Time, URI, Uniq.UUID, Version, Version.Requirement
+
+     Got value:
+
+         %{}
+
+     code: for target <- [%{}, self(), {:private, "value"}, fn -> :private end, <<255>>] do
+     stacktrace:
+       (elixir 1.20.4) lib/string/chars.ex:7: String.Chars.impl_for!/1
+       (elixir 1.20.4) lib/string/chars.ex:26: String.Chars.to_string/1
+       (jido_messaging 1.1.1) lib/jido_messaging/msg_context/normalizer.ex:226: Jido.Messaging.MsgContext.Normalizer.normalize_target/1
+       (jido_messaging 1.1.1) lib/jido_messaging/msg_context/normalizer.ex:179: anonymous fn/2 in Jido.Messaging.MsgContext.Normalizer.normalize_targets/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       (jido_messaging 1.1.1) lib/jido_messaging/msg_context/normalizer.ex:178: Jido.Messaging.MsgContext.Normalizer.normalize_targets/1
+       (jido_messaging 1.1.1) lib/jido_messaging/msg_context/normalizer.ex:35: Jido.Messaging.MsgContext.Normalizer.normalize/3
+       test/jido_messaging/msg_context/normalizer_test.exs:146: anonymous fn/1 in Jido.Messaging.MsgContext.NormalizerTest."test invalid target values cannot crash command and mention normalization"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/msg_context/normalizer_test.exs:145: (test)
+
+
+
+  2) test malformed retained mention structs cannot supply identity or strip command text (Jido.Messaging.MsgContext.NormalizerTest)
+     test/jido_messaging/msg_context/normalizer_test.exs:155
+     ** (Protocol.UndefinedError) protocol String.Chars not implemented for PID. This protocol is implemented for: Atom, BitString, Date, DateTime, Decimal, Exqlite.Query, Float, Integer, JSV.Ref, List, NaiveDateTime, Postgrex.Copy, Postgrex.Query, Postgrex.TextQuery, Runic.Identity, Time, URI, Uniq.UUID, Version, Version.Requirement
+
+     Got value:
+
+         #PID<0.725.0>
+
+     code: for mention <- [
+     stacktrace:
+       (elixir 1.20.4) lib/string/chars.ex:7: String.Chars.impl_for!/1
+       (elixir 1.20.4) lib/string/chars.ex:26: String.Chars.to_string/1
+       (jido_messaging 1.1.1) lib/jido_messaging/msg_context/normalizer.ex:226: Jido.Messaging.MsgContext.Normalizer.normalize_target/1
+       (jido_messaging 1.1.1) lib/jido_messaging/msg_context/normalizer.ex:194: anonymous fn/2 in Jido.Messaging.MsgContext.Normalizer.mentions_match_target?/2
+       (elixir 1.20.4) lib/enum.ex:4419: Enum.predicate_list/3
+       (jido_messaging 1.1.1) lib/jido_messaging/msg_context/normalizer.ex:102: Jido.Messaging.MsgContext.Normalizer.normalize_was_mentioned/6
+       (jido_messaging 1.1.1) lib/jido_messaging/msg_context/normalizer.ex:38: Jido.Messaging.MsgContext.Normalizer.normalize/3
+       test/jido_messaging/msg_context/normalizer_test.exs:164: anonymous fn/2 in Jido.Messaging.MsgContext.NormalizerTest."test malformed retained mention structs cannot supply identity or strip command text"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/msg_context/normalizer_test.exs:156: (test)
+
+.
+Finished in 0.2 seconds (0.2s async, 0.00s sync)
+
+Result: 19/21 passed
+Failed: 2 tests

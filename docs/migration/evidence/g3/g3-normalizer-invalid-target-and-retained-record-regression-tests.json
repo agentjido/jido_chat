@@ -1,0 +1,56 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "8d39dcf45aa04e43e0c7373bb4f75895d48fb954",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "d59bd5038d9ea14381b63affe65756925e528e50",
+      "library_test_files": 378,
+      "library_test_sha256": "2f74681bca737ffbd9c1a1412a17550618c30b95e8ac708458303cdef6c0bd09"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-normalizer-invalid-target-and-retained-record-regression-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/msg_context/normalizer_test.exs",
+    "test/jido_messaging/msg_context_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "d59bd5038d9ea14381b63affe65756925e528e50",
+  "source_tree_sha256": "093e8340fadd256ba4ca017c5ff52165b9d6f1a26707e30881e877e9c7d49ed1",
+  "started_at": "2026-10-13T07:51:18.359622+00:00",
+  "finished_at": "2026-10-13T07:51:19.994901+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-normalizer-invalid-target-and-retained-record-regression-tests.log",
+  "log_sha256": "4ec5f80dde80a8a3c32ad83c0aded6f5fd9e4d0fbb9c67682aa69fb6681b51d7"
+}

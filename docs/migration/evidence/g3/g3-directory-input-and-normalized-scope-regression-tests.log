@@ -1,0 +1,28 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+...
+
+  1) test scope rejects identifiers that become the same endpoint after normalization (Jido.Messaging.DirectoryInputBoundaryTest)
+     test/jido_messaging/directory_input_boundary_test.exs:106
+     match (=) failed
+     code:  assert {:error, :invalid_agent_directory_scope} = AgentDirectoryScope.new(ETSInstance, pairs)
+     left:  {:error, :invalid_agent_directory_scope}
+     right: {:ok,
+             %Jido.Messaging.AgentDirectoryScope{
+               instance_module: Jido.Messaging.DirectoryInputBoundaryTest.ETSInstance,
+               endpoint_principals: %{
+                 "endpoint" => "principal-owned"
+               },
+               metadata: %{}
+             }}
+     stacktrace:
+       test/jido_messaging/directory_input_boundary_test.exs:111: anonymous fn/2 in Jido.Messaging.DirectoryInputBoundaryTest."test scope rejects identifiers that become the same endpoint after normalization"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/directory_input_boundary_test.exs:107: (test)
+
+........
+Finished in 1.0 seconds (0.00s async, 1.0s sync)
+
+Result: 11/12 passed
+Failed: 1 test
