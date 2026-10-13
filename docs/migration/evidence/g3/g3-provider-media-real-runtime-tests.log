@@ -1,0 +1,171 @@
+==> jido_messaging
+Compiling 14 files (.ex)
+==> jido_chat_integration
+Compiling 4 files (.ex)
+    warning: function add_reaction/4 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function delete_message/3 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function download_file/2 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function edit_message/4 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function fetch_channel_messages/2 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function fetch_message/3 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function fetch_messages/2 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function fetch_metadata/2 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function fetch_thread/2 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function get_permalink/3 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function get_user/2 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function list_threads/2 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function mark_as_read/3 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function open_dm/2 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function open_modal/3 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function post_ephemeral/4 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function remove_reaction/4 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function send_file/3 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: function send_message/3 required by behaviour Jido.Chat.Slack.Transport is not implemented (in module Jido.Chat.ProviderMediaRuntimeTest.SlackTransport)
+    │
+ 16 │   defmodule SlackTransport do
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:16: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+    warning: got "@impl true" for function call/3 but no behaviour specifies such callback. The known callbacks are:
+
+      * Jido.Chat.Slack.Transport.add_reaction/4 (function)
+      * Jido.Chat.Slack.Transport.delete_message/3 (function)
+      * Jido.Chat.Slack.Transport.download_file/2 (function)
+      * Jido.Chat.Slack.Transport.edit_message/4 (function)
+      * Jido.Chat.Slack.Transport.fetch_channel_messages/2 (function)
+      * Jido.Chat.Slack.Transport.fetch_message/3 (function)
+      * Jido.Chat.Slack.Transport.fetch_messages/2 (function)
+      * Jido.Chat.Slack.Transport.fetch_metadata/2 (function)
+      * Jido.Chat.Slack.Transport.fetch_thread/2 (function)
+      * Jido.Chat.Slack.Transport.get_permalink/3 (function)
+      * Jido.Chat.Slack.Transport.get_user/2 (function)
+      * Jido.Chat.Slack.Transport.list_threads/2 (function)
+      * Jido.Chat.Slack.Transport.mark_as_read/3 (function)
+      * Jido.Chat.Slack.Transport.open_dm/2 (function)
+      * Jido.Chat.Slack.Transport.open_modal/3 (function)
+      * Jido.Chat.Slack.Transport.post_ephemeral/4 (function)
+      * Jido.Chat.Slack.Transport.remove_reaction/4 (function)
+      * Jido.Chat.Slack.Transport.send_file/3 (function)
+      * Jido.Chat.Slack.Transport.send_message/3 (function)
+
+    │
+ 19 │     def call(_method, _payload, _opts), do: raise("unexpected provider call")
+    │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ fixtures/provider_media_runtime_test.exs:19: Jido.Chat.ProviderMediaRuntimeTest.SlackTransport (module)
+
+Running ExUnit with seed: 0, max_cases: 20
+
+..
+Finished in 0.3 seconds (0.1s on load, 0.00s async, 0.1s sync)
+
+Result: 2 passed

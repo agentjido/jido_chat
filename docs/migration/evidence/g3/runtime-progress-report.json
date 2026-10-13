@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T05:44:25.583072+00:00",
-  "messaging_head": "d1bcc8234a4509bca079f690e8b5a6747af143f2",
-  "core_head": "de6e2314a50da0c8b1906b3d7f38a312ad8e5175",
-  "inclusive_tests": 1278,
+  "updated_at": "2026-10-13T05:58:19.551147+00:00",
+  "messaging_head": "c1b116da1542025b8680de411cfd5d76150ea0fd",
+  "core_head": "49195e9e864fb566a1ddd0a45e3bd8704c3974be",
+  "inclusive_tests": 1287,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 83.5,
+  "coverage_percent": 83.6,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -91,6 +91,17 @@
     "g3-current-message-outcome-formatted-quality",
     "g3-current-message-outcome-inclusive-final-tests",
     "g3-current-message-outcome-source-scan",
+    "g3-current-native-media-reply-ai-full-tests",
+    "g3-current-native-media-reply-ai-graph",
+    "g3-current-native-media-reply-ai-harness",
+    "g3-current-native-media-reply-api-audit",
+    "g3-current-native-media-reply-core-full-tests",
+    "g3-current-native-media-reply-core-graph",
+    "g3-current-native-media-reply-core-harness",
+    "g3-current-native-media-reply-inclusive-coverage",
+    "g3-current-native-media-reply-optional-ai",
+    "g3-current-native-media-reply-quality",
+    "g3-current-native-media-reply-source-scan",
     "g3-current-outcome-ai-profile-chat-tests",
     "g3-current-outcome-ai-profile-harness-tests",
     "g3-current-outcome-ai-profile-messaging-tests",
@@ -175,12 +186,20 @@
     "g3-lifecycle-exception-and-partial-effect-tests",
     "g3-media-private-payload-final-tests",
     "g3-message-store-exception-reconciliation-tests",
+    "g3-native-media-complete-kinds-and-lifetime-tests",
+    "g3-native-media-lifetime-and-retry-final-tests",
+    "g3-native-media-owned-resolution-tests",
+    "g3-native-media-private-resolution-quality",
     "g3-native-postgres-recovery-clean-storage-tests",
+    "g3-native-reply-context-verified-final-tests",
+    "g3-native-reply-parent-and-context-final-tests",
     "g3-original-ingest-confirmation-fixture-tests",
     "g3-policy-hook-isolation-quality",
     "g3-principal-projection-and-controller-ownership-tests",
     "g3-private-mention-normalization-final-tests",
     "g3-projection-canonical-identity-and-lifetime-final-tests",
+    "g3-provider-media-real-runtime-final-tests",
+    "g3-provider-media-real-runtime-tests",
     "g3-room-and-principal-authority-cleanup-final-tests",
     "g3-room-context-pruning-quality",
     "g3-room-state-context-and-receipt-final-tests",
@@ -210,6 +229,7 @@
     "g3-local-post-size-before-write-regression",
     "g3-maximum-message-fact-regression",
     "g3-message-store-exception-controls",
+    "g3-native-media-private-record-controls",
     "g3-private-mention-parser-failure-controls",
     "g3-room-kind-constructor-regression",
     "g3-runtime-core-graph-full-tests",
@@ -280,7 +300,14 @@
     "Principal projection/controller scenarios reject changed ID/type, missing/self/inactive controller and revoked controller verification without replacing owned principal/participant records. Active controller update succeeds. All 13 affected identity tests pass.",
     "Complete isolated inclusive coverage and current core profile each pass 1278 checks including native PostgreSQL/integration/story and zero skips. Package coverage 83.5 percent remains below required 90 percent. Final current AI full check is running.",
     "Current final quality has zero Dialyzer errors/skips; API audit 5031 exports including 1200 generated instance exports; source scan 369 files has zero findings; current pinned graphs 39/51 dependencies pass. Current harness/optional-AI refresh follows the full AI check.",
-    "Both current harnesses pass 241 checks each; four optional AI fixtures pass without a model call."
+    "Both current harnesses pass 241 checks each; four optional AI fixtures pass without a model call.",
+    "Native media resolves all private caller-owned references before canonical room, participant and message processing. Invalid, cancelled, failed, expired, wrong-kind or foreign-caller resources reject without records. Complete bytes, metadata, captions, transcript and media order are retained; public parent facts are unchanged. All 55 affected tests and final quality pass.",
+    "Actual Telegram photo and Slack file native normalizers pass through real Messaging storage in two tests, without provider calls. The final log has no warning. An unsupported mix run --warnings-as-errors attempt remains recorded as a failure.",
+    "Native replies with identical external parent/reply IDs in two rooms retain canonical reply ownership, one-level quoted context, timestamp, thread and stored room context. All 15 affected tests pass.",
+    "Current complete inclusive coverage and core runtime profile pass 1287 checks including native PostgreSQL, integration and story with zero skips. Inclusive coverage is 83.6 percent; required 90 percent remains unmet.",
+    "Current quality has zero Dialyzer errors/skips. The complete API audit has 5031 exports including 1200 generated instance exports; all rows are retained. The source scan checks 369 files with zero findings. Current pinned graph reports pass with 39/51 dependencies.",
+    "Both current complete runtime profiles pass 1287 checks with native PostgreSQL and zero skips.",
+    "Both current runtime harnesses pass 241 tests each."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -295,7 +322,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1278,
+    "messaging_tests_per_profile": 1287,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -305,14 +332,15 @@
     "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
     "current_messaging_profile_state": {
       "core": {
-        "passed": 1278,
+        "passed": 1287,
         "failures": 0,
-        "check": "g3-current-route-projection-core-full-tests.json"
+        "check": "g3-current-native-media-reply-core-full-tests.json"
       },
       "ai": {
-        "passed": 1278,
+        "state": "pass",
+        "passed": 1287,
         "failures": 0,
-        "check": "g3-current-route-projection-ai-full-tests.json"
+        "check": "g3-current-native-media-reply-ai-full-tests.json"
       }
     }
   },
@@ -321,10 +349,13 @@
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-route-projection-complete-api-exports.json"
+    "current_report": "current-native-media-reply-complete-api-exports.json"
   },
-  "current_full_inclusive_state": "pass:1278 checks including native PostgreSQL",
-  "current_non_postgres_checks": 1041,
-  "current_postgres_checks_excluded": 38,
-  "coverage_percent_source": "g3-current-route-projection-inclusive-coverage.json"
+  "current_full_inclusive_state": "pass:1287 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-native-media-reply-inclusive-coverage.json",
+  "historical_docker_outage_partial_check": {
+    "passed": 1041,
+    "excluded_postgres_checks": 38,
+    "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
+  }
 }

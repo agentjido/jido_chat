@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T05:44:25.583072+00:00",
+  "updated_at": "2026-10-13T05:58:19.551147+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1108,13 +1108,41 @@
         "evidence/g3/g3-principal-projection-and-controller-ownership-tests.json"
       ],
       "open_work": "Current full source verification, required 90 percent coverage and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "da9c038bdcf4785bdb0e00fc4b265637efef64d8",
+      "subject": "fix(ingest): resolve native media resources before canonical processing",
+      "checks": [
+        "evidence/g3/g3-native-media-complete-kinds-and-lifetime-tests.json",
+        "evidence/g3/g3-native-media-private-resolution-quality.json"
+      ],
+      "open_work": "Current complete verification, required 90 percent coverage and all final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "49195e9e864fb566a1ddd0a45e3bd8704c3974be",
+      "subject": "test(integration): verify native provider media through Messaging",
+      "checks": [
+        "evidence/g3/g3-provider-media-real-runtime-final-tests.json"
+      ],
+      "open_work": "Current complete verification, required 90 percent coverage and all final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c1b116da1542025b8680de411cfd5d76150ea0fd",
+      "subject": "test(ingress): verify native reply and stored context room scope",
+      "checks": [
+        "evidence/g3/g3-native-reply-parent-and-context-final-tests.json"
+      ],
+      "open_work": "Current complete verification, required 90 percent coverage and all final G4-G9 requirements remain open."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1278,
+    "messaging_inclusive_tests": 1287,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1155,14 +1183,15 @@
     "slack_native_protocol_mapper_socket_cases": 27,
     "slack_library_quality": "pass",
     "real_slack_runtime_membership_tests": 7,
-    "real_slack_runtime_execution_tests": 4
+    "real_slack_runtime_execution_tests": 4,
+    "provider_media_real_runtime_tests": 2
   },
   "open_work": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current complete inclusive coverage is 83.5 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 83.6 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1176,8 +1205,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1278,
-    "total": 1278,
-    "check": "evidence/g3/g3-current-route-projection-ai-full-tests.json"
+    "passed": 1287,
+    "total": 1287,
+    "check": "evidence/g3/g3-current-native-media-reply-ai-full-tests.json"
   }
 }

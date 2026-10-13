@@ -1,29 +1,28 @@
 {
   "state": "open",
-  "source_head": "d1bcc8234a4509bca079f690e8b5a6747af143f2",
+  "source_head": "c1b116da1542025b8680de411cfd5d76150ea0fd",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/persistence/ets.ex",
-      "observed": "Revisioned identity/endpoint and scoped query validation gaps remain from complete coverage.",
-      "required_proof": "Real records with malformed or stale revisions; scoped page/cursor filters cannot infer authority."
+      "file": "lib/jido_messaging/acceptance.ex",
+      "observed": "Completed facts already dedupe before resolution; pending multi-item failed media can retain partially accepted earlier items under declared memory behavior.",
+      "required_proof": "Exact first accepted observation and ordered remaining retry when later call-owned resources fail."
     },
     {
       "file": "lib/jido_messaging/ingest.ex",
-      "observed": "Reply context, maximum-media/result resource and resolver failure branches still need complete outcome proof.",
-      "required_proof": "Full canonical message context/payload, exact accepted write and observation counts."
+      "observed": "Media byte policy checks occur after canonical room/participant resolution.",
+      "required_proof": "Declared no-message-write behavior, whole media preservation and no inferred agent/grant authority across media limits."
     },
     {
       "file": "lib/jido_messaging/demo/topology.ex",
-      "observed": "Remaining safe config key and ordered topology section failure paths are not all covered.",
-      "required_proof": "No writes for invalid complete sections; exact declared canonical room binding ownership."
+      "observed": "Remaining full topology validation and config string-key cases are incomplete.",
+      "required_proof": "Invalid entire unit has no writes; room binding ownership and section order use exact canonical records."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Agent route room identity is immutable in ETS/SQLite; deliberate endpoint reroute remains supported and clears previous endpoint correlation refs.",
-    "Real endpoint/membership/route compound record identity, filtered lookups and room/principal cleanup pass.",
-    "Activity cleanup clears owned indexes, retains foreign principal/room data and rejects foreign cursor.",
-    "Principal projection and controller failure branches reject without changing owned records."
+    "Native media resolves private caller-owned payload before writes. Full bytes/dimensions/captions/transcript/kinds are stored, public facts unchanged; lifetime/foreign-caller/invalid middle resources reject without records.",
+    "Actual Telegram photo and Slack file native normalizer paths pass through real Messaging storage with no provider calls.",
+    "Native two-room identical parent/reply IDs retain canonical reply scope, one-level quoted context, timestamp/thread and private room snapshot with unchanged parent facts."
   ]
 }
