@@ -1,24 +1,23 @@
 {
   "state": "open",
-  "source_head": "d7c223683d8fa12b8704c4e17e072101de646e5e",
+  "source_head": "bae1949a2f126b693b851bd06f0d3278be32b351",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/audit_logger.ex",
-      "observed": "Signal.emit telemetry merges signal_id but AuditLogger formatters require correlation_id and some old event keys. Native runtime receipt/failure/typing/thread attachment has no end-to-end audit proof.",
-      "required_proof": "Real native operations leave the handler attached and log exact room/message/participant IDs, safe failure codes and direct parent identity without old public extension data."
+      "file": "lib/jido_messaging.ex",
+      "observed": "Assignment save/rollback failure and safe record query branches remain below the required coverage floor.",
+      "required_proof": "Real canonical records and controlled failed persistence calls retain previous assignments, scoped authority and exact effect counts."
     },
     {
-      "file": "lib/jido_messaging.ex",
-      "observed": "Compound agent runner assignment recovery and control-plane failure paths remain below the required coverage floor.",
-      "required_proof": "Real records and stopped/failed runtime ownership outcomes preserve state and avoid inferred provider or agent effects."
+      "file": "lib/jido_messaging/demo/topology.ex",
+      "observed": "Remaining invalid config/room entries and apply-time errors have limited verification.",
+      "required_proof": "Safe deterministic failures and declared partial state on runtime errors; complete invalid section checks stay in place."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Fixed operation option atoms work in a fresh isolated test without load-order dependence.",
-    "Private media keeps complete upload fields and stable resource/stage identities; replay, changed payload/target, foreign caller and resource lifetime cases have exact callback proof.",
-    "Thread/page results retain owned external context, all items/cursors and private option scope.",
-    "Subscription records retain safe fixed normalization, complete private metadata and same-ID bridge isolation."
+    "Native runtime audit handler stays attached without required old correlation; native Signal and parent IDs and safe failure code are logged.",
+    "Native direct acceptance has exactly one audit observation after the claim commits; duplicate/failed Bus cases do not repeat writes or telemetry.",
+    "Real scoped agent restoration and unavailable supervisor unassign state are verified without inferred grants/messages."
   ]
 }

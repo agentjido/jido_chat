@@ -1,0 +1,91 @@
+Compiling 8 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.................
+
+  1) test native message emission keeps audit handler and direct Signal identity (Jido.Messaging.NativeAuditLoggerTest)
+     test/jido_messaging/native_audit_logger_test.exs:20
+     Assertion with =~ failed
+     code:  assert log =~ "[NativeAudit] message.received"
+     left:  "\n01:25:44.091 [error] Handler \"jido_messaging_audit_logger\" has failed and has been detached. Class=:error\nReason=%UndefinedFunctionError{\n  module: Jido.Messaging.Message,\n  function: :fetch,\n  arity: 2,\n  reason: \"Jido.Messaging.Message does not implement the Access behaviour\\n\\nYou can use the \\\"struct.field\\\" syntax to access struct fields. You can also use Access.key!/1 to access struct fields dynamically inside get_in/put_in/update_in\",\n  message: nil\n}\nStacktrace=[\n  {Jido.Messaging.Message, :fetch,\n   [\n     %Jido.Messaging.Message{\n       id: \"root\",\n       role: :user,\n       room_id: \"audit-room\",\n       thread_id: nil,\n       external_thread_id: nil,\n       delivery_external_room_id: nil,\n       external_id: nil,\n       updated_at: ~U[2026-10-13 06:25:44.087630Z],\n       external_reply_to_id: nil,\n       reply_to_id: nil,\n       inserted_at: ~U[2026-10-13 06:25:44.087630Z],\n       sender_id: \"sender\",\n       status: :sent,\n       metadata: %{},\n       reactions: %{},\n       content: [%Jido.Chat.Content.Text{text: \"root\", type: :text}],\n       receipts: %{}\n     },\n     :id\n   ], []},\n  {Access, :get, 3, [file: ~c\"lib/access.ex\", line: 326]},\n  {Jido.Messaging.AuditLogger, :message_id, 1,\n   [file: ~c\"lib/jido_messaging/audit_logger.ex\", line: 292]},\n  {Jido.Messaging.AuditLogger, :format_event, 3,\n   [file: ~c\"lib/jido_messaging/audit_logger.ex\", line: 136]},\n  {Jido.Messaging.AuditLogger, :handle_event, 4,\n   [file: ~c\"lib/jido_messaging/audit_logger.ex\", line: 122]},\n  {:telemetry, :do_execute, 4,\n   [\n     file: ~c\"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/deps/telemetry/src/telemetry.erl\",\n     line: 202\n   ]},\n  {Jido.Messaging.Dispatch, :emit, 3,\n   [file: ~c\"lib/jido_messaging/dispatch.ex\", line: 20]},\n  {Jido.Messaging.Signal, :emit_built, 4,\n   [file: ~c\"lib/jido_messaging/signal.ex\", line: 78]},\n  {Jido.Messaging.NativeAuditLoggerTest,\n   :\"-test native message emission keeps audit handler and direct Signal identity/1-fun-0-\",\n   2, [file: ~c\"test/jido_messaging/native_audit_logger_test.exs\", line: 37]},\n  {ExUnit.CaptureLog, :with_log, 2,\n   [file: ~c\"lib/ex_unit/capture_log.ex\", line: 127]},\n  {ExUnit.CaptureLog, :capture_log, 2,\n   [file: ~c\"lib/ex_unit/capture_log.ex\", line: 89]},\n  {Jido.Messaging.NativeAuditLoggerTest,\n   :\"test native message emission keeps audit handler and direct Signal identity\",\n   1, [file: ~c\"test/jido_messaging/native_audit_logger_test.exs\", line: 36]},\n  {ExUnit.Runner, :exec_test, 2, [file: ~c\"lib/ex_unit/runner.ex\", line: 533]},\n  {ExUnit.CaptureLog, :with_log, 2,\n   [file: ~c\"lib/ex_unit/capture_log.ex\", line: 127]},\n  {ExUnit.Runner, :\"-maybe_capture_log/3-fun-0-\", 3,\n   [file: ~c\"lib/ex_unit/runner.ex\", line: 482]},\n  {:timer, :tc, 2, [file: ~c\"timer.erl\", line: 599]},\n  {ExUnit.Runner, :\"-spawn_test_monitor/4-fun-1-\", 6,\n   [file: ~c\"lib/ex_unit/runner.ex\", line: 455]}\n]\n\n"
+     right: "[NativeAudit] message.received"
+     stacktrace:
+       test/jido_messaging/native_audit_logger_test.exs:41: (test)
+
+     The following output was logged:
+
+     01:25:44.091 [error] Handler "jido_messaging_audit_logger" has failed and has been detached. Class=:error
+     Reason=%UndefinedFunctionError{
+       module: Jido.Messaging.Message,
+       function: :fetch,
+       arity: 2,
+       reason: "Jido.Messaging.Message does not implement the Access behaviour\n\nYou can use the \"struct.field\" syntax to access struct fields. You can also use Access.key!/1 to access struct fields dynamically inside get_in/put_in/update_in",
+       message: nil
+     }
+     Stacktrace=[
+       {Jido.Messaging.Message, :fetch,
+        [
+          %Jido.Messaging.Message{
+            id: "root",
+            role: :user,
+            room_id: "audit-room",
+            thread_id: nil,
+            external_thread_id: nil,
+            delivery_external_room_id: nil,
+            external_id: nil,
+            updated_at: ~U[2026-10-13 06:25:44.087630Z],
+            external_reply_to_id: nil,
+            reply_to_id: nil,
+            inserted_at: ~U[2026-10-13 06:25:44.087630Z],
+            sender_id: "sender",
+            status: :sent,
+            metadata: %{},
+            reactions: %{},
+            content: [%Jido.Chat.Content.Text{text: "root", type: :text}],
+            receipts: %{}
+          },
+          :id
+        ], []},
+       {Access, :get, 3, [file: ~c"lib/access.ex", line: 326]},
+       {Jido.Messaging.AuditLogger, :message_id, 1,
+        [file: ~c"lib/jido_messaging/audit_logger.ex", line: 292]},
+       {Jido.Messaging.AuditLogger, :format_event, 3,
+        [file: ~c"lib/jido_messaging/audit_logger.ex", line: 136]},
+       {Jido.Messaging.AuditLogger, :handle_event, 4,
+        [file: ~c"lib/jido_messaging/audit_logger.ex", line: 122]},
+       {:telemetry, :do_execute, 4,
+        [
+          file: ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/deps/telemetry/src/telemetry.erl",
+          line: 202
+        ]},
+       {Jido.Messaging.Dispatch, :emit, 3,
+        [file: ~c"lib/jido_messaging/dispatch.ex", line: 20]},
+       {Jido.Messaging.Signal, :emit_built, 4,
+        [file: ~c"lib/jido_messaging/signal.ex", line: 78]},
+       {Jido.Messaging.NativeAuditLoggerTest,
+        :"-test native message emission keeps audit handler and direct Signal identity/1-fun-0-",
+        2, [file: ~c"test/jido_messaging/native_audit_logger_test.exs", line: 37]},
+       {ExUnit.CaptureLog, :with_log, 2,
+        [file: ~c"lib/ex_unit/capture_log.ex", line: 127]},
+       {ExUnit.CaptureLog, :capture_log, 2,
+        [file: ~c"lib/ex_unit/capture_log.ex", line: 89]},
+       {Jido.Messaging.NativeAuditLoggerTest,
+        :"test native message emission keeps audit handler and direct Signal identity",
+        1, [file: ~c"test/jido_messaging/native_audit_logger_test.exs", line: 36]},
+       {ExUnit.Runner, :exec_test, 2, [file: ~c"lib/ex_unit/runner.ex", line: 533]},
+       {ExUnit.CaptureLog, :with_log, 2,
+        [file: ~c"lib/ex_unit/capture_log.ex", line: 127]},
+       {ExUnit.Runner, :"-maybe_capture_log/3-fun-0-", 3,
+        [file: ~c"lib/ex_unit/runner.ex", line: 482]},
+       {:timer, :tc, 2, [file: ~c"timer.erl", line: 599]},
+       {ExUnit.Runner, :"-spawn_test_monitor/4-fun-1-", 6,
+        [file: ~c"lib/ex_unit/runner.ex", line: 455]}
+     ]
+
+
+...............................................
+Finished in 5.5 seconds (0.00s async, 5.5s sync)
+
+Result: 64/65 passed
+Failed: 1 test

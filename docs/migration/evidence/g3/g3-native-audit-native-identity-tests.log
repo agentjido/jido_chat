@@ -1,0 +1,21 @@
+Compiling 8 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+................
+01:23:52.254 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.1260.0>, nil}
+.......
+
+  1) test native message emission keeps audit handler and direct Signal identity (Jido.Messaging.NativeAuditLoggerTest)
+     test/jido_messaging/native_audit_logger_test.exs:20
+     ** (Jido.Chat.Errors.Contract) Signal contract rejected: invalid_request
+     code: Jido.Messaging.Signal.PostMessage.new!(%{
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/signal/post_message.ex:8: Jido.Messaging.Signal.PostMessage.new!/2
+       test/jido_messaging/native_audit_logger_test.exs:26: (test)
+
+..
+Finished in 0.9 seconds (0.00s async, 0.9s sync)
+
+Result: 25/26 passed
+Failed: 1 test
