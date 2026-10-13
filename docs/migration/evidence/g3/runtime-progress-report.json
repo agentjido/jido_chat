@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T06:35:35.737912+00:00",
-  "messaging_head": "bae1949a2f126b693b851bd06f0d3278be32b351",
-  "core_head": "204072e833804ba8f995299eabfda9e225c8779c",
-  "inclusive_tests": 1330,
+  "updated_at": "2026-10-13T06:47:11.152855+00:00",
+  "messaging_head": "8c0c0853dade6492d5700c57e85abae7c22edf76",
+  "core_head": "36e7f7d58df7e0c48c7fd448812c4f859cc290b0",
+  "inclusive_tests": 1368,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 84.5,
+  "coverage_percent": 84.6,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -20,8 +20,13 @@
     "g3-adapter-thread-page-scope-tests",
     "g3-agent-assignment-exact-supervisor-final-tests",
     "g3-agent-assignment-explicit-recovery-tests",
+    "g3-agent-assignment-safe-save-and-restoration-tests",
+    "g3-agent-assignment-safe-save-quality",
+    "g3-agent-assignment-save-before-after-rollback-final-tests",
     "g3-agent-route-reroute-preserved-final-tests",
     "g3-agent-route-room-final-quality",
+    "g3-agent-runner-stopped-registry-final-tests",
+    "g3-agent-runner-stopped-registry-quality",
     "g3-ai-callback-disposition-runtime-tests",
     "g3-ai-identity-isolated-files-tests",
     "g3-ai-pressure-barrier-tests",
@@ -34,6 +39,16 @@
     "g3-config-record-keys-quality",
     "g3-config-write-before-after-outcome-final-tests",
     "g3-config-write-outcome-quality",
+    "g3-current-assignment-topology-final-ai-full-tests",
+    "g3-current-assignment-topology-final-ai-graph",
+    "g3-current-assignment-topology-final-ai-harness",
+    "g3-current-assignment-topology-final-api-audit",
+    "g3-current-assignment-topology-final-core-full-tests",
+    "g3-current-assignment-topology-final-core-graph",
+    "g3-current-assignment-topology-final-core-harness",
+    "g3-current-assignment-topology-final-inclusive-coverage",
+    "g3-current-assignment-topology-final-optional-ai",
+    "g3-current-assignment-topology-final-source-scan",
     "g3-current-audit-recovery-ai-full-uncontended-recheck",
     "g3-current-audit-recovery-ai-graph",
     "g3-current-audit-recovery-ai-harness",
@@ -261,6 +276,10 @@
     "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
     "g3-subscription-private-record-normalization-tests",
+    "g3-topology-and-facade-missing-identity-final-tests",
+    "g3-topology-missing-binding-identity-final-tests",
+    "g3-topology-owned-identity-final-quality",
+    "g3-topology-owned-identity-warning-free-tests",
     "g3-topology-owner-and-sections-warning-free-tests",
     "g3-topology-routing-string-enums-final-tests",
     "g3-topology-routing-yaml-execution-final-tests",
@@ -273,7 +292,9 @@
   ],
   "confirmed_regressions": [
     "g3-acceptance-storage-failure-confirmed",
+    "g3-agent-assignment-save-failure-controls",
     "g3-call-resource-lifetime-regression",
+    "g3-current-assignment-topology-inclusive-coverage",
     "g3-delete-and-runtime-unavailable-controls",
     "g3-ingress-subscription-scope-controls",
     "g3-local-post-size-before-write-regression",
@@ -287,7 +308,8 @@
     "g3-private-mention-parser-failure-controls",
     "g3-room-kind-constructor-regression",
     "g3-runtime-core-graph-full-tests",
-    "g3-subscription-malformed-wrapper-controls"
+    "g3-subscription-malformed-wrapper-controls",
+    "g3-topology-invalid-and-partial-outcome-tests"
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -382,7 +404,14 @@
     "Current complete inclusive Messaging coverage passes 1330 checks with native PostgreSQL, integration, story and zero skips. Coverage is 84.5 percent; required 90 percent remains unmet.",
     "Current complete AI run passes 1329/1330 checks. One existing sanitize timeout elapsed bound failed at 241 ms versus required less than 150 ms. Its command is terminal and retained; the unchanged affected file recheck is active. No assertion, skip, threshold or production timeout is changed.",
     "Both current complete pinned runtime profiles pass 1330 checks with zero skips.",
-    "The unchanged final AI recheck passes all 1330 checks with native PostgreSQL, integration/story, max_cases 20 and zero skips. Its exact Messaging library/test hash matches current complete coverage and core profile. The prior 241 ms timing failure and passing 15-case affected-file recheck remain recorded."
+    "The unchanged final AI recheck passes all 1330 checks with native PostgreSQL, integration/story, max_cases 20 and zero skips. Its exact Messaging library/test hash matches current complete coverage and core profile. The prior 241 ms timing failure and passing 15-case affected-file recheck remain recorded.",
+    "Current expanded coverage attempt passes 1367/1368 checks. A stopped agent runner remained in Registry lookup during cleanup. AgentRunner.whereis now rejects dead PIDs; all 47 affected tests pass. The failed coverage evidence is retained and its 84.7 percent is not current complete proof.",
+    "Interim topology test returned exit zero but printed a redundant-guard compiler warning. Its corresponding quality check failed under warnings as errors. Final allowed-channel guards and final tests/quality have no warning. Do not use the warning-bearing check as final proof.",
+    "Assignment save failure controls exposed exceptions and invalid results escaping after the old runner stopped, plus stale registry reuse on rollback. Checked assignment-only saves and supervisor-owned restoration fix the outcomes. All 44 before/after-write, foreign-record, failed rollback and recovery tests plus quality pass.",
+    "Topology missing IDs converted to the string nil, and nil channel passed an atom guard. Preserve missing IDs and use the declared channel set in YAML and root bridge-room normalization. All 38 affected tests and warning-free quality pass. Invalid/credential/ordered partial state, unknown key and existing record ownership are verified.",
+    "Current complete inclusive Messaging coverage passes 1368 checks with native PostgreSQL, integration, story and zero skips. Coverage is 84.6 percent; required 90 percent remains unmet.",
+    "Stopped-runner whereis now checks process liveness before accepting the Registry PID. All 47 affected runner/native Signal tests and final quality pass. Final complete coverage passes 1368 checks with zero skips and 84.6 percent; required 90 percent remains unmet. Earlier failed 1367/1368 coverage and pre-fix evidence remain historical.",
+    "Both current complete pinned runtime profiles pass 1368 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -397,7 +426,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1330,
+    "messaging_tests_per_profile": 1368,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -408,15 +437,15 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1330,
+        "passed": 1368,
         "failures": 0,
-        "check": "g3-current-audit-recovery-core-full-tests.json"
+        "check": "g3-current-assignment-topology-final-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1330,
+        "passed": 1368,
         "failures": 0,
-        "check": "g3-current-audit-recovery-ai-full-uncontended-recheck.json"
+        "check": "g3-current-assignment-topology-final-ai-full-tests.json"
       }
     }
   },
@@ -425,11 +454,11 @@
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-audit-recovery-complete-api-exports.json",
+    "current_report": "current-assignment-topology-final-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1330 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-audit-recovery-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1368 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-assignment-topology-final-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,

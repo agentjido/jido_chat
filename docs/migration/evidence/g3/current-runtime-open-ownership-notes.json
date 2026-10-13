@@ -1,23 +1,22 @@
 {
   "state": "open",
-  "source_head": "bae1949a2f126b693b851bd06f0d3278be32b351",
+  "source_head": "2768b005b051c00924bc439580a4421c4f4340c4",
   "next_checks": [
     {
-      "file": "lib/jido_messaging.ex",
-      "observed": "Assignment save/rollback failure and safe record query branches remain below the required coverage floor.",
-      "required_proof": "Real canonical records and controlled failed persistence calls retain previous assignments, scoped authority and exact effect counts."
+      "file": "lib/jido_messaging/persistence/ets.ex and sqlite.ex",
+      "observed": "Scoped record queries, cursor validation and terminal revision paths still have substantial missed branches.",
+      "required_proof": "Real owned records and invalid/foreign scope cannot alter authority or leak records; exact cursor/revision errors and later valid operations."
     },
     {
-      "file": "lib/jido_messaging/demo/topology.ex",
-      "observed": "Remaining invalid config/room entries and apply-time errors have limited verification.",
-      "required_proof": "Safe deterministic failures and declared partial state on runtime errors; complete invalid section checks stay in place."
+      "file": "lib/jido_messaging.ex",
+      "observed": "Transcript/projection empty/error and paged rebuild paths remain partly unverified.",
+      "required_proof": "Complete canonical history within exact instance/room scope, safe projection admission and exact page ordering."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Native runtime audit handler stays attached without required old correlation; native Signal and parent IDs and safe failure code are logged.",
-    "Native direct acceptance has exactly one audit observation after the claim commits; duplicate/failed Bus cases do not repeat writes or telemetry.",
-    "Real scoped agent restoration and unavailable supervisor unassign state are verified without inferred grants/messages."
+    "Assignment persistence exceptions/invalid or foreign records return safely; before/after-write errors restore original storage, room state and one owned runner. Failed rollback reports the complete failure.",
+    "Missing binding identities stay absent instead of nil-derived strings; fixed channel guards reject before binding writes. Real topology invalid/partial/existing record outcomes pass."
   ]
 }

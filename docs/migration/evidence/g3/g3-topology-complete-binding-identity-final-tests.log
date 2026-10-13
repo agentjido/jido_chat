@@ -1,0 +1,29 @@
+Compiling 8 files (.ex)
+      warning: the following conditional expression will always succeed:
+
+          is_atom(channel)
+
+      because it evaluates to:
+
+          dynamic(true)
+
+      where "channel" was given the type:
+
+          # type: dynamic(:discord or nil or :telegram)
+          # from: lib/jido_messaging.ex:2685:13
+          channel = normalize_channel(map_get(binding, :channel))
+
+      type warning found at:
+      │
+ 2691 │     with true <- is_atom(channel) and not is_nil(channel),
+      │     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      │
+      └─ lib/jido_messaging.ex:2691: Jido.Messaging.normalize_binding/1
+
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+....................................
+Finished in 0.5 seconds (0.3s async, 0.1s sync)
+
+Result: 36 passed
