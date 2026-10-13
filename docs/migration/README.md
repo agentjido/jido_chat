@@ -15,11 +15,11 @@ Do not wait for all gates to pass. Keep each commit focused. Put passed checks a
 open work in its commit message and in `progress-commits.json`.
 All final completion requirements stay the same.
 
-The tested work is now saved in progress commits. Fresh checks passed 257 core
-tests, 54 Signal adapter tests, 936 inclusive Messaging tests, and four optional
-AI tests. The Messaging run includes local PostgreSQL, integration, and story
-cases. It has no skipped test. One existing Signal provider live test is excluded.
-Core, Messaging, and Signal adapter quality checks pass.
+The tested work is saved in progress commits. The latest runtime profiles pass
+257 core tests, 1,003 inclusive Messaging checks, 241 integration tests, and four
+optional AI tests. Both profiles use the pinned v3 sources. The Messaging runs
+include local PostgreSQL, integration, and story cases, with no skipped test.
+Current Messaging quality passes. Provider checks are recorded separately.
 
 Provider message lookup now includes the canonical room. Update, delete, and
 reply tests use the same provider ID in two rooms. The Sender capacity test now
@@ -27,7 +27,8 @@ checks all 1,000 queue places and the rejected next job.
 
 These checks use the combined worktrees. Final current-head PR CI, all-adapter
 conformance, package checks, and the 90 percent Messaging coverage floor are
-still required. G3 remains open. The fresh inclusive coverage report is 77.8%. The 90 percent floor is not met.
+still required. G3 remains open. Inclusive coverage is 78.9 percent. The required
+90 percent package coverage is not met.
 
 Automatic thread creation now follows policy and the first message write. A
 later link failure keeps the accepted message and produces a causal failure fact.
@@ -56,10 +57,22 @@ control. A reference belongs to its creator process. A different active caller
 gets an ownership error. An expired or completed creator call cannot resolve the
 value; lookup clears it. A call-scoped reference has no restart-safe replay claim.
 
+Message acceptance checks the prepared record ID if a store call fails. A
+confirmed saved message remains accepted. A confirmed absent message permits
+retry. If the confirmation read fails, acceptance returns
+`request_outcome_unknown` on each retry. It holds both private claims until an
+explicit clear or runtime shutdown. Do not report that error as successful
+acceptance. Existing transport acknowledgement order still applies. This state
+has no restart-safe guarantee.
+
+A runtime observation failure after a confirmed message write keeps the record
+and the accepted claim. It emits a registered failure fact when the Bus is
+available. Repeated delivery cannot repeat that message write.
+
 The CreateRoom kind now matches the four stored Room types. Unknown kind fails at
-the constructor. Current checks pass 936 inclusive runtime tests, 257 core tests,
-four optional AI tests, and all 110 native Catalog definitions. Coverage remains
-77.8 percent, below the required 90 percent.
+the constructor. Current checks pass 1,003 inclusive runtime checks, 257 core
+tests, and four optional AI tests. The Catalog has 110 native definitions.
+Coverage remains 78.9 percent, below the required 90 percent.
 
 ## Dependency baseline
 

@@ -1,32 +1,62 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T00:44:53.603640+00:00",
-  "messaging_head": "9f6c91715ba7cc82bb26552a09286c701dc42378",
-  "core_head": "4fa1b9360b3927e82498e4293bfcf84673908b19",
-  "inclusive_tests": 963,
+  "updated_at": "2026-10-13T02:20:59.304925+00:00",
+  "messaging_head": "4a38782802c1bf9e5511e78c9f04ea9b093e0244",
+  "core_head": "f51ecaee046451e01e58d570996f81cf86cc09aa",
+  "inclusive_tests": 1003,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 78.1,
+  "coverage_percent": 78.9,
   "coverage_floor": 90,
   "coverage_floor_met": false,
-  "scope": "Current core/Messaging/Signal-provider boundary and preparatory Telegram membership mapper checks. Full nine-provider conformance remains pending.",
+  "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
   "new_passed_checks": [
-    "g3-safe-acceptance-storage-failure-tests",
+    "g3-accepted-message-failure-quality",
+    "g3-current-message-outcome-and-context-inclusive-coverage",
+    "g3-current-message-outcome-api-export-audit",
+    "g3-current-message-outcome-formatted-quality",
+    "g3-current-message-outcome-inclusive-final-tests",
+    "g3-current-message-outcome-source-scan",
+    "g3-current-outcome-ai-profile-chat-tests",
+    "g3-current-outcome-ai-profile-harness-tests",
+    "g3-current-outcome-ai-profile-messaging-tests",
+    "g3-current-outcome-context-complete-api-audit",
+    "g3-current-outcome-context-quality",
+    "g3-current-outcome-context-source-scan",
+    "g3-current-outcome-context-versioned-api-audit",
+    "g3-current-outcome-contract-manifest-check",
+    "g3-current-outcome-core-profile-chat-tests",
+    "g3-current-outcome-core-profile-harness-tests",
+    "g3-current-outcome-core-profile-messaging-tests",
+    "g3-current-outcome-optional-ai-fixtures",
+    "g3-current-outcome-real-slack-execution-tests",
+    "g3-current-outcome-real-slack-membership-tests",
+    "g3-current-outcome-real-telegram-membership-tests",
+    "g3-current-outcome-runtime-ai-graph-report",
+    "g3-current-outcome-runtime-core-graph-report",
+    "g3-current-safe-acceptance-api-audit",
+    "g3-current-safe-acceptance-boundary-scan",
+    "g3-current-safe-acceptance-inclusive-coverage",
+    "g3-lifecycle-exception-and-partial-effect-tests",
+    "g3-message-store-exception-reconciliation-tests",
+    "g3-original-ingest-confirmation-fixture-tests",
+    "g3-private-mention-normalization-final-tests",
     "g3-safe-acceptance-current-quality",
     "g3-safe-acceptance-membership-current-quality",
-    "g3-current-safe-acceptance-inclusive-coverage",
-    "g3-current-safe-acceptance-api-audit",
-    "g3-current-safe-acceptance-boundary-scan"
+    "g3-safe-acceptance-storage-failure-tests",
+    "g3-uncertain-write-and-accepted-runtime-final-tests"
   ],
   "confirmed_regressions": [
-    "g3-maximum-message-fact-regression",
-    "g3-local-post-size-before-write-regression",
+    "g3-acceptance-storage-failure-confirmed",
     "g3-call-resource-lifetime-regression",
+    "g3-local-post-size-before-write-regression",
+    "g3-maximum-message-fact-regression",
+    "g3-message-store-exception-controls",
+    "g3-private-mention-parser-failure-controls",
     "g3-room-kind-constructor-regression",
-    "g3-runtime-core-graph-full-tests",
-    "g3-acceptance-storage-failure-confirmed"
+    "g3-runtime-core-graph-full-tests"
   ],
   "notes": [
     "Valid maximum-size local posts now use runtime-owned result references. An interim version rejected local size expansion; it is not the final behavior.",
@@ -35,13 +65,18 @@
     "Compiler clause grouping warnings were fixed. The stale dependency PLT was refreshed; final Dialyzer reports zero errors, skips, and unused ignores.",
     "The combined-directory test attempt failed on seven relative story fixture paths and showed duplicate test module warnings. Stable fixture paths and separate complete suite processes pass; the original failed log is retained.",
     "The runtime graph profile is G3 evidence. It does not replace all nine adapter ports, G7 whole-group conformance, the 90 percent coverage floor, PRs, or current-head CI.",
-    "Current acceptance tests prove safe storage errors and partial-unit retry ownership. G4 mapper checks do not replace full Telegram normalizer, webhook/polling, operation, or checkpoint conformance."
+    "Current acceptance tests prove safe storage errors and partial-unit retry ownership. G4 mapper checks do not replace full Telegram normalizer, webhook/polling, operation, or checkpoint conformance.",
+    "Message-store error, raise, throw, exit and invalid return cases distinguish confirmed absence, confirmed write and uncertain read. Repeated acceptance has one write after a confirmed or uncertain outcome. Unknown claims are held until explicit clearing or runtime shutdown, and have no restart guarantee.",
+    "A stopped room supervisor after the write keeps the accepted message and emits a registered observation failure. Lifecycle update exceptions before or after writes return safe errors; retry does not repeat a confirmed update.",
+    "Fourteen private mention-parser tests cover helper arities, exception fallbacks, text limits, malformed metadata, command selection and Unicode spans. A span that cuts a Unicode code point no longer crashes or removes text. Normalizer coverage is 90.2 percent; package coverage is 78.9 percent.",
+    "The first full message-outcome run exposed an incomplete old test store with no confirmation read. Add the real ETS read and preserve its original retry assertions. Initial failure logs remain in this bundle.",
+    "Refresh the actual Telegram/Slack runtime fixtures after the Messaging change: 7 Slack membership, 4 Slack execution/selection, and 8 Telegram membership cases pass in the pinned pair profile."
   ],
   "remaining": [
-    "Finish the remaining acceptance exception/partial-effect and direct facade ownership checks. Membership lookup failures and returned message/lifecycle store errors now have safe contract errors and tested claim release.",
-    "Add meaningful missing runtime/storage/ownership tests to reach the required 90 percent Messaging coverage.",
-    "Refresh affected core-only and optional-AI graph evidence after current source changes. Whole-group graph proof remains required in G7 after all provider ports.",
-    "Complete all nine adapters and every remaining G4-G9 quality, coverage, dependency audit, package, PR/review, and current-head CI requirement."
+    "Audit lifecycle delete outcomes, failures in acceptance validation/runtime state, and remaining direct facade helpers. Message-save and update exception matrices and post-write room failures now pass.",
+    "Add meaningful runtime, storage, facade and command helper cases to reach at least 90 percent Messaging coverage. See current-outcome-coverage-gaps.json. Do not lower thresholds or add ignores/skips.",
+    "Refresh affected checks after further source changes. The current core-only and optional-AI graphs pass. Finish all remaining provider ports and actual all-nine G7 Conformance.run C01-C14.",
+    "Complete all remaining G4-G9 quality, coverage, dependency audit, package/docs/version, focused PR/review and current-head CI requirements."
   ],
   "runtime_profile": {
     "scope": [
@@ -51,7 +86,7 @@
     ],
     "with_and_without_ai": "pass",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 955,
+    "messaging_tests_per_profile": 1003,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -61,8 +96,9 @@
   },
   "compiled_api_audit": {
     "state": "pass",
-    "exports": 5029,
+    "exports": 5030,
     "generated_instance_exports": 1200,
-    "rejection_controls": 4
+    "rejection_controls": 4,
+    "current_report": "current-outcome-context-versioned-api-exports.json"
   }
 }

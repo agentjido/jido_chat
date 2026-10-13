@@ -48793,6 +48793,20 @@
       "replacement": "Configured native Signal facade and captured private Slack protocol/resources.",
       "reason": "Use one complete native normalizer. Interaction controls stay private in binding-owned resources; modal preparation returns only a scoped reference.",
       "implementation_state": "implemented"
+    },
+    {
+      "arity": 3,
+      "base_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "classification": "private-implementation",
+      "function": "retain_unknown",
+      "generated_template": false,
+      "kind": "def",
+      "module": "Jido.Messaging.Deduper",
+      "package": "jido_messaging",
+      "replacement": "Runtime ownership remains here; consume or emit exact registered Signals at communication boundaries",
+      "source": "lib/jido_messaging/deduper.ex",
+      "reason": "Private claim state holds an uncertain store outcome in the current runtime. Repeated native acceptance returns a contract error and cannot replay or acknowledge unknown work. The state is lost on explicit clearing or runtime shutdown.",
+      "introduced_in": "public-signal-v3"
     }
   ],
   "inventory_rule": "Source exports and quoted macro templates at each verified base. Audit generated runtime exports before G1 passes.",

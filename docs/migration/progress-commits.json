@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T02:02:58.834104+00:00",
+  "updated_at": "2026-10-13T02:22:05.610136+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -729,6 +729,54 @@
         "evidence/g5/g5-real-slack-messaging-execution-final-tests.json"
       ],
       "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "30ae85d6d83aa1642db5621ee7099a5cb85998fc",
+      "subject": "fix(ingress): retain confirmed and uncertain message write outcomes",
+      "checks": [
+        "evidence/g3/g3-uncertain-write-and-accepted-runtime-final-tests.json",
+        "evidence/g3/g3-accepted-message-failure-quality.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "50ca6216d4ccbc9575b14c0a98140295b241773e",
+      "subject": "test(ingress): verify lifecycle exceptions before and after updates",
+      "checks": [
+        "evidence/g3/g3-lifecycle-exception-and-partial-effect-tests.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "1f39406dcf73cf596f2279ebc2867cd6718f7005",
+      "subject": "test(ingress): give the retry store fixture a confirmation read",
+      "checks": [
+        "evidence/g3/g3-original-ingest-confirmation-fixture-tests.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a41c45e3f99978db3081e689ad884eadaecc695c",
+      "subject": "style(ingress): format the lifecycle request fixture",
+      "checks": [
+        "evidence/g3/g3-current-message-outcome-formatted-quality.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "4a38782802c1bf9e5511e78c9f04ea9b093e0244",
+      "subject": "fix(context): preserve text when mention spans split Unicode characters",
+      "checks": [
+        "evidence/g3/g3-private-mention-normalization-final-tests.json",
+        "evidence/g3/g3-current-message-outcome-and-context-inclusive-coverage.json",
+        "evidence/g3/g3-current-outcome-context-quality.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
     }
   ],
   "passed_checks": {
