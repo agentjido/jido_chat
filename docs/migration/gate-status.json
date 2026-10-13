@@ -105,6 +105,10 @@
       "state": "pending",
       "evidence": [
         "evidence/g3/canonical-storage-external-fixture-status.json",
+        "evidence/g3/current-assignment-inventory-complete-api-exports.json",
+        "evidence/g3/current-assignment-inventory-coverage-gaps.json",
+        "evidence/g3/current-assignment-inventory-prohibited-runtime-boundary-scan.json",
+        "evidence/g3/current-assignment-inventory-source-proof.json",
         "evidence/g3/current-assignment-topology-complete-api-exports.json",
         "evidence/g3/current-assignment-topology-final-complete-api-exports.json",
         "evidence/g3/current-assignment-topology-final-coverage-gaps.json",
@@ -228,6 +232,10 @@
         "evidence/g3/g3-ai-sqlite-isolated-paths-final-tests.json",
         "evidence/g3/g3-all-native-result-schemas.json",
         "evidence/g3/g3-all-request-admission-tests.json",
+        "evidence/g3/g3-assignment-inventory-complete-owned-restore-final-tests.json",
+        "evidence/g3/g3-assignment-inventory-ownership-final-tests.json",
+        "evidence/g3/g3-assignment-inventory-ownership-regression-tests.json",
+        "evidence/g3/g3-assignment-inventory-safe-restore-quality.json",
         "evidence/g3/g3-authorization-backend-revision-scope-tests.json",
         "evidence/g3/g3-authorization-backend-terminal-revision-final-tests.json",
         "evidence/g3/g3-auto-thread-admission-quality.json",
@@ -265,6 +273,14 @@
         "evidence/g3/g3-credential-backend-rotation-ownership-tests.json",
         "evidence/g3/g3-credential-cleanup-and-expired-replay-tests.json",
         "evidence/g3/g3-current-agent-library-quality.json",
+        "evidence/g3/g3-current-assignment-inventory-ai-full-tests.json",
+        "evidence/g3/g3-current-assignment-inventory-ai-harness.json",
+        "evidence/g3/g3-current-assignment-inventory-api-audit.json",
+        "evidence/g3/g3-current-assignment-inventory-core-full-tests.json",
+        "evidence/g3/g3-current-assignment-inventory-core-harness.json",
+        "evidence/g3/g3-current-assignment-inventory-inclusive-coverage.json",
+        "evidence/g3/g3-current-assignment-inventory-optional-ai.json",
+        "evidence/g3/g3-current-assignment-inventory-source-scan.json",
         "evidence/g3/g3-current-assignment-topology-ai-graph.json",
         "evidence/g3/g3-current-assignment-topology-api-audit.json",
         "evidence/g3/g3-current-assignment-topology-core-full-tests.json",
@@ -957,7 +973,11 @@
         "Unregister now uses checked unassign and rollback instead of ignoring thread save failure. Before/after-write failures retain registration and exact previous assignment with one runner; missing stored thread clears runtime state without a write. Double failure reports cleanup and rollback errors. All 57 affected tests and package quality pass.",
         "Current Messaging root source changed; quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
         "Current complete inclusive Messaging coverage passes 1643 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.9 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1643 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1643 checks with zero skips.",
+        "Complete assignment inventories validate owned room, thread ID, assigned agent ID and duplicate identities before register/unregister effects. Error/raise/throw/exit/invalid reads retain registration, both owned/foreign thread records and runner PIDs with zero writes/admissions. Explicit restoration returns failures, including runner start failure; startup handles error results safely. All 75 affected tests and package quality pass.",
+        "Current root and AgentSupervisor source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
+        "Current complete inclusive Messaging coverage passes 1661 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.0 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1661 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1127,5 +1147,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T08:31:41.884473+00:00"
+  "updated_at": "2026-10-13T08:38:31.779528+00:00"
 }
