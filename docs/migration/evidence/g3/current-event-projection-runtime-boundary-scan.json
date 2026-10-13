@@ -1,0 +1,48 @@
+{
+  "gate": "G3",
+  "state": "pass",
+  "scope": [
+    "jido_chat/lib",
+    "jido_chat_signal/lib",
+    "jido_messaging/lib"
+  ],
+  "checked_files": 369,
+  "source_revisions": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "b51e40039662fb5be70971081f168eafd5a07fb3",
+      "checked_source_sha256": "35d0004841c50828139eceeea7f7a481f280dd9119487774ba4134a66d9340e5",
+      "checked_files": 126
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "checked_source_sha256": "dac45b42ed6ffd216d415ccf5c8eab508f46f559f08daa722d1f36ef4a411bef",
+      "checked_files": 8
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
+      "checked_source_sha256": "cedda0995bb84083670fb7d5f859f24341e869cbdf4db7b97aaf1d70a6ea4722",
+      "checked_files": 235
+    }
+  ],
+  "rules": [
+    "retired_core_definition",
+    "retired_core_reference",
+    "old_chat_object",
+    "old_facade_route",
+    "old_public_adapter_mapper",
+    "generic_public_signal_constructor",
+    "legacy_context_extension",
+    "custom_domain_catalog",
+    "retired_messaging_reference",
+    "retired_messaging_definition",
+    "tuple_pubsub_mirror",
+    "legacy_event_option_mapping",
+    "retired_messaging_root_alias",
+    "provider_parent_wrong_owner",
+    "provider_parent_count"
+  ],
+  "findings": []
+}

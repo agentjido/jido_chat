@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T10:54:14.461444+00:00",
+  "updated_at": "2026-10-13T11:12:06.288459+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1637,13 +1637,24 @@
       ],
       "passed_checks": "130 affected provider result/local post/resource/size/typed execution checks without warnings and package quality.",
       "open_work": "Remaining G3 runtime/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
+      "subject": "fix(events): reject message projections under a foreign room subject",
+      "checks": [
+        "evidence/g3/g3-event-projection-scope-final-tests.json",
+        "evidence/g3/g3-event-projection-scope-quality.json"
+      ],
+      "passed_checks": "35 affected event projection/native event/message size/bridge ownership checks without warnings plus package quality.",
+      "open_work": "Remaining G3 native result/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1928,
+    "messaging_inclusive_tests": 1942,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1707,8 +1718,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1928,
-    "total": 1928,
-    "check": "evidence/g3/g3-current-provider-result-ai-full-tests.json"
+    "passed": 1942,
+    "total": 1942,
+    "check": "evidence/g3/g3-current-event-projection-ai-full-tests.json"
   }
 }

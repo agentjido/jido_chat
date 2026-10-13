@@ -10,7 +10,7 @@
   "source_revisions": [
     {
       "repository": "jido_chat",
-      "head_sha": "a2c9c7cbbcd91475e2bc5014e0fb3286408bb55a",
+      "head_sha": "b51e40039662fb5be70971081f168eafd5a07fb3",
       "checked_source_sha256": "35d0004841c50828139eceeea7f7a481f280dd9119487774ba4134a66d9340e5",
       "checked_files": 126
     },
@@ -22,8 +22,8 @@
     },
     {
       "repository": "jido_messaging",
-      "head_sha": "3187b43e139d51f80b20a1983e42d49913871ff5",
-      "checked_source_sha256": "b9480a95fdc2c3c2ce9a6618fe475bba7a32b94d9e60945a149ebaa2f87c3c12",
+      "head_sha": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
+      "checked_source_sha256": "cedda0995bb84083670fb7d5f859f24341e869cbdf4db7b97aaf1d70a6ea4722",
       "checked_files": 235
     }
   ],

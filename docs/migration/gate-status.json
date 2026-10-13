@@ -166,6 +166,9 @@
         "evidence/g3/current-directory-pagination-complete-api-exports.json",
         "evidence/g3/current-directory-pagination-runtime-boundary-scan.json",
         "evidence/g3/current-directory-pagination-source-proof.json",
+        "evidence/g3/current-event-projection-complete-api-exports.json",
+        "evidence/g3/current-event-projection-runtime-boundary-scan.json",
+        "evidence/g3/current-event-projection-source-proof.json",
         "evidence/g3/current-execution-gateway-complete-api-exports.json",
         "evidence/g3/current-execution-gateway-prohibited-runtime-boundary-scan.json",
         "evidence/g3/current-execution-gateway-source-proof.json",
@@ -461,6 +464,13 @@
         "evidence/g3/g3-current-directory-pagination-core-harness.json",
         "evidence/g3/g3-current-directory-pagination-inclusive-coverage.json",
         "evidence/g3/g3-current-directory-pagination-optional-ai.json",
+        "evidence/g3/g3-current-event-projection-ai-full-tests.json",
+        "evidence/g3/g3-current-event-projection-ai-harness.json",
+        "evidence/g3/g3-current-event-projection-api-audit.json",
+        "evidence/g3/g3-current-event-projection-core-full-tests.json",
+        "evidence/g3/g3-current-event-projection-core-harness.json",
+        "evidence/g3/g3-current-event-projection-inclusive-coverage.json",
+        "evidence/g3/g3-current-event-projection-optional-ai.json",
         "evidence/g3/g3-current-execution-gateway-ai-full-tests.json",
         "evidence/g3/g3-current-execution-gateway-ai-harness.json",
         "evidence/g3/g3-current-execution-gateway-api-audit.json",
@@ -701,6 +711,10 @@
         "evidence/g3/g3-durable-record-input-quality.json",
         "evidence/g3/g3-durable-record-input-regressions.json",
         "evidence/g3/g3-durable-record-input-valid-fixture-regressions.json",
+        "evidence/g3/g3-event-projection-scope-final-tests.json",
+        "evidence/g3/g3-event-projection-scope-quality.json",
+        "evidence/g3/g3-event-projection-scope-regressions.json",
+        "evidence/g3/g3-event-projection-scope-tests.json",
         "evidence/g3/g3-execution-admission-target-and-result-final-tests.json",
         "evidence/g3/g3-execution-admission-target-and-result-tests.json",
         "evidence/g3/g3-execution-final-compile.json",
@@ -1174,7 +1188,12 @@
         "Unrelated result/file handles and complete canonical owned/foreign records remain unchanged. Published results preserve the complete page and cursor, parent causation and call ownership. All 130 affected checks and package quality pass; original cleanup regression and separate fixture correction remain in evidence.",
         "Current private execution source checks refresh quality, complete coverage, both full profiles, both runtime harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
         "Current complete inclusive Messaging coverage passes 1928 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1928 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1928 checks with zero skips.",
+        "Message fact projection rejects foreign canonical message records or summaries before construction/resources when their room differs from the selected canonical subject. Owned message projections retain complete safe fields, JSON identity, trace and direct parent causation.",
+        "Participant/presence/false typing/thread alias and failure projections preserve complete declared data and redact private inputs. Native type/source/subject selectors use conjunction without record or authority mutations. Affected checks and package quality pass. Six original scope failures and the distinct selector fixture correction remain in evidence.",
+        "Current Events source checks refresh quality, complete coverage, both full runtime profiles, both harnesses, optional AI fixture, API audit and source scan. Unchanged core and pinned dependency proof is reused only after exact source comparison.",
+        "Current complete inclusive Messaging coverage passes 1942 checks with native PostgreSQL, integration, story and zero skips. Coverage is 87.1 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1942 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -1344,5 +1363,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T10:54:14.461444+00:00"
+  "updated_at": "2026-10-13T11:12:06.288459+00:00"
 }

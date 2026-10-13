@@ -1,10 +1,10 @@
 {
   "state": "open",
-  "source_head": "3187b43e139d51f80b20a1983e42d49913871ff5",
+  "source_head": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
   "next_checks": [
     {
       "file": "lib/jido_messaging/execution.ex and lib/jido_messaging.ex",
-      "observed": "Remaining native result construction failures, event projections and canonical facade defaults need exact ownership and effect proof.",
+      "observed": "Remaining native result construction errors and canonical facade defaults need exact ownership/effect proof. Coverage floor remains unmet.",
       "required_proof": "Invalid/denied input causes zero effects. Accepted work, native results and retry counts remain complete and exact."
     },
     {
@@ -16,8 +16,8 @@
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Failed provider result publication clears the selected result resource and returns cached observation_failed with exactly one callback.",
-    "Other caller result/file handles and complete owned/foreign canonical records stay unchanged; retry adds no resource or provider call.",
-    "Published results retain the complete query page/cursor, original parent causation and call ownership."
+    "Foreign canonical message records and summaries cannot be projected under an owned room subject; rejection occurs before resource allocation.",
+    "Owned projections retain complete safe fields, native JSON, original parent trace and causation. Scalar aliases and defined failure codes preserve declared values without private data.",
+    "Native type/source/subject selectors isolate observation with zero canonical record, admission, membership, grant or agent registration mutations."
   ]
 }

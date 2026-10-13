@@ -1,0 +1,66 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "b51e40039662fb5be70971081f168eafd5a07fb3",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "3187b43e139d51f80b20a1983e42d49913871ff5",
+      "library_test_files": 400,
+      "library_test_sha256": "0e7c3b24a7ed88673389fd751b7808fc7bdee827fec6a49fc61b28f557a73d3b"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-event-projection-scope-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/event_projection_boundary_test.exs",
+    "test/jido_messaging/events_test.exs",
+    "test/jido_messaging/message_fact_size_test.exs",
+    "test/jido_messaging/demo/bridge_ownership_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "3187b43e139d51f80b20a1983e42d49913871ff5",
+  "source_tree_sha256": "c8bde01714e87226ac3fc3ff5b4ca97bf28378b830a2f9ebbe30a9adb0c63c22",
+  "started_at": "2026-10-13T11:01:57.268636+00:00",
+  "finished_at": "2026-10-13T11:02:00.600561+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-event-projection-scope-tests.log",
+  "log_sha256": "f51fbe3f51f3c5b47e646708a01e99abe8f89307d99eac1662b0b1672c82780c",
+  "failure_classification": "First repair did not handle Message structs separately from plain summary maps. The complete affected suite found 12 failures. Current code has explicit owned/foreign Message clauses; all original assertions remain.",
+  "raw_log_sha256": "8257172d156d68300b3c7d93b568ac880b2808a94f221357308997d4822b3978",
+  "log_normalization": "Trailing whitespace and extra final blank lines removed after completion.",
+  "result": {
+    "passed": 23,
+    "total": 35,
+    "failed": 12
+  }
+}
