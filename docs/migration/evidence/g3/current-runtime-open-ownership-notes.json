@@ -1,28 +1,23 @@
 {
   "state": "open",
-  "source_head": "c1b116da1542025b8680de411cfd5d76150ea0fd",
+  "source_head": "31023287241abeff2df9c36d2f6e8a8fb68cb201",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/acceptance.ex",
-      "observed": "Completed facts already dedupe before resolution; pending multi-item failed media can retain partially accepted earlier items under declared memory behavior.",
-      "required_proof": "Exact first accepted observation and ordered remaining retry when later call-owned resources fail."
+      "file": "lib/jido_messaging/ingress_subscription.ex",
+      "observed": "Private subscription normalization has incomplete malformed status/expiry/identity coverage.",
+      "required_proof": "Scoped records retain exact IDs, private metadata and deterministic bounded normalization without provider effects."
     },
     {
-      "file": "lib/jido_messaging/ingest.ex",
-      "observed": "Media byte policy checks occur after canonical room/participant resolution.",
-      "required_proof": "Declared no-message-write behavior, whole media preservation and no inferred agent/grant authority across media limits."
-    },
-    {
-      "file": "lib/jido_messaging/demo/topology.ex",
-      "observed": "Remaining full topology validation and config string-key cases are incomplete.",
-      "required_proof": "Invalid entire unit has no writes; room binding ownership and section order use exact canonical records."
+      "file": "lib/jido_messaging/adapter_bridge.ex",
+      "observed": "Native media replacement and typed query/thread result branches have gaps in direct boundary proof.",
+      "required_proof": "Full private media, stable binding ownership, exact provider call order and safe failed replacement outcomes."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Native media resolves private caller-owned payload before writes. Full bytes/dimensions/captions/transcript/kinds are stored, public facts unchanged; lifetime/foreign-caller/invalid middle resources reject without records.",
-    "Actual Telegram photo and Slack file native normalizer paths pass through real Messaging storage with no provider calls.",
-    "Native two-room identical parent/reply IDs retain canonical reply scope, one-level quoted context, timestamp/thread and private room snapshot with unchanged parent facts."
+    "Multi-item native media failure retains exactly the first message and observation; ordered retry dedupes old unavailable resources and accepts only remaining items.",
+    "Native media policy count/size/kind denial writes no message or inferred authority; exact-limit retry retains complete media.",
+    "All five malformed whole topology sections reject before writes; nested string settings round trip and YAML routing enums now use fixed canonical atoms with real typed broadcast proof."
   ]
 }
