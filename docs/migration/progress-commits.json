@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T08:54:34.411809+00:00",
+  "updated_at": "2026-10-13T09:00:23.163519+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1518,6 +1518,16 @@
         "evidence/g3/g3-verifier-store-safe-result-quality.json"
       ],
       "open_work": "Remaining execution/setup and facade/backend failures, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "77bfd25505c2e1aa616cc1ff4dd319e8810153eb",
+      "subject": "test(execution): verify canonical message and thread authorization scope",
+      "checks": [
+        "evidence/g3/g3-execution-canonical-message-thread-scope-tests.json"
+      ],
+      "passed_checks": "123 canonical scope and typed execution checks with warnings as errors.",
+      "open_work": "Remaining execution, receipt, setup and facade failure paths; at least 90 percent Messaging coverage; all final G3-G9 requirements remain open."
     }
   ],
   "passed_checks": {
@@ -1578,13 +1588,13 @@
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
+    "github_issue_progress_body_updates": "disabled_by_user",
     "destinations": [
       "local files",
       "commit messages",
       "current chat"
     ],
-    "final_completion_requirements_unchanged": true,
-    "github_issue_progress_body_updates": "disabled_by_user"
+    "final_completion_requirements_unchanged": true
   },
   "current_ai_profile": {
     "state": "pass",
