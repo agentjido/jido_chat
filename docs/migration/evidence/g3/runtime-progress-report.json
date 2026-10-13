@@ -1,14 +1,14 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T06:11:33.130764+00:00",
-  "messaging_head": "31023287241abeff2df9c36d2f6e8a8fb68cb201",
-  "core_head": "c6ef192695f847fa2c6478bb0df321e6e66a7826",
-  "inclusive_tests": 1304,
+  "updated_at": "2026-10-13T06:21:57.918998+00:00",
+  "messaging_head": "d7c223683d8fa12b8704c4e17e072101de646e5e",
+  "core_head": "8ee64319bef43d3c8552095197db4520d655a5fb",
+  "inclusive_tests": 1320,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
-  "coverage_percent": 83.7,
+  "coverage_percent": 84.0,
   "coverage_floor": 90,
   "coverage_floor_met": false,
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
@@ -16,6 +16,8 @@
     "g3-accepted-message-failure-quality",
     "g3-activity-cleanup-index-and-scope-final-tests",
     "g3-adapter-callback-disposition-final-tests",
+    "g3-adapter-fixed-option-scope-tests",
+    "g3-adapter-thread-page-scope-tests",
     "g3-agent-route-reroute-preserved-final-tests",
     "g3-agent-route-room-final-quality",
     "g3-ai-callback-disposition-runtime-tests",
@@ -130,6 +132,16 @@
     "g3-current-outcome-runtime-ai-graph-report",
     "g3-current-outcome-runtime-core-graph-report",
     "g3-current-ownership-typed-environment-quality",
+    "g3-current-private-resource-operations-ai-full-tests",
+    "g3-current-private-resource-operations-ai-graph",
+    "g3-current-private-resource-operations-ai-harness",
+    "g3-current-private-resource-operations-api-audit",
+    "g3-current-private-resource-operations-core-full-tests",
+    "g3-current-private-resource-operations-core-graph",
+    "g3-current-private-resource-operations-core-harness",
+    "g3-current-private-resource-operations-inclusive-coverage",
+    "g3-current-private-resource-operations-optional-ai",
+    "g3-current-private-resource-operations-source-scan",
     "g3-current-route-projection-ai-full-tests",
     "g3-current-route-projection-ai-graph",
     "g3-current-route-projection-ai-harness",
@@ -208,6 +220,9 @@
     "g3-original-ingest-confirmation-fixture-tests",
     "g3-policy-hook-isolation-quality",
     "g3-principal-projection-and-controller-ownership-tests",
+    "g3-private-media-replacement-lifetime-final-tests",
+    "g3-private-media-stable-stage-quality",
+    "g3-private-media-stage-target-final-tests",
     "g3-private-mention-normalization-final-tests",
     "g3-projection-canonical-identity-and-lifetime-final-tests",
     "g3-provider-media-real-runtime-final-tests",
@@ -226,6 +241,7 @@
     "g3-sqlite-lock-typed-quality",
     "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
+    "g3-subscription-private-record-normalization-tests",
     "g3-topology-owner-and-sections-warning-free-tests",
     "g3-topology-routing-string-enums-final-tests",
     "g3-topology-routing-yaml-execution-final-tests",
@@ -245,6 +261,8 @@
     "g3-maximum-message-fact-regression",
     "g3-message-store-exception-controls",
     "g3-native-media-private-record-controls",
+    "g3-private-media-fixed-option-controls",
+    "g3-private-media-replacement-controls",
     "g3-private-mention-parser-failure-controls",
     "g3-room-kind-constructor-regression",
     "g3-runtime-core-graph-full-tests",
@@ -328,7 +346,14 @@
     "YAML routing enums now convert fixed allowed strings to their existing canonical atoms. Unknown strings create no atom. Five malformed whole-section cases write no topology records; nested private settings round trip. A typed YAML broadcast makes two ordered callbacks and returns serializable results without repeat callbacks. All 55 affected tests and quality pass.",
     "Current complete inclusive Messaging coverage passes 1304 checks with native PostgreSQL, integration, story and zero skips. Coverage is 83.7 percent; required 90 percent remains unmet.",
     "Current consumer runtime audit passes 4071 exports including 240 generated support-instance exports. This scope has fewer test-support instances than the historical 5031-row package audit; all current consumer rows are retained and no production export is omitted.",
-    "Both current complete pinned runtime profiles pass 1304 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1304 checks with zero skips.",
+    "Fixed typed operation option keys use existing declared atoms and have no module-load-order dependence. Four isolated option/adapter checks pass.",
+    "Private media string kinds normalize to fixed atoms. Prepared files retain complete bytes and selected fields, stable resource IDs and distinct upload/delete stage IDs. Replay, payload/target conflicts and unavailable/foreign resources have exact provider callback counts. All 28 affected tests and quality pass.",
+    "Thread/page results retain external thread and delivery room, every message/text/cursor and selected private options. Repeated requests do not repeat callbacks; unsupported read has no callback. Four focused checks pass.",
+    "Subscription records retain fixed status/adapter normalization, exact IDs, parsed expiry and full private metadata. Same-ID records and deletion stay in the caller bridge. Unknown strings create no atom. All 28 affected checks pass.",
+    "Current complete inclusive Messaging coverage passes 1320 checks with native PostgreSQL, integration, story and zero skips. Coverage is 84.0 percent; required 90 percent remains unmet.",
+    "Initial isolated controls exposed a missing fixed option atom, string media-kind rejection and upload/delete request conflict. Later failures from incorrect fixture error-code expectations remain recorded. Final focused tests pass without removing ownership assertions.",
+    "Both current complete pinned runtime profiles pass 1320 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -343,7 +368,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1304,
+    "messaging_tests_per_profile": 1320,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -354,15 +379,15 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1304,
+        "passed": 1320,
         "failures": 0,
-        "check": "g3-current-media-retry-yaml-core-full-tests.json"
+        "check": "g3-current-private-resource-operations-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1304,
+        "passed": 1320,
         "failures": 0,
-        "check": "g3-current-media-retry-yaml-ai-full-tests.json"
+        "check": "g3-current-private-resource-operations-ai-full-tests.json"
       }
     }
   },
@@ -371,11 +396,11 @@
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-media-retry-yaml-complete-api-exports.json",
+    "current_report": "current-private-resource-operations-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1304 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-media-retry-yaml-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1320 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-private-resource-operations-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,

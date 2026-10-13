@@ -1,23 +1,24 @@
 {
   "state": "open",
-  "source_head": "31023287241abeff2df9c36d2f6e8a8fb68cb201",
+  "source_head": "d7c223683d8fa12b8704c4e17e072101de646e5e",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/ingress_subscription.ex",
-      "observed": "Private subscription normalization has incomplete malformed status/expiry/identity coverage.",
-      "required_proof": "Scoped records retain exact IDs, private metadata and deterministic bounded normalization without provider effects."
+      "file": "lib/jido_messaging/audit_logger.ex",
+      "observed": "Signal.emit telemetry merges signal_id but AuditLogger formatters require correlation_id and some old event keys. Native runtime receipt/failure/typing/thread attachment has no end-to-end audit proof.",
+      "required_proof": "Real native operations leave the handler attached and log exact room/message/participant IDs, safe failure codes and direct parent identity without old public extension data."
     },
     {
-      "file": "lib/jido_messaging/adapter_bridge.ex",
-      "observed": "Native media replacement and typed query/thread result branches have gaps in direct boundary proof.",
-      "required_proof": "Full private media, stable binding ownership, exact provider call order and safe failed replacement outcomes."
+      "file": "lib/jido_messaging.ex",
+      "observed": "Compound agent runner assignment recovery and control-plane failure paths remain below the required coverage floor.",
+      "required_proof": "Real records and stopped/failed runtime ownership outcomes preserve state and avoid inferred provider or agent effects."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Multi-item native media failure retains exactly the first message and observation; ordered retry dedupes old unavailable resources and accepts only remaining items.",
-    "Native media policy count/size/kind denial writes no message or inferred authority; exact-limit retry retains complete media.",
-    "All five malformed whole topology sections reject before writes; nested string settings round trip and YAML routing enums now use fixed canonical atoms with real typed broadcast proof."
+    "Fixed operation option atoms work in a fresh isolated test without load-order dependence.",
+    "Private media keeps complete upload fields and stable resource/stage identities; replay, changed payload/target, foreign caller and resource lifetime cases have exact callback proof.",
+    "Thread/page results retain owned external context, all items/cursors and private option scope.",
+    "Subscription records retain safe fixed normalization, complete private metadata and same-ID bridge isolation."
   ]
 }

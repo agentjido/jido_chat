@@ -1,0 +1,36 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+........
+
+  1) test a prepared media resource cannot be used by a foreign caller before execution (Jido.Messaging.AdapterBridgeOperationsTest)
+     test/jido_messaging/adapter_bridge_operations_test.exs:99
+     match (=) failed
+     code:  assert {:error, %Jido.Chat.Errors.Contract{code: :resource_not_owned}} =
+              Task.async(fn ->
+                AdapterBridge.send_media(MockAdapter, "room", %{kind: :image, data: "complete"},
+                  binding: context.binding,
+                  request_id: "prepared"
+                )
+              end)
+              |> Task.await()
+     left:  {:error, %Jido.Chat.Errors.Contract{code: :resource_not_owned}}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :resource_owner_mismatch,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido_messaging/adapter_bridge_operations_test.exs:105: (test)
+
+................
+Finished in 0.6 seconds (0.3s async, 0.2s sync)
+
+Result: 24/25 passed
+Failed: 1 test
