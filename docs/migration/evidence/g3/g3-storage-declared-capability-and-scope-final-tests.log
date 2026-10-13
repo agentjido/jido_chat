@@ -1,0 +1,326 @@
+Compiling 2 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+...................    warning: Jido.Messaging.Persistence.Postgres.get_external_identity_binding/4 is undefined or private
+    │
+ 17 │   use Jido.Messaging.Persistence.Conformance,
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest."test identity revocation is enforced or rejected as unsupported before effects"/1
+
+    warning: Jido.Messaging.Persistence.Postgres.save_external_identity_binding/2 is undefined or private
+    │
+ 17 │   use Jido.Messaging.Persistence.Conformance,
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest."test identity revocation is enforced or rejected as unsupported before effects"/1
+
+    warning: Jido.Messaging.Persistence.Postgres.get_membership/2 is undefined or private
+    │
+ 17 │   use Jido.Messaging.Persistence.Conformance,
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest."test room deletion removes its authorization records and retains records in another room"/1
+
+    warning: Jido.Messaging.Persistence.Postgres.list_memberships/2 is undefined or private
+    │
+ 17 │   use Jido.Messaging.Persistence.Conformance,
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest."test room deletion removes its authorization records and retains records in another room"/1
+
+    warning: Jido.Messaging.Persistence.Postgres.list_memberships/3 is undefined or private
+    │
+ 17 │   use Jido.Messaging.Persistence.Conformance,
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest."test room deletion removes its authorization records and retains records in another room"/1
+
+    warning: Jido.Messaging.Persistence.Postgres.save_membership/2 is undefined or private
+    │
+ 17 │   use Jido.Messaging.Persistence.Conformance,
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest."test room deletion removes its authorization records and retains records in another room"/1
+
+.........................
+
+  1) test identity revocation is enforced or rejected as unsupported before effects (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (RuntimeError) failed to start child with the spec {Jido.Messaging.Runtime, [name: Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime, instance_module: Jido.Messaging.Persistence.PostgresConformanceTest, persistence: Jido.Messaging.Persistence.Postgres, persistence_opts: [conn: #PID<0.1124.0>, instance_id: "conformance-139", migrate: false]]}.
+     Reason: {:persistence_init_failed, %DBConnection.ConnectionError{message: "[Elixir.Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n", severity: :error, reason: :queue_timeout}}
+     code: use Jido.Messaging.Persistence.Conformance,
+     stacktrace:
+       (ex_unit 1.20.4) lib/ex_unit/callbacks.ex:598: ExUnit.Callbacks.start_supervised!/2
+       test/jido_messaging/persistence/conformance_test.exs:17: (test)
+
+     The following output was logged:
+     
+     21:55:18.491 [error] Postgrex.Protocol (#PID<0.1140.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.491 [error] Postgrex.Protocol (#PID<0.1141.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.491 [error] Postgrex.Protocol (#PID<0.1144.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.491 [error] Postgrex.Protocol (#PID<0.1146.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.493 [error] Postgrex.Protocol (#PID<0.1148.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.493 [error] Postgrex.Protocol (#PID<0.1150.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.493 [error] Postgrex.Protocol (#PID<0.1153.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.493 [error] Postgrex.Protocol (#PID<0.1155.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.493 [error] Postgrex.Protocol (#PID<0.1152.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:18.493 [error] Postgrex.Protocol (#PID<0.1158.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:19.581 [error] Postgrex.Protocol (#PID<0.1148.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:19.821 [error] Postgrex.Protocol (#PID<0.1150.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:20.035 [error] Postgrex.Protocol (#PID<0.1140.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:20.303 [error] Postgrex.Protocol (#PID<0.1153.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:20.754 [error] Postgrex.Protocol (#PID<0.1158.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:20.998 [error] Postgrex.Protocol (#PID<0.1141.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:21.032 [error] Postgrex.Protocol (#PID<0.1146.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:21.361 [error] Postgrex.Protocol (#PID<0.1144.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:21.366 [error] Postgrex.Protocol (#PID<0.1155.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:21.378 [error] Postgrex.Protocol (#PID<0.1152.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:21.849 [error] Postgrex.Protocol (#PID<0.1148.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+
+
+  2) test membership storage enforces revisions or rejects unsupported administration before effects (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (RuntimeError) failed to start child with the spec {Jido.Messaging.Runtime, [name: Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime, instance_module: Jido.Messaging.Persistence.PostgresConformanceTest, persistence: Jido.Messaging.Persistence.Postgres, persistence_opts: [conn: #PID<0.1182.0>, instance_id: "conformance-140", migrate: false]]}.
+     Reason: {:persistence_init_failed, %DBConnection.ConnectionError{message: "[Elixir.Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n", severity: :error, reason: :queue_timeout}}
+     code: use Jido.Messaging.Persistence.Conformance,
+     stacktrace:
+       (ex_unit 1.20.4) lib/ex_unit/callbacks.ex:598: ExUnit.Callbacks.start_supervised!/2
+       test/jido_messaging/persistence/conformance_test.exs:17: (test)
+
+     The following output was logged:
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1198.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1200.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1202.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1204.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1206.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1208.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1210.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1212.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1214.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:22.572 [error] Postgrex.Protocol (#PID<0.1216.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:23.918 [error] Postgrex.Protocol (#PID<0.1216.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:24.096 [error] Postgrex.Protocol (#PID<0.1214.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:24.498 [error] Postgrex.Protocol (#PID<0.1212.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:24.686 [error] Postgrex.Protocol (#PID<0.1204.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:24.686 [error] Postgrex.Protocol (#PID<0.1208.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:25.071 [error] Postgrex.Protocol (#PID<0.1198.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:25.226 [error] Postgrex.Protocol (#PID<0.1202.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:25.306 [error] Postgrex.Protocol (#PID<0.1210.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:25.475 [error] Postgrex.Protocol (#PID<0.1206.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:25.553 [error] Postgrex.Protocol (#PID<0.1200.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.279 [error] Postgrex.Protocol (#PID<0.1216.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.485 [error] Postgrex.Protocol (#PID<0.1214.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+
+
+  3) test grant storage enforces revisions or rejects unsupported administration before effects (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (RuntimeError) failed to start child with the spec {Jido.Messaging.Runtime, [name: Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime, instance_module: Jido.Messaging.Persistence.PostgresConformanceTest, persistence: Jido.Messaging.Persistence.Postgres, persistence_opts: [conn: #PID<0.1239.0>, instance_id: "conformance-143", migrate: false]]}.
+     Reason: {:persistence_init_failed, %DBConnection.ConnectionError{message: "[Elixir.Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n", severity: :error, reason: :queue_timeout}}
+     code: use Jido.Messaging.Persistence.Conformance,
+     stacktrace:
+       (ex_unit 1.20.4) lib/ex_unit/callbacks.ex:598: ExUnit.Callbacks.start_supervised!/2
+       test/jido_messaging/persistence/conformance_test.exs:17: (test)
+
+     The following output was logged:
+     
+     21:55:26.648 [error] Postgrex.Protocol (#PID<0.1255.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.648 [error] Postgrex.Protocol (#PID<0.1257.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.648 [error] Postgrex.Protocol (#PID<0.1259.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.648 [error] Postgrex.Protocol (#PID<0.1261.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.648 [error] Postgrex.Protocol (#PID<0.1263.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.648 [error] Postgrex.Protocol (#PID<0.1265.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.648 [error] Postgrex.Protocol (#PID<0.1267.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.649 [error] Postgrex.Protocol (#PID<0.1269.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.649 [error] Postgrex.Protocol (#PID<0.1271.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:26.649 [error] Postgrex.Protocol (#PID<0.1273.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:27.702 [error] Postgrex.Protocol (#PID<0.1273.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:28.074 [error] Postgrex.Protocol (#PID<0.1259.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:28.159 [error] Postgrex.Protocol (#PID<0.1269.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:28.297 [error] Postgrex.Protocol (#PID<0.1271.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:28.855 [error] Postgrex.Protocol (#PID<0.1261.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:28.921 [error] Postgrex.Protocol (#PID<0.1265.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:28.923 [error] Postgrex.Protocol (#PID<0.1257.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:28.950 [error] Postgrex.Protocol (#PID<0.1255.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:28.984 [error] Postgrex.Protocol (#PID<0.1267.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:29.330 [error] Postgrex.Protocol (#PID<0.1263.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:29.777 [error] Postgrex.Protocol (#PID<0.1273.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.286 [error] Postgrex.Protocol (#PID<0.1259.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+
+
+  4) test policy storage enforces revisions or rejects unsupported administration before effects (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (RuntimeError) failed to start child with the spec {Jido.Messaging.Runtime, [name: Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime, instance_module: Jido.Messaging.Persistence.PostgresConformanceTest, persistence: Jido.Messaging.Persistence.Postgres, persistence_opts: [conn: #PID<0.1296.0>, instance_id: "conformance-146", migrate: false]]}.
+     Reason: {:persistence_init_failed, %DBConnection.ConnectionError{message: "[Elixir.Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n", severity: :error, reason: :queue_timeout}}
+     code: use Jido.Messaging.Persistence.Conformance,
+     stacktrace:
+       (ex_unit 1.20.4) lib/ex_unit/callbacks.ex:598: ExUnit.Callbacks.start_supervised!/2
+       test/jido_messaging/persistence/conformance_test.exs:17: (test)
+
+     The following output was logged:
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1312.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1314.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1316.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1317.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1320.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1322.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1324.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1326.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1327.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:30.724 [error] Postgrex.Protocol (#PID<0.1330.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:31.917 [error] Postgrex.Protocol (#PID<0.1330.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:32.013 [error] Postgrex.Protocol (#PID<0.1312.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:32.348 [error] Postgrex.Protocol (#PID<0.1322.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:32.640 [error] Postgrex.Protocol (#PID<0.1316.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:32.694 [error] Postgrex.Protocol (#PID<0.1324.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:32.836 [error] Postgrex.Protocol (#PID<0.1314.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:32.854 [error] Postgrex.Protocol (#PID<0.1326.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:33.149 [error] Postgrex.Protocol (#PID<0.1317.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:33.189 [error] Postgrex.Protocol (#PID<0.1320.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:33.271 [error] Postgrex.Protocol (#PID<0.1327.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+
+
+  5) test room deletion removes its authorization records and retains records in another room (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (RuntimeError) failed to start child with the spec {Jido.Messaging.Runtime, [name: Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime, instance_module: Jido.Messaging.Persistence.PostgresConformanceTest, persistence: Jido.Messaging.Persistence.Postgres, persistence_opts: [conn: #PID<0.1351.0>, instance_id: "conformance-149", migrate: false]]}.
+     Reason: {:persistence_init_failed, %DBConnection.ConnectionError{message: "[Elixir.Jido.Messaging.Persistence.PostgresConformanceTest.AuthorizationRuntime] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n", severity: :error, reason: :queue_timeout}}
+     code: use Jido.Messaging.Persistence.Conformance,
+     stacktrace:
+       (ex_unit 1.20.4) lib/ex_unit/callbacks.ex:598: ExUnit.Callbacks.start_supervised!/2
+       test/jido_messaging/persistence/conformance_test.exs:17: (test)
+
+     The following output was logged:
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1367.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1369.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1371.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1373.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1375.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1377.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1379.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1381.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1383.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:34.806 [error] Postgrex.Protocol (#PID<0.1385.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:36.577 [error] Postgrex.Protocol (#PID<0.1367.0> ("db_conn_1")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:36.835 [error] Postgrex.Protocol (#PID<0.1381.0> ("db_conn_8")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:36.965 [error] Postgrex.Protocol (#PID<0.1369.0> ("db_conn_2")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:36.980 [error] Postgrex.Protocol (#PID<0.1385.0> ("db_conn_10")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:37.080 [error] Postgrex.Protocol (#PID<0.1375.0> ("db_conn_5")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:37.230 [error] Postgrex.Protocol (#PID<0.1373.0> ("db_conn_4")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:37.305 [error] Postgrex.Protocol (#PID<0.1383.0> ("db_conn_9")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:37.553 [error] Postgrex.Protocol (#PID<0.1371.0> ("db_conn_3")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:37.631 [error] Postgrex.Protocol (#PID<0.1379.0> ("db_conn_7")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+     21:55:37.636 [error] Postgrex.Protocol (#PID<0.1377.0> ("db_conn_6")) failed to connect: ** (ArgumentError) missing the :database key in options for nil
+     
+........
+Finished in 24.0 seconds (1.6s async, 22.4s sync)
+
+Result: 52/57 passed
+Failed: 5 tests

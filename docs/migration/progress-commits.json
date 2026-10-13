@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T02:46:00.966033+00:00",
+  "updated_at": "2026-10-13T03:43:03.902236+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -831,6 +831,33 @@
         "evidence/g3/g3-demo-cli-typed-environment-source-tests.json"
       ],
       "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "7d3a357e40c0accb01982b47856a28c096bf2b84",
+      "subject": "fix(storage): scope PostgreSQL participant directory lookup by bridge",
+      "checks": [
+        "evidence/g3/g3-storage-scope-and-unsupported-admission-final-tests.json"
+      ],
+      "open_work": "Restore local PostgreSQL fixture and rerun affected inclusive/profile checks; finish remaining ownership and 90 percent Messaging coverage; all adapter and final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "76f4318d78421294d4bcb0f9845d71d37e934cba",
+      "subject": "test(facade): verify canonical record ownership through default APIs",
+      "checks": [
+        "evidence/g3/g3-facade-record-ownership-tests.json"
+      ],
+      "open_work": "Restore local PostgreSQL fixture and rerun affected inclusive/profile checks; finish remaining ownership and 90 percent Messaging coverage; all adapter and final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "528e06dd16ed8ca52346de29876b23419023f517",
+      "subject": "fix(history): verify search results against canonical storage",
+      "checks": [
+        "evidence/g3/g3-projection-canonical-identity-and-lifetime-final-tests.json"
+      ],
+      "open_work": "Restore local PostgreSQL fixture and rerun affected inclusive/profile checks; finish remaining ownership and 90 percent Messaging coverage; all adapter and final G4-G9 requirements remain open."
     }
   ],
   "passed_checks": {

@@ -104,6 +104,8 @@
       "id": "G3",
       "state": "pending",
       "evidence": [
+        "evidence/g3/canonical-storage-external-fixture-status.json",
+        "evidence/g3/current-canonical-storage-complete-api-exports.json",
         "evidence/g3/current-control-plane-complete-api-exports.json",
         "evidence/g3/current-control-plane-coverage-gaps.json",
         "evidence/g3/current-control-plane-runtime-ai-graph.json",
@@ -131,6 +133,13 @@
         "evidence/g3/g3-create-room-scope-current-tests.json",
         "evidence/g3/g3-create-room-verified-scope-regression.json",
         "evidence/g3/g3-current-agent-library-quality.json",
+        "evidence/g3/g3-current-canonical-history-and-storage-quality.json",
+        "evidence/g3/g3-current-canonical-storage-ai-harness-tests.json",
+        "evidence/g3/g3-current-canonical-storage-and-facade-inclusive-coverage.json",
+        "evidence/g3/g3-current-canonical-storage-complete-api-audit.json",
+        "evidence/g3/g3-current-canonical-storage-core-harness-tests.json",
+        "evidence/g3/g3-current-canonical-storage-non-postgres-tests.json",
+        "evidence/g3/g3-current-canonical-storage-source-scan.json",
         "evidence/g3/g3-current-control-plane-ai-graph-report.json",
         "evidence/g3/g3-current-control-plane-ai-harness-tests.json",
         "evidence/g3/g3-current-control-plane-ai-messaging-tests.json",
@@ -189,6 +198,7 @@
         "evidence/g3/g3-dialyzer-native-shapes.json",
         "evidence/g3/g3-execution-final-compile.json",
         "evidence/g3/g3-expanded-export-api-manifest-check.json",
+        "evidence/g3/g3-facade-record-ownership-tests.json",
         "evidence/g3/g3-final-compiled-runtime-export-audit.json",
         "evidence/g3/g3-final-runtime-core-harness-suite.json",
         "evidence/g3/g3-final-schema-catalog.json",
@@ -218,6 +228,7 @@
         "evidence/g3/g3-progress-contract-catalog-check.json",
         "evidence/g3/g3-progress-contract-tests.json",
         "evidence/g3/g3-progress-manifest-check.json",
+        "evidence/g3/g3-projection-canonical-identity-and-lifetime-final-tests.json",
         "evidence/g3/g3-provider-fact-observation-tests.json",
         "evidence/g3/g3-provider-read-receipt-tests.json",
         "evidence/g3/g3-resource-control-api-manifest-check.json",
@@ -250,6 +261,7 @@
         "evidence/g3/g3-serialized-bridge-reconcile-tests.json",
         "evidence/g3/g3-signal-progress-commit-quality.json",
         "evidence/g3/g3-signal-progress-commit-tests.json",
+        "evidence/g3/g3-storage-scope-and-unsupported-admission-final-tests.json",
         "evidence/g3/g3-subscription-malformed-wrapper-final-tests.json",
         "evidence/g3/g3-terminal-tag-plt-refresh.json",
         "evidence/g3/g3-tool-native-result-fidelity-tests.json",
@@ -336,12 +348,15 @@
         "Ingress subscription metadata retains caller bridge and selected adapter ownership for provider map/struct responses and all supported page forms. Whole-page validation precedes metadata writes; invalid wrappers do not produce inferred records. Foreign bridge records survive deletion.",
         "Nine private dead-letter record/control tests prove bounded storage, order, archive/purge ownership, one replay admission, cached success/force/failure rules and unavailable storage. No provider replay runs in these tests.",
         "Twelve CLI tests exercise real native demo runtime startup using fake adapters and no model/provider calls. Echo uses no provider token. Correct environment defaults and sourced system/file precedence replace invalid keyword-list defaults. Topology failure stops its new supervisor.",
-        "Current quality passes with zero Dialyzer errors/skips. Both pinned runtime profiles pass 1050 inclusive Messaging checks and 241 harness tests; optional AI fixtures pass 4 tests without a model call. The current 5031-export audit and 369-file source scan pass. Package coverage is 80.5 percent; the required 90 percent is unmet."
+        "Current quality passes with zero Dialyzer errors/skips. Both pinned runtime profiles pass 1050 inclusive Messaging checks and 241 harness tests; optional AI fixtures pass 4 tests without a model call. The current 5031-export audit and 369-file source scan pass. Package coverage is 80.5 percent; the required 90 percent is unmet.",
+        "The expanded 57-case shared storage suite passed on ETS, SQLite and local PostgreSQL. Fix PostgreSQL participant directory selection to include the requested bridge. Test declared optional callback rejection without adding skips or new PostgreSQL authorization features.",
+        "Composite direct facade scenarios prove canonical record/identity/revision/endpoint ownership on real ETS and SQLite with no communication effects or inferred authority. Optional search projection data now must match authoritative stored messages, participants and authorship; malformed identity/content and deleted records are rejected.",
+        "Current quality and 5031-export/369-file audits pass. Both current harness profiles pass 241 tests. Current non-PostgreSQL suite passes 1041 checks. The full inclusive run failed 38 PostgreSQL checks after the local container service became unresponsive; current inclusive coverage/profile evidence remains unproven."
       ],
       "remaining": [
-        "Finish remaining direct facade, record and runtime ownership checks. Lifecycle delete exceptions and stopped runtime/deduper acceptance checks now pass.",
-        "Reach the required 90 percent Messaging coverage with meaningful facade, storage, room, topology, bridge and authorization behavior tests. See current-control-plane-coverage-gaps.json. Do not lower thresholds or add ignores/skips.",
-        "Refresh affected checks after source changes. Finish the remaining provider ports and real all-nine G7 Conformance.run C01-C14.",
+        "Restore access to the local PostgreSQL fixture and rerun current inclusive coverage and both affected runtime profile suites. Do not use the failed 77.9 percent run or prior-source 80.5 percent result as current complete evidence.",
+        "Finish remaining runtime/facade/storage ownership and failure cases. Reach at least 90 percent Messaging coverage without lowering thresholds or adding ignores/skips.",
+        "Refresh affected checks after source changes. Finish remaining provider ports and real all-nine G7 Conformance.run C01-C14.",
         "Complete all remaining G4-G9 quality/coverage/audit, final package/docs/version, focused PR/review and current-head CI requirements."
       ]
     },
@@ -506,5 +521,5 @@
     ],
     "final_completion_requirements_unchanged": true
   },
-  "updated_at": "2026-10-13T02:47:36.229490+00:00"
+  "updated_at": "2026-10-13T03:44:42.315126+00:00"
 }

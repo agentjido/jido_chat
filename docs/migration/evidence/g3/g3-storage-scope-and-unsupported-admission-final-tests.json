@@ -1,0 +1,23 @@
+{
+  "label": "g3-storage-scope-and-unsupported-admission-final-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/persistence/conformance_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "fbe11f5049cae4ea67da3916dba4a41a29dc53bb",
+  "source_tree_sha256": "f7cf85ad063c441d24fcec9067c6c8afcc0b00c9870661c369acb175a1d75cbb",
+  "started_at": "2026-10-13T02:56:17.725846+00:00",
+  "finished_at": "2026-10-13T02:56:23.509583+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-storage-scope-and-unsupported-admission-final-tests.log",
+  "log_sha256": "dc5f973808f93f8f7f3a4b90243a477e2b0a1846a22927ea1e464f083c57198d"
+}

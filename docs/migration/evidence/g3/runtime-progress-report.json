@@ -1,9 +1,9 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T02:47:36.229490+00:00",
-  "messaging_head": "fbe11f5049cae4ea67da3916dba4a41a29dc53bb",
-  "core_head": "9ab08e88473136350d2685bc0ca5db5ad21eb939",
+  "updated_at": "2026-10-13T03:44:42.315126+00:00",
+  "messaging_head": "528e06dd16ed8ca52346de29876b23419023f517",
+  "core_head": "7218766544fc4383c1a3147d4e81829da410a855",
   "inclusive_tests": 1050,
   "core_tests": 257,
   "optional_ai_tests": 4,
@@ -14,6 +14,12 @@
   "scope": "Current core/Messaging/Signal-provider runtime boundary, store outcome and mention parser checks, and source profiles with and without optional AI. Full nine-provider conformance remains pending.",
   "new_passed_checks": [
     "g3-accepted-message-failure-quality",
+    "g3-current-canonical-history-and-storage-quality",
+    "g3-current-canonical-storage-ai-harness-tests",
+    "g3-current-canonical-storage-complete-api-audit",
+    "g3-current-canonical-storage-core-harness-tests",
+    "g3-current-canonical-storage-non-postgres-tests",
+    "g3-current-canonical-storage-source-scan",
     "g3-current-control-plane-ai-graph-report",
     "g3-current-control-plane-ai-harness-tests",
     "g3-current-control-plane-ai-messaging-tests",
@@ -58,14 +64,17 @@
     "g3-delete-and-runtime-unavailable-final-tests",
     "g3-demo-cli-sourced-environment-final-tests",
     "g3-demo-cli-typed-environment-source-tests",
+    "g3-facade-record-ownership-tests",
     "g3-ingress-subscription-scope-and-page-tests",
     "g3-lifecycle-exception-and-partial-effect-tests",
     "g3-message-store-exception-reconciliation-tests",
     "g3-original-ingest-confirmation-fixture-tests",
     "g3-private-mention-normalization-final-tests",
+    "g3-projection-canonical-identity-and-lifetime-final-tests",
     "g3-safe-acceptance-current-quality",
     "g3-safe-acceptance-membership-current-quality",
     "g3-safe-acceptance-storage-failure-tests",
+    "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
     "g3-uncertain-write-and-accepted-runtime-final-tests"
   ],
@@ -99,12 +108,17 @@
     "Private ingress subscription metadata stays in caller bridge/adapter scope for map/struct responses and all four page wrappers. Malformed page records or wrappers fail before metadata writes. Deletion preserves foreign bridge records.",
     "Nine dead-letter record tests prove capacity/order, archive/purge ownership, replay admission/cache/force rules, failure retry and missing/unavailable state without executing a provider operation.",
     "Twelve provider-free CLI cases cover runtime-only startup, dotenv/system variables, CLI/YAML bridge routes, missing credentials/IDs/modules and invalid files/topology. Echo needs no provider credential. Correct Dotenvy defaults and the typed source/2 call preserve environment precedence. A failed topology stops its newly started supervisor.",
-    "Current inclusive checks pass 1050 checks in each pinned runtime profile, including local PostgreSQL. Harness 241 per profile and optional AI 4 pass. Package quality has zero Dialyzer errors/skips; compiled audit has 5031 exports including 1200 generated instance exports. Coverage is 80.5 percent, still below 90 percent."
+    "Current inclusive checks pass 1050 checks in each pinned runtime profile, including local PostgreSQL. Harness 241 per profile and optional AI 4 pass. Package quality has zero Dialyzer errors/skips; compiled audit has 5031 exports including 1200 generated instance exports. Coverage is 80.5 percent, still below 90 percent.",
+    "All 57 shared ETS/SQLite/PostgreSQL conformance cases passed while the fixture was available. PostgreSQL participant directory lookup now includes the bridge. Optional authorization/identity callbacks remain unsupported there; facade rejection is tested before effects, with no skip or new backend feature.",
+    "Direct facade composite tests use identical IDs across real ETS/SQLite runtimes and prove record isolation, terminal revision/revocation, no request admissions, no communication observations, no inferred grants or agent starts.",
+    "Optional search results are compared with canonical stored messages, participants and immutable authorship. Changed principals, forged assurance, fabricated content and deleted records are rejected. Timestamp-less valid history remains readable.",
+    "Current quality passes with zero Dialyzer errors/skips, both harnesses pass 241 cases, API audit has 5031 exports including 1200 generated instance exports, and the source scan checks 369 files with zero findings.",
+    "The attempted full current coverage run ended with 1041/1079 checks passing and 38 failures, all PostgreSQL cases. Docker inspect, info and database diagnostic requests stopped responding although OrbStack reports Running. The terminal failure log is retained. Fresh non-PostgreSQL verification passes 1041 checks with the same 38 existing PostgreSQL cases excluded. This is partial evidence only."
   ],
   "remaining": [
-    "Finish remaining direct facade, record and runtime ownership checks. Lifecycle delete exceptions and stopped runtime/deduper acceptance checks now pass.",
-    "Reach the required 90 percent Messaging coverage with meaningful facade, storage, room, topology, bridge and authorization behavior tests. See current-control-plane-coverage-gaps.json. Do not lower thresholds or add ignores/skips.",
-    "Refresh affected checks after source changes. Finish the remaining provider ports and real all-nine G7 Conformance.run C01-C14.",
+    "Restore access to the local PostgreSQL fixture and rerun current inclusive coverage and both affected runtime profile suites. Do not use the failed 77.9 percent run or prior-source 80.5 percent result as current complete evidence.",
+    "Finish remaining runtime/facade/storage ownership and failure cases. Reach at least 90 percent Messaging coverage without lowering thresholds or adding ignores/skips.",
+    "Refresh affected checks after source changes. Finish remaining provider ports and real all-nine G7 Conformance.run C01-C14.",
     "Complete all remaining G4-G9 quality/coverage/audit, final package/docs/version, focused PR/review and current-head CI requirements."
   ],
   "runtime_profile": {
@@ -122,13 +136,18 @@
       39,
       51
     ],
-    "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests."
+    "core_test_evidence": "Reuse unchanged core library/test source and unchanged pinned refs from g3-current-outcome-core-profile-chat-tests and g3-current-outcome-ai-profile-chat-tests.",
+    "current_messaging_profile_state": "pending: PostgreSQL fixture recovery required"
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 5031,
     "generated_instance_exports": 1200,
     "rejection_controls": 4,
-    "current_report": "current-control-plane-complete-api-exports.json"
-  }
+    "current_report": "current-canonical-storage-complete-api-exports.json"
+  },
+  "current_full_inclusive_state": "unproven: local PostgreSQL service unavailable",
+  "current_non_postgres_checks": 1041,
+  "current_postgres_checks_excluded": 38,
+  "coverage_percent_source": "80.5 percent is the last complete prior-source inclusive run; current inclusive coverage is unproven."
 }

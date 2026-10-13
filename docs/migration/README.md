@@ -3,6 +3,12 @@
 This migration is in progress. G0, G1, and G2 have passed. G3–G9 are pending.
 The full package group is not ready for use.
 
+Current verification is partial. The latest Messaging source passes 1,041
+non-PostgreSQL checks and package quality. The full run failed 38 PostgreSQL
+checks after the local container service stopped responding. Current inclusive
+coverage and runtime-profile proof require fixture recovery and new checks.
+The 80.5 percent result below is the last complete prior-source run.
+
 The execution plan is
 [2026-10-12-002-public-signal-boundary-plan.md](../plans/2026-10-12-002-public-signal-boundary-plan.md).
 Issue [#65](https://github.com/agentjido/jido_chat/issues/65) tracks the work.
