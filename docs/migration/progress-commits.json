@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T07:22:17.896271+00:00",
+  "updated_at": "2026-10-13T07:47:23.829985+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -1352,13 +1352,41 @@
         "evidence/g3/g3-directory-query-and-onboarding-scope-tests.json"
       ],
       "open_work": "Complete source verification, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "35777721401e9b3fcf08ab0977f74b22e1bb8be4",
+      "subject": "test(execution): verify request admission and provider failure effects",
+      "checks": [
+        "evidence/g3/g3-execution-admission-target-and-result-final-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c182f163f90517a48ca4fafd80dcfc54ba8b6bb1",
+      "subject": "test(gateway): verify route selection and failures before dispatch",
+      "checks": [
+        "evidence/g3/g3-gateway-route-validation-and-stopped-partition-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c8ca43fb4b03bcd7e4444e620864fb9aec9fdacf",
+      "subject": "fix(gateway): load the adapter before selecting its session route",
+      "checks": [
+        "evidence/g3/g3-gateway-cold-adapter-route-final-tests.json",
+        "evidence/g3/g3-gateway-cold-adapter-quality.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
     }
   ],
   "passed_checks": {
     "core_tests": 257,
     "signal_adapter_tests": 54,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1463,
+    "messaging_inclusive_tests": 1485,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1408,7 +1436,7 @@
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
   ],
-  "coverage_note": "Current complete inclusive coverage is 85.1 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Current complete inclusive coverage is 85.3 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1422,8 +1450,8 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1463,
-    "total": 1463,
-    "check": "evidence/g3/g3-current-auto-thread-query-ai-full-tests.json"
+    "passed": 1485,
+    "total": 1485,
+    "check": "evidence/g3/g3-current-execution-gateway-ai-full-tests.json"
   }
 }

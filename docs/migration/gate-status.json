@@ -137,6 +137,9 @@
         "evidence/g3/current-demo-room-config-runtime-core-graph.json",
         "evidence/g3/current-directory-advisory-thread-coverage-gaps.json",
         "evidence/g3/current-directory-advisory-thread-reused-library-proof.json",
+        "evidence/g3/current-execution-gateway-complete-api-exports.json",
+        "evidence/g3/current-execution-gateway-prohibited-runtime-boundary-scan.json",
+        "evidence/g3/current-execution-gateway-source-proof.json",
         "evidence/g3/current-history-revision-complete-api-exports.json",
         "evidence/g3/current-history-revision-coverage-gaps.json",
         "evidence/g3/current-history-revision-runtime-ai-graph.json",
@@ -313,6 +316,15 @@
         "evidence/g3/g3-current-directory-advisory-thread-ai-full-tests.json",
         "evidence/g3/g3-current-directory-advisory-thread-core-full-tests.json",
         "evidence/g3/g3-current-directory-advisory-thread-inclusive-coverage.json",
+        "evidence/g3/g3-current-execution-gateway-ai-full-tests.json",
+        "evidence/g3/g3-current-execution-gateway-ai-harness.json",
+        "evidence/g3/g3-current-execution-gateway-api-audit.json",
+        "evidence/g3/g3-current-execution-gateway-core-full-tests.json",
+        "evidence/g3/g3-current-execution-gateway-core-harness.json",
+        "evidence/g3/g3-current-execution-gateway-inclusive-coverage.json",
+        "evidence/g3/g3-current-execution-gateway-inclusive-isolated-coverage.json",
+        "evidence/g3/g3-current-execution-gateway-optional-ai.json",
+        "evidence/g3/g3-current-execution-gateway-source-scan.json",
         "evidence/g3/g3-current-full-suite-audit.json",
         "evidence/g3/g3-current-history-revision-ai-full-tests.json",
         "evidence/g3/g3-current-history-revision-ai-graph.json",
@@ -472,6 +484,8 @@
         "evidence/g3/g3-directory-backend-owned-endpoint-final-tests.json",
         "evidence/g3/g3-directory-backend-revision-scope-tests.json",
         "evidence/g3/g3-directory-query-and-onboarding-scope-tests.json",
+        "evidence/g3/g3-execution-admission-target-and-result-final-tests.json",
+        "evidence/g3/g3-execution-admission-target-and-result-tests.json",
         "evidence/g3/g3-execution-final-compile.json",
         "evidence/g3/g3-expanded-export-api-manifest-check.json",
         "evidence/g3/g3-facade-record-ownership-tests.json",
@@ -480,6 +494,12 @@
         "evidence/g3/g3-final-schema-catalog.json",
         "evidence/g3/g3-final-scope-and-count-tests.json",
         "evidence/g3/g3-finite-error-tags-core-full-tests.json",
+        "evidence/g3/g3-gateway-cold-adapter-before-fix-tests.json",
+        "evidence/g3/g3-gateway-cold-adapter-quality.json",
+        "evidence/g3/g3-gateway-cold-adapter-route-final-tests.json",
+        "evidence/g3/g3-gateway-route-validation-and-stopped-partition-tests.json",
+        "evidence/g3/g3-gateway-route-validation-and-unavailable-final-tests.json",
+        "evidence/g3/g3-gateway-route-validation-and-unavailable-tests.json",
         "evidence/g3/g3-inclusive-admission-presence-coverage.json",
         "evidence/g3/g3-inclusive-current-owned-runtime-tests.json",
         "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
@@ -809,7 +829,12 @@
         "Real ETS/SQLite participant and room directory queries retain exact name/id/provider matches, ambiguity/not-found and partial identity rejection. Same external room ID remains bridge-scoped; binding deletion preserves foreign route/room. Onboarding records retain string IDs and invalid IDs reject. All nine affected tests pass.",
         "Production, support, optional fixture and integration harness inputs are unchanged; exact source comparisons and library hashes justify bounded reuse of prior quality, API audit, scan and pinned graph/harness proof. Current new Messaging tests use complete refreshed profiles.",
         "Current complete inclusive Messaging coverage passes 1463 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.1 percent; required 90 percent remains unmet.",
-        "Both current complete pinned runtime profiles pass 1463 checks with zero skips."
+        "Both current complete pinned runtime profiles pass 1463 checks with zero skips.",
+        "Malformed typed requests and invalid trusted scopes create no admission or provider effect. Missing, disabled and inbound-only targets keep one cached failure without callbacks. Provider error/raise/throw/exit/invalid/unsafe results retain one callback and safe direct-parent results. Complete selected text remains intact. All 125 affected execution tests pass.",
+        "Gateway tests verify exact stored route and thread options, nested delivery endpoint, invalid channel, missing room/media edit ID and unavailable partition with no provider/binding/admission effects. The unloaded-adapter regression first failed with an unknown session key; loading the adapter before channel_type lookup fixes route selection. All 27 affected tests and package quality pass.",
+        "Current production gateway source changed; package quality, API audit, source scan and complete profiles are refreshed. Dependency graphs and unchanged core tests retain their exact scoped proof. Runtime harness and optional AI fixtures are refreshed for the production change.",
+        "Current complete inclusive Messaging coverage passes 1485 checks with native PostgreSQL, integration, story and zero skips. Coverage is 85.3 percent; required 90 percent remains unmet.",
+        "Both current complete pinned runtime profiles pass 1485 checks with zero skips."
       ],
       "remaining": [
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -979,5 +1004,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T07:22:17.896271+00:00"
+  "updated_at": "2026-10-13T07:47:23.829985+00:00"
 }

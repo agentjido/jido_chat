@@ -1,0 +1,21 @@
+Compiling 1 file (.ex)
+Generated jido_messaging app
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.
+
+  1) test an unloaded adapter uses its declared channel type before provider dispatch (Jido.Messaging.OutboundGatewayRouteFailureTest)
+     test/jido_messaging/outbound_gateway_route_failure_test.exs:60
+     Assertion with == failed
+     code:  assert result.route_resolution.session_key == key
+     left:  {:unknown, "gateway-route", "cold-room", nil}
+     right: {:cold_gateway, "gateway-route", "cold-room", nil}
+     stacktrace:
+       test/jido_messaging/outbound_gateway_route_failure_test.exs:75: (test)
+
+......
+Finished in 0.5 seconds (0.00s async, 0.5s sync)
+
+Result: 7/8 passed
+Failed: 1 test

@@ -1,22 +1,24 @@
 {
   "state": "open",
-  "source_head": "cd1db80d499cc4d894ce2d949860e682f938ad43",
+  "source_head": "c8ca43fb4b03bcd7e4444e620864fb9aec9fdacf",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/execution.ex and outbound_gateway.ex",
-      "observed": "Remaining safe request/setup/callback failures and native result-field admission branches are not all exercised.",
-      "required_proof": "Invalid or denied operations cannot call providers or add admissions; completed effects and full result data remain exact."
+      "file": "lib/jido_messaging/msg_context/normalizer.ex and typed record constructors",
+      "observed": "Malformed mention metadata, target data and bounded record fields still have missed validation branches.",
+      "required_proof": "Whole valid inputs retain complete content. Invalid input must not create authority or expose private data."
     },
     {
-      "file": "lib/jido_messaging/msg_context/normalizer.ex and typed record constructors",
-      "observed": "Malformed/over-limit metadata and context construction still have missed validation branches.",
-      "required_proof": "Whole inputs preserve valid content; invalid unsafe/over-limit records cannot create authority or leak private material."
+      "file": "lib/jido_messaging.ex and persistence callbacks",
+      "observed": "Some facade callback failures and scope cleanup paths remain uncovered.",
+      "required_proof": "Safe failure results, exact record counts and no foreign scope changes."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Automatic provider/store/runner thread failure retains one accepted full message with exact insert/link update/provider counts and duplicate suppression.",
-    "ETS/SQLite participant/room query partial provider identity, ambiguity, binding deletion and onboarding record IDs preserve exact scoped outcomes."
+    "Invalid request/context/trusted scope produces zero admission and provider effects.",
+    "Missing/disabled/inbound-only targets and private provider failures preserve exact cached outcomes.",
+    "Gateway route, thread, delivery endpoint and unavailable partition effects are tested.",
+    "Cold adapter lookup uses the declared channel type before provider dispatch."
   ]
 }
