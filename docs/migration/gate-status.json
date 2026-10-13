@@ -339,32 +339,68 @@
       "id": "G5",
       "state": "pending",
       "evidence": [
-        "evidence/g5/g5-telegram-real-operation-matrix-final-tests.json",
-        "evidence/g5/g5-telegram-all-operation-package-tests.json",
-        "evidence/g5/g5-telegram-all-operation-package-quality.json",
-        "evidence/g5/g5-telegram-stream-membership-checkpoint-tests.json",
-        "evidence/g5/g5-telegram-current-complete-package-tests.json",
-        "evidence/g5/g5-slack-native-normalizer-complete-tests.json",
-        "evidence/g5/g5-slack-native-graph-deps.json",
-        "evidence/g5/g5-slack-native-protocol-compile.json",
+        "evidence/g5/g5-current-slack-progress-manifest-check.json",
+        "evidence/g5/g5-current-telegram-pair-membership-isolation-tests.json",
+        "evidence/g5/g5-current-telegram-slack-runtime-graph-report.json",
+        "evidence/g5/g5-real-slack-membership-isolation-tests.json",
+        "evidence/g5/g5-real-slack-messaging-execution-final-tests.json",
+        "evidence/g5/g5-slack-all-operation-matrix-final-tests.json",
         "evidence/g5/g5-slack-captured-socket-clean-compile.json",
-        "evidence/g5/g5-slack-current-scoped-protocol-tests.json",
-        "evidence/g5/g5-slack-native-protocol-order-final-tests.json",
+        "evidence/g5/g5-slack-complete-package-quality-formatted.json",
+        "evidence/g5/g5-slack-current-complete-package-coverage.json",
+        "evidence/g5/g5-slack-current-dependency-audit.json",
+        "evidence/g5/g5-slack-current-final-package-tests.json",
         "evidence/g5/g5-slack-current-library-quality.json",
-        "evidence/g5/slack-progress-report.json"
+        "evidence/g5/g5-slack-current-scoped-protocol-tests.json",
+        "evidence/g5/g5-slack-current-unused-lock-check.json",
+        "evidence/g5/g5-slack-live-fixture-native-complete-tests.json",
+        "evidence/g5/g5-slack-malformed-page-final-tests.json",
+        "evidence/g5/g5-slack-native-complete-package-tests.json",
+        "evidence/g5/g5-slack-native-graph-deps.json",
+        "evidence/g5/g5-slack-native-normalizer-complete-tests.json",
+        "evidence/g5/g5-slack-native-normalizer-first-tests.json",
+        "evidence/g5/g5-slack-native-protocol-compile.json",
+        "evidence/g5/g5-slack-native-protocol-order-final-tests.json",
+        "evidence/g5/g5-slack-native-protocol-query-tests.json",
+        "evidence/g5/g5-slack-native-protocol-socket-order-tests.json",
+        "evidence/g5/g5-slack-native-socket-normalizer-tests.json",
+        "evidence/g5/g5-slack-original-cards-modals-native-tests.json",
+        "evidence/g5/g5-slack-original-channel-native-tests-pass.json",
+        "evidence/g5/g5-slack-original-lifecycle-native-final-tests.json",
+        "evidence/g5/g5-slack-production-metadata-package-build.json",
+        "evidence/g5/g5-slack-protocol-records-manifest-check.json",
+        "evidence/g5/g5-slack-refreshed-complete-package-coverage.json",
+        "evidence/g5/g5-slack-refreshed-package-quality.json",
+        "evidence/g5/g5-slack-telegram-current-harness-tests.json",
+        "evidence/g5/g5-slack-telegram-runtime-graph-compile.json",
+        "evidence/g5/g5-slack-telegram-runtime-graph-deps.json",
+        "evidence/g5/g5-telegram-all-operation-package-quality.json",
+        "evidence/g5/g5-telegram-all-operation-package-tests.json",
+        "evidence/g5/g5-telegram-current-complete-package-tests.json",
+        "evidence/g5/g5-telegram-real-operation-matrix-final-tests.json",
+        "evidence/g5/g5-telegram-slack-runtime-graph-report.json",
+        "evidence/g5/g5-telegram-stream-membership-checkpoint-tests.json",
+        "evidence/g5/slack-progress-report.json",
+        "evidence/g5/slack-test-migration-ledger.json",
+        "evidence/g5/telegram-slack-runtime-dependency-graph.json"
       ],
       "completed": [
         "All 26 native/fallback/unsupported Telegram operation mappings pass registered result/Catalog/trace checks with exact expected transport method counts/order and zero cached repeat calls. Provider timeout has one typed cached failure.",
         "The package has 240 passing non-live tests and the same 16 existing live exclusions. Current library quality passes. Lazy and cancelled stream fixtures, membership checkpoint rejection, and all native operation matrix tests pass.",
         "Slack native mapper passes 15 warning-free constructor/Catalog fixtures across webhook/JSON/form/Socket forms. Messages/lifecycle, app mentions, partial membership, reactions, all actions, modals/options/slash, assistant context, and private media references use one mapper. Valid actions survive around registered failures. Unit limits reject whole deliveries and cancel resources.",
         "Slack protocol 1 captures credentials, signing/app tokens, transport, and options loader once. Selected query pages retain all items/cursors. Native options results replace old DTOs. Observed participant sets remain complete false. Private interaction controls prepare modal resources and retain later view conversation scope.",
-        "Captured Slack Socket worker validates the complete unit before sink/ack. Ordered test messages prove ordinary ack-before-sink and response-bearing sink-before-ack. Whole-payload size rejection has zero ack/sink calls. Twenty-seven current focused protocol/normalizer/Socket tests and strict library quality pass, including Dialyzer zero errors/skips."
+        "Captured Slack Socket worker validates the complete unit before sink/ack. Ordered test messages prove ordinary ack-before-sink and response-bearing sink-before-ack. Whole-payload size rejection has zero ack/sink calls. Twenty-seven current focused protocol/normalizer/Socket tests and strict library quality pass, including Dialyzer zero errors/skips.",
+        "Port all 75 named original Slack source cases, including channel/cards/modal/lifecycle and existing live fixture code. No original case is unmapped. The current complete suite passes 121 tests, with the same 8 live exclusions and warnings as errors.",
+        "Verify all 26 declared Slack operations, exact ordered provider call counts, registered result decoding, parent trace and cached retries. Lazy/cancelled streams and provider failure pass. Channel/thread subject kind is explicit; malformed page items fail the whole query without dropping work.",
+        "Current Slack quality passes format, strict compile, Credo, Dialyzer with zero errors/skips, and Doctor. Coverage is 73.8 percent. Dependency audit, unused-lock check and production metadata build pass. Final version/docs and published dependency availability remain G8 work.",
+        "The exact five-package Telegram/Slack graph has 44 dependencies. It compiles and passes 241 harness tests, 7 actual Slack membership isolation tests and 8 Telegram membership tests. Membership causes no canonical membership/grant/presence/agent mutation or provider/message/mention/agent calls.",
+        "Four actual Slack-to-Messaging execution fixtures verify one send, cached results after authority checks, revoked grants, canonical scope rejection, complete history items/cursor and grant limit, native result decoding/trace, and interaction observation selection by exact source and subject."
       ],
       "remaining": [
-        "Migrate every original Slack channel/cards/modal/lifecycle/live fixture test to native boundaries with no hidden supported assertions. The current full suite stops at retired types.",
-        "Verify every declared Slack operation mapping and the final event/resource/interaction matrix.",
-        "Complete real Slack Messaging send/page/interaction/membership paths and context isolation.",
-        "Run current full package coverage/audit/build and whole-group checks. Finish G3 ownership/90 percent Messaging coverage, all remaining adapters, final G8 versions/docs/package readiness, and G9 PR review/current-head CI."
+        "Complete final adapter event/resource/interaction and transport exception matrix. Socket sink exception behavior and global modal scope require review.",
+        "Complete G3 acceptance exception/partial-effect and direct facade ownership checks, and meaningful Messaging coverage to at least 90 percent.",
+        "Refresh affected core-only and optional-AI source checks; finish remaining provider ports and all-nine G7 Conformance.run C01-C14.",
+        "Finish G8 version/docs/example/package readiness and G9 review, focused attached PRs and current-head CI. No final completion requirement changes."
       ]
     },
     {
@@ -402,5 +438,6 @@
       "current chat"
     ],
     "final_completion_requirements_unchanged": true
-  }
+  },
+  "updated_at": "2026-10-13T02:02:58.834104+00:00"
 }

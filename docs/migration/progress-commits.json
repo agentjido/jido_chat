@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-13T01:44:41.731341+00:00",
+  "updated_at": "2026-10-13T02:02:58.834104+00:00",
   "goal_state": "active",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
@@ -648,6 +648,87 @@
         "evidence/g5/g5-slack-current-library-quality.json"
       ],
       "open_work": "Full original Slack test migration, all declared operation/event/resource/interaction matrix cases, package/runtime checks, G3 coverage, remaining adapters, and all G4-G9 final requirements remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "092a73c1b3a56261915c9b3969f821d9b91993c6",
+      "subject": "fix(slack): retain lifecycle context in native provider facts",
+      "checks": [
+        "evidence/g5/g5-slack-original-lifecycle-native-final-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "6510c3c5ffe5fe7afb543108eb4cdb02128f515d",
+      "subject": "test(slack): migrate card modal and options cases to native requests",
+      "checks": [
+        "evidence/g5/g5-slack-original-cards-modals-native-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "677ea05a510342eccb3adaaa5147554a6ee6dcc1",
+      "subject": "test(slack): preserve channel behavior through native requests",
+      "checks": [
+        "evidence/g5/g5-slack-original-channel-native-tests-pass.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "a7f30143891f23593eb99f2616ac1268cfbf35f9",
+      "subject": "test(slack): compile existing live cases against native APIs",
+      "checks": [
+        "evidence/g5/g5-slack-live-fixture-native-complete-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "2e9ec68e5d502d12435811b6cf3a124e4588fd9d",
+      "subject": "test(slack): verify all native operation mappings and call counts",
+      "checks": [
+        "evidence/g5/g5-slack-all-operation-matrix-final-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "034ba1c2fe48a9dcdcbe020cd835587802478ade",
+      "subject": "style(slack): format migrated interaction and lifecycle code",
+      "checks": [
+        "evidence/g5/g5-slack-complete-package-quality-formatted.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "subject": "fix(slack): reject malformed query pages without losing items",
+      "checks": [
+        "evidence/g5/g5-slack-malformed-page-final-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "db5980704c21e541151d560241d97335e8b557d4",
+      "subject": "test(integration): verify native Slack membership isolation",
+      "checks": [
+        "evidence/g5/g5-real-slack-membership-isolation-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "55b03f6e725452dba1c64cbbb8b04bcd8b28c4f1",
+      "subject": "test(integration): verify actual Slack Messaging execution and selection",
+      "checks": [
+        "evidence/g5/g5-real-slack-messaging-execution-final-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
     }
   ],
   "passed_checks": {

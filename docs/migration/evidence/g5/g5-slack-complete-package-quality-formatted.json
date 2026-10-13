@@ -1,0 +1,19 @@
+{
+  "label": "g5-slack-complete-package-quality-formatted",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_chat_slack",
+  "head_sha": "2e9ec68e5d502d12435811b6cf3a124e4588fd9d",
+  "source_tree_sha256": "dd5ff6e1f058e4ac63e7f19dfac1141416751361c62f2fb273cc29b12027ebf0",
+  "started_at": "2026-10-13T01:57:51.046423+00:00",
+  "finished_at": "2026-10-13T01:57:54.285272+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g5/g5-slack-complete-package-quality-formatted.log",
+  "log_sha256": "85736e6dd09be47566b4982649d6143cabb5a79d1cf4efeb9b242fc4ecbd4424"
+}

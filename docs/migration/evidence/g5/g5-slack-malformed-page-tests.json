@@ -1,0 +1,24 @@
+{
+  "label": "g5-slack-malformed-page-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido/chat/slack/operation_matrix_test.exs",
+    "test/jido/chat/slack/channel_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_slack",
+  "head_sha": "034ba1c2fe48a9dcdcbe020cd835587802478ade",
+  "source_tree_sha256": "e7aaaf876d1b1cd1768fc6c6b94e82fb382b944fdd1926a4928b1248c5825188",
+  "started_at": "2026-10-13T01:58:37.947501+00:00",
+  "finished_at": "2026-10-13T01:58:39.590214+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g5/g5-slack-malformed-page-tests.log",
+  "log_sha256": "933b5d74d345936bb846f32d0ac6647c9a098bd6d1fa71a1aef833c4ef7fc139"
+}

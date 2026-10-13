@@ -1,0 +1,24 @@
+{
+  "label": "g5-slack-original-cards-modals-native-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido/chat/slack/cards_modals_test.exs",
+    "test/jido/chat/slack/protocol_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_slack",
+  "head_sha": "092a73c1b3a56261915c9b3969f821d9b91993c6",
+  "source_tree_sha256": "4e37507ff44db628bec73cca2aa94c192b0c99c2a61ee9562e26496ff2afd77a",
+  "started_at": "2026-10-13T01:48:09.304117+00:00",
+  "finished_at": "2026-10-13T01:48:10.349013+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g5/g5-slack-original-cards-modals-native-tests.log",
+  "log_sha256": "19b635ac1b8b6244fe7a21545b420e647accba815c30de1712a1e1a4310fb795"
+}
