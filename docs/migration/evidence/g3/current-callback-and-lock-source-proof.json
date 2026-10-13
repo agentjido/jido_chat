@@ -29,6 +29,6 @@
     "g3-current-callback-and-lock-quality.json",
     "g3-current-callback-and-lock-complete-api-audit.json"
   ],
-  "ai_complete_check": "one failure; uncontended recheck active",
+  "ai_complete_check": "pass: g3-current-callback-and-lock-ai-uncontended-recheck.json",
   "final_requirements_unchanged": true
 }

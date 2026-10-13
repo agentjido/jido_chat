@@ -1,7 +1,7 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T04:34:51.600287+00:00",
+  "updated_at": "2026-10-13T04:51:59.257559+00:00",
   "messaging_head": "89690d09ec1415a85359f1a9ebdb3b71487bf27b",
   "core_head": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
   "inclusive_tests": 1116,
@@ -108,7 +108,8 @@
     "g3-storage-scope-and-unsupported-admission-final-tests",
     "g3-subscription-malformed-wrapper-final-tests",
     "g3-topology-owner-and-sections-warning-free-tests",
-    "g3-uncertain-write-and-accepted-runtime-final-tests"
+    "g3-uncertain-write-and-accepted-runtime-final-tests",
+    "g3-current-callback-and-lock-ai-uncontended-recheck"
   ],
   "confirmed_regressions": [
     "g3-acceptance-storage-failure-confirmed",
@@ -158,7 +159,6 @@
     "Current Messaging quality has zero Dialyzer errors/skips. API audit has 5031 exports including 1200 generated instance exports. Source scan checks 369 files with zero findings. Both current exact source graphs pass with 39 and 51 dependencies. Core 257, harness 241 per profile and optional AI 4 prior proof remains subject to source scope."
   ],
   "remaining": [
-    "Complete the current full AI recheck after one 100 millisecond lifecycle gate wait failed under concurrent suite load. Keep all lifecycle assertions.",
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
     "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
     "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
@@ -169,9 +169,9 @@
       "jido_messaging",
       "jido_chat_signal"
     ],
-    "with_and_without_ai": "pending current AI recheck; core full suite passes",
+    "with_and_without_ai": "pass for current source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": null,
+    "messaging_tests_per_profile": 1116,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -186,11 +186,10 @@
         "check": "g3-current-callback-and-lock-core-full-tests.json"
       },
       "ai": {
-        "passed": 1115,
-        "total": 1116,
-        "failures": 1,
-        "check": "g3-current-callback-and-lock-ai-full-tests.json",
-        "recheck": "g3-current-callback-and-lock-ai-uncontended-recheck: running"
+        "passed": 1116,
+        "failures": 0,
+        "check": "g3-current-callback-and-lock-ai-uncontended-recheck.json",
+        "previous_timing_failure": "g3-current-callback-and-lock-ai-full-tests.json"
       }
     }
   },

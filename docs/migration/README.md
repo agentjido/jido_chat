@@ -5,9 +5,9 @@ The full package group is not ready for use.
 
 The isolated native PostgreSQL fixture works. Current complete Messaging checks
 pass 1,116 tests with zero skips and 81.6 percent coverage. The core runtime
-profile passes all 1,116 checks. The AI profile passes 1,115 of 1,116 checks.
-One lifecycle test exceeded its 100 millisecond gate wait under concurrent load.
-The complete unchanged AI recheck is running. The 90 percent floor is unmet.
+profile passes all 1,116 checks. The complete AI recheck passes all 1,116 checks
+with the same source and all original test checks. The earlier timing failure
+remains in the evidence record. The required 90 percent floor is unmet.
 
 The execution plan is
 [2026-10-12-002-public-signal-boundary-plan.md](../plans/2026-10-12-002-public-signal-boundary-plan.md).

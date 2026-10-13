@@ -314,7 +314,8 @@
         "evidence/g3/runtime-ai-dependency-graph.json",
         "evidence/g3/runtime-core-dependency-graph.json",
         "evidence/g3/schema-corrections.json",
-        "evidence/g3/side-effect-count-report.json"
+        "evidence/g3/side-effect-count-report.json",
+        "evidence/g3/g3-current-callback-and-lock-ai-uncontended-recheck.json"
       ],
       "work_complete": false,
       "completed": [
@@ -403,10 +404,10 @@
         "New 29-case listener/subscription ownership matrix exposed recoverable/degraded class atoms wrongly mapped to crash. The fix preserves retry/degrade and one selected callback; 54 boundary/subscription and 58 AI runtime tests pass.",
         "Current complete inclusive run and core runtime profile each pass 1116 checks with native PostgreSQL and zero skips. Package coverage is 81.6 percent, below 90 percent.",
         "Both earlier complete profiles pass 1087 checks after the initial failure fixes. Current AI expanded suite passes 1115/1116; one lifecycle SQLite gate wait exceeded 100 milliseconds during concurrent load. A complete unchanged uncontended recheck is active. No assertion or test is removed.",
-        "Current Messaging quality has zero Dialyzer errors/skips. API audit has 5031 exports including 1200 generated instance exports. Source scan checks 369 files with zero findings. Both current exact source graphs pass with 39 and 51 dependencies. Core 257, harness 241 per profile and optional AI 4 prior proof remains subject to source scope."
+        "Current Messaging quality has zero Dialyzer errors/skips. API audit has 5031 exports including 1200 generated instance exports. Source scan checks 369 files with zero findings. Both current exact source graphs pass with 39 and 51 dependencies. Core 257, harness 241 per profile and optional AI 4 prior proof remains subject to source scope.",
+        "The complete unchanged AI recheck passes all 1116 checks with native PostgreSQL, integration and story cases, max_cases 20 and zero skips. Its exact Messaging source hash matches the current complete coverage and core profile. The previous timing failure stays recorded."
       ],
       "remaining": [
-        "Complete the current full AI recheck after one 100 millisecond lifecycle gate wait failed under concurrent suite load. Keep all lifecycle assertions.",
         "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
         "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
         "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
@@ -574,5 +575,5 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T04:34:51.600287+00:00"
+  "updated_at": "2026-10-13T04:51:59.257559+00:00"
 }
