@@ -1,24 +1,24 @@
 {
   "state": "open",
-  "source_head": "cd49f6cfcb342eefc37546c6ae53ad224bd3806a",
+  "source_head": "83a31475a0b28d9ec0dcd6c95724fa794b4e77cb",
   "next_checks": [
     {
-      "file": "lib/jido_messaging/identity_credentials.ex and identity_verifier.ex",
-      "observed": "Credential participant/room/get/list/save/rotate/assertion persistence callbacks are still direct in some paths. Read/write errors, exceptions, throws, exits and invalid records lack complete safe outcome proof.",
-      "required_proof": "Defined failures, exact confirmed lifecycle/rotation/replay effects, no false assurance or foreign scope and no grants/provider/admission effects before valid inputs."
+      "file": "lib/jido_messaging/execution.ex and demo/topology.ex",
+      "observed": "Remaining typed execution and setup failures still have uncovered exact effect and safe result branches.",
+      "required_proof": "Invalid/denied input causes zero effects. Accepted work, native results and retry counts remain complete and exact."
     },
     {
-      "file": "lib/jido_messaging/execution.ex and demo/topology.ex",
-      "observed": "Remaining typed execution/setup branches still have missed direct effect-count tests.",
-      "required_proof": "Invalid/denied input has zero effects; accepted work and complete results preserve exact retry behavior. Required coverage remains 90 percent."
+      "file": "lib/jido_messaging.ex and persistence/{ets,sqlite}.ex",
+      "observed": "Some canonical facade/default and backend invalid-filter/cleanup cases remain uncovered.",
+      "required_proof": "Owned/foreign record scope, defined errors and complete content. Reach 90 percent without skips, ignores or reduced thresholds."
     }
   ],
   "coverage_floor": 90,
   "final_requirements_unchanged": true,
   "resolved_this_turn": [
-    "Identity principal and binding callbacks contain failures and validate schema/requested IDs.",
-    "Provider-scope reads and whole binding lists reject foreign or malformed results.",
-    "Confirmed strengthening/promotion writes remain exact after failure; no false success is returned.",
-    "Failed authorship binding saves produce no authorship or false principal promotion, grants, membership or admissions."
+    "Credential callback failures return defined outcomes and validate complete lifecycle/rotation/owned scope.",
+    "Confirmed transition/rotation writes retain exact complete state and reject stale retry after failure.",
+    "Verifier owned record failures reject before proof callbacks and replay writes.",
+    "Assertion store failure returns no evidence and preserves any confirmed consumed marker; replay remains rejected."
   ]
 }

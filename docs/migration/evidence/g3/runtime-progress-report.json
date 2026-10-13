@@ -1,10 +1,10 @@
 {
   "gate": "G3",
   "state": "pending",
-  "updated_at": "2026-10-13T08:46:09.904922+00:00",
-  "messaging_head": "cd49f6cfcb342eefc37546c6ae53ad224bd3806a",
-  "core_head": "eb74d1d01809ff502263f670a80912294382cfe8",
-  "inclusive_tests": 1711,
+  "updated_at": "2026-10-13T08:54:34.411809+00:00",
+  "messaging_head": "83a31475a0b28d9ec0dcd6c95724fa794b4e77cb",
+  "core_head": "aca2fe2715f607df9b8233f9f31aa4682c46592a",
+  "inclusive_tests": 1800,
   "core_tests": 257,
   "optional_ai_tests": 4,
   "skipped_tests": 0,
@@ -55,6 +55,8 @@
     "g3-config-write-before-after-outcome-final-tests",
     "g3-config-write-outcome-quality",
     "g3-credential-backend-lineage-and-terminal-final-tests",
+    "g3-credential-callback-owned-outcome-final-tests",
+    "g3-credential-callback-safe-result-quality",
     "g3-credential-cleanup-and-expired-replay-tests",
     "g3-current-assignment-inventory-ai-full-tests",
     "g3-current-assignment-inventory-ai-harness",
@@ -135,6 +137,14 @@
     "g3-current-control-plane-slack-membership-tests",
     "g3-current-control-plane-source-scan",
     "g3-current-control-plane-telegram-membership-tests",
+    "g3-current-credential-verifier-ai-full-tests",
+    "g3-current-credential-verifier-ai-harness",
+    "g3-current-credential-verifier-api-audit",
+    "g3-current-credential-verifier-core-full-tests",
+    "g3-current-credential-verifier-core-harness",
+    "g3-current-credential-verifier-inclusive-coverage",
+    "g3-current-credential-verifier-optional-ai",
+    "g3-current-credential-verifier-source-scan",
     "g3-current-demo-room-config-ai-full-tests",
     "g3-current-demo-room-config-ai-graph",
     "g3-current-demo-room-config-ai-harness",
@@ -429,6 +439,8 @@
     "g3-transcript-validated-admission-quality",
     "g3-transcript-validated-scope-final-tests",
     "g3-uncertain-write-and-accepted-runtime-final-tests",
+    "g3-verifier-store-read-and-replay-final-tests",
+    "g3-verifier-store-safe-result-quality",
     "g3-webhook-callback-failure-quality",
     "g3-webhook-complete-unit-verified-final-tests",
     "g3-webhook-http-config-and-body-final-tests",
@@ -621,7 +633,12 @@
     "Principal/binding read/write callbacks return safe defined failures for error/raise/throw/exit/invalid results. Schema and requested identity/provider scope checks reject foreign records; whole invalid binding lists fail. Writes validate complete semantics while preserving backend-owned binding identity/insertion time. Before/after-write failures retain exact complete effects with no false authorship/promotion or authority. All 72 affected tests and package quality pass; failed regression and warning-failed records remain.",
     "Current private Identity source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
     "Current complete inclusive Messaging coverage passes 1711 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.0 percent; required 90 percent remains unmet.",
-    "Both current complete pinned runtime profiles pass 1711 checks with zero skips."
+    "Both current complete pinned runtime profiles pass 1711 checks with zero skips.",
+    "Credential callbacks contain read/write/rotation failures and validate owned participant/room identities, whole scoped credential lists and exact lifecycle/rotation records. Before-write failures change no identity or authority; confirmed transition/rotation writes remain complete after failure and reject stale retry. All 67 affected tests and package quality pass.",
+    "Verifier uses the checked credential boundary and validates participant/room identities before any proof callback. Assertion callback failures produce no evidence; confirmed consumed marker stays replayed. Optional lower assurance also requires valid owned records. All 104 affected tests and package quality pass; failed regression evidence remains.",
+    "Current credential/verifier source changed; package quality, API audit, source scan, complete profiles and runtime/optional checks are refreshed. Only unchanged core tests and exact pinned dependency graph proof are reused.",
+    "Current complete inclusive Messaging coverage passes 1800 checks with native PostgreSQL, integration, story and zero skips. Coverage is 86.0 percent; required 90 percent remains unmet.",
+    "Both current complete pinned runtime profiles pass 1800 checks with zero skips."
   ],
   "remaining": [
     "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
@@ -636,7 +653,7 @@
     ],
     "with_and_without_ai": "pass for current complete source",
     "core_tests_per_profile": 257,
-    "messaging_tests_per_profile": 1711,
+    "messaging_tests_per_profile": 1800,
     "harness_tests_per_profile": 241,
     "optional_ai_tests": 4,
     "dependency_counts": [
@@ -647,34 +664,34 @@
     "current_messaging_profile_state": {
       "core": {
         "state": "pass",
-        "passed": 1711,
+        "passed": 1800,
         "failures": 0,
-        "check": "g3-current-identity-callback-core-full-tests.json"
+        "check": "g3-current-credential-verifier-core-full-tests.json"
       },
       "ai": {
         "state": "pass",
-        "passed": 1711,
+        "passed": 1800,
         "failures": 0,
-        "check": "g3-current-identity-callback-ai-full-tests.json"
+        "check": "g3-current-credential-verifier-ai-full-tests.json"
       }
     },
-    "harness_test_evidence": "Both current identity-callback runtime harnesses pass 241 checks on current Messaging source.",
-    "optional_ai_evidence": "Current identity-callback optional AI fixture passes four checks without a model call."
+    "harness_test_evidence": "Both current credential-verifier runtime harnesses pass 241 checks on current Messaging source.",
+    "optional_ai_evidence": "Current credential-verifier optional AI fixture passes four checks without a model call."
   },
   "compiled_api_audit": {
     "state": "pass",
     "exports": 4071,
     "generated_instance_exports": 240,
     "rejection_controls": 4,
-    "current_report": "current-identity-callback-complete-api-exports.json",
+    "current_report": "current-credential-verifier-complete-api-exports.json",
     "scope_note": "Consumer runtime build: core and Messaging production exports plus two generated support instances. Historical package build has additional generated test-support instances."
   },
-  "current_full_inclusive_state": "pass:1711 checks including native PostgreSQL",
-  "coverage_percent_source": "g3-current-identity-callback-inclusive-coverage.json",
+  "current_full_inclusive_state": "pass:1800 checks including native PostgreSQL",
+  "coverage_percent_source": "g3-current-credential-verifier-inclusive-coverage.json",
   "historical_docker_outage_partial_check": {
     "passed": 1041,
     "excluded_postgres_checks": 38,
     "scope": "Historical partial source check only; current complete run includes PostgreSQL with zero skips."
   },
-  "reused_library_proof": "current-identity-callback-source-proof.json"
+  "reused_library_proof": "current-credential-verifier-source-proof.json"
 }
