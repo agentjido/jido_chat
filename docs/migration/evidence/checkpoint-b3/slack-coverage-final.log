@@ -1,0 +1,32 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+..............................................................................................................................................
+Finished in 1.0 seconds (0.7s async, 0.2s sync)
+
+Result: 142 passed, 8 excluded
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/jido/chat/slack.ex                         13        1        0
+ 79.2% lib/jido/chat/slack/adapter.ex               1341      429       89
+ 77.7% lib/jido/chat/slack/delete_options.ex          44        9        2
+ 84.6% lib/jido/chat/slack/edit_options.ex            57       13        2
+ 85.7% lib/jido/chat/slack/ephemeral_options.ex       59       14        2
+ 85.7% lib/jido/chat/slack/fetch_options.ex           54       14        2
+ 69.6% lib/jido/chat/slack/interaction_response      157       56       17
+ 80.0% lib/jido/chat/slack/metadata_options.ex        46       10        2
+ 77.7% lib/jido/chat/slack/modal_options.ex           45        9        2
+ 89.9% lib/jido/chat/slack/normalizer.ex             557      248       25
+ 77.7% lib/jido/chat/slack/reaction_options.ex        44        9        2
+ 73.6% lib/jido/chat/slack/renderer.ex               684      273       72
+ 92.8% lib/jido/chat/slack/send_options.ex            88       28        2
+  0.0% lib/jido/chat/slack/socket_mode/client.e        8        0        0
+ 64.7% lib/jido/chat/slack/socket_mode/req_clie       55       17        6
+  0.0% lib/jido/chat/slack/socket_mode/socket_c       12        0        0
+  0.0% lib/jido/chat/slack/socket_mode/web_sock       74       22       22
+ 73.7% lib/jido/chat/slack/socket_mode_worker.e      325       99       26
+  0.0% lib/jido/chat/slack/transport.ex               97        0        0
+ 44.1% lib/jido/chat/slack/transport/req_client      510      170       95
+[TOTAL]  74.1%
+----------------
+Coverage data exported.

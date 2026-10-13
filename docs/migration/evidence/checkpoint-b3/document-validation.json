@@ -1,0 +1,16 @@
+{
+  "state": "pass",
+  "checked_at": "2026-10-13T22:31:51.602360+00:00",
+  "checks": [
+    "G0-G5 pass; G6-G9 pending",
+    "current gate G6; authorized through B3; stop reached",
+    "acyclic gate dependencies",
+    "all G4/G5 acceptance evidence links exist",
+    "all B3 evidence JSON parses",
+    "frozen event/operation and participant support claims unchanged",
+    "seven other adapter rows unchanged",
+    "adapter dependency and live-exclusion files unchanged",
+    "git diff --check passes"
+  ],
+  "notes": "The source verification record confirms all final tests match saved source. The checkpoint report records the remaining goal work."
+}

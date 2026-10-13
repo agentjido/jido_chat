@@ -1,0 +1,129 @@
+{
+  "gate": "G4",
+  "batch": "B3",
+  "state": "pass",
+  "checked_at": "2026-10-13T22:25:53.203756+00:00",
+  "rows": [
+    {
+      "id": "M1",
+      "state": "pass",
+      "condition": "Closed MembershipChanged and MembershipObserved schemas retain exact transition evidence and pass native JSON round trips.",
+      "assertions": [
+        "jido_chat_telegram/test/jido/chat/telegram/membership_test.exs: fifteen transition fixtures and five boundary fixtures",
+        "integration/fixtures/slack_membership_schema_test.exs: shared partial-transition fixtures",
+        "integration/fixtures/telegram_membership_runtime_test.exs: observed JSON, causation and trace",
+        "integration/fixtures/slack_membership_runtime_test.exs: observed JSON, causation and trace"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/telegram-coverage-final.json",
+        "evidence/checkpoint-b3/b3-runtime-final.json"
+      ]
+    },
+    {
+      "id": "M2",
+      "state": "pass",
+      "condition": "Join, leave, removal, promotion/demotion, restriction and is_member changes remain evidence only.",
+      "assertions": [
+        "MembershipTest transition table",
+        "MembershipRuntimeTest real Telegram join, leave, remove, role, restricted member and restricted non-member"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/telegram-coverage-final.json",
+        "evidence/checkpoint-b3/b3-runtime-final.json"
+      ]
+    },
+    {
+      "id": "M3",
+      "state": "pass",
+      "condition": "Bot-self, absent actor and unavailable previous state remain explicit.",
+      "assertions": [
+        "MembershipTest bot-self and missing prior state/actor",
+        "Telegram MembershipRuntimeTest bot-self with active agent",
+        "Slack MembershipRuntimeTest bot-self and absent prior state/actor"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/telegram-coverage-final.json",
+        "evidence/checkpoint-b3/b3-runtime-final.json"
+      ]
+    },
+    {
+      "id": "M4",
+      "state": "pass",
+      "condition": "Webhook and polling use one mapper and retain stable semantic item identity.",
+      "assertions": [
+        "Telegram NormalizerTest membership identity across both transports",
+        "Telegram MembershipRuntimeTest repeated webhook item and polling batch",
+        "Slack MembershipRuntimeTest webhook and Socket identity"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/telegram-coverage-final.json",
+        "evidence/checkpoint-b3/b3-runtime-final.json"
+      ]
+    },
+    {
+      "id": "M5",
+      "state": "pass",
+      "condition": "Standalone typed membership handlers cause zero message-handler and mention-handler calls.",
+      "assertions": [
+        "Telegram and Slack MembershipRuntimeTest standalone membership handler never selects message or mention handlers"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/b3-runtime-final.json"
+      ]
+    },
+    {
+      "id": "M6",
+      "state": "pass",
+      "condition": "Membership causes zero agent, provider, grant, canonical membership, persistence and presence effects.",
+      "assertions": [
+        "Telegram and Slack MembershipRuntimeTest persistence snapshots, active agent barriers, room state snapshots and zero-call assertions"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/b3-runtime-final.json"
+      ]
+    },
+    {
+      "id": "M7",
+      "state": "pass",
+      "condition": "Repeated provider items cause one semantic observation under the runtime memory rule.",
+      "assertions": [
+        "Telegram and Slack MembershipRuntimeTest repeated acceptance returns an empty result and emits no second observation",
+        "standalone handler repeated acceptance does not invoke the callback"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/b3-runtime-final.json"
+      ]
+    },
+    {
+      "id": "M8",
+      "state": "pass",
+      "condition": "Sink rejection and every whole-delivery limit retain the Telegram polling checkpoint.",
+      "assertions": [
+        "PollingWorkerTest sink error, raise, throw, exit and invalid result",
+        "PollingWorkerTest membership sink rejection",
+        "PollingWorkerTest signal size, count, failure count and aggregate size preserve checkpoint on first call and retry"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/telegram-coverage-final.json"
+      ]
+    },
+    {
+      "id": "M9",
+      "state": "pass",
+      "condition": "Participant query capabilities are separate. Partial participant sets remain complete false.",
+      "assertions": [
+        "AdapterPairConformanceTest frozen participant capability rows",
+        "Slack ChannelTest participant cursor, deduplication, limits and native result complete false",
+        "Telegram OperationMatrixTest get_thread_participants typed unsupported"
+      ],
+      "evidence": [
+        "evidence/checkpoint-b3/b3-runtime-final.json",
+        "evidence/checkpoint-b3/slack-coverage-final.json"
+      ]
+    }
+  ],
+  "source_verification": "evidence/checkpoint-b3/source-verification.json",
+  "open_acceptance_rows": [],
+  "later_gates_are_not_prerequisites": true,
+  "issue_57": "Technical acceptance is complete. Issue closure is outside this checkpoint and requires agreed acceptance scope."
+}

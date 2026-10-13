@@ -76,7 +76,7 @@
       "transport_delivery_identity": "binding ID plus Telegram update_id; a missing update_id uses a canonical bounded payload digest",
       "acceptance_acknowledgement_checkpoint": "All normalized items are validated before the sink. Polling advances offset only after the complete fetched batch is accepted. Webhook transport response is private. Polling keeps the old batch offset on sink rejection.",
       "retry_unit": "fetched getUpdates batch; already accepted items are deduplicated by the runtime memory rule",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "native",
@@ -116,22 +116,30 @@
         "retry_unit": "fetched getUpdates batch; already accepted items are deduplicated by the runtime memory rule",
         "evidence": [
           "lib/jido/chat/telegram/polling_worker.ex",
-          "lib/jido/chat/telegram/update_envelope.ex",
+          "lib/jido/chat/telegram/normalizer.ex",
           "lib/jido/chat/telegram/adapter.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
+      "verification": "B3 deterministic package and real Messaging fixtures pass every frozen event/operation row. No live traffic.",
       "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
       "operation_conformance": {
         "state": "pass",
-        "scope": "All 26 operations through the real Telegram adapter with deterministic fixture transport.",
-        "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
-        "evidence": "evidence/g5/g5-telegram-real-operation-matrix-final-tests.json"
+        "scope": "All 26 operations; frozen capability match, exact ordered provider counts, cached retry, typed result and JSON/trace assertions.",
+        "head_sha": "8688a30d07d70da235aae7c8e639605ec203b479",
+        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
       },
       "membership_runtime_conformance": {
         "state": "pass",
-        "scope": "Real adapter to Messaging with active agent and unchanged grants/membership/presence/records.",
-        "evidence": "evidence/g4/g4-current-real-telegram-runtime-isolation-tests.json"
+        "scope": "Actual adapter ingress, active agent, unchanged canonical membership/grants/presence and semantic duplicate suppression.",
+        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
+      },
+      "conformance_report": "evidence/checkpoint-b3/g5-acceptance.json",
+      "event_conformance": {
+        "state": "pass",
+        "rows": 17,
+        "scope": "Every frozen native/unsupported event row in every declared input form.",
+        "head_sha": "8688a30d07d70da235aae7c8e639605ec203b479",
+        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
       }
     },
     {
@@ -226,7 +234,7 @@
       "transport_delivery_identity": "binding ID plus event_id or socket envelope_id; interactive requests use a canonical bounded request digest",
       "acceptance_acknowledgement_checkpoint": "Normalize the same inner protocol payload through one mapper. Keep interaction response_url/trigger_id and socket controls private. Ordinary Socket Mode events acknowledge before the sink; response-bearing envelopes acknowledge after the sink. Preserve both timings. HTTP responses remain private.",
       "retry_unit": "provider envelope/webhook; no new durable acceptance guarantee",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "native",
@@ -271,8 +279,27 @@
           "lib/jido/chat/slack/adapter.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "verification": "B3 deterministic package and real Messaging fixtures pass every frozen event/operation row. No live traffic.",
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "conformance_report": "evidence/checkpoint-b3/g5-acceptance.json",
+      "operation_conformance": {
+        "state": "pass",
+        "scope": "All 26 operations; frozen capability match, exact ordered provider counts, cached retry, typed result and JSON/trace assertions.",
+        "head_sha": "78df382391209bb8b1a6feccce4a0a03a33887e6",
+        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
+      },
+      "event_conformance": {
+        "state": "pass",
+        "rows": 17,
+        "scope": "Every frozen native/unsupported event row in every declared input form.",
+        "head_sha": "78df382391209bb8b1a6feccce4a0a03a33887e6",
+        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
+      },
+      "membership_runtime_conformance": {
+        "state": "pass",
+        "scope": "Actual adapter ingress, active agent, unchanged canonical membership/grants/presence and semantic duplicate suppression.",
+        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
+      }
     },
     {
       "package": "jido_chat_discord",

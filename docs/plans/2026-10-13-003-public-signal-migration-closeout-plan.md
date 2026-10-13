@@ -1,7 +1,7 @@
 ---
 title: Public Signal Migration — Remaining Work and Completion Plan
 date: 2026-10-13
-status: B0-B2-complete; stopped-at-user-boundary
+status: B0-B3-complete; stopped-at-user-boundary
 primary_plan: 2026-10-12-002-public-signal-boundary-plan.md
 scope: same implementation and PR scope as the primary plan
 ---
@@ -9,7 +9,7 @@ scope: same implementation and PR scope as the primary plan
 # Public Signal migration — remaining work
 
 This document records the local analysis and the execution order.
-The user authorized B0–B2 on October 13. Stop after that checkpoint.
+The user authorized B0–B2, then B3, on October 13. Stop after B3.
 The October 12 plan remains the requirements contract. All nine adapters,
 the 90 percent Messaging coverage requirement, package checks, PR review,
 and current-head CI remain required. This analysis did not change gate status,
@@ -21,6 +21,14 @@ B0, B1, and B2 passed. G3 is complete. Messaging coverage is 90.05059 percent.
 Both runtime profiles pass 2,006 tests. Chat passes 257 tests. Package quality,
 catalog, API, and source checks pass. Execution stopped at B2.
 See [the checkpoint report](../migration/CHECKPOINT_B0_B2.md).
+
+## B3 result
+
+G4 and G5 passed their own acceptance reports. Telegram passes 243 tests,
+Slack passes 142 tests, and the B3 runtime passes 129 tests. Both package
+quality gates and the 241-test shared harness pass. The frozen matrix has
+two complete adapter rows. Execution stopped at B3.
+See [the B3 report](../migration/CHECKPOINT_B3.md).
 
 ## State before this checkpoint
 
@@ -274,6 +282,7 @@ exact open defects, current coverage and measured deficit, adapter rows passed,
 saved commit IDs, and the next batch. The report must show what is still required
 to finish. Do not use command count or commit count as a completion percentage.
 
-The B0–B2 checkpoint is complete. The next planned batch is B3. It did not
-start. Later execution requires a new user instruction. The current records
+B0–B3 are complete. G0–G5 pass. Execution stopped at B3. B4–B6 did not
+start. Later execution requires a new user instruction. See
+[the B3 report](../migration/CHECKPOINT_B3.md) for results. The current records
 do not support a reliable total time estimate.

@@ -1,12 +1,17 @@
 # Public Signal migration
 
-The B0–B2 Chat and Messaging checkpoint is complete. G0–G3 have passed.
-G4–G9 remain pending. Execution stopped at the user's B2 boundary.
+B0–B3 are complete. G0–G5 pass. G6–G9 remain pending.
+Execution stopped at the user's B3 boundary.
 
-Chat passes 257 tests. Both complete Messaging runtime profiles pass 2,006 tests.
-Messaging inclusive coverage is 90.05059 percent. Both package quality checks,
-the native catalog, API audit, and public boundary scan pass.
-See [CHECKPOINT_B0_B2.md](CHECKPOINT_B0_B2.md) for current results and evidence.
+Telegram passes 243 tests with 16 existing live exclusions. Slack passes 142
+with 8 existing live exclusions. Both package quality gates pass. The B3 runtime
+passes 129 tests, the shared harness passes 241, and the pinned pair graph has
+44 dependencies. Both frozen adapter rows pass all event and operation checks.
+See [CHECKPOINT_B3.md](CHECKPOINT_B3.md) for acceptance reports and saved work.
+
+Chat and Messaging sources retain the passing B0–B2 proof. Messaging coverage
+remains 90.05059 percent on unchanged source. The prior checkpoint is recorded
+in [CHECKPOINT_B0_B2.md](CHECKPOINT_B0_B2.md).
 
 The execution plan is
 [2026-10-12-002-public-signal-boundary-plan.md](../plans/2026-10-12-002-public-signal-boundary-plan.md).

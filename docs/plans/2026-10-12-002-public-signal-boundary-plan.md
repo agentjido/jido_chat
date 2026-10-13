@@ -1,7 +1,7 @@
 ---
 title: Jido Chat and Messaging — Public Signal Migration
 date: 2026-10-12
-status: G3-checkpoint-complete; G4-G9-pending
+status: B3-checkpoint-complete; G0-G5-pass; G6-G9-pending
 scope: implementation and reviewable PRs; release execution excluded
 issues:
   - https://github.com/agentjido/jido_chat/issues/57
@@ -593,3 +593,11 @@ completion boundary. The upstream syntax and source commit are now verified.
 The consumer dependency matrix remains G0 work, not an invitation to recreate
 library features. Read the current gate status and B0–B2 checkpoint report before future work.
 G0–G3 pass. G4–G9 remain pending. The user requested a stop at B2.
+
+
+## B3 checkpoint result — October 13
+
+G0–G5 pass. Membership and the Telegram/Slack pair meet their own acceptance
+conditions. The B3 report maps each condition to current assertions and evidence.
+Execution stopped at B3, as the user requested. G6–G9 remain pending.
+See [CHECKPOINT_B3.md](../migration/CHECKPOINT_B3.md).
