@@ -227,6 +227,9 @@ defmodule Jido.Chat.Integration.Manifest do
 
   defp valid_schema?(%{"type" => "array", "items" => value}), do: valid_schema?(value)
 
+  defp valid_schema?(%{"type" => ["string", "null"]} = schema),
+    do: not Map.has_key?(schema, "format")
+
   defp valid_schema?(%{"type" => type} = schema)
        when type in ["string", "integer", "number", "boolean", "null"],
        do: not Map.has_key?(schema, "format")

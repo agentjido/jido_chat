@@ -4194,7 +4194,10 @@
             "additionalProperties": false
           },
           "text": {
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "thread_id": {
             "anyOf": [
