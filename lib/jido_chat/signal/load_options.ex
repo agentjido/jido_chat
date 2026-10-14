@@ -26,6 +26,6 @@ defmodule Jido.Chat.Signal.LoadOptions do
           "user_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
           "limit" => Zoi.integer() |> Zoi.gte(1) |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

@@ -28,6 +28,6 @@ defmodule Jido.Chat.Signal.FetchMessages do
           "limit" => Zoi.integer() |> Zoi.gte(1) |> Zoi.optional(),
           "direction" => Zoi.enum(["forward", "backward"]) |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

@@ -31,9 +31,9 @@ defmodule Jido.Chat.Signal.AssistantContextChanged do
                 "team_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
                 "enterprise_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional()
               },
-              strict: true
+              unrecognized_keys: :error
             )
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

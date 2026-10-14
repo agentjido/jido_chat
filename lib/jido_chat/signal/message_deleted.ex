@@ -32,6 +32,6 @@ defmodule Jido.Chat.Signal.MessageDeleted do
             |> Zoi.optional(),
           "timestamp" => Zoi.string() |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

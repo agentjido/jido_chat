@@ -32,6 +32,6 @@ defmodule Jido.Chat.Signal.ThreadStarted do
             |> Zoi.optional(),
           "name" => Zoi.string() |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

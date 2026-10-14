@@ -31,10 +31,10 @@ defmodule Jido.Chat.Signal.AssistantThreadStarted do
                 "team_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
                 "enterprise_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional()
               },
-              strict: true
+              unrecognized_keys: :error
             )
             |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

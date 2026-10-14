@@ -22,6 +22,6 @@ defmodule Jido.Chat.Signal.AddReaction do
           "reply_to_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
           "format" => Zoi.enum(["plain", "markdown", "html"]) |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

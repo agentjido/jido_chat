@@ -27,6 +27,6 @@ defmodule Jido.Chat.Signal.ReactionAdded do
             ])
             |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

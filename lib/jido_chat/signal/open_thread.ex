@@ -22,6 +22,6 @@ defmodule Jido.Chat.Signal.OpenThread do
           "format" => Zoi.enum(["plain", "markdown", "html"]) |> Zoi.optional(),
           "topic_name" => Zoi.string() |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

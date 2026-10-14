@@ -46,6 +46,6 @@ defmodule Jido.Chat.Signal.ModalSubmitted do
                   ])}}
             )
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

@@ -33,6 +33,6 @@ defmodule Jido.Chat.Signal.SlashCommandReceived do
             ])
             |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

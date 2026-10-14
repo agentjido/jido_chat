@@ -55,6 +55,6 @@ defmodule Jido.Chat.Signal.OperationFailed do
             ]),
           "retryable" => Zoi.boolean()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

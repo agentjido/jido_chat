@@ -26,6 +26,6 @@ defmodule Jido.Chat.Signal.NormalizationFailed do
           "item_index" => Zoi.integer() |> Zoi.gte(0),
           "provider_kind" => Zoi.string() |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

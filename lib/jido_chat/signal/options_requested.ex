@@ -34,6 +34,6 @@ defmodule Jido.Chat.Signal.OptionsRequested do
             |> Zoi.optional(),
           "limit" => Zoi.integer() |> Zoi.gte(1) |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

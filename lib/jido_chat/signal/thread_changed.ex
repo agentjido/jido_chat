@@ -33,6 +33,6 @@ defmodule Jido.Chat.Signal.ThreadChanged do
           "name" => Zoi.string() |> Zoi.optional(),
           "change" => Zoi.enum(["updated", "reopened", "closed"])
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

@@ -27,7 +27,7 @@ defmodule Jido.Chat.Signal.MessageReceived do
                 "is_bot" => Zoi.boolean() |> Zoi.optional(),
                 "is_self" => Zoi.boolean() |> Zoi.optional()
               },
-              strict: true
+              unrecognized_keys: :error
             ),
           "text" => Zoi.string(),
           "thread_id" =>
@@ -55,13 +55,13 @@ defmodule Jido.Chat.Signal.MessageReceived do
                         "binding_id" => Zoi.string() |> Zoi.min(1),
                         "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                       },
-                      strict: true
+                      unrecognized_keys: :error
                     ),
                   "name" => Zoi.string() |> Zoi.optional(),
                   "media_type" => Zoi.string() |> Zoi.optional(),
                   "caption" => Zoi.string() |> Zoi.optional()
                 },
-                strict: true
+                unrecognized_keys: :error
               )
             )
             |> Zoi.optional(),
@@ -79,7 +79,7 @@ defmodule Jido.Chat.Signal.MessageReceived do
                   "offset" => Zoi.integer() |> Zoi.gte(0) |> Zoi.optional(),
                   "length" => Zoi.integer() |> Zoi.gte(0) |> Zoi.optional()
                 },
-                strict: true
+                unrecognized_keys: :error
               )
             )
             |> Zoi.optional(),
@@ -98,14 +98,14 @@ defmodule Jido.Chat.Signal.MessageReceived do
                       "is_bot" => Zoi.boolean() |> Zoi.optional(),
                       "is_self" => Zoi.boolean() |> Zoi.optional()
                     },
-                    strict: true
+                    unrecognized_keys: :error
                   )
                   |> Zoi.optional()
               },
-              strict: true
+              unrecognized_keys: :error
             )
             |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

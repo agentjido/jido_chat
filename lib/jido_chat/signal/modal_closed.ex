@@ -32,6 +32,6 @@ defmodule Jido.Chat.Signal.ModalClosed do
             ])
             |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

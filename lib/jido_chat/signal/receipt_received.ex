@@ -27,6 +27,6 @@ defmodule Jido.Chat.Signal.ReceiptReceived do
           "receipt" => Zoi.enum(["delivered", "read"]),
           "timestamp" => Zoi.string() |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

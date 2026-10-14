@@ -27,7 +27,7 @@ defmodule Jido.Chat.Signal.MessageUpdated do
                 "is_bot" => Zoi.boolean() |> Zoi.optional(),
                 "is_self" => Zoi.boolean() |> Zoi.optional()
               },
-              strict: true
+              unrecognized_keys: :error
             )
             |> Zoi.optional(),
           "text" =>
@@ -54,18 +54,18 @@ defmodule Jido.Chat.Signal.MessageUpdated do
                         "binding_id" => Zoi.string() |> Zoi.min(1),
                         "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                       },
-                      strict: true
+                      unrecognized_keys: :error
                     ),
                   "name" => Zoi.string() |> Zoi.optional(),
                   "media_type" => Zoi.string() |> Zoi.optional(),
                   "caption" => Zoi.string() |> Zoi.optional()
                 },
-                strict: true
+                unrecognized_keys: :error
               )
             )
             |> Zoi.optional(),
           "timestamp" => Zoi.string() |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

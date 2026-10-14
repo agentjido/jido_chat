@@ -33,7 +33,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "is_bot" => Zoi.boolean() |> Zoi.optional(),
                           "is_self" => Zoi.boolean() |> Zoi.optional()
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                       |> Zoi.optional(),
                     "thread_id" =>
@@ -61,13 +61,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "binding_id" => Zoi.string() |> Zoi.min(1),
                                   "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               ),
                             "name" => Zoi.string() |> Zoi.optional(),
                             "media_type" => Zoi.string() |> Zoi.optional(),
                             "caption" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
@@ -76,7 +76,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
                     "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -88,14 +88,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -117,7 +117,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "is_bot" => Zoi.boolean() |> Zoi.optional(),
                           "is_self" => Zoi.boolean() |> Zoi.optional()
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                       |> Zoi.optional(),
                     "thread_id" =>
@@ -145,13 +145,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "binding_id" => Zoi.string() |> Zoi.min(1),
                                   "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               ),
                             "name" => Zoi.string() |> Zoi.optional(),
                             "media_type" => Zoi.string() |> Zoi.optional(),
                             "caption" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
@@ -160,7 +160,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
                     "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -172,14 +172,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -201,7 +201,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "is_bot" => Zoi.boolean() |> Zoi.optional(),
                           "is_self" => Zoi.boolean() |> Zoi.optional()
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                       |> Zoi.optional(),
                     "thread_id" =>
@@ -229,13 +229,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "binding_id" => Zoi.string() |> Zoi.min(1),
                                   "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               ),
                             "name" => Zoi.string() |> Zoi.optional(),
                             "media_type" => Zoi.string() |> Zoi.optional(),
                             "caption" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
@@ -244,7 +244,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
                     "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -256,14 +256,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -285,7 +285,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "is_bot" => Zoi.boolean() |> Zoi.optional(),
                           "is_self" => Zoi.boolean() |> Zoi.optional()
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                       |> Zoi.optional(),
                     "thread_id" =>
@@ -313,13 +313,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "binding_id" => Zoi.string() |> Zoi.min(1),
                                   "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               ),
                             "name" => Zoi.string() |> Zoi.optional(),
                             "media_type" => Zoi.string() |> Zoi.optional(),
                             "caption" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
@@ -328,7 +328,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
                     "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -340,14 +340,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -359,7 +359,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                   %{
                     "acknowledged" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -371,14 +371,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -390,7 +390,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                   %{
                     "acknowledged" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -402,14 +402,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -424,7 +424,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                     "kind" => Zoi.enum(["direct", "group", "channel", "thread", "unknown"]) |> Zoi.optional(),
                     "topic" => Zoi.string() |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -436,14 +436,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -469,7 +469,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       ])
                       |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -481,14 +481,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -510,7 +510,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "is_bot" => Zoi.boolean() |> Zoi.optional(),
                           "is_self" => Zoi.boolean() |> Zoi.optional()
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                       |> Zoi.optional(),
                     "thread_id" =>
@@ -538,13 +538,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "binding_id" => Zoi.string() |> Zoi.min(1),
                                   "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               ),
                             "name" => Zoi.string() |> Zoi.optional(),
                             "media_type" => Zoi.string() |> Zoi.optional(),
                             "caption" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
@@ -553,7 +553,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
                     "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -565,14 +565,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -588,7 +588,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                     "is_bot" => Zoi.boolean() |> Zoi.optional(),
                     "is_self" => Zoi.boolean() |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -600,14 +600,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -622,7 +622,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                     "room_id" => Zoi.string() |> Zoi.min(1),
                     "title" => Zoi.string() |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -634,14 +634,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -661,7 +661,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                             "is_bot" => Zoi.boolean() |> Zoi.optional(),
                             "is_self" => Zoi.boolean() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       ),
                     "complete" => Zoi.boolean(),
@@ -672,7 +672,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                         Zoi.null()
                       ])
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -684,14 +684,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -703,7 +703,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                   %{
                     "acknowledged" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -715,14 +715,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -739,13 +739,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                         "binding_id" => Zoi.string() |> Zoi.min(1),
                         "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                       },
-                      strict: true
+                      unrecognized_keys: :error
                     )
                 },
-                strict: true
+                unrecognized_keys: :error
               )
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -757,7 +757,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                   %{
                     "acknowledged" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -769,14 +769,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -788,7 +788,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                   %{
                     "acknowledged" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -800,14 +800,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -829,7 +829,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "is_bot" => Zoi.boolean() |> Zoi.optional(),
                           "is_self" => Zoi.boolean() |> Zoi.optional()
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                       |> Zoi.optional(),
                     "thread_id" =>
@@ -857,13 +857,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "binding_id" => Zoi.string() |> Zoi.min(1),
                                   "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               ),
                             "name" => Zoi.string() |> Zoi.optional(),
                             "media_type" => Zoi.string() |> Zoi.optional(),
                             "caption" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
@@ -872,7 +872,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
                     "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -884,14 +884,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -913,7 +913,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "is_bot" => Zoi.boolean() |> Zoi.optional(),
                           "is_self" => Zoi.boolean() |> Zoi.optional()
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                       |> Zoi.optional(),
                     "thread_id" =>
@@ -941,13 +941,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "binding_id" => Zoi.string() |> Zoi.min(1),
                                   "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               ),
                             "name" => Zoi.string() |> Zoi.optional(),
                             "media_type" => Zoi.string() |> Zoi.optional(),
                             "caption" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
@@ -956,7 +956,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
                     "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -968,14 +968,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -997,7 +997,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "is_bot" => Zoi.boolean() |> Zoi.optional(),
                           "is_self" => Zoi.boolean() |> Zoi.optional()
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                       |> Zoi.optional(),
                     "thread_id" =>
@@ -1025,13 +1025,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "binding_id" => Zoi.string() |> Zoi.min(1),
                                   "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               ),
                             "name" => Zoi.string() |> Zoi.optional(),
                             "media_type" => Zoi.string() |> Zoi.optional(),
                             "caption" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
@@ -1040,7 +1040,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
                     "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -1052,14 +1052,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -1072,7 +1072,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                     "id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
                     "opened" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -1084,14 +1084,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -1110,7 +1110,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                             "description" => Zoi.string() |> Zoi.optional(),
                             "url" => Zoi.string() |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       ),
                     "option_groups" =>
@@ -1127,17 +1127,17 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                     "description" => Zoi.string() |> Zoi.optional(),
                                     "url" => Zoi.string() |> Zoi.optional()
                                   },
-                                  strict: true
+                                  unrecognized_keys: :error
                                 )
                               )
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       )
                       |> Zoi.optional(),
                     "complete" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -1149,14 +1149,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -1182,7 +1182,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "is_bot" => Zoi.boolean() |> Zoi.optional(),
                                   "is_self" => Zoi.boolean() |> Zoi.optional()
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               )
                               |> Zoi.optional(),
                             "thread_id" =>
@@ -1210,13 +1210,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                           "binding_id" => Zoi.string() |> Zoi.min(1),
                                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                         },
-                                        strict: true
+                                        unrecognized_keys: :error
                                       ),
                                     "name" => Zoi.string() |> Zoi.optional(),
                                     "media_type" => Zoi.string() |> Zoi.optional(),
                                     "caption" => Zoi.string() |> Zoi.optional()
                                   },
-                                  strict: true
+                                  unrecognized_keys: :error
                                 )
                               )
                               |> Zoi.optional(),
@@ -1226,7 +1226,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                               |> Zoi.optional(),
                             "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       ),
                     "next_cursor" =>
@@ -1236,7 +1236,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       ]),
                     "complete" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -1248,14 +1248,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -1281,7 +1281,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                   "is_bot" => Zoi.boolean() |> Zoi.optional(),
                                   "is_self" => Zoi.boolean() |> Zoi.optional()
                                 },
-                                strict: true
+                                unrecognized_keys: :error
                               )
                               |> Zoi.optional(),
                             "thread_id" =>
@@ -1309,13 +1309,13 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                                           "binding_id" => Zoi.string() |> Zoi.min(1),
                                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                                         },
-                                        strict: true
+                                        unrecognized_keys: :error
                                       ),
                                     "name" => Zoi.string() |> Zoi.optional(),
                                     "media_type" => Zoi.string() |> Zoi.optional(),
                                     "caption" => Zoi.string() |> Zoi.optional()
                                   },
-                                  strict: true
+                                  unrecognized_keys: :error
                                 )
                               )
                               |> Zoi.optional(),
@@ -1325,7 +1325,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                               |> Zoi.optional(),
                             "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       ),
                     "next_cursor" =>
@@ -1335,7 +1335,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       ]),
                     "complete" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -1347,14 +1347,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -1384,7 +1384,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                               ])
                               |> Zoi.optional()
                           },
-                          strict: true
+                          unrecognized_keys: :error
                         )
                       ),
                     "next_cursor" =>
@@ -1394,7 +1394,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       ]),
                     "complete" => Zoi.boolean()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -1406,14 +1406,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -1439,7 +1439,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                       ])
                       |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -1451,14 +1451,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         ),
         Zoi.map(
           %{
@@ -1473,7 +1473,7 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                     "kind" => Zoi.enum(["direct", "group", "channel", "thread", "unknown"]) |> Zoi.optional(),
                     "topic" => Zoi.string() |> Zoi.optional()
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 ),
                 Zoi.map(
                   %{
@@ -1485,14 +1485,14 @@ defmodule Jido.Chat.Signal.OperationCompleted do
                           "binding_id" => Zoi.string() |> Zoi.min(1),
                           "kind" => Zoi.enum(["file", "media", "stream", "card", "modal", "result"])
                         },
-                        strict: true
+                        unrecognized_keys: :error
                       )
                   },
-                  strict: true
+                  unrecognized_keys: :error
                 )
               ])
           },
-          strict: true
+          unrecognized_keys: :error
         )
       ])
 end

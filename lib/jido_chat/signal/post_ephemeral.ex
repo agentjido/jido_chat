@@ -23,6 +23,6 @@ defmodule Jido.Chat.Signal.PostEphemeral do
           "format" => Zoi.enum(["plain", "markdown", "html"]) |> Zoi.optional(),
           "fallback_to_dm" => Zoi.boolean() |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

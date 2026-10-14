@@ -59,6 +59,6 @@ defmodule Jido.Chat.Signal.ActionReceived do
             )
             |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end

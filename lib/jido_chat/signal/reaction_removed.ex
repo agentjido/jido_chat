@@ -31,6 +31,6 @@ defmodule Jido.Chat.Signal.ReactionRemoved do
             ])
             |> Zoi.optional()
         },
-        strict: true
+        unrecognized_keys: :error
       )
 end
