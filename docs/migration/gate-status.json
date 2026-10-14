@@ -1568,8 +1568,7 @@
         "G8"
       ],
       "remaining": [
-        "Open and attach the core PR.",
-        "Check CI on all ten final documentation/source heads.",
+        "Check current-head CI for all ten open PRs, including the failed core automated review job.",
         "Save the final PR/evidence index."
       ]
     }

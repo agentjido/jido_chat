@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-14T11:34:03.379066+00:00",
+  "updated_at": "2026-10-14T12:50:51.714985+00:00",
   "goal_state": "incomplete",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
-  "proof_scope": "C01-C13 and current local source checks pass. C14 and G7 fail on the audit and Mattermost package build. PR delivery and CI remain pending B6.",
+  "proof_scope": "All C01-C14, package checks, coverage floors and both runtime profiles pass. The exact Cowlib/Gun exception is accepted. All ten PRs are open. Current-head CI is the remaining B6 work.",
   "commits": [
     {
       "package": "jido_chat",
@@ -2007,7 +2007,7 @@
     "B5": "evidence/checkpoint-b5/checkpoint-report.json"
   },
   "open_work": [
-    "Open the core PR, finish current-head CI for all ten PRs, and save the final delivery index."
+    "Finish current-head CI for all ten PRs and save the final delivery index."
   ],
   "coverage_note": "B5 exact inclusive coverage: Messaging 90.05059021922429%; Mattermost 91.56414762741652%; WhatsApp 80.83333333333333%. All existing floors pass.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
@@ -2027,7 +2027,7 @@
     "check": "evidence/checkpoint-b5/g7-messaging-suite-ai.json",
     "scope": "Complete all-nine-adapter profile; 521 adapter fixtures and 244 harness tests also pass."
   },
-  "checkpoint_state": "B0-B4 complete; B5 checks finished; G7 failed",
+  "checkpoint_state": "G7 pass; G8 implementation ready with named publication blockers; G9 running",
   "execution_state": "running_G7_after_user_scope_change",
   "evidence_corrections": [
     {

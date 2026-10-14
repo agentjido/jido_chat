@@ -1,7 +1,7 @@
 ---
 title: Jido Chat and Messaging — Public Signal Migration
 date: 2026-10-12
-status: B5-checks-finished; G0-G6-pass; G7-fail; G8-G9-pending; stopped-after-B5
+status: G0-G7-pass; G8-implementation-ready; G9-current-head-CI-running
 scope: implementation and reviewable PRs; release execution excluded
 issues:
   - https://github.com/agentjido/jido_chat/issues/57

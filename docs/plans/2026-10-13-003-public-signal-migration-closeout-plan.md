@@ -1,7 +1,7 @@
 ---
 title: Public Signal Migration — Remaining Work and Completion Plan
 date: 2026-10-13
-status: B5-checks-finished; G0-G6-pass; G7-fail; G8-G9-pending; stopped-after-B5
+status: G0-G7-pass; G8-implementation-ready; G9-current-head-CI-running
 primary_plan: 2026-10-12-002-public-signal-boundary-plan.md
 scope: same implementation and PR scope as the primary plan
 ---
