@@ -1,0 +1,55 @@
+Ignored advisories:
+  gun 2.7.0 - GHSA-w4f7-4cxr-rv3c (MEDIUM)
+    aka: CVE-2026-43966, EEF-CVE-2026-43966
+    cowboy and gun affected by an HTTP Request/Response Splitting vulnerability
+    https://osv.dev/vulnerability/GHSA-w4f7-4cxr-rv3c
+
+  cowlib 2.21.0 - EEF-CVE-2026-43966 (MEDIUM)
+    aka: CVE-2026-43966, GHSA-w4f7-4cxr-rv3c
+    HTTP Response Splitting via Non-VCHAR Bytes in cow_http_struct_hd:escape_string/2
+    https://osv.dev/vulnerability/EEF-CVE-2026-43966
+
+[33mignore_advisories entry "CVE-2026-43971" (set in mix.exs) does not match any advisory for the locked dependencies and can be removed[0m
+[33mignore_advisories entry "CVE-2026-43969" (set in mix.exs) does not match any advisory for the locked dependencies and can be removed[0m
+Building jido_chat_discord 1.1.0
+  Dependencies:
+    nostrum ~> 0.10 (app: nostrum)
+    req ~> 0.6 (app: req)
+  App: jido_chat_discord
+  Name: jido_chat_discord
+  Files:
+    lib
+    lib/jido
+    lib/jido/chat
+    lib/jido/chat/discord.ex
+    lib/jido/chat/discord
+    lib/jido/chat/discord/adapter.ex
+    lib/jido/chat/discord/gateway_worker.ex
+    lib/jido/chat/discord/typing_options.ex
+    lib/jido/chat/discord/transport
+    lib/jido/chat/discord/transport/nostrum_client.ex
+    lib/jido/chat/discord/delete_options.ex
+    lib/jido/chat/discord/edit_options.ex
+    lib/jido/chat/discord/send_options.ex
+    lib/jido/chat/discord/transport.ex
+    lib/jido/chat/discord/reaction_options.ex
+    lib/jido/chat/discord/metadata_options.ex
+    lib/jido/chat/discord/nostrum_gateway_buffer.ex
+    lib/jido/chat/discord/fetch_options.ex
+    lib/jido/chat/discord/nostrum_gateway_listener.ex
+    mix.exs
+    README.md
+    LICENSE
+    usage-rules.md
+  Version: 1.1.0
+  Build tools: mix
+  Description: Discord adapter package for Jido.Chat
+  Licenses: Apache-2.0
+  Links:
+    Discord: https://jido.run/discord
+    Documentation: https://hexdocs.pm/jido_chat_discord
+    GitHub: https://github.com/agentjido/jido_chat_discord
+    Website: https://jido.run
+  Elixir: ~> 1.18
+** (Mix) Stopping package build due to errors.
+Dependencies excluded from the package (only Hex packages can be dependencies): jido_chat

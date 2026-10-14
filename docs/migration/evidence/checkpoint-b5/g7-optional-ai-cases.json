@@ -1,0 +1,32 @@
+{
+  "cases": [
+    {
+      "line": 17,
+      "module": "Jido.Messaging.OptionalJidoAIIntegrationTest",
+      "name": "test loads the optional agent and action modules",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/optional/jido_ai_integration.exs",
+      "state": "pass"
+    },
+    {
+      "line": 26,
+      "module": "Jido.Messaging.OptionalJidoAIIntegrationTest",
+      "name": "test the v3 profile declares the model, tools, result, and bounded execution",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/optional/jido_ai_integration.exs",
+      "state": "pass"
+    },
+    {
+      "line": 39,
+      "module": "Jido.Messaging.OptionalJidoAIIntegrationTest",
+      "name": "test exposes the example through the core AgentRunner handler contract",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/optional/jido_ai_integration.exs",
+      "state": "pass"
+    },
+    {
+      "line": 47,
+      "module": "Jido.Messaging.OptionalJidoAIIntegrationTest",
+      "name": "test builds a complete agent demo child specification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/optional/jido_ai_integration.exs",
+      "state": "pass"
+    }
+  ]
+}

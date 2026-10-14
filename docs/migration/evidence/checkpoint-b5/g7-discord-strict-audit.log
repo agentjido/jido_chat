@@ -1,0 +1,13 @@
+Ignored advisories:
+  cowlib 2.21.0 - EEF-CVE-2026-43966 (MEDIUM)
+    aka: CVE-2026-43966, GHSA-w4f7-4cxr-rv3c
+    HTTP Response Splitting via Non-VCHAR Bytes in cow_http_struct_hd:escape_string/2
+    https://osv.dev/vulnerability/EEF-CVE-2026-43966
+
+  gun 2.7.0 - GHSA-w4f7-4cxr-rv3c (MEDIUM)
+    aka: CVE-2026-43966, EEF-CVE-2026-43966
+    cowboy and gun affected by an HTTP Request/Response Splitting vulnerability
+    https://osv.dev/vulnerability/GHSA-w4f7-4cxr-rv3c
+
+[33mignore_advisories entry "CVE-2026-43971" (set in mix.exs) does not match any advisory for the locked dependencies and can be removed[0m
+[33mignore_advisories entry "CVE-2026-43969" (set in mix.exs) does not match any advisory for the locked dependencies and can be removed[0m

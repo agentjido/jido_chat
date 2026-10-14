@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-14T00:53:35.747394+00:00",
+  "updated_at": "2026-10-14T02:11:13.778512+00:00",
   "goal_state": "incomplete",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
-  "proof_scope": "Checks use the combined worktrees and exact source hashes. G6 validates adapter-local contracts. G7 whole-group conformance and final CI remain pending.",
+  "proof_scope": "C01-C13 and current local source checks pass. C14 and G7 fail on the audit and Mattermost package build. PR delivery and CI remain pending B6.",
   "commits": [
     {
       "package": "jido_chat",
@@ -1880,6 +1880,67 @@
         "evidence/checkpoint-b4/checkpoint-report.json"
       ],
       "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "f8fea7317196201f068127e0e97eb4d6dccbb796",
+      "subject": "build(chat): declare the production Signal v3 requirement",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_chat-suite.json",
+        "evidence/checkpoint-b5/g7-jido_chat-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "022a94667f3988589b744eafc2b37de6615f15b4",
+      "subject": "build(messaging): declare the production v3 package requirements",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_messaging-suite.json",
+        "evidence/checkpoint-b5/g7-jido_messaging-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_chat_mattermost",
+      "sha": "e2d16e890568acc7c02b5ab8bcab65540399df1b",
+      "subject": "build(mattermost): update Req and remove unused dependencies",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_chat_mattermost-suite.json",
+        "evidence/checkpoint-b5/g7-jido_chat_mattermost-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_chat_whatsapp",
+      "sha": "5b0a531d1a34e80ea458368156567f3a1df898d6",
+      "subject": "build(whatsapp): remove the production dependency override",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_chat_whatsapp-suite.json",
+        "evidence/checkpoint-b5/g7-jido_chat_whatsapp-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_chat_discord",
+      "sha": "ed9d2fef341f933b1bdab1482d1beacf947f8ee4",
+      "subject": "build(discord): require the planned Chat 2.0 package",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_chat_discord-suite.json",
+        "evidence/checkpoint-b5/g7-jido_chat_discord-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "29ccbc0f75745af265e34f9dc58fd19501bc29d6",
+      "subject": "feat(conformance): report C01-C14 from native fixture and source proof",
+      "checks": [
+        "evidence/checkpoint-b5/g7-harness-core.json",
+        "evidence/checkpoint-b5/g7-harness-ai.json",
+        "evidence/checkpoint-b5/conformance-report.json"
+      ],
+      "open_work": "C14 and G7 fail. B6 has not started."
     }
   ],
   "passed_checks": {
@@ -1892,18 +1953,26 @@
     "focused_scope_queue_storage_tests": 63,
     "native_catalog_definitions": 110,
     "quality": [
-      "core",
-      "messaging",
-      "signal_adapter"
+      "jido_chat",
+      "jido_messaging",
+      "jido_chat_telegram",
+      "jido_chat_slack",
+      "jido_chat_discord",
+      "jido_chat_github",
+      "jido_chat_signal",
+      "jido_chat_mattermost",
+      "jido_chat_teams",
+      "jido_chat_whatsapp",
+      "jido_chat_x"
     ],
     "current_library_scan_files": 471,
     "current_library_scan_findings": 0,
-    "runtime_harness_tests_per_profile": 241,
+    "runtime_harness_tests_per_profile": 244,
     "compiled_core_messaging_exports": 4071,
     "compiled_generated_instance_exports": 240,
     "public_runtime_request_admission_rows": 36,
-    "runtime_dependency_count_without_ai": 39,
-    "runtime_dependency_count_with_ai": 51,
+    "runtime_dependency_count_without_ai": 72,
+    "runtime_dependency_count_with_ai": 83,
     "telegram_membership_mapper_tests": 20,
     "telegram_membership_runtime_tests": 2,
     "telegram_protocol_normalizer_membership_tests": 44,
@@ -1930,13 +1999,20 @@
     "real_slack_runtime_execution_tests": 4,
     "provider_media_real_runtime_tests": 2,
     "compiled_api_scope": "Consumer runtime API audit: 4071 exports, 240 generated instance exports; no mapping failures.",
-    "B4": "evidence/checkpoint-b4/checkpoint-report.json"
+    "B4": "evidence/checkpoint-b4/checkpoint-report.json",
+    "compiled_api_exports": 4818,
+    "adapter_fixtures_per_profile": 521,
+    "operation_rows": 234,
+    "event_rows": 153,
+    "B5": "evidence/checkpoint-b5/checkpoint-report.json"
   },
   "open_work": [
-    "B5: G7 C01-C14 whole-group conformance and current candidate runtime profiles.",
-    "B6: G8 package readiness and G9 PR delivery/current-head CI."
+    "Pass the full graph and Discord security audits without an accepted ignore or exception.",
+    "Pass the Mattermost package build and file-list check. No license is specified; Fresh is a Git dependency.",
+    "Refresh C14 and the full G7 report after the failed required checks pass.",
+    "B6: G8 readiness and G9 PR delivery/current-head CI. Not started."
   ],
-  "coverage_note": "Messaging inclusive coverage passed at 90.05059 percent in B2. Its source and tests are unchanged in B4. Mattermost passed 91.5 percent against 90 percent; WhatsApp passed 80.8 percent against 80 percent.",
+  "coverage_note": "B5 exact inclusive coverage: Messaging 90.05059021922429%; Mattermost 91.56414762741652%; WhatsApp 80.83333333333333%. All existing floors pass.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1951,11 +2027,11 @@
   "current_ai_profile": {
     "state": "pass",
     "passed": 2006,
-    "check": "evidence/checkpoint-b0-b2/checkpoint-runtime-ai-tests.json",
-    "scope": "B2 runtime proof; G7 must refresh the complete candidate."
+    "check": "evidence/checkpoint-b5/g7-messaging-suite-ai.json",
+    "scope": "Complete all-nine-adapter profile; 521 adapter fixtures and 244 harness tests also pass."
   },
-  "checkpoint_state": "B0-B4 complete",
-  "execution_state": "stopped_after_B4",
+  "checkpoint_state": "B0-B4 complete; B5 checks finished; G7 failed",
+  "execution_state": "stopped_after_B5",
   "evidence_corrections": [
     {
       "commit": "416ae44",
@@ -1966,5 +2042,6 @@
   ],
   "B3_report": "evidence/checkpoint-b3/checkpoint-report.json",
   "B4_pending_record": "evidence/checkpoint-b4/pending-report.json",
-  "B4_report": "evidence/checkpoint-b4/checkpoint-report.json"
+  "B4_report": "evidence/checkpoint-b4/checkpoint-report.json",
+  "B5_report": "evidence/checkpoint-b5/checkpoint-report.json"
 }

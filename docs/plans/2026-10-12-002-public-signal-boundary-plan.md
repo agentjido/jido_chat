@@ -1,7 +1,7 @@
 ---
 title: Jido Chat and Messaging — Public Signal Migration
 date: 2026-10-12
-status: B4-complete; G0-G6-pass; G7-G9-pending; stopped-after-B4
+status: B5-checks-finished; G0-G6-pass; G7-fail; G8-G9-pending; stopped-after-B5
 scope: implementation and reviewable PRs; release execution excluded
 issues:
   - https://github.com/agentjido/jido_chat/issues/57
@@ -611,3 +611,14 @@ WhatsApp coverage is 80.8 percent. All 382 G6 fixtures and 129 refreshed B3 fixt
 pass. All 297 original literal case names remain. Code and evidence are saved in
 local commits. Execution stopped after B4. B5 and B6 did not start. G7–G9 remain
 pending. See [CHECKPOINT_B4.md](../migration/CHECKPOINT_B4.md).
+
+## B5 result — October 13
+
+C01–C13 pass. C14 fails because the Mattermost package build fails. All required
+checks have results. The full graph and Discord audits fail on Cowlib and Gun.
+Mattermost has no license, as the user specified, and Fresh remains a Git
+dependency. No exception was accepted. All package suites, mix quality checks
+and coverage floors pass. The local index has all 11 candidates; PR delivery
+remains in B6 by user selection. Tested changes are saved in local commits.
+Execution stopped after B5. G7 has not passed. B6 did not start.
+See [the B5 report](../migration/CHECKPOINT_B5.md).

@@ -1503,18 +1503,32 @@
     },
     {
       "id": "G7",
-      "state": "pending",
-      "evidence": [],
+      "state": "fail",
+      "evidence": [
+        {
+          "path": "evidence/checkpoint-b5/checkpoint-report.json",
+          "sha256": "2148b10db14b4c2c230a8f71884468182d33ddd2fae33cf605474e5d105ee077"
+        },
+        {
+          "path": "evidence/checkpoint-b5/conformance-report.json",
+          "sha256": "946e31521705ec54f0a43ad6eb901658ee67589b5ca8981f9ed46d50dc74d556"
+        }
+      ],
       "depends_on": [
         "G6"
       ],
       "remaining": [
-        "Implement and pass all-nine Conformance.run C01-C14 against candidate sources.",
-        "Pass all applicable package tests, quality/coverage checks, runtime graphs and full boundary scan."
+        "Pass the full graph and Discord security audits without an accepted ignore or exception.",
+        "Pass the Mattermost package build and file-list check. No license is specified; Fresh is a Git dependency.",
+        "Refresh C14 and the full G7 report after the failed required checks pass."
       ],
       "completed": [
-        "Messaging inclusive coverage meets the 90 percent floor at the B0-B2 candidate. Refresh affected evidence if source changes."
-      ]
+        "C01-C13 pass against the current runtime source and named fixture results.",
+        "All 11 package suites and mix quality checks pass. All three coverage floors pass.",
+        "Both complete profiles, graphs, API/source checks, example and local candidate index pass.",
+        "Ten package archives pass file-list and constraint checks."
+      ],
+      "work_complete": false
     },
     {
       "id": "G8",
@@ -1557,17 +1571,19 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-13T23:11:19.176032+00:00",
+  "updated_at": "2026-10-14T02:11:13.778512+00:00",
   "completion_batches": {
     "plan": "../plans/2026-10-13-003-public-signal-migration-closeout-plan.md",
-    "authorized_through": "B4",
-    "stop_after": "Remaining seven adapters and G6",
+    "authorized_through": "B5",
+    "stop_after": "C01-C14 conformance and G7",
     "B0": "pass",
     "B1": "pass",
     "B2": "pass",
     "stop_reached": true,
     "B3": "pass",
     "B4": "pass",
-    "B5_B6": "not started"
+    "B5_B6": "B5 checks finished; G7 failed; B6 not started",
+    "B5": "fail",
+    "B6": "not started"
   }
 }

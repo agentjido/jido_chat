@@ -1,0 +1,51 @@
+Building jido_chat_slack 1.1.0
+  Dependencies:
+    jido_chat ~> 2.0 (app: jido_chat)
+    req ~> 0.5 (app: req)
+    websockex ~> 0.5.1 (app: websockex)
+    jason ~> 1.4 (app: jason)
+  App: jido_chat_slack
+  Name: jido_chat_slack
+  Files:
+    lib
+    lib/jido
+    lib/jido/chat
+    lib/jido/chat/slack.ex
+    lib/jido/chat/slack
+    lib/jido/chat/slack/adapter.ex
+    lib/jido/chat/slack/renderer.ex
+    lib/jido/chat/slack/transport
+    lib/jido/chat/slack/transport/req_client.ex
+    lib/jido/chat/slack/modal_options.ex
+    lib/jido/chat/slack/delete_options.ex
+    lib/jido/chat/slack/edit_options.ex
+    lib/jido/chat/slack/send_options.ex
+    lib/jido/chat/slack/transport.ex
+    lib/jido/chat/slack/reaction_options.ex
+    lib/jido/chat/slack/socket_mode_worker.ex
+    lib/jido/chat/slack/normalizer.ex
+    lib/jido/chat/slack/interaction_response.ex
+    lib/jido/chat/slack/socket_mode
+    lib/jido/chat/slack/socket_mode/client.ex
+    lib/jido/chat/slack/socket_mode/req_client.ex
+    lib/jido/chat/slack/socket_mode/socket_client.ex
+    lib/jido/chat/slack/socket_mode/web_sockex_client.ex
+    lib/jido/chat/slack/metadata_options.ex
+    lib/jido/chat/slack/ephemeral_options.ex
+    lib/jido/chat/slack/fetch_options.ex
+    mix.exs
+    README.md
+    LICENSE
+    usage-rules.md
+  Version: 1.1.0
+  Build tools: mix
+  Description: Slack adapter package for Jido.Chat
+  Licenses: Apache-2.0
+  Links:
+    Discord: https://jido.run/discord
+    Documentation: https://hexdocs.pm/jido_chat_slack
+    GitHub: https://github.com/agentjido/jido_chat_slack
+    Website: https://jido.run
+  Elixir: ~> 1.18
+Package checksum: fc8657bb61d6437af0c5397b0fd1d90ac0f494a82a09d8086f374fb86bfb3a38
+Saved to jido_chat_slack-1.1.0.tar
