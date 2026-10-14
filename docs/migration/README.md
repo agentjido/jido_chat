@@ -6,7 +6,7 @@ CVE-2026-43966 for the current Cowlib/Gun versions is accepted by the user.
 
 G7 passes after the shared cold-module capability fix and CI path corrections.
 G8 implementation readiness passes with named upstream publication blockers.
-B6 is completing the ten review PRs and current-head CI.
+B6 is complete. All ten review PRs are open, attached and verified by CI. Publication remains blocked by the named upstream releases.
 See [the migration guide](MIGRATION_GUIDE.md), [scope decisions](scope-exclusions.json),
 [the audit exception](audit-exceptions.json), and [the tracker](gate-status.json).
 

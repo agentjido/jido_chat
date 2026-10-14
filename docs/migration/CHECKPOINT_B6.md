@@ -1,7 +1,7 @@
 # B6 delivery — October 14, 2026
 
 G7 passes. G8 implementation readiness passes with publish_ready false.
-G9 is running. All ten PRs are open and attached. Final current-head CI and the delivery index remain.
+G9 passes. All ten PRs are open and attached. CI passes on all verified source commits. The final delivery index records each PR, commit, CI result and evidence hash.
 No merge, publication or live provider operation is included.
 
 The migration guide, public READMEs, version proposals, production metadata,
@@ -22,4 +22,8 @@ See evidence/checkpoint-b5-scope-update/pr-delivery.json and release-readiness.j
 The core automated review failed on GitHub's 300-file diff limit and the shell
 argument size limit. The local review packet now uses the complete Git file
 inventory and a bounded local patch. Its 350-document fixture passes.
-Current-head CI must confirm this workflow correction.
+The corrected review packet and artifact upload pass in CI.
+
+B6 is complete. The final status record is saved at the workspace root in
+B6_DELIVERY_INDEX.json and B6_RESULTS.md. It records the final PR heads after
+this status-only commit. The runtime snapshots remain equal to G7 proof.

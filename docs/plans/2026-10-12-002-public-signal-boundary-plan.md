@@ -1,7 +1,7 @@
 ---
 title: Jido Chat and Messaging — Public Signal Migration
 date: 2026-10-12
-status: G0-G7-pass; G8-implementation-ready; G9-current-head-CI-running
+status: complete; G0-G9-implementation-pass; publication-blocked
 scope: implementation and reviewable PRs; release execution excluded
 issues:
   - https://github.com/agentjido/jido_chat/issues/57
@@ -635,3 +635,10 @@ G7 passes for eight adapters and ten packages with the exact accepted audit
 exception. G8 implementation readiness passes with named upstream release
 blockers. B6 is completing the ten PRs and current-head CI.
 See CHECKPOINT_B5_SCOPE_UPDATE.md and CHECKPOINT_B6.md in docs/migration.
+
+## B6 completed — October 14
+
+All ten review PRs are open and attached. G7 and G9 pass. G8 implementation
+readiness passes with named upstream publication blockers. Required suites,
+coverage, package builds, both profiles and CI pass. Stop after B6.
+See docs/migration/CHECKPOINT_B6.md and the workspace delivery index.

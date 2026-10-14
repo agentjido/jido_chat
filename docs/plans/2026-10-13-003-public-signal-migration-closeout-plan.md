@@ -1,7 +1,7 @@
 ---
 title: Public Signal Migration — Remaining Work and Completion Plan
 date: 2026-10-13
-status: G0-G7-pass; G8-implementation-ready; G9-current-head-CI-running
+status: complete; G0-G9-implementation-pass; publication-blocked
 primary_plan: 2026-10-12-002-public-signal-boundary-plan.md
 scope: same implementation and PR scope as the primary plan
 ---
@@ -320,3 +320,10 @@ G7 passes for eight adapters and ten packages with the exact accepted audit
 exception. G8 implementation readiness passes with named upstream release
 blockers. B6 is completing the ten PRs and current-head CI.
 See CHECKPOINT_B5_SCOPE_UPDATE.md and CHECKPOINT_B6.md in docs/migration.
+
+## B6 completed — October 14
+
+All ten review PRs are open and attached. G7 and G9 pass. G8 implementation
+readiness passes with named upstream publication blockers. Required suites,
+coverage, package builds, both profiles and CI pass. Stop after B6.
+See docs/migration/CHECKPOINT_B6.md and the workspace delivery index.

@@ -1,5 +1,5 @@
 {
-  "current_gate": "G9",
+  "current_gate": "complete",
   "gates": [
     {
       "id": "G0",
@@ -1562,14 +1562,18 @@
     },
     {
       "id": "G9",
-      "state": "running",
-      "evidence": [],
+      "state": "pass",
+      "evidence": [
+        "evidence/checkpoint-b5-scope-update/pr-delivery.json",
+        "evidence/checkpoint-b5-scope-update/final-source-verification.json"
+      ],
       "depends_on": [
         "G8"
       ],
-      "remaining": [
-        "Check current-head CI for all ten open PRs, including the failed core automated review job.",
-        "Save the final PR/evidence index."
+      "remaining": [],
+      "work_complete": true,
+      "completed": [
+        "All ten PRs are open and attached. All current source commits pass CI. Final runtime source snapshots match G7. No actionable local review defect remains."
       ]
     }
   ],
@@ -1589,7 +1593,7 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-14T12:48:06.070443+00:00",
+  "updated_at": "2026-10-14T13:01:20.070582+00:00",
   "completion_batches": {
     "plan": "../plans/2026-10-13-003-public-signal-migration-closeout-plan.md",
     "authorized_through": "B6",
@@ -1597,12 +1601,12 @@
     "B0": "pass",
     "B1": "pass",
     "B2": "pass",
-    "stop_reached": false,
+    "stop_reached": true,
     "B3": "pass",
     "B4": "pass",
-    "B5_B6": "G7 pass; G8 implementation readiness pass with named publication blockers; G9 running",
+    "B5_B6": "G7 pass; G8 implementation-ready with named publication blockers; G9 pass",
     "B5": "pass",
-    "B6": "running",
+    "B6": "pass",
     "latest_instruction": "Approve ten pushes and review PRs; exclude Mattermost; accept the exact Cowlib/Gun audit findings."
   }
 }
