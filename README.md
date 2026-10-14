@@ -56,6 +56,12 @@ Adapters can expose native rich posting through `post_message/3`, which receives
 typed `Jido.Chat.PostPayload` including attachments. `send_file/3` remains the low-level
 upload hook used by the core fallback path for single-upload posts.
 
+Interactive onboarding uses optional `authenticate/3`, discovered through the
+existing `:authenticate` capability and invoked by `Jido.Chat.Adapter.authenticate/4`.
+Legacy adapters remain unsupported without new required callbacks. See the
+[authentication contract](guides/authentication.md) for requests, phases and host
+persistence responsibilities.
+
 ## Adapter Author Checklist
 
 1. Implement the required `Jido.Chat.Adapter` callbacks for your transport.
