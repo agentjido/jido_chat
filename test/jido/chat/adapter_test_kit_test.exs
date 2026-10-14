@@ -103,6 +103,58 @@ defmodule Jido.Chat.AdapterTestKitTest do
 
     assert threads.data["result"]["threads"] != []
   end
+
+  for {_type, {_definition, operation, _fields, _shape, _schema}} <- Jido.Chat.Operations.Definitions.all() do
+    test "#{operation} fixture can execute through the mock adapter with typed results" do
+      operation = unquote(operation)
+      transport = start_supervised!(MockTransport)
+      assert {:ok, binding} = Jido.Chat.bind(MockAdapter, id: "fixtures", transport: transport)
+      request = Factories.operation_request(binding, operation)
+      result = assert_operation_result(Jido.Chat.execute(binding, request))
+      assert result.data["request_id"] == "fixture:" <> Atom.to_string(operation)
+      assert result.data["operation"] == Atom.to_string(operation)
+      {:ok, capabilities} = Jido.Chat.Operations.Capabilities.read(binding.adapter)
+
+      case capabilities[operation] do
+        :native ->
+          assert result.type == Jido.Chat.Signal.OperationCompleted.type()
+          assert [%{operation: ^operation}] = MockTransport.calls(transport)
+
+        :fallback ->
+          assert result.type == Jido.Chat.Signal.OperationCompleted.type()
+          calls = Enum.map(MockTransport.calls(transport), & &1.operation)
+          expected_calls = expected_fallback_calls(operation)
+          assert calls == expected_calls
+
+        :unsupported ->
+          assert result.type == Jido.Chat.Signal.OperationFailed.type()
+          assert result.data["code"] == "unsupported"
+          assert MockTransport.calls(transport) == []
+      end
+    end
+  end
+
+  test "transport stubs receive payloads, replace queues, filter calls and reset state" do
+    transport = start_supervised!({MockTransport, responses: %{one: fn payload -> {:ok, payload.text} end}})
+    assert {:ok, "first"} = MockTransport.request(transport, :one, %{text: "first"})
+    assert :ok = MockTransport.stub(transport, :one, [fn -> :second end, :third])
+    assert :second = MockTransport.request(transport, :one, %{})
+    assert :third = MockTransport.request(transport, :one, %{})
+    assert :default = MockTransport.request(transport, :two, %{}, fn _ -> :default end)
+    assert Enum.map(MockTransport.calls(transport, :one), & &1.sequence) == [1, 2, 3]
+    assert [%{operation: :two, sequence: 4}] = MockTransport.calls(transport, :two)
+    assert :ok = MockTransport.reset(transport)
+    assert MockTransport.calls(transport) == []
+    assert {:error, :unstubbed} = MockTransport.request(transport, :one, %{})
+    assert [%{sequence: 1}] = MockTransport.calls(transport)
+
+    assert Factories.request(SendMessage, %{"request_id" => "one", "room_id" => "room", "text" => "hello"}).type ==
+             SendMessage.type()
+  end
+
+  defp expected_fallback_calls(:stream), do: [:send_message, :edit_message, :edit_message]
+  defp expected_fallback_calls(:post_channel_message), do: [:send_message]
+  defp expected_fallback_calls(_operation), do: []
 end
 
 defmodule Jido.Chat.AdapterTestKitGeneratedConformanceTest do

@@ -84,22 +84,28 @@ defmodule Jido.Chat.Operations.Invocation do
   defp content(_binding, %{"kind" => "markdown", "text" => text}),
     do: {:ok, PostPayload.new(%{kind: :markdown, markdown: text})}
 
-  defp content(binding, %{"kind" => "card", "resource_ref" => ref}) do
+  defp content(binding, %{"kind" => "card", "resource_ref" => ref} = content) do
     with {:ok, %Card{} = card} <- resolve(binding, ref, ~w(card)) do
-      {:ok, PostPayload.new(%{kind: :card, card: card})}
+      {:ok, PostPayload.new(%{kind: :card, card: card, fallback_text: content["fallback_text"]})}
     else
       {:error, _} = error -> error
       _ -> Policy.error(:invalid_resource)
     end
   end
 
-  defp content(binding, %{"kind" => "stream", "resource_ref" => ref}) do
-    with {:ok, stream} <- resolve(binding, ref, ~w(stream)), do: {:ok, PostPayload.stream(stream, [])}
+  defp content(binding, %{"kind" => "stream", "resource_ref" => ref} = content) do
+    with {:ok, stream} <- resolve(binding, ref, ~w(stream)),
+         do: {:ok, PostPayload.stream(stream, fallback_text: content["fallback_text"])}
   end
 
   defp content(binding, %{"kind" => "media", "resource_ref" => ref} = content) do
     with {:ok, %FileUpload{} = file} <- resolve(binding, ref, ~w(file media)) do
-      {:ok, PostPayload.new(%{files: [file], text: content["caption"]})}
+      {:ok,
+       PostPayload.new(%{
+         files: [file],
+         text: content["caption"] || content["fallback_text"],
+         fallback_text: content["fallback_text"]
+       })}
     else
       {:error, _} = error -> error
       _ -> Policy.error(:invalid_resource)
@@ -129,7 +135,10 @@ defmodule Jido.Chat.Operations.Invocation do
     if is_integer(timeout) and timeout > 0 do
       parent = self()
       tag = make_ref()
-      {pid, monitor} = spawn_monitor(fn -> send(parent, {tag, load_options(adapter, request, opts)}) end)
+      deadline = System.monotonic_time(:millisecond) + timeout
+
+      {pid, monitor} =
+        spawn_monitor(fn -> guard_options(parent, tag, adapter, request, opts, deadline) end)
 
       receive do
         {^tag, result} ->
@@ -138,15 +147,6 @@ defmodule Jido.Chat.Operations.Invocation do
 
         {:DOWN, ^monitor, :process, ^pid, _reason} ->
           {:error, {:task_exit, :provider_failure}}
-      after
-        timeout ->
-          Process.exit(pid, :kill)
-
-          receive do
-            {:DOWN, ^monitor, :process, ^pid, _reason} -> :ok
-          end
-
-          {:error, :timeout}
       end
     else
       Policy.error(:invalid_request, :timeout_ms)
@@ -157,6 +157,37 @@ defmodule Jido.Chat.Operations.Invocation do
     if function_exported?(adapter, operation, length(args)),
       do: apply(adapter, operation, args),
       else: {:error, :unsupported}
+  end
+
+  defp guard_options(parent, tag, adapter, request, opts, deadline) do
+    Process.flag(:trap_exit, true)
+    owner_monitor = Process.monitor(parent)
+    guardian = self()
+    worker = spawn_link(fn -> send(guardian, {tag, load_options(adapter, request, opts)}) end)
+    timeout = max(deadline - System.monotonic_time(:millisecond), 0)
+
+    receive do
+      {^tag, result} ->
+        send(parent, {tag, result})
+
+      {:EXIT, ^worker, _reason} ->
+        send(parent, {tag, {:error, {:task_exit, :provider_failure}}})
+
+      {:DOWN, ^owner_monitor, :process, ^parent, _reason} ->
+        stop_options(worker)
+    after
+      timeout ->
+        stop_options(worker)
+        send(parent, {tag, {:error, :timeout}})
+    end
+  end
+
+  defp stop_options(worker) do
+    Process.exit(worker, :kill)
+
+    receive do
+      {:EXIT, ^worker, _reason} -> :ok
+    end
   end
 
   defp load_options(adapter, request, opts) do
@@ -190,8 +221,9 @@ defmodule Jido.Chat.Operations.Invocation do
 
   defp fallback(binding, :post_ephemeral, [_room, user, text], opts) do
     if Keyword.get(opts, :fallback_to_dm, false) do
-      with {:ok, dm} <- native(binding.adapter, :open_dm, [user, opts]) do
-        native(binding.adapter, :send_message, [dm, text, Keyword.delete(opts, :fallback_to_dm)])
+      with {:ok, dm} <- native(binding.adapter, :open_dm, [user, opts]),
+           {:ok, room} <- dm_room(dm) do
+        native(binding.adapter, :send_message, [room, text, Keyword.delete(opts, :fallback_to_dm)])
       end
     else
       {:error, :unsupported}
@@ -210,6 +242,19 @@ defmodule Jido.Chat.Operations.Invocation do
         nil -> {:error, :provider_failure}
         text -> native(binding.adapter, :send_message, [room, text, opts])
       end
+    end
+  end
+
+  defp dm_room(dm) do
+    {_, _, _, shape, schema} =
+      Jido.Chat.Operations.Definitions.lookup(Jido.Chat.Signal.OpenDm.type())
+
+    with {:ok, result} <- Jido.Chat.Operations.Result.project(shape, dm, %{}),
+         {:ok, result} <- Zoi.parse(schema, result),
+         :ok <- Policy.validate_json(result, []) do
+      {:ok, result["id"]}
+    else
+      _ -> {:error, :invalid_provider_result}
     end
   end
 

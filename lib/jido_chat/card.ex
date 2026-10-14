@@ -382,13 +382,13 @@ defmodule Jido.Chat.Card do
         attrs
 
       %Markdown{} = markdown ->
-        Map.put(attrs, :markdown, markdown)
+        attrs |> Map.delete("markdown") |> Map.put(:markdown, markdown)
 
       %{} = markdown ->
-        Map.put(attrs, :markdown, Markdown.new(markdown))
+        attrs |> Map.delete("markdown") |> Map.put(:markdown, Markdown.new(markdown))
 
       value when is_binary(value) ->
-        Map.put(attrs, :markdown, Markdown.parse(value))
+        attrs |> Map.delete("markdown") |> Map.put(:markdown, Markdown.parse(value))
     end
   end
 

@@ -116,9 +116,8 @@ defmodule Jido.Chat.Media do
 
   defp normalize_map(attrs) do
     metadata =
-      attrs[:metadata] || attrs["metadata"] ||
-        %{}
-        |> merge_extra_metadata(attrs)
+      (attrs[:metadata] || attrs["metadata"] || %{})
+      |> merge_extra_metadata(attrs)
 
     media_type =
       attrs[:media_type] || attrs["media_type"] || attrs[:mime_type] || attrs["mime_type"]
@@ -200,6 +199,7 @@ defmodule Jido.Chat.Media do
 
   defp basename_or_nil(path) do
     case Path.basename(path) do
+      "" -> nil
       "." -> nil
       "/" -> nil
       value -> value

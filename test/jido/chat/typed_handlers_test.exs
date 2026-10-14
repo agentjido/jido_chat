@@ -137,6 +137,49 @@ defmodule Jido.Chat.TypedHandlersTest do
     refute_received :handled
   end
 
+  test "accepted deliveries apply facts in order and return each observation", %{binding: binding} do
+    assert {:ok, handlers} = Handlers.new([])
+
+    assert {:ok, handlers} =
+             Handlers.on(handlers, MessageReceived, fn state, signal ->
+               {:ok, state ++ [signal.data["item_id"]]}
+             end)
+
+    assert {:ok, delivery} = Delivery.new(binding, "delivery-1", [message(binding, 1), message(binding, 2)])
+    assert {:ok, next, [:ok, :ok]} = Handlers.accept(handlers, binding, delivery)
+    assert next.state == ["item-1", "item-2"]
+  end
+
+  test "invalid callback results and throws stop a delivery after the first claimed fact", %{binding: binding} do
+    for {callback, expected} <- [
+          {fn _, _ -> :invalid end, :invalid_handler_result},
+          {fn _ -> throw(:failed) end, :handler_failed}
+        ] do
+      assert {:ok, handlers} = Handlers.new()
+      assert {:ok, handlers} = Handlers.on(handlers, MessageReceived, callback)
+      assert {:ok, delivery} = Delivery.new(binding, "delivery-1", [message(binding, 1), message(binding, 2)])
+      assert {:error, %Contract{code: ^expected}, next} = Handlers.accept(handlers, binding, delivery)
+      assert MapSet.size(next.seen) == 1
+      assert {:ok, _, :ok} = Handlers.handle(next, message(binding, 1))
+    end
+  end
+
+  test "invalid handler configuration and input return contract errors" do
+    for opts <- [[dedupe_limit: 0], [observers: :invalid], :invalid] do
+      assert {:error, %Contract{code: :invalid_handler}} = Handlers.new(%{}, opts)
+    end
+
+    assert {:ok, handlers} = Handlers.new()
+    assert {:error, %Contract{code: :invalid_handler_input}} = Handlers.handle(handlers, nil)
+    assert {:error, %Contract{code: :invalid_handler}} = Handlers.on(handlers, nil, fn _ -> :ok end)
+
+    assert {:error, %Contract{code: :invalid_handler}} =
+             Handlers.on(handlers, MessageReceived, fn _ -> :ok end, :invalid)
+
+    assert {:error, %Contract{code: :invalid_handler}} =
+             Handlers.on(handlers, MessageReceived, fn _ -> :ok end, pattern: "text")
+  end
+
   test "a failed callback retains the claimed state and cannot repeat earlier work", %{binding: binding} do
     observer = self()
     assert {:ok, handlers} = Handlers.new(%{count: 0})

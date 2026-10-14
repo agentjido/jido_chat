@@ -112,7 +112,7 @@ defmodule Jido.Chat.PostPayload do
       |> normalize_kind_value()
       |> Kernel.||(infer_kind(attrs))
 
-    Map.put(attrs, :kind, kind)
+    attrs |> Map.delete("kind") |> Map.put(:kind, kind)
   end
 
   defp normalize_content(%{kind: :text} = attrs) do
@@ -136,6 +136,7 @@ defmodule Jido.Chat.PostPayload do
     formatted = attrs[:formatted] || attrs["formatted"] || text
 
     attrs
+    |> Map.delete("markdown")
     |> Map.put(:markdown, markdown)
     |> Map.put(:text, text)
     |> Map.put(:formatted, formatted)
@@ -150,6 +151,7 @@ defmodule Jido.Chat.PostPayload do
     formatted = attrs[:formatted] || attrs["formatted"] || formatted || text
 
     attrs
+    |> Map.delete("ast")
     |> Map.put(:ast, ast)
     |> Map.put(:raw, raw)
     |> Map.put(:fallback_text, fallback_text)
@@ -169,6 +171,8 @@ defmodule Jido.Chat.PostPayload do
     formatted = attrs[:formatted] || attrs["formatted"] || text
 
     attrs
+    |> Map.delete("card")
+    |> Map.delete("raw")
     |> Map.put(:card, card)
     |> Map.put(:raw, raw)
     |> Map.put(:fallback_text, fallback_text)

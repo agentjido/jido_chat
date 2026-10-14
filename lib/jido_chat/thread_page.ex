@@ -40,6 +40,6 @@ defmodule Jido.Chat.ThreadPage do
         other -> other
       end)
 
-    Map.put(attrs, :threads, normalized)
+    attrs |> Map.delete("threads") |> Map.put(:threads, normalized)
   end
 end

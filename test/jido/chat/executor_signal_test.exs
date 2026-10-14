@@ -138,17 +138,104 @@ defmodule Jido.Chat.ExecutorSignalTest do
     def load_options(_request, opts) do
       send(opts[:notify], {:options_started, self()})
 
-      receive do
-        :complete -> {:ok, %{options: [%{label: "Ada", value: "ada"}]}}
+      if opts[:mode] == :kill do
+        Process.exit(self(), :kill)
+      else
+        receive do
+          :complete -> {:ok, %{options: [%{label: "Ada", value: "ada"}]}}
+        end
       end
     end
   end
 
-  test "options callback is stopped at the captured deadline and the result is not rerun" do
-    {:ok, binding} = Jido.Chat.bind(OptionsDeadline, id: "options", notify: self(), timeout_ms: 20)
+  test "options callback stops when its caller dies without repeating the accepted request" do
+    {:ok, binding} =
+      Jido.Chat.bind(OptionsDeadline, id: "options", notify: self(), timeout_ms: 5_000)
 
     request =
-      Jido.Chat.Signal.LoadOptions.new!(%{"request_id" => "deadline", "interaction_id" => "one", "query" => "a"})
+      Jido.Chat.Signal.LoadOptions.new!(%{
+        "request_id" => "owner-death",
+        "interaction_id" => "one",
+        "query" => "a"
+      })
+
+    caller = spawn(fn -> Jido.Chat.execute(binding, request) end)
+    caller_monitor = Process.monitor(caller)
+    assert_receive {:options_started, worker}
+    worker_monitor = Process.monitor(worker)
+    on_exit(fn -> if Process.alive?(worker), do: Process.exit(worker, :kill) end)
+    Process.exit(caller, :kill)
+    assert_receive {:DOWN, ^caller_monitor, :process, ^caller, :killed}
+    assert_receive {:DOWN, ^worker_monitor, :process, ^worker, :killed}, 500
+
+    assert {:error, %Contract{code: :request_outcome_unknown}} =
+             Jido.Chat.execute(binding, request)
+
+    refute_received {:options_started, _}
+  end
+
+  test "options callback process failure does not stop its caller" do
+    {:ok, binding} = Jido.Chat.bind(OptionsDeadline, id: "options", notify: self(), mode: :kill)
+
+    request =
+      Jido.Chat.Signal.LoadOptions.new!(%{
+        "request_id" => "worker-death",
+        "interaction_id" => "one",
+        "query" => "a"
+      })
+
+    assert {:ok, result} = Jido.Chat.execute(binding, request)
+    assert result.type == Jido.Chat.Signal.OperationFailed.type()
+    assert result.data["code"] == "provider_failure"
+    assert {:ok, ^result} = Jido.Chat.execute(binding, request)
+    assert_received {:options_started, _}
+    refute_received {:options_started, _}
+  end
+
+  test "options deadline stops the worker while its caller is suspended" do
+    {:ok, binding} =
+      Jido.Chat.bind(OptionsDeadline, id: "options", notify: self(), timeout_ms: 100)
+
+    observer = self()
+
+    request =
+      Jido.Chat.Signal.LoadOptions.new!(%{
+        "request_id" => "suspended-owner",
+        "interaction_id" => "one",
+        "query" => "a"
+      })
+
+    caller =
+      spawn(fn -> send(observer, {:options_result, Jido.Chat.execute(binding, request)}) end)
+
+    assert_receive {:options_started, worker}
+    worker_monitor = Process.monitor(worker)
+    on_exit(fn -> if Process.alive?(worker), do: Process.exit(worker, :kill) end)
+    :erlang.suspend_process(caller)
+
+    try do
+      assert_receive {:DOWN, ^worker_monitor, :process, ^worker, :killed}, 500
+      assert Process.alive?(caller)
+    after
+      :erlang.resume_process(caller)
+    end
+
+    assert_receive {:options_result, {:ok, result}}
+    assert result.data["code"] == "provider_failure"
+    assert {:ok, ^result} = Jido.Chat.execute(binding, request)
+    refute_received {:options_started, _}
+  end
+
+  test "options callback is stopped at the captured deadline and the result is not rerun" do
+    {:ok, binding} =
+      Jido.Chat.bind(OptionsDeadline, id: "options", notify: self(), timeout_ms: 20)
+
+    request =
+      Jido.Chat.Signal.LoadOptions.new!(%{
+        "request_id" => "deadline",
+        "interaction_id" => "one",
+        "query" => "a"
+      })
 
     assert {:ok, result} = Jido.Chat.execute(binding, request)
     assert result.type == Jido.Chat.Signal.OperationFailed.type()
@@ -316,6 +403,194 @@ defmodule Jido.Chat.ExecutorSignalTest do
     refute_received {:callback, _, _}
   end
 
+  test "ephemeral DM fallback extracts the ID from a conversation result" do
+    results = Map.put(@results, :open_dm, %{"id" => "dm-room", "kind" => "direct"})
+    binding = test_binding(Fallback, results: results)
+    data = Map.put(operation("post_ephemeral")["fixture"], "fallback_to_dm", true)
+    request = Jido.Chat.Signal.PostEphemeral.new!(data)
+    assert {:ok, result} = Jido.Chat.execute(binding, request)
+    assert result.type == Jido.Chat.Signal.OperationCompleted.type()
+    assert_received {:callback, :open_dm, _}
+    assert_received {:callback, :send_message, ["dm-room", _, _]}
+    assert {:ok, ^result} = Jido.Chat.execute(binding, request)
+    refute_received {:callback, _, _}
+  end
+
+  test "ephemeral DM fallback rejects an invalid conversation before sending" do
+    binding = test_binding(Fallback, results: Map.put(@results, :open_dm, %{"kind" => "direct"}))
+    data = Map.put(operation("post_ephemeral")["fixture"], "fallback_to_dm", true)
+    assert {:ok, result} = Jido.Chat.execute(binding, Jido.Chat.Signal.PostEphemeral.new!(data))
+    assert result.data["code"] == "invalid_provider_result"
+    assert_received {:callback, :open_dm, _}
+    refute_received {:callback, :send_message, _}
+  end
+
+  test "typed messages retain canonical media in direct and paged results" do
+    ref = %{
+      "id" => "media-1",
+      "scope" => "call",
+      "binding_id" => "binding/alpha",
+      "kind" => "media"
+    }
+
+    media = %{
+      "kind" => "file",
+      "name" => "report.txt",
+      "media_type" => "text/plain",
+      "caption" => "Report",
+      "resource_ref" => ref
+    }
+
+    message = %{"id" => "message-1", "room_id" => "room/1", "media" => [media]}
+
+    private_media =
+      media
+      |> Map.put("raw", "private-provider-value")
+      |> Map.update!("resource_ref", &Map.put(&1, "raw", "private-reference-value"))
+
+    private_message =
+      message
+      |> Map.put("raw", %{"token" => "private-provider-value"})
+      |> Map.put("media", [private_media])
+
+    for name <- ["send_message", "fetch_messages"] do
+      operation = String.to_atom(name)
+
+      value =
+        if name == "send_message",
+          do: private_message,
+          else: %{"messages" => [private_message], "complete" => true}
+
+      binding = test_binding(Native, results: Map.put(@results, operation, value))
+      assert {:ok, result} = Jido.Chat.execute(binding, request(binding, operation(name)))
+      assert result.type == Jido.Chat.Signal.OperationCompleted.type()
+
+      selected =
+        if name == "send_message",
+          do: result.data["result"],
+          else: hd(result.data["result"]["messages"])
+
+      assert selected == message
+      assert_received {:callback, ^operation, _}
+      refute_received {:callback, _, _}
+    end
+  end
+
+  test "typed thread results retain canonical delivery references and provider aliases" do
+    for name <- ["fetch_thread", "list_threads", "open_thread"],
+        key <- ["delivery_room_ref", "delivery_external_room_id"] do
+      operation = String.to_atom(name)
+      thread = %{"id" => "thread-1", "room_id" => "room/1", key => "thread-room"}
+
+      value =
+        if name == "list_threads", do: %{"threads" => [thread], "complete" => true}, else: thread
+
+      binding = test_binding(Native, results: Map.put(@results, operation, value))
+      assert {:ok, result} = Jido.Chat.execute(binding, request(binding, operation(name)))
+      assert result.type == Jido.Chat.Signal.OperationCompleted.type()
+
+      selected =
+        if name == "list_threads",
+          do: hd(result.data["result"]["threads"]),
+          else: result.data["result"]
+
+      assert selected["delivery_room_ref"] == "thread-room"
+      refute Map.has_key?(selected, "delivery_external_room_id")
+      assert_received {:callback, ^operation, _}
+      refute_received {:callback, _, _}
+    end
+  end
+
+  test "typed resource content keeps the selected fallback text in native payloads" do
+    binding = test_binding(Native)
+    observer = self()
+
+    stream =
+      Stream.map(["generated"], fn chunk ->
+        send(observer, :enumerated)
+        chunk
+      end)
+
+    for {kind, value} <- [
+          {"card", Jido.Chat.Card.new(%{title: "Generated"})},
+          {"stream", stream},
+          {"media", Jido.Chat.FileUpload.new(%{data: "private", filename: "file.txt"})}
+        ] do
+      assert {:ok, ref} = Jido.Chat.put_resource(binding, kind, value)
+
+      request =
+        Jido.Chat.Signal.PostMessage.new!(%{
+          "request_id" => "native-fallback-" <> kind,
+          "room_id" => "room/1",
+          "content" => %{
+            "kind" => kind,
+            "resource_ref" => ref,
+            "fallback_text" => "Selected fallback"
+          }
+        })
+
+      assert {:ok, _} = Jido.Chat.execute(binding, request)
+      assert_received {:callback, :post_message, ["room/1", payload, _]}
+      assert payload.fallback_text == "Selected fallback"
+      assert Jido.Chat.PostPayload.display_text(payload) == "Selected fallback"
+      if kind == "stream", do: assert(payload.stream == stream)
+      refute_received :enumerated
+    end
+  end
+
+  test "card and stream post fallbacks send the selected fallback text" do
+    for {kind, value} <- [
+          {"card", Jido.Chat.Card.new(%{title: "Generated"})},
+          {"stream", Stream.map(["generated"], & &1)}
+        ] do
+      binding = test_binding(Fallback)
+      assert {:ok, ref} = Jido.Chat.put_resource(binding, kind, value)
+
+      request =
+        Jido.Chat.Signal.PostMessage.new!(%{
+          "request_id" => "selected-fallback",
+          "room_id" => "room/1",
+          "content" => %{
+            "kind" => kind,
+            "resource_ref" => ref,
+            "fallback_text" => "Selected fallback"
+          }
+        })
+
+      assert {:ok, _} = Jido.Chat.execute(binding, request)
+      assert_received {:callback, :send_message, ["room/1", "Selected fallback", _]}
+      refute_received {:callback, _, _}
+    end
+  end
+
+  test "media post fallback uses selected text when no explicit caption is present" do
+    for caption <- [nil, "Explicit caption"] do
+      binding = test_binding(Fallback)
+      file = Jido.Chat.FileUpload.new(%{data: "private", filename: "file.txt"})
+      assert {:ok, ref} = Jido.Chat.put_resource(binding, "file", file)
+
+      content = %{
+        "kind" => "media",
+        "resource_ref" => ref,
+        "fallback_text" => "Selected fallback"
+      }
+
+      content = if caption, do: Map.put(content, "caption", caption), else: content
+
+      request =
+        Jido.Chat.Signal.PostMessage.new!(%{
+          "request_id" => "media-fallback",
+          "room_id" => "room/1",
+          "content" => content
+        })
+
+      assert {:ok, _} = Jido.Chat.execute(binding, request)
+      assert_received {:callback, :send_file, ["room/1", ^file, opts]}
+      assert opts[:caption] == (caption || "Selected fallback")
+      refute_received {:callback, _, _}
+    end
+  end
+
   test "native streams stay lazy until the provider consumes them" do
     binding = test_binding(Native)
     observer = self()
@@ -471,7 +746,13 @@ defmodule Jido.Chat.ExecutorSignalTest do
 
   defp test_binding(adapter, opts \\ []) do
     results = Map.put(@results, :open_dm, "dm-room")
-    assert {:ok, binding} = Jido.Chat.bind(adapter, [id: "binding/alpha", notify: self(), results: results] ++ opts)
+
+    assert {:ok, binding} =
+             Jido.Chat.bind(
+               adapter,
+               Keyword.merge([id: "binding/alpha", notify: self(), results: results], opts)
+             )
+
     binding
   end
 

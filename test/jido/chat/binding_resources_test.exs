@@ -87,4 +87,23 @@ defmodule Jido.Chat.BindingResourcesTest do
     assert :ok = Jido.Chat.cancel_resource(binding, ref)
     assert {:error, %Contract{code: :invalid_resource}} = Jido.Chat.resolve_resource(binding, %{ref | "kind" => "file"})
   end
+
+  test "invalid resource inputs and closed storage cannot retain private values" do
+    assert {:ok, binding} = Jido.Chat.bind(Adapter, id: "invalid-resources")
+
+    for {kind, opts} <- [{"unknown", []}, {"file", [ttl_ms: -1]}, {"file", [ttl_ms: :invalid]}, {"file", [:invalid]}] do
+      assert {:error, %Contract{code: :invalid_resource}} = Jido.Chat.put_resource(binding, kind, "private", opts)
+    end
+
+    assert :ets.tab2list(binding.resources) == []
+    assert {:error, %Contract{code: :invalid_resource}} = Jido.Chat.put_resource(nil, "file", "private")
+    assert {:ok, ref} = Jido.Chat.put_resource(binding, "file", "private")
+
+    assert {:error, %Contract{code: :invalid_resource}} =
+             Jido.Chat.resolve_resource(binding, %{ref | "id" => "missing"})
+
+    assert :ok = Jido.Chat.Resources.close(binding)
+    assert :ok = Jido.Chat.Resources.close(binding)
+    assert {:error, %Contract{code: :resource_expired}} = Jido.Chat.put_resource(binding, "file", "private")
+  end
 end

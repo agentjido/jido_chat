@@ -37,6 +37,29 @@ defmodule Jido.Chat.Adapters.MentionsTest do
              Mentions.parse_mentions(FullMentionsAdapter, "@john", raw)
   end
 
+  test "normalize_mentions/1 ignores invalid text fields and retains valid siblings" do
+    valid = %{user_id: "one", username: "Ada", offset: 0, length: 4}
+
+    for invalid <- [%{}, [%{}]], field <- [:user_id, :username] do
+      atom_mention = Map.put(%{user_id: "two", username: "Bob", offset: 4, length: 4}, field, invalid)
+      string_mention = Map.new(atom_mention, fn {key, value} -> {Atom.to_string(key), value} end)
+
+      assert Mentions.normalize_mentions([valid, atom_mention, string_mention]) == [valid]
+    end
+  end
+
+  test "normalize_mentions/1 retains supported text conversions" do
+    assert Mentions.normalize_mentions([
+             %{user_id: 123, username: :ada, offset: 0, length: 4},
+             %{user_id: 1.5, username: ~c"Bob", offset: 4, length: 4},
+             %{user_id: :carol, username: nil, offset: 8, length: 6}
+           ]) == [
+             %{user_id: "123", username: "ada", offset: 0, length: 4},
+             %{user_id: "1.5", username: "Bob", offset: 4, length: 4},
+             %{user_id: "carol", username: nil, offset: 8, length: 6}
+           ]
+  end
+
   test "strip_mentions/3" do
     mentions = [%{offset: 0, length: 5, user_id: "1", username: nil}]
     assert Mentions.strip_mentions(FullMentionsAdapter, "@john hi", mentions) == " hi"

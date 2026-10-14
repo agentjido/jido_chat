@@ -44,6 +44,25 @@ defmodule Jido.Chat.DeliverySignalTest do
     assert {:error, %Contract{code: :context_mismatch}} = Delivery.new(binding, "delivery-1", [request])
   end
 
+  test "invalid delivery shapes and empty delivery limits fail before fact processing", %{binding: binding} do
+    for {id, signals} <- [{"", []}, {<<255>>, []}, {nil, []}, {"valid", nil}, {"valid", :invalid}] do
+      assert {:error, %Contract{code: :invalid_delivery}} = Delivery.new(binding, id, signals)
+    end
+
+    assert {:error, %Contract{code: :invalid_delivery}} = Delivery.validate(nil, %{})
+    assert {:ok, empty} = Delivery.new(binding, "empty", [])
+    assert Delivery.validate_empty(empty) == {:ok, empty}
+    assert {:error, %Contract{code: :invalid_delivery}} = Delivery.validate_empty(%{empty | id: ""})
+
+    assert {:error, %Contract{code: :invalid_delivery}} =
+             Delivery.validate_empty(%{empty | signals: [message(binding, 1)]})
+
+    assert {:error, %Contract{code: :invalid_delivery}} = Delivery.validate_empty(%{})
+
+    assert {:error, %Contract{code: :delivery_too_large}} =
+             Delivery.validate_empty(%{empty | id: String.duplicate("x", 1_048_576)})
+  end
+
   test "100 items and 20 failure facts are allowed; one extra rejects the delivery", %{binding: binding} do
     messages = Enum.map(1..100, &message(binding, &1))
     assert {:ok, _} = Delivery.new(binding, "delivery-1", messages)

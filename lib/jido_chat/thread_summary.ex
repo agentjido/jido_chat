@@ -41,7 +41,7 @@ defmodule Jido.Chat.ThreadSummary do
         attrs
 
       map when is_map(map) ->
-        Map.put(attrs, :root_message, Message.new(map))
+        attrs |> Map.delete("root_message") |> Map.put(:root_message, Message.new(map))
 
       _other ->
         attrs

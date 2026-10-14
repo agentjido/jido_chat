@@ -83,6 +83,6 @@ defmodule Jido.Chat.WebhookRequest do
       |> Enum.map(fn {key, value} -> {key |> to_string() |> String.downcase(), value} end)
       |> Map.new()
 
-    Map.put(attrs, :headers, normalized)
+    attrs |> Map.delete("headers") |> Map.put(:headers, normalized)
   end
 end

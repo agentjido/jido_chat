@@ -246,6 +246,7 @@ defmodule Jido.Chat.Attachment do
 
   defp basename_or_nil(path) do
     case Path.basename(path) do
+      "" -> nil
       "." -> nil
       "/" -> nil
       value -> value

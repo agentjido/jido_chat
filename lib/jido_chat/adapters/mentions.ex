@@ -239,6 +239,8 @@ defmodule Jido.Chat.Adapters.Mentions do
         length: length
       }
     end
+  rescue
+    _error in [Protocol.UndefinedError, ArgumentError] -> nil
   end
 
   defp normalize_mention(_), do: nil

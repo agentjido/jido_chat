@@ -1,7 +1,7 @@
 defmodule Jido.Chat.Operations.Result do
   @moduledoc false
 
-  @fields ~w(id user_id external_user_id scope external_message_id external_room_id external_thread_id message_id room_id thread_id delivery_external_room_id text sender author user username display_name is_bot is_self timestamp status role name title kind type is_dm topic parent_message_id root_message_id reply_to_id media messages items threads participants complete has_more next_cursor cursor options option_groups label value description url opened view)a
+  @fields ~w(id user_id external_user_id scope external_message_id external_room_id external_thread_id message_id room_id thread_id delivery_room_ref delivery_external_room_id text sender author user username display_name is_bot is_self timestamp status role name title kind type is_dm topic parent_message_id root_message_id reply_to_id media resource_ref binding_id media_type caption messages items threads participants complete has_more next_cursor cursor options option_groups label value description url opened view)a
   @keys Map.new(@fields, &{Atom.to_string(&1), &1})
 
   @doc false
@@ -93,8 +93,30 @@ defmodule Jido.Chat.Operations.Result do
     |> optional("timestamp", timestamp(get(value, "timestamp")))
     |> optional("status", status(get(value, "status")))
     |> optional("role", scalar(get(value, "role")))
+    |> optional("media", media(get(value, "media")))
     |> maybe_actor(get(value, "sender") || get(value, "author") || get(value, "user"))
   end
+
+  defp media(values) when is_list(values) do
+    Enum.map(values, fn value ->
+      ref = get(value, "resource_ref")
+
+      %{
+        "kind" => scalar(get(value, "kind")),
+        "resource_ref" => %{
+          "id" => get(ref, "id"),
+          "scope" => scalar(get(ref, "scope")),
+          "binding_id" => get(ref, "binding_id"),
+          "kind" => scalar(get(ref, "kind"))
+        }
+      }
+      |> optional("name", get(value, "name"))
+      |> optional("media_type", get(value, "media_type"))
+      |> optional("caption", get(value, "caption"))
+    end)
+  end
+
+  defp media(value), do: value
 
   defp conversation(value, _room) when is_binary(value), do: %{"id" => value, "kind" => "direct"}
 
@@ -111,7 +133,7 @@ defmodule Jido.Chat.Operations.Result do
     }
     |> optional("name", get(value, "name") || get(value, "title"))
     |> optional("parent_message_id", id(value, ~w(parent_message_id root_message_id)))
-    |> optional("delivery_room_ref", id(value, ~w(delivery_external_room_id)))
+    |> optional("delivery_room_ref", id(value, ~w(delivery_room_ref delivery_external_room_id)))
   end
 
   defp actor(value) do

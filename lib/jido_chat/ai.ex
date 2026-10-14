@@ -14,6 +14,12 @@ defmodule Jido.Chat.AI do
   @doc """
   Converts normalized chat messages into AI-friendly role/content maps.
 
+  DateTime values and ISO 8601 strings with offsets sort by Unix microseconds.
+  NaiveDateTime values and ISO 8601 strings without offsets use UTC for sorting.
+  Integer timestamps keep their given scale; use Unix microseconds when mixing
+  them with dates. Equal times keep input order. Missing or unsupported timestamps
+  follow numeric timestamps, then invalid strings keep their lexical order.
+
   Options stay Elixir-native by default, but Chat SDK-style camelCase aliases are
   accepted to make cross-port migration less brittle:
 
@@ -50,13 +56,26 @@ defmodule Jido.Chat.AI do
     do: DateTime.to_unix(dt, :microsecond)
 
   defp message_sort_key(%Message{created_at: %NaiveDateTime{} = dt}),
-    do: NaiveDateTime.to_iso8601(dt)
+    do: dt |> DateTime.from_naive!("Etc/UTC") |> DateTime.to_unix(:microsecond)
 
   defp message_sort_key(%Message{created_at: created_at}) when is_integer(created_at),
     do: created_at
 
-  defp message_sort_key(%Message{created_at: created_at}) when is_binary(created_at),
-    do: created_at
+  defp message_sort_key(%Message{created_at: created_at}) when is_binary(created_at) do
+    case DateTime.from_iso8601(created_at) do
+      {:ok, dt, _offset} ->
+        DateTime.to_unix(dt, :microsecond)
+
+      {:error, :missing_offset} ->
+        case NaiveDateTime.from_iso8601(created_at) do
+          {:ok, dt} -> dt |> DateTime.from_naive!("Etc/UTC") |> DateTime.to_unix(:microsecond)
+          {:error, _reason} -> created_at
+        end
+
+      {:error, _reason} ->
+        created_at
+    end
+  end
 
   defp message_sort_key(_message), do: :infinity
 

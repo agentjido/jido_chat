@@ -273,9 +273,14 @@ defmodule Jido.Chat.Markdown do
   defp parse_lines(["" | rest], acc), do: parse_lines(rest, acc)
 
   defp parse_lines([line | rest], acc) do
+    trimmed = String.trim_leading(line)
+
     cond do
-      String.starts_with?(line, "```") ->
-        {node, remainder} = parse_code_block(rest, String.trim_leading(line, "```"))
+      String.trim(line) == "" ->
+        parse_lines(rest, acc)
+
+      String.starts_with?(trimmed, "```") ->
+        {node, remainder} = parse_code_block(rest, String.trim_leading(trimmed, "```"))
         parse_lines(remainder, [node | acc])
 
       heading_line?(line) ->
@@ -304,7 +309,9 @@ defmodule Jido.Chat.Markdown do
   end
 
   defp parse_code_block(lines, language) do
-    {body, remainder} = Enum.split_while(lines, &(not String.starts_with?(&1, "```")))
+    {body, remainder} =
+      Enum.split_while(lines, &(not String.starts_with?(String.trim_leading(&1), "```")))
+
     remainder = if remainder == [], do: [], else: tl(remainder)
     {code_block(Enum.join(body, "\n"), blank_to_nil(String.trim(language))), remainder}
   end
@@ -562,7 +569,7 @@ defmodule Jido.Chat.Markdown do
   end
 
   defp table_header?(line, [separator | _rest]) do
-    String.contains?(line, "|") and Regex.match?(~r/^\s*\|?[\s:-|]+\|?\s*$/, separator)
+    String.contains?(line, "|") and Regex.match?(~r/^\s*\|?[\s:|\-]+\|?\s*$/, separator)
   end
 
   defp table_header?(_line, _rest), do: false

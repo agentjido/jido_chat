@@ -46,6 +46,6 @@ defmodule Jido.Chat.MessagePage do
           other
       end)
 
-    Map.put(attrs, :messages, normalized)
+    attrs |> Map.delete("messages") |> Map.put(:messages, normalized)
   end
 end

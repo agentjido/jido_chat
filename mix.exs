@@ -22,7 +22,7 @@ defmodule Jido.Chat.MixProject do
       docs: docs(),
       test_coverage: [
         tool: ExCoveralls,
-        summary: [threshold: 0],
+        summary: [threshold: 90],
         export: "cov"
       ],
       dialyzer: [
