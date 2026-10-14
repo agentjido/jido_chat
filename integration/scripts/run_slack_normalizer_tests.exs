@@ -4,7 +4,7 @@ ExUnit.start(seed: 0, capture_log: true)
 
 {_, diagnostics} =
   Code.with_diagnostics(fn ->
-    Code.require_file(Path.join(root, "jido_chat_slack/lib/jido/chat/slack/normalizer.ex"))
+    Code.require_file(Path.join(root, "jido_chat_slack/lib/jido_chat_slack/normalizer.ex"))
   end)
 
 if Enum.any?(diagnostics, &(&1.severity == :warning)),

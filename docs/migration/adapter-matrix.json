@@ -7,7 +7,7 @@
       "package": "jido_chat_telegram",
       "adapter_module": "Jido.Chat.Telegram.Adapter",
       "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
-      "source": "lib/jido/chat/telegram/adapter.ex",
+      "source": "lib/jido_chat_telegram/adapter.ex",
       "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
@@ -115,9 +115,9 @@
         "acknowledgement": "Webhook transport response is private. Polling keeps the old batch offset on sink rejection.",
         "retry_unit": "fetched getUpdates batch; already accepted items are deduplicated by the runtime memory rule",
         "evidence": [
-          "lib/jido/chat/telegram/polling_worker.ex",
-          "lib/jido/chat/telegram/normalizer.ex",
-          "lib/jido/chat/telegram/adapter.ex"
+          "lib/jido_chat_telegram/polling_worker.ex",
+          "lib/jido_chat_telegram/normalizer.ex",
+          "lib/jido_chat_telegram/adapter.ex"
         ]
       },
       "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
@@ -135,7 +135,7 @@
       "package": "jido_chat_slack",
       "adapter_module": "Jido.Chat.Slack.Adapter",
       "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
-      "source": "lib/jido/chat/slack/adapter.ex",
+      "source": "lib/jido_chat_slack/adapter.ex",
       "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
@@ -263,9 +263,9 @@
         "acknowledgement": "Ordinary Socket Mode events acknowledge before the sink; response-bearing envelopes acknowledge after the sink. Preserve both timings. HTTP responses remain private.",
         "retry_unit": "provider envelope/webhook; no new durable acceptance guarantee",
         "evidence": [
-          "lib/jido/chat/slack/socket_mode_worker.ex",
-          "lib/jido/chat/slack/interaction_response.ex",
-          "lib/jido/chat/slack/adapter.ex"
+          "lib/jido_chat_slack/socket_mode_worker.ex",
+          "lib/jido_chat_slack/interaction_response.ex",
+          "lib/jido_chat_slack/adapter.ex"
         ]
       },
       "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
@@ -283,7 +283,7 @@
       "package": "jido_chat_discord",
       "adapter_module": "Jido.Chat.Discord.Adapter",
       "base_sha": "495b40d9b2ef546d580f303c633be32fb5ec2d3d",
-      "source": "lib/jido/chat/discord/adapter.ex",
+      "source": "lib/jido_chat_discord/adapter.ex",
       "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
@@ -389,9 +389,9 @@
         "acknowledgement": "Gateway acquisition belongs to Nostrum/the injected source. Push ingress has no durable checkpoint. Interaction responses remain private.",
         "retry_unit": "provider/injected gateway acquisition unit; preserve existing listener backoff, with no new replay guarantee",
         "evidence": [
-          "lib/jido/chat/discord/gateway_worker.ex",
-          "lib/jido/chat/discord/nostrum_gateway_listener.ex",
-          "lib/jido/chat/discord/adapter.ex"
+          "lib/jido_chat_discord/gateway_worker.ex",
+          "lib/jido_chat_discord/nostrum_gateway_listener.ex",
+          "lib/jido_chat_discord/adapter.ex"
         ]
       },
       "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
@@ -404,7 +404,7 @@
       "package": "jido_chat_github",
       "adapter_module": "Jido.Chat.GitHub.Adapter",
       "base_sha": "a94f5b35506f506e5441a769086d14190f3ae363",
-      "source": "lib/jido/chat/github/adapter.ex",
+      "source": "lib/jido_chat_github/adapter.ex",
       "state": "implemented-locally-verified",
       "source_capabilities": {
         "send_message": "native",
@@ -507,7 +507,7 @@
         "acknowledgement": "HTTP success follows sink acceptance; a limit breach or rejected sink cannot be reported as accepted.",
         "retry_unit": "GitHub webhook delivery",
         "evidence": [
-          "lib/jido/chat/github/adapter.ex"
+          "lib/jido_chat_github/adapter.ex"
         ]
       },
       "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
@@ -631,7 +631,7 @@
       "package": "jido_chat_teams",
       "adapter_module": "Jido.Chat.Teams.Adapter",
       "base_sha": "d3c745a0c32614efe59b260b4404ab3325315455",
-      "source": "lib/jido/chat/teams/adapter.ex",
+      "source": "lib/jido_chat_teams/adapter.ex",
       "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
@@ -755,8 +755,8 @@
         "acknowledgement": "Activity HTTP response follows acceptance; application/search control response stays private.",
         "retry_unit": "Activity delivery; optional Graph is not the primary send path",
         "evidence": [
-          "lib/jido/chat/teams/adapter.ex",
-          "lib/jido/chat/teams/jwt_verifier.ex"
+          "lib/jido_chat_teams/adapter.ex",
+          "lib/jido_chat_teams/jwt_verifier.ex"
         ]
       },
       "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
@@ -887,7 +887,7 @@
       "package": "jido_chat_x",
       "adapter_module": "Jido.Chat.X.Adapter",
       "base_sha": "559f6abcc876f55ed2d02b92dc3a36d7dfdbbf40",
-      "source": "lib/jido/chat/x/adapter.ex",
+      "source": "lib/jido_chat_x/adapter.ex",
       "state": "implemented-locally-verified",
       "source_capabilities": {
         "send_message": "native",
@@ -979,7 +979,7 @@
         "acknowledgement": "HTTP success follows complete sink acceptance; CRC/control responses stay private.",
         "retry_unit": "Account Activity webhook delivery",
         "evidence": [
-          "lib/jido/chat/x/adapter.ex"
+          "lib/jido_chat_x/adapter.ex"
         ]
       },
       "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",

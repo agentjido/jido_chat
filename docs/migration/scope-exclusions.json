@@ -6,7 +6,7 @@
   ],
   "active_adapters": 8,
   "active_packages": 10,
-  "preserved_source": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_mattermost",
+  "preserved_source": "/Users/mhostetler/Source/Jido/proj_jido_chat/jido_chat_mattermost",
   "prior_package_row": {
     "package": "jido_chat_mattermost",
     "base": "upstream/main",

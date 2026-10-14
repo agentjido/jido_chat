@@ -4,7 +4,7 @@ ExUnit.start(seed: 0, capture_log: true)
 
 {_, diagnostics} =
   Code.with_diagnostics(fn ->
-    Code.require_file(Path.join(root, "jido_chat_telegram/lib/jido/chat/telegram/membership.ex"))
+    Code.require_file(Path.join(root, "jido_chat_telegram/lib/jido_chat_telegram/membership.ex"))
   end)
 
 if Enum.any?(diagnostics, &(&1.severity == :warning)),
