@@ -1,0 +1,899 @@
+{
+  "dependencies": [
+    {
+      "actual_ref": null,
+      "app": "amarula",
+      "children": [
+        "base64url",
+        "binary",
+        "jason",
+        "nimble_options",
+        "protobuf",
+        "qr_code",
+        "req",
+        "telemetry",
+        "uuid",
+        "websockex"
+      ],
+      "git": null,
+      "hex": "amarula",
+      "path_source": null,
+      "ref": null,
+      "version": "0.5.10"
+    },
+    {
+      "actual_ref": null,
+      "app": "base64url",
+      "children": [],
+      "git": null,
+      "hex": "base64url",
+      "path_source": null,
+      "ref": null,
+      "version": "1.0.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "binary",
+      "children": [],
+      "git": null,
+      "hex": "binary",
+      "path_source": null,
+      "ref": null,
+      "version": "0.0.5"
+    },
+    {
+      "actual_ref": null,
+      "app": "castle",
+      "children": [
+        "forecastle"
+      ],
+      "git": null,
+      "hex": "castle",
+      "path_source": null,
+      "ref": null,
+      "version": "0.3.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "cc_precompiler",
+      "children": [
+        "elixir_make"
+      ],
+      "git": null,
+      "hex": "cc_precompiler",
+      "path_source": null,
+      "ref": null,
+      "version": "0.1.11"
+    },
+    {
+      "actual_ref": null,
+      "app": "certifi",
+      "children": [],
+      "git": null,
+      "hex": "certifi",
+      "path_source": null,
+      "ref": null,
+      "version": "2.17.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "cowlib",
+      "children": [],
+      "git": null,
+      "hex": "cowlib",
+      "path_source": null,
+      "ref": null,
+      "version": "2.21.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "crontab",
+      "children": [],
+      "git": null,
+      "hex": "crontab",
+      "path_source": null,
+      "ref": null,
+      "version": "1.2.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "db_connection",
+      "children": [
+        "telemetry"
+      ],
+      "git": null,
+      "hex": "db_connection",
+      "path_source": null,
+      "ref": null,
+      "version": "2.10.2"
+    },
+    {
+      "actual_ref": null,
+      "app": "decimal",
+      "children": [],
+      "git": null,
+      "hex": "decimal",
+      "path_source": null,
+      "ref": null,
+      "version": "3.2.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "dotenvy",
+      "children": [],
+      "git": null,
+      "hex": "dotenvy",
+      "path_source": null,
+      "ref": null,
+      "version": "1.2.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "elixir_make",
+      "children": [],
+      "git": null,
+      "hex": "elixir_make",
+      "path_source": null,
+      "ref": null,
+      "version": "0.10.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "ex_gram",
+      "children": [
+        "gun",
+        "jason",
+        "nimble_ownership",
+        "plug",
+        "req",
+        "telemetry"
+      ],
+      "git": null,
+      "hex": "ex_gram",
+      "path_source": null,
+      "ref": null,
+      "version": "0.71.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "ex_maybe",
+      "children": [],
+      "git": null,
+      "hex": "ex_maybe",
+      "path_source": null,
+      "ref": null,
+      "version": "1.1.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "exqlite",
+      "children": [
+        "cc_precompiler",
+        "db_connection",
+        "elixir_make"
+      ],
+      "git": null,
+      "hex": "exqlite",
+      "path_source": null,
+      "ref": null,
+      "version": "0.42.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "finch",
+      "children": [
+        "mime",
+        "mint",
+        "nimble_options",
+        "nimble_pool",
+        "telemetry"
+      ],
+      "git": null,
+      "hex": "finch",
+      "path_source": null,
+      "ref": null,
+      "version": "0.24.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "flow",
+      "children": [
+        "gen_stage"
+      ],
+      "git": null,
+      "hex": "flow",
+      "path_source": null,
+      "ref": null,
+      "version": "1.2.4"
+    },
+    {
+      "actual_ref": null,
+      "app": "forecastle",
+      "children": [],
+      "git": null,
+      "hex": "forecastle",
+      "path_source": null,
+      "ref": null,
+      "version": "0.1.3"
+    },
+    {
+      "actual_ref": null,
+      "app": "gen_stage",
+      "children": [],
+      "git": null,
+      "hex": "gen_stage",
+      "path_source": null,
+      "ref": null,
+      "version": "1.3.2"
+    },
+    {
+      "actual_ref": null,
+      "app": "gun",
+      "children": [
+        "cowlib"
+      ],
+      "git": null,
+      "hex": "gun",
+      "path_source": null,
+      "ref": null,
+      "version": "2.7.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "hpax",
+      "children": [],
+      "git": null,
+      "hex": "hpax",
+      "path_source": null,
+      "ref": null,
+      "version": "1.1.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "jason",
+      "children": [
+        "decimal"
+      ],
+      "git": null,
+      "hex": "jason",
+      "path_source": null,
+      "ref": null,
+      "version": "1.4.5"
+    },
+    {
+      "actual_ref": "90763478104f1edbf0afcfcf9444621c3f9755e8",
+      "app": "jido",
+      "children": [
+        "jido_action",
+        "jido_signal",
+        "zoi",
+        "spark",
+        "splode",
+        "telemetry",
+        "telemetry_metrics",
+        "sched_ex"
+      ],
+      "git": "https://github.com/agentjido/jido.git",
+      "hex": null,
+      "path_source": null,
+      "ref": "90763478104f1edbf0afcfcf9444621c3f9755e8",
+      "version": "3.0.0-beta.1"
+    },
+    {
+      "actual_ref": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+      "app": "jido_action",
+      "children": [
+        "telemetry",
+        "zoi",
+        "runic",
+        "splode",
+        "spark"
+      ],
+      "git": "https://github.com/agentjido/jido_action.git",
+      "hex": null,
+      "path_source": null,
+      "ref": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+      "version": "3.0.0-beta.12"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat",
+      "children": [
+        "jido_signal",
+        "jason",
+        "zoi",
+        "splode"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+        "library_test_files": 151,
+        "library_test_sha256": "9ab41499eeec10d7a1542418ec33909c411c72bcb94d76097b968e8a8324a2ef"
+      },
+      "ref": null,
+      "version": "1.2.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat_discord",
+      "children": [
+        "jido_chat",
+        "nostrum",
+        "req"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "98b2a4a473cf71c7fb5e7d5cd85f454b3b9bc2a3",
+        "library_test_files": 23,
+        "library_test_sha256": "35d5a270a6160d5c1e640f5e91c1133e155d10704bab0c96885e341f12de6a65"
+      },
+      "ref": null,
+      "version": "1.1.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat_github",
+      "children": [
+        "jido_chat",
+        "req",
+        "jason"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "212aa6c7e6c771bb38a3858d8e87eb46abc895b5",
+        "library_test_files": 8,
+        "library_test_sha256": "c0e53aa92721e495892846f4077f5371b1a9cf1c435d7b2496c0f354efe64160"
+      },
+      "ref": null,
+      "version": "1.0.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat_signal",
+      "children": [
+        "jido_chat",
+        "req",
+        "jason"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "394bd19dde04262dfc57899c4245560e0611cc2e",
+        "library_test_files": 14,
+        "library_test_sha256": "635915c7fb508b7031582732b8f4708152b2fb7e238285cc5aeab7d5232596d5"
+      },
+      "ref": null,
+      "version": "1.0.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat_slack",
+      "children": [
+        "jido_chat",
+        "req",
+        "websockex",
+        "jason"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "67f22cd959c99419abb7b1b54617a86b719245b7",
+        "library_test_files": 33,
+        "library_test_sha256": "e2f851620702404018f71bc104c0ef32724a8819db7ff7bfa5f2dc6125f28dcc"
+      },
+      "ref": null,
+      "version": "1.1.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat_teams",
+      "children": [
+        "jido_chat",
+        "req",
+        "jason",
+        "jose"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "614d1a8d4012f4d88a44712093f37f5422d813f6",
+        "library_test_files": 19,
+        "library_test_sha256": "f3bd35c188cbe7d7884dc785dbf430206a07cd5a5f747778f39e903b4d6d3134"
+      },
+      "ref": null,
+      "version": "0.1.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat_telegram",
+      "children": [
+        "jido_chat",
+        "ex_gram",
+        "req",
+        "jason"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "1ebc35ed91d8ee3e97f4dd3750e52c215e6f8ef0",
+        "library_test_files": 42,
+        "library_test_sha256": "5373775a26b48325e4b094730ac4bd47482d3e14852b494ae933ca90d80d00cb"
+      },
+      "ref": null,
+      "version": "1.2.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat_whatsapp",
+      "children": [
+        "jido_chat",
+        "amarula",
+        "protobuf",
+        "zoi"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "eee4dd23af994e96d685bae4bf3b319618d0ae03",
+        "library_test_files": 21,
+        "library_test_sha256": "2ffe344e62287597376a01dd555ab56ddb5bc557344f481c39ff3753926bcf43"
+      },
+      "ref": null,
+      "version": "0.1.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_chat_x",
+      "children": [
+        "jido_chat",
+        "xdk_elixir",
+        "jason"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "27a73bbffc9f6170bd49cd605c94fd415a6e270d",
+        "library_test_files": 8,
+        "library_test_sha256": "6edd088dcda67b9323ee4acd584284a2b1b850d1e979b1c3b3c3cc84eb46a573"
+      },
+      "ref": null,
+      "version": "1.0.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "jido_messaging",
+      "children": [
+        "jido_chat",
+        "jason",
+        "zoi",
+        "jido",
+        "jido_action",
+        "runic",
+        "jido_signal",
+        "yaml_elixir",
+        "plug",
+        "exqlite",
+        "postgrex",
+        "phoenix_pubsub",
+        "dotenvy"
+      ],
+      "git": null,
+      "hex": null,
+      "path_source": {
+        "head_sha": "d425f5ef1e14d92879eac3e2be207e9de1ec9300",
+        "library_test_files": 411,
+        "library_test_sha256": "9e2cf3796098e643f1179dbe4818cf0c66720e38fbfd9a6a84695aa9b3c14ba8"
+      },
+      "ref": null,
+      "version": "1.1.1"
+    },
+    {
+      "actual_ref": "d6611eca1c95eb507843baceb55991e4801d8421",
+      "app": "jido_signal",
+      "children": [
+        "jason",
+        "phoenix_pubsub",
+        "telemetry",
+        "splode",
+        "zoi"
+      ],
+      "git": "https://github.com/agentjido/jido_signal.git",
+      "hex": null,
+      "path_source": null,
+      "ref": "d6611eca1c95eb507843baceb55991e4801d8421",
+      "version": "3.0.0-beta.4"
+    },
+    {
+      "actual_ref": null,
+      "app": "jose",
+      "children": [],
+      "git": null,
+      "hex": "jose",
+      "path_source": null,
+      "ref": null,
+      "version": "1.11.12"
+    },
+    {
+      "actual_ref": null,
+      "app": "matrix_reloaded",
+      "children": [
+        "ex_maybe",
+        "result"
+      ],
+      "git": null,
+      "hex": "matrix_reloaded",
+      "path_source": null,
+      "ref": null,
+      "version": "2.3.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "mime",
+      "children": [],
+      "git": null,
+      "hex": "mime",
+      "path_source": null,
+      "ref": null,
+      "version": "2.0.7"
+    },
+    {
+      "actual_ref": null,
+      "app": "mint",
+      "children": [
+        "hpax"
+      ],
+      "git": null,
+      "hex": "mint",
+      "path_source": null,
+      "ref": null,
+      "version": "1.11.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "multigraph",
+      "children": [],
+      "git": null,
+      "hex": "multigraph",
+      "path_source": null,
+      "ref": null,
+      "version": "0.16.1-mg.5"
+    },
+    {
+      "actual_ref": null,
+      "app": "nimble_options",
+      "children": [],
+      "git": null,
+      "hex": "nimble_options",
+      "path_source": null,
+      "ref": null,
+      "version": "1.1.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "nimble_ownership",
+      "children": [],
+      "git": null,
+      "hex": "nimble_ownership",
+      "path_source": null,
+      "ref": null,
+      "version": "1.0.2"
+    },
+    {
+      "actual_ref": null,
+      "app": "nimble_pool",
+      "children": [],
+      "git": null,
+      "hex": "nimble_pool",
+      "path_source": null,
+      "ref": null,
+      "version": "1.1.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "nostrum",
+      "children": [
+        "castle",
+        "certifi",
+        "gun",
+        "jason",
+        "mime"
+      ],
+      "git": null,
+      "hex": "nostrum",
+      "path_source": null,
+      "ref": null,
+      "version": "0.10.4"
+    },
+    {
+      "actual_ref": null,
+      "app": "oauther",
+      "children": [],
+      "git": null,
+      "hex": "oauther",
+      "path_source": null,
+      "ref": null,
+      "version": "1.3.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "phoenix_pubsub",
+      "children": [],
+      "git": null,
+      "hex": "phoenix_pubsub",
+      "path_source": null,
+      "ref": null,
+      "version": "2.4.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "plug",
+      "children": [
+        "mime",
+        "plug_crypto",
+        "telemetry"
+      ],
+      "git": null,
+      "hex": "plug",
+      "path_source": null,
+      "ref": null,
+      "version": "1.20.3"
+    },
+    {
+      "actual_ref": null,
+      "app": "plug_crypto",
+      "children": [],
+      "git": null,
+      "hex": "plug_crypto",
+      "path_source": null,
+      "ref": null,
+      "version": "2.2.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "pngex",
+      "children": [],
+      "git": null,
+      "hex": "pngex",
+      "path_source": null,
+      "ref": null,
+      "version": "0.1.2"
+    },
+    {
+      "actual_ref": null,
+      "app": "postgrex",
+      "children": [
+        "db_connection",
+        "decimal",
+        "jason"
+      ],
+      "git": null,
+      "hex": "postgrex",
+      "path_source": null,
+      "ref": null,
+      "version": "0.22.4"
+    },
+    {
+      "actual_ref": null,
+      "app": "protobuf",
+      "children": [
+        "jason"
+      ],
+      "git": null,
+      "hex": "protobuf",
+      "path_source": null,
+      "ref": null,
+      "version": "0.17.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "qr_code",
+      "children": [
+        "ex_maybe",
+        "matrix_reloaded",
+        "pngex",
+        "result",
+        "xml_builder"
+      ],
+      "git": null,
+      "hex": "qr_code",
+      "path_source": null,
+      "ref": null,
+      "version": "3.2.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "req",
+      "children": [
+        "finch",
+        "jason",
+        "mime",
+        "plug"
+      ],
+      "git": null,
+      "hex": "req",
+      "path_source": null,
+      "ref": null,
+      "version": "0.7.5"
+    },
+    {
+      "actual_ref": null,
+      "app": "result",
+      "children": [],
+      "git": null,
+      "hex": "result",
+      "path_source": null,
+      "ref": null,
+      "version": "1.7.2"
+    },
+    {
+      "actual_ref": null,
+      "app": "runic",
+      "children": [
+        "flow",
+        "gen_stage",
+        "multigraph",
+        "telemetry",
+        "uniq"
+      ],
+      "git": null,
+      "hex": "runic",
+      "path_source": null,
+      "ref": null,
+      "version": "0.1.0-alpha.11"
+    },
+    {
+      "actual_ref": null,
+      "app": "sched_ex",
+      "children": [
+        "crontab"
+      ],
+      "git": null,
+      "hex": "sched_ex",
+      "path_source": null,
+      "ref": null,
+      "version": "1.2.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "spark",
+      "children": [
+        "jason"
+      ],
+      "git": null,
+      "hex": "spark",
+      "path_source": null,
+      "ref": null,
+      "version": "2.7.6"
+    },
+    {
+      "actual_ref": null,
+      "app": "splode",
+      "children": [],
+      "git": null,
+      "hex": "splode",
+      "path_source": null,
+      "ref": null,
+      "version": "0.3.2"
+    },
+    {
+      "actual_ref": null,
+      "app": "telemetry",
+      "children": [],
+      "git": null,
+      "hex": "telemetry",
+      "path_source": null,
+      "ref": null,
+      "version": "1.4.2"
+    },
+    {
+      "actual_ref": null,
+      "app": "telemetry_metrics",
+      "children": [
+        "telemetry"
+      ],
+      "git": null,
+      "hex": "telemetry_metrics",
+      "path_source": null,
+      "ref": null,
+      "version": "1.2.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "uniq",
+      "children": [],
+      "git": null,
+      "hex": "uniq",
+      "path_source": null,
+      "ref": null,
+      "version": "0.6.3"
+    },
+    {
+      "actual_ref": null,
+      "app": "uuid",
+      "children": [],
+      "git": null,
+      "hex": "uuid",
+      "path_source": null,
+      "ref": null,
+      "version": "1.1.8"
+    },
+    {
+      "actual_ref": null,
+      "app": "websockex",
+      "children": [
+        "telemetry"
+      ],
+      "git": null,
+      "hex": "websockex",
+      "path_source": null,
+      "ref": null,
+      "version": "0.5.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "xdk_elixir",
+      "children": [
+        "finch",
+        "jason",
+        "oauther",
+        "splode"
+      ],
+      "git": null,
+      "hex": "xdk_elixir",
+      "path_source": null,
+      "ref": null,
+      "version": "1.0.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "xml_builder",
+      "children": [],
+      "git": null,
+      "hex": "xml_builder",
+      "path_source": null,
+      "ref": null,
+      "version": "2.4.1"
+    },
+    {
+      "actual_ref": null,
+      "app": "yamerl",
+      "children": [],
+      "git": null,
+      "hex": "yamerl",
+      "path_source": null,
+      "ref": null,
+      "version": "0.10.0"
+    },
+    {
+      "actual_ref": null,
+      "app": "yaml_elixir",
+      "children": [
+        "yamerl"
+      ],
+      "git": null,
+      "hex": "yaml_elixir",
+      "path_source": null,
+      "ref": null,
+      "version": "2.12.2"
+    },
+    {
+      "actual_ref": "2fff2a23e23e7ac0b26f62f49bbc1b12f7818ac9",
+      "app": "zoi",
+      "children": [
+        "decimal"
+      ],
+      "git": "https://github.com/mikehostetler/zoi.git",
+      "hex": null,
+      "path_source": null,
+      "ref": "2fff2a23e23e7ac0b26f62f49bbc1b12f7818ac9",
+      "version": "0.18.11"
+    }
+  ],
+  "note": "Whole-group dependency graph.",
+  "package_scope": "all",
+  "profile": "core-only",
+  "state": "pass"
+}

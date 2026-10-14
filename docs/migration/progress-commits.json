@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-14T02:11:13.778512+00:00",
+  "updated_at": "2026-10-14T11:34:03.379066+00:00",
   "goal_state": "incomplete",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
   "proof_scope": "C01-C13 and current local source checks pass. C14 and G7 fail on the audit and Mattermost package build. PR delivery and CI remain pending B6.",
@@ -2007,10 +2007,7 @@
     "B5": "evidence/checkpoint-b5/checkpoint-report.json"
   },
   "open_work": [
-    "Pass the full graph and Discord security audits without an accepted ignore or exception.",
-    "Pass the Mattermost package build and file-list check. No license is specified; Fresh is a Git dependency.",
-    "Refresh C14 and the full G7 report after the failed required checks pass.",
-    "B6: G8 readiness and G9 PR delivery/current-head CI. Not started."
+    "Open the core PR, finish current-head CI for all ten PRs, and save the final delivery index."
   ],
   "coverage_note": "B5 exact inclusive coverage: Messaging 90.05059021922429%; Mattermost 91.56414762741652%; WhatsApp 80.83333333333333%. All existing floors pass.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
@@ -2031,7 +2028,7 @@
     "scope": "Complete all-nine-adapter profile; 521 adapter fixtures and 244 harness tests also pass."
   },
   "checkpoint_state": "B0-B4 complete; B5 checks finished; G7 failed",
-  "execution_state": "stopped_after_B5",
+  "execution_state": "running_G7_after_user_scope_change",
   "evidence_corrections": [
     {
       "commit": "416ae44",
@@ -2043,5 +2040,9 @@
   "B3_report": "evidence/checkpoint-b3/checkpoint-report.json",
   "B4_pending_record": "evidence/checkpoint-b4/pending-report.json",
   "B4_report": "evidence/checkpoint-b4/checkpoint-report.json",
-  "B5_report": "evidence/checkpoint-b5/checkpoint-report.json"
+  "B5_report": "evidence/checkpoint-b5/checkpoint-report.json",
+  "excluded_packages": [
+    "jido_chat_mattermost"
+  ],
+  "latest_instruction": "Ten pushes and review PRs approved; Mattermost excluded; exact Cowlib/Gun exception accepted."
 }

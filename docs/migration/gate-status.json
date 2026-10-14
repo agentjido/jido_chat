@@ -1,5 +1,5 @@
 {
-  "current_gate": "G7",
+  "current_gate": "G9",
   "gates": [
     {
       "id": "G0",
@@ -1503,7 +1503,7 @@
     },
     {
       "id": "G7",
-      "state": "fail",
+      "state": "pass",
       "evidence": [
         {
           "path": "evidence/checkpoint-b5/checkpoint-report.json",
@@ -1512,46 +1512,65 @@
         {
           "path": "evidence/checkpoint-b5/conformance-report.json",
           "sha256": "946e31521705ec54f0a43ad6eb901658ee67589b5ca8981f9ed46d50dc74d556"
+        },
+        {
+          "path": "evidence/checkpoint-b5-scope-update/conformance-report.json",
+          "sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a"
         }
       ],
       "depends_on": [
         "G6"
       ],
-      "remaining": [
-        "Pass the full graph and Discord security audits without an accepted ignore or exception.",
-        "Pass the Mattermost package build and file-list check. No license is specified; Fresh is a Git dependency.",
-        "Refresh C14 and the full G7 report after the failed required checks pass."
-      ],
+      "remaining": [],
       "completed": [
         "C01-C13 pass against the current runtime source and named fixture results.",
         "All 11 package suites and mix quality checks pass. All three coverage floors pass.",
         "Both complete profiles, graphs, API/source checks, example and local candidate index pass.",
-        "Ten package archives pass file-list and constraint checks."
+        "Ten package archives pass file-list and constraint checks.",
+        "October 14 scope update: all C01-C14 and required local checks pass for eight adapters and ten packages. Exact Cowlib/Gun exception accepted by the user."
       ],
-      "work_complete": false
+      "work_complete": true,
+      "scope": {
+        "adapters": 8,
+        "packages": 10,
+        "excluded": [
+          "jido_chat_mattermost"
+        ],
+        "authorization_date": "2026-10-14"
+      },
+      "audit_exception": "audit-exceptions.json"
     },
     {
       "id": "G8",
-      "state": "pending",
-      "evidence": [],
+      "state": "pass",
+      "evidence": [
+        "MIGRATION_GUIDE.md",
+        "evidence/checkpoint-b5-scope-update/package-index.json",
+        "evidence/checkpoint-b5-scope-update/release-readiness.json",
+        "evidence/checkpoint-b5-scope-update/published-source-comparison.json"
+      ],
       "depends_on": [
         "G7"
       ],
-      "remaining": [
-        "Complete migration docs, runnable examples, proposed versions and production dependency metadata.",
-        "Verify package builds/file lists, publication order and rollback pins; identify external release blockers."
+      "remaining": [],
+      "publish_ready": false,
+      "publication_blockers": [
+        "Compatible upstream releases containing the tested Signal, Jido, Action and Zoi source contracts and fixes.",
+        "Jido AI 3.0 compatible with the tested Jido 3.x contract.",
+        "Chat 2.0 and the proposed consumer releases after review."
       ]
     },
     {
       "id": "G9",
-      "state": "pending",
+      "state": "running",
       "evidence": [],
       "depends_on": [
         "G8"
       ],
       "remaining": [
-        "Review and commit verified source trees; fix actionable defects.",
-        "Push focused branches, open/attach required PRs, verify current-head CI and complete the PR/evidence index."
+        "Open and attach the core PR.",
+        "Check CI on all ten final documentation/source heads.",
+        "Save the final PR/evidence index."
       ]
     }
   ],
@@ -1571,19 +1590,20 @@
     "final_completion_requirements_unchanged": true,
     "github_issue_progress_body_updates": "disabled_by_user"
   },
-  "updated_at": "2026-10-14T02:11:13.778512+00:00",
+  "updated_at": "2026-10-14T12:48:06.070443+00:00",
   "completion_batches": {
     "plan": "../plans/2026-10-13-003-public-signal-migration-closeout-plan.md",
-    "authorized_through": "B5",
-    "stop_after": "C01-C14 conformance and G7",
+    "authorized_through": "B6",
+    "stop_after": "B6 PR delivery and current-head CI",
     "B0": "pass",
     "B1": "pass",
     "B2": "pass",
-    "stop_reached": true,
+    "stop_reached": false,
     "B3": "pass",
     "B4": "pass",
-    "B5_B6": "B5 checks finished; G7 failed; B6 not started",
-    "B5": "fail",
-    "B6": "not started"
+    "B5_B6": "G7 pass; G8 implementation readiness pass with named publication blockers; G9 running",
+    "B5": "pass",
+    "B6": "running",
+    "latest_instruction": "Approve ten pushes and review PRs; exclude Mattermost; accept the exact Cowlib/Gun audit findings."
   }
 }

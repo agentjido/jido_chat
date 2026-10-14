@@ -1,0 +1,180 @@
+{
+  "implementation_gate": "G8",
+  "state": "pass",
+  "publish_ready": false,
+  "publication_performed": false,
+  "generated_at": "2026-10-14T12:20:57.468246+00:00",
+  "package_file_list_evidence": "package-index.json",
+  "upstream_availability_evidence": "release-availability.json",
+  "upstream_compatibility_evidence": "published-upstream-requirements.json",
+  "audit_exception": "../../audit-exceptions.json",
+  "release_order": [
+    "Compatible upstream Jido AI 3.0 release",
+    "Jido Chat 2.0.0",
+    "Jido Messaging 2.0.0 and the eight proposed adapter releases"
+  ],
+  "rollback": "Restore each package to its rollback_pin together. Restore the previous compatible upstream dependency set. Do not mix the old and new public API versions.",
+  "packages": [
+    {
+      "package": "jido_chat",
+      "repository": "agentjido/jido_chat",
+      "declared_version": "1.2.1",
+      "proposed_version": "2.0.0",
+      "rollback_pin": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "production_chat_requirement": null,
+      "development_chat_ref": null,
+      "publish_ready": false,
+      "blockers": [
+        "Publish and validate the new Chat 2.0.0 release after review"
+      ]
+    },
+    {
+      "package": "jido_messaging",
+      "repository": "agentjido/jido_messaging",
+      "declared_version": "1.1.1",
+      "proposed_version": "2.0.0",
+      "rollback_pin": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published",
+        "Compatible Jido AI 3.0.0 is not published; published 2.x requires Jido 2.x."
+      ]
+    },
+    {
+      "package": "jido_chat_telegram",
+      "repository": "agentjido/jido_chat_telegram",
+      "declared_version": "1.2.1",
+      "proposed_version": "2.0.0",
+      "rollback_pin": "89601c329d2463fa66110a81b615251bce6e2428",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published"
+      ]
+    },
+    {
+      "package": "jido_chat_slack",
+      "repository": "agentjido/jido_chat_slack",
+      "declared_version": "1.1.0",
+      "proposed_version": "2.0.0",
+      "rollback_pin": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published"
+      ]
+    },
+    {
+      "package": "jido_chat_discord",
+      "repository": "agentjido/jido_chat_discord",
+      "declared_version": "1.1.0",
+      "proposed_version": "2.0.0",
+      "rollback_pin": "495b40d9b2ef546d580f303c633be32fb5ec2d3d",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published"
+      ]
+    },
+    {
+      "package": "jido_chat_github",
+      "repository": "agentjido/jido_chat_github",
+      "declared_version": "1.0.0",
+      "proposed_version": "2.0.0",
+      "rollback_pin": "a94f5b35506f506e5441a769086d14190f3ae363",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published"
+      ]
+    },
+    {
+      "package": "jido_chat_signal",
+      "repository": "agentjido/jido_chat_signal",
+      "declared_version": "1.0.0",
+      "proposed_version": "2.0.0",
+      "rollback_pin": "3efc24e44dd6a316dd8f7dda5bee4a1b647490f4",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published"
+      ]
+    },
+    {
+      "package": "jido_chat_teams",
+      "repository": "agentjido/jido_chat_teams",
+      "declared_version": "0.1.0",
+      "proposed_version": "0.2.0",
+      "rollback_pin": "d3c745a0c32614efe59b260b4404ab3325315455",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published"
+      ]
+    },
+    {
+      "package": "jido_chat_whatsapp",
+      "repository": "agentjido/jido_chat_whatsapp",
+      "declared_version": "0.1.0",
+      "proposed_version": "0.2.0",
+      "rollback_pin": "1273a4303089430ae325b3fa17aa3ead93995641",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published"
+      ]
+    },
+    {
+      "package": "jido_chat_x",
+      "repository": "agentjido/jido_chat_x",
+      "declared_version": "1.0.1",
+      "proposed_version": "2.0.0",
+      "rollback_pin": "559f6abcc876f55ed2d02b92dc3a36d7dfdbbf40",
+      "production_chat_requirement": "~> 2.0",
+      "development_chat_ref": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "publish_ready": false,
+      "blockers": [
+        "Chat 2.0.0 is not published"
+      ]
+    }
+  ],
+  "compatible_upstream_release_blockers": [
+    {
+      "package": "jido_signal",
+      "required_source_ref": "d6611eca1c95eb507843baceb55991e4801d8421",
+      "reason": "The published package library differs from the tested source. Publish and validate a compatible release that contains the required contract and fixes."
+    },
+    {
+      "package": "jido",
+      "required_source_ref": "90763478104f1edbf0afcfcf9444621c3f9755e8",
+      "reason": "The published package library differs from the tested source. Publish and validate a compatible release that contains the required contract and fixes."
+    },
+    {
+      "package": "jido_action",
+      "required_source_ref": "8e9b3f7b268e175091b0eb3720bab3b8633d3c24",
+      "reason": "The published package library differs from the tested source. Publish and validate a compatible release that contains the required contract and fixes."
+    },
+    {
+      "package": "zoi",
+      "required_source_ref": "2fff2a23e23e7ac0b26f62f49bbc1b12f7818ac9",
+      "reason": "The published package library differs from the tested source. Publish and validate a compatible release that contains the required contract and fixes."
+    },
+    {
+      "package": "jido_ai",
+      "required_source_ref": "1f19ff262081bc13eb30da7bff8bfe42685d63c8",
+      "reason": "A compatible Jido AI 3.0 release is not published. Published 2.x requires Jido 2.x."
+    }
+  ],
+  "published_source_evidence": "published-source-comparison.json",
+  "implementation_ready": true,
+  "note": "Package metadata and file lists are verified. Intended version constraints do not prove that a compatible upstream release is published. Publish only after compatible releases containing the tested contracts are available and validated."
+}

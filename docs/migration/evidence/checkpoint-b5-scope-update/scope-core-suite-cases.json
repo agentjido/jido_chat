@@ -1,0 +1,1831 @@
+{
+  "cases": [
+    {
+      "line": 16,
+      "module": "Jido.Chat.AdapterTestKitTest",
+      "name": "test factories produce domain inputs and fully checked typed deliveries",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapter_test_kit_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 33,
+      "module": "Jido.Chat.AdapterTestKitTest",
+      "name": "test mock state snapshots and resets without shared global state",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapter_test_kit_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 43,
+      "module": "Jido.Chat.AdapterTestKitTest",
+      "name": "test mock transport records calls and consumes queued responses in order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapter_test_kit_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 54,
+      "module": "Jido.Chat.AdapterTestKitTest",
+      "name": "test typed requests select one mock callback in the intended order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapter_test_kit_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 79,
+      "module": "Jido.Chat.AdapterTestKitTest",
+      "name": "test history results keep the requested external room separate from thread IDs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapter_test_kit_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 109,
+      "module": "Jido.Chat.AdapterTestKitGeneratedConformanceTest",
+      "name": "test adapter implements the typed protocol and coherent capabilities",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapter_test_kit_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 31,
+      "module": "Jido.Chat.Adapters.MentionsTest",
+      "name": "test parse_mentions/3 and normalize_mentions/1",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapters/mentions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 40,
+      "module": "Jido.Chat.Adapters.MentionsTest",
+      "name": "test strip_mentions/3",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapters/mentions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 45,
+      "module": "Jido.Chat.Adapters.MentionsTest",
+      "name": "test was_mentioned?/3",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapters/mentions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 25,
+      "module": "Jido.Chat.Adapters.ThreadingTest",
+      "name": "test supports_threads?/1",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapters/threading_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 30,
+      "module": "Jido.Chat.Adapters.ThreadingTest",
+      "name": "test compute_thread_root/2",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapters/threading_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 37,
+      "module": "Jido.Chat.Adapters.ThreadingTest",
+      "name": "test extract_thread_context/2",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/adapters/threading_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 6,
+      "module": "Jido.Chat.AITest",
+      "name": "test to_messages sorts chronologically, maps roles, and includes names",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/ai_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 38,
+      "module": "Jido.Chat.AITest",
+      "name": "test system author role takes precedence below explicit role and above is_me",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/ai_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 66,
+      "module": "Jido.Chat.AITest",
+      "name": "test to_messages emits multipart content for images and text-like files",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/ai_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 99,
+      "module": "Jido.Chat.AITest",
+      "name": "test to_messages can fetch text attachments and handle unsupported media with hooks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/ai_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 128,
+      "module": "Jido.Chat.AITest",
+      "name": "test to_ai_messages accepts Chat SDK-style camelCase option aliases",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/ai_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 18,
+      "module": "Jido.Chat.BindingResourcesTest",
+      "name": "test bind rejects an incompatible adapter before configured setup",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/binding_resources_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 23,
+      "module": "Jido.Chat.BindingResourcesTest",
+      "name": "test a scoped resource preserves bytes privately and cancellation removes their value",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/binding_resources_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 35,
+      "module": "Jido.Chat.BindingResourcesTest",
+      "name": "test expiry, closed storage, owner mismatch, and binding mismatch fail explicitly",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/binding_resources_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 50,
+      "module": "Jido.Chat.BindingResourcesTest",
+      "name": "test stream storage and resolution do not enumerate the stream",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/binding_resources_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.BindingResourcesTest",
+      "name": "test a completed creator call cannot leave its private value available",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/binding_resources_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 76,
+      "module": "Jido.Chat.BindingResourcesTest",
+      "name": "test expiry clears a private value even when a different caller checks it",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/binding_resources_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 84,
+      "module": "Jido.Chat.BindingResourcesTest",
+      "name": "test a resource kind mismatch cannot reuse a terminal resource state",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/binding_resources_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 7,
+      "module": "Jido.Chat.CapabilitiesTest",
+      "name": "test supports?/2 and all/0",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/capabilities_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 16,
+      "module": "Jido.Chat.CapabilitiesTest",
+      "name": "test content_requires/1",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/capabilities_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 24,
+      "module": "Jido.Chat.CapabilitiesTest",
+      "name": "test can_deliver?/2 and content filtering",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/capabilities_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 38,
+      "module": "Jido.Chat.CapabilitiesTest",
+      "name": "test can_deliver?/2 handles outbound post payloads",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/capabilities_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 60,
+      "module": "Jido.Chat.CapabilitiesTest",
+      "name": "test channel_capabilities/1 derives fallbacks for adapters without an explicit matrix",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/capabilities_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 86,
+      "module": "Jido.Chat.CapabilitiesTest",
+      "name": "test channel_capabilities/1 derives delivery support from adapter capability matrices",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/capabilities_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 167,
+      "module": "Jido.Chat.CapabilitiesTest",
+      "name": "test channel_capabilities/1 preserves legacy list-based adapter capabilities",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/capabilities_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 6,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test constructors accept atom and string maps and keep chart data typed",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 24,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test named series align unambiguously with ordered shared categories",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 60,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test table accepts caption and any positive page size without provider limits",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 74,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test charts and tables have deterministic readable fallbacks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 90,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test each chart type and table exposes non-empty adapter fallback text",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 106,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test chart data boundaries reject empty data and non-numeric values",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test external selects accept initial options and option groups",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 142,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test date and number constructors validate portable boundaries",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 172,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test modal fallback text describes inputs and constraints",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 188,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test each input type has deterministic readable fallback text",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 210,
+      "module": "Jido.Chat.CardsModalsExtensionsTest",
+      "name": "test string-key card and modal maps normalize all new element kinds",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cards_modals_extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 4,
+      "module": "Jido.Chat.ColdCapabilitiesTest",
+      "name": "test capability inspection loads a cold adapter before reading native support",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/cold_capabilities_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 19,
+      "module": "Jido.Chat.DeliverySignalTest",
+      "name": "test zero, one, and many facts keep the complete validated order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/delivery_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 31,
+      "module": "Jido.Chat.DeliverySignalTest",
+      "name": "test every item is checked before authoritative processing",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/delivery_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 47,
+      "module": "Jido.Chat.DeliverySignalTest",
+      "name": "test 100 items and 20 failure facts are allowed; one extra rejects the delivery",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/delivery_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 72,
+      "module": "Jido.Chat.DeliverySignalTest",
+      "name": "test encoded delivery size is accepted at 1 MiB and rejected one byte beyond",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/delivery_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 23,
+      "module": "Jido.Chat.DomainSerializationTest",
+      "name": "test retained records serialize independently without a public wrapper reviver",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/domain_serialization_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 52,
+      "module": "Jido.Chat.DomainSerializationTest",
+      "name": "test canonical pages preserve messages and cursors as pure values",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/domain_serialization_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 67,
+      "module": "Jido.Chat.DomainSerializationTest",
+      "name": "test UserInfo normalizes atom and string keyed input",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/domain_serialization_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 75,
+      "module": "Jido.Chat.DomainSerializationTest",
+      "name": "test MessageSubject normalizes atom and string keyed input",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/domain_serialization_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 6,
+      "module": "Jido.Chat.EmojiTest",
+      "name": "test render keeps built-in tokens and preserves unknown named tokens",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/emoji_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.EmojiTest",
+      "name": "test put_custom supports custom names without requiring preexisting atoms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/emoji_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 147,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test options callback is stopped at the captured deadline and the result is not rerun",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 162,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test invalid options deadline is rejected before the provider callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test add_reaction: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test delete_message: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test edit_message: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_channel_messages: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_media: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_message: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_messages: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_metadata: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_subject: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_thread: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test get_thread_participants: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test get_user: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test list_threads: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test load_options: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test mark_as_read: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_dm: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_modal: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_thread: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_channel_message: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_ephemeral: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_message: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test remove_reaction: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test send_file: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test send_message: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test start_typing: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test stream: one native callback and a registered typed result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test add_reaction: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test delete_message: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test edit_message: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_channel_messages: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_media: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_message: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_messages: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_metadata: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_subject: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_thread: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test get_thread_participants: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test get_user: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test list_threads: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test load_options: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test mark_as_read: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_dm: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_modal: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_thread: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_channel_message: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_ephemeral: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_message: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test remove_reaction: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test send_file: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test send_message: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test start_typing: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test stream: unsupported selection calls no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test add_reaction: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test delete_message: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test edit_message: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_channel_messages: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_media: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_message: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_messages: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_metadata: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_subject: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fetch_thread: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test get_thread_participants: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test get_user: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test list_threads: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test load_options: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test mark_as_read: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_dm: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_modal: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test open_thread: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_channel_message: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_ephemeral: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post_message: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test remove_reaction: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test send_file: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test send_message: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test start_typing: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test stream: provider failure is a registered result with one callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 222,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test result construction failure preserves the admitted outcome and cannot repeat a provider call",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 237,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test unrepresentable parent IDs and conversation keys fail before a provider call",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 247,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test invalid input, unknown type/schema, and a fact cause zero callbacks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 274,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test logical request identity is separate from Signal ID and returns the same cached result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 289,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test fallback selection preserves explicit callback counts",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 307,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test ephemeral DM fallback is explicit and invokes open then send once",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 319,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test native streams stay lazy until the provider consumes them",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 336,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test invalid provider data and exceptions never rerun the callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 346,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test paged queries retain every item and cursor without claiming completeness",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 356,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test large selected results use an owner-bound reference and retain their cursor",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 373,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test resource expiry, cancellation, and failure return typed results with zero callbacks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 394,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test post/edit stream fallback preserves order and does not repeat the final edit",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 406,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test blank-placeholder stream fallback starts once at the first snapshot",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 416,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test one file post fallback selects send_file once",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 434,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test an in-progress request cannot invoke a second callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 447,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test caller termination leaves unknown effect state and cannot trigger an automatic repeat",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 459,
+      "module": "Jido.Chat.ExecutorSignalTest",
+      "name": "test closing call-local state cannot erase an accepted provider result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/executor_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 8,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test one-character streams flush to the non-streamed Markdown",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 29,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test partial emphasis, links, and code fences get safe closing syntax",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 45,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test code fence repairs preserve the opening marker and marker length",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 59,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test a possible table header is buffered until its divider is complete",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 81,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test table parsing preserves adjacent empty cells before one optional outer pipe",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 95,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test plain one-character pushes preserve final content",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 105,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test incremental snapshots preserve leading blank chunks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 113,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test structured stream chunks have deterministic Markdown fallbacks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 160,
+      "module": "Jido.Chat.Markdown.StreamRendererTest",
+      "name": "test the non-streamed payload fallback uses the same structured renderer",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/markdown_stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 6,
+      "module": "Jido.Chat.MediaTypeTest",
+      "name": "test normalizes valid provider MIME values and rejects invalid values",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/media_type_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 18,
+      "module": "Jido.Chat.MediaTypeTest",
+      "name": "test uses only caller-supplied provider defaults",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/media_type_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 24,
+      "module": "Jido.Chat.MediaTypeTest",
+      "name": "test uses a valid download response media type before byte and filename hints",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/media_type_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 39,
+      "module": "Jido.Chat.MediaTypeTest",
+      "name": "test prefers downloaded byte signatures over filename hints",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/media_type_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 47,
+      "module": "Jido.Chat.MediaTypeTest",
+      "name": "test uses filename and URL extensions only as last-choice hints",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/media_type_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 63,
+      "module": "Jido.Chat.MediaTypeTest",
+      "name": "test infers media kind without inventing media_type",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/media_type_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 6,
+      "module": "Jido.Chat.MessagingTargetTest",
+      "name": "test from_context/1 infers kind and captures reply ids",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/messaging_target_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 26,
+      "module": "Jido.Chat.MessagingTargetTest",
+      "name": "test for_reply/2 applies reply mode",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/messaging_target_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 34,
+      "module": "Jido.Chat.MessagingTargetTest",
+      "name": "test for_room/2 and for_thread/3 constructors",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/messaging_target_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 47,
+      "module": "Jido.Chat.MessagingTargetTest",
+      "name": "test to_send_opts/1 emits only applicable options",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/messaging_target_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 4,
+      "module": "Jido.Chat.PartialUpdateSignalTest",
+      "name": "test unknown and empty update text remain distinct through the closed native catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/partial_update_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 23,
+      "module": "Jido.Chat.PartialUpdateSignalTest",
+      "name": "test reaction clear retains an unknown previous emoji as required null",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/partial_update_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 52,
+      "module": "Jido.Chat.PartialUpdateSignalTest",
+      "name": "test partial updates still reject absent text, unsafe text and undeclared provider fields",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/partial_update_signal_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 6,
+      "module": "Jido.Chat.PublicBoundaryRetirementTest",
+      "name": "test the new major line has no old public event/DTO wrappers or duplicate router",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_boundary_retirement_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ActionReceived keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.AddReaction keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.AssistantContextChanged keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.AssistantThreadStarted keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.DeleteMessage keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.EditMessage keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.FetchChannelMessages keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.FetchMedia keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.FetchMessage keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.FetchMessages keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.FetchMetadata keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.FetchSubject keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.FetchThread keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.GetThreadParticipants keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.GetUser keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ListThreads keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.LoadOptions keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.MarkAsRead keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.MembershipChanged keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.MessageDeleted keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.MessageReceived keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.MessageUpdated keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ModalClosed keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ModalSubmitted keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.NormalizationFailed keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.OpenDm keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.OpenModal keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.OpenThread keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.OperationCompleted keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.OperationFailed keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.OptionsRequested keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.PostChannelMessage keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.PostEphemeral keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.PostMessage keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ReactionAdded keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ReactionRemoved keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ReceiptReceived keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.RemoveReaction keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.SendFile keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.SendMessage keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.SlashCommandReceived keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.StartTyping keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.Stream keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ThreadChanged keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test native definition Jido.Chat.Signal.ThreadStarted keeps identity through JSON and Catalog",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 29,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test constructor metadata override attempts fail with one structured contract error",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 42,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test private values and unapproved context fail without a raw fallback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.PublicSignalContractTest",
+      "name": "test encoded Signal size is accepted at the exact limit and rejected one byte beyond",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/public_signal_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 26,
+      "module": "Jido.Chat.RetainedDomainValuesTest",
+      "name": "test domain message/reply records keep independent external identity and content",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/retained_domain_values_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 46,
+      "module": "Jido.Chat.RetainedDomainValuesTest",
+      "name": "test retained identity, author, and input constructors preserve their values",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/retained_domain_values_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 72,
+      "module": "Jido.Chat.RetainedDomainValuesTest",
+      "name": "test thread and channel records are pure references without transport aliases",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/retained_domain_values_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 100,
+      "module": "Jido.Chat.RetainedDomainValuesTest",
+      "name": "test rich input builders and private streams preserve intent without raw provider payloads",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/retained_domain_values_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 115,
+      "module": "Jido.Chat.RetainedDomainValuesTest",
+      "name": "test content blocks remain separate input/domain values",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/retained_domain_values_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 21,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Message.new/1 creates normalized message with defaults",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 33,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test reply transport ID and context do not synthesize each other",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 41,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Room.new/1 creates room with defaults",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 49,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Participant.new/1 creates participant with defaults",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Author.new/1 preserves stable identity, email, and system state",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 73,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test legacy human Author.new/1 keeps enriched fields unset and defaults false",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 81,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Message.new/1 normalizes content attachments into media structs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 98,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test markdown helpers provide stringify, plain text, walk, and table fallbacks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 123,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test typed markdown and card payloads preserve canonical rich content",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 153,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test post payloads normalize outbound attachments into typed structs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 181,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test post payloads normalize outbound files into typed structs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test stream postables preserve text chunks and normalize structured chunks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test schema constructor errors raise Splode validation errors",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 231,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Text.new/1",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 237,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Image.new/2 and from_base64/3",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 246,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Audio.new/2 and from_base64/3",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 253,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Video.new/2 and from_base64/3",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 261,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test File.new/3 and from_base64/4",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 268,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test Media.normalize/1 preserves typed attachment details",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 285,
+      "module": "Jido.Chat.StructsTest",
+      "name": "test ToolUse.new/3 and ToolResult.new/3",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/structs_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 31,
+      "module": "Jido.Chat.TypedHandlersTest",
+      "name": "test membership uses its own registered route and never enters message or mention handlers",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 60,
+      "module": "Jido.Chat.TypedHandlersTest",
+      "name": "test subscribed, mention, and matching-message precedence stays in application state",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 85,
+      "module": "Jido.Chat.TypedHandlersTest",
+      "name": "test handler registration and runner reject commands",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 95,
+      "module": "Jido.Chat.TypedHandlersTest",
+      "name": "test native Dispatch observes the same accepted Signal in configured order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 105,
+      "module": "Jido.Chat.TypedHandlersTest",
+      "name": "test observation failure does not rerun accepted handlers",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 126,
+      "module": "Jido.Chat.TypedHandlersTest",
+      "name": "test complete delivery validation prevents any handler call on an invalid later item",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 140,
+      "module": "Jido.Chat.TypedHandlersTest",
+      "name": "test a failed callback retains the claimed state and cannot repeat earlier work",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 160,
+      "module": "Jido.Chat.TypedHandlersTest",
+      "name": "test memory deduplication has the declared bounded retention",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/typed_handlers_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test catalog JSON decoding preserves the complete typed fact",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 28,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test catalog rejects invalid data and unknown schema identities",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 39,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test Bus uses type, source, and subject conjunction and keeps selected order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 64,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test invalid selectors fail before Bus state changes or callbacks run",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test filtered durable subscriptions fail without a stored subscription",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test the same Bus contract selects an unrelated non-chat family",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 6,
+      "module": "Jido.ChatTest",
+      "name": "test facade constructors delegate to core structs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido_chat_test.exs",
+      "state": "pass"
+    }
+  ]
+}

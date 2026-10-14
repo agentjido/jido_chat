@@ -13,12 +13,18 @@ upstream:
 signal_baseline: d6611eca1c95eb507843baceb55991e4801d8421
 ---
 
+User scope change — October 14: Mattermost is excluded because it is not the
+user's package. The current goal covers eight adapters and ten packages. Earlier
+Mattermost work and reports remain historical evidence. The user accepted the exact Cowlib/Gun findings in audit-exceptions.json.
+The user approved the ten B6 pushes and review PRs. Continue through G9.
+Keep the raw failed audits and preserve all other checks.
+
 # Jido Chat and Messaging — Public Signal Migration
 
 ## Goal contract
 
 Implement one typed public communication contract across `jido_chat`,
-`jido_messaging`, and all nine active provider adapters. Use Jido Signal v3
+`jido_messaging`, and all eight active provider adapters. Use Jido Signal v3
 custom definitions for events, commands, queries, and results. Complete normalized
 membership support from #57 as the first feature. Remove obsolete event wrappers
 and duplicate routing from the new release line. Deliver tested, reviewable PRs
@@ -37,7 +43,7 @@ or releases.
 Suggested future goal objective:
 
 > Execute this plan through gates G0–G9. Implement the typed public Signal
-> contract, normalized membership support, and all nine adapter migrations.
+> contract, normalized membership support, and all eight adapter migrations.
 > Use one pinned compatible v3 dependency graph. Run the specified checks and
 > open PRs with exact evidence. Finish only when every gate passes. Do not merge,
 > publish packages, perform live provider operations, or change the agreed scope.
@@ -85,7 +91,7 @@ the older local head or infer feature availability from the beta version string.
 | --- | --- |
 | `jido_chat` | Shared typed definitions, configured bindings, provider operation boundary, normalization/delivery values, lightweight signal handlers, shared conformance kit. |
 | `jido_messaging` | Direct ingress acceptance, identity resolution, authorization, records, routing/retry ownership, runtime signals, instance Bus, optional AI integration migration. |
-| Discord, Slack, Telegram, GitHub, Signal provider, Mattermost, Teams, WhatsApp, X | Provider verification, mapping into shared Chat signals, private transport operations, declared capabilities. |
+| Discord, Slack, Telegram, GitHub, Signal provider, Teams, WhatsApp, X | Provider verification, mapping into shared Chat signals, private transport operations, declared capabilities. |
 
 Use `Jido.Chat.Signal.*` for provider facts and operations and
 `Jido.Messaging.Signal.*` for runtime facts and requests. Keep separate
@@ -244,7 +250,7 @@ G1 creates checked, versioned manifests. They are part of the core PR.
 3. **Operations:** the 26 existing provider operation callbacks, their capability,
    native/fallback selection, typed result variant, and resource rules. Lifecycle,
    verification, listener setup, and capability lookup are classified separately.
-4. **Adapter matrix:** all nine adapters; exact event/operation support, membership
+4. **Adapter matrix:** all eight adapters; exact event/operation support, membership
    support, participant-query support, transport/delivery identities, acceptance,
    acknowledgement/checkpoint, and retry unit.
 5. **Version matrix:** exact source commits, branches, dependency versions/refs,
@@ -319,10 +325,10 @@ is not evidence of compatibility. Do not claim a new package version is publishe
 record/builders and remove-wrapper list. Freeze source/subject encoding, protocol
 version 1, limits, result/errors, and handler precedence. Put the deterministic
 lab in `jido_chat/integration/` as a separate dev-only Mix project. It uses the
-version matrix to resolve the nine adapter sources. Do not ship it in the Hex
+version matrix to resolve the eight adapter sources. Do not ship it in the Hex
 package or change runtime dependency direction.
 
-**Pass:** all nine adapter entries and all 26 operations are classified. Every
+**Pass:** all eight adapter entries and all 26 operations are classified. Every
 catalog type has one schema identity and fixture. All public communication APIs
 have a mapping. No duplicate definition pair exists. The harness checks manifest
 completeness and the domain rules below and emits structured pass/fail output.
@@ -404,7 +410,7 @@ round-trip reports. No credentials or real provider traffic are used.
 
 ### G6 — Remaining seven adapters
 
-**Work:** migrate Discord, GitHub, Signal provider, Mattermost, Teams, WhatsApp,
+**Work:** migrate Discord, GitHub, Signal provider, Teams, WhatsApp,
 and X in that order. Independent adapters can run in parallel only when execution
 is explicitly authorized to delegate. Each has an isolated checkout. Reuse G5
 contracts rather than adding provider-specific public shapes.
@@ -417,11 +423,11 @@ explicitly unsupported. All seven package-local quality checks pass.
 
 **Provider-specific assertions:** Teams retains all members/reactions and separates
 message update/delete; X retains every DM item; WhatsApp accepts a complete upsert
-unit and handles sink rejection; Mattermost and Signal normalize before the sink;
+unit and handles sink rejection; Signal normalizes before the sink;
 GitHub retains provider lifecycle distinctions; Discord uses conversation membership
 rather than treating all guild role changes as conversation membership.
 
-**Evidence:** all nine matrix rows complete, with per-adapter command logs and
+**Evidence:** all eight matrix rows complete, with per-adapter command logs and
 fixture counts. No row can pass by skipping a supported feature.
 
 ### G7 — Whole-group deterministic integration
@@ -496,7 +502,7 @@ Do not mark the goal complete merely because PRs exist or one adapter works.
 | C09 | Membership evidence produces zero message-handler, agent-trigger, grant, runtime-membership, and presence mutations. |
 | C10 | Type/source/subject selection isolates contexts, uses conjunction, preserves identity/order, and rejects payload/callback filters. |
 | C11 | Handler precedence, broadcast/failover, retry ownership, and provider checkpoints have explicit expected counts/order. |
-| C12 | All nine declared capability sets match fixtures; no raw-map sink, old public event wrapper, or duplicate event construction path remains. |
+| C12 | All eight declared capability sets match fixtures; no raw-map sink, old public event wrapper, or duplicate event construction path remains. |
 | C13 | Core-only and optional-AI graphs resolve/compile/test one compatible v3 runtime set. |
 | C14 | Package file lists, dependency constraints, examples, and the PR/evidence index are complete and consistent. |
 
@@ -523,7 +529,7 @@ mix hex.build
 
 Follow the package AGENTS.md for additional required commands and coverage.
 Messaging's instructions require at least 90 percent coverage even if its current
-mix.exs threshold is zero. Mattermost requires 90 percent; WhatsApp's current
+mix.exs threshold is zero. WhatsApp's current
 configured floor is 80 percent. Record the applicable rule in the version matrix;
 never lower a threshold or mark a failed mandatory check as passed.
 
@@ -588,7 +594,7 @@ perform them under the default implementation goal.
 
 No product-scope question remains. Review these concrete commitments before
 starting the goal: the v3 prerequisite, the major public API change, room-level
-source/subject rules, optional-AI compatibility, all nine adapters, and the G9
+source/subject rules, optional-AI compatibility, all eight adapters, and the G9
 completion boundary. The upstream syntax and source commit are now verified.
 The consumer dependency matrix remains G0 work, not an invitation to recreate
 library features. Read the current gate status and B0–B2 checkpoint report before future work.
@@ -622,3 +628,10 @@ and coverage floors pass. The local index has all 11 candidates; PR delivery
 remains in B6 by user selection. Tested changes are saved in local commits.
 Execution stopped after B5. G7 has not passed. B6 did not start.
 See [the B5 report](../migration/CHECKPOINT_B5.md).
+
+## October 14 current result
+
+G7 passes for eight adapters and ten packages with the exact accepted audit
+exception. G8 implementation readiness passes with named upstream release
+blockers. B6 is completing the ten PRs and current-head CI.
+See CHECKPOINT_B5_SCOPE_UPDATE.md and CHECKPOINT_B6.md in docs/migration.

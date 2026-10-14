@@ -1,0 +1,1817 @@
+{
+  "cases": [
+    {
+      "line": 2,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test adapter implements the typed protocol and coherent capabilities",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test channel metadata",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test adapter capabilities matrix declares supported and unsupported surfaces",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 224,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test delivery capabilities include canonical single-file media support but not multi-file",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test adapter extension capabilities expose telegram-only surface",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 237,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 normalizes a telegram message map",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 264,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 extracts media",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 284,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 prefers an available photo MIME type to the fallback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 307,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 uses the photo MIME fallback for blank or invalid values",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 330,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 normalizes ExGram PhotoSize structs as JPEG",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 363,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 extracts a static sticker with Telegram metadata",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 409,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 classifies animated and video sticker formats",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 437,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 accepts ExGram update and message structs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 467,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 extracts an animation once when Telegram also sends its document",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 506,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 extracts a video note and ignores an unsupported attachment",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 538,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 reads a photo caption as the message text",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 554,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 leaves text nil for a caption-less photo",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 568,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 prefers text over caption when a message somehow has both",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 583,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 reads a document caption too",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 599,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test normalize_event returns typed failures for missing or malformed updates",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 607,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_message/3 uses configured transport and returns normalized send result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 628,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_message/3 infers parse_mode from top-level format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 640,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_message/3 keeps explicit parse_mode over top-level format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 653,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_message/3 omits parse_mode for plain_text and unknown top-level format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 675,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test adapter stream uses telegram draft updates for private chats and final sendMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 705,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test adapter stream infers parse_mode from top-level format for draft and final send",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 727,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test adapter stream skips duplicate partial draft updates",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 745,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test adapter stream falls back to one-shot send for unsupported targets",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 764,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test adapter stream returns empty_stream when no content is produced",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 777,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_message/3 maps generic reply and thread routing to telegram payload fields",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 791,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test edit_message/4 handles boolean telegram response",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 809,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test edit_message/4 infers parse_mode from top-level format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 821,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test edit_message/4 omits parse_mode for plain_text and unknown top-level format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 843,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test delete_message/3 delegates to transport",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 851,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test start_typing/2 delegates to transport",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 864,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test fetch_metadata/2 returns normalized channel info",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 878,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test fetch_metadata/2 normalizes struct metadata into plain map",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 894,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test open_dm/2 maps to user id on telegram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 898,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test post_ephemeral/4 uses fallback dm flow",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 914,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test add/remove reaction delegate through transport",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 936,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_file sends images and maps generic reply/thread options",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 967,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_file/3 infers parse_mode from top-level format for caption uploads",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1001,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_file/3 keeps explicit parse_mode and omits for plain_text/unknown",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1052,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_file/3 supports filesystem paths and raw byte uploads",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1098,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test send_file/3 returns explicit validation errors for missing upload data",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1116,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test typed post_message uses telegram send_file support for canonical uploads",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1149,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test add/remove reaction map unsupported transport method to unsupported",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1163,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test history/list_threads remain explicitly unsupported in the native boundary",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1180,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test open_thread/3 creates forum topics and normalizes room/thread ids",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1196,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test open_thread/3 can be explicitly disabled",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1205,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test typed webhook messages select the local mention handler",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1228,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test typed webhook slash commands preserve the separate command handler",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1248,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test typed webhook slash messages also select the message policy handler",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1274,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test typed webhook accepts edited messages as update facts",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1293,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test typed webhook accepts channel post and edit families",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1316,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test typed webhook actions and reactions select their own handlers",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1350,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test typed webhook verification rejects the wrong configured secret",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 1360,
+      "module": "Jido.Chat.Telegram.AdapterSurfaceTest",
+      "name": "test unsupported webhook updates return a registered failure fact",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 80,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test capabilities/0 exposes extension-specific surface",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 89,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test get_file/2 resolves normalized Telegram media references",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 107,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test download_file/2 downloads bytes without returning the token-bearing URL",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 123,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test Adapter.fetch_media/2 downloads bytes for a scoped Telegram resource",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 157,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test Adapter.fetch_media/2 propagates download errors",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 166,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test get_file/2 rejects empty and unsupported references",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 180,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test file helpers return stable errors for invalid successful responses",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test normalize_event selects a native callback query fact",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 215,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test normalize_event returns a typed unsupported fact for unknown updates",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 222,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test send_photo/send_document return typed media messages",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 245,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test answer_callback_query/2 returns typed callback answer result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 257,
+      "module": "Jido.Chat.Telegram.ExtensionsTest",
+      "name": "test InlineKeyboard.to_reply_markup/1 builds telegram wire shape",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/extensions_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 39,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test ensure_ingress_subscription/2 sets the Telegram webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 71,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test ensure_ingress_subscription/2 accepts messaging-style settings and credentials",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 105,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test per-call ingress overrides settings ingress across key styles",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 132,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test ingress subscription callbacks forward root url as transport option",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 174,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test list_ingress_subscriptions/2 returns the active Telegram webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 195,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test list_ingress_subscriptions/2 returns an empty list when Telegram has no webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 203,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test delete_ingress_subscription/3 deletes the Telegram webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 220,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test ensure_ingress_subscription/2 requires a webhook URL",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 228,
+      "module": "Jido.Chat.Telegram.IngressSubscriptionTest",
+      "name": "test ingress subscription callbacks are unsupported for polling mode",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/ingress_subscription_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 99,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test send/edit/delete message against live Telegram Bot API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 113,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test typing and metadata calls succeed against live Telegram API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 120,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test stream sends draft updates and a final message against live Telegram Bot API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 158,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test rich send, reply, edit, and stream succeed against live Telegram Bot API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 240,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test reply continuity preserves reply_to metadata and optional topic routing",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 285,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test reaction flow is either native or explicitly unsupported",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 311,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test webhook handling pipeline processes Telegram-shaped payload",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 332,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test extension media sends succeed against live Telegram Bot API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 379,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test file download preserves raw JSON attachment bytes",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 410,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test live Telegram media responses normalize and download",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 456,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test canonical media sends succeed through send_file and core post_message",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 506,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test send_file accepts local filesystem paths and raw byte uploads",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 587,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test open_thread requires TELEGRAM_TEST_FORUM_CHAT_ID for live forum coverage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 592,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test webhook handling supports channel_post and edited_channel_post shapes",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 620,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test unsupported core surfaces remain explicit unsupported contracts",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 663,
+      "module": "Jido.Chat.Telegram.LiveIntegrationTest",
+      "name": "test manual callback query answer requires TELEGRAM_TEST_CALLBACK_QUERY_ID",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test demotion retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test expiry retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test join retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test leave retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test permission retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test promotion retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test reaction permission retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test remove retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test restore member retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test restrict member retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test restricted join retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test restricted leave retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test tag permission retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test unban retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test unchanged retains exact membership evidence and native JSON identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 79,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test missing prior state and actor remain explicit partial evidence",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 88,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test bot-self is based on update kind or captured bot identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test repeated normalization keeps item identity and projects no private input",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test atom-key provider maps preserve false member and permission values",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 129,
+      "module": "Jido.Chat.Telegram.MembershipTest",
+      "name": "test invalid or mismatched membership state rejects without raw fallback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/membership_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 41,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test empty units remain valid and ordered batches retain every message",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 49,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test webhook and polling share item identity without sharing a batch identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 57,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test message projection retains sender, thread, full text, reply and conversation data",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 81,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test edited messages and edited channel posts are update facts",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 90,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test slash commands preserve the complete message and a separate command fact",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 100,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test UTF-16 mention offsets retain the provider text and target",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 113,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test media pointers remain private and retain all selected media items",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 133,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test membership keeps restricted is_member and item identity across both transports",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 153,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test a membership service message retains every joined member without a message fact",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 163,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test reaction changes retain every removal and addition in order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 186,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test callback queries select portable interaction data",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 205,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test malformed items produce registered failures between valid messages",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 218,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test missing provider IDs use a stable canonical digest for atom or string keys",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 225,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test size, count and failure limits reject the complete batch",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 237,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test invalid media projection cancels resources instead of leaving active private values",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 245,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test private media retains provider dimensions and metadata while the Signal keeps a reference",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 277,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test blank or non-string photo MIME values retain the JPEG provider fallback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 289,
+      "module": "Jido.Chat.Telegram.NormalizerTest",
+      "name": "test a channel post without a user sender uses the provider channel identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/normalizer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 85,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test the finite operation inventory is complete",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test add_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test delete_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test edit_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_channel_messages matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_media matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_messages matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_metadata matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_subject matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_thread matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test get_thread_participants matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test get_user matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test list_threads matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test load_options matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test mark_as_read matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test open_dm matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test open_modal matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test open_thread matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test post_channel_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test post_ephemeral matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test post_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test remove_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test send_file matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test send_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test start_typing matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test stream matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 121,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test provider failure is typed and cached without repeat calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 132,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test a stream stays lazy before execution and is consumed once",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 150,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test a cancelled stream is never enumerated and invokes no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 17,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test SendOptions.new/1 normalizes keyword options into typed struct",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 45,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test option modules relay nested adapter options to transport",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 52,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test file options expose transport and download configuration",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 64,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test EditOptions.new/1 normalizes keyword options into typed struct",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 81,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test TypingOptions.new/1 includes action and thread payload",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 91,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test DeleteOptions and MetadataOptions normalize transport options",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test ReactionOptions normalizes payload and transport options",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 113,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test option modules infer parse_mode from top-level format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 121,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test option modules keep explicit parse_mode over top-level format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 138,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test option modules ignore plain_text and unknown top-level format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 146,
+      "module": "Jido.Chat.Telegram.OptionsTest",
+      "name": "test option modules ignore metadata.format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 61,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test listener specs use the captured binding before polling starts",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 88,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test one complete typed batch advances offset only after sink acceptance",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test sink error retains the original batch offset and every retry item",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test sink exit retains the original batch offset and every retry item",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test sink invalid retains the original batch offset and every retry item",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test sink raise retains the original batch offset and every retry item",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test sink throw retains the original batch offset and every retry item",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 121,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test whole-batch size failure prevents every sink call and offset change",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 135,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test membership polling emits typed evidence without a message item",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 153,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test membership sink rejection prevents checkpoint advancement",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 178,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test transport error and invalid batch do not call the sink",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 189,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test complete aggregate rejection keeps the checkpoint and makes zero sink calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 189,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test complete count rejection keeps the checkpoint and makes zero sink calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 189,
+      "module": "Jido.Chat.Telegram.PollingWorkerTest",
+      "name": "test complete failures rejection keeps the checkpoint and makes zero sink calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/polling_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 34,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test binding capture keeps transport and credentials after environment changes",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test delete returns a bounded native result and invokes one selected callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test edit returns a bounded native result and invokes one selected callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test metadata returns a bounded native result and invokes one selected callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test reaction returns a bounded native result and invokes one selected callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test send returns a bounded native result and invokes one selected callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test thread returns a bounded native result and invokes one selected callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test typing returns a bounded native result and invokes one selected callback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 82,
+      "module": "Jido.Chat.Telegram.ProtocolTest",
+      "name": "test send file uses a private resource and returns the portable message ID",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 63,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test format routing defaults to sendMessage when no rich format is requested",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 77,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test format routing plain messages pass protect_content to sendMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 89,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test format routing format: :rich_markdown routes the body to sendRichMessage as markdown",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test format routing format: :markdown routes the body to sendRichMessage as markdown",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 117,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test format routing format: :markdown with an explicit parse_mode still uses sendMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 132,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test format routing format: :rich_html routes the body to sendRichMessage as html",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 144,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test format routing rich payloads drop options sendRichMessage does not accept",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test format routing rich messages preserve generic reply routing",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 180,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test SendOptions rich formats do not set parse_mode",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 185,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test SendOptions an explicit rich_format wins over an inferred one",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 190,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test SendOptions plain markdown resolves to rich without a parse_mode",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 203,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test SendOptions caption options keep MarkdownV2 for markdown",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 208,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test SendOptions rejects invalid explicit rich formats",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test edit routing defaults to a plain text edit when no rich format is requested",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 241,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test edit routing format: :rich_markdown edits the message into rich content",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 256,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test edit routing rich edits drop options editMessageText does not accept alongside rich_message",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 272,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test edit routing EditOptions resolves rich formats without setting parse_mode",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 281,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test stream options carries rich_format through to the final send",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 288,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test stream options omits rich_format when the stream is not rich",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 295,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test stream options uses rich draft updates for a rich stream",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 319,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ParseMode.resolve_rich_format/1 maps rich format aliases",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 330,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ParseMode.resolve_rich_format/1 maps plain markdown to rich delivery",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 335,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ParseMode.resolve_rich_format/1 an explicit parse_mode opts markdown back out to sendMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 344,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ParseMode.resolve_rich_format/1 an explicit parse_mode does not suppress an explicit rich format",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 349,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ParseMode.resolve_rich_format/1 ignores non-rich and unknown formats",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 355,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ParseMode.resolve_rich_format/1 an explicit rich_format wins over an inferred one",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 360,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ParseMode.resolve_rich_format/1 rich formats never produce a parse_mode",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 367,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ExGramClient builds an InputRichMessage struct for ex_gram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 381,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ExGramClient builds ReplyParameters for a rich reply",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 397,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ExGramClient passes an already-built InputRichMessage through untouched",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 410,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ExGramClient drops unknown keys when building an InputRichMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 421,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ExGramClient supports every InputRichMessage field",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 442,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ExGramClient editMessageText dispatches rich edits to edit_message_text/1",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 456,
+      "module": "Jido.Chat.Telegram.RichMessageTest",
+      "name": "test ExGramClient editMessageText still dispatches plain edits to edit_message_text/2",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/rich_message_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 47,
+      "module": "Jido.Chat.Telegram.StreamRendererTest",
+      "name": "test native rich drafts use the canonical snapshots and flush exact Markdown",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 71,
+      "module": "Jido.Chat.Telegram.StreamRendererTest",
+      "name": "test possible tables stay buffered until a safe draft exists",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 90,
+      "module": "Jido.Chat.Telegram.StreamRendererTest",
+      "name": "test structured chunks use deterministic Markdown and tool-only streams stay empty",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 108,
+      "module": "Jido.Chat.Telegram.StreamRendererTest",
+      "name": "test update cadence still limits drafts without changing the final flush",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 127,
+      "module": "Jido.Chat.Telegram.StreamRendererTest",
+      "name": "test unsupported draft targets use the same final renderer",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 145,
+      "module": "Jido.Chat.Telegram.StreamRendererTest",
+      "name": "test Telegram draft errors are returned without a final send",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/stream_renderer_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 90,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches sendMessage via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 105,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 forwards url as ExGram adapter opts",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 121,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches editMessageText via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 137,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 normalizes numeric string message ids for ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 150,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches deleteMessage via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches sendChatAction via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 179,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches getChat via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 193,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches getFile via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 209,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches getUpdates via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 225,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches setWebhook via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 244,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches getWebhookInfo via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches deleteWebhook via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 266,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 returns unsupported for unknown methods",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 271,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches sendMessageDraft via the configured HTTP adapter",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 297,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches sendRichMessageDraft via the configured HTTP adapter",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 319,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 forwards url to the configured HTTP adapter",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 333,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test ExGramAdapter.request/4 uses url adapter option as base URL",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 373,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches setMessageReaction via ExGram when available",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 393,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches sendPhoto via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 407,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches sendDocument via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 421,
+      "module": "Jido.Chat.Telegram.Transport.ExGramClientTest",
+      "name": "test call/4 dispatches answerCallbackQuery via ExGram",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/transport/ex_gram_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 4,
+      "module": "Jido.Chat.TelegramTest",
+      "name": "test adapter/0 returns the telegram adapter module",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram_test.exs",
+      "state": "pass"
+    }
+  ]
+}

@@ -9,76 +9,69 @@
     "jido_chat_discord/lib",
     "jido_chat_github/lib",
     "jido_chat_signal/lib",
-    "jido_chat_mattermost/lib",
     "jido_chat_teams/lib",
     "jido_chat_whatsapp/lib",
     "jido_chat_x/lib"
   ],
-  "checked_files": 471,
+  "checked_files": 457,
   "source_revisions": [
     {
       "repository": "jido_chat",
-      "head_sha": "6478beac477846a1e08f10cfa08bf7edee1e413b",
-      "checked_source_sha256": "8726060dacf60d8f310e36f944144c710d91361472a80dce7daec4481b40bf6f",
+      "head_sha": "2a9c21a860cb8c5f1069a865a981a8be035f56c0",
+      "checked_source_sha256": "117e2806a161d8bb42db72b4b6477eb62b1af4c2392ac704859eed83f4a8f256",
       "checked_files": 126
     },
     {
       "repository": "jido_messaging",
-      "head_sha": "17db6f1b30464493cfdc3ae208a8b80e8dc51770",
+      "head_sha": "d425f5ef1e14d92879eac3e2be207e9de1ec9300",
       "checked_source_sha256": "8c18a1e4db189e7c653e55816983b9e3a89a5f3c88e701230da7afc95e1138c0",
       "checked_files": 235
     },
     {
       "repository": "jido_chat_telegram",
-      "head_sha": "8688a30d07d70da235aae7c8e639605ec203b479",
+      "head_sha": "1ebc35ed91d8ee3e97f4dd3750e52c215e6f8ef0",
       "checked_source_sha256": "bcad486ec50c4deae91ef50327ee794c51f49965b910dc77c3df025bf40493f6",
       "checked_files": 27
     },
     {
       "repository": "jido_chat_slack",
-      "head_sha": "78df382391209bb8b1a6feccce4a0a03a33887e6",
+      "head_sha": "67f22cd959c99419abb7b1b54617a86b719245b7",
       "checked_source_sha256": "09adebaf687d0470482cf0a4c083efe2efd3cd7c23a0c51a1298539ad5f75ebe",
       "checked_files": 20
     },
     {
       "repository": "jido_chat_discord",
-      "head_sha": "b45c22d8ba3f018d9403c60fdf76814a9fb4aac6",
+      "head_sha": "98b2a4a473cf71c7fb5e7d5cd85f454b3b9bc2a3",
       "checked_source_sha256": "13e1ee411f7ab67b4d13b3a2f26b8a27e89b21de6f6c95c0d393b012d6992194",
       "checked_files": 14
     },
     {
       "repository": "jido_chat_github",
-      "head_sha": "104e7a9eadab77bb253142d531f584da10ea9ad7",
+      "head_sha": "212aa6c7e6c771bb38a3858d8e87eb46abc895b5",
       "checked_source_sha256": "148686b186b70aec5755204a3f82117d4352ee375566507db36619914f70c0e9",
       "checked_files": 4
     },
     {
       "repository": "jido_chat_signal",
-      "head_sha": "10db758905527e1bc57e2330df5819e629727247",
+      "head_sha": "394bd19dde04262dfc57899c4245560e0611cc2e",
       "checked_source_sha256": "2d0ccc681dbacaf3026d67ac435fc5441661849a212637aab401d4a0de88dee5",
       "checked_files": 8
     },
     {
-      "repository": "jido_chat_mattermost",
-      "head_sha": "13b43f5e50098c541984e835bd7ae8d7028db5e6",
-      "checked_source_sha256": "443a0dd64f64e5c54a88f817d962cddb38073b262301bb8f4712404bcd8f297c",
-      "checked_files": 14
-    },
-    {
       "repository": "jido_chat_teams",
-      "head_sha": "0522afe3966a50f5df9f291dd75ee565e78f7c68",
+      "head_sha": "614d1a8d4012f4d88a44712093f37f5422d813f6",
       "checked_source_sha256": "f6a59e6e83e36196b80098ac57f99d3baaac51cb08adeb1c0e1acee18983608d",
       "checked_files": 10
     },
     {
       "repository": "jido_chat_whatsapp",
-      "head_sha": "0b6c32d26dbce89e16146b81d2d8d22b18f3ef1b",
+      "head_sha": "eee4dd23af994e96d685bae4bf3b319618d0ae03",
       "checked_source_sha256": "0166ba989f0f3500bd1141ed2f205c9b2a5a8da0ec5a364ef308aee2a5116aec",
       "checked_files": 9
     },
     {
       "repository": "jido_chat_x",
-      "head_sha": "5242a2512d4f224d9dbbca5a12d7c749fd890dde",
+      "head_sha": "27a73bbffc9f6170bd49cd605c94fd415a6e270d",
       "checked_source_sha256": "abac23002c65372bbbed39e22e388cf03552ded80f2145806db6f131353bf8da",
       "checked_files": 4
     }

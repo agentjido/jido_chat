@@ -6,11 +6,17 @@ primary_plan: 2026-10-12-002-public-signal-boundary-plan.md
 scope: same implementation and PR scope as the primary plan
 ---
 
+User scope change — October 14: Mattermost is excluded because it is not the
+user's package. The current goal covers eight adapters and ten packages. Earlier
+Mattermost work and reports remain historical evidence. The user accepted the exact Cowlib/Gun findings in audit-exceptions.json.
+The user approved the ten B6 pushes and review PRs. Continue through G9.
+Keep the raw failed audits and preserve all other checks.
+
 # Public Signal migration — remaining work
 
 This document records the local analysis and the execution order.
 The user authorized B0–B2, then B3, B4 and B5, on October 13. Stop after B5.
-The October 12 plan remains the requirements contract. All nine adapters,
+The October 12 plan remains the requirements contract. All eight adapters,
 the 90 percent Messaging coverage requirement, package checks, PR review,
 and current-head CI remain required. This analysis did not change gate status,
 application code, dependencies, or existing test results.
@@ -47,7 +53,7 @@ The implementation folder is `.worktrees/public-signal-v3/`. Reuse its
 | G8–G9: package readiness and PR delivery | Pending |
 
 Telegram, Slack, and Signal have native protocol/normalization entry points.
-Discord, GitHub, Mattermost, Teams, WhatsApp, and X do not yet have those entry
+Discord, GitHub, Teams, WhatsApp, and X do not yet have those entry
 points in these checkouts. This source check does not give any adapter final
 conformance approval.
 
@@ -86,7 +92,7 @@ can replace it.
 
 The records support five causes:
 
-1. **The requested change is large.** It spans two libraries, nine adapters,
+1. **The requested change is large.** It spans two libraries, eight adapters,
    110 native definitions, 26 operations, resources, identity, authorization,
    storage, transport acceptance, and two runtime profiles.
 2. **G3 has no finite remaining task list.** Its record has 271 completed
@@ -227,7 +233,7 @@ Do not make their pass state depend on G8 or G9.
 ### B4 — Finish the remaining provider contracts, G6
 
 Use this order from the primary plan: Discord, GitHub, Signal final conformance,
-Mattermost, Teams, WhatsApp, X. Signal already has its native mapper; assess its
+Teams, WhatsApp, X. Signal already has its native mapper; assess its
 remaining rows before changing it.
 
 For every provider, complete the same six-row checklist:
@@ -244,7 +250,7 @@ Do not add a new provider shape or change support claims to avoid a failed test.
 Return a completed matrix row after each provider. This is seven finite signoff
 units, including six adapters that still need native entry points.
 
-**Complete when:** all nine adapter rows are implemented and locally verified.
+**Complete when:** all eight adapter rows are implemented and locally verified.
 
 ### B5 — Run one complete acceptance report, G7
 
@@ -252,7 +258,7 @@ Implement `Jido.Chat.Integration.Conformance.run/0` with explicit C01–C14 resu
 Connect existing fixture/test proof where it checks the actual assertion.
 Do not return pass from test counts or manifest presence alone.
 
-Resolve and test the full nine-adapter graph. Freeze candidate source hashes.
+Resolve and test the full eight-adapter graph. Freeze candidate source hashes.
 Run whole-group conformance, applicable package suites/quality/coverage, both
 runtime profiles, graph checks, and the full prohibited-boundary scan.
 
@@ -307,3 +313,10 @@ and coverage floors pass. The local index has all 11 candidates; PR delivery
 remains in B6 by user selection. Tested changes are saved in local commits.
 Execution stopped after B5. G7 has not passed. B6 did not start.
 See [the B5 report](../migration/CHECKPOINT_B5.md).
+
+## October 14 current result
+
+G7 passes for eight adapters and ten packages with the exact accepted audit
+exception. G8 implementation readiness passes with named upstream release
+blockers. B6 is completing the ten PRs and current-head CI.
+See CHECKPOINT_B5_SCOPE_UPDATE.md and CHECKPOINT_B6.md in docs/migration.

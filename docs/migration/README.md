@@ -1,25 +1,19 @@
 # Public Signal migration
 
-B0–B3 are complete. G0–G5 pass. G6–G9 remain pending.
-B4 is now in progress. It is waiting for two decisions. G6 remains pending.
-See [the B4 status report](CHECKPOINT_B4.md). B5–B6 did not start.
+The current scope has eight adapters and ten packages. Mattermost is excluded by
+user instruction on October 14, 2026. Its saved work remains in its checkout.
+CVE-2026-43966 for the current Cowlib/Gun versions is accepted by the user.
 
-Telegram passes 243 tests with 16 existing live exclusions. Slack passes 142
-with 8 existing live exclusions. Both package quality gates pass. The B3 runtime
-passes 129 tests, the shared harness passes 241, and the pinned pair graph has
-44 dependencies. Both frozen adapter rows pass all event and operation checks.
-See [CHECKPOINT_B3.md](CHECKPOINT_B3.md) for acceptance reports and saved work.
+G7 passes after the shared cold-module capability fix and CI path corrections.
+G8 implementation readiness passes with named upstream publication blockers.
+B6 is completing the ten review PRs and current-head CI.
+See [the migration guide](MIGRATION_GUIDE.md), [scope decisions](scope-exclusions.json),
+[the audit exception](audit-exceptions.json), and [the tracker](gate-status.json).
 
-Chat and Messaging sources retain the passing B0–B2 proof. Messaging coverage
-remains 90.05059 percent on unchanged source. The prior checkpoint is recorded
-in [CHECKPOINT_B0_B2.md](CHECKPOINT_B0_B2.md).
-
-The execution plan is
-[2026-10-12-002-public-signal-boundary-plan.md](../plans/2026-10-12-002-public-signal-boundary-plan.md).
-Issue [#65](https://github.com/agentjido/jido_chat/issues/65) tracks the work.
-Issue [#64](https://github.com/agentjido/jido_chat/issues/64) records the feature request.
+The original B5 report remains [historical evidence](CHECKPOINT_B5.md).
 
 ## Progress records before B0–B2
+
 
 The test counts and open G3 statements below are historical. The checkpoint
 report above contains the current result.
