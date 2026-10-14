@@ -56,11 +56,6 @@ defmodule Jido.Chat.Integration.G7BoundaryTest do
      }}
   end
 
-  defp input("mattermost") do
-    {Jido.Chat.Mattermost.Adapter, [],
-     %{"post" => %{"id" => "m1", "channel_id" => "C1", "user_id" => "u1", "message" => "body"}}}
-  end
-
   defp input("teams") do
     {Jido.Chat.Teams.Adapter, [],
      %{
@@ -103,7 +98,7 @@ defmodule Jido.Chat.Integration.G7BoundaryTest do
      }}
   end
 
-  for provider <- ~w(telegram slack discord github signal mattermost teams whatsapp x) do
+  for provider <- ~w(telegram slack discord github signal teams whatsapp x) do
     test "#{provider} direct delivery keeps parent identity, trace and one stored observation" do
       {adapter, opts, payload} = input(unquote(provider))
       {:ok, binding} = Jido.Chat.bind(adapter, Keyword.put(opts, :id, "g7-" <> unquote(provider)))

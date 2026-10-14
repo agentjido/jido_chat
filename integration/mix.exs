@@ -8,7 +8,6 @@ defmodule Jido.Chat.Integration.MixProject do
     :jido_chat_discord,
     :jido_chat_github,
     :jido_chat_signal,
-    :jido_chat_mattermost,
     :jido_chat_teams,
     :jido_chat_whatsapp,
     :jido_chat_x

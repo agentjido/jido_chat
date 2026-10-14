@@ -4,7 +4,7 @@ defmodule Jido.Chat.Integration.G6AdapterCheckpointTest do
   @directory Path.expand("../../docs/migration", __DIR__)
   @matrix @directory |> Path.join("adapter-matrix.json") |> File.read!() |> Jason.decode!()
 
-  test "all nine bindings start at protocol 1 with their frozen operation support" do
+  test "all eight bindings start at protocol 1 with their frozen operation support" do
     for row <- @matrix["adapters"] do
       adapter = Module.concat([row["adapter_module"]])
       assert adapter.signal_protocol() == 1
@@ -119,8 +119,6 @@ defmodule Jido.Chat.Integration.G6AdapterCheckpointTest do
            "dataMessage" => %{"message" => "body", "timestamp" => 1}
          }
        }},
-      {Jido.Chat.Mattermost.Adapter, [],
-       %{"post" => %{"id" => "m1", "channel_id" => "C1", "user_id" => "u1", "message" => "body"}}},
       {Jido.Chat.WhatsApp.Adapter, [],
        {:amarula, :messages_upsert,
         %{

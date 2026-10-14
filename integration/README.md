@@ -1,11 +1,11 @@
 # Public Signal integration checks
 
-The default `all` profile loads core, Messaging, and all nine provider adapters.
+The default `all` profile loads core, Messaging, and all eight provider adapters.
 Use this profile for G7 and final whole-group verification.
 
 The `runtime` profile loads core, Messaging, and the Signal provider. Use it for
 G3 runtime checks. It proves runtime behavior before the other adapter ports are
-complete. G7 still requires all nine adapters.
+complete. G7 still requires all eight adapters.
 
 Use separate build paths to test with and without the optional AI dependency.
 From this directory, run the runtime checks with AI excluded:
@@ -47,7 +47,7 @@ then `mix compile --warnings-as-errors` and
 `mix run scripts/run_telegram_membership_runtime_tests.exs`.
 The fixture starts an active agent and checks unchanged grants, membership,
 presence, and stored records. It uses a fake transport and makes no live call.
-The default `all` profile still includes all nine adapters for G7.
+The default `all` profile still includes all eight adapters for G7.
 
 For final checks, set `JIDO_INTEGRATION_PROFILE=all` and use separate whole-group
 build paths. The API audit also requires the full group when `--phase G7` is used:
@@ -56,3 +56,6 @@ build paths. The API audit also requires the full group when `--phase G7` is use
 mix run scripts/audit_api_exports.exs --phase G7
 mix run scripts/verify_signal_migration.exs --phase all --manifest ../docs/migration/version-matrix.json
 ```
+
+Mattermost is excluded from the active goal by user instruction on October 14, 2026.
+The active complete profile has ten packages.

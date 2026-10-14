@@ -661,36 +661,6 @@
     },
     {
       "category": "fixtures",
-      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
-      "name": "zero, one and many retain order and reject all four complete limits"
-    },
-    {
-      "category": "fixtures",
-      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
-      "name": "sink error is reported exactly once without an acceptance checkpoint"
-    },
-    {
-      "category": "fixtures",
-      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
-      "name": "sink exit is reported exactly once without an acceptance checkpoint"
-    },
-    {
-      "category": "fixtures",
-      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
-      "name": "sink invalid is reported exactly once without an acceptance checkpoint"
-    },
-    {
-      "category": "fixtures",
-      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
-      "name": "sink raise is reported exactly once without an acceptance checkpoint"
-    },
-    {
-      "category": "fixtures",
-      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
-      "name": "sink throw is reported exactly once without an acceptance checkpoint"
-    },
-    {
-      "category": "fixtures",
       "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
       "name": "all four complete limits reject and cancel newly created media"
     },
@@ -755,11 +725,6 @@
       "category": "fixtures",
       "file": "jido_chat/integration/fixtures/g7_boundary_test.exs",
       "name": "github direct delivery keeps parent identity, trace and one stored observation"
-    },
-    {
-      "category": "fixtures",
-      "file": "jido_chat/integration/fixtures/g7_boundary_test.exs",
-      "name": "mattermost direct delivery keeps parent identity, trace and one stored observation"
     },
     {
       "category": "fixtures",
@@ -1108,16 +1073,6 @@
     },
     {
       "category": "fixtures",
-      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
-      "name": "query order, cursor and private media lifetime remain complete"
-    },
-    {
-      "category": "fixtures",
-      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
-      "name": "cancelled stream has zero enumeration and provider calls"
-    },
-    {
-      "category": "fixtures",
       "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
       "name": "media owner, cancellation and expiry remain private"
     },
@@ -1192,11 +1147,6 @@
       "category": "fixtures",
       "file": "jido_chat/integration/fixtures/g7_boundary_test.exs",
       "name": "github direct delivery keeps parent identity, trace and one stored observation"
-    },
-    {
-      "category": "fixtures",
-      "file": "jido_chat/integration/fixtures/g7_boundary_test.exs",
-      "name": "mattermost direct delivery keeps parent identity, trace and one stored observation"
     },
     {
       "category": "fixtures",
@@ -1524,7 +1474,7 @@
     {
       "category": "fixtures",
       "file": "jido_chat/integration/fixtures/g6_adapter_checkpoint_test.exs",
-      "name": "all nine bindings start at protocol 1 with their frozen operation support"
+      "name": "all eight bindings start at protocol 1 with their frozen operation support"
     }
   ],
   "C13": [

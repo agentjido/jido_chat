@@ -15,8 +15,8 @@ with tempfile.TemporaryDirectory(prefix='jido-api-audit-') as folder:
   return json.loads(out.read_text())
  result=run('missing-applications','G7',core/'docs/migration/version-matrix.json')
  missing=[r['package'] for r in result['failures'] if r['failure']=='required_application_not_loaded']
- assert len(missing)==9, missing
- checks.append({'case':'all nine adapters must be loaded for G7','state':'pass','missing_applications':missing})
+ assert len(missing)==8, missing
+ checks.append({'case':'all eight adapters must be loaded for G7','state':'pass','missing_applications':missing})
  for name in ['api-map','new-major-core-api']:
   path=folder/f'{name}.json'; data=json.loads(path.read_text())
   data['exports']=[r for r in data['exports'] if not (r['module']=='Jido.Messaging' and r['function']=='execute' and r['arity']==3)]

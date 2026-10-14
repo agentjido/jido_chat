@@ -4,7 +4,6 @@ for {package, path} <- [
       {"discord", "jido/chat/discord"},
       {"github", "jido/chat/github"},
       {"signal", "jido_chat_signal"},
-      {"mattermost", "jido/chat/mattermost"},
       {"teams", "jido/chat/teams"},
       {"whatsapp", "jido/chat/whatsapp"},
       {"x", "jido/chat/x"}

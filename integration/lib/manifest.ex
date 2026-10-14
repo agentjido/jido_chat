@@ -2,7 +2,7 @@ defmodule Jido.Chat.Integration.Manifest do
   @moduledoc false
 
   @operations ~w(send_message send_file post_message edit_message delete_message start_typing fetch_metadata fetch_thread fetch_message get_user fetch_subject get_thread_participants mark_as_read fetch_media add_reaction remove_reaction post_ephemeral post_channel_message stream open_modal load_options fetch_messages fetch_channel_messages list_threads open_thread open_dm)
-  @adapters ~w(jido_chat_telegram jido_chat_slack jido_chat_discord jido_chat_github jido_chat_signal jido_chat_mattermost jido_chat_teams jido_chat_whatsapp jido_chat_x)
+  @adapters ~w(jido_chat_telegram jido_chat_slack jido_chat_discord jido_chat_github jido_chat_signal jido_chat_teams jido_chat_whatsapp jido_chat_x)
   @files ~w(api-map catalog operations adapter-matrix version-matrix protocol gate-status)
 
   def verify(directory, phase) do
@@ -71,7 +71,7 @@ defmodule Jido.Chat.Integration.Manifest do
     errors =
       if Enum.sort(actual) == Enum.sort(@adapters),
         do: errors,
-        else: errors ++ ["All nine adapter rows must occur once."]
+        else: errors ++ ["All eight adapter rows must occur once."]
 
     Enum.reduce(rows, errors, fn row, errors ->
       valid =

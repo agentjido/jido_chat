@@ -8,7 +8,13 @@ rows =
   for row <- manifest["packages"], Map.has_key?(row, "base_sha") do
     try do
       repository = Path.join(root, row["package"])
-      archive = Path.join(repository, row["package"] <> "-" <> row["declared_version"] <> ".tar")
+
+      archive =
+        Path.join(
+          System.get_env("JIDO_PACKAGE_ARTIFACT_DIR") || repository,
+          row["package"] <> "-" <> row["declared_version"] <> ".tar"
+        )
+
       {:ok, entries} = :erl_tar.extract(String.to_charlist(archive), [:memory])
       entries = Map.new(entries, fn {key, value} -> {to_string(key), value} end)
 
@@ -90,7 +96,7 @@ rows =
     end
   end
 
-true = length(rows) == 11
+true = length(rows) == 10
 state = if Enum.all?(rows, &(&1.state == "pass")), do: "pass", else: "fail"
 output = System.fetch_env!("JIDO_CONFORMANCE_EVIDENCE") |> Path.join("package-index.json")
 File.write!(output, Jason.encode!(%{state: state, packages: rows}, pretty: true) <> "\n")

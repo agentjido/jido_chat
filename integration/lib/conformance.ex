@@ -5,9 +5,9 @@ defmodule Jido.Chat.Integration.Conformance do
   @docs Path.join(@core, "docs/migration")
   @ids Enum.map(1..14, &("C" <> String.pad_leading(to_string(&1), 2, "0")))
   @scopes ~w(lib test integration/lib integration/test integration/scripts integration/fixtures integration/examples)
-  @files ~w(mix.exs mix.lock config/config.exs config/test.exs)
+  @files ~w(mix.exs mix.lock config/config.exs config/test.exs integration/mix.exs integration/mix.lock)
   @cache {__MODULE__, :run_cache}
-  @packages ~w(jido_chat jido_messaging jido_chat_telegram jido_chat_slack jido_chat_discord jido_chat_github jido_chat_signal jido_chat_mattermost jido_chat_teams jido_chat_whatsapp jido_chat_x)
+  @packages ~w(jido_chat jido_messaging jido_chat_telegram jido_chat_slack jido_chat_discord jido_chat_github jido_chat_signal jido_chat_teams jido_chat_whatsapp jido_chat_x)
 
   def run, do: run([])
 
@@ -25,7 +25,7 @@ defmodule Jido.Chat.Integration.Conformance do
   defp run_report(opts) do
     directory =
       opts[:evidence_directory] || System.get_env("JIDO_CONFORMANCE_EVIDENCE") ||
-        Path.join(@docs, "evidence/checkpoint-b5")
+        Path.join(@docs, "evidence/checkpoint-b5-scope-update")
 
     with {:ok,
           %{
@@ -45,7 +45,7 @@ defmodule Jido.Chat.Integration.Conformance do
             task <- ~w(suite quality audit unused-lock package-build),
             do: "g7-#{package}-#{task}"
 
-      complete = Enum.all?(expected, &(&1 in required)) and length(coverage) == 3
+      complete = Enum.all?(expected, &(&1 in required)) and length(coverage) == 2
 
       checks = [
         %{command: "required package check list", state: if(complete, do: "pass", else: "fail")}
@@ -61,7 +61,7 @@ defmodule Jido.Chat.Integration.Conformance do
         assertions: assertions,
         mandatory_checks: checks,
         source_scope:
-          "Exact library, test, harness, Mix and configuration bytes; local fixtures only."
+          "Exact package library, test, Mix and configuration bytes. Full-profile checks also bind the harness source. Standalone proof verifies its unchanged runner and formatter."
       }
     else
       _ ->
@@ -148,7 +148,7 @@ defmodule Jido.Chat.Integration.Conformance do
         %{package: adapter["package"], operation: operation, support: support, fixture: result}
       end
 
-    true = length(matrix["adapters"]) == 9 and length(rows) == 234
+    true = length(matrix["adapters"]) == 8 and length(rows) == 208
     %{operation_rows: rows}
   end
 
@@ -173,7 +173,7 @@ defmodule Jido.Chat.Integration.Conformance do
     end
 
     scan = json!(Path.join(directory, inputs["boundary_scan"]))
-    true = scan["state"] == "pass" and scan["findings"] == [] and length(scan["scope"]) == 11
+    true = scan["state"] == "pass" and scan["findings"] == [] and length(scan["scope"]) == 10
 
     for row <- scan["source_revisions"],
         do:
@@ -182,8 +182,8 @@ defmodule Jido.Chat.Integration.Conformance do
               tree_hash(Path.join(@root, row["repository"]), "lib")["sha256"]
 
     api = json!(Path.join(directory, inputs["api_audit"]))
-    true = api["state"] == "pass" and api["failures"] == [] and length(api["scope"]) == 11
-    %{adapters: 9, source_files: scan["checked_files"], compiled_exports: api["export_count"]}
+    true = api["state"] == "pass" and api["failures"] == [] and length(api["scope"]) == 10
+    %{adapters: 8, source_files: scan["checked_files"], compiled_exports: api["export_count"]}
   end
 
   defp measure!("C13", inputs, directory) do
@@ -210,7 +210,7 @@ defmodule Jido.Chat.Integration.Conformance do
             row["version"] == expected[app]["declared_version"]
       end
 
-      true = Enum.count(rows, &(&1["path_source"] != nil)) == 11
+      true = Enum.count(rows, &(&1["path_source"] != nil)) == 10
       true = Enum.any?(rows, &(&1["app"] == "jido_ai")) == (graph["profile"] == "with-ai")
 
       if graph["profile"] == "with-ai" do
@@ -224,7 +224,7 @@ defmodule Jido.Chat.Integration.Conformance do
     for label <- inputs["profile_commands"],
         do: true = command!(directory, label)["exit_status"] == 0
 
-    %{profiles: ["core-only", "with-ai"], packages_per_profile: 11}
+    %{profiles: ["core-only", "with-ai"], packages_per_profile: 10}
   end
 
   defp measure!("C14", inputs, directory) do
@@ -239,7 +239,7 @@ defmodule Jido.Chat.Integration.Conformance do
       )
     end
 
-    true = length(packages["packages"]) == 11
+    true = length(packages["packages"]) == 10
 
     for package <- packages["packages"],
         do:
@@ -248,7 +248,7 @@ defmodule Jido.Chat.Integration.Conformance do
               package["production_requirements_valid"]
 
     index = json!(Path.join(directory, inputs["candidate_index"]))
-    true = length(index["packages"]) == 11 and index["PR_delivery"] == "pending_B6"
+    true = length(index["packages"]) == 10 and index["PR_delivery"] == "pending_B6"
 
     for row <- index["packages"] do
       true = row["source_snapshot"] == snapshot(Path.join(@root, row["package"]))
@@ -259,7 +259,7 @@ defmodule Jido.Chat.Integration.Conformance do
     true = command!(directory, inputs["example_command"])["exit_status"] == 0
 
     %{
-      package_file_lists: 11,
+      package_file_lists: 10,
       production_metadata: "validated",
       local_candidate_index: "complete",
       pr_delivery: "pending_B6",
@@ -272,15 +272,52 @@ defmodule Jido.Chat.Integration.Conformance do
   defp assess_command(label, directory) do
     record = command!(directory, label)
 
-    %{
+    row = %{
       command: label,
       state: if(record["exit_status"] == 0, do: "pass", else: "fail"),
       exit_status: record["exit_status"]
     }
+
+    policy_path = Path.join(@docs, "audit-exceptions.json")
+
+    if record["exit_status"] == 1 and File.regular?(policy_path) do
+      policy = json!(policy_path)
+      output = File.read!(Path.join(@docs, record["log"]))
+
+      if label in policy["commands"] and accepted_audit?(output, policy) do
+        Map.merge(row, %{
+          state: "pass",
+          accepted_exception: policy["advisory"],
+          authorization_date: policy["authorization_date"],
+          raw_audit_state: "fail"
+        })
+      else
+        row
+      end
+    else
+      row
+    end
   rescue
     error -> %{command: label, state: "fail", errors: [Exception.message(error)]}
   catch
     {:conformance, message} -> %{command: label, state: "fail", errors: [message]}
+  end
+
+  @doc "Checks that every reported audit finding matches the exact user exception."
+  def accepted_audit?(output, policy) do
+    findings =
+      Regex.scan(~r/^  (\S+) (\S+) - (\S+) \([^)]+\)$/m, output)
+      |> Enum.map(fn [_, package, version, advisory] ->
+        %{"package" => package, "version" => version, "advisory" => advisory}
+      end)
+
+    headers = Regex.scan(~r/^  \S+ \S+ - .*$/m, output)
+
+    findings != [] and length(headers) == length(findings) and
+      Enum.sort(findings) == Enum.sort(policy["allowed_findings"]) and
+      String.contains?(output, "Found packages with security advisories") and
+      not String.contains?(String.downcase(output), "retired") and
+      not String.contains?(output, "** (Mix)")
   end
 
   defp assess_coverage(requirement, directory) do
@@ -288,7 +325,7 @@ defmodule Jido.Chat.Integration.Conformance do
     record = command!(directory, label)
 
     expected_floor =
-      %{"jido_messaging" => 90, "jido_chat_mattermost" => 90, "jido_chat_whatsapp" => 80}[
+      %{"jido_messaging" => 90, "jido_chat_whatsapp" => 80}[
         record["repository"]
       ]
 
@@ -314,12 +351,31 @@ defmodule Jido.Chat.Integration.Conformance do
     cached({:command, directory, label}, fn ->
       command = json!(Path.join(directory, label <> ".json"))
       verify_hash!(Path.join(@docs, command["log"]), command["log_sha256"])
-      true = Enum.sort(Map.keys(command["sources_at_end"])) == Enum.sort(@packages)
+      recorded_packages = Map.keys(command["sources_at_end"])
+      true = Enum.all?(@packages, &(&1 in recorded_packages))
+      true = (recorded_packages -- @packages) in [[], ["jido_chat_mattermost"]]
+      standalone = command["repository"] in @packages
 
-      for {package, recorded} <- command["sources_at_end"] do
+      scopes =
+        if standalone,
+          do: ~w(lib test mix.exs mix.lock config/config.exs config/test.exs),
+          else: @scopes ++ @files
+
+      if standalone and command["proof_reuse"] do
+        original = Path.join(@docs, command["proof_reuse"]["original_record"])
+        verify_hash!(original, command["proof_reuse"]["original_sha256"])
+        true = Map.delete(command, "proof_reuse") == json!(original)
+
+        for file <- command["proof_reuse"]["test_runner_files"] do
+          verify_hash!(Path.join(@core, file["path"]), file["sha256"])
+        end
+      end
+
+      for package <- @packages do
+        recorded = command["sources_at_end"][package]
         current = cached({:source, package}, fn -> snapshot(Path.join(@root, package)) end)
 
-        for scope <- @scopes ++ @files, Map.has_key?(recorded, scope) do
+        for scope <- scopes, Map.has_key?(recorded, scope) do
           if recorded[scope] != current[scope] do
             reuse_report_control!(directory, label, package, scope, recorded[scope])
           end

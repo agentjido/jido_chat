@@ -8,6 +8,10 @@ defmodule Jido.Chat.Operations.Capabilities do
   @doc false
   @spec read(module()) :: {:ok, map()} | {:error, Jido.Chat.Errors.Contract.t()}
   def read(adapter) do
+    if Code.ensure_loaded?(adapter), do: read_loaded(adapter), else: Policy.error(:invalid_binding, :adapter)
+  end
+
+  defp read_loaded(adapter) do
     declared = if function_exported?(adapter, :capabilities, 0), do: adapter.capabilities(), else: %{}
 
     if is_map(declared) and Enum.all?(declared, fn {_key, value} -> value in [:native, :fallback, :unsupported] end) do

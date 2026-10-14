@@ -138,7 +138,7 @@ common_generated = [
     end
   end)
 
-expected_count = if phase == "G3", do: 2, else: 11
+expected_count = if phase == "G3", do: 2, else: 10
 
 failures =
   if length(packages) == expected_count,

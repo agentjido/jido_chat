@@ -16,7 +16,7 @@ defmodule Jido.Chat.Integration.ConformanceReportTest do
     directory = Path.expand("../fixtures", __DIR__)
     operations = Jason.decode!(File.read!(Path.join(directory, "conformance-operations.json")))
     events = Jason.decode!(File.read!(Path.join(directory, "conformance-events.json")))
-    assert map_size(operations) == 9
+    assert map_size(operations) == 8
     assert Enum.all?(operations, fn {_, rows} -> map_size(rows) == 26 end)
     assert Enum.all?(events, fn {_, rows} -> map_size(rows) == 17 end)
 
