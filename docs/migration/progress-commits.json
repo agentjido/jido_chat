@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-13T23:12:02.188656+00:00",
+  "updated_at": "2026-10-14T00:53:35.747394+00:00",
   "goal_state": "incomplete",
   "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
-  "proof_scope": "Checks use the combined worktrees. Source tree hashes are in the check records. Progress commits do not replace final current-head CI or whole-group conformance. Mattermost annotation proof uses the saved G1 baseline build, not the new protocol 1 contract.",
+  "proof_scope": "Checks use the combined worktrees and exact source hashes. G6 validates adapter-local contracts. G7 whole-group conformance and final CI remain pending.",
   "commits": [
     {
       "package": "jido_chat",
@@ -1772,13 +1772,121 @@
         "evidence/checkpoint-b3/checkpoint-report.json"
       ],
       "open_work": "B3 is complete. G6-G9 and final current-head CI remain open. Stop at B3."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "6a9d441d93106add611ae993f76138c6f6d4dd66",
+      "subject": "docs(chat): save B4 work and record pending conversion decisions",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "f1029f89d9f6c11f2c74e80999923e2ddfd07f84",
+      "subject": "fix(chat): preserve null text in partial message updates",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "dd83dcab76497776995377cf24567fc342b0adea",
+      "subject": "fix(chat): preserve unknown cleared reaction values",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_discord",
+      "sha": "30e6d5caac47f21875a01bf735d33e16e975afb7",
+      "subject": "feat(discord): use typed deliveries and private interaction resources",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_discord",
+      "sha": "b45c22d8ba3f018d9403c60fdf76814a9fb4aac6",
+      "subject": "fix(discord): map authenticated webhook bytes and scope delivery identity",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_github",
+      "sha": "1c17eaf8e107c0043a17861253d07018f155be92",
+      "subject": "feat(github): normalize verified lifecycle deliveries",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_github",
+      "sha": "104e7a9eadab77bb253142d531f584da10ea9ad7",
+      "subject": "fix(github): map authenticated webhook bytes and scope delivery identity",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_signal",
+      "sha": "10db758905527e1bc57e2330df5819e629727247",
+      "subject": "fix(signal): reject complete limits and contain sink failures",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_mattermost",
+      "sha": "13b43f5e50098c541984e835bd7ae8d7028db5e6",
+      "subject": "feat(mattermost): validate native deliveries above raw websocket dispatch",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_teams",
+      "sha": "0522afe3966a50f5df9f291dd75ee565e78f7c68",
+      "subject": "feat(teams): preserve verified native activities and complete membership",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_whatsapp",
+      "sha": "0b6c32d26dbce89e16146b81d2d8d22b18f3ef1b",
+      "subject": "feat(whatsapp): normalize complete upserts and keep linked-device controls private",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_x",
+      "sha": "5242a2512d4f224d9dbbca5a12d7c749fd890dde",
+      "subject": "feat(x): normalize verified direct-message batches and private CRC controls",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
     }
   ],
   "passed_checks": {
-    "core_tests": 257,
-    "signal_adapter_tests": 54,
+    "core_tests": 260,
+    "signal_adapter_tests": 80,
     "signal_existing_live_excluded": 1,
-    "messaging_inclusive_tests": 1953,
+    "messaging_inclusive_tests": 2006,
     "messaging_skipped_tests": 0,
     "optional_ai_tests": 4,
     "focused_scope_queue_storage_tests": 63,
@@ -1788,7 +1896,7 @@
       "messaging",
       "signal_adapter"
     ],
-    "current_library_scan_files": 369,
+    "current_library_scan_files": 471,
     "current_library_scan_findings": 0,
     "runtime_harness_tests_per_profile": 241,
     "compiled_core_messaging_exports": 4071,
@@ -1821,14 +1929,14 @@
     "real_slack_runtime_membership_tests": 7,
     "real_slack_runtime_execution_tests": 4,
     "provider_media_real_runtime_tests": 2,
-    "compiled_api_scope": "Consumer runtime API audit: 4071 exports, 240 generated instance exports; no mapping failures."
+    "compiled_api_scope": "Consumer runtime API audit: 4071 exports, 240 generated instance exports; no mapping failures.",
+    "B4": "evidence/checkpoint-b4/checkpoint-report.json"
   },
   "open_work": [
-    "Finish runtime, facade, storage ownership and failure cases. Reach at least 90 percent Messaging coverage without new skips, ignores, or lower thresholds.",
-    "Complete remaining provider ports and all-nine G7 Conformance.run C01-C14.",
-    "Complete all final G4-G9 quality, audit, package, docs, versions, focused PR, review and current-head CI requirements."
+    "B5: G7 C01-C14 whole-group conformance and current candidate runtime profiles.",
+    "B6: G8 package readiness and G9 PR delivery/current-head CI."
   ],
-  "coverage_note": "Current complete inclusive coverage is 87.2 percent. Required 90 percent remains unmet. No threshold, skip or ignore is reduced.",
+  "coverage_note": "Messaging inclusive coverage passed at 90.05059 percent in B2. Its source and tests are unchanged in B4. Mattermost passed 91.5 percent against 90 percent; WhatsApp passed 80.8 percent against 80 percent.",
   "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
   "progress_reporting": {
     "github_issue_progress_comments": "disabled_by_user",
@@ -1842,12 +1950,12 @@
   },
   "current_ai_profile": {
     "state": "pass",
-    "passed": 1953,
-    "total": 1953,
-    "check": "evidence/g3/g3-current-ets-recovery-ai-full-tests.json"
+    "passed": 2006,
+    "check": "evidence/checkpoint-b0-b2/checkpoint-runtime-ai-tests.json",
+    "scope": "B2 runtime proof; G7 must refresh the complete candidate."
   },
-  "checkpoint_state": "B0-B3 complete",
-  "execution_state": "B4_waiting_for_decisions",
+  "checkpoint_state": "B0-B4 complete",
+  "execution_state": "stopped_after_B4",
   "evidence_corrections": [
     {
       "commit": "416ae44",
@@ -1857,5 +1965,6 @@
     }
   ],
   "B3_report": "evidence/checkpoint-b3/checkpoint-report.json",
-  "B4_pending_record": "evidence/checkpoint-b4/pending-report.json"
+  "B4_pending_record": "evidence/checkpoint-b4/pending-report.json",
+  "B4_report": "evidence/checkpoint-b4/checkpoint-report.json"
 }

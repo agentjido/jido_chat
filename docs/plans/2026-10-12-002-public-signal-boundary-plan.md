@@ -1,7 +1,7 @@
 ---
 title: Jido Chat and Messaging — Public Signal Migration
 date: 2026-10-12
-status: B4-in-progress; G0-G5-pass; G6-G9-pending
+status: B4-complete; G0-G6-pass; G7-G9-pending; stopped-after-B4
 scope: implementation and reviewable PRs; release execution excluded
 issues:
   - https://github.com/agentjido/jido_chat/issues/57
@@ -603,9 +603,11 @@ Execution stopped at B3, as the user requested. G6–G9 remain pending.
 See [CHECKPOINT_B3.md](../migration/CHECKPOINT_B3.md).
 
 
-## B4 execution status — October 13
+## B4 result — October 13
 
-B4 is authorized and incomplete. G6 remains pending. The current Discord
-conversion needs a Gateway test approval and a decision on partial update text.
-Unfinished work and current checks are saved in
-[CHECKPOINT_B4.md](../migration/CHECKPOINT_B4.md). B5–B6 did not start.
+G6 passed. All nine adapter rows are implemented and locally verified. The seven
+remaining package quality checks pass. Mattermost coverage is 91.5 percent;
+WhatsApp coverage is 80.8 percent. All 382 G6 fixtures and 129 refreshed B3 fixtures
+pass. All 297 original literal case names remain. Code and evidence are saved in
+local commits. Execution stopped after B4. B5 and B6 did not start. G7–G9 remain
+pending. See [CHECKPOINT_B4.md](../migration/CHECKPOINT_B4.md).

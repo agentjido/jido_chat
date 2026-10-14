@@ -1,7 +1,7 @@
 ---
 title: Public Signal Migration — Remaining Work and Completion Plan
 date: 2026-10-13
-status: B4-in-progress; waiting-for-decisions
+status: B4-complete; G0-G6-pass; G7-G9-pending; stopped-after-B4
 primary_plan: 2026-10-12-002-public-signal-boundary-plan.md
 scope: same implementation and PR scope as the primary plan
 ---
@@ -9,7 +9,7 @@ scope: same implementation and PR scope as the primary plan
 # Public Signal migration — remaining work
 
 This document records the local analysis and the execution order.
-The user authorized B0–B2, then B3, on October 13. Stop after B3.
+The user authorized B0–B2, then B3 and B4, on October 13. Stop after B4.
 The October 12 plan remains the requirements contract. All nine adapters,
 the 90 percent Messaging coverage requirement, package checks, PR review,
 and current-head CI remain required. This analysis did not change gate status,
@@ -282,15 +282,17 @@ exact open defects, current coverage and measured deficit, adapter rows passed,
 saved commit IDs, and the next batch. The report must show what is still required
 to finish. Do not use command count or commit count as a completion percentage.
 
-B0–B3 are complete. G0–G5 pass. Execution stopped at B3. B4–B6 did not
+B0–B4 are complete. G0–G6 pass. Execution stopped at B4. B5 and B6 did not
 start. Later execution requires a new user instruction. See
-[the B3 report](../migration/CHECKPOINT_B3.md) for results. The current records
+[the B4 report](../migration/CHECKPOINT_B4.md) for results. The current records
 do not support a reliable total time estimate.
 
 
-## B4 execution status — October 13
+## B4 result — October 13
 
-The user authorized B4. G6 is pending. Discord migration has started.
-The Gateway test conversion needs approval after an automatic review rejection.
-A valid partial update also needs a decision on the frozen shared text schema.
-See [the B4 status report](../migration/CHECKPOINT_B4.md). B5–B6 did not start.
+G6 passed. All nine adapter rows are implemented and locally verified. The seven
+remaining package quality checks pass. Mattermost coverage is 91.5 percent;
+WhatsApp coverage is 80.8 percent. All 382 G6 fixtures and 129 refreshed B3 fixtures
+pass. All 297 original literal case names remain. Code and evidence are saved in
+local commits. Execution stopped after B4. B5 and B6 did not start. G7–G9 remain
+pending. See [CHECKPOINT_B4.md](../migration/CHECKPOINT_B4.md).

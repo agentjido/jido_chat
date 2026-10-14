@@ -8,7 +8,7 @@
       "adapter_module": "Jido.Chat.Telegram.Adapter",
       "base_sha": "89601c329d2463fa66110a81b615251bce6e2428",
       "source": "lib/jido/chat/telegram/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
         "shutdown": "fallback",
@@ -120,34 +120,23 @@
           "lib/jido/chat/telegram/adapter.ex"
         ]
       },
-      "verification": "B3 deterministic package and real Messaging fixtures pass every frozen event/operation row. No live traffic.",
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
       "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
-      "operation_conformance": {
-        "state": "pass",
-        "scope": "All 26 operations; frozen capability match, exact ordered provider counts, cached retry, typed result and JSON/trace assertions.",
-        "head_sha": "8688a30d07d70da235aae7c8e639605ec203b479",
-        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
-      },
+      "operation_conformance": "pass",
       "membership_runtime_conformance": {
         "state": "pass",
         "scope": "Actual adapter ingress, active agent, unchanged canonical membership/grants/presence and semantic duplicate suppression.",
         "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
       },
-      "conformance_report": "evidence/checkpoint-b3/g5-acceptance.json",
-      "event_conformance": {
-        "state": "pass",
-        "rows": 17,
-        "scope": "Every frozen native/unsupported event row in every declared input form.",
-        "head_sha": "8688a30d07d70da235aae7c8e639605ec203b479",
-        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
-      }
+      "conformance_report": "evidence/checkpoint-b4/telegram-acceptance.json",
+      "event_conformance": "pass"
     },
     {
       "package": "jido_chat_slack",
       "adapter_module": "Jido.Chat.Slack.Adapter",
       "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
       "source": "lib/jido/chat/slack/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
         "shutdown": "fallback",
@@ -279,22 +268,11 @@
           "lib/jido/chat/slack/adapter.ex"
         ]
       },
-      "verification": "B3 deterministic package and real Messaging fixtures pass every frozen event/operation row. No live traffic.",
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
       "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
-      "conformance_report": "evidence/checkpoint-b3/g5-acceptance.json",
-      "operation_conformance": {
-        "state": "pass",
-        "scope": "All 26 operations; frozen capability match, exact ordered provider counts, cached retry, typed result and JSON/trace assertions.",
-        "head_sha": "78df382391209bb8b1a6feccce4a0a03a33887e6",
-        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
-      },
-      "event_conformance": {
-        "state": "pass",
-        "rows": 17,
-        "scope": "Every frozen native/unsupported event row in every declared input form.",
-        "head_sha": "78df382391209bb8b1a6feccce4a0a03a33887e6",
-        "evidence": "evidence/checkpoint-b3/b3-runtime-final.json"
-      },
+      "conformance_report": "evidence/checkpoint-b4/slack-acceptance.json",
+      "operation_conformance": "pass",
+      "event_conformance": "pass",
       "membership_runtime_conformance": {
         "state": "pass",
         "scope": "Actual adapter ingress, active agent, unchanged canonical membership/grants/presence and semantic duplicate suppression.",
@@ -306,7 +284,7 @@
       "adapter_module": "Jido.Chat.Discord.Adapter",
       "base_sha": "495b40d9b2ef546d580f303c633be32fb5ec2d3d",
       "source": "lib/jido/chat/discord/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
         "shutdown": "fallback",
@@ -374,7 +352,7 @@
       "transport_delivery_identity": "binding ID plus gateway event name, provider sequence or item identity; interaction requests use interaction id",
       "acceptance_acknowledgement_checkpoint": "Normalize before the sink. Keep all declared gateway/interaction facts, including thread start. Gateway acquisition belongs to Nostrum/the injected source. Push ingress has no durable checkpoint. Interaction responses remain private.",
       "retry_unit": "provider/injected gateway acquisition unit; preserve existing listener backoff, with no new replay guarantee",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "native",
@@ -416,15 +394,18 @@
           "lib/jido/chat/discord/adapter.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "conformance_report": "evidence/checkpoint-b4/discord-acceptance.json",
+      "operation_conformance": "pass",
+      "event_conformance": "pass"
     },
     {
       "package": "jido_chat_github",
       "adapter_module": "Jido.Chat.GitHub.Adapter",
       "base_sha": "a94f5b35506f506e5441a769086d14190f3ae363",
       "source": "lib/jido/chat/github/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "send_message": "native",
         "edit_message": "native",
@@ -491,7 +472,7 @@
       "transport_delivery_identity": "binding ID plus X-GitHub-Delivery; canonical payload digest only when an injected request has no delivery header",
       "acceptance_acknowledgement_checkpoint": "Verify the webhook before normalization. Preserve created, edited, opened, and reopened distinctions. HTTP success follows sink acceptance; a limit breach or rejected sink cannot be reported as accepted.",
       "retry_unit": "GitHub webhook delivery",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "native",
@@ -529,7 +510,7 @@
           "lib/jido/chat/github/adapter.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
       "lifecycle_actions": {
         "issue_comment.created": "MessageReceived",
         "issue_comment.edited": "MessageUpdated",
@@ -540,14 +521,17 @@
         "reaction.deleted": "ReactionRemoved",
         "other_actions": "unsupported or private control; do not restore all actions as message.received"
       },
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "conformance_report": "evidence/checkpoint-b4/github-acceptance.json",
+      "operation_conformance": "pass",
+      "event_conformance": "pass"
     },
     {
       "package": "jido_chat_signal",
       "adapter_module": "Jido.Chat.Signal.Adapter",
       "base_sha": "3efc24e44dd6a316dd8f7dda5bee4a1b647490f4",
       "source": "lib/jido_chat_signal/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "send_message": "native",
         "fetch_metadata": "fallback",
@@ -598,7 +582,7 @@
       "transport_delivery_identity": "binding ID plus source account/group and envelope timestamp, with bounded canonical digest for a missing identity",
       "acceptance_acknowledgement_checkpoint": "Normalize each receive envelope before the sink. Report sink failure and keep polling backoff. signal-cli may consume input before the sink. No restart-safe redelivery or durable checkpoint is claimed.",
       "retry_unit": "receive polling call; memory deduplication covers repeated semantic items only",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "unsupported",
@@ -637,15 +621,18 @@
           "lib/jido_chat_signal/adapter.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "conformance_report": "evidence/checkpoint-b4/signal-acceptance.json",
+      "operation_conformance": "pass",
+      "event_conformance": "pass"
     },
     {
       "package": "jido_chat_mattermost",
       "adapter_module": "Jido.Chat.Mattermost.Adapter",
       "base_sha": "3a230ef9cb9fcc7ff031acb8e85bcbd1d6ed9630",
       "source": "lib/jido/chat/mattermost/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
         "shutdown": "fallback",
@@ -709,7 +696,7 @@
       "transport_delivery_identity": "binding ID plus event sequence when present, otherwise post/reaction identity and bounded digest",
       "acceptance_acknowledgement_checkpoint": "Raw WebSocket frame dispatch stays in Client; a dedicated adapter layer normalizes before the public sink. WebSocket frames have no application acceptance checkpoint. Preserve reconnect/authentication behavior.",
       "retry_unit": "WebSocket reconnect; no new replay guarantee",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "unsupported",
@@ -749,15 +736,18 @@
           "lib/jido/chat/mattermost/adapter.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "conformance_report": "evidence/checkpoint-b4/mattermost-acceptance.json",
+      "operation_conformance": "pass",
+      "event_conformance": "pass"
     },
     {
       "package": "jido_chat_teams",
       "adapter_module": "Jido.Chat.Teams.Adapter",
       "base_sha": "d3c745a0c32614efe59b260b4404ab3325315455",
       "source": "lib/jido/chat/teams/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
         "shutdown": "fallback",
@@ -843,7 +833,7 @@
       "transport_delivery_identity": "binding ID plus Activity id, conversation id, and bounded digest when activity id is absent",
       "acceptance_acknowledgement_checkpoint": "Validate Bot Connector JWT before trusting serviceUrl. Keep conversation reference/service URL private. Separate message, update, and delete. Activity HTTP response follows acceptance; application/search control response stays private.",
       "retry_unit": "Activity delivery; optional Graph is not the primary send path",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "native",
@@ -884,15 +874,18 @@
           "lib/jido/chat/teams/jwt_verifier.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "conformance_report": "evidence/checkpoint-b4/teams-acceptance.json",
+      "operation_conformance": "pass",
+      "event_conformance": "pass"
     },
     {
       "package": "jido_chat_whatsapp",
       "adapter_module": "Jido.Chat.WhatsApp.Adapter",
       "base_sha": "1273a4303089430ae325b3fa17aa3ead93995641",
       "source": "lib/jido_chat_whatsapp/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "initialize": "fallback",
         "shutdown": "fallback",
@@ -959,7 +952,7 @@
       "transport_delivery_identity": "binding ID plus upsert batch ID, or ordered message IDs with bounded canonical digest",
       "acceptance_acknowledgement_checkpoint": "Normalize and accept a complete upsert unit; retain order and report sink rejection. Connection/pairing/QR/private controls stay outside public Signal data. Amarula acquisition can occur before sink acceptance. No provider checkpoint or durable replay guarantee is added.",
       "retry_unit": "upsert batch; preserve existing connection management, report rejection, and make no invented provider retry claim",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "native",
@@ -999,15 +992,18 @@
           "lib/jido_chat_whatsapp/adapter.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "conformance_report": "evidence/checkpoint-b4/whatsapp-acceptance.json",
+      "operation_conformance": "pass",
+      "event_conformance": "pass"
     },
     {
       "package": "jido_chat_x",
       "adapter_module": "Jido.Chat.X.Adapter",
       "base_sha": "559f6abcc876f55ed2d02b92dc3a36d7dfdbbf40",
       "source": "lib/jido/chat/x/adapter.ex",
-      "state": "contract-reviewed",
+      "state": "implemented-locally-verified",
       "source_capabilities": {
         "send_message": "native",
         "delete_message": "native",
@@ -1063,7 +1059,7 @@
       "transport_delivery_identity": "binding ID plus ordered DM event IDs, with bounded canonical digest for injected requests without IDs",
       "acceptance_acknowledgement_checkpoint": "Verify the signature before normalization. Retain zero/one/many DM items in order. HTTP success follows complete sink acceptance; CRC/control responses stay private.",
       "retry_unit": "Account Activity webhook delivery",
-      "conformance": "pending",
+      "conformance": "pass",
       "event_support": {
         "MessageReceived": "native",
         "MessageUpdated": "unsupported",
@@ -1101,8 +1097,11 @@
           "lib/jido/chat/x/adapter.ex"
         ]
       },
-      "verification": "Source contract inspection; G4\u2013G6 require deterministic transport and mapping tests.",
-      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance."
+      "verification": "Six G6 acceptance rows pass. See the report for current package checks, named assertions and source hashes.",
+      "fixture_policy": "Every native and unsupported event/operation claim requires a matching deterministic fixture in G4\u2013G7. Contract review does not claim implementation conformance.",
+      "conformance_report": "evidence/checkpoint-b4/x-acceptance.json",
+      "operation_conformance": "pass",
+      "event_conformance": "pass"
     }
   ]
 }

@@ -1,0 +1,272 @@
+{
+  "gate": "G6",
+  "package": "jido_chat_telegram",
+  "state": "pass",
+  "head_after_source_commit": "8688a30d07d70da235aae7c8e639605ec203b479",
+  "source_snapshot": {
+    "lib": {
+      "files": 27,
+      "sha256": "bcad486ec50c4deae91ef50327ee794c51f49965b910dc77c3df025bf40493f6"
+    },
+    "test": {
+      "files": 17,
+      "sha256": "d64e018290b28607211a4e03206afd0b10e34343f4394311ec49a294fc9facbc"
+    },
+    "integration/lib": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/test": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/scripts": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/fixtures": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mix.exs": "8614632a474421be8270786a69ddf6834e593e8c5e54ba0ca13f8c0cfb763b5e",
+    "mix.lock": "b29d954343fba37cc6766b94a7f5ba0c7dc901f4150923aa1450f57f825f8480",
+    "config/config.exs": "eba8d124b7e0700a3c08c8c88133c5957eb858978342d8e6809b2d765d1c59f9",
+    "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+  },
+  "assertion_sources": [
+    {
+      "file": "test/jido/chat/telegram/polling_worker_test.exs",
+      "cases": [
+        "listener specs use the captured binding before polling starts",
+        "one complete typed batch advances offset only after sink acceptance",
+        "sink #{mode} retains the original batch offset and every retry item",
+        "whole-batch size failure prevents every sink call and offset change",
+        "membership polling emits typed evidence without a message item",
+        "membership sink rejection prevents checkpoint advancement",
+        "transport error and invalid batch do not call the sink",
+        "complete #{limit} rejection keeps the checkpoint and makes zero sink calls"
+      ]
+    },
+    {
+      "file": "test/jido/chat/telegram/protocol_test.exs",
+      "cases": [
+        "binding capture keeps transport and credentials after environment changes",
+        "#{operation} returns a bounded native result and invokes one selected callback",
+        "send file uses a private resource and returns the portable message ID"
+      ]
+    }
+  ],
+  "acceptance_rows": [
+    {
+      "id": "R1",
+      "state": "pass",
+      "result": "Protocol 1 bindings start with captured configuration. Injected transport fixtures execute through that binding.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-telegram-current-tests.json",
+          "sha256": "56099c5384bee333538814e98fca74e7e74a98e4588011d2a6bd79cfbc7c6981"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-quality-final.json",
+          "sha256": "eafa5be2ce8bdd41c2727d889bcab1ed6cfd9767e406cb456e7adb53b981fd88"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-coverage-final.json",
+          "sha256": "6eb160a2c4e60c703448634b0480a71df6b8218926d5bf28f281cf55f95f52bc"
+        }
+      ],
+      "prior_acceptance": "evidence/checkpoint-b3/g5-acceptance.json"
+    },
+    {
+      "id": "R2",
+      "state": "pass",
+      "result": "Every frozen event support claim has a positive or unsupported fixture. Zero/one/many deliveries retain order and stable provider item identity.",
+      "event_support": {
+        "MessageReceived": "native",
+        "MessageUpdated": "native",
+        "MessageDeleted": "unsupported",
+        "ReactionAdded": "native",
+        "ReactionRemoved": "native",
+        "ActionReceived": "native",
+        "ModalSubmitted": "unsupported",
+        "ModalClosed": "unsupported",
+        "OptionsRequested": "unsupported",
+        "SlashCommandReceived": "native",
+        "AssistantThreadStarted": "unsupported",
+        "AssistantContextChanged": "unsupported",
+        "MembershipChanged": "native",
+        "ThreadStarted": "unsupported",
+        "ReceiptReceived": "unsupported",
+        "NormalizationFailed": "native",
+        "ThreadChanged": "unsupported"
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-telegram-current-tests.json",
+          "sha256": "56099c5384bee333538814e98fca74e7e74a98e4588011d2a6bd79cfbc7c6981"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-quality-final.json",
+          "sha256": "eafa5be2ce8bdd41c2727d889bcab1ed6cfd9767e406cb456e7adb53b981fd88"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-coverage-final.json",
+          "sha256": "6eb160a2c4e60c703448634b0480a71df6b8218926d5bf28f281cf55f95f52bc"
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "state": "pass",
+      "result": "Every frozen operation support claim has a native, fallback or unsupported result fixture. Assertions check exact provider calls, cached request results, native serialization and trace.",
+      "operation_support": {
+        "send_message": "native",
+        "send_file": "native",
+        "post_message": "fallback",
+        "edit_message": "native",
+        "delete_message": "native",
+        "start_typing": "native",
+        "fetch_metadata": "native",
+        "fetch_thread": "fallback",
+        "fetch_message": "unsupported",
+        "get_user": "unsupported",
+        "fetch_subject": "unsupported",
+        "get_thread_participants": "unsupported",
+        "mark_as_read": "unsupported",
+        "fetch_media": "native",
+        "add_reaction": "native",
+        "remove_reaction": "native",
+        "post_ephemeral": "fallback",
+        "post_channel_message": "fallback",
+        "stream": "native",
+        "open_modal": "unsupported",
+        "load_options": "unsupported",
+        "fetch_messages": "unsupported",
+        "fetch_channel_messages": "unsupported",
+        "list_threads": "unsupported",
+        "open_thread": "native",
+        "open_dm": "native"
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-telegram-current-tests.json",
+          "sha256": "56099c5384bee333538814e98fca74e7e74a98e4588011d2a6bd79cfbc7c6981"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-quality-final.json",
+          "sha256": "eafa5be2ce8bdd41c2727d889bcab1ed6cfd9767e406cb456e7adb53b981fd88"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-coverage-final.json",
+          "sha256": "6eb160a2c4e60c703448634b0480a71df6b8218926d5bf28f281cf55f95f52bc"
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "state": "pass",
+      "result": "Declared queries retain items and cursors. Streams remain lazy. Resource ownership, cancellation, expiry and failure are checked. Provider controls stay private.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-telegram-current-tests.json",
+          "sha256": "56099c5384bee333538814e98fca74e7e74a98e4588011d2a6bd79cfbc7c6981"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-quality-final.json",
+          "sha256": "eafa5be2ce8bdd41c2727d889bcab1ed6cfd9767e406cb456e7adb53b981fd88"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-coverage-final.json",
+          "sha256": "6eb160a2c4e60c703448634b0480a71df6b8218926d5bf28f281cf55f95f52bc"
+        }
+      ]
+    },
+    {
+      "id": "R5",
+      "state": "pass",
+      "result": "Complete limits reject before the sink. Error, raise, throw, exit and invalid sink results have explicit call/effect assertions. Acceptance, acknowledgement and retry behavior match the frozen transport rule.",
+      "transport_contract": {
+        "forms": [
+          "webhook",
+          "getUpdates polling"
+        ],
+        "delivery_identity": "binding ID plus Telegram update_id; a missing update_id uses a canonical bounded payload digest",
+        "item_identity": "update_id plus item kind and ordinal",
+        "acceptance": "All normalized items are validated before the sink. Polling advances offset only after the complete fetched batch is accepted.",
+        "acknowledgement": "Webhook transport response is private. Polling keeps the old batch offset on sink rejection.",
+        "retry_unit": "fetched getUpdates batch; already accepted items are deduplicated by the runtime memory rule",
+        "evidence": [
+          "lib/jido/chat/telegram/polling_worker.ex",
+          "lib/jido/chat/telegram/normalizer.ex",
+          "lib/jido/chat/telegram/adapter.ex"
+        ]
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-telegram-current-tests.json",
+          "sha256": "56099c5384bee333538814e98fca74e7e74a98e4588011d2a6bd79cfbc7c6981"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-quality-final.json",
+          "sha256": "eafa5be2ce8bdd41c2727d889bcab1ed6cfd9767e406cb456e7adb53b981fd88"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-coverage-final.json",
+          "sha256": "6eb160a2c4e60c703448634b0480a71df6b8218926d5bf28f281cf55f95f52bc"
+        }
+      ]
+    },
+    {
+      "id": "R6",
+      "state": "pass",
+      "result": "The B3 acceptance report remains applicable. Current package and bounded runtime fixtures pass after the shared schema corrections.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-telegram-current-tests.json",
+          "sha256": "56099c5384bee333538814e98fca74e7e74a98e4588011d2a6bd79cfbc7c6981"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-quality-final.json",
+          "sha256": "eafa5be2ce8bdd41c2727d889bcab1ed6cfd9767e406cb456e7adb53b981fd88"
+        },
+        {
+          "path": "evidence/checkpoint-b3/telegram-coverage-final.json",
+          "sha256": "6eb160a2c4e60c703448634b0480a71df6b8218926d5bf28f281cf55f95f52bc"
+        }
+      ],
+      "coverage_percent": 79.8,
+      "coverage_floor": null
+    }
+  ],
+  "tests": {
+    "passed": 243,
+    "failed": 0,
+    "excluded": 16
+  },
+  "coverage_percent": 79.8,
+  "coverage_floor": null,
+  "proof_reuse": "Package source, tests and configuration match the successful end snapshots. Formatting precedes quality checks. Older positive tests for Signal, Mattermost and Teams remain valid: the only later core library change allows null for a required ReactionRemoved value. Current G6 fixtures, shared catalog checks and schema tests verify that correction. Telegram/Slack code is unchanged from B3 and their package and runtime fixtures were refreshed.",
+  "live_traffic": false,
+  "new_exclusions": false,
+  "frozen_support_changed": false
+}

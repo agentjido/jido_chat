@@ -1,0 +1,39 @@
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp native_map/3" was previously defined (lib/jido/chat/mattermost/adapter.ex:774)
+     │
+ 803 │   defp native_map(context, kind, _), do: native_failure(context,"unsupported_item",kind,nil)
+     │        ~
+     │
+     └─ lib/jido/chat/mattermost/adapter.ex:803:8
+
+Running ExUnit with seed: 866029, max_cases: 20
+Excluding tags: [:integration]
+
+..............
+18:56:36.981 [info] [Mattermost WS] Connected bridge_id=mattermost_1, sending auth
+.....................
+18:56:36.990 [warning] [Mattermost WS] Disconnected bridge_id=mattermost_1 code=1001 reason="going away", reconnecting
+.....
+18:56:36.990 [info] [Mattermost WS] Connected bridge_id=mattermost_1, sending auth
+..
+18:56:36.991 [warning] [Mattermost WS] Invalid JSON frame
+...    warning: unused alias Adapter
+    │
+  4 │   alias Jido.Chat.{Adapter, ChannelInfo, FileUpload, Media, PostPayload, Thread}
+    │   ~
+    │
+    └─ test/jido/chat/mattermost/adapter_test.exs:4:3
+
+............................................................................
+18:56:38.125 [info] [Mattermost Listener] Starting WebSocket connection bridge_id=mm uri=wss://fixture.test/api/v4/websocket
+
+18:56:38.125 [info] [Mattermost WS] Connected bridge_id=mm, sending auth
+
+18:56:38.127 [warning] [Mattermost WS] Disconnected bridge_id=mm code=1006 reason=:closed, reconnecting
+.
+18:56:38.127 [info] [Mattermost WS] Connected bridge_id=mm, sending auth
+..........
+Finished in 1.3 seconds (1.3s async, 0.00s sync)
+
+Result: 132 passed, 4 excluded
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

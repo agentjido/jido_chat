@@ -689,5 +689,6 @@
     "passed": 38,
     "total": 42,
     "failed": 4
-  }
+  },
+  "raw_log_sha256": "37e8e55c24e764566a385175c2f7f784d3c4072bf374c57e62214efc6f5dcf2b"
 }

@@ -1,0 +1,30 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 333789, max_cases: 20
+Excluding tags: [:live]
+
+..
+
+  1) test interaction controls remain private and scoped to their owner and room (Jido.Chat.Discord.ProtocolTest)
+     test/jido/chat/discord/protocol_test.exs:95
+     ** (Jido.Chat.Errors.Contract) Signal contract rejected: invalid_request
+     code: parent = Factories.operation_request(binding, :open_modal, %{"room_id" => "C1", "modal_ref" => ref})
+     stacktrace:
+       (jido_chat 1.2.1) lib/jido/chat/signal/open_modal.ex:8: Jido.Chat.Signal.OpenModal.new!/2
+       test/jido/chat/discord/protocol_test.exs:109: (test)
+
+....................................
+
+  2) test unsupported interactions release private controls and HTTP controls report rejection (Jido.Chat.Discord.ProtocolTest)
+     test/jido/chat/discord/protocol_test.exs:120
+     Assertion with == failed
+     code:  assert Adapter.format_webhook_response({:ok, unit}, []).status == 202
+     left:  200
+     right: 202
+     stacktrace:
+       test/jido/chat/discord/protocol_test.exs:124: (test)
+
+........
+Finished in 0.6 seconds (0.00s async, 0.6s sync)
+
+Result: 46/48 passed
+Failed: 2 tests

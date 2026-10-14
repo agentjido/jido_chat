@@ -1,5 +1,5 @@
 {
-  "current_gate": "G6",
+  "current_gate": "G7",
   "gates": [
     {
       "id": "G0",
@@ -1482,16 +1482,23 @@
     },
     {
       "id": "G6",
-      "state": "pending",
+      "state": "pass",
       "evidence": [
-        "evidence/checkpoint-b4/original-test-cases.json",
-        "evidence/checkpoint-b4/pending-report.json"
+        {
+          "path": "evidence/checkpoint-b4/checkpoint-report.json",
+          "sha256": "e0c5377756f282b857799b4b8405c5eaa4f67bda18897d6d297f5c506b292b44"
+        }
       ],
       "depends_on": [
         "G5"
       ],
-      "remaining": [
-        "Complete provider contract and package checks for Discord, GitHub, Signal, Mattermost, Teams, WhatsApp and X."
+      "remaining": [],
+      "work_complete": true,
+      "completed": [
+        "All nine adapter rows are implemented and locally verified against the frozen support claims.",
+        "All seven remaining package quality checks and required coverage floors pass.",
+        "382 G6 fixtures and 129 refreshed B3 fixtures pass; all 297 original literal test case names remain.",
+        "The complete nine-adapter graph and empty 471-file boundary scan pass."
       ]
     },
     {
@@ -1558,9 +1565,9 @@
     "B0": "pass",
     "B1": "pass",
     "B2": "pass",
-    "stop_reached": false,
+    "stop_reached": true,
     "B3": "pass",
-    "B4": "in progress; waiting for Discord test conversion approval and shared schema decision",
+    "B4": "pass",
     "B5_B6": "not started"
   }
 }

@@ -1,0 +1,48 @@
+Running ExUnit with seed: 730294, max_cases: 20
+Excluding tags: [live: true]
+
+     warning: variable "explicit_incoming" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 165 │     explicit_incoming = normalize(%{"dm_event" => explicit})
+     │     ~~~~~~~~~~~~~~~~~
+     │
+     └─ test/jido/chat/x/adapter_test.exs:165:5: Jido.Chat.X.AdapterTest."test normalizes account activity DM webhook events with media"/1
+
+     warning: variable "invalid_incoming" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 183 │     invalid_incoming = normalize(%{"dm_event" => invalid_explicit})
+     │     ~~~~~~~~~~~~~~~~
+     │
+     └─ test/jido/chat/x/adapter_test.exs:183:5: Jido.Chat.X.AdapterTest."test normalizes account activity DM webhook events with media"/1
+
+     warning: variable "misleading_incoming" is unused (if the variable is not meant to be used, prefix it with an underscore)
+     │
+ 194 │     misleading_incoming = normalize(%{"dm_event" => misleading})
+     │     ~~~~~~~~~~~~~~~~~~~
+     │
+     └─ test/jido/chat/x/adapter_test.exs:194:5: Jido.Chat.X.AdapterTest."test normalizes account activity DM webhook events with media"/1
+
+     error: undefined function misleading_media/1 (expected Jido.Chat.X.AdapterTest to define such a function or for it to be imported, but none are available)
+     │
+ 195 │     assert [%{kind: :image, media_type: nil}] = misleading_media(incoming)
+     │                                                 ^^^^^^^^^^^^^^^^
+     │
+     └─ test/jido/chat/x/adapter_test.exs:195:49: Jido.Chat.X.AdapterTest.__info__/1
+
+     error: undefined function invalid_media/1 (expected Jido.Chat.X.AdapterTest to define such a function or for it to be imported, but none are available)
+     │
+ 185 │     assert [%{kind: :image, media_type: "image/png"}] = invalid_media(incoming)
+     │                                                         ^^^^^^^^^^^^^
+     │
+     └─ test/jido/chat/x/adapter_test.exs:185:57: Jido.Chat.X.AdapterTest.__info__/1
+
+     error: undefined function explicit_media/1 (expected Jido.Chat.X.AdapterTest to define such a function or for it to be imported, but none are available)
+     │
+ 166 │     assert [%{media_type: "image/png"}] = explicit_media(incoming)
+     │                                           ^^^^^^^^^^^^^^
+     │
+     └─ test/jido/chat/x/adapter_test.exs:166:43: Jido.Chat.X.AdapterTest.__info__/1
+
+
+== Compilation error in file test/jido/chat/x/adapter_test.exs ==
+** (CompileError) test/jido/chat/x/adapter_test.exs: cannot compile module Jido.Chat.X.AdapterTest (errors have been logged)

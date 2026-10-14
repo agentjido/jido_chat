@@ -11,8 +11,8 @@ import re
 import sys
 
 gate = sys.argv[1] if len(sys.argv) > 1 else "G2"
-if gate not in ["G2", "G3", "G7"]:
-    raise SystemExit("Use G2, G3, or G7")
+if gate not in ["G2", "G3", "G6", "G7"]:
+    raise SystemExit("Use G2, G3, G6, or G7")
 core = pathlib.Path(__file__).resolve().parents[2]
 provider = core.parent / 'jido_chat_signal'
 messaging = core.parent / 'jido_messaging'
@@ -45,7 +45,7 @@ retired_root_pattern = re.compile(r'^\s*def\s+(?:' + '|'.join(map(re.escape, ret
 repos = [core, provider]
 if gate == 'G3':
     repos.append(messaging)
-elif gate == 'G7':
+elif gate in ['G6', 'G7']:
     matrix = json.loads((core / 'docs/migration/version-matrix.json').read_text())
     repos = [core.parent / row['package'] for row in matrix['packages'] if 'base_sha' in row]
 findings = []
@@ -82,6 +82,8 @@ if gate in ['G3', 'G7']:
     out = core / f'docs/migration/evidence/{gate.lower()}/prohibited-runtime-boundary-scan.json'
 if gate == 'G2':
     out = core / 'docs/migration/evidence/g2/prohibited-boundary-scan.json'
+if gate == 'G6':
+    out = core / 'docs/migration/evidence/checkpoint-b4/prohibited-boundary-scan.json'
 out.write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps(result, indent=2))
 sys.exit(bool(findings))

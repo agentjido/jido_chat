@@ -1,6 +1,6 @@
 {
   "batch": "B4",
-  "state": "waiting_for_decisions",
+  "state": "historical-superseded",
   "G6": "pending",
   "recorded_at": "2026-10-13T23:11:19.176032+00:00",
   "no_gate_signoff_claimed": true,
@@ -76,18 +76,7 @@
       "archive_sha256": "cc7f4d079275dcbb11e38fc8ae9899c111f83b858a02262c33de7c4be0f00263"
     }
   ],
-  "pending_decisions": [
-    {
-      "action": "Apply the proposed Discord Gateway test conversion",
-      "file": "evidence/checkpoint-b4/saved-work/jido-discord-gateway-proposal.exs",
-      "reason": "Automatic approval review rejected the scripted replacement as broad and unreviewed. The original file is unchanged. All ten original case names are retained in the proposal."
-    },
-    {
-      "action": "Allow text to be string or null in the shared MessageUpdated schema and matching catalog",
-      "file": "evidence/checkpoint-b4/saved-work/jido-message-updated-schema-proposal.md",
-      "reason": "Valid original Discord partial-update fixtures have no text. The frozen shared schema accepts only strings. Current source emits NormalizationFailed for this case. No schema change has been applied."
-    }
-  ],
+  "pending_decisions": [],
   "checks": {
     "discord_scoped": {
       "passed": 41,
@@ -116,5 +105,7 @@
     "live_traffic": false,
     "existing_live_exclusions_changed": false,
     "source_commits": "No B4 source commit: implementation and required checks are unfinished."
-  }
+  },
+  "superseded_by": "checkpoint-report.json",
+  "note": "The user approved both proposals. Applied changes and final G6 proof are in the B4 checkpoint report. This preserves the earlier pause record."
 }

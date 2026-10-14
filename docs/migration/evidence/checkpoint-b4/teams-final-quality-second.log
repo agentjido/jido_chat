@@ -1,0 +1,39 @@
+Compiling 1 file (.ex)
+Checking 19 source files ...
+
+Please report incorrect results: https://github.com/rrrene/credo/issues
+
+Analysis took 0.01 seconds (0.01s to load, 0.00s running 0 checks on 19 files)
+342 mods/funs, found no issues.
+
+Showing priority issues: ↑ ↗ →  (use `mix credo explain` to explain issues, `mix credo --help` for options).
+Running ExUnit with seed: 912990, max_cases: 20
+Excluding tags: [live: true]
+
+.................................
+
+  1) test verified routing controls reject wrong owners and expired resources (Jido.Chat.Teams.ProtocolTest)
+     test/jido/chat/teams/protocol_test.exs:382
+     match (=) failed
+     code:  assert {:ok, %{type: "jido.chat.operation.failed", data: %{"code" => "resource_owner_mismatch"}}} =
+              Task.async(fn -> Jido.Chat.execute(binding, parent) end) |> Task.await()
+     left:  {:ok, %{type: "jido.chat.operation.failed", data: %{"code" => "resource_owner_mismatch"}}}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :resource_owner_mismatch,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido/chat/teams/protocol_test.exs:392: (test)
+
+....................................................
+Finished in 0.9 seconds (0.9s async, 0.00s sync)
+
+Result: 85/86 passed, 2 excluded
+Failed: 1 test

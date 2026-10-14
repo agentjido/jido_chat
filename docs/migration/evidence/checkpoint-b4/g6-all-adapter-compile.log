@@ -1,0 +1,33 @@
+==> jido_chat
+Compiling 77 files (.ex)
+Compiling 3 files (.ex)
+Generated jido_chat app
+==> jido_chat_x
+Compiling 2 files (.ex)
+==> jido_chat_github
+Compiling 1 file (.ex)
+==> jido_chat_signal
+Compiling 5 files (.ex)
+Generated jido_chat_signal app
+==> jido_chat_mattermost
+Compiling 6 files (.ex)
+==> jido_chat_teams
+Compiling 1 file (.ex)
+==> jido_chat_discord
+Compiling 2 files (.ex)
+Generated jido_chat_discord app
+==> jido_messaging
+Compiling 131 files (.ex)
+Compiling 1 file (.ex)
+Generated jido_messaging app
+==> jido_chat_slack
+Compiling 5 files (.ex)
+Generated jido_chat_slack app
+==> jido_chat_telegram
+Compiling 5 files (.ex)
+Generated jido_chat_telegram app
+==> jido_chat_whatsapp
+Compiling 5 files (.ex)
+==> jido_chat_integration
+Compiling 6 files (.ex)
+Generated jido_chat_integration app

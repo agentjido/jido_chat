@@ -1,0 +1,28 @@
+Running ExUnit with seed: 860986, max_cases: 20
+Excluding tags: [:live]
+
+......................................................................................
+19:39:34.700 [info] Pairing "new-string-profile". Scan the QR in this terminal.
+.....
+19:39:34.729 [info] Using auth credentials from config
+
+19:39:54.743 [info] Consumer event sink #PID<0.643.0> went down (:shutdown)
+.......
+Finished in 23.1 seconds (2.7s async, 20.3s sync)
+
+Result: 98 passed, 13 excluded
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/jido_chat_whatsapp.ex                      13        1        0
+ 85.2% lib/jido_chat_whatsapp/adapter.ex            1075      312       46
+ 94.2% lib/jido_chat_whatsapp/connection_worker      104       35        2
+ 84.3% lib/jido_chat_whatsapp/message.ex             301      115       18
+ 67.4% lib/jido_chat_whatsapp/pairing.ex             114       43       14
+ 90.0% lib/jido_chat_whatsapp/send_options.ex         81       20        2
+  0.0% lib/jido_chat_whatsapp/transport.ex            49        0        0
+ 65.9% lib/jido_chat_whatsapp/transport/amarula      129       44       15
+ 28.5% lib/mix/tasks/jido_chat_whatsapp.pair.ex       51       14       10
+ 50.0% test/support/live_validation.ex                48       16        8
+[TOTAL]  80.8%
+----------------
+Coverage data exported.

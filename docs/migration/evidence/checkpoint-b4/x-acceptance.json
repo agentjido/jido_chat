@@ -1,0 +1,253 @@
+{
+  "gate": "G6",
+  "package": "jido_chat_x",
+  "state": "pass",
+  "head_after_source_commit": "5242a2512d4f224d9dbbca5a12d7c749fd890dde",
+  "source_snapshot": {
+    "lib": {
+      "files": 4,
+      "sha256": "abac23002c65372bbbed39e22e388cf03552ded80f2145806db6f131353bf8da"
+    },
+    "test": {
+      "files": 4,
+      "sha256": "15c43f1fafa4ba2b3ebb1e8a5a4142704ff6f3fd840ee2d56840419731c92f4e"
+    },
+    "integration/lib": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/test": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/scripts": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/fixtures": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mix.exs": "c7b2902c881ff1726dea8a666cc110882e9d29f14a371560bff931788946fb4f",
+    "mix.lock": "98447bf7ba7efc436c4f9f181a49d20e2c4fbbcf416ab06587d2954fee6f17b8",
+    "config/config.exs": "88584e0e3561233a4509705e4e7c354bb65042733bd5081a832fbe0f32d19923"
+  },
+  "assertion_sources": [
+    {
+      "file": "test/jido/chat/x/adapter_test.exs",
+      "cases": [
+        "declares a valid capability matrix",
+        "sends a one-to-one DM and a conversation DM",
+        "posts rich payloads and remote file links as text",
+        "fetches direct message history and individual messages",
+        "opens a user id as a DM room",
+        "normalizes account activity DM webhook events with media",
+        "normalizes X API v2 DM events with included media",
+        "verifies POST webhook signatures against the raw body",
+        "formats CRC webhook responses",
+        "routes signed X webhooks through handle_webhook/3"
+      ]
+    },
+    {
+      "file": "test/jido/chat/x/protocol_test.exs",
+      "cases": [
+        "#{name} matches frozen #{support} with exact calls and a cached native result",
+        "#{name} matches frozen #{support} after verification",
+        "zero, one and every DM item keep their order and stable identity",
+        "a malformed DM is retained as a failure before the next valid DM",
+        "verification, all limits and sink rejection cannot produce an accepted HTTP control",
+        "CRC responses stay private and binding secrets remain captured",
+        "history returns every item and cursor without private SDK state",
+        "media ownership, expiry and cancellation stay private",
+        "provider failure is typed and cached with one call",
+        "cancelled stream has zero enumeration and provider calls",
+        "HTTP mapping uses the signed body and a POST request cannot bypass acceptance"
+      ]
+    }
+  ],
+  "acceptance_rows": [
+    {
+      "id": "R1",
+      "state": "pass",
+      "result": "Protocol 1 bindings start with captured configuration. Injected transport fixtures execute through that binding.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-provider-checkpoint-complete.json",
+          "sha256": "e8c982409829a7a68d9d4c474280c2707d4e9de67eebe2c4bd5898978a517173"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        }
+      ]
+    },
+    {
+      "id": "R2",
+      "state": "pass",
+      "result": "Every frozen event support claim has a positive or unsupported fixture. Zero/one/many deliveries retain order and stable provider item identity.",
+      "event_support": {
+        "MessageReceived": "native",
+        "MessageUpdated": "unsupported",
+        "MessageDeleted": "unsupported",
+        "ReactionAdded": "unsupported",
+        "ReactionRemoved": "unsupported",
+        "ActionReceived": "unsupported",
+        "ModalSubmitted": "unsupported",
+        "ModalClosed": "unsupported",
+        "OptionsRequested": "unsupported",
+        "SlashCommandReceived": "unsupported",
+        "AssistantThreadStarted": "unsupported",
+        "AssistantContextChanged": "unsupported",
+        "MembershipChanged": "unsupported",
+        "ThreadStarted": "unsupported",
+        "ReceiptReceived": "unsupported",
+        "NormalizationFailed": "native",
+        "ThreadChanged": "unsupported"
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-provider-checkpoint-complete.json",
+          "sha256": "e8c982409829a7a68d9d4c474280c2707d4e9de67eebe2c4bd5898978a517173"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "state": "pass",
+      "result": "Every frozen operation support claim has a native, fallback or unsupported result fixture. Assertions check exact provider calls, cached request results, native serialization and trace.",
+      "operation_support": {
+        "send_message": "native",
+        "send_file": "native",
+        "post_message": "native",
+        "edit_message": "unsupported",
+        "delete_message": "native",
+        "start_typing": "unsupported",
+        "fetch_metadata": "fallback",
+        "fetch_thread": "fallback",
+        "fetch_message": "native",
+        "get_user": "unsupported",
+        "fetch_subject": "unsupported",
+        "get_thread_participants": "unsupported",
+        "mark_as_read": "unsupported",
+        "fetch_media": "unsupported",
+        "add_reaction": "unsupported",
+        "remove_reaction": "unsupported",
+        "post_ephemeral": "unsupported",
+        "post_channel_message": "fallback",
+        "stream": "fallback",
+        "open_modal": "unsupported",
+        "load_options": "unsupported",
+        "fetch_messages": "native",
+        "fetch_channel_messages": "unsupported",
+        "list_threads": "unsupported",
+        "open_thread": "unsupported",
+        "open_dm": "native"
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-provider-checkpoint-complete.json",
+          "sha256": "e8c982409829a7a68d9d4c474280c2707d4e9de67eebe2c4bd5898978a517173"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "state": "pass",
+      "result": "Declared queries retain items and cursors. Streams remain lazy. Resource ownership, cancellation, expiry and failure are checked. Provider controls stay private.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-provider-checkpoint-complete.json",
+          "sha256": "e8c982409829a7a68d9d4c474280c2707d4e9de67eebe2c4bd5898978a517173"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        }
+      ]
+    },
+    {
+      "id": "R5",
+      "state": "pass",
+      "result": "Complete limits reject before the sink. Error, raise, throw, exit and invalid sink results have explicit call/effect assertions. Acceptance, acknowledgement and retry behavior match the frozen transport rule.",
+      "transport_contract": {
+        "forms": [
+          "verified Account Activity DM webhook"
+        ],
+        "delivery_identity": "binding ID plus ordered DM event IDs, with bounded canonical digest for injected requests without IDs",
+        "item_identity": "DM event id and ordinal; every DM item is retained",
+        "acceptance": "Verify the signature before normalization. Retain zero/one/many DM items in order.",
+        "acknowledgement": "HTTP success follows complete sink acceptance; CRC/control responses stay private.",
+        "retry_unit": "Account Activity webhook delivery",
+        "evidence": [
+          "lib/jido/chat/x/adapter.ex"
+        ]
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-provider-checkpoint-complete.json",
+          "sha256": "e8c982409829a7a68d9d4c474280c2707d4e9de67eebe2c4bd5898978a517173"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        }
+      ]
+    },
+    {
+      "id": "R6",
+      "state": "pass",
+      "result": "Every DM item survives the ordered batch. Verified HTTP mapping uses the signed body. CRC responses remain private; a raw POST request cannot bypass acceptance. Queries retain all items and the next cursor.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        },
+        {
+          "path": "evidence/checkpoint-b4/x-final-quality-fourth.json",
+          "sha256": "f1f66d0e940b04a089caaad9f8060e2f48fb6dd61ea966ced29ef619adac07bb"
+        }
+      ],
+      "coverage_percent": null,
+      "coverage_floor": null
+    }
+  ],
+  "tests": {
+    "passed": 62,
+    "failed": 0,
+    "excluded": 2
+  },
+  "coverage_percent": null,
+  "coverage_floor": null,
+  "proof_reuse": "Package source, tests and configuration match the successful end snapshots. Formatting precedes quality checks. Older positive tests for Signal, Mattermost and Teams remain valid: the only later core library change allows null for a required ReactionRemoved value. Current G6 fixtures, shared catalog checks and schema tests verify that correction. Telegram/Slack code is unchanged from B3 and their package and runtime fixtures were refreshed.",
+  "live_traffic": false,
+  "new_exclusions": false,
+  "frozen_support_changed": false
+}
