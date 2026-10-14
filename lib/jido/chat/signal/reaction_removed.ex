@@ -14,7 +14,7 @@ defmodule Jido.Chat.Signal.ReactionRemoved do
     schema:
       Zoi.from_json_schema(
         Jason.decode!(
-          ~S|{"type":"object","properties":{"item_id":{"type":"string","minLength":1},"delivery_id":{"type":"string","minLength":1},"room_id":{"type":"string","minLength":1},"message_id":{"type":"string","minLength":1},"actor_id":{"type":"string","minLength":1},"reaction":{"type":"string","minLength":1},"thread_id":{"anyOf":[{"type":"string","minLength":1},{"type":"null"}]}},"required":["item_id","delivery_id","room_id","message_id","actor_id","reaction"],"additionalProperties":false}|
+          ~S|{"type":"object","properties":{"item_id":{"type":"string","minLength":1},"delivery_id":{"type":"string","minLength":1},"room_id":{"type":"string","minLength":1},"message_id":{"type":"string","minLength":1},"actor_id":{"type":"string","minLength":1},"reaction":{"type":["string","null"],"minLength":1},"thread_id":{"anyOf":[{"type":"string","minLength":1},{"type":"null"}]}},"required":["item_id","delivery_id","room_id","message_id","actor_id","reaction"],"additionalProperties":false}|
         )
       )
 end

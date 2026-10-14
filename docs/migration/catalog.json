@@ -4492,7 +4492,10 @@
             "minLength": 1
           },
           "reaction": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "minLength": 1
           },
           "thread_id": {
