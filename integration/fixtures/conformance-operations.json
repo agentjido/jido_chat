@@ -1,0 +1,1424 @@
+{
+  "jido_chat_telegram": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "send_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "send_file matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "post_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "fallback"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "edit_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "delete_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "start_typing matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "fetch_metadata matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "fetch_thread matches its declared native/fallback/unsupported result and exact calls",
+      "support": "fallback"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "fetch_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "get_user matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "fetch_subject matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "get_thread_participants matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "mark_as_read matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "fetch_media matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "add_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "remove_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "post_ephemeral matches its declared native/fallback/unsupported result and exact calls",
+      "support": "fallback"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "post_channel_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "fallback"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "stream matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "open_modal matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "load_options matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "fetch_messages matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "fetch_channel_messages matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "list_threads matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "open_thread matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "name": "open_dm matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    }
+  },
+  "jido_chat_slack": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "send_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "send_file matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "post_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "edit_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "delete_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "start_typing matches its declared native/fallback/unsupported result and exact calls",
+      "support": "unsupported"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "fetch_metadata matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "fetch_thread matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "fetch_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "get_user matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "fetch_subject matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "get_thread_participants matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "mark_as_read matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "fetch_media matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "add_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "remove_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "post_ephemeral matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "post_channel_message matches its declared native/fallback/unsupported result and exact calls",
+      "support": "fallback"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "stream matches its declared native/fallback/unsupported result and exact calls",
+      "support": "fallback"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "open_modal matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "load_options matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "fetch_messages matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "fetch_channel_messages matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "list_threads matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "open_thread matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "name": "open_dm matches its declared native/fallback/unsupported result and exact calls",
+      "support": "native"
+    }
+  },
+  "jido_chat_discord": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "send_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "send_file matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "post_message matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "edit_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "delete_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "start_typing matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "fetch_metadata matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "fetch_thread matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "fetch_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "get_user matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "fetch_subject matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "fetch_media matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "add_reaction matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "remove_reaction matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "post_ephemeral matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "post_channel_message matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "stream matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "open_modal matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "load_options matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "fetch_messages matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "fetch_channel_messages matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "list_threads matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "open_thread matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "open_dm matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    }
+  },
+  "jido_chat_github": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "send_message matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "send_file matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "post_message matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "edit_message matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "delete_message matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "start_typing matches frozen unsupported with exact calls and cached native result",
+      "support": "unsupported"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "fetch_metadata matches frozen fallback with exact calls and cached native result",
+      "support": "fallback"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "fetch_thread matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "fetch_message matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "get_user matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "fetch_subject matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "get_thread_participants matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "mark_as_read matches frozen unsupported with exact calls and cached native result",
+      "support": "unsupported"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "fetch_media matches frozen unsupported with exact calls and cached native result",
+      "support": "unsupported"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "add_reaction matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "remove_reaction matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "post_ephemeral matches frozen unsupported with exact calls and cached native result",
+      "support": "unsupported"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "post_channel_message matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "stream matches frozen fallback with exact calls and cached native result",
+      "support": "fallback"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "open_modal matches frozen unsupported with exact calls and cached native result",
+      "support": "unsupported"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "load_options matches frozen unsupported with exact calls and cached native result",
+      "support": "unsupported"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "fetch_messages matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "fetch_channel_messages matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "list_threads matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "open_thread matches frozen native with exact calls and cached native result",
+      "support": "native"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "open_dm matches frozen unsupported with exact calls and cached native result",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_signal": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "send_message: declared operation selects its exact native/fallback/unsupported result",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "send_file: declared operation selects its exact native/fallback/unsupported result",
+      "support": "native"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "post_message: declared operation selects its exact native/fallback/unsupported result",
+      "support": "native"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "edit_message: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "delete_message: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "start_typing: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "fetch_metadata: declared operation selects its exact native/fallback/unsupported result",
+      "support": "fallback"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "fetch_thread: declared operation selects its exact native/fallback/unsupported result",
+      "support": "fallback"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "fetch_message: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "get_user: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "fetch_subject: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "get_thread_participants: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "mark_as_read: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "fetch_media: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "add_reaction: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "remove_reaction: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "post_ephemeral: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "post_channel_message: declared operation selects its exact native/fallback/unsupported result",
+      "support": "fallback"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "stream: declared operation selects its exact native/fallback/unsupported result",
+      "support": "fallback"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "open_modal: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "load_options: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "fetch_messages: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "fetch_channel_messages: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "list_threads: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "open_thread: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "open_dm: declared operation selects its exact native/fallback/unsupported result",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_mattermost": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "send_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "send_file matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "post_message matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "edit_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "delete_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "start_typing matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "fetch_metadata matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "fetch_thread matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "fetch_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "get_user matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "fetch_subject matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "fetch_media matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "add_reaction matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "remove_reaction matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "post_ephemeral matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "post_channel_message matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "stream matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "open_modal matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "load_options matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "fetch_messages matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "fetch_channel_messages matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "list_threads matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "open_thread matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_mattermost/test/jido/chat/mattermost/protocol_test.exs",
+      "name": "open_dm matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    }
+  },
+  "jido_chat_teams": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "send_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "send_file matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "post_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "edit_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "delete_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "start_typing matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "fetch_metadata matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "fetch_thread matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "fetch_message matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "get_user matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "fetch_subject matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "fetch_media matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "add_reaction matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "remove_reaction matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "post_ephemeral matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "post_channel_message matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "stream matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "open_modal matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "load_options matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "fetch_messages matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "fetch_channel_messages matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "list_threads matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "open_thread matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "open_dm matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_whatsapp": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "send_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "send_file matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "post_message matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "edit_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "delete_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "start_typing matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "fetch_metadata matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "fetch_thread matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "fetch_message matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "get_user matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "fetch_subject matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "fetch_media matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "add_reaction matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "remove_reaction matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "post_ephemeral matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "post_channel_message matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "stream matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "open_modal matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "load_options matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "fetch_messages matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "fetch_channel_messages matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "list_threads matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "open_thread matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "open_dm matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    }
+  },
+  "jido_chat_x": {
+    "send_message": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "send_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "send_file": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "send_file matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "post_message": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "post_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "edit_message": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "edit_message matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "delete_message": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "delete_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "start_typing": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "start_typing matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_metadata": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "fetch_metadata matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "fetch_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "fetch_thread matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "fetch_message": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "fetch_message matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "get_user": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "get_user matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_subject": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "fetch_subject matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "get_thread_participants": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "mark_as_read": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_media": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "fetch_media matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "add_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "add_reaction matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "remove_reaction": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "remove_reaction matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "post_ephemeral": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "post_ephemeral matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "post_channel_message": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "post_channel_message matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "stream": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "stream matches frozen fallback with exact calls and a cached native result",
+      "support": "fallback"
+    },
+    "open_modal": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "open_modal matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "load_options": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "load_options matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "fetch_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "fetch_messages matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    },
+    "fetch_channel_messages": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "fetch_channel_messages matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "list_threads": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "list_threads matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "open_thread": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "open_thread matches frozen unsupported with exact calls and a cached native result",
+      "support": "unsupported"
+    },
+    "open_dm": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "open_dm matches frozen native with exact calls and a cached native result",
+      "support": "native"
+    }
+  }
+}

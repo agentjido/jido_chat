@@ -3,7 +3,9 @@ gate = List.first(System.argv()) || "G2"
 true = gate in ["G2", "G3", "G7"]
 core = Path.expand("../..", __DIR__)
 messaging = Path.join(Path.dirname(core), "jido_messaging")
-source = messaging |> Path.join("lib/jido_messaging.ex") |> File.read!() |> Code.string_to_quoted!()
+
+source =
+  messaging |> Path.join("lib/jido_messaging.ex") |> File.read!() |> Code.string_to_quoted!()
 
 {_ast, bodies} =
   Macro.prewalk(source, [], fn
@@ -26,7 +28,11 @@ manifest = Jido.Chat.Integration.Manifest.verify(Path.join(core, "docs/migration
 "pass" = manifest.state
 
 entries =
-  core |> Path.join("docs/migration/catalog.json") |> File.read!() |> Jason.decode!() |> Map.fetch!("definitions")
+  core
+  |> Path.join("docs/migration/catalog.json")
+  |> File.read!()
+  |> Jason.decode!()
+  |> Map.fetch!("definitions")
 
 definitions = Jido.Chat.signal_definitions() ++ runtime_definitions
 true = length(definitions) == 110
@@ -45,7 +51,9 @@ rows =
     %{module: entry["module"], state: "pass"}
   end)
 
-true = to_string(Jido.Chat.Signal.module_info(:compile)[:source]) |> String.contains?("jido_chat_signal")
+true =
+  to_string(Jido.Chat.Signal.module_info(:compile)[:source])
+  |> String.contains?("jido_chat_signal")
 
 result = %{
   gate: gate,

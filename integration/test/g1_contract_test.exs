@@ -120,8 +120,14 @@ defmodule Jido.Chat.Integration.ManifestTest do
     refute Manifest.contract_errors(broken) == []
   end
 
-  test "all cannot pass while C01–C14 are unimplemented" do
-    assert %{state: "fail", errors: errors} = Manifest.verify(@directory, "all")
-    assert Enum.any?(errors, &String.contains?(&1, "C01–C14"))
+  test "missing C01–C14 evidence cannot pass" do
+    absent =
+      Path.join(System.tmp_dir!(), "missing-conformance-#{System.unique_integer([:positive])}")
+
+    assert %{state: "fail", assertions: assertions} =
+             Jido.Chat.Integration.Conformance.run(evidence_directory: absent)
+
+    assert map_size(assertions) == 14
+    assert Enum.all?(assertions, fn {_id, row} -> row.state == "fail" end)
   end
 end

@@ -37,7 +37,7 @@ defmodule Jido.Chat.Integration.MixProject do
     ]
   end
 
-  def application, do: [extra_applications: [:logger]]
+  def application, do: [extra_applications: [:logger, :ex_unit]]
 
   defp deps do
     manifest =
@@ -61,11 +61,22 @@ defmodule Jido.Chat.Integration.MixProject do
 
     selected_adapters =
       case System.get_env("JIDO_INTEGRATION_PROFILE", "all") do
-        "all" -> @adapter_apps
-        "runtime" -> [:jido_chat_signal]
-        "telegram" -> [:jido_chat_signal, :jido_chat_telegram]
-        "telegram_slack" -> [:jido_chat_signal, :jido_chat_telegram, :jido_chat_slack]
-        other -> Mix.raise("Unknown integration profile: #{other}. Use all, runtime, telegram, or telegram_slack.")
+        "all" ->
+          @adapter_apps
+
+        "runtime" ->
+          [:jido_chat_signal]
+
+        "telegram" ->
+          [:jido_chat_signal, :jido_chat_telegram]
+
+        "telegram_slack" ->
+          [:jido_chat_signal, :jido_chat_telegram, :jido_chat_slack]
+
+        other ->
+          Mix.raise(
+            "Unknown integration profile: #{other}. Use all, runtime, telegram, or telegram_slack."
+          )
       end
 
     adapters =
@@ -98,6 +109,9 @@ defmodule Jido.Chat.Integration.MixProject do
   defp git_dep(app, graph) do
     source = Map.fetch!(graph, Atom.to_string(app))
 
-    {app, git: "https://github.com/" <> source["repository"] <> ".git", ref: source["ref"], override: true}
+    {app,
+     git: "https://github.com/" <> source["repository"] <> ".git",
+     ref: source["ref"],
+     override: true}
   end
 end

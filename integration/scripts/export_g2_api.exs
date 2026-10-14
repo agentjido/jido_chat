@@ -22,15 +22,23 @@ rows =
     previous =
       Enum.find(
         old["exports"],
-        &(&1["module"] == name and &1["function"] == Atom.to_string(function) and &1["arity"] == arity)
+        &(&1["module"] == name and &1["function"] == Atom.to_string(function) and
+            &1["arity"] == arity)
       )
 
     classification =
       cond do
-        name == "Jido.Chat" and function in [:bind, :execute, :normalize_event] -> "request-result"
-        function_exported?(module, :__signal_owner__, 0) -> "request-result"
-        previous -> previous["classification"]
-        true -> "private-implementation"
+        name == "Jido.Chat" and function in [:bind, :execute, :normalize_event] ->
+          "request-result"
+
+        function_exported?(module, :__signal_owner__, 0) ->
+          "request-result"
+
+        previous ->
+          previous["classification"]
+
+        true ->
+          "private-implementation"
       end
 
     %{
@@ -39,7 +47,8 @@ rows =
       function: Atom.to_string(function),
       arity: arity,
       classification: classification,
-      definition_kind: if(function_exported?(module, :__signal_kind__, 0), do: module.__signal_kind__()),
+      definition_kind:
+        if(function_exported?(module, :__signal_kind__, 0), do: module.__signal_kind__()),
       source: Path.relative_to(source, Path.dirname(core))
     }
   end
@@ -62,5 +71,9 @@ result = %{
   exports: rows
 }
 
-File.write!(Path.join(core, "docs/migration/new-major-core-api.json"), Jason.encode!(result, pretty: true) <> "\n")
+File.write!(
+  Path.join(core, "docs/migration/new-major-core-api.json"),
+  Jason.encode!(result, pretty: true) <> "\n"
+)
+
 IO.puts(Jason.encode!(Map.drop(result, [:exports]), pretty: true))

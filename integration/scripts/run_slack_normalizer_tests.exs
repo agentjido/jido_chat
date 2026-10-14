@@ -7,5 +7,7 @@ ExUnit.start(seed: 0, capture_log: true)
     Code.require_file(Path.join(root, "jido_chat_slack/lib/jido/chat/slack/normalizer.ex"))
   end)
 
-if Enum.any?(diagnostics, &(&1.severity == :warning)), do: raise("Slack normalizer has compiler warnings")
+if Enum.any?(diagnostics, &(&1.severity == :warning)),
+  do: raise("Slack normalizer has compiler warnings")
+
 Code.require_file(Path.join(root, "jido_chat_slack/test/jido/chat/slack/normalizer_test.exs"))

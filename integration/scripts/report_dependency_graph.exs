@@ -28,7 +28,8 @@ rows =
         {head, 0} = System.cmd("git", ["rev-parse", "HEAD"], cd: root)
 
         files =
-          (Path.wildcard(Path.join(root, "lib/**/*.ex")) ++ Path.wildcard(Path.join(root, "test/**/*.{ex,exs}")))
+          (Path.wildcard(Path.join(root, "lib/**/*.ex")) ++
+             Path.wildcard(Path.join(root, "test/**/*.{ex,exs}")))
           |> Enum.sort()
 
         digest =
@@ -36,7 +37,11 @@ rows =
           |> then(&:crypto.hash(:sha256, &1))
           |> Base.encode16(case: :lower)
 
-        %{"head_sha" => String.trim(head), "library_test_files" => length(files), "library_test_sha256" => digest}
+        %{
+          "head_sha" => String.trim(head),
+          "library_test_files" => length(files),
+          "library_test_sha256" => digest
+        }
       end
 
     %{

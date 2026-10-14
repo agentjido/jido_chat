@@ -59,7 +59,9 @@ defmodule Jido.Chat.Integration.BaselineTest do
     actual =
       Mix.Dep.cached()
       |> Enum.map(& &1.app)
-      |> Enum.filter(fn app -> app == :jido_messaging or String.starts_with?(Atom.to_string(app), "jido_chat") end)
+      |> Enum.filter(fn app ->
+        app == :jido_messaging or String.starts_with?(Atom.to_string(app), "jido_chat")
+      end)
 
     assert MapSet.new(actual) == MapSet.new(expected)
   end
