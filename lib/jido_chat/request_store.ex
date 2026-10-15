@@ -36,10 +36,50 @@ defmodule Jido.Chat.RequestStore do
     do: module.complete(reference, claim, result)
 
   def complete(binding, {:ets, key, digest}, result) do
-    :ets.insert(binding.resources, {key, digest, {:done, result}})
-    :ok
+    case outcome(binding, {:ets, key, digest}) do
+      :ok ->
+        :ets.insert(binding.resources, {key, digest, {:done, result}})
+        :ok
+
+      {:cached, ^result} ->
+        :ok
+
+      _ ->
+        Policy.error(:request_outcome_unknown)
+    end
   rescue
     ArgumentError -> :ok
+  end
+
+  def outcome(_binding, {:backend, module, reference, claim}), do: module.outcome(reference, claim)
+
+  def outcome(binding, {:ets, key, digest}) do
+    case :ets.lookup(binding.resources, key) do
+      [{^key, ^digest, {:running, owner}}] when owner == self() -> :ok
+      [{^key, ^digest, {:done, result}}] -> {:cached, result}
+      _ -> Policy.error(:request_outcome_unknown)
+    end
+  rescue
+    # Preserve standalone completion after its resource table closes.
+    ArgumentError -> :ok
+  end
+
+  def unknown(_binding, {:backend, module, reference, claim}), do: module.unknown(reference, claim)
+
+  def unknown(binding, {:ets, key, digest}) do
+    case outcome(binding, {:ets, key, digest}) do
+      :ok ->
+        :ets.insert(binding.resources, {key, digest, :unknown})
+        :ok
+
+      {:cached, _} ->
+        :ok
+
+      error ->
+        error
+    end
+  rescue
+    ArgumentError -> Policy.error(:request_outcome_unknown)
   end
 
   def remember(binding, result_id, class, tag) do
@@ -80,6 +120,9 @@ defmodule Jido.Chat.RequestStore do
       case :ets.lookup(binding.resources, key) do
         [{^key, ^digest, {:done, result}}] ->
           {:ok, {:cached, result}}
+
+        [{^key, ^digest, :unknown}] ->
+          Policy.error(:request_outcome_unknown)
 
         [{^key, ^digest, {:running, owner}}] ->
           Policy.error(if(Process.alive?(owner), do: :request_in_progress, else: :request_outcome_unknown))

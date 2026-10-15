@@ -11,7 +11,16 @@ defmodule Jido.Chat.Operations.Executor do
 
   @doc false
   @spec execute(Binding.t(), Jido.Signal.t()) :: {:ok, Jido.Signal.t()} | {:error, Contract.t()}
-  def execute(%Binding{} = binding, %Jido.Signal{} = request) do
+  def execute(binding, request) do
+    case prepare(binding, request) do
+      {:ok, {:cached, result}} -> result
+      {:ok, {:prepared, completion, invocation}} -> complete(completion, invoke(invocation))
+      error -> error
+    end
+  end
+
+  @doc false
+  def prepare(%Binding{} = binding, %Jido.Signal{} = request) do
     with :ok <- valid_binding(binding),
          {:ok, request} <- validate_request(request),
          definition when not is_nil(definition) <- Definitions.lookup(request.type),
@@ -19,15 +28,19 @@ defmodule Jido.Chat.Operations.Executor do
          {:ok, claim} <- claim(binding, request, definition) do
       case claim do
         {:cached, result} ->
-          result
+          {:ok, {:cached, result}}
 
         {:claimed, claim} ->
-          result = run(binding, request, definition)
+          completion = %{
+            binding: binding,
+            request: request,
+            definition: definition,
+            claim: claim,
+            owner: self(),
+            generation: make_ref()
+          }
 
-          case RequestStore.complete(binding, claim, result) do
-            :ok -> result
-            error -> error
-          end
+          {:ok, {:prepared, completion, prepare_invocation(binding, request, definition)}}
       end
     else
       {:error, %Contract{}} = error -> error
@@ -35,7 +48,57 @@ defmodule Jido.Chat.Operations.Executor do
     end
   end
 
-  def execute(_binding, _request), do: Policy.error(:invalid_request)
+  def prepare(_binding, _request), do: Policy.error(:invalid_request)
+
+  @doc false
+  def invoke({:ok, invocation}) do
+    Invocation.invoke(invocation)
+  rescue
+    _ -> {:error, {:exception, :provider_failure}}
+  catch
+    _, _ -> {:error, {:exception, :provider_failure}}
+  end
+
+  def invoke({:error, _} = error), do: error
+
+  @doc false
+  def complete(%{owner: owner} = completion, outcome) when owner == self() do
+    %{binding: binding, request: request, definition: definition, claim: claim} = completion
+
+    case RequestStore.outcome(binding, claim) do
+      :ok ->
+        result = project(binding, request, definition, outcome)
+
+        case RequestStore.complete(binding, claim, result) do
+          :ok -> result
+          error -> error
+        end
+
+      {:cached, result} ->
+        result
+
+      error ->
+        error
+    end
+  end
+
+  def complete(_completion, _outcome), do: Policy.error(:request_outcome_unknown)
+
+  @doc false
+  def unknown(%{owner: owner, binding: binding, claim: claim}) when owner == self() do
+    _ = RequestStore.unknown(binding, claim)
+    Policy.error(:request_outcome_unknown)
+  end
+
+  def unknown(_completion), do: Policy.error(:request_outcome_unknown)
+
+  defp prepare_invocation(binding, request, definition) do
+    Invocation.prepare(binding, request, definition)
+  rescue
+    _ -> {:error, {:exception, :provider_failure}}
+  catch
+    _, _ -> {:error, {:exception, :provider_failure}}
+  end
 
   defp valid_binding(binding) do
     if binding.source == Identity.binding_source(binding.id) and Keyword.keyword?(binding.options) and
@@ -77,9 +140,9 @@ defmodule Jido.Chat.Operations.Executor do
     RequestStore.claim(binding, key, digest)
   end
 
-  defp run(binding, request, definition) do
+  defp project(binding, request, definition, outcome) do
     try do
-      case Invocation.run(binding, request, definition) do
+      case outcome do
         {:error, %Contract{code: code}} when code in @resource_failures ->
           failure(binding, request, definition, code)
 

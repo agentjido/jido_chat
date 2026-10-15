@@ -284,6 +284,34 @@ defmodule Jido.Chat.ExecutorSignalTest do
       end
     end
 
+    test "#{row["operation"]}: private invocation keeps completion in its resource owner" do
+      alias Jido.Chat.Operations.Executor
+      row = unquote(Macro.escape(row))
+      operation = unquote(operation)
+      binding = test_binding(Native)
+      request = request(binding, row)
+      assert {:ok, {:prepared, completion, invocation}} = Executor.prepare(binding, request)
+      refute_received {:callback, _, _}
+      assert {:error, %Contract{code: :request_in_progress}} = Jido.Chat.execute(binding, request)
+      outcome = Task.async(fn -> Executor.invoke(invocation) end) |> Task.await()
+      assert_received {:callback, ^operation, _}
+
+      assert {:error, %Contract{code: :request_outcome_unknown}} =
+               Task.async(fn -> Executor.complete(completion, outcome) end) |> Task.await()
+
+      assert {:ok, result} = Executor.complete(completion, outcome)
+      assert result.type == Jido.Chat.Signal.OperationCompleted.type()
+      before = :ets.tab2list(binding.resources) |> Enum.sort()
+      assert {:ok, ^result} = Executor.complete(completion, {:error, :late})
+      assert before == :ets.tab2list(binding.resources) |> Enum.sort()
+      assert {:ok, ^result} = Jido.Chat.execute(binding, request)
+      refute_received {:callback, _, _}
+
+      if row["operation"] == "fetch_media" do
+        assert {:ok, <<255, 1, 2>>} = Jido.Chat.resolve_resource(binding, result.data["result"]["resource_ref"])
+      end
+    end
+
     test "#{row["operation"]}: unsupported selection calls no provider" do
       row = unquote(Macro.escape(row))
       binding = test_binding(Unsupported)
@@ -741,6 +769,58 @@ defmodule Jido.Chat.ExecutorSignalTest do
     assert {:ok, result} = Task.await(task)
     assert result.type == "jido.chat.operation.completed"
     assert {:error, %Contract{code: :invalid_binding}} = Jido.Chat.execute(binding, request)
+    refute_received {:provider_started, _}
+  end
+
+  test "private fallback invocation preserves callback order and lazy resources" do
+    alias Jido.Chat.Operations.Executor
+
+    for name <- ["post_message", "post_channel_message", "fetch_metadata", "fetch_subject", "post_ephemeral", "stream"] do
+      binding = test_binding(Fallback)
+      row = operation(name)
+      request = request(binding, row)
+
+      request =
+        if name == "post_ephemeral", do: %{request | data: Map.put(request.data, "fallback_to_dm", true)}, else: request
+
+      assert {:ok, {:prepared, completion, invocation}} = Executor.prepare(binding, request)
+      refute_received {:callback, _, _}
+      outcome = Task.async(fn -> Executor.invoke(invocation) end) |> Task.await()
+      assert {:ok, result} = Executor.complete(completion, outcome)
+      assert result.type == Jido.Chat.Signal.OperationCompleted.type()
+      assert {:ok, ^result} = Jido.Chat.execute(binding, request)
+
+      expected =
+        case name do
+          "fetch_metadata" -> []
+          "fetch_subject" -> [:fetch_thread]
+          "post_ephemeral" -> [:open_dm, :send_message]
+          "stream" -> [:send_message, :edit_message]
+          _ -> [:send_message]
+        end
+
+      for op <- expected, do: assert_received({:callback, ^op, _})
+      refute_received {:callback, _, _}
+    end
+  end
+
+  test "a dead provider becomes unknown while its completion owner stays alive" do
+    alias Jido.Chat.Operations.Executor
+    binding = test_binding(Blocking)
+    request = request(binding, operation("send_message"))
+    assert {:ok, {:prepared, completion, invocation}} = Executor.prepare(binding, request)
+    {worker, monitor} = spawn_monitor(fn -> Executor.invoke(invocation) end)
+    assert_receive {:provider_started, ^worker}, 1_000
+    Process.exit(worker, :kill)
+    assert_receive {:DOWN, ^monitor, :process, ^worker, :killed}, 1_000
+    assert {:error, %Contract{code: :request_outcome_unknown}} = Executor.unknown(completion)
+    assert {:error, %Contract{code: :request_outcome_unknown}} = Executor.complete(completion, {:ok, %{id: "late"}})
+    assert {:error, %Contract{code: :request_outcome_unknown}} = Jido.Chat.execute(binding, request)
+
+    assert {:error, %Contract{code: :request_conflict}} =
+             Jido.Chat.execute(binding, %{request | data: Map.put(request.data, "text", "changed")})
+
+    assert Process.alive?(self())
     refute_received {:provider_started, _}
   end
 

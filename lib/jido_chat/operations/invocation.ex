@@ -27,7 +27,13 @@ defmodule Jido.Chat.Operations.Invocation do
 
   @doc false
   @spec run(Jido.Chat.Binding.t(), Jido.Signal.t(), tuple()) :: term()
-  def run(binding, request, {_module, operation, fields, _shape, _schema}) do
+  def run(binding, request, definition) do
+    with {:ok, prepared} <- prepare(binding, request, definition),
+         do: invoke(prepared)
+  end
+
+  @doc false
+  def prepare(binding, request, {_module, operation, fields, _shape, _schema}) do
     {:ok, matrix} = Jido.Chat.Operations.Capabilities.read(binding.adapter)
     status = Map.get(matrix, operation, :unsupported)
 
@@ -35,14 +41,30 @@ defmodule Jido.Chat.Operations.Invocation do
       with {:ok, arguments} <- arguments(binding, request, operation, fields) do
         opts = options(binding, request.data)
 
-        if status == :native,
-          do: native(binding.adapter, operation, arguments ++ [opts]),
-          else: fallback(binding, operation, arguments, opts)
+        opts =
+          if operation == :stream and status == :fallback do
+            Keyword.put(
+              opts,
+              :fallback_mode,
+              if(matrix[:edit_message] == :native, do: Keyword.get(opts, :fallback_mode, :post_edit), else: :final)
+            )
+          else
+            opts
+          end
+
+        {:ok, {binding, status, operation, arguments, opts}}
       end
     else
       {:error, :unsupported}
     end
   end
+
+  @doc false
+  def invoke({binding, :native, operation, arguments, opts}),
+    do: native(binding.adapter, operation, arguments ++ [opts])
+
+  def invoke({binding, :fallback, operation, arguments, opts}),
+    do: fallback(binding, operation, arguments, opts)
 
   defp arguments(_binding, request, :load_options, _fields), do: {:ok, [request]}
 
@@ -231,11 +253,10 @@ defmodule Jido.Chat.Operations.Invocation do
   end
 
   defp fallback(binding, :stream, [room, chunks], opts) do
-    {:ok, matrix} = Jido.Chat.Operations.Capabilities.read(binding.adapter)
-    mode = Keyword.get(opts, :fallback_mode, if(matrix[:edit_message] == :native, do: :post_edit, else: :final))
+    mode = Keyword.fetch!(opts, :fallback_mode)
     chunks = Enum.to_list(chunks)
 
-    if mode == :post_edit and matrix[:edit_message] == :native do
+    if mode == :post_edit do
       stream_edit(binding, room, chunks, opts)
     else
       case StreamRenderer.render(chunks) do

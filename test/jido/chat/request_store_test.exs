@@ -41,6 +41,17 @@ defmodule Jido.Chat.RequestStoreTest do
       :ok
     end
 
+    def outcome(:unavailable, _claim), do: Policy.error(:request_outcome_unknown)
+    def outcome({:completion_failure, table}, claim), do: outcome(table, claim)
+
+    def outcome(table, {key, digest}) do
+      case :ets.lookup(table, key) do
+        [{^key, ^digest, :running}] -> :ok
+        [{^key, ^digest, {:done, result}}] -> {:cached, result}
+        _ -> Policy.error(:request_outcome_unknown)
+      end
+    end
+
     def remember(table, id, class, tag) do
       :ets.insert(table, {{:failure, id}, class, tag})
       :ok
