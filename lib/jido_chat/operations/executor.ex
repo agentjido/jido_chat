@@ -1,7 +1,7 @@
 defmodule Jido.Chat.Operations.Executor do
   @moduledoc false
 
-  alias Jido.Chat.{Binding, Resources}
+  alias Jido.Chat.{Binding, RequestStore, Resources}
   alias Jido.Chat.Errors.Contract
   alias Jido.Chat.Operations.{Definitions, Failure, Invocation, Result}
   alias Jido.Chat.Signal.{Identity, OperationCompleted, OperationFailed, Policy}
@@ -21,10 +21,13 @@ defmodule Jido.Chat.Operations.Executor do
         {:cached, result} ->
           result
 
-        {:claimed, key, digest} ->
+        {:claimed, claim} ->
           result = run(binding, request, definition)
-          save_result(binding, key, digest, result)
-          result
+
+          case RequestStore.complete(binding, claim, result) do
+            :ok -> result
+            error -> error
+          end
       end
     else
       {:error, %Contract{}} = error -> error
@@ -71,29 +74,7 @@ defmodule Jido.Chat.Operations.Executor do
     key = {:request, request.data["request_id"]}
     digest = :crypto.hash(:sha256, :erlang.term_to_binary({operation, request.data}, [:deterministic]))
 
-    if :ets.insert_new(binding.resources, {key, digest, {:running, self()}}) do
-      {:ok, {:claimed, key, digest}}
-    else
-      case :ets.lookup(binding.resources, key) do
-        [{^key, ^digest, {:done, result}}] ->
-          {:ok, {:cached, result}}
-
-        [{^key, ^digest, {:running, owner}}] ->
-          Policy.error(if(Process.alive?(owner), do: :request_in_progress, else: :request_outcome_unknown))
-
-        _ ->
-          Policy.error(:request_conflict)
-      end
-    end
-  rescue
-    ArgumentError -> Policy.error(:invalid_binding)
-  end
-
-  defp save_result(binding, key, digest, result) do
-    :ets.insert(binding.resources, {key, digest, {:done, result}})
-    :ok
-  rescue
-    ArgumentError -> :ok
+    RequestStore.claim(binding, key, digest)
   end
 
   defp run(binding, request, definition) do

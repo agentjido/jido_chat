@@ -34,7 +34,7 @@ defmodule Jido.Chat.Operations.Failure do
   @doc false
   @spec remember(Binding.t(), Jido.Signal.t(), class(), atom() | nil) :: :ok
   def remember(binding, result, class, tag) do
-    :ets.insert(binding.resources, {{:failure_class, result.id}, class, tag})
+    _ = Jido.Chat.RequestStore.remember(binding, result.id, class, tag)
     :ok
   rescue
     ArgumentError -> :ok
@@ -43,9 +43,10 @@ defmodule Jido.Chat.Operations.Failure do
   @doc false
   @spec class(Binding.t(), Jido.Signal.t()) :: class()
   def class(binding, result) do
-    case :ets.lookup(binding.resources, {:failure_class, result.id}) do
-      [{_key, class, _tag}] -> class
-      [] -> default_class(result)
+    case Jido.Chat.RequestStore.failure(binding, result.id) do
+      {:ok, {class, _tag}} -> class
+      {:error, :not_found} -> default_class(result)
+      {:error, _} -> :fatal
     end
   rescue
     ArgumentError -> default_class(result)
@@ -54,9 +55,9 @@ defmodule Jido.Chat.Operations.Failure do
   @doc false
   @spec reason_tag(Binding.t(), Jido.Signal.t()) :: atom() | nil
   def reason_tag(binding, result) do
-    case :ets.lookup(binding.resources, {:failure_class, result.id}) do
-      [{_key, _class, tag}] -> tag
-      [] -> nil
+    case Jido.Chat.RequestStore.failure(binding, result.id) do
+      {:ok, {_class, tag}} -> tag
+      {:error, _} -> nil
     end
   rescue
     ArgumentError -> nil
