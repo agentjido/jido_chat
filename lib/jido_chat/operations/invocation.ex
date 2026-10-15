@@ -40,19 +40,8 @@ defmodule Jido.Chat.Operations.Invocation do
     if status == :native or (status == :fallback and operation in @fallbacks) do
       with {:ok, arguments} <- arguments(binding, request, operation, fields) do
         opts = options(binding, request.data)
-
-        opts =
-          if operation == :stream and status == :fallback do
-            Keyword.put(
-              opts,
-              :fallback_mode,
-              if(matrix[:edit_message] == :native, do: Keyword.get(opts, :fallback_mode, :post_edit), else: :final)
-            )
-          else
-            opts
-          end
-
-        {:ok, {binding, status, operation, arguments, opts}}
+        mode = if matrix[:edit_message] == :native, do: Keyword.get(opts, :fallback_mode, :post_edit), else: :final
+        {:ok, {binding, status, operation, arguments, opts, mode}}
       end
     else
       {:error, :unsupported}
@@ -60,10 +49,13 @@ defmodule Jido.Chat.Operations.Invocation do
   end
 
   @doc false
-  def invoke({binding, :native, operation, arguments, opts}),
+  def invoke({binding, :native, operation, arguments, opts, _mode}),
     do: native(binding.adapter, operation, arguments ++ [opts])
 
-  def invoke({binding, :fallback, operation, arguments, opts}),
+  def invoke({binding, :fallback, :stream, arguments, opts, mode}),
+    do: stream_fallback(binding, arguments, opts, mode)
+
+  def invoke({binding, :fallback, operation, arguments, opts, _mode}),
     do: fallback(binding, operation, arguments, opts)
 
   defp arguments(_binding, request, :load_options, _fields), do: {:ok, [request]}
@@ -252,8 +244,7 @@ defmodule Jido.Chat.Operations.Invocation do
     end
   end
 
-  defp fallback(binding, :stream, [room, chunks], opts) do
-    mode = Keyword.fetch!(opts, :fallback_mode)
+  defp stream_fallback(binding, [room, chunks], opts, mode) do
     chunks = Enum.to_list(chunks)
 
     if mode == :post_edit do

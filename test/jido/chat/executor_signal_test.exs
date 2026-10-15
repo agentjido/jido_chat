@@ -799,7 +799,11 @@ defmodule Jido.Chat.ExecutorSignalTest do
           _ -> [:send_message]
         end
 
-      for op <- expected, do: assert_received({:callback, ^op, _})
+      for op <- expected do
+        assert_received {:callback, ^op, arguments}
+        if name == "stream", do: refute(Keyword.has_key?(List.last(arguments), :fallback_mode))
+      end
+
       refute_received {:callback, _, _}
     end
   end
