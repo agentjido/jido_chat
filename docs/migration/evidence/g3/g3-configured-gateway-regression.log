@@ -1,0 +1,368 @@
+Compiling 8 files (.ex)
+    warning: unused alias SecretResolver
+    │
+ 16 │   alias Jido.Messaging.SecretResolver
+    │   ~
+    │
+    └─ lib/jido_messaging/outbound_gateway/partition.ex:16:3
+
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+16:05:58.597 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.737.0>, nil}
+......
+
+  1) test distributes outbound work across partitions with stable routing metadata (Jido.Messaging.OutboundGatewayTest)
+     test/jido_messaging/outbound_gateway_test.exs:201
+     ** (exit) exited in: GenServer.call(#PID<0.1313.0>, {:dispatch, %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 1, operation: :send, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "partition_inst:room-1", route_resolution: %{partition: 11, source: :provided_fallback, fallback: true, stale: false, external_room_id: "room-1", route: %{thread_id: nil, external_room_id: "room-1", bridge_id: "partition_inst", room_id: nil, channel_type: :partition_channel}, session_key: {:partition_channel, "partition_inst", "room-1", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.PartitionChannel, payload: "hello", external_room_id: "room-1", external_message_id: nil, bridge_id: "partition_inst", session_key: {:partition_channel, "partition_inst", "room-1", nil}}}, 15000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.PartitionChannel, "partition_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+             ** (EXIT) time out
+     code: Enum.map(room_ids, fn room_id ->
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway.ex:223: Jido.Messaging.OutboundGateway.dispatch/2
+       test/jido_messaging/outbound_gateway_test.exs:214: anonymous fn/1 in Jido.Messaging.OutboundGatewayTest."test distributes outbound work across partitions with stable routing metadata"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/outbound_gateway_test.exs:212: (test)
+
+     The following output was logged:
+     
+     16:06:03.628 [error] GenServer Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime): {:get_bridge_config, "partition_inst"}
+     State: %{instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging}
+     Client Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime is alive
+     
+         (stdlib 8.1) gen_server.erl:2804: :gen_server.client_stacktrace/1
+         (stdlib 8.1) gen_server.erl:2791: :gen_server.error_info/7
+         (stdlib 8.1) gen_server.erl:2744: :gen_server.terminate/9
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     
+     16:06:03.626 [error] GenServer {Jido.Messaging.OutboundGatewayTest.TestMessaging.Registry.Instances, {:outbound_gateway_partition, 1}} terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.PartitionChannel, "partition_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:403: Jido.Messaging.OutboundGateway.Partition.adapter_opts/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:281: Jido.Messaging.OutboundGateway.Partition.perform_operation/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:179: Jido.Messaging.OutboundGateway.Partition.do_attempt/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:164: Jido.Messaging.OutboundGateway.Partition.process_job/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:142: Jido.Messaging.OutboundGateway.Partition.handle_info/2
+         (stdlib 8.1) gen_server.erl:2434: :gen_server.try_handle_info/3
+         (stdlib 8.1) gen_server.erl:2420: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message: :process_next
+     State: %{queue_size: 1, max_attempts: 1, queue: {[%{request: %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 1, operation: :send, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "partition_inst:room-1", route_resolution: %{partition: 11, source: :provided_fallback, fallback: true, stale: false, external_room_id: "room-1", route: %{thread_id: nil, external_room_id: "room-1", bridge_id: "partition_inst", room_id: nil, channel_type: :partition_channel}, session_key: {:partition_channel, "partition_inst", "room-1", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.PartitionChannel, payload: "hello", external_room_id: "room-1", external_message_id: nil, bridge_id: "partition_inst", session_key: {:partition_channel, "partition_inst", "room-1", nil}}, from: {#PID<0.1257.0>, [:alias | #Reference<0.0.160899.1808902734.2104295429.105144>]}}], []}, partition: 1, pressure_level: :normal, instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging, queue_capacity: 32, processing: true, pressure_policy: [warn_ratio: 0.7, degraded_ratio: 0.85, shed_ratio: 0.95, degraded_action: :throttle, degraded_throttle_ms: 5, shed_action: :drop_low, shed_drop_priorities: [:low]], base_backoff_ms: 25, max_backoff_ms: 500, sent_messages: %{}, sent_order: [], sent_cache_size: 1000}
+     
+
+16:06:08.646 [error] GenServer #PID<0.1336.0> terminating
+** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore, {:get_bridge_config, "pressure_inst"}, 5000)
+    ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+        ** (EXIT) time out
+Last message: {:EXIT, #PID<0.1332.0>, {{:timeout, {GenServer, :call, [Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000]}}, {GenServer, :call, [Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore, {:get_bridge_config, "pressure_inst"}, 5000]}}}
+State: {:state, {#PID<0.1336.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.OutboundGatewayTest.TestMessaging], %{Jido.Messaging.OutboundGatewayTest.TestMessaging => {:child, #PID<0.1337.0>, Jido.Messaging.OutboundGatewayTest.TestMessaging, {Jido.Messaging.OutboundGatewayTest.TestMessaging, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.OutboundGatewayTest.TestMessaging]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, true, #Reference<0.1808902734.2104229892.97734>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1332.0>]}}
+
+
+  2) test enforces queue bounds and emits pressure transitions (Jido.Messaging.OutboundGatewayTest)
+     test/jido_messaging/outbound_gateway_test.exs:233
+     ** (EXIT from #PID<0.1332.0>) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore, {:get_bridge_config, "pressure_inst"}, 5000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+             ** (EXIT) time out
+
+
+
+  3) test normalizes retryable failures and emits classification telemetry (Jido.Messaging.OutboundGatewayTest)
+     test/jido_messaging/outbound_gateway_test.exs:273
+     ** (exit) exited in: GenServer.call(#PID<0.1466.0>, {:dispatch, %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 2, operation: :send, base_backoff_ms: 1, max_backoff_ms: 1, idempotency_key: nil, routing_key: "retry_inst:retry_room", route_resolution: %{partition: 14, source: :provided_fallback, fallback: true, stale: false, external_room_id: "retry_room", route: %{thread_id: nil, external_room_id: "retry_room", bridge_id: "retry_inst", room_id: nil, channel_type: :retry_channel}, session_key: {:retry_channel, "retry_inst", "retry_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.RetryChannel, payload: "flaky", external_room_id: "retry_room", external_message_id: nil, bridge_id: "retry_inst", session_key: {:retry_channel, "retry_inst", "retry_room", nil}}}, 15000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.RetryChannel, "retry_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+             ** (EXIT) time out
+     code: {:ok, flaky_result} = OutboundGateway.send_message(TestMessaging, context, "flaky")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway.ex:223: Jido.Messaging.OutboundGateway.dispatch/2
+       test/jido_messaging/outbound_gateway_test.exs:297: (test)
+
+     The following output was logged:
+     
+     16:06:08.648 [info] The function passed as a handler with ID "outbound-classification-16806" is a local function.
+     This means that it is either an anonymous function or a capture of a function without a module specified. That may cause a performance penalty when calling that handler. For more details see the note in `telemetry:attach/4` documentation.
+     
+     https://hexdocs.pm/telemetry/telemetry.html#attach/4
+     
+     16:06:13.656 [error] GenServer Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime): {:get_bridge_config, "retry_inst"}
+     State: %{instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging}
+     Client Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime is alive
+     
+         (stdlib 8.1) gen_server.erl:2804: :gen_server.client_stacktrace/1
+         (stdlib 8.1) gen_server.erl:2791: :gen_server.error_info/7
+         (stdlib 8.1) gen_server.erl:2744: :gen_server.terminate/9
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     
+     16:06:13.653 [error] GenServer {Jido.Messaging.OutboundGatewayTest.TestMessaging.Registry.Instances, {:outbound_gateway_partition, 1}} terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.RetryChannel, "retry_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:403: Jido.Messaging.OutboundGateway.Partition.adapter_opts/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:281: Jido.Messaging.OutboundGateway.Partition.perform_operation/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:179: Jido.Messaging.OutboundGateway.Partition.do_attempt/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:164: Jido.Messaging.OutboundGateway.Partition.process_job/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:142: Jido.Messaging.OutboundGateway.Partition.handle_info/2
+         (stdlib 8.1) gen_server.erl:2434: :gen_server.try_handle_info/3
+         (stdlib 8.1) gen_server.erl:2420: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message: :process_next
+     State: %{queue_size: 1, max_attempts: 2, queue: {[%{request: %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 2, operation: :send, base_backoff_ms: 1, max_backoff_ms: 1, idempotency_key: nil, routing_key: "retry_inst:retry_room", route_resolution: %{partition: 14, source: :provided_fallback, fallback: true, stale: false, external_room_id: "retry_room", route: %{thread_id: nil, external_room_id: "retry_room", bridge_id: "retry_inst", room_id: nil, channel_type: :retry_channel}, session_key: {:retry_channel, "retry_inst", "retry_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.RetryChannel, payload: "flaky", external_room_id: "retry_room", external_message_id: nil, bridge_id: "retry_inst", session_key: {:retry_channel, "retry_inst", "retry_room", nil}}, from: {#PID<0.1409.0>, [:alias | #Reference<0.0.180355.1808902734.2104295429.106300>]}}], []}, partition: 1, pressure_level: :normal, instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging, queue_capacity: 8, processing: true, pressure_policy: [warn_ratio: 0.7, degraded_ratio: 0.85, shed_ratio: 0.95, degraded_action: :throttle, degraded_throttle_ms: 5, shed_action: :drop_low, shed_drop_priorities: [:low]], base_backoff_ms: 1, max_backoff_ms: 1, sent_messages: %{}, sent_order: [], sent_cache_size: 1000}
+     
+
+
+  4) test supports edit operations and validates edit request contract (Jido.Messaging.OutboundGatewayTest)
+     test/jido_messaging/outbound_gateway_test.exs:314
+     ** (exit) exited in: GenServer.call(#PID<0.1540.0>, {:dispatch, %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 1, operation: :edit, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "edit_inst:edit_room", route_resolution: %{partition: 18, source: :provided_fallback, fallback: true, stale: false, external_room_id: "edit_room", route: %{thread_id: nil, external_room_id: "edit_room", bridge_id: "edit_inst", room_id: nil, channel_type: :partition_channel}, session_key: {:partition_channel, "edit_inst", "edit_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.PartitionChannel, payload: "updated", external_room_id: "edit_room", external_message_id: "message-123", bridge_id: "edit_inst", session_key: {:partition_channel, "edit_inst", "edit_room", nil}}}, 15000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.PartitionChannel, "edit_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+             ** (EXIT) time out
+     code: OutboundGateway.edit_message(TestMessaging, context, "message-123", "updated")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway.ex:223: Jido.Messaging.OutboundGateway.dispatch/2
+       test/jido_messaging/outbound_gateway_test.exs:324: (test)
+
+     The following output was logged:
+     
+     16:06:18.682 [error] GenServer Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime): {:get_bridge_config, "edit_inst"}
+     State: %{instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging}
+     Client Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime is alive
+     
+         (stdlib 8.1) gen_server.erl:2804: :gen_server.client_stacktrace/1
+         (stdlib 8.1) gen_server.erl:2791: :gen_server.error_info/7
+         (stdlib 8.1) gen_server.erl:2744: :gen_server.terminate/9
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     
+     16:06:18.679 [error] GenServer {Jido.Messaging.OutboundGatewayTest.TestMessaging.Registry.Instances, {:outbound_gateway_partition, 0}} terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.PartitionChannel, "edit_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:403: Jido.Messaging.OutboundGateway.Partition.adapter_opts/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:281: Jido.Messaging.OutboundGateway.Partition.perform_operation/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:179: Jido.Messaging.OutboundGateway.Partition.do_attempt/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:164: Jido.Messaging.OutboundGateway.Partition.process_job/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:142: Jido.Messaging.OutboundGateway.Partition.handle_info/2
+         (stdlib 8.1) gen_server.erl:2434: :gen_server.try_handle_info/3
+         (stdlib 8.1) gen_server.erl:2420: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message: :process_next
+     State: %{queue_size: 1, max_attempts: 1, queue: {[%{request: %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 1, operation: :edit, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "edit_inst:edit_room", route_resolution: %{partition: 18, source: :provided_fallback, fallback: true, stale: false, external_room_id: "edit_room", route: %{thread_id: nil, external_room_id: "edit_room", bridge_id: "edit_inst", room_id: nil, channel_type: :partition_channel}, session_key: {:partition_channel, "edit_inst", "edit_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.PartitionChannel, payload: "updated", external_room_id: "edit_room", external_message_id: "message-123", bridge_id: "edit_inst", session_key: {:partition_channel, "edit_inst", "edit_room", nil}}, from: {#PID<0.1485.0>, [:alias | #Reference<0.0.190083.1808902734.2104295429.107036>]}}], []}, partition: 0, pressure_level: :normal, instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging, queue_capacity: 8, processing: true, pressure_policy: [warn_ratio: 0.7, degraded_ratio: 0.85, shed_ratio: 0.95, degraded_action: :throttle, degraded_throttle_ms: 5, shed_action: :drop_low, shed_drop_priorities: [:low]], base_backoff_ms: 25, max_backoff_ms: 500, sent_messages: %{}, sent_order: [], sent_cache_size: 1000}
+     
+
+
+  5) test routes supported media payloads through gateway media operations (Jido.Messaging.OutboundGatewayTest)
+     test/jido_messaging/outbound_gateway_test.exs:337
+     ** (exit) exited in: GenServer.call(#PID<0.1615.0>, {:dispatch, %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 1, operation: :send_media, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "media_inst:media_room", route_resolution: %{partition: 2, source: :provided_fallback, fallback: true, stale: false, external_room_id: "media_room", route: %{thread_id: nil, external_room_id: "media_room", bridge_id: "media_inst", room_id: nil, channel_type: :media_channel}, session_key: {:media_channel, "media_inst", "media_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.MediaChannel, payload: %{kind: :image, url: "https://example.com/pic.png", media_type: "image/png", size_bytes: 64}, external_room_id: "media_room", external_message_id: nil, bridge_id: "media_inst", session_key: {:media_channel, "media_inst", "media_room", nil}}}, 15000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.MediaChannel, "media_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+             ** (EXIT) time out
+     code: assert {:ok, send_result} = OutboundGateway.send_media(TestMessaging, context, media_payload)
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway.ex:223: Jido.Messaging.OutboundGateway.dispatch/2
+       test/jido_messaging/outbound_gateway_test.exs:348: (test)
+
+     The following output was logged:
+     
+     16:06:23.693 [error] GenServer Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime): {:get_bridge_config, "media_inst"}
+     State: %{instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging}
+     Client Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime is alive
+     
+         (stdlib 8.1) gen_server.erl:2804: :gen_server.client_stacktrace/1
+         (stdlib 8.1) gen_server.erl:2791: :gen_server.error_info/7
+         (stdlib 8.1) gen_server.erl:2744: :gen_server.terminate/9
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     
+     16:06:23.690 [error] GenServer {Jido.Messaging.OutboundGatewayTest.TestMessaging.Registry.Instances, {:outbound_gateway_partition, 1}} terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.MediaChannel, "media_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:403: Jido.Messaging.OutboundGateway.Partition.adapter_opts/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:281: Jido.Messaging.OutboundGateway.Partition.perform_operation/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:179: Jido.Messaging.OutboundGateway.Partition.do_attempt/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:164: Jido.Messaging.OutboundGateway.Partition.process_job/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:142: Jido.Messaging.OutboundGateway.Partition.handle_info/2
+         (stdlib 8.1) gen_server.erl:2434: :gen_server.try_handle_info/3
+         (stdlib 8.1) gen_server.erl:2420: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message: :process_next
+     State: %{queue_size: 1, max_attempts: 1, queue: {[%{request: %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 1, operation: :send_media, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "media_inst:media_room", route_resolution: %{partition: 2, source: :provided_fallback, fallback: true, stale: false, external_room_id: "media_room", route: %{thread_id: nil, external_room_id: "media_room", bridge_id: "media_inst", room_id: nil, channel_type: :media_channel}, session_key: {:media_channel, "media_inst", "media_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.MediaChannel, payload: %{kind: :image, url: "https://example.com/pic.png", media_type: "image/png", size_bytes: 64}, external_room_id: "media_room", external_message_id: nil, bridge_id: "media_inst", session_key: {:media_channel, "media_inst", "media_room", nil}}, from: {#PID<0.1559.0>, [:alias | #Reference<0.0.199555.1808902734.2104295425.104280>]}}], []}, partition: 1, pressure_level: :normal, instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging, queue_capacity: 8, processing: true, pressure_policy: [warn_ratio: 0.7, degraded_ratio: 0.85, shed_ratio: 0.95, degraded_action: :throttle, degraded_throttle_ms: 5, shed_action: :drop_low, shed_drop_priorities: [:low]], base_backoff_ms: 25, max_backoff_ms: 500, sent_messages: %{}, sent_order: [], sent_cache_size: 1000}
+     
+
+
+  6) test applies deterministic media text fallback for unsupported channels when configured (Jido.Messaging.OutboundGatewayTest)
+     test/jido_messaging/outbound_gateway_test.exs:364
+     ** (exit) exited in: GenServer.call(#PID<0.1688.0>, {:dispatch, %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil, media_policy: [unsupported_policy: :fallback_text]], max_attempts: 1, operation: :send_media, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "media_fallback_inst:media_fallback_room", route_resolution: %{partition: 15, source: :provided_fallback, fallback: true, stale: false, external_room_id: "media_fallback_room", route: %{thread_id: nil, external_room_id: "media_fallback_room", bridge_id: "media_fallback_inst", room_id: nil, channel_type: :partition_channel}, session_key: {:partition_channel, "media_fallback_inst", "media_fallback_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.PartitionChannel, payload: %{kind: :image, url: "https://example.com/missing.png", fallback_text: "media unavailable", media_type: "image/png"}, external_room_id: "media_fallback_room", external_message_id: nil, bridge_id: "media_fallback_inst", session_key: {:partition_channel, "media_fallback_inst", "media_fallback_room", nil}}}, 15000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.PartitionChannel, "media_fallback_inst", [delivery_external_room_id: nil, external_thread_id: nil, media_policy: [unsupported_policy: :fallback_text]]}, 5000)
+             ** (EXIT) time out
+     code: OutboundGateway.send_media(
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway.ex:223: Jido.Messaging.OutboundGateway.dispatch/2
+       test/jido_messaging/outbound_gateway_test.exs:381: (test)
+
+     The following output was logged:
+     
+     16:06:28.707 [error] GenServer Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime): {:get_bridge_config, "media_fallback_inst"}
+     State: %{instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging}
+     Client Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime is alive
+     
+         (stdlib 8.1) gen_server.erl:2804: :gen_server.client_stacktrace/1
+         (stdlib 8.1) gen_server.erl:2791: :gen_server.error_info/7
+         (stdlib 8.1) gen_server.erl:2744: :gen_server.terminate/9
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     
+     16:06:28.707 [error] GenServer {Jido.Messaging.OutboundGatewayTest.TestMessaging.Registry.Instances, {:outbound_gateway_partition, 1}} terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.PartitionChannel, "media_fallback_inst", [delivery_external_room_id: nil, external_thread_id: nil, media_policy: [unsupported_policy: :fallback_text]]}, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:403: Jido.Messaging.OutboundGateway.Partition.adapter_opts/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:281: Jido.Messaging.OutboundGateway.Partition.perform_operation/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:179: Jido.Messaging.OutboundGateway.Partition.do_attempt/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:164: Jido.Messaging.OutboundGateway.Partition.process_job/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:142: Jido.Messaging.OutboundGateway.Partition.handle_info/2
+         (stdlib 8.1) gen_server.erl:2434: :gen_server.try_handle_info/3
+         (stdlib 8.1) gen_server.erl:2420: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message: :process_next
+     State: %{queue_size: 1, max_attempts: 1, queue: {[%{request: %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil, media_policy: [unsupported_policy: :fallback_text]], max_attempts: 1, operation: :send_media, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "media_fallback_inst:media_fallback_room", route_resolution: %{partition: 15, source: :provided_fallback, fallback: true, stale: false, external_room_id: "media_fallback_room", route: %{thread_id: nil, external_room_id: "media_fallback_room", bridge_id: "media_fallback_inst", room_id: nil, channel_type: :partition_channel}, session_key: {:partition_channel, "media_fallback_inst", "media_fallback_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.PartitionChannel, payload: %{kind: :image, url: "https://example.com/missing.png", fallback_text: "media unavailable", media_type: "image/png"}, external_room_id: "media_fallback_room", external_message_id: nil, bridge_id: "media_fallback_inst", session_key: {:partition_channel, "media_fallback_inst", "media_fallback_room", nil}}, from: {#PID<0.1632.0>, [:alias | #Reference<0.0.208899.1808902734.2104295430.98017>]}}], []}, partition: 1, pressure_level: :normal, instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging, queue_capacity: 8, processing: true, pressure_policy: [warn_ratio: 0.7, degraded_ratio: 0.85, shed_ratio: 0.95, degraded_action: :throttle, degraded_throttle_ms: 5, shed_action: :drop_low, shed_drop_priorities: [:low]], base_backoff_ms: 25, max_backoff_ms: 500, sent_messages: %{}, sent_order: [], sent_cache_size: 1000}
+     
+
+
+  7) test rejects unsupported media deterministically when fallback policy is reject (Jido.Messaging.OutboundGatewayTest)
+     test/jido_messaging/outbound_gateway_test.exs:394
+     ** (exit) exited in: GenServer.call(#PID<0.1761.0>, {:dispatch, %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 1, operation: :send_media, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "media_reject_inst:media_reject_room", route_resolution: %{partition: 2, source: :provided_fallback, fallback: true, stale: false, external_room_id: "media_reject_room", route: %{thread_id: nil, external_room_id: "media_reject_room", bridge_id: "media_reject_inst", room_id: nil, channel_type: :partition_channel}, session_key: {:partition_channel, "media_reject_inst", "media_reject_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.PartitionChannel, payload: %{kind: :image, url: "https://example.com/missing.png", media_type: "image/png"}, external_room_id: "media_reject_room", external_message_id: nil, bridge_id: "media_reject_inst", session_key: {:partition_channel, "media_reject_inst", "media_reject_room", nil}}}, 15000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.PartitionChannel, "media_reject_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+             ** (EXIT) time out
+     code: assert {:error, outbound_error} = OutboundGateway.send_media(TestMessaging, context, media_payload)
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway.ex:223: Jido.Messaging.OutboundGateway.dispatch/2
+       test/jido_messaging/outbound_gateway_test.exs:405: (test)
+
+     The following output was logged:
+     
+     16:06:33.714 [error] GenServer Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime): {:get_bridge_config, "media_reject_inst"}
+     State: %{instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging}
+     Client Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime is alive
+     
+         (stdlib 8.1) gen_server.erl:2804: :gen_server.client_stacktrace/1
+         (stdlib 8.1) gen_server.erl:2791: :gen_server.error_info/7
+         (stdlib 8.1) gen_server.erl:2744: :gen_server.terminate/9
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     
+     16:06:33.712 [error] GenServer {Jido.Messaging.OutboundGatewayTest.TestMessaging.Registry.Instances, {:outbound_gateway_partition, 1}} terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.PartitionChannel, "media_reject_inst", [delivery_external_room_id: nil, external_thread_id: nil]}, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:403: Jido.Messaging.OutboundGateway.Partition.adapter_opts/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:281: Jido.Messaging.OutboundGateway.Partition.perform_operation/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:179: Jido.Messaging.OutboundGateway.Partition.do_attempt/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:164: Jido.Messaging.OutboundGateway.Partition.process_job/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:142: Jido.Messaging.OutboundGateway.Partition.handle_info/2
+         (stdlib 8.1) gen_server.erl:2434: :gen_server.try_handle_info/3
+         (stdlib 8.1) gen_server.erl:2420: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message: :process_next
+     State: %{queue_size: 1, max_attempts: 1, queue: {[%{request: %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil], max_attempts: 1, operation: :send_media, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "media_reject_inst:media_reject_room", route_resolution: %{partition: 2, source: :provided_fallback, fallback: true, stale: false, external_room_id: "media_reject_room", route: %{thread_id: nil, external_room_id: "media_reject_room", bridge_id: "media_reject_inst", room_id: nil, channel_type: :partition_channel}, session_key: {:partition_channel, "media_reject_inst", "media_reject_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.PartitionChannel, payload: %{kind: :image, url: "https://example.com/missing.png", media_type: "image/png"}, external_room_id: "media_reject_room", external_message_id: nil, bridge_id: "media_reject_inst", session_key: {:partition_channel, "media_reject_inst", "media_reject_room", nil}}, from: {#PID<0.1705.0>, [:alias | #Reference<0.0.218243.1808902734.2104295425.105545>]}}], []}, partition: 1, pressure_level: :normal, instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging, queue_capacity: 8, processing: true, pressure_policy: [warn_ratio: 0.7, degraded_ratio: 0.85, shed_ratio: 0.95, degraded_action: :throttle, degraded_throttle_ms: 5, shed_action: :drop_low, shed_drop_priorities: [:low]], base_backoff_ms: 25, max_backoff_ms: 500, sent_messages: %{}, sent_order: [], sent_cache_size: 1000}
+     
+
+
+  8) test enforces outbound media size limits via policy preflight (Jido.Messaging.OutboundGatewayTest)
+     test/jido_messaging/outbound_gateway_test.exs:412
+     ** (exit) exited in: GenServer.call(#PID<0.1834.0>, {:dispatch, %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil, media_policy: [max_item_bytes: 128]], max_attempts: 1, operation: :send_media, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "media_limit_inst:media_limit_room", route_resolution: %{partition: 17, source: :provided_fallback, fallback: true, stale: false, external_room_id: "media_limit_room", route: %{thread_id: nil, external_room_id: "media_limit_room", bridge_id: "media_limit_inst", room_id: nil, channel_type: :media_channel}, session_key: {:media_channel, "media_limit_inst", "media_limit_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.MediaChannel, payload: %{kind: :image, url: "https://example.com/large.png", media_type: "image/png", size_bytes: 999}, external_room_id: "media_limit_room", external_message_id: nil, bridge_id: "media_limit_inst", session_key: {:media_channel, "media_limit_inst", "media_limit_room", nil}}}, 15000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.MediaChannel, "media_limit_inst", [delivery_external_room_id: nil, external_thread_id: nil, media_policy: [max_item_bytes: 128]]}, 5000)
+             ** (EXIT) time out
+     code: OutboundGateway.send_media(
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway.ex:223: Jido.Messaging.OutboundGateway.dispatch/2
+       test/jido_messaging/outbound_gateway_test.exs:424: (test)
+
+     The following output was logged:
+     
+     16:06:38.728 [error] GenServer Jido.Messaging.OutboundGatewayTest.TestMessaging.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, :get_persistence, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime): {:get_bridge_config, "media_limit_inst"}
+     State: %{instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging}
+     Client Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime is alive
+     
+         (stdlib 8.1) gen_server.erl:2804: :gen_server.client_stacktrace/1
+         (stdlib 8.1) gen_server.erl:2791: :gen_server.error_info/7
+         (stdlib 8.1) gen_server.erl:2744: :gen_server.terminate/9
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     
+     16:06:38.722 [error] GenServer {Jido.Messaging.OutboundGatewayTest.TestMessaging.Registry.Instances, {:outbound_gateway_partition, 1}} terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.OutboundGatewayTest.TestMessaging.Runtime, {:ensure_binding, Jido.Messaging.OutboundGatewayTest.MediaChannel, "media_limit_inst", [delivery_external_room_id: nil, external_thread_id: nil, media_policy: [max_item_bytes: 128]]}, 5000)
+         ** (EXIT) time out
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:403: Jido.Messaging.OutboundGateway.Partition.adapter_opts/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:281: Jido.Messaging.OutboundGateway.Partition.perform_operation/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:179: Jido.Messaging.OutboundGateway.Partition.do_attempt/3
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:164: Jido.Messaging.OutboundGateway.Partition.process_job/2
+         (jido_messaging 1.1.1) lib/jido_messaging/outbound_gateway/partition.ex:142: Jido.Messaging.OutboundGateway.Partition.handle_info/2
+         (stdlib 8.1) gen_server.erl:2434: :gen_server.try_handle_info/3
+         (stdlib 8.1) gen_server.erl:2420: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message: :process_next
+     State: %{queue_size: 1, max_attempts: 1, queue: {[%{request: %{priority: :normal, opts: [delivery_external_room_id: nil, external_thread_id: nil, media_policy: [max_item_bytes: 128]], max_attempts: 1, operation: :send_media, base_backoff_ms: 25, max_backoff_ms: 500, idempotency_key: nil, routing_key: "media_limit_inst:media_limit_room", route_resolution: %{partition: 17, source: :provided_fallback, fallback: true, stale: false, external_room_id: "media_limit_room", route: %{thread_id: nil, external_room_id: "media_limit_room", bridge_id: "media_limit_inst", room_id: nil, channel_type: :media_channel}, session_key: {:media_channel, "media_limit_inst", "media_limit_room", nil}, fallback_reason: :miss}, channel: Jido.Messaging.OutboundGatewayTest.MediaChannel, payload: %{kind: :image, url: "https://example.com/large.png", media_type: "image/png", size_bytes: 999}, external_room_id: "media_limit_room", external_message_id: nil, bridge_id: "media_limit_inst", session_key: {:media_channel, "media_limit_inst", "media_limit_room", nil}}, from: {#PID<0.1778.0>, [:alias | #Reference<0.0.227587.1808902734.2104295425.106300>]}}], []}, partition: 1, pressure_level: :normal, instance_module: Jido.Messaging.OutboundGatewayTest.TestMessaging, queue_capacity: 8, processing: true, pressure_policy: [warn_ratio: 0.7, degraded_ratio: 0.85, shed_ratio: 0.95, degraded_action: :throttle, degraded_throttle_ms: 5, shed_action: :drop_low, shed_drop_priorities: [:low]], base_backoff_ms: 25, max_backoff_ms: 500, sent_messages: %{}, sent_order: [], sent_cache_size: 1000}
+     
+
+BREAK: (a)bort (A)bort with dump (c)ontinue (p)roc info (i)nfo
+       (l)oaded (v)ersion (k)ill (D)b-tables (d)istribution

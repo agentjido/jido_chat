@@ -1,0 +1,24 @@
+{
+  "label": "g3-topology-owner-and-sections-warning-free-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/demo/topology_test.exs",
+    "test/mix/tasks/jido_messaging_demo_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "528e06dd16ed8ca52346de29876b23419023f517",
+  "source_tree_sha256": "897431f26d9767b6f44d2044c6615fc59fa323f32eb07cfa7400e85da4d1b9ad",
+  "started_at": "2026-10-13T03:49:43.684439+00:00",
+  "finished_at": "2026-10-13T03:49:45.733595+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-topology-owner-and-sections-warning-free-tests.log",
+  "log_sha256": "11d58c04ae139c14df880cbec429d0fe2fabaec563cb7fa9aab72a40a0b309a3"
+}

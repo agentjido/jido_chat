@@ -1,0 +1,20 @@
+{
+  "label": "g3-message-reference-catalog-check",
+  "command": [
+    "mix",
+    "run",
+    "integration/scripts/verify_g2_catalog.exs",
+    "G3"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "f14179d1213f5f10705855318a4ef9b8f9f79519",
+  "source_tree_sha256": "b08b19a8e3cefa045bc6dddccf3fa18f7a248ad4a84f17513ab8bbb7329d974b",
+  "started_at": "2026-10-12T23:51:57.275039+00:00",
+  "finished_at": "2026-10-12T23:52:00.493352+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-message-reference-catalog-check.log",
+  "log_sha256": "2776bfc6e4c39a3871a7e370a64182cb01bdd99d5c37aefd732bc00655add239"
+}

@@ -1,0 +1,55 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "36e7f7d58df7e0c48c7fd448812c4f859cc290b0",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "2768b005b051c00924bc439580a4421c4f4340c4",
+      "library_test_files": 364,
+      "library_test_sha256": "1892a5be0161149b6bf2b7c10454abd5cbfe0954cc7cfc39a92d58fb2816299d"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-current-assignment-topology-core-graph",
+  "command": [
+    "mix",
+    "run",
+    "scripts/report_dependency_graph.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "36e7f7d58df7e0c48c7fd448812c4f859cc290b0",
+  "source_tree_sha256": "6169e1f9fbb234c616ac110e733bd7e3e48a59bbce44980b03c11edff7874258",
+  "started_at": "2026-10-13T06:41:25.443048+00:00",
+  "finished_at": "2026-10-13T06:41:32.117181+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-assignment-topology-core-graph.log",
+  "log_sha256": "3a326faac89482d3e0b43df0fb8831e71cef521fb8b632cc82382609c8c30dbd"
+}

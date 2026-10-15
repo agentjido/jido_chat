@@ -1,0 +1,55 @@
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+....    warning: Jido.Messaging.AgentRouteRerouteTest.ETSInstance.create_thread/1 is undefined or private. Did you mean:
+
+        * create_room/1
+
+    │
+ 20 │       {:ok, thread} = instance.create_thread(%{id: "owned-thread", room_id: room.id})
+    │                                ~
+    │
+    └─ test/jido_messaging/agent_route_reroute_test.exs:20:32: Jido.Messaging.AgentRouteRerouteTest."test Elixir.Jido.Messaging.AgentRouteRerouteTest.ETSInstance explicit endpoint reroute retains canonical room and clears old correlations"/1
+
+    warning: Jido.Messaging.AgentRouteRerouteTest.SQLiteInstance.create_thread/1 is undefined or private. Did you mean:
+
+        * create_room/1
+
+    │
+ 20 │       {:ok, thread} = instance.create_thread(%{id: "owned-thread", room_id: room.id})
+    │                                ~
+    │
+    └─ test/jido_messaging/agent_route_reroute_test.exs:20:32: Jido.Messaging.AgentRouteRerouteTest."test Elixir.Jido.Messaging.AgentRouteRerouteTest.SQLiteInstance explicit endpoint reroute retains canonical room and clears old correlations"/1
+
+
+
+  1) test Elixir.Jido.Messaging.AgentRouteRerouteTest.ETSInstance explicit endpoint reroute retains canonical room and clears old correlations (Jido.Messaging.AgentRouteRerouteTest)
+     test/jido_messaging/agent_route_reroute_test.exs:13
+     ** (UndefinedFunctionError) function Jido.Messaging.AgentRouteRerouteTest.ETSInstance.create_thread/1 is undefined or private. Did you mean:
+
+         * create_room/1
+
+     code: {:ok, thread} = instance.create_thread(%{id: "owned-thread", room_id: room.id})
+     stacktrace:
+       Jido.Messaging.AgentRouteRerouteTest.ETSInstance.create_thread(%{id: "owned-thread", room_id: "owned-room"})
+       test/jido_messaging/agent_route_reroute_test.exs:20: (test)
+
+
+
+  2) test Elixir.Jido.Messaging.AgentRouteRerouteTest.SQLiteInstance explicit endpoint reroute retains canonical room and clears old correlations (Jido.Messaging.AgentRouteRerouteTest)
+     test/jido_messaging/agent_route_reroute_test.exs:13
+     ** (UndefinedFunctionError) function Jido.Messaging.AgentRouteRerouteTest.SQLiteInstance.create_thread/1 is undefined or private. Did you mean:
+
+         * create_room/1
+
+     code: {:ok, thread} = instance.create_thread(%{id: "owned-thread", room_id: room.id})
+     stacktrace:
+       Jido.Messaging.AgentRouteRerouteTest.SQLiteInstance.create_thread(%{id: "owned-thread", room_id: "owned-room"})
+       test/jido_messaging/agent_route_reroute_test.exs:20: (test)
+
+..............
+Finished in 4.0 seconds (1.7s async, 2.2s sync)
+
+Result: 18/20 passed
+Failed: 2 tests

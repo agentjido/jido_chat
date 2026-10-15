@@ -1,0 +1,373 @@
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+......
+
+  1) test stored facts forward once to the other captured binding (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:87
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_request,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {message, fact} = stored_fact("first", :telegram)
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:242: Jido.Messaging.Demo.BridgeOwnershipTest.stored_fact/2
+       test/jido_messaging/demo/bridge_ownership_test.exs:88: (test)
+
+     The following output was logged:
+
+     06:01:59.866 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+
+     06:01:59.869 [info] [Bridge] Created binding bind_f69cd11d76d94f17: telegram/tg/tg-room -> demo:lobby
+
+     06:01:59.869 [info] [Bridge] Created binding bind_fd085c0e1b26efe1: discord/dc/dc-room -> demo:lobby
+
+     06:01:59.869 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+
+     06:01:59.870 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+
+
+
+  2) test malformed or foreign facts cause no callback (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:120
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_request,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {_message, fact} = stored_fact("selected", :telegram)
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:242: Jido.Messaging.Demo.BridgeOwnershipTest.stored_fact/2
+       test/jido_messaging/demo/bridge_ownership_test.exs:121: (test)
+
+     The following output was logged:
+
+     06:01:59.879 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+
+     06:01:59.879 [info] [Bridge] Created binding bind_16c5016613adb5f5: telegram/tg/tg-room -> demo:lobby
+
+     06:01:59.879 [info] [Bridge] Created binding bind_3cbe50c8e85ae50c: discord/dc/dc-room -> demo:lobby
+
+     06:01:59.879 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+
+     06:01:59.879 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+
+
+
+  3) test revocation precedes repeated request cache access (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:146
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_request,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {_message, fact} = stored_fact("revoked", :telegram)
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:242: Jido.Messaging.Demo.BridgeOwnershipTest.stored_fact/2
+       test/jido_messaging/demo/bridge_ownership_test.exs:147: (test)
+
+     The following output was logged:
+
+     06:01:59.883 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+
+     06:01:59.883 [info] [Bridge] Created binding bind_617ae23882854cf5: telegram/tg/tg-room -> demo:lobby
+
+     06:01:59.883 [info] [Bridge] Created binding bind_20d55006a096d850: discord/dc/dc-room -> demo:lobby
+
+     06:01:59.883 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+
+     06:01:59.884 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+
+
+
+  4) test disabled indexed room binding has no provider effect (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:165
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_request,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {_message, fact} = stored_fact(unquote(Atom.to_string(kind)), :telegram)
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:242: Jido.Messaging.Demo.BridgeOwnershipTest.stored_fact/2
+       test/jido_messaging/demo/bridge_ownership_test.exs:173: (test)
+
+     The following output was logged:
+
+     06:01:59.890 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+
+     06:01:59.890 [info] [Bridge] Created binding bind_a6e7bb878e01f9a2: telegram/tg/tg-room -> demo:lobby
+
+     06:01:59.890 [info] [Bridge] Created binding bind_6e05a12da3b2cb2b: discord/dc/dc-room -> demo:lobby
+
+     06:01:59.890 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+
+     06:01:59.890 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+
+
+
+  5) test inbound indexed room binding has no provider effect (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:165
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_request,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {_message, fact} = stored_fact(unquote(Atom.to_string(kind)), :telegram)
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:242: Jido.Messaging.Demo.BridgeOwnershipTest.stored_fact/2
+       test/jido_messaging/demo/bridge_ownership_test.exs:173: (test)
+
+     The following output was logged:
+
+     06:01:59.896 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+
+     06:01:59.896 [info] [Bridge] Created binding bind_4eac5e69064033de: telegram/tg/tg-room -> demo:lobby
+
+     06:01:59.896 [info] [Bridge] Created binding bind_d2702b3aa12cf2e9: discord/dc/dc-room -> demo:lobby
+
+     06:01:59.896 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+
+     06:01:59.896 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+
+
+
+  6) test ambiguous indexed room bindings cause no provider effect (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:180
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_request,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {_message, fact} = stored_fact("ambiguous", :telegram)
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:242: Jido.Messaging.Demo.BridgeOwnershipTest.stored_fact/2
+       test/jido_messaging/demo/bridge_ownership_test.exs:187: (test)
+
+     The following output was logged:
+
+     06:01:59.899 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+
+     06:01:59.899 [info] [Bridge] Created binding bind_9346a525addd57b2: telegram/tg/tg-room -> demo:lobby
+
+     06:01:59.899 [info] [Bridge] Created binding bind_1d9f70ee6c0f0b14: discord/dc/dc-room -> demo:lobby
+
+     06:01:59.899 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+
+     06:01:59.900 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+
+
+
+  7) test missing actor has no inferred grant or provider call (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:193
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_request,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {_message, fact} = stored_fact("missing-actor", :telegram)
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:242: Jido.Messaging.Demo.BridgeOwnershipTest.stored_fact/2
+       test/jido_messaging/demo/bridge_ownership_test.exs:196: (test)
+
+     The following output was logged:
+
+     06:01:59.905 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+
+     06:01:59.905 [info] [Bridge] Created binding bind_d6d079e82f9161f5: telegram/tg/tg-room -> demo:lobby
+
+     06:01:59.905 [info] [Bridge] Created binding bind_1e3891c3876d0276: discord/dc/dc-room -> demo:lobby
+
+     06:01:59.905 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+
+     06:01:59.905 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+
+
+
+  8) test native Bus delivery keeps instance and room selection (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:203
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_request,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {_message, fact} = stored_fact("bus-message", :discord)
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:242: Jido.Messaging.Demo.BridgeOwnershipTest.stored_fact/2
+       test/jido_messaging/demo/bridge_ownership_test.exs:204: (test)
+
+     The following output was logged:
+
+     06:01:59.913 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+
+     06:01:59.913 [info] [Bridge] Created binding bind_e1f23e9e47a4fd3b: telegram/tg/tg-room -> demo:lobby
+
+     06:01:59.913 [info] [Bridge] Created binding bind_33f161bd7b3f5ca1: discord/dc/dc-room -> demo:lobby
+
+     06:01:59.913 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+
+     06:01:59.914 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+
+.
+
+  9) test a maximum-size parent produces bounded runtime facts with the complete payload retained (Jido.Messaging.MessageFactSizeTest)
+     test/jido_messaging/message_fact_size_test.exs:58
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:signal, added}
+     stacktrace:
+       test/jido_messaging/message_fact_size_test.exs:71: (test)
+
+     The following output was logged:
+
+     06:01:59.979 [debug] [Jido.Messaging.Ingest] Message jch_v3-hhasr0P-w87kzJJYRvw ingested in room jch_AJRj1ekaq-VZKvKtAWut8Q
+
+.....
+
+ 10) test message_added record cannot place a foreign message under the owned subject (Jido.Messaging.EventProjectionBoundaryTest)
+     test/jido_messaging/event_projection_boundary_test.exs:52
+     match (=) failed
+     code:  assert {:error, %Jido.Chat.Errors.Contract{code: :invalid_context}} =
+              Events.room_event(Instance, :message_added, context.room.id, data,
+                parent_signal: context.parent
+              )
+     left:  {:error, %Jido.Chat.Errors.Contract{code: :invalid_context}}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_request,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido_messaging/event_projection_boundary_test.exs:55: (test)
+
+.
+
+ 11) test message_received record cannot place a foreign message under the owned subject (Jido.Messaging.EventProjectionBoundaryTest)
+     test/jido_messaging/event_projection_boundary_test.exs:52
+     match (=) failed
+     code:  assert {:error, %Jido.Chat.Errors.Contract{code: :invalid_context}} =
+              Events.room_event(Instance, :message_received, context.room.id, data,
+                parent_signal: context.parent
+              )
+     left:  {:error, %Jido.Chat.Errors.Contract{code: :invalid_context}}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_request,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido_messaging/event_projection_boundary_test.exs:55: (test)
+
+.
+
+ 12) test message_sent record cannot place a foreign message under the owned subject (Jido.Messaging.EventProjectionBoundaryTest)
+     test/jido_messaging/event_projection_boundary_test.exs:52
+     match (=) failed
+     code:  assert {:error, %Jido.Chat.Errors.Contract{code: :invalid_context}} =
+              Events.room_event(Instance, :message_sent, context.room.id, data, parent_signal: context.parent)
+     left:  {:error, %Jido.Chat.Errors.Contract{code: :invalid_context}}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_request,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido_messaging/event_projection_boundary_test.exs:55: (test)
+
+.........
+Finished in 1.6 seconds (0.00s async, 1.6s sync)
+
+Result: 23/35 passed
+Failed: 12 tests

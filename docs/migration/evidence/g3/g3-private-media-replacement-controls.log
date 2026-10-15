@@ -1,0 +1,55 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test media replacement uses two stable operation identities and complete private upload (Jido.Messaging.AdapterBridgeOperationsTest)
+     test/jido_messaging/adapter_bridge_operations_test.exs:13
+     ** (Jido.Chat.Errors.Validation) invalid Jido.Chat.FileUpload: kind: invalid enum value: expected one of image, audio, video, file
+     code: assert {:ok, replacement} = AdapterBridge.edit_media(MockAdapter, "room", "old-message", payload, opts)
+     stacktrace:
+       (jido_chat 1.2.1) lib/jido/chat/schema.ex:30: Jido.Chat.Schema.parse!/4
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:422: Jido.Messaging.AdapterBridge.media_payload_to_post_payload/1
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:90: Jido.Messaging.AdapterBridge.send_media/4
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:104: Jido.Messaging.AdapterBridge.edit_media/5
+       test/jido_messaging/adapter_bridge_operations_test.exs:30: (test)
+
+
+
+  2) test failed upload never deletes the old message (Jido.Messaging.AdapterBridgeOperationsTest)
+     test/jido_messaging/adapter_bridge_operations_test.exs:57
+     ** (ArgumentError) errors were found at the given arguments:
+
+       * 1st argument: not an already existing atom
+
+     code: AdapterBridge.edit_media(MockAdapter, "room", "old-message", %{kind: :image, data: "complete"}, opts)
+     stacktrace:
+       (erts 17.1) :erlang.binary_to_existing_atom("reply_to_id")
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:144: anonymous fn/4 in Jido.Messaging.AdapterBridge.operation/4
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:139: Jido.Messaging.AdapterBridge.operation/4
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:104: Jido.Messaging.AdapterBridge.edit_media/5
+       test/jido_messaging/adapter_bridge_operations_test.exs:62: (test)
+
+
+
+  3) test failed old-message delete keeps the successful replacement and exact failure (Jido.Messaging.AdapterBridgeOperationsTest)
+     test/jido_messaging/adapter_bridge_operations_test.exs:67
+     ** (ArgumentError) errors were found at the given arguments:
+
+       * 1st argument: not an already existing atom
+
+     code: AdapterBridge.edit_media(MockAdapter, "room", "old-message", %{kind: :image, data: "complete"},
+     stacktrace:
+       (erts 17.1) :erlang.binary_to_existing_atom("reply_to_id")
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:144: anonymous fn/4 in Jido.Messaging.AdapterBridge.operation/4
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:139: Jido.Messaging.AdapterBridge.operation/4
+       (jido_messaging 1.1.1) lib/jido_messaging/adapter_bridge.ex:104: Jido.Messaging.AdapterBridge.edit_media/5
+       test/jido_messaging/adapter_bridge_operations_test.exs:71: (test)
+
+.
+Finished in 0.1 seconds (0.1s async, 0.00s sync)
+
+Result: 1/4 passed
+Failed: 3 tests

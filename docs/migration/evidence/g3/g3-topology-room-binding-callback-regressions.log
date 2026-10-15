@@ -1,0 +1,404 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.
+
+  1) test room_read raise stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (RuntimeError) private topology store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:48: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:157: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+  2) test room_read throw stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (throw) :private_topology_store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:49: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:157: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+  3) test room_read exit stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (exit) :private_topology_store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:50: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:157: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+  4) test room_read invalid stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     match (=) failed
+     code:  assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     left:  {:error, {reason, _failure, _entry}}
+     right: {:ok,
+             %{
+               room_bindings: 0,
+               bridge_configs: 0,
+               rooms: 1,
+               routing_policies: 1,
+               bridge_rooms: 0
+             }}
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+.
+
+  5) test room_write raise stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (RuntimeError) private topology store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:48: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:170: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+  6) test room_write throw stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (throw) :private_topology_store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:49: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:170: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+  7) test room_write exit stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (exit) :private_topology_store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:50: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:170: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+  8) test room_write invalid stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     match (=) failed
+     code:  assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     left:  {:error, {reason, _failure, _entry}}
+     right: {:ok,
+             %{
+               room_bindings: 0,
+               bridge_configs: 0,
+               rooms: 1,
+               routing_policies: 1,
+               bridge_rooms: 0
+             }}
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+.
+
+  9) test binding_read raise stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (RuntimeError) private topology store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:48: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:203: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+ 10) test binding_read throw stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (throw) :private_topology_store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:49: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:203: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+ 11) test binding_read exit stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (exit) :private_topology_store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:50: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:203: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+ 12) test binding_read invalid stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (CaseClauseError) no case clause matching:
+
+         {:ok, :private_topology_store}
+
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:203: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+.
+
+ 13) test binding_write raise stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (RuntimeError) private topology store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:48: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:211: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+ 14) test binding_write throw stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (throw) :private_topology_store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:49: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:211: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+ 15) test binding_write exit stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     ** (exit) :private_topology_store
+     code: assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:50: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:211: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+
+
+ 16) test binding_write invalid stops setup before later effects (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:79
+     match (=) failed
+     code:  assert {:error, {reason, _failure, _entry}} = Topology.apply(Instance, topology)
+     left:  {:error, {reason, _failure, _entry}}
+     right: {:ok,
+             %{
+               room_bindings: 1,
+               bridge_configs: 0,
+               rooms: 0,
+               routing_policies: 1,
+               bridge_rooms: 0
+             }}
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:82: (test)
+
+.
+
+ 17) test room_write raise after write retains one complete effect and safe retry (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:96
+     ** (RuntimeError) private topology store
+     code: assert {:error, {reason, _, _}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:48: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:170: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:99: (test)
+
+
+
+ 18) test room_write throw after write retains one complete effect and safe retry (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:96
+     ** (throw) :private_topology_store
+     code: assert {:error, {reason, _, _}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:49: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:170: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:99: (test)
+
+
+
+ 19) test room_write exit after write retains one complete effect and safe retry (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:96
+     ** (exit) :private_topology_store
+     code: assert {:error, {reason, _, _}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:50: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:170: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_rooms/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:82: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:99: (test)
+
+
+
+ 20) test room_write invalid after write retains one complete effect and safe retry (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:96
+     match (=) failed
+     code:  assert {:error, {reason, _, _}} = Topology.apply(Instance, topology)
+     left:  {:error, {reason, _, _}}
+     right: {:ok,
+             %{
+               room_bindings: 0,
+               bridge_configs: 0,
+               rooms: 1,
+               routing_policies: 1,
+               bridge_rooms: 0
+             }}
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:99: (test)
+
+.
+
+ 21) test binding_write raise after write retains one complete effect and safe retry (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:96
+     ** (RuntimeError) private topology store
+     code: assert {:error, {reason, _, _}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:48: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:211: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:99: (test)
+
+
+
+ 22) test binding_write throw after write retains one complete effect and safe retry (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:96
+     ** (throw) :private_topology_store
+     code: assert {:error, {reason, _, _}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:49: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:211: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:99: (test)
+
+
+
+ 23) test binding_write exit after write retains one complete effect and safe retry (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:96
+     ** (exit) :private_topology_store
+     code: assert {:error, {reason, _, _}} = Topology.apply(Instance, topology)
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:50: Jido.Messaging.Demo.TopologyCallbackOutcomeTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:211: anonymous fn/3 in Jido.Messaging.Demo.Topology.apply_room_bindings/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging/demo/topology.ex:83: Jido.Messaging.Demo.Topology.apply/2
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:99: (test)
+
+
+
+ 24) test binding_write invalid after write retains one complete effect and safe retry (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:96
+     match (=) failed
+     code:  assert {:error, {reason, _, _}} = Topology.apply(Instance, topology)
+     left:  {:error, {reason, _, _}}
+     right: {:ok,
+             %{
+               room_bindings: 1,
+               bridge_configs: 0,
+               rooms: 0,
+               routing_policies: 1,
+               bridge_rooms: 0
+             }}
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:99: (test)
+
+
+
+ 25) test foreign room lookup cannot claim the requested room exists (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:132
+     match (=) failed
+     code:  assert {:error, {:room_lookup_failed, :invalid_topology_result, _}} =
+              Topology.apply(Instance, topology(:room_read))
+     left:  {:error, {:room_lookup_failed, :invalid_topology_result, _}}
+     right: {:ok,
+             %{
+               room_bindings: 0,
+               bridge_configs: 0,
+               rooms: 1,
+               routing_policies: 1,
+               bridge_rooms: 0
+             }}
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:135: (test)
+
+
+
+ 26) test foreign binding result cannot permit the routing policy (Jido.Messaging.Demo.TopologyCallbackOutcomeTest)
+     test/jido_messaging/demo/topology_callback_outcome_test.exs:142
+     match (=) failed
+     code:  assert {:error, {:room_binding_failed, :invalid_topology_result, _}} =
+              Topology.apply(Instance, topology(:binding_write))
+     left:  {:error, {:room_binding_failed, :invalid_topology_result, _}}
+     right: {:ok,
+             %{
+               room_bindings: 1,
+               bridge_configs: 0,
+               rooms: 0,
+               routing_policies: 1,
+               bridge_rooms: 0
+             }}
+     stacktrace:
+       test/jido_messaging/demo/topology_callback_outcome_test.exs:153: (test)
+
+
+Finished in 1.5 seconds (0.00s async, 1.5s sync)
+
+Result: 6/32 passed
+Failed: 26 tests

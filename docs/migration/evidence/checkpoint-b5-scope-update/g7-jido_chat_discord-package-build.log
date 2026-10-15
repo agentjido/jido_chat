@@ -1,0 +1,43 @@
+Building jido_chat_discord 1.1.0
+  Dependencies:
+    jido_chat ~> 2.0 (app: jido_chat)
+    nostrum ~> 0.10 (app: nostrum)
+    req ~> 0.6 (app: req)
+  App: jido_chat_discord
+  Name: jido_chat_discord
+  Files:
+    lib
+    lib/jido
+    lib/jido/chat
+    lib/jido/chat/discord.ex
+    lib/jido/chat/discord
+    lib/jido/chat/discord/adapter.ex
+    lib/jido/chat/discord/gateway_worker.ex
+    lib/jido/chat/discord/typing_options.ex
+    lib/jido/chat/discord/transport
+    lib/jido/chat/discord/transport/nostrum_client.ex
+    lib/jido/chat/discord/delete_options.ex
+    lib/jido/chat/discord/edit_options.ex
+    lib/jido/chat/discord/send_options.ex
+    lib/jido/chat/discord/transport.ex
+    lib/jido/chat/discord/reaction_options.ex
+    lib/jido/chat/discord/metadata_options.ex
+    lib/jido/chat/discord/nostrum_gateway_buffer.ex
+    lib/jido/chat/discord/fetch_options.ex
+    lib/jido/chat/discord/nostrum_gateway_listener.ex
+    mix.exs
+    README.md
+    LICENSE
+    usage-rules.md
+  Version: 1.1.0
+  Build tools: mix
+  Description: Discord adapter package for Jido.Chat
+  Licenses: Apache-2.0
+  Links: 
+    Discord: https://jido.run/discord
+    Documentation: https://hexdocs.pm/jido_chat_discord
+    GitHub: https://github.com/agentjido/jido_chat_discord
+    Website: https://jido.run
+  Elixir: ~> 1.18
+Package checksum: 8fc79af334f5f8559a1677d414cdc32de534cf0b58df720908d69f7942561e96
+Saved to jido_chat_discord-1.1.0.tar

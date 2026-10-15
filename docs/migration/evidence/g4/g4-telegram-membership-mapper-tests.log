@@ -1,0 +1,30 @@
+Compiling 2 files (.ex)
+    warning: comparison between distinct types found:
+
+        current == nil
+
+    given types:
+
+        dynamic(%{binary() => term()}) == nil
+
+    where "current" was given the type:
+
+        # type: dynamic(%{binary() => term()})
+        # from: /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/lib/jido/chat/telegram/membership.ex:32:25
+        {:ok, current} <- state(member)
+
+    While Elixir can compare across all types, you are comparing across types which are always disjoint, and the result is either always true or always false
+
+    type warning found at:
+    │
+ 33 │          true <- not is_nil(current) do
+    │          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/lib/jido/chat/telegram/membership.ex:33: Jido.Chat.Telegram.Membership.normalize/4
+
+Running ExUnit with seed: 0, max_cases: 20
+
+....................
+Finished in 0.6 seconds (0.5s on load, 0.06s async, 0.00s sync)
+
+Result: 20 passed

@@ -1,0 +1,28 @@
+{
+  "label": "g3-serialized-bridge-reconcile-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/bridge_status_test.exs",
+    "test/jido_messaging/integration_test.exs",
+    "test/integration/multi_room_integration_test.exs",
+    "test/jido_messaging/bridge_startup_reconcile_test.exs",
+    "--include",
+    "integration",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "8c3b8abd807eb6c071b5a8b24a1b0dbf65d82134f8cc851d33f1d78c4b11d28a",
+  "started_at": "2026-10-12T22:00:26.594019+00:00",
+  "finished_at": "2026-10-12T22:00:29.806023+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-serialized-bridge-reconcile-tests.log",
+  "log_sha256": "fd2aedda19f9eb868da7c54f0d3d0c21ff8e0638e6404fa30360016634b65b42"
+}

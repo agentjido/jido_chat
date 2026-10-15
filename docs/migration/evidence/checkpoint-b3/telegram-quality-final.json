@@ -1,0 +1,327 @@
+{
+  "label": "telegram-quality-final",
+  "repository": "jido_chat_telegram",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "started_at": "2026-10-13T22:22:36.950515+00:00",
+  "finished_at": "2026-10-13T22:22:51.995854+00:00",
+  "exit_status": 0,
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "postgres_fixture": {
+    "host": "127.0.0.1",
+    "port": 58157,
+    "database": "signal_conformance"
+  },
+  "sources": {
+    "jido_chat": {
+      "lib": {
+        "files": 126,
+        "sha256": "35d0004841c50828139eceeea7f7a481f280dd9119487774ba4134a66d9340e5"
+      },
+      "test": {
+        "files": 23,
+        "sha256": "e9c4a2f698f006b91cdfa185984a75d35670371d435f2c9fb7a54133c0c39a40"
+      },
+      "integration/lib": {
+        "files": 1,
+        "sha256": "e7f36c178fef00a6ad77ec5ab8ce551e4ced186f5e80b8508826a4a2fad41f84"
+      },
+      "integration/test": {
+        "files": 4,
+        "sha256": "ff3d0a478ae76e9956f56bc8833b854a3bbb269536e3a98ca0910c08c08f8f2d"
+      },
+      "integration/scripts": {
+        "files": 18,
+        "sha256": "27674b8e244b92466616307dd8407a205ba651b096f86e583cb4e77726a20d9b"
+      },
+      "integration/fixtures": {
+        "files": 8,
+        "sha256": "8d89ff746a39f31b196dafa4abb11548a2443dac55862a445d011d213222cbb2"
+      },
+      "mix.exs": "7c279ed0f0880f9917a9f218100c11bf151bba0963e2dcfffb8dc07a6b8f6f11",
+      "mix.lock": "0eefe02d24c9bcaa2b0df7a8dbbf0d32dac4b7bfe24c8b39cef87bdb86c41a84",
+      "config/config.exs": "022ea66b2482babcf0538f2d27721ce1925617fca4d4f936fa71da2bca16f8bd",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_messaging": {
+      "lib": {
+        "files": 235,
+        "sha256": "8c18a1e4db189e7c653e55816983b9e3a89a5f3c88e701230da7afc95e1138c0"
+      },
+      "test": {
+        "files": 176,
+        "sha256": "ac05d025f6503141b818df524bcbfe5bbc9ab9d7fc5c13dde19670bb19ecf50c"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "c0569de96490b322813061fc60645fe66616bf353f83c1a2e9707c0b24a1361a",
+      "mix.lock": "85eeb1b8bf581a8d88dd9ddfdd959cc0516771179596e691da60652a33aa1899",
+      "config/config.exs": "9cfc9e6e07bca41a76e95248181dc30b4accbc9228cbcd54816ede86553ccd59",
+      "config/test.exs": "16da1804e7d3c693b3aa6a7af4965c3d980b8f66fdf5bf725778f987b4890229"
+    },
+    "jido_chat_signal": {
+      "lib": {
+        "files": 8,
+        "sha256": "dac45b42ed6ffd216d415ccf5c8eab508f46f559f08daa722d1f36ef4a411bef"
+      },
+      "test": {
+        "files": 6,
+        "sha256": "06ca42885be5661760f6c6a7ddb5b3dfb947b8a7baef3ba05c8001f6dae12cbc"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "0952e6c840c4cc14198ee33e2d3e456547147c8ae87c27ec2bb2aba813afaa2e",
+      "mix.lock": "56e5463985f488098bf39da2f1cdc2449fdb13398e45662d8b25e3ee2e467455",
+      "config/config.exs": "988fdc142717f9f1bef84258d1d63794a9be5d147afd8ec017be1f09f3784c6f"
+    },
+    "jido_chat_telegram": {
+      "lib": {
+        "files": 27,
+        "sha256": "bcad486ec50c4deae91ef50327ee794c51f49965b910dc77c3df025bf40493f6"
+      },
+      "test": {
+        "files": 17,
+        "sha256": "d64e018290b28607211a4e03206afd0b10e34343f4394311ec49a294fc9facbc"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "8614632a474421be8270786a69ddf6834e593e8c5e54ba0ca13f8c0cfb763b5e",
+      "mix.lock": "b29d954343fba37cc6766b94a7f5ba0c7dc901f4150923aa1450f57f825f8480",
+      "config/config.exs": "eba8d124b7e0700a3c08c8c88133c5957eb858978342d8e6809b2d765d1c59f9",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_slack": {
+      "lib": {
+        "files": 20,
+        "sha256": "09adebaf687d0470482cf0a4c083efe2efd3cd7c23a0c51a1298539ad5f75ebe"
+      },
+      "test": {
+        "files": 13,
+        "sha256": "8a250ed691067ab4ba5167e172eb9d3e038aa509b3933bd0a5f70c2c77f1acb5"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "4ee124b98df9549ebdcd1cb6ea5dee43bec34d84e30c5030a7fb30054b0e0904",
+      "mix.lock": "8b47d33248c7a8033c92a2bf6786aacb45d05bfe9eca5b63bf67c9e504999fa2",
+      "config/config.exs": "90564c595fec92ac91b07f4346cf73c6655882133fbb06d924b77e61e7c7bcf7",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    }
+  },
+  "log": "evidence/checkpoint-b3/telegram-quality-final.log",
+  "log_sha256": "8445eeeba60447bf8f9dc06b18e4621a762ba73c7d2286b460c613befe74f111",
+  "sources_at_end": {
+    "jido_chat": {
+      "lib": {
+        "files": 126,
+        "sha256": "35d0004841c50828139eceeea7f7a481f280dd9119487774ba4134a66d9340e5"
+      },
+      "test": {
+        "files": 23,
+        "sha256": "e9c4a2f698f006b91cdfa185984a75d35670371d435f2c9fb7a54133c0c39a40"
+      },
+      "integration/lib": {
+        "files": 1,
+        "sha256": "e7f36c178fef00a6ad77ec5ab8ce551e4ced186f5e80b8508826a4a2fad41f84"
+      },
+      "integration/test": {
+        "files": 4,
+        "sha256": "ff3d0a478ae76e9956f56bc8833b854a3bbb269536e3a98ca0910c08c08f8f2d"
+      },
+      "integration/scripts": {
+        "files": 18,
+        "sha256": "27674b8e244b92466616307dd8407a205ba651b096f86e583cb4e77726a20d9b"
+      },
+      "integration/fixtures": {
+        "files": 8,
+        "sha256": "8d89ff746a39f31b196dafa4abb11548a2443dac55862a445d011d213222cbb2"
+      },
+      "mix.exs": "7c279ed0f0880f9917a9f218100c11bf151bba0963e2dcfffb8dc07a6b8f6f11",
+      "mix.lock": "0eefe02d24c9bcaa2b0df7a8dbbf0d32dac4b7bfe24c8b39cef87bdb86c41a84",
+      "config/config.exs": "022ea66b2482babcf0538f2d27721ce1925617fca4d4f936fa71da2bca16f8bd",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_messaging": {
+      "lib": {
+        "files": 235,
+        "sha256": "8c18a1e4db189e7c653e55816983b9e3a89a5f3c88e701230da7afc95e1138c0"
+      },
+      "test": {
+        "files": 176,
+        "sha256": "ac05d025f6503141b818df524bcbfe5bbc9ab9d7fc5c13dde19670bb19ecf50c"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "c0569de96490b322813061fc60645fe66616bf353f83c1a2e9707c0b24a1361a",
+      "mix.lock": "85eeb1b8bf581a8d88dd9ddfdd959cc0516771179596e691da60652a33aa1899",
+      "config/config.exs": "9cfc9e6e07bca41a76e95248181dc30b4accbc9228cbcd54816ede86553ccd59",
+      "config/test.exs": "16da1804e7d3c693b3aa6a7af4965c3d980b8f66fdf5bf725778f987b4890229"
+    },
+    "jido_chat_signal": {
+      "lib": {
+        "files": 8,
+        "sha256": "dac45b42ed6ffd216d415ccf5c8eab508f46f559f08daa722d1f36ef4a411bef"
+      },
+      "test": {
+        "files": 6,
+        "sha256": "06ca42885be5661760f6c6a7ddb5b3dfb947b8a7baef3ba05c8001f6dae12cbc"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "0952e6c840c4cc14198ee33e2d3e456547147c8ae87c27ec2bb2aba813afaa2e",
+      "mix.lock": "56e5463985f488098bf39da2f1cdc2449fdb13398e45662d8b25e3ee2e467455",
+      "config/config.exs": "988fdc142717f9f1bef84258d1d63794a9be5d147afd8ec017be1f09f3784c6f"
+    },
+    "jido_chat_telegram": {
+      "lib": {
+        "files": 27,
+        "sha256": "bcad486ec50c4deae91ef50327ee794c51f49965b910dc77c3df025bf40493f6"
+      },
+      "test": {
+        "files": 17,
+        "sha256": "d64e018290b28607211a4e03206afd0b10e34343f4394311ec49a294fc9facbc"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "8614632a474421be8270786a69ddf6834e593e8c5e54ba0ca13f8c0cfb763b5e",
+      "mix.lock": "b29d954343fba37cc6766b94a7f5ba0c7dc901f4150923aa1450f57f825f8480",
+      "config/config.exs": "eba8d124b7e0700a3c08c8c88133c5957eb858978342d8e6809b2d765d1c59f9",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_slack": {
+      "lib": {
+        "files": 20,
+        "sha256": "09adebaf687d0470482cf0a4c083efe2efd3cd7c23a0c51a1298539ad5f75ebe"
+      },
+      "test": {
+        "files": 13,
+        "sha256": "8a250ed691067ab4ba5167e172eb9d3e038aa509b3933bd0a5f70c2c77f1acb5"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "4ee124b98df9549ebdcd1cb6ea5dee43bec34d84e30c5030a7fb30054b0e0904",
+      "mix.lock": "8b47d33248c7a8033c92a2bf6786aacb45d05bfe9eca5b63bf67c9e504999fa2",
+      "config/config.exs": "90564c595fec92ac91b07f4346cf73c6655882133fbb06d924b77e61e7c7bcf7",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    }
+  },
+  "sources_unchanged": true,
+  "raw_log_sha256": "014f6b2b079ed58eb4060a094311318958e3168f37eeee58e77b10823ab0d8bd",
+  "saved_log_format": "Trailing spaces and blank lines at EOF removed; content and test results unchanged. Original output digest retained in raw_log_sha256."
+}

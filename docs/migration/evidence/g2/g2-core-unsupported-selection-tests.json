@@ -1,0 +1,23 @@
+{
+  "label": "g2-core-unsupported-selection-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "aacd9e85df67dead223af985a3f792b39fed4f1e65296f515d261ef6d4006a5a",
+  "started_at": "2026-10-12T18:48:46.762395+00:00",
+  "finished_at": "2026-10-12T18:48:51.556780+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-unsupported-selection-tests.log",
+  "log_sha256": "3238ddbcda37fbf5a63d719437e54fa27323ab7ab04c85f416bde87a4124f972"
+}

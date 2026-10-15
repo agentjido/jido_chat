@@ -1,0 +1,4 @@
+Unchecked dependencies for environment test:
+* jido_chat (Hex package)
+  the dependency is not available, run "mix deps.get"
+** (Mix) Can't continue due to errors on dependencies

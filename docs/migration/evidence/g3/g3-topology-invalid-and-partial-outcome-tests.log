@@ -1,0 +1,29 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+....
+
+  1) test invalid invalid_room_binding retains no canonical room or bridge config (Jido.Messaging.Demo.TopologyOutcomeTest)
+     test/jido_messaging/demo/topology_outcome_test.exs:24
+     match (=) failed
+     code:  assert {:error, error} =
+              Topology.apply(Instance, %{
+                "room_bindings" => [%{"bridge_id" => "bridge", "channel" => "telegram", "room_id" => "room"}]
+              })
+     left:  {:error, error}
+     right: {:ok,
+             %{
+               bridge_configs: 0,
+               rooms: 0,
+               room_bindings: 1,
+               routing_policies: 0,
+               bridge_rooms: 0
+             }}
+     stacktrace:
+       test/jido_messaging/demo/topology_outcome_test.exs:25: (test)
+
+........................
+Finished in 0.4 seconds (0.3s async, 0.1s sync)
+
+Result: 28/29 passed
+Failed: 1 test

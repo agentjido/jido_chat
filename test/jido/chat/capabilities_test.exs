@@ -13,6 +13,40 @@ defmodule Jido.Chat.CapabilitiesTest do
     refute :message_edit in Capabilities.all()
   end
 
+  test "payload capability checks require each media kind and the multi-file capability" do
+    for {kind, mime} <- [
+          {:image, "image/png"},
+          {:audio, "audio/ogg"},
+          {:video, "video/mp4"},
+          {:file, "application/pdf"}
+        ] do
+      payload = PostPayload.text("Text", attachments: [%{kind: kind, media_type: mime}])
+      assert Capabilities.can_deliver?([:text, kind], payload)
+      refute Capabilities.can_deliver?([:text], payload)
+      refute Capabilities.can_deliver?([kind], payload)
+    end
+
+    assert Capabilities.content_requires(%Jido.Chat.Content.Video{}) == [:video]
+    assert Capabilities.content_requires(%Jido.Chat.Content.File{}) == [:file]
+    assert Capabilities.content_requires(:legacy) == [:text]
+    assert Capabilities.can_deliver?([:markdown], %{kind: :markdown, markdown: "**Text**"})
+    refute Capabilities.can_deliver?([], %{kind: :markdown, markdown: "**Text**"})
+    assert Capabilities.can_deliver?([:cards], Postable.card(%{}))
+    refute Capabilities.can_deliver?([], Postable.card(%{}))
+    refute Capabilities.can_deliver?([:text], %{attachments: 42})
+    refute Capabilities.can_deliver?([:text], %{kind: "raw", raw: "retired"})
+    assert Capabilities.can_deliver?([:text, :file, :multi_file], Postable.text("Text", files: ["a.txt", "b.txt"]))
+  end
+
+  test "empty capability lists default to text and unavailable adapters fail explicitly" do
+    defmodule EmptyCapabilities do
+      def capabilities, do: [:invalid]
+    end
+
+    assert Capabilities.channel_capabilities(EmptyCapabilities) == [:text]
+    assert_raise Jido.Chat.Errors.Contract, fn -> Capabilities.channel_capabilities(__MODULE__.Unavailable) end
+  end
+
   test "content_requires/1" do
     assert Capabilities.content_requires(%Text{text: "hi"}) == [:text]
     assert Capabilities.content_requires(%Image{url: "https://example.com/i.png"}) == [:image]
@@ -65,7 +99,13 @@ defmodule Jido.Chat.CapabilitiesTest do
       def channel_type, do: :test
 
       @impl true
-      def transform_incoming(_), do: {:error, :not_implemented}
+      def signal_protocol, do: 1
+
+      @impl true
+      def configure_binding(opts), do: {:ok, opts}
+
+      @impl true
+      def normalize_event(_binding, _request), do: {:error, :not_implemented}
 
       @impl true
       def send_message(_, _, _), do: {:error, :not_implemented}
@@ -73,10 +113,7 @@ defmodule Jido.Chat.CapabilitiesTest do
 
     assert Capabilities.channel_capabilities(AdapterWithoutCapabilities) == [
              :text,
-             :streaming,
-             :card_charts,
-             :card_tables,
-             :link_action_ids
+             :streaming
            ]
   end
 
@@ -89,6 +126,18 @@ defmodule Jido.Chat.CapabilitiesTest do
 
       @impl true
       def post_message(_, _, _), do: {:error, :not_implemented}
+
+      @impl true
+      def open_thread(_, _, _), do: {:error, :not_implemented}
+
+      @impl true
+      def list_threads(_, _), do: {:error, :not_implemented}
+
+      @impl true
+      def add_reaction(_, _, _, _), do: {:error, :not_implemented}
+
+      @impl true
+      def remove_reaction(_, _, _, _), do: {:error, :not_implemented}
 
       @impl true
       def capabilities do
@@ -114,7 +163,13 @@ defmodule Jido.Chat.CapabilitiesTest do
       end
 
       @impl true
-      def transform_incoming(_), do: {:error, :not_implemented}
+      def signal_protocol, do: 1
+
+      @impl true
+      def configure_binding(opts), do: {:ok, opts}
+
+      @impl true
+      def normalize_event(_binding, _request), do: {:error, :not_implemented}
 
       @impl true
       def send_message(_, _, _), do: {:error, :not_implemented}
@@ -154,7 +209,13 @@ defmodule Jido.Chat.CapabilitiesTest do
       def capabilities, do: [:text, :image, :threads]
 
       @impl true
-      def transform_incoming(_), do: {:error, :not_implemented}
+      def signal_protocol, do: 1
+
+      @impl true
+      def configure_binding(opts), do: {:ok, opts}
+
+      @impl true
+      def normalize_event(_binding, _request), do: {:error, :not_implemented}
 
       @impl true
       def send_message(_, _, _), do: {:error, :not_implemented}

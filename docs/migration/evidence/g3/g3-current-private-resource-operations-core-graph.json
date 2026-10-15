@@ -1,0 +1,55 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "8ee64319bef43d3c8552095197db4520d655a5fb",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "d7c223683d8fa12b8704c4e17e072101de646e5e",
+      "library_test_files": 360,
+      "library_test_sha256": "8fea7d2282a1a912fdc49386b35ecae46fc3cd6d5e6ff5be2ac2968c8c4c9a94"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-current-private-resource-operations-core-graph",
+  "command": [
+    "mix",
+    "run",
+    "scripts/report_dependency_graph.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "8ee64319bef43d3c8552095197db4520d655a5fb",
+  "source_tree_sha256": "6169e1f9fbb234c616ac110e733bd7e3e48a59bbce44980b03c11edff7874258",
+  "started_at": "2026-10-13T06:17:27.681632+00:00",
+  "finished_at": "2026-10-13T06:17:44.341523+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-private-resource-operations-core-graph.log",
+  "log_sha256": "89fc7b239c679e6137b8116699c439709c4da9755a857bc7cc9e66d7b0a24664"
+}

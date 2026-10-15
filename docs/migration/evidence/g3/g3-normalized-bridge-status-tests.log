@@ -1,0 +1,48 @@
+Compiling 8 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+    warning: Jido.Messaging.IntegrationTest.MockTelegramChannel.transform_incoming/1 is undefined or private
+    │
+ 68 │       {:ok, incoming} = MockTelegramChannel.transform_incoming(raw_update)
+    │                                             ~
+    │
+    └─ test/jido_messaging/integration_test.exs:68:45: Jido.Messaging.IntegrationTest."test full message flow ingest incoming message and deliver reply"/1
+    └─ test/jido_messaging/integration_test.exs:151:45: Jido.Messaging.IntegrationTest."test RoomServer integration messages appear in RoomServer state after ingest and deliver"/1
+
+
+
+  1) test full message flow ingest incoming message and deliver reply (Jido.Messaging.IntegrationTest)
+     test/jido_messaging/integration_test.exs:55
+     ** (UndefinedFunctionError) function Jido.Messaging.IntegrationTest.MockTelegramChannel.transform_incoming/1 is undefined or private
+     code: {:ok, incoming} = MockTelegramChannel.transform_incoming(raw_update)
+     stacktrace:
+       Jido.Messaging.IntegrationTest.MockTelegramChannel.transform_incoming(%{message: %{date: 1791842248, text: "Hello bot!", user_id: 67890, message_id: 1001, chat_id: 12345, username: "alice", display_name: "Alice"}})
+       test/jido_messaging/integration_test.exs:68: (test)
+
+..
+
+  2) test RoomServer integration messages appear in RoomServer state after ingest and deliver (Jido.Messaging.IntegrationTest)
+     test/jido_messaging/integration_test.exs:138
+     ** (UndefinedFunctionError) function Jido.Messaging.IntegrationTest.MockTelegramChannel.transform_incoming/1 is undefined or private
+     code: {:ok, incoming} = MockTelegramChannel.transform_incoming(raw_update)
+     stacktrace:
+       Jido.Messaging.IntegrationTest.MockTelegramChannel.transform_incoming(%{message: %{date: 1791842248, text: "Hello from Bob!", user_id: 88888, message_id: 2001, chat_id: 99999, username: "bob", display_name: "Bob"}})
+       test/jido_messaging/integration_test.exs:151: (test)
+
+....
+
+  3) test tracks last error (Jido.Messaging.BridgeStatusTest)
+     test/jido_messaging/bridge_status_test.exs:77
+     Assertion with == failed
+     code:  assert status.last_error == :invalid_signature
+     left:  nil
+     right: :invalid_signature
+     stacktrace:
+       test/jido_messaging/bridge_status_test.exs:96: (test)
+
+
+Finished in 0.5 seconds (0.4s async, 0.05s sync)
+
+Result: 6/9 passed
+Failed: 3 tests

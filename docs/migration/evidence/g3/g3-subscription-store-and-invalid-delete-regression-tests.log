@@ -1,0 +1,734 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test bridge read error fails before every provider operation (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:99
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, :store_unavailable}
+
+     code: for call <- [
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read error fails before every provider operation"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: (test)
+
+
+
+  2) test list save error returns failure and retains only earlier confirmed records (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:115
+     match (=) failed
+     The following variables were pinned:
+       expected = :store_unavailable
+     code:  assert {:error, ^expected} = Instance.list_ingress_subscriptions("owned")
+     left:  {:error, ^expected}
+     right: {:ok,
+             [
+               %Jido.Messaging.IngressSubscription{
+                 raw: %{subscription_id: "first"},
+                 expires_at: nil,
+                 adapter_name: :subscription_outcome,
+                 external_id: "first",
+                 bridge_id: "owned",
+                 subscription_id: "first",
+                 target_url: nil,
+                 status: :active,
+                 metadata: %{}
+               },
+               %Jido.Messaging.IngressSubscription{
+                 raw: %{subscription_id: "second"},
+                 expires_at: nil,
+                 adapter_name: :subscription_outcome,
+                 external_id: "second",
+                 bridge_id: "owned",
+                 subscription_id: "second",
+                 target_url: nil,
+                 status: :active,
+                 metadata: %{}
+               },
+               %Jido.Messaging.IngressSubscription{
+                 raw: %{subscription_id: "third"},
+                 expires_at: nil,
+                 adapter_name: :subscription_outcome,
+                 external_id: "third",
+                 bridge_id: "owned",
+                 subscription_id: "third",
+                 target_url: nil,
+                 status: :active,
+                 metadata: %{}
+               }
+             ]}
+     stacktrace:
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:124: (test)
+
+
+
+  3) test delete store error does not report local cleanup success (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:133
+     match (=) failed
+     The following variables were pinned:
+       expected = :store_unavailable
+     code:  assert {:error, ^expected} = Instance.delete_ingress_subscription("owned", "existing")
+     left:  {:error, ^expected}
+     right: {:ok,
+             %Jido.Messaging.IngressSubscription{
+               raw: %{status: :deleted, subscription_id: "existing"},
+               expires_at: nil,
+               adapter_name: :subscription_outcome,
+               external_id: "existing",
+               bridge_id: "owned",
+               subscription_id: "existing",
+               target_url: nil,
+               status: :deleted,
+               metadata: %{}
+             }}
+     stacktrace:
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:137: (test)
+
+.
+
+  4) test bridge read raise fails before every provider operation (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:99
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:get_bridge_config, "owned"}, 5000)
+         ** (EXIT) an exception was raised:
+             ** (RuntimeError) private store detail
+                 test/jido_messaging/ingress_subscription_store_outcome_test.exs:48: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+                 (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:171: Jido.Messaging.ConfigStore.handle_call/3
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: for call <- [
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read raise fails before every provider operation"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: (test)
+
+     The following output was logged:
+
+     02:57:17.221 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (RuntimeError) private store detail
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:48: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:171: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.907.0>): {:get_bridge_config, "owned"}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.907.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read raise fails before every provider operation"/1
+         (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read raise fails before every provider operation"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+  5) test list save raise returns failure and retains only earlier confirmed records (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:115
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{subscription_id: "second"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "second", bridge_id: "owned", subscription_id: "second", target_url: nil, status: :active, metadata: %{}}}, 5000)
+         ** (EXIT) an exception was raised:
+             ** (RuntimeError) private store detail
+                 test/jido_messaging/ingress_subscription_store_outcome_test.exs:48: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+                 (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:204: Jido.Messaging.ConfigStore.handle_call/3
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: assert {:error, ^expected} = Instance.list_ingress_subscriptions("owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (elixir 1.20.4) lib/enum.ex:983: Enum."-each/2-lists^foreach/1-0-"/2
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:51: Jido.Messaging.IngressSubscriptions.list/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:124: (test)
+
+     The following output was logged:
+
+     02:57:17.237 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (RuntimeError) private store detail
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:48: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:204: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.995.0>): {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{subscription_id: "second"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "second", bridge_id: "owned", subscription_id: "second", target_url: nil, status: :active, metadata: %{}}}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.995.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (elixir 1.20.4) lib/enum.ex:983: Enum."-each/2-lists^foreach/1-0-"/2
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:51: Jido.Messaging.IngressSubscriptions.list/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:124: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test list save raise returns failure and retains only earlier confirmed records"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+  6) test delete store raise does not report local cleanup success (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:133
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:delete_ingress_subscription, "owned", "existing"}, 5000)
+         ** (EXIT) an exception was raised:
+             ** (RuntimeError) private store detail
+                 test/jido_messaging/ingress_subscription_store_outcome_test.exs:48: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+                 (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:214: Jido.Messaging.ConfigStore.handle_call/3
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: assert {:error, ^expected} = Instance.delete_ingress_subscription("owned", "existing")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:76: Jido.Messaging.IngressSubscriptions.delete/4
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:137: (test)
+
+     The following output was logged:
+
+     02:57:17.242 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (RuntimeError) private store detail
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:48: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:214: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1083.0>): {:delete_ingress_subscription, "owned", "existing"}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1083.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:76: Jido.Messaging.IngressSubscriptions.delete/4
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:137: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test delete store raise does not report local cleanup success"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+  7) test ensure raise after-write failure preserves one complete confirmed record (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:143
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{metadata: %{complete: "all data"}, subscription_id: "new"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "new", bridge_id: "owned", subscription_id: "new", target_url: nil, status: :active, metadata: %{complete: "all data"}}}, 5000)
+         ** (EXIT) an exception was raised:
+             ** (RuntimeError) private store detail
+                 test/jido_messaging/ingress_subscription_store_outcome_test.exs:48: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+                 (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:204: Jido.Messaging.ConfigStore.handle_call/3
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: assert {:error, ^expected} = Instance.ensure_ingress_subscription("owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:147: (test)
+
+     The following output was logged:
+
+     02:57:17.248 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (RuntimeError) private store detail
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:48: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:204: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1171.0>): {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{metadata: %{complete: "all data"}, subscription_id: "new"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "new", bridge_id: "owned", subscription_id: "new", target_url: nil, status: :active, metadata: %{complete: "all data"}}}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1171.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:147: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test ensure raise after-write failure preserves one complete confirmed record"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+  8) test bridge read throw fails before every provider operation (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:99
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:get_bridge_config, "owned"}, 5000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.Runtime, :get_persistence, 5000)
+             ** (EXIT) bad return value: :private_store_detail
+     code: for call <- [
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read throw fails before every provider operation"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: (test)
+
+     The following output was logged:
+
+     02:57:17.255 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.Runtime terminating
+     ** (stop) bad return value: :private_store_detail
+     Last message (from #PID<0.1340.0>): {:ensure_binding, Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Adapter, "owned", [bridge_config: %Jido.Messaging.BridgeConfig{id: "owned", updated_at: ~U[2026-10-13 07:57:17.255166Z], inserted_at: ~U[2026-10-13 07:57:17.255166Z], adapter_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Adapter, enabled: true, opts: %{}, credentials: %{}, revision: 1, capabilities: %{stream: :fallback, get_user: :unsupported, send_message: :unsupported, fetch_metadata: :fallback, delete_message: :unsupported, list_threads: :unsupported, post_message: :fallback, fetch_thread: :fallback, fetch_subject: :unsupported, post_channel_message: :fallback, post_ephemeral: :unsupported, start_typing: :unsupported, send_file: :unsupported, remove_reaction: :unsupported, open_thread: :unsupported, open_modal: :unsupported, open_dm: :unsupported, mark_as_read: :unsupported, load_options: :unsupported, get_thread_participants: :unsupported, fetch_messages: :unsupported, fetch_message: :unsupported, fetch_media: :unsupported, fetch_channel_messages: :unsupported, edit_message: :unsupported, add_reaction: :unsupported}, delivery_policy: %Jido.Messaging.DeliveryPolicy{max_attempts: 3, dead_letter: true, base_backoff_ms: 25, max_backoff_ms: 500}, secret_refs: %{}}, instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance, bridge_id: "owned", ingress: %{}, sink_mfa: {Jido.Messaging.IngressSink, :emit, [Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance, "owned"]}]}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, (truncated)
+
+     02:57:17.262 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.Runtime, :get_persistence, 5000)
+         ** (EXIT) bad return value: :private_store_detail
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1259.0>): {:get_bridge_config, "owned"}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1259.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read throw fails before every provider operation"/1
+         (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read throw fails before every provider operation"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+  9) test list save throw returns failure and retains only earlier confirmed records (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:115
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{subscription_id: "second"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "second", bridge_id: "owned", subscription_id: "second", target_url: nil, status: :active, metadata: %{}}}, 5000)
+         ** (EXIT) bad return value: :private_store_detail
+     code: assert {:error, ^expected} = Instance.list_ingress_subscriptions("owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (elixir 1.20.4) lib/enum.ex:983: Enum."-each/2-lists^foreach/1-0-"/2
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:51: Jido.Messaging.IngressSubscriptions.list/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:124: (test)
+
+     The following output was logged:
+
+     02:57:17.268 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) bad return value: :private_store_detail
+     Last message (from #PID<0.1349.0>): {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{subscription_id: "second"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "second", bridge_id: "owned", subscription_id: "second", target_url: nil, status: :active, metadata: %{}}}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1349.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (elixir 1.20.4) lib/enum.ex:983: Enum."-each/2-lists^foreach/1-0-"/2
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:51: Jido.Messaging.IngressSubscriptions.list/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:124: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test list save throw returns failure and retains only earlier confirmed records"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+ 10) test delete store throw does not report local cleanup success (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:133
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:delete_ingress_subscription, "owned", "existing"}, 5000)
+         ** (EXIT) bad return value: :private_store_detail
+     code: assert {:error, ^expected} = Instance.delete_ingress_subscription("owned", "existing")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:76: Jido.Messaging.IngressSubscriptions.delete/4
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:137: (test)
+
+     The following output was logged:
+
+     02:57:17.272 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) bad return value: :private_store_detail
+     Last message (from #PID<0.1437.0>): {:delete_ingress_subscription, "owned", "existing"}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1437.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:76: Jido.Messaging.IngressSubscriptions.delete/4
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:137: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test delete store throw does not report local cleanup success"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+ 11) test ensure throw after-write failure preserves one complete confirmed record (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:143
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{metadata: %{complete: "all data"}, subscription_id: "new"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "new", bridge_id: "owned", subscription_id: "new", target_url: nil, status: :active, metadata: %{complete: "all data"}}}, 5000)
+         ** (EXIT) bad return value: :private_store_detail
+     code: assert {:error, ^expected} = Instance.ensure_ingress_subscription("owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:147: (test)
+
+     The following output was logged:
+
+     02:57:17.276 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) bad return value: :private_store_detail
+     Last message (from #PID<0.1525.0>): {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{metadata: %{complete: "all data"}, subscription_id: "new"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "new", bridge_id: "owned", subscription_id: "new", target_url: nil, status: :active, metadata: %{complete: "all data"}}}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1525.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:147: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test ensure throw after-write failure preserves one complete confirmed record"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+ 12) test bridge read exit fails before every provider operation (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:99
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:get_bridge_config, "owned"}, 5000)
+         ** (EXIT) :private_store_detail
+     code: for call <- [
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read exit fails before every provider operation"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: (test)
+
+     The following output was logged:
+
+     02:57:17.281 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) :private_store_detail
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:50: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:171: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1613.0>): {:get_bridge_config, "owned"}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1613.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read exit fails before every provider operation"/1
+         (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read exit fails before every provider operation"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+ 13) test list save exit returns failure and retains only earlier confirmed records (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:115
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{subscription_id: "second"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "second", bridge_id: "owned", subscription_id: "second", target_url: nil, status: :active, metadata: %{}}}, 5000)
+         ** (EXIT) :private_store_detail
+     code: assert {:error, ^expected} = Instance.list_ingress_subscriptions("owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (elixir 1.20.4) lib/enum.ex:983: Enum."-each/2-lists^foreach/1-0-"/2
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:51: Jido.Messaging.IngressSubscriptions.list/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:124: (test)
+
+     The following output was logged:
+
+     02:57:17.290 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) :private_store_detail
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:50: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:204: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1701.0>): {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{subscription_id: "second"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "second", bridge_id: "owned", subscription_id: "second", target_url: nil, status: :active, metadata: %{}}}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1701.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (elixir 1.20.4) lib/enum.ex:983: Enum."-each/2-lists^foreach/1-0-"/2
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:51: Jido.Messaging.IngressSubscriptions.list/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:124: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test list save exit returns failure and retains only earlier confirmed records"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+ 14) test delete store exit does not report local cleanup success (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:133
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:delete_ingress_subscription, "owned", "existing"}, 5000)
+         ** (EXIT) :private_store_detail
+     code: assert {:error, ^expected} = Instance.delete_ingress_subscription("owned", "existing")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:76: Jido.Messaging.IngressSubscriptions.delete/4
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:137: (test)
+
+     The following output was logged:
+
+     02:57:17.298 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) :private_store_detail
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:50: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:214: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1789.0>): {:delete_ingress_subscription, "owned", "existing"}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1789.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:76: Jido.Messaging.IngressSubscriptions.delete/4
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:137: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test delete store exit does not report local cleanup success"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+ 15) test ensure exit after-write failure preserves one complete confirmed record (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:143
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{metadata: %{complete: "all data"}, subscription_id: "new"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "new", bridge_id: "owned", subscription_id: "new", target_url: nil, status: :active, metadata: %{complete: "all data"}}}, 5000)
+         ** (EXIT) :private_store_detail
+     code: assert {:error, ^expected} = Instance.ensure_ingress_subscription("owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:147: (test)
+
+     The following output was logged:
+
+     02:57:17.302 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) :private_store_detail
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:50: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Store.fail/2
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:204: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1877.0>): {:save_ingress_subscription, %Jido.Messaging.IngressSubscription{raw: %{metadata: %{complete: "all data"}, subscription_id: "new"}, expires_at: nil, adapter_name: :subscription_outcome, external_id: "new", bridge_id: "owned", subscription_id: "new", target_url: nil, status: :active, metadata: %{complete: "all data"}}}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1877.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:147: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test ensure exit after-write failure preserves one complete confirmed record"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+ 16) test bridge read invalid fails before every provider operation (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:99
+     ** (exit) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore, {:get_bridge_config, "owned"}, 5000)
+         ** (EXIT) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.Runtime, :get_persistence, 5000)
+             ** (EXIT) an exception was raised:
+                 ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+                     (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:266: Jido.Messaging.Runtime.binding_options/4
+                     (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:236: Jido.Messaging.Runtime.create_binding/4
+                     (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                     (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                     (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: for call <- [
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+       (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read invalid fails before every provider operation"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: (test)
+
+     The following output was logged:
+
+     02:57:17.306 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.Runtime terminating
+     ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:266: Jido.Messaging.Runtime.binding_options/4
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:236: Jido.Messaging.Runtime.create_binding/4
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.2046.0>): {:ensure_binding, Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Adapter, "owned", [bridge_config: %Jido.Messaging.BridgeConfig{id: "owned", updated_at: ~U[2026-10-13 07:57:17.306841Z], inserted_at: ~U[2026-10-13 07:57:17.306841Z], adapter_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Adapter, enabled: true, opts: %{}, credentials: %{}, revision: 1, capabilities: %{stream: :fallback, get_user: :unsupported, send_message: :unsupported, fetch_metadata: :fallback, delete_message: :unsupported, list_threads: :unsupported, post_message: :fallback, fetch_thread: :fallback, fetch_subject: :unsupported, post_channel_message: :fallback, post_ephemeral: :unsupported, start_typing: :unsupported, send_file: :unsupported, remove_reaction: :unsupported, open_thread: :unsupported, open_modal: :unsupported, open_dm: :unsupported, mark_as_read: :unsupported, load_options: :unsupported, get_thread_participants: :unsupported, fetch_messages: :unsupported, fetch_message: :unsupported, fetch_media: :unsupported, fetch_channel_messages: :unsupported, edit_message: :unsupported, add_reaction: :unsupported}, delivery_policy: %Jido.Messaging.DeliveryPolicy{max_attempts: 3, dead_letter: true, base_backoff_ms: 25, max_backoff_ms: 500}, secret_refs: %{}}, instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance, bridge_id: "owned", ingress: %{}, sink_mfa: {Jido.Messaging.IngressSink, :emit, [Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance, "owned"]}]}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zo (truncated)
+
+     02:57:17.312 [error] GenServer Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance.Runtime, :get_persistence, 5000)
+         ** (EXIT) an exception was raised:
+             ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:266: Jido.Messaging.Runtime.binding_options/4
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:236: Jido.Messaging.Runtime.create_binding/4
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+         (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/config_store.ex:170: Jido.Messaging.ConfigStore.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1965.0>): {:get_bridge_config, "owned"}
+     State: %{instance_module: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.Instance}
+     Client #PID<0.1965.0> is alive
+
+         (stdlib 8.1) gen.erl:262: :gen.do_call/4
+         (elixir 1.20.4) lib/gen_server.ex:1180: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:93: Jido.Messaging.IngressSubscriptions.fetch_bridge/2
+         (jido_messaging 1.1.1) lib/jido_messaging/ingress_subscriptions.ex:18: Jido.Messaging.IngressSubscriptions.ensure/3
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:108: anonymous fn/3 in Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read invalid fails before every provider operation"/1
+         (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+         test/jido_messaging/ingress_subscription_store_outcome_test.exs:103: Jido.Messaging.IngressSubscriptionStoreOutcomeTest."test bridge read invalid fails before every provider operation"/1
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:533: ExUnit.Runner.exec_test/2
+         (ex_unit 1.20.4) lib/ex_unit/capture_log.ex:127: ExUnit.CaptureLog.with_log/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:482: anonymous fn/3 in ExUnit.Runner.maybe_capture_log/3
+         (stdlib 8.1) timer.erl:599: :timer.tc/2
+         (ex_unit 1.20.4) lib/ex_unit/runner.ex:455: anonymous fn/6 in ExUnit.Runner.spawn_test_monitor/4
+
+
+
+ 17) test list save invalid returns failure and retains only earlier confirmed records (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:115
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = Instance.list_ingress_subscriptions("owned")
+     left:  {:error, ^expected}
+     right: {:ok,
+             [
+               %Jido.Messaging.IngressSubscription{
+                 raw: %{subscription_id: "first"},
+                 expires_at: nil,
+                 adapter_name: :subscription_outcome,
+                 external_id: "first",
+                 bridge_id: "owned",
+                 subscription_id: "first",
+                 target_url: nil,
+                 status: :active,
+                 metadata: %{}
+               },
+               %Jido.Messaging.IngressSubscription{
+                 raw: %{subscription_id: "second"},
+                 expires_at: nil,
+                 adapter_name: :subscription_outcome,
+                 external_id: "second",
+                 bridge_id: "owned",
+                 subscription_id: "second",
+                 target_url: nil,
+                 status: :active,
+                 metadata: %{}
+               },
+               %Jido.Messaging.IngressSubscription{
+                 raw: %{subscription_id: "third"},
+                 expires_at: nil,
+                 adapter_name: :subscription_outcome,
+                 external_id: "third",
+                 bridge_id: "owned",
+                 subscription_id: "third",
+                 target_url: nil,
+                 status: :active,
+                 metadata: %{}
+               }
+             ]}
+     stacktrace:
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:124: (test)
+
+
+
+ 18) test delete store invalid does not report local cleanup success (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:133
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = Instance.delete_ingress_subscription("owned", "existing")
+     left:  {:error, ^expected}
+     right: {:ok,
+             %Jido.Messaging.IngressSubscription{
+               raw: %{status: :deleted, subscription_id: "existing"},
+               expires_at: nil,
+               adapter_name: :subscription_outcome,
+               external_id: "existing",
+               bridge_id: "owned",
+               subscription_id: "existing",
+               target_url: nil,
+               status: :deleted,
+               metadata: %{}
+             }}
+     stacktrace:
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:137: (test)
+
+
+
+ 19) test ensure invalid after-write failure preserves one complete confirmed record (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:143
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = Instance.ensure_ingress_subscription("owned")
+     left:  {:error, ^expected}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:147: (test)
+
+
+
+ 20) test malformed delete response cannot remove the local subscription (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:157
+     match (=) failed
+     The following variables were pinned:
+       records = [%Jido.Messaging.IngressSubscription{raw: nil, expires_at: nil, adapter_name: :subscription_outcome, external_id: "existing", bridge_id: "owned", subscription_id: "existing", target_url: nil, status: :active, metadata: %{complete: "owned"}}]
+     code:  assert {:ok, ^records} = ETS.list_ingress_subscriptions(context.state, "owned", [])
+     left:  {:ok, ^records}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:188: Jido.Messaging.IngressSubscriptionStoreOutcomeTest.assert_records/2
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:161: (test)
+
+
+
+ 21) test delete acknowledgement keeps the requested identity when the provider supplies another ID (Jido.Messaging.IngressSubscriptionStoreOutcomeTest)
+     test/jido_messaging/ingress_subscription_store_outcome_test.exs:165
+     Assertion with == failed
+     code:  assert deleted.subscription_id == "existing"
+     left:  "foreign-id"
+     right: "existing"
+     stacktrace:
+       test/jido_messaging/ingress_subscription_store_outcome_test.exs:168: (test)
+
+
+Finished in 0.7 seconds (0.00s async, 0.7s sync)
+
+Result: 1/22 passed
+Failed: 21 tests

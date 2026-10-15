@@ -1,0 +1,21 @@
+{
+  "label": "g3-resource-lifetime-current-core-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "9c5b290565a5ad7c4c027e1090dc5847300ec5da",
+  "source_tree_sha256": "291d48935d277a7b963eaf25ab8ad97a4fd48eb99f2f7250063346abe839d3ef",
+  "started_at": "2026-10-13T00:01:11.787109+00:00",
+  "finished_at": "2026-10-13T00:01:16.932648+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-resource-lifetime-current-core-tests.log",
+  "log_sha256": "50316e5d9af9b534e4ecdf32bd23f484ddbac465955cc6a582c6a0fce53b0dac"
+}

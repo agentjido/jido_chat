@@ -1,0 +1,35 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+
+
+  1) test all declared mode forms resolve and an unknown mode has no implicit default (Jido.Messaging.Demo.CheckpointTopologyContractTest)
+     test/jido_messaging/demo/checkpoint_topology_contract_test.exs:15
+     match (=) failed
+     code:  assert {:error, :enoent} =
+              Topology.load(
+                Path.join(System.tmp_dir!(), "absent-topology-#{System.unique_integer([:positive])}.yaml")
+              )
+     left:  {:error, :enoent}
+     right: {:error,
+             {:not_found,
+              "/var/folders/8l/nyn2qp4d441b1zrgypxgry7m0000gn/T/absent-topology-7138.yaml"}}
+     stacktrace:
+       test/jido_messaging/demo/checkpoint_topology_contract_test.exs:22: (test)
+
+......
+
+  2) test an unavailable partition uses only a valid supplied fallback (Jido.Messaging.CheckpointRouteFallbackTest)
+     test/jido_messaging/checkpoint_route_fallback_test.exs:67
+     match (=) failed
+     code:  assert {:error, :no_route} = SessionManager.resolve(Instance, key("thread"))
+     left:  {:error, :no_route}
+     right: {:error, :partition_unavailable}
+     stacktrace:
+       test/jido_messaging/checkpoint_route_fallback_test.exs:71: (test)
+
+......
+Finished in 0.5 seconds (0.00s async, 0.5s sync)
+
+Result: 12/14 passed
+Failed: 2 tests

@@ -1,0 +1,26 @@
+{
+  "label": "g3-resource-and-routing-regression",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/outbound_gateway_test.exs",
+    "test/jido_messaging/outbound_router_test.exs",
+    "test/jido_messaging/typed_execution_test.exs",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "3e51ca9234ef564ff2221fcb0e86157255ad5d885aa29810730aa3a7106cb5ef",
+  "started_at": "2026-10-12T21:08:43.549804+00:00",
+  "finished_at": "2026-10-12T21:08:51.984939+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-resource-and-routing-regression.log",
+  "log_sha256": "403738bc7e6b0ab8326012604a9856849a062b640a6da03a42d74e4f0ab29ed7"
+}

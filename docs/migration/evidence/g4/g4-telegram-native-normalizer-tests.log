@@ -1,0 +1,25 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+..............
+
+  1) test invalid media projection cancels resources instead of leaving active private values (Jido.Chat.Telegram.NormalizerTest)
+     test/jido/chat/telegram/normalizer_test.exs:237
+     ** (FunctionClauseError) no function clause matching in anonymous fn/1 in Jido.Chat.Telegram.NormalizerTest."test invalid media projection cancels resources instead of leaving active private values"/1
+
+     The following arguments were given to anonymous fn/1 in Jido.Chat.Telegram.NormalizerTest."test invalid media projection cancels resources instead of leaving active private values"/1:
+
+         # 1
+         {{:resource, "jch__4RrRM1HaVAotWsF4NATCw"}, #PID<0.374.0>, "media", nil, -576460690908, :cancelled}
+
+     code: assert Enum.all?(:ets.tab2list(binding.resources), fn {{:resource, _}, entry} ->
+     stacktrace:
+       test/jido/chat/telegram/normalizer_test.exs:242: anonymous fn/1 in Jido.Chat.Telegram.NormalizerTest."test invalid media projection cancels resources instead of leaving active private values"/1
+       (elixir 1.20.4) lib/enum.ex:4419: Enum.predicate_list/3
+       test/jido/chat/telegram/normalizer_test.exs:242: (test)
+
+....................
+Finished in 0.4 seconds (0.4s async, 0.00s sync)
+
+Result: 34/35 passed
+Failed: 1 test

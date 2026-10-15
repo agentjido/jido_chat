@@ -1,0 +1,19 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky]
+Including tags: [:integration, :story]
+
+.......................................
+
+  1) test releases a binding lock after room construction raises (Jido.Messaging.Persistence.SQLiteTest)
+     test/jido_messaging/persistence/sqlite_test.exs:247
+     Expected exception FunctionClauseError but nothing was raised
+     code: assert_raise FunctionClauseError, fn ->
+     stacktrace:
+       test/jido_messaging/persistence/sqlite_test.exs:251: (test)
+
+.................................................
+Finished in 20.8 seconds (6.1s async, 14.7s sync)
+
+Result: 88/89 passed
+Failed: 1 test

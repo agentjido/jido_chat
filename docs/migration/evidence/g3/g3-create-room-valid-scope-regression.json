@@ -1,0 +1,20 @@
+{
+  "label": "g3-create-room-valid-scope-regression",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/typed_room_creation_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "dfd84b04ec391267c2b7938ee1f6f5da2b524cf0",
+  "source_tree_sha256": "fdd9008adcc01dd36e02add6736c5c85ba2e32dedb2618bbe2bb5bff9634835f",
+  "started_at": "2026-10-12T23:36:22.795561+00:00",
+  "finished_at": "2026-10-12T23:36:23.333960+00:00",
+  "environment": {},
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-create-room-valid-scope-regression.log",
+  "log_sha256": "517b50a59fe2bffc903bf0c478d9cd83592d81cf0ca2fc2f470194071ffbbd71"
+}

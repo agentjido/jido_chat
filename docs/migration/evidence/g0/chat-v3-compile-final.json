@@ -1,0 +1,19 @@
+{
+  "label": "chat-v3-compile-final",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "7ff6088c709b9f7e3a4910168eab5af1c0d82d56ef4065dbdce2fcf7102b09f2",
+  "started_at": "2026-10-12T16:31:23.813758+00:00",
+  "finished_at": "2026-10-12T16:31:24.439780+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g0/chat-v3-compile-final.log",
+  "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+}

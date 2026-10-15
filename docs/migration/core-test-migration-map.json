@@ -1,0 +1,2721 @@
+{
+  "base_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "rule": "This map records old test names. It does not claim a removed API is still supported. New boundary tests verify every registered definition and operation. A retained pure builder test must remain or have an explicit port.",
+  "tests": [
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "capability matrix struct normalizes statuses",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "capability declarations are validated against callbacks",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "capability validation rejects an invalid raw status before normalization",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "capability validation rejects a raw declaration that is not a map",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "fetch_media is optional and surfaces through the capability matrix",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "fetch_media rejects malformed provider results",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "unsupported callbacks return deterministic unsupported error",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "post_message falls back to send_file for single-upload payloads",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "response normalization fills in a missing channel_type on response structs",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "stream fallback preserves structured chunks through placeholder plus edit",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "final stream fallback sends exact Markdown and rejects streams without visible text",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "post-edit fallback never sends or edits empty text",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "post-edit stream fallback returns send and edit failures",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "typed card and modal helpers expose stable adapter-facing payloads",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "default webhook parse path yields typed message envelope",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_conformance_test.exs",
+      "test": "legacy and trusted enriched inbound payloads use the same adapter callback",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "build deterministic typed adapter values and accept overrides",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "checks capability coherence and reports a missing native callback",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "does not hide a missing native callback behind a core fallback",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "rejects invalid raw statuses before capability normalization",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "requires the inbound transform callback",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "rejects fallback declarations without a callback or core fallback",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "missing optional callbacks return exact unsupported results through public wrappers",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "reports and exercises every unconditional core fallback",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "canonicalizes unsupported declarations for unconditional core fallbacks",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "rejects a false unsupported declaration without calling the provider",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "rejects an unsupported declaration for required message sending",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "checks normalized results, message identifiers, media, and serialization",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "checks webhook normalization through the public adapter API",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "checks capability-gated posting, file, edit, delete, reaction, media, and thread results",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "rejects malformed and unknown capability results",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "mock state snapshots and resets without shared global state",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/adapter_test_kit_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "mock transport records calls and consumes queued responses in order",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/adapter_test_kit_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "mock adapter records and normalizes capability-gated operations",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapter_test_kit_test.exs",
+      "test": "mock history routes every message field to the requested room",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/adapters/mentions_test.exs",
+      "test": "parse_mentions/3 and normalize_mentions/1",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/adapters/mentions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/adapters/mentions_test.exs",
+      "test": "strip_mentions/3",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/adapters/mentions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/adapters/mentions_test.exs",
+      "test": "was_mentioned?/3",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/adapters/mentions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/adapters/threading_test.exs",
+      "test": "supports_threads?/1",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/adapters/threading_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/adapters/threading_test.exs",
+      "test": "compute_thread_root/2",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/adapters/threading_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/adapters/threading_test.exs",
+      "test": "extract_thread_context/2",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/adapters/threading_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/ai_test.exs",
+      "test": "to_messages sorts chronologically, maps roles, and includes names",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/ai_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/ai_test.exs",
+      "test": "system author role takes precedence below explicit role and above is_me",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/ai_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/ai_test.exs",
+      "test": "to_messages emits multipart content for images and text-like files",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/ai_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/ai_test.exs",
+      "test": "to_messages can fetch text attachments and handle unsupported media with hooks",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/ai_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/ai_test.exs",
+      "test": "to_ai_messages accepts Chat SDK-style camelCase option aliases",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/ai_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/capabilities_test.exs",
+      "test": "supports?/2 and all/0",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/capabilities_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/capabilities_test.exs",
+      "test": "content_requires/1",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/capabilities_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/capabilities_test.exs",
+      "test": "can_deliver?/2 and content filtering",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/capabilities_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/capabilities_test.exs",
+      "test": "can_deliver?/2 handles outbound post payloads",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/capabilities_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/capabilities_test.exs",
+      "test": "channel_capabilities/1 derives fallbacks for adapters without an explicit matrix",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/capabilities_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/capabilities_test.exs",
+      "test": "channel_capabilities/1 derives delivery support from adapter capability matrices",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/capabilities_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/capabilities_test.exs",
+      "test": "channel_capabilities/1 preserves legacy list-based adapter capabilities",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/capabilities_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "constructors accept atom and string maps and keep chart data typed",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "named series align unambiguously with ordered shared categories",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "table accepts caption and any positive page size without provider limits",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "charts and tables have deterministic readable fallbacks",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "each chart type and table exposes non-empty adapter fallback text",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "chart data boundaries reject empty data and non-numeric values",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "link buttons keep explicit IDs and generate deterministic IDs when absent",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "external selects accept initial options and option groups",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "date and number constructors validate portable boundaries",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "modal fallback text describes inputs and constraints",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "each input type has deterministic readable fallback text",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "submitted date and number values normalize to strings at the event boundary",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "input, output, groups, error, and timeout are typed",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "adapter callbacks cannot exceed the resolved options-load timeout",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "options-load envelopes route through the typed adapter callback",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "invalid output, error, and timeout boundaries fail",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "string-key card and modal maps normalize all new element kinds",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/cards_modals_extensions_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "new elements and options-load types serialize and revive",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/cards_modals_extensions_test.exs",
+      "test": "capability statuses include native, fallback, and unsupported new elements",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "normalizes bounded concurrency configuration",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "reject strategy blocks overlapping owners until release",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "queue strategy preserves pending owners in order",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "release excludes expired pending entries and records deterministic expiry events",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "debounce strategy only keeps the latest pending owner",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "concurrent strategy never stores locks",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "force release drains pending lock snapshots and serialization preserves state",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "burst drains the latest message with ordered skipped context",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "each accepted burst entry resets the idle deadline",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "bounded burst overflow can drop the oldest entry",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "bounded queue overflow can drop the newest entry",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "drain discards expired entries with deterministic metadata",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "debounce records superseded entries and drains only the latest",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "channel lock scope drains one conversation and retains the other with its deadline",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "channel-scoped debounce only supersedes entries in the same conversation",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "concurrent strategy can bound active handlers per key",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "pending burst state survives serialization and old snapshots still load",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "process_message passes optional drained context to context-aware handlers",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "ordinary messages give context-aware mention handlers a default context",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "ordinary messages give context-aware regex handlers a default context",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "ordinary messages give context-aware subscribed handlers a default context",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/concurrency_test.exs",
+      "test": "message context does not change the legacy stateful handler arguments",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/emoji_test.exs",
+      "test": "render keeps built-in tokens and preserves unknown named tokens",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/emoji_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/emoji_test.exs",
+      "test": "put_custom supports custom names without requiring preexisting atoms",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/emoji_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/event_envelope_test.exs",
+      "test": "event envelope round-trips each supported payload type",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/event_envelope_test.exs",
+      "test": "event envelope normalizes string event types and infers missing event types",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/event_envelope_test.exs",
+      "test": "event normalizer enriches payload-derived ids and normalizes event user maps",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/event_envelope_test.exs",
+      "test": "event user normalization preserves enriched author fields",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/event_envelope_test.exs",
+      "test": "event user provider-only id does not become stable author id",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/event_envelope_test.exs",
+      "test": "event normalizer accepts fully string-key legacy users",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/event_envelope_test.exs",
+      "test": "event normalizer accepts fully string-key enriched users",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/event_envelope_test.exs",
+      "test": "event normalizer returns tagged errors for invalid inputs",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "one-character streams flush to the non-streamed Markdown",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "partial emphasis, links, and code fences get safe closing syntax",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "code fence repairs preserve the opening marker and marker length",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "a possible table header is buffered until its divider is complete",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "table parsing preserves adjacent empty cells before one optional outer pipe",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "plain one-character pushes preserve final content",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "incremental snapshots preserve leading blank chunks",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "structured stream chunks have deterministic Markdown fallbacks",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/markdown_stream_renderer_test.exs",
+      "test": "the non-streamed payload fallback uses the same structured renderer",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/markdown_stream_renderer_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/media_type_test.exs",
+      "test": "normalizes valid provider MIME values and rejects invalid values",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/media_type_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/media_type_test.exs",
+      "test": "uses only caller-supplied provider defaults",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/media_type_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/media_type_test.exs",
+      "test": "uses a valid download response media type before byte and filename hints",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/media_type_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/media_type_test.exs",
+      "test": "prefers downloaded byte signatures over filename hints",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/media_type_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/media_type_test.exs",
+      "test": "uses filename and URL extensions only as last-choice hints",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/media_type_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/media_type_test.exs",
+      "test": "infers media kind without inventing media_type",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/media_type_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "typed lifecycle events keep provider context and optional content",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "normalizer creates lifecycle structs from adapter maps",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "lifecycle envelopes and top-level reviver restore typed payloads",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "lifecycle events preserve explicit and nested provider message ids",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "message update rejects nested content without a provider message id",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "message delete rejects nested content without a provider message id",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "lifecycle handlers route separately from normal message handlers",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "lifecycle payload context overrides duplicate envelope metadata and raw values",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "request ingress dispatches parsed lifecycle events without normal message handlers",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/message_lifecycle_event_test.exs",
+      "test": "lifecycle registration accepts chat values with the legacy handler map",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/messaging_target_test.exs",
+      "test": "from_context/1 infers kind and captures reply ids",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/messaging_target_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/messaging_target_test.exs",
+      "test": "for_reply/2 applies reply mode",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/messaging_target_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/messaging_target_test.exs",
+      "test": "for_room/2 and for_thread/3 constructors",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/messaging_target_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/messaging_target_test.exs",
+      "test": "to_send_opts/1 emits only applicable options",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/messaging_target_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "UserInfo normalizes atom and string keyed input",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/domain_serialization_test.exs"
+      ],
+      "reason": "The full original value assertions remain in the retained domain suite."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "MessageSubject normalizes atom and string keyed input",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/domain_serialization_test.exs"
+      ],
+      "reason": "The full original value assertions remain in the retained domain suite."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "native callbacks return normalized public models",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "fetch_subject uses only an explicit subject from native thread metadata",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "fetch_subject returns a stable error when its thread fallback is malformed",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "unsupported callbacks return an explicit unsupported error",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "capability validation detects false native declarations",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "provider errors pass through all safe wrappers",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "invalid callback success values return stable contract errors",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "channel, thread, and sent-message helpers route normalized operations",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "SentMessage.mark_as_read requires a provider external message id",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/resource_contracts_test.exs",
+      "test": "UserInfo and MessageSubject serialize and revive",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "mention handler only fires for unsubscribed threads",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "regex handler routes matching messages",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "dedupe ignores repeated message ids",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "dedupe window is bounded by metadata.dedupe_limit",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread post returns sent message handle",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread post preserves postable payload fields in sent handle",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread post flattens typed card payloads through text fallback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread send_file routes through adapter upload callback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread enumerable post routes through adapter stream callback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread post routes stream postables through adapter stream callback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "stream fallback posts placeholder then edits structured output without native stream",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "adapter render helpers expose canonical markdown and card payloads",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread/channel open_modal route through adapter and normalize typed result",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "open_modal accepts typed modal payloads",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "filtered action handlers run before catch-all handlers and preserve event context",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "filtered slash command handlers match identifiers and expose modal helpers",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "open_modal returns unsupported when adapter does not implement it",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "sent message lifecycle methods dispatch to adapter",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "emoji helpers render named reactions for lifecycle APIs",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread typing and ephemeral fallback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "ephemeral card payloads use canonical fallback text through DM fallback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "ephemeral payloads can use file delivery through DM fallback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "ephemeral file payloads are rejected without DM fallback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread messages and all_messages pagination",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "channel ref returns typed metadata/messages/threads",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "channel send_file and open_thread return typed handles",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "open_dm infers adapter from author metadata, prefixed ids, and single-adapter chats",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "chat open_thread routes through adapter helper",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "channel post preserves postable payload fields in sent handle",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "channel post routes attachment-bearing payloads through send_file",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "channel post routes file-bearing payloads through send_file",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "channel and thread post reject multiple attachments explicitly",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread post routes multiple attachments through native post_message callback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "channel post routes multiple attachments through native post_message callback",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "webhooks helper returns adapter-keyed typed dispatchers",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "webhooks_with_chat compatibility helper accepts explicit chat argument",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "thread and channel state helpers are pure-struct",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "event process APIs dispatch registered handlers",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "filtered reaction and modal handlers only fire on matching identifiers",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "assistant events gain thread and channel handles",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "process_event routes typed envelopes",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "handle_webhook_request accepts typed request",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "route_request returns transport-agnostic ingress result",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "handle_webhook_request always returns typed response on unknown adapter",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "handle_webhook_request rescues callback exceptions into typed error response",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "handle_webhook_request supports noop parse path and typed response",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "route_event returns transport-agnostic ingress result",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "route_event wraps failures as typed ingress error",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "stream helpers page through messages",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/runtime_test.exs",
+      "test": "get_adapter and reviver surfaces",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "chat serialization is JSON-safe and explicitly non-serializable for handlers",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "chat serialization preserves custom state adapter snapshots",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "custom state adapters keep the existing lock callback contract",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "thread and channel refs round-trip with module adapters",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "message and sent message round-trip",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "reply context, incoming, and message preserve one-level reply data",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "event envelope revives a message payload with reply data",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "legacy incoming and message maps revive without reply fields",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "file upload, stream chunk, and post payload round-trip",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "markdown, card, modal, and modal response round-trip",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "event and webhook structs round-trip",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "typed event payloads survive envelope serialization and reviving",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/serialization_test.exs",
+      "test": "chat reviver supports all typed payloads",
+      "state": "retired-api",
+      "replacements": [
+        "test/jido/chat/public_boundary_retirement_test.exs",
+        "test/jido/chat/typed_handlers_test.exs"
+      ],
+      "reason": "The Chat object, wrapper reviver, and core queue/lock state are removed. Host application code owns scheduling and queue policy; typed handlers keep local fact state."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Message.new/1 creates normalized message with defaults",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Message.from_incoming/2 preserves independent reply identity and context",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Incoming and Message normalize atom and string reply-context maps",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "reply transport ID and context do not synthesize each other",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Room.new/1 creates room with defaults",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Participant.new/1 creates participant with defaults",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Incoming.new/1 normalizes mentions and media to named structs",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Author.new/1 preserves stable identity, email, and system state",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "legacy human Author.new/1 keeps enriched fields unset and defaults false",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Incoming.new/1 preserves enriched string-key author maps",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "new typed structs normalize canonical bot-loop payloads",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Message.new/1 normalizes content attachments into media structs",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Postable.to_payload/1 preserves encoding intent by kind",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "markdown helpers provide stringify, plain text, walk, and table fallbacks",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "typed markdown and card payloads preserve canonical rich content",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "modal builders and modal responses normalize canonical lifecycle data",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "post payloads normalize outbound attachments into typed structs",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "post payloads normalize outbound files into typed structs",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "stream postables preserve text chunks and normalize structured chunks",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "event placeholder structs parse cleanly",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "webhook/event/capability structs parse cleanly",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "schema constructor errors raise Splode validation errors",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Text.new/1",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Image.new/2 and from_base64/3",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Audio.new/2 and from_base64/3",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Video.new/2 and from_base64/3",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "File.new/3 and from_base64/4",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "Media.normalize/1 preserves typed attachment details",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "ToolUse.new/3 and ToolResult.new/3",
+      "state": "retained",
+      "replacements": [
+        "test/jido/chat/structs_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    },
+    {
+      "source": "test/jido/chat/structs_test.exs",
+      "test": "chat exposes registration functions for future event ingest",
+      "state": "ported",
+      "replacements": [
+        "test/jido/chat/executor_signal_test.exs",
+        "test/jido/chat/typed_handlers_test.exs",
+        "test/jido/chat/public_signal_contract_test.exs",
+        "test/jido/chat/binding_resources_test.exs",
+        "test/jido/chat/delivery_signal_test.exs",
+        "test/jido/chat/adapter_test_kit_test.exs",
+        "test/jido/chat/retained_domain_values_test.exs"
+      ],
+      "reason": "The old event/DTO/communication assertion is replaced by typed constructor, resource, delivery, executor, and handler checks."
+    },
+    {
+      "source": "test/jido_chat_test.exs",
+      "test": "facade constructors delegate to core structs",
+      "state": "retained",
+      "replacements": [
+        "test/jido_chat_test.exs"
+      ],
+      "reason": "Retained assertion uses a supported domain value or the new typed boundary."
+    }
+  ],
+  "counts": {
+    "retained": 73,
+    "ported": 81,
+    "retired-api": 85
+  }
+}

@@ -1,0 +1,20 @@
+Compiling 6 files (.ex)
+Generated jido_chat_integration app
+You have configured application :git_hooks in your configuration file,
+but the application is not available.
+
+This usually means one of:
+
+  1. You have not added the application as a dependency in a mix.exs file.
+
+  2. You are configuring an application that does not really exist.
+
+Please ensure :git_hooks exists or remove the configuration.
+
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live, :postgres]
+
+...........
+Finished in 0.5 seconds (0.5s async, 0.00s sync)
+
+Result: 11 passed

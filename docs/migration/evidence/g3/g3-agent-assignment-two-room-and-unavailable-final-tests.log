@@ -1,0 +1,22 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+...
+
+  1) test restoration safely rejects a stopped room_supervisor (Jido.Messaging.AgentAssignmentRecoveryTest)
+     test/jido_messaging/agent_assignment_recovery_test.exs:78
+     ** (MatchError) no match of right hand side value:
+
+         nil
+
+     code: {id, ^pid, _, _} =
+     stacktrace:
+       test/jido_messaging/agent_assignment_recovery_test.exs:88: (test)
+
+............
+01:28:25.449 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.1996.0>, nil}
+....
+Finished in 1.6 seconds (0.6s async, 1.0s sync)
+
+Result: 19/20 passed
+Failed: 1 test

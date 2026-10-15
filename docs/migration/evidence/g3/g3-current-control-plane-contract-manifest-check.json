@@ -1,0 +1,25 @@
+{
+  "label": "g3-current-control-plane-contract-manifest-check",
+  "command": [
+    "mix",
+    "run",
+    "scripts/verify_signal_migration.exs",
+    "--phase",
+    "G1"
+  ],
+  "repository": "integration",
+  "head_sha": "9ab08e88473136350d2685bc0ca5db5ad21eb939",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T02:46:40.503781+00:00",
+  "finished_at": "2026-10-13T02:46:41.933086+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-control-plane-contract-manifest-check.log",
+  "log_sha256": "69a0b5d76a0bb375178a8d467f531e2374d47c9ee1c3071bc711a0297be6ee31"
+}

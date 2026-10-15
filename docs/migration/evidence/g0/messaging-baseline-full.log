@@ -1,0 +1,170 @@
+[0mWaiting for lock on the build directory (held by process 23945)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, :live, {:postgres, true}]
+
+.......................................................................................................................................................................................................................................................................*...............................................................................................     warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+         _ ->
+
+     it attempts to match on the result of:
+
+         schema
+
+     which has the already matched type:
+
+         dynamic(%Zoi.Types.Struct{
+           module: Jido.Messaging.BridgePlugin,
+           fields:
+             non_empty_list(
+               {:adapter_module,
+                %Zoi.Types.Module{
+                  meta: %Zoi.Types.Meta{
+                    effects: empty_list(),
+                    default: nil,
+                    metadata: empty_list(),
+                    required: true,
+                    error: nil,
+                    description: nil,
+                    example: nil,
+                    typespec: nil,
+                    deprecated: nil
+                  }
+                }} or
+                 {:adapters,
+                  %Zoi.Types.Map{
+                    key_type: %Zoi.Types.Any{
+                      meta: %Zoi.Types.Meta{
+                        effects: empty_list(),
+                        default: nil,
+                        metadata: empty_list(),
+                        required: nil,
+                        error: nil,
+                        description: nil,
+                        example: nil,
+                        typespec: nil,
+                        deprecated: nil
+                      }
+                    },
+                    value_type: %Zoi.Types.Any{
+                      meta: %Zoi.Types.Meta{
+                        effects: empty_list(),
+                        default: nil,
+                        metadata: empty_list(),
+                        required: nil,
+                        error: nil,
+                        description: nil,
+                        example: nil,
+                        typespec: nil,
+                        deprecated: nil
+                      }
+                    },
+                    fields: nil,
+                    unrecognized_keys: :strip,
+                    coerce: false,
+                    empty_values: empty_list(),
+                    meta: %Zoi.Types.Meta{
+                      effects: empty_list(),
+                      default: {:value, empty_map()},
+                      metadata: empty_list(),
+                      required: true,
+                      error: nil,
+                      description: nil,
+                      example: nil,
+                      typespec: nil,
+                      deprecated: nil
+                    }
+                  }} or
+                 {:capabilities,
+                  %Zoi.Types.Array{
+                    inner: %Zoi.Types.Atom{
+                      meta: %Zoi.Types.Meta{
+                        effects: empty_list(),
+                        default: nil,
+                        metadata: empty_list(),
+                        required: nil,
+                        error: nil,
+                        description: nil,
+                        example: nil,
+                        typespec: nil,
+                        deprecated: nil
+                      }
+                    },
+                    min_length: nil,
+                    max_length: nil,
+                    length: nil,
+                    unique_items: nil,
+                    coerce: false,
+                    meta: %Zoi.Types.Meta{
+                      effects: empty_list(),
+                      default: {:value, empty_list()},
+                      metadata: empty_list(),
+                      required: true,
+                      error: nil,
+                      description: nil,
+                      example: nil,
+                      typespec: nil,
+                      deprecated: nil
+                    }
+                  }} or
+                 {:id,
+                  %Zoi.Types.Atom{
+                    meta: %Zoi.Types.Meta{
+                      effects: empty_list(),
+                      default: nil,
+                      metadata: empty_list(),
+                      required: true,
+                      error: nil,
+                      description: nil,
+                      example: nil,
+                      typespec: nil,
+                      deprecated: nil
+                    }
+                  }} or
+                 {:label,
+                  %Zoi.Types.String{
+                    min_length: nil,
+                    max_length: nil,
+                    length: nil,
+                    coerce: false,
+                    meta: %Zoi.Types.Meta{
+                      effects: empty_list(),
+                      default: nil,
+                      metadata: empty_list(),
+                      required: true,
+                      error: nil,
+                      description: nil,
+                      example: nil,
+                      typespec: nil,
+                      deprecated: nil
+                    }
+                  }}
+             ),
+           unrecognized_keys: :strip,
+           coerce: true,
+           empty_values: empty_list(),
+           meta: %Zoi.Types.Meta{
+             effects: empty_list(),
+             default: nil,
+             metadata: empty_list(),
+             required: nil,
+             error: nil,
+             description: nil,
+             example: nil,
+             typespec: nil,
+             deprecated: nil
+           }
+         })
+
+     type warning found at:
+     │
+ 114 │       assert is_struct(schema)
+     │       ~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ test/jido_messaging/bridge_plugin_test.exs:114: Jido.Messaging.BridgePluginTest."test schema/0 returns the Zoi schema"/1
+
+..........................................................................................................................................................................................................................................***....................................................................................................................................................
+Finished in 20.9 seconds (2.8s async, 18.1s sync)
+
+Result: 740 passed (2 doctests, 738 tests), 4 skipped, 43 excluded
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

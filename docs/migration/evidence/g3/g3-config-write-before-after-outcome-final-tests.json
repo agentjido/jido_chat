@@ -1,0 +1,58 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "4242af836de22ebad1dc209c5e5d68c71745d231",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "eb415d53c2cc467c6421da47b10ca5458730bfc8",
+      "library_test_files": 344,
+      "library_test_sha256": "82d3f5fe7b00e8c4d5d7350ea4e1e815c5d233d07766203931be2684ac02b18d"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-config-write-before-after-outcome-final-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/config_store_read_failure_test.exs",
+    "test/jido_messaging/config_store_keys_test.exs",
+    "test/jido_messaging/config_store_test.exs",
+    "test/jido_messaging/outbound_router_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "eb415d53c2cc467c6421da47b10ca5458730bfc8",
+  "source_tree_sha256": "0ab40bc9daa4b405ca60dcaae5b42d1fabcc966acf61daf0ff162249a915005e",
+  "started_at": "2026-10-13T05:13:17.873617+00:00",
+  "finished_at": "2026-10-13T05:13:30.583189+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-config-write-before-after-outcome-final-tests.log",
+  "log_sha256": "acb389633d7f57a60d8469b84a4dabd8447acfecb2ae989c90a21b60a396360d"
+}

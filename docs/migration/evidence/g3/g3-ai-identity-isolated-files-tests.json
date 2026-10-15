@@ -1,0 +1,26 @@
+{
+  "label": "g3-ai-identity-isolated-files-tests",
+  "command": [
+    "mix",
+    "test",
+    "../../jido_messaging/test/jido_messaging/identity_credentials_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T04:22:12.400864+00:00",
+  "finished_at": "2026-10-13T04:22:23.289247+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "1",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-ai-identity-isolated-files-tests.log",
+  "log_sha256": "2dcf61c832e08fb3fd6ce317750350787242588ec1791190baf932f8754460a8"
+}

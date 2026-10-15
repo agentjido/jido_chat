@@ -1,0 +1,102 @@
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+    warning: Jido.Messaging.TypedRoomCreationTest.Instance.revoke_principal_grant/1 is undefined or private. Did you mean:
+
+        * revoke_principal_grant/2
+
+    │
+ 97 │     {:ok, _} = Instance.revoke_principal_grant(context.grant.id)
+    │                         ~
+    │
+    └─ test/jido_messaging/typed_room_creation_test.exs:97:25: Jido.Messaging.TypedRoomCreationTest."test revoked authority cannot create a room"/1
+
+
+
+  1) test room creation uses the canonical target from trusted scope (Jido.Messaging.TypedRoomCreationTest)
+     test/jido_messaging/typed_room_creation_test.exs:52
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :not_found}
+
+     stacktrace:
+       test/jido_messaging/typed_room_creation_test.exs:35: Jido.Messaging.TypedRoomCreationTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_room_creation_test.exs:1: Jido.Messaging.TypedRoomCreationTest.__ex_unit__/2
+
+
+
+  2) test a creation command cannot overwrite an existing room (Jido.Messaging.TypedRoomCreationTest)
+     test/jido_messaging/typed_room_creation_test.exs:77
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :not_found}
+
+     stacktrace:
+       test/jido_messaging/typed_room_creation_test.exs:35: Jido.Messaging.TypedRoomCreationTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_room_creation_test.exs:1: Jido.Messaging.TypedRoomCreationTest.__ex_unit__/2
+
+
+
+  3) test a body target outside trusted scope cannot write (Jido.Messaging.TypedRoomCreationTest)
+     test/jido_messaging/typed_room_creation_test.exs:88
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :not_found}
+
+     stacktrace:
+       test/jido_messaging/typed_room_creation_test.exs:35: Jido.Messaging.TypedRoomCreationTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_room_creation_test.exs:1: Jido.Messaging.TypedRoomCreationTest.__ex_unit__/2
+
+
+
+  4) test revoked authority cannot create a room (Jido.Messaging.TypedRoomCreationTest)
+     test/jido_messaging/typed_room_creation_test.exs:96
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :not_found}
+
+     stacktrace:
+       test/jido_messaging/typed_room_creation_test.exs:35: Jido.Messaging.TypedRoomCreationTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_room_creation_test.exs:1: Jido.Messaging.TypedRoomCreationTest.__ex_unit__/2
+
+
+
+  5) test a terminal store failure is retained without another write (Jido.Messaging.TypedRoomCreationTest)
+     test/jido_messaging/typed_room_creation_test.exs:105
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :not_found}
+
+     stacktrace:
+       test/jido_messaging/typed_room_creation_test.exs:35: Jido.Messaging.TypedRoomCreationTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_room_creation_test.exs:1: Jido.Messaging.TypedRoomCreationTest.__ex_unit__/2
+
+
+
+  6) test the low-level room record helper does not emit a communication fact (Jido.Messaging.TypedRoomCreationTest)
+     test/jido_messaging/typed_room_creation_test.exs:122
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :not_found}
+
+     stacktrace:
+       test/jido_messaging/typed_room_creation_test.exs:35: Jido.Messaging.TypedRoomCreationTest.__ex_unit_setup_0/1
+       test/jido_messaging/typed_room_creation_test.exs:1: Jido.Messaging.TypedRoomCreationTest.__ex_unit__/2
+
+..............................................................................................................
+
+  7) test room creation is a typed operation under a trusted bridge scope (Jido.Messaging.TypedRuntimeOperationMatrixTest)
+     test/jido_messaging/typed_execution_test.exs:806
+     Assertion with == failed
+     code:  assert result.type == "jido.messaging.operation.completed"
+     left:  "jido.messaging.operation.failed"
+     right: "jido.messaging.operation.completed"
+     stacktrace:
+       test/jido_messaging/typed_execution_test.exs:820: (test)
+
+
+Finished in 6.9 seconds (0.00s async, 6.9s sync)
+
+Result: 110/117 passed
+Failed: 7 tests

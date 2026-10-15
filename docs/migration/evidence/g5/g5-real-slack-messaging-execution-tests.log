@@ -1,0 +1,21 @@
+Running ExUnit with seed: 0, max_cases: 20
+
+...
+
+  1) test native Slack interaction observation selects the exact binding and conversation (Jido.Chat.Slack.ExecutionRuntimeTest)
+     fixtures/slack_execution_runtime_test.exs:139
+     Assertion failed, no matching message after 100ms
+     The following variables were pinned:
+       parent = %Jido.Signal{data: %{"action_id" => "confirm", "actor_id" => "U1", "delivery_id" => "slack:digest:a9e9d1feb474b7a49fa280552df731c302c6ec7e86266498c0319b2216d483c4", "interaction_id" => "slack:interaction:7f6052b331f4d364dd7cc84f353f7426360b07e94c6e13399706f585f3a05864", "item_id" => "slack:digest:a9e9d1feb474b7a49fa280552df731c302c6ec7e86266498c0319b2216d483c4:block_actions:0", "room_id" => "C1", "value" => "yes", "values" => %{"confirm" => "yes"}}, id: "01a132fe-e650-73d3-a276-99884c2e7f4f", type: "jido.chat.action.received", time: nil, source: "urn:jido:chat:binding:c2xhY2stZXhlY3V0aW9u", subject: "conversation:c2xhY2stZXhlY3V0aW9u:QzE", datacontenttype: nil, dataschema: "urn:jido:chat:schema:action_received:1", extensions: %{"traceparent" => "00-6d31dcbfb8afa9f63ae475f5da3e353b-eb589137d3a0b76a-00"}, specversion: "1.0", data_present?: true, data_base64?: false}
+     The process mailbox is empty.
+     code: assert_receive {:signal, ^parent}
+     stacktrace:
+       fixtures/slack_execution_runtime_test.exs:174: anonymous fn/2 in Jido.Chat.Slack.ExecutionRuntimeTest."test native Slack interaction observation selects the exact binding and conversation"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       fixtures/slack_execution_runtime_test.exs:158: (test)
+
+
+Finished in 0.6 seconds (0.2s on load, 0.00s async, 0.3s sync)
+
+Result: 3/4 passed
+Failed: 1 test

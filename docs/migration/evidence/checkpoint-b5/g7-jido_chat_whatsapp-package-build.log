@@ -1,0 +1,44 @@
+Building jido_chat_whatsapp 0.1.0
+  Dependencies:
+    jido_chat ~> 2.0 (app: jido_chat)
+    amarula ~> 0.5.0 (app: amarula)
+    protobuf ~> 0.17.0 (app: protobuf)
+    zoi ~> 0.18.11 (app: zoi)
+  App: jido_chat_whatsapp
+  Name: jido_chat_whatsapp
+  Files:
+    lib
+    lib/jido_chat_whatsapp
+    lib/jido_chat_whatsapp/adapter.ex
+    lib/jido_chat_whatsapp/message.ex
+    lib/jido_chat_whatsapp/transport
+    lib/jido_chat_whatsapp/transport/amarula_client.ex
+    lib/jido_chat_whatsapp/send_options.ex
+    lib/jido_chat_whatsapp/transport.ex
+    lib/jido_chat_whatsapp/pairing.ex
+    lib/jido_chat_whatsapp/connection_worker.ex
+    lib/mix
+    lib/mix/tasks
+    lib/mix/tasks/jido_chat_whatsapp.pair.ex
+    lib/jido_chat_whatsapp.ex
+    mix.exs
+    README.md
+    LICENSE
+    CHANGELOG.md
+    usage-rules.md
+    docs
+    docs/whatsapp_adapter_plan.md
+    docs/preview_validation.md
+  Version: 0.1.0
+  Build tools: mix
+  Description: WhatsApp linked-device adapter package for Jido.Chat
+  Licenses: Apache-2.0
+  Links:
+    Changelog: https://hexdocs.pm/jido_chat_whatsapp/changelog.html
+    Discord: https://jido.run/discord
+    Documentation: https://hexdocs.pm/jido_chat_whatsapp
+    GitHub: https://github.com/agentjido/jido_chat_whatsapp
+    Website: https://jido.run
+  Elixir: ~> 1.18
+Package checksum: 152d58a89ef0c71f6421fffdead04575aac64f0808049e3a01c1edecee0b0664
+Saved to jido_chat_whatsapp-0.1.0.tar

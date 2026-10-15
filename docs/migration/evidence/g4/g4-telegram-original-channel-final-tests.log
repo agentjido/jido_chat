@@ -1,0 +1,19 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+.............................................
+
+  1) test typed post_message uses telegram send_file support for canonical uploads (Jido.Chat.Telegram.AdapterSurfaceTest)
+     test/jido/chat/telegram/channel_test.exs:1108
+     Assertion with == failed
+     code:  assert result.data["result"]["id"] == "78"
+     left:  nil
+     right: "78"
+     stacktrace:
+       test/jido/chat/telegram/channel_test.exs:1131: (test)
+
+............
+Finished in 0.5 seconds (0.5s async, 0.00s sync)
+
+Result: 57/58 passed
+Failed: 1 test

@@ -1,0 +1,27 @@
+{
+  "state": "verified unchanged production libraries and pinned dependency inputs",
+  "current_repositories": {
+    "jido_chat": {
+      "head": "9c1fa2404e08b771e185fb10e1c6e6a74df84fe3",
+      "library_files": 126,
+      "library_sha256": "04ebe4c977b3f5b5e4d937e2d4196867d2516f759726b8aea901038fc2f287cc"
+    },
+    "jido_messaging": {
+      "head": "cd1db80d499cc4d894ce2d949860e682f938ad43",
+      "library_files": 235,
+      "library_sha256": "6d09e979c317c81c3a758c5914de20db9893e5f272f319f1e4809d7452c6de79"
+    }
+  },
+  "messaging_library_base": "3421cf18d1be58318eecad50f398fef8d004294c",
+  "core_base": "7956751e3b4bec53c7c29589b73ce94c5b065896",
+  "reused_checks": [
+    "g3-projection-safe-outcomes-quality",
+    "g3-current-projection-credential-source-scan",
+    "g3-current-projection-credential-core-graph",
+    "g3-current-projection-credential-ai-graph",
+    "g3-current-projection-credential-api-audit"
+  ],
+  "scope": "Current automatic thread and query test files are new; complete Messaging test/coverage profiles are refreshed. Unchanged production/API/quality/scan/graph/harness/optional fixture proof is reused only within its recorded scope. Final PR current-head CI remains required.",
+  "support_and_harness_source": "Verified unchanged Messaging support/optional fixture and core integration lib/test/fixtures/scripts/project inputs. Complete new Messaging tests are separate from the unchanged harness.",
+  "optional_ai_fixture_sha256": "57a6f167d6ab21cfc5e195d95b0ee2bfbeca94a7831e231d47988521f73badc5"
+}

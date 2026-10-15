@@ -1,0 +1,61 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "f5243ec78786eab679b682b7a41c231727039393",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "7ff472ee0e0598a99e6bb8f419b2784683a67e30",
+      "library_test_files": 395,
+      "library_test_sha256": "80b43a8d8f309413180645acd0bc632fb207ec12c6015590b364d2f9409a6fd5"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-durable-record-input-active-fixture-regressions",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/durable_record_input_boundary_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "7ff472ee0e0598a99e6bb8f419b2784683a67e30",
+  "source_tree_sha256": "9f6e3a78a4b06974bbcf2b4168ca1a8d780ca3e2ca11eef47611b26e8285d147",
+  "started_at": "2026-10-13T09:31:01.208318+00:00",
+  "finished_at": "2026-10-13T09:31:03.396079+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-durable-record-input-active-fixture-regressions.log",
+  "log_sha256": "70ebe0b633b3823cbcbc537c3d3cf6611c82a22a1511f4878793b9e31fbcb0d5",
+  "failure_classification": "Two production regressions: explicit nil endpoint metadata and duplicate normalized grant constraints. One valid endpoint test fixture conflicted with an existing principal endpoint; fixed by using a separate agent principal.",
+  "result": {
+    "passed": 10,
+    "total": 13,
+    "failed": 3
+  }
+}

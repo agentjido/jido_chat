@@ -1,0 +1,51 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+    warning: unused alias Room
+    │
+  3 │   alias Jido.Chat.Room
+    │   ~
+    │
+    └─ test/jido_messaging/persistence/ets_index_recovery_test.exs:3:3
+
+
+
+  1) test missing room recovery removes only its stale binding indexes and keeps history (Jido.Messaging.Persistence.ETSIndexRecoveryTest)
+     test/jido_messaging/persistence/ets_index_recovery_test.exs:12
+     match (=) failed
+     code:  assert {:ok, []} = ETS.list_room_bindings(state, owned.id)
+     left:  {:ok, []}
+     right: {:ok,
+             [
+               %Jido.Messaging.RoomBinding{
+                 id: "bind_ee1bdffd6256c87b",
+                 external_room_id: "shared",
+                 room_id: "old-room",
+                 channel: :slack,
+                 bridge_id: "owned",
+                 inserted_at: ~U[2026-10-13 11:34:50.102717Z],
+                 enabled: true,
+                 direction: :both
+               }
+             ]}
+     stacktrace:
+       test/jido_messaging/persistence/ets_index_recovery_test.exs:54: (test)
+
+...
+
+  2) test a stale invocation scope index can recover without a foreign policy change (Jido.Messaging.Persistence.ETSIndexRecoveryTest)
+     test/jido_messaging/persistence/ets_index_recovery_test.exs:152
+     match (=) failed
+     The following variables were pinned:
+       recovered = %Jido.Messaging.InvocationPolicy{id: "new-policy", scope: %Jido.Messaging.AuthorizationScope{kind: :room, message_id: nil, room_id: "owned", thread_id: nil, bridge_id: nil, target_principal_id: nil}, mode: :nobody, expires_at: nil, inserted_at: ~U[2026-10-13 11:34:50.127922Z], updated_at: ~U[2026-10-13 11:34:50.127922Z], issuer_principal_id: "host", target_principal_id: "agent", controller_principal_id: nil, status: :active, metadata: %{complete: "recovered"}, revision: 1, allowed_principal_ids: []}
+     code:  assert {:ok, ^recovered} = ETS.get_invocation_policy_by_scope(state, "agent", recovered.scope)
+     left:  {:ok, ^recovered}
+     right: {:error, :not_found}
+     stacktrace:
+       test/jido_messaging/persistence/ets_index_recovery_test.exs:177: (test)
+
+
+Finished in 0.2 seconds (0.2s async, 0.00s sync)
+
+Result: 3/5 passed
+Failed: 2 tests

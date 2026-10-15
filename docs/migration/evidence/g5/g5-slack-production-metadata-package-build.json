@@ -1,0 +1,18 @@
+{
+  "label": "g5-slack-production-metadata-package-build",
+  "command": [
+    "mix",
+    "hex.build"
+  ],
+  "repository": "jido_chat_slack",
+  "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+  "source_tree_sha256": "3c840f544781324cec0ff732d35c1b7ef16681d7096dbfae0707236e0614368f",
+  "started_at": "2026-10-13T02:00:38.633836+00:00",
+  "finished_at": "2026-10-13T02:00:39.065066+00:00",
+  "environment": {
+    "MIX_ENV": "prod"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g5/g5-slack-production-metadata-package-build.log",
+  "log_sha256": "548deefb73b70cefe36cc210e6c02b5d699f0e1b39033af84ad845dde19f3b05"
+}

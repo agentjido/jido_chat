@@ -22,7 +22,7 @@ defmodule Jido.Chat.MixProject do
       docs: docs(),
       test_coverage: [
         tool: ExCoveralls,
-        summary: [threshold: 0],
+        summary: [threshold: 90],
         export: "cov"
       ],
       dialyzer: [
@@ -57,6 +57,7 @@ defmodule Jido.Chat.MixProject do
 
   defp deps do
     [
+      signal_dependency(),
       {:jason, "~> 1.4"},
       {:zoi, "~> 0.18.11"},
       {:splode, "~> 0.3.0"},
@@ -68,6 +69,15 @@ defmodule Jido.Chat.MixProject do
       {:git_hooks, "~> 0.8", only: [:dev, :test], runtime: false},
       {:git_ops, "~> 2.9", only: :dev, runtime: false}
     ]
+  end
+
+  defp signal_dependency do
+    if Mix.env() in [:dev, :test] or System.get_env("MIX_ENV") in ["dev", "test"] do
+      {:jido_signal,
+       git: "https://github.com/agentjido/jido_signal.git", ref: "d6611eca1c95eb507843baceb55991e4801d8421"}
+    else
+      {:jido_signal, "~> 3.0.0-beta.4"}
+    end
   end
 
   defp aliases do

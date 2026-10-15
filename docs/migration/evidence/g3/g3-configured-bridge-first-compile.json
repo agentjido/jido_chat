@@ -1,0 +1,20 @@
+{
+  "label": "g3-configured-bridge-first-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "adb7373eab6cfadaa041777a42dbcd82bc0a02f6f181fbf4bbf9563024d2c7d4",
+  "started_at": "2026-10-12T19:23:49.782003+00:00",
+  "finished_at": "2026-10-12T19:23:51.177370+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-configured-bridge-first-compile.log",
+  "log_sha256": "dcbf7c495227543a8b6ec6409a3018a29bb6feef1192ea4601109491f3375c08"
+}

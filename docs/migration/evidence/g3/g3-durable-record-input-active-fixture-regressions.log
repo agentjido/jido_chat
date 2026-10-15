@@ -1,0 +1,41 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+......
+
+  1) test endpoint invalid nested metadata cannot write or change an owned or foreign record (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:44
+     Expected exception ArgumentError but nothing was raised
+     code: for metadata <- [
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:55: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest."test endpoint invalid nested metadata cannot write or change an owned or foreign record"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:45: (test)
+
+.
+
+  2) test endpoint valid nested metadata retains complete values (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:74
+     match (=) failed
+     code:  assert {:ok, record} = create(:endpoint, input)
+     left:  {:ok, record}
+     right: {:error, {:agent_endpoint_principal_conflict, "endpoint-owned"}}
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:83: (test)
+
+...
+
+  3) test duplicate normalized grant constraints reject before changing authority (Jido.Messaging.DurableRecordInputBoundaryTest)
+     test/jido_messaging/durable_record_input_boundary_test.exs:116
+     Expected exception ArgumentError but nothing was raised
+     code: for constraints <- [
+     stacktrace:
+       test/jido_messaging/durable_record_input_boundary_test.exs:122: anonymous fn/3 in Jido.Messaging.DurableRecordInputBoundaryTest."test duplicate normalized grant constraints reject before changing authority"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/durable_record_input_boundary_test.exs:117: (test)
+
+
+Finished in 0.5 seconds (0.00s async, 0.5s sync)
+
+Result: 10/13 passed
+Failed: 3 tests

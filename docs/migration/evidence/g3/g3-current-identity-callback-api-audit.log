@@ -1,0 +1,35 @@
+==> jido_messaging
+Compiling 3 files (.ex)
+==> jido_chat_integration
+Compiling 4 files (.ex)
+{
+  "scope": [
+    "jido_chat",
+    "jido_messaging"
+  ],
+  "state": "pass",
+  "inputs": {
+    "api-map": "54411a8eee814229172f72e1b08687410b47cdb57c275b9bd21f4829ae8be02f",
+    "catalog": "4f9f50119d96fd48496cabff6e7b1b12f581d2fb7e526ec2e3ebc3825797e636",
+    "core-retired-modules": "234eafd161ea0957499883bda6ca812bdb51c613e5a5a2f5f77ad24069126ce4",
+    "new-major-core-api": "dc8cde5d03e21cc114908da3fc21fbe1b0a5f01939cac5fe4812f24f125f11ea",
+    "version-matrix": "625e02007d735def6a72dbd0d2bebef72b0e2d20420b16f4845bf882fa2892ea"
+  },
+  "failures": [],
+  "gate": "G3",
+  "export_count": 4071,
+  "generated_instance_export_count": 240,
+  "source_revisions": {
+    "jido_chat": {
+      "head_sha": "eb74d1d01809ff502263f670a80912294382cfe8",
+      "compiled_source_files": 126,
+      "source_sha256": "04ebe4c977b3f5b5e4d937e2d4196867d2516f759726b8aea901038fc2f287cc"
+    },
+    "jido_messaging": {
+      "head_sha": "cd49f6cfcb342eefc37546c6ae53ad224bd3806a",
+      "compiled_source_files": 229,
+      "source_sha256": "1a9ab6f7e0c23362003c967735e3497e5a8b4f375b3f9c314f8a39499f5a48a3"
+    }
+  },
+  "note": "This audit checks compiled API mappings and retired exports. Behavioral tests, all-adapter conformance, coverage, and current-head CI remain separate requirements."
+}

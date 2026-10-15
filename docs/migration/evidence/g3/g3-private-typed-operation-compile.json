@@ -1,0 +1,20 @@
+{
+  "label": "g3-private-typed-operation-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "946fe2a74b97429f8b1a218893804d6f2892ffb5b498f71678ec70dd896bb6f5",
+  "started_at": "2026-10-12T19:37:29.416711+00:00",
+  "finished_at": "2026-10-12T19:37:30.723013+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-private-typed-operation-compile.log",
+  "log_sha256": "84c9ec64f81fd13191555c2916df23e1b11ee7526e48f800631cc8488ba5f0ed"
+}

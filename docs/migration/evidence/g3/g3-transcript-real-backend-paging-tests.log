@@ -1,0 +1,30 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test Elixir.Jido.Messaging.TranscriptPagingOwnershipTest.ETSInstance invalid cursor and limit cannot cross participant or room scope (Jido.Messaging.TranscriptPagingOwnershipTest)
+     test/jido_messaging/transcript_paging_ownership_test.exs:33
+     match (=) failed
+     code:  assert {:ok, []} = instance.participant_transcript("missing-participant", context.scope)
+     left:  {:ok, []}
+     right: {:error, :not_found}
+     stacktrace:
+       test/jido_messaging/transcript_paging_ownership_test.exs:68: (test)
+
+.
+
+  2) test Elixir.Jido.Messaging.TranscriptPagingOwnershipTest.SQLiteInstance invalid cursor and limit cannot cross participant or room scope (Jido.Messaging.TranscriptPagingOwnershipTest)
+     test/jido_messaging/transcript_paging_ownership_test.exs:33
+     match (=) failed
+     code:  assert {:ok, []} = instance.participant_transcript("missing-participant", context.scope)
+     left:  {:ok, []}
+     right: {:error, :not_found}
+     stacktrace:
+       test/jido_messaging/transcript_paging_ownership_test.exs:68: (test)
+
+.....
+Finished in 0.6 seconds (0.5s async, 0.06s sync)
+
+Result: 6/8 passed
+Failed: 2 tests

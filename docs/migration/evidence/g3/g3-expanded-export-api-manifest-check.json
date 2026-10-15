@@ -1,0 +1,25 @@
+{
+  "label": "g3-expanded-export-api-manifest-check",
+  "command": [
+    "mix",
+    "run",
+    "-r",
+    "integration/lib/manifest.ex",
+    "integration/scripts/verify_signal_migration.exs",
+    "--phase",
+    "G1",
+    "--manifest",
+    "docs/migration/version-matrix.json"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "7a14301e6f70df960164fc2c5e5b32a91280dea0",
+  "source_tree_sha256": "c01ddf97f9652e3ecf51b58000b151c7f22f4666b4b25063da90d88c9dfe106c",
+  "started_at": "2026-10-13T00:18:09.914013+00:00",
+  "finished_at": "2026-10-13T00:18:10.713864+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-expanded-export-api-manifest-check.log",
+  "log_sha256": "69a0b5d76a0bb375178a8d467f531e2374d47c9ee1c3071bc711a0297be6ee31"
+}

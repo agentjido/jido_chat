@@ -1,0 +1,19 @@
+{
+  "label": "g3-accepted-message-failure-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "9f6c91715ba7cc82bb26552a09286c701dc42378",
+  "source_tree_sha256": "fc8d008747c389087be72c38b96eed10a8e6c30b6b92395e72e1130ce0fe7b8c",
+  "started_at": "2026-10-13T02:08:48.231779+00:00",
+  "finished_at": "2026-10-13T02:08:57.061044+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-accepted-message-failure-quality.log",
+  "log_sha256": "9310f7b70f157675afbeb459743adf175cc0038acabed5cfbfcc0220037bbad3"
+}

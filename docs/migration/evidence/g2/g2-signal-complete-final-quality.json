@@ -1,0 +1,22 @@
+{
+  "label": "g2-signal-complete-final-quality",
+  "command": [
+    "mix",
+    "quality",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_signal",
+  "head_sha": "3efc24e44dd6a316dd8f7dda5bee4a1b647490f4",
+  "source_tree_sha256": "9d32f838c5a0402fd62c26adcfdd2f44064d2d94e38b7237ef1b52f23c4444d5",
+  "started_at": "2026-10-12T19:02:46.462881+00:00",
+  "finished_at": "2026-10-12T19:02:48.886120+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-signal-complete-final-quality.log",
+  "log_sha256": "061c7e38c61fba165c6905b8cd6ea47e385a37891e7927a7b65901faac22b3d0"
+}

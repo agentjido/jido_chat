@@ -1,0 +1,55 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "4ffc0cca17c83122ddd16e0122e5e2b6c89c7850",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "523114511b90e29924dc1bb4de1927e8c773906c",
+      "library_test_files": 343,
+      "library_test_sha256": "1a29b8f2d481709e3128fef6041ed96e7602ab5b755a2d76f52441325565254b"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-demo-native-request-control-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/demo/bridge_ownership_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "523114511b90e29924dc1bb4de1927e8c773906c",
+  "source_tree_sha256": "9dcc8e739a2f5092d0b38cb1504b2d2e986e6d1af7194f614d87ab3d7b4d069b",
+  "started_at": "2026-10-13T05:05:32.083554+00:00",
+  "finished_at": "2026-10-13T05:05:34.134344+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-demo-native-request-control-tests.log",
+  "log_sha256": "34ab04a84038d7b50799fbb6db285c8a31bce9e6546f8b66f0b3d84b3a3f3459"
+}

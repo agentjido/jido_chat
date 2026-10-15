@@ -1,0 +1,23 @@
+{
+  "label": "g3-facade-record-ownership-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/facade_record_ownership_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "7d3a357e40c0accb01982b47856a28c096bf2b84",
+  "source_tree_sha256": "b545b5aee2974d14ee89f09c04285c524662d54aa139797612f3ec519184b0d1",
+  "started_at": "2026-10-13T02:58:34.322112+00:00",
+  "finished_at": "2026-10-13T02:58:37.938657+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-facade-record-ownership-tests.log",
+  "log_sha256": "3db3fbcfd0ac788b9c878e4d14e8a58c43a01adc1226558a9870f48630841c57"
+}

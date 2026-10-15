@@ -1,0 +1,26 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+Including tags: [:integration, :story]
+
+........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+23:32:59.947 [error] GenServer #PID<0.50184.0> terminating
+** (stop) :boom
+Last message: :crash
+State: [crash_after_ms: 0]
+...
+
+  1) test concurrent lifecycle transitions SQLite does not restore a message when delete races with update (Jido.Messaging.MessageLifecycleConcurrencyTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/message_lifecycle_concurrency_test.exs:94
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:lifecycle_gate, :lookup, :update, _update_pid}
+     stacktrace:
+       /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/message_lifecycle_concurrency_test.exs:155: Jido.Messaging.MessageLifecycleConcurrencyTest.exercise_serialized_transition/2
+       /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/message_lifecycle_concurrency_test.exs:99: (test)
+
+.................................................Jido Messaging PostgreSQL migrations are current
+...............................................................................................................................................................................................................................................................................................................................
+Finished in 192.8 seconds (90.0s async, 102.7s sync)
+
+Result: 1115/1116 passed (1/1 doctest, 1114/1115 tests)
+Failed: 1 test

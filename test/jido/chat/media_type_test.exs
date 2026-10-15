@@ -1,7 +1,7 @@
 defmodule Jido.Chat.MediaTypeTest do
   use ExUnit.Case, async: true
 
-  alias Jido.Chat.{Attachment, Media, MediaType}
+  alias Jido.Chat.{AI, Attachment, FileUpload, Media, MediaType, Message}
 
   test "normalizes valid provider MIME values and rejects invalid values" do
     assert MediaType.normalize(" Image/PNG; charset=binary ") == "image/png"
@@ -71,5 +71,75 @@ defmodule Jido.Chat.MediaTypeTest do
     assert attachment.media_type == nil
     assert misleading.kind == :file
     assert misleading.media_type == "application/pdf"
+  end
+
+  test "media maps merge attachment details with existing atom or string metadata" do
+    for attrs <- [
+          %{
+            data: "file body",
+            alt_text: "File",
+            transcript: "Spoken",
+            thumbnail_url: "https://example.test/thumb.png",
+            path: "/tmp/file.txt"
+          },
+          %{
+            "data" => "file body",
+            "alt_text" => "File",
+            "transcript" => "Spoken",
+            "thumbnail_url" => "https://example.test/thumb.png",
+            "path" => "/tmp/file.txt"
+          }
+        ],
+        metadata <- [%{}, %{provider: "fixture"}] do
+      key = if Map.has_key?(attrs, :data), do: :metadata, else: "metadata"
+      media = attrs |> Map.put(key, metadata) |> Media.new()
+
+      assert media.metadata ==
+               Map.merge(metadata, %{
+                 data: "file body",
+                 alt_text: "File",
+                 transcript: "Spoken",
+                 thumbnail_url: "https://example.test/thumb.png",
+                 path: "/tmp/file.txt"
+               })
+    end
+  end
+
+  test "nested media maps retain file text for AI conversion when metadata is present" do
+    for message_attrs <- [
+          %{
+            id: "one",
+            attachments: [
+              %{filename: "notes.txt", media_type: "text/plain", data: "note body", metadata: %{provider: "fixture"}}
+            ]
+          },
+          %{
+            "id" => "one",
+            "attachments" => [
+              %{
+                "filename" => "notes.txt",
+                "media_type" => "text/plain",
+                "data" => "note body",
+                "metadata" => %{"provider" => "fixture"}
+              }
+            ]
+          }
+        ] do
+      message = Message.new(message_attrs)
+      assert [%Media{metadata: metadata}] = message.attachments
+      assert metadata[:data] == "note body"
+      assert [%{role: "user", content: "note body"}] = AI.to_messages([message])
+    end
+  end
+
+  test "media maps keep file bytes and paths when converted to outbound upload values" do
+    for attrs <- [
+          %{data: "file body", path: "/tmp/file.txt", metadata: %{provider: "fixture"}},
+          %{"data" => "file body", "path" => "/tmp/file.txt", "metadata" => %{"provider" => "fixture"}}
+        ] do
+      media = Media.normalize(attrs)
+      assert %Attachment{data: "file body", path: "/tmp/file.txt"} = Attachment.normalize(media)
+      assert %FileUpload{data: "file body", path: "/tmp/file.txt"} = FileUpload.normalize(media)
+    end
   end
 end

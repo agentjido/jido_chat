@@ -1,0 +1,49 @@
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+    warning: Jido.Messaging.TypedAcceptanceTest.Instance.list_participants/0 is undefined or private. Did you mean:
+
+        * list_principal_grants/1
+        * list_principal_grants/2
+
+    │
+ 67 │     assert Instance.list_participants() == {:ok, []}
+    │                     ~
+    │
+    └─ test/jido_messaging/typed_acceptance_test.exs:67:21: Jido.Messaging.TypedAcceptanceTest."test the whole delivery is checked before any store write"/1
+    └─ test/jido_messaging/typed_acceptance_test.exs:102:21: Jido.Messaging.TypedAcceptanceTest."test membership observation does not create records or runtime membership"/1
+
+.
+
+  1) test the whole delivery is checked before any store write (Jido.Messaging.TypedAcceptanceTest)
+     test/jido_messaging/typed_acceptance_test.exs:62
+     ** (UndefinedFunctionError) function Jido.Messaging.TypedAcceptanceTest.Instance.list_participants/0 is undefined or private. Did you mean:
+
+         * list_principal_grants/1
+         * list_principal_grants/2
+
+     code: assert Instance.list_participants() == {:ok, []}
+     stacktrace:
+       Jido.Messaging.TypedAcceptanceTest.Instance.list_participants()
+       test/jido_messaging/typed_acceptance_test.exs:67: (test)
+
+.
+
+  2) test membership observation does not create records or runtime membership (Jido.Messaging.TypedAcceptanceTest)
+     test/jido_messaging/typed_acceptance_test.exs:77
+     ** (UndefinedFunctionError) function Jido.Messaging.TypedAcceptanceTest.Instance.list_participants/0 is undefined or private. Did you mean:
+
+         * list_principal_grants/1
+         * list_principal_grants/2
+
+     code: assert Instance.list_participants() == {:ok, []}
+     stacktrace:
+       Jido.Messaging.TypedAcceptanceTest.Instance.list_participants()
+       test/jido_messaging/typed_acceptance_test.exs:102: (test)
+
+
+Finished in 0.5 seconds (0.00s async, 0.5s sync)
+
+Result: 2/4 passed
+Failed: 2 tests

@@ -1,0 +1,22 @@
+{
+  "label": "g3-full-runtime-after-boundary-ports",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "5cbd5323b85f7ebd67430087897d7df16e614981e050947168b6974860a0dafe",
+  "started_at": "2026-10-12T22:19:24.992980+00:00",
+  "finished_at": "2026-10-12T22:19:53.687508+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-full-runtime-after-boundary-ports.log",
+  "log_sha256": "187727aa2642689fdf13ce14c5a2e4ecc9ff58ed1e37878064c5b26748c77bb8"
+}

@@ -1,0 +1,20 @@
+{
+  "label": "g3-direct-ingress-next-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "8670498d289e57c3d6fad6cf335fb01add938d75b09b906cc206601b43d09d6c",
+  "started_at": "2026-10-12T19:35:11.976372+00:00",
+  "finished_at": "2026-10-12T19:35:13.543874+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-direct-ingress-next-compile.log",
+  "log_sha256": "c522f708bc8d8602952d4af2aa5eb39ca261de6fcb9ab2991727dc1b8d01d339"
+}

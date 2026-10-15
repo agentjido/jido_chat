@@ -1,0 +1,7 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+...............
+Finished in 0.4 seconds (0.4s async, 0.00s sync)
+
+Result: 15 passed

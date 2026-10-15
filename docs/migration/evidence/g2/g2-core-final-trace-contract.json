@@ -1,0 +1,23 @@
+{
+  "label": "g2-core-final-trace-contract",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "510fb692d825a71090374b28c68a7f2a8c14fbb7e85814b17acabcf72d28c844",
+  "started_at": "2026-10-12T18:55:05.225911+00:00",
+  "finished_at": "2026-10-12T18:55:10.610894+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-final-trace-contract.log",
+  "log_sha256": "5ea0875b8de15982c9d645472369a2d2c3fc296c1a65f7b45443ccfb31dd43ab"
+}

@@ -1,0 +1,10 @@
+==> jido_messaging
+Compiling 6 files (.ex)
+==> jido_chat_integration
+Compiling 4 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+
+.......
+Finished in 10.2 seconds (3.8s on load, 0.00s async, 6.4s sync)
+
+Result: 7 passed

@@ -1,0 +1,196 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+23:54:27.683 [error] GenServer #PID<0.568.0> terminating
+** (RuntimeError) private policy failure
+    test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.564.0>, {%RuntimeError{message: "private policy failure"}, [{Jido.Messaging.IngestPolicyFailureTest.Gater, :fail, 1, [file: ~c"test/jido_messaging/ingest_policy_failure_test.exs", line: 31, error_info: %{module: Exception}]}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.568.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.569.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150146.145248>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.564.0>]}}
+
+
+  1) test gating raise denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.564.0>) an exception was raised:
+         ** (RuntimeError) private policy failure
+             test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:27.687 [error] GenServer #PID<0.658.0> terminating
+** (RuntimeError) private policy failure
+    test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.654.0>, {%RuntimeError{message: "private policy failure"}, [{Jido.Messaging.IngestPolicyFailureTest.Gater, :fail, 1, [file: ~c"test/jido_messaging/ingest_policy_failure_test.exs", line: 31, error_info: %{module: Exception}]}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.658.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.659.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150146.146172>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.654.0>]}}
+
+
+  2) test gating raise fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.654.0>) an exception was raised:
+         ** (RuntimeError) private policy failure
+             test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+  3) test gating throw denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.744.0>) an exception was raised:
+         ** (ErlangError) Erlang error: {:nocatch, :private_policy_failure}
+             test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+  4) test gating throw fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.834.0>) an exception was raised:
+         ** (ErlangError) Erlang error: {:nocatch, :private_policy_failure}
+             test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+  5) test gating exit denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.924.0>) :private_policy_failure
+
+
+23:54:27.704 [error] GenServer #PID<0.1018.0> terminating
+** (stop) :private_policy_failure
+Last message: {:EXIT, #PID<0.1011.0>, :private_policy_failure}
+State: {:state, {#PID<0.1018.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1019.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150147.148659>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1011.0>]}}
+
+
+  6) test gating exit fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1011.0>) :private_policy_failure
+
+
+23:54:27.707 [error] GenServer #PID<0.1108.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.1104.0>, :killed}
+State: {:state, {#PID<0.1108.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1109.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150145.146437>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1104.0>]}}
+
+
+  7) test gating kill denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.1104.0>) killed
+
+
+
+  8) test gating kill fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1193.0>) killed
+
+..
+23:54:27.768 [error] GenServer #PID<0.1469.0> terminating
+** (RuntimeError) private policy failure
+    test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.1465.0>, {%RuntimeError{message: "private policy failure"}, [{Jido.Messaging.IngestPolicyFailureTest.Gater, :fail, 1, [file: ~c"test/jido_messaging/ingest_policy_failure_test.exs", line: 31, error_info: %{module: Exception}]}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.1469.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1470.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150145.147891>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1465.0>]}}
+
+
+  9) test moderation raise denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.1465.0>) an exception was raised:
+         ** (RuntimeError) private policy failure
+             test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+ 10) test moderation raise fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1555.0>) an exception was raised:
+         ** (RuntimeError) private policy failure
+             test/jido_messaging/ingest_policy_failure_test.exs:31: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:27.779 [error] GenServer #PID<0.1649.0> terminating
+** (stop) {:nocatch, :private_policy_failure}
+    test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.1645.0>, {{:nocatch, :private_policy_failure}, [{Jido.Messaging.IngestPolicyFailureTest.Gater, :fail, 1, [file: ~c"test/jido_messaging/ingest_policy_failure_test.exs", line: 32]}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.1649.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1650.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150147.150251>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1645.0>]}}
+
+
+ 11) test moderation throw denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.1645.0>) an exception was raised:
+         ** (ErlangError) Erlang error: {:nocatch, :private_policy_failure}
+             test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+23:54:27.783 [error] GenServer #PID<0.1739.0> terminating
+** (stop) {:nocatch, :private_policy_failure}
+    test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+    (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+Last message: {:EXIT, #PID<0.1735.0>, {{:nocatch, :private_policy_failure}, [{Jido.Messaging.IngestPolicyFailureTest.Gater, :fail, 1, [file: ~c"test/jido_messaging/ingest_policy_failure_test.exs", line: 32]}, {Task.Supervised, :invoke_mfa, 2, [file: ~c"lib/task/supervised.ex", line: 105]}, {Task.Supervised, :reply, 4, [file: ~c"lib/task/supervised.ex", line: 40]}]}}
+State: {:state, {#PID<0.1739.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1740.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150145.149404>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1735.0>]}}
+
+
+ 12) test moderation throw fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1735.0>) an exception was raised:
+         ** (ErlangError) Erlang error: {:nocatch, :private_policy_failure}
+             test/jido_messaging/ingest_policy_failure_test.exs:32: Jido.Messaging.IngestPolicyFailureTest.Gater.fail/1
+             (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+             (elixir 1.20.4) lib/task/supervised.ex:40: Task.Supervised.reply/4
+
+
+
+ 13) test moderation exit denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.1825.0>) :private_policy_failure
+
+
+23:54:27.793 [error] GenServer #PID<0.1919.0> terminating
+** (stop) :private_policy_failure
+Last message: {:EXIT, #PID<0.1915.0>, :private_policy_failure}
+State: {:state, {#PID<0.1919.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.1920.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150146.147099>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.1915.0>]}}
+
+
+ 14) test moderation exit fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.1915.0>) :private_policy_failure
+
+
+23:54:27.796 [error] GenServer #PID<0.2009.0> terminating
+** (stop) killed
+Last message: {:EXIT, #PID<0.2005.0>, :killed}
+State: {:state, {#PID<0.2009.0>, ExUnit.OnExitHandler.Supervisor}, :one_for_one, {[Jido.Messaging.IngestPolicyFailureTest.Runtime], %{Jido.Messaging.IngestPolicyFailureTest.Runtime => {:child, #PID<0.2010.0>, Jido.Messaging.IngestPolicyFailureTest.Runtime, {Jido.Messaging.IngestPolicyFailureTest.Runtime, :start_link, [[]]}, :permanent, false, :infinity, :supervisor, [Jido.Messaging.IngestPolicyFailureTest.Runtime]}}}, :undefined, 1000000, 1, [], 0, 0, :never, 1000, false, #Reference<0.2454142585.2982150145.150192>, ExUnit.OnExitHandler.Supervisor, {[], [#PID<0.2005.0>]}}
+
+
+ 15) test moderation kill denial preserves retry ownership (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:52
+     ** (EXIT from #PID<0.2005.0>) killed
+
+
+
+ 16) test moderation kill fallback retains one message (Jido.Messaging.IngestPolicyFailureTest)
+     test/jido_messaging/ingest_policy_failure_test.exs:74
+     ** (EXIT from #PID<0.2094.0>) killed
+
+..
+Finished in 0.8 seconds (0.8s async, 0.00s sync)
+
+Result: 4/20 passed
+Failed: 16 tests

@@ -1,0 +1,23 @@
+{
+  "label": "g1-draft-contract-check",
+  "command": [
+    "mix",
+    "run",
+    "scripts/verify_signal_migration.exs",
+    "--phase",
+    "G1",
+    "--manifest",
+    "../docs/migration/version-matrix.json"
+  ],
+  "repository": "integration",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "d030b973ad9f78e43508974a2c71982376f7f221f8c7ead775f90d47e4347e5c",
+  "started_at": "2026-10-12T16:46:48.120178+00:00",
+  "finished_at": "2026-10-12T16:46:49.147868+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g1/g1-draft-contract-check.log",
+  "log_sha256": "6f4ace5fde2b7a61ce62c9ba3241005d99160250909eb51f4b934c3c946419de"
+}

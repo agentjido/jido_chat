@@ -1,0 +1,26 @@
+{
+  "label": "g3-message-size-resource-prewrite-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/message_fact_size_test.exs",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "test/jido_messaging/typed_execution_test.exs",
+    "test/jido_messaging/events_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "ced3715451413ef3a85ad9a3bfd8a83767e7214e",
+  "source_tree_sha256": "e06d0451d579472c3119edde459230a045db689729e9e5f355b43adf0ef6eb0e",
+  "started_at": "2026-10-12T23:51:56.417665+00:00",
+  "finished_at": "2026-10-12T23:52:06.076342+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-message-size-resource-prewrite-tests.log",
+  "log_sha256": "8116a9b1e9603e444c5a355a4c7a0ff181cdc8672d93d6727556f6ec93e975f7"
+}

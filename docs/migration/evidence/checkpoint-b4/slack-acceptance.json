@@ -1,0 +1,287 @@
+{
+  "gate": "G6",
+  "package": "jido_chat_slack",
+  "state": "pass",
+  "head_after_source_commit": "78df382391209bb8b1a6feccce4a0a03a33887e6",
+  "source_snapshot": {
+    "lib": {
+      "files": 20,
+      "sha256": "09adebaf687d0470482cf0a4c083efe2efd3cd7c23a0c51a1298539ad5f75ebe"
+    },
+    "test": {
+      "files": 13,
+      "sha256": "8a250ed691067ab4ba5167e172eb9d3e038aa509b3933bd0a5f70c2c77f1acb5"
+    },
+    "integration/lib": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/test": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/scripts": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "integration/fixtures": {
+      "files": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "mix.exs": "4ee124b98df9549ebdcd1cb6ea5dee43bec34d84e30c5030a7fb30054b0e0904",
+    "mix.lock": "8b47d33248c7a8033c92a2bf6786aacb45d05bfe9eca5b63bf67c9e504999fa2",
+    "config/config.exs": "90564c595fec92ac91b07f4346cf73c6655882133fbb06d924b77e61e7c7bcf7",
+    "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+  },
+  "assertion_sources": [
+    {
+      "file": "test/jido/chat/slack/protocol_test.exs",
+      "cases": [
+        "native send selects portable data and retains one cached provider call",
+        "history and thread pages retain every item and cursor",
+        "native user and thread queries use selected domain fields",
+        "ephemeral operation retains native conversation and message IDs",
+        "private interaction controls open a modal and retain its later conversation scope",
+        "options loader receives a native request and returns portable options",
+        "the same provider view ID retains separate binding and conversation scopes",
+        "cancelled and expired prepared modals make zero provider calls"
+      ]
+    },
+    {
+      "file": "test/jido/chat/slack/socket_mode/req_client_test.exs",
+      "cases": [
+        "open_socket/2 calls apps.connections.open with the app token",
+        "open_socket/2 surfaces Slack API errors explicitly",
+        "open_socket/2 uses runtime base_url"
+      ]
+    },
+    {
+      "file": "test/jido/chat/slack/transport/req_client_test.exs",
+      "cases": [
+        "send_message/3 encodes Slack payload into form params",
+        "Slack API errors are surfaced explicitly",
+        "resource operations use the matching Slack Web API methods",
+        "resource operations reject malformed successful responses",
+        "resource operations preserve Slack API errors",
+        "send_message/3 uses runtime base_url for Slack API calls",
+        "send_file/3 performs Slack external upload flow",
+        "download_file/2 sends bot authentication and returns raw bytes",
+        "download_file/2 rejects HTML and non-success responses"
+      ]
+    }
+  ],
+  "acceptance_rows": [
+    {
+      "id": "R1",
+      "state": "pass",
+      "result": "Protocol 1 bindings start with captured configuration. Injected transport fixtures execute through that binding.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-slack-current-tests.json",
+          "sha256": "e6d969bb51ff239fcd6da0177329eb710da8b1933e8b4abc77207e87b17adfec"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-quality-final.json",
+          "sha256": "5b5c5ddab75300aafd8c127c8d1f5f17e21b7a1ca56e786d8efa1dda6ff5775b"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-coverage-final.json",
+          "sha256": "d1e2be4372b96b8664bcfc37bcb2c189a16fca12edb4ba0a04017f4707fd023e"
+        }
+      ],
+      "prior_acceptance": "evidence/checkpoint-b3/g5-acceptance.json"
+    },
+    {
+      "id": "R2",
+      "state": "pass",
+      "result": "Every frozen event support claim has a positive or unsupported fixture. Zero/one/many deliveries retain order and stable provider item identity.",
+      "event_support": {
+        "MessageReceived": "native",
+        "MessageUpdated": "native",
+        "MessageDeleted": "native",
+        "ReactionAdded": "native",
+        "ReactionRemoved": "native",
+        "ActionReceived": "native",
+        "ModalSubmitted": "native",
+        "ModalClosed": "native",
+        "OptionsRequested": "native",
+        "SlashCommandReceived": "native",
+        "AssistantThreadStarted": "native",
+        "AssistantContextChanged": "native",
+        "MembershipChanged": "native",
+        "ThreadStarted": "unsupported",
+        "ReceiptReceived": "unsupported",
+        "NormalizationFailed": "native",
+        "ThreadChanged": "unsupported"
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-slack-current-tests.json",
+          "sha256": "e6d969bb51ff239fcd6da0177329eb710da8b1933e8b4abc77207e87b17adfec"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-quality-final.json",
+          "sha256": "5b5c5ddab75300aafd8c127c8d1f5f17e21b7a1ca56e786d8efa1dda6ff5775b"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-coverage-final.json",
+          "sha256": "d1e2be4372b96b8664bcfc37bcb2c189a16fca12edb4ba0a04017f4707fd023e"
+        }
+      ]
+    },
+    {
+      "id": "R3",
+      "state": "pass",
+      "result": "Every frozen operation support claim has a native, fallback or unsupported result fixture. Assertions check exact provider calls, cached request results, native serialization and trace.",
+      "operation_support": {
+        "send_message": "native",
+        "send_file": "native",
+        "post_message": "native",
+        "edit_message": "native",
+        "delete_message": "native",
+        "start_typing": "unsupported",
+        "fetch_metadata": "native",
+        "fetch_thread": "native",
+        "fetch_message": "native",
+        "get_user": "native",
+        "fetch_subject": "native",
+        "get_thread_participants": "native",
+        "mark_as_read": "native",
+        "fetch_media": "native",
+        "add_reaction": "native",
+        "remove_reaction": "native",
+        "post_ephemeral": "native",
+        "post_channel_message": "fallback",
+        "stream": "fallback",
+        "open_modal": "native",
+        "load_options": "native",
+        "fetch_messages": "native",
+        "fetch_channel_messages": "native",
+        "list_threads": "native",
+        "open_thread": "native",
+        "open_dm": "native"
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-slack-current-tests.json",
+          "sha256": "e6d969bb51ff239fcd6da0177329eb710da8b1933e8b4abc77207e87b17adfec"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-quality-final.json",
+          "sha256": "5b5c5ddab75300aafd8c127c8d1f5f17e21b7a1ca56e786d8efa1dda6ff5775b"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-coverage-final.json",
+          "sha256": "d1e2be4372b96b8664bcfc37bcb2c189a16fca12edb4ba0a04017f4707fd023e"
+        }
+      ]
+    },
+    {
+      "id": "R4",
+      "state": "pass",
+      "result": "Declared queries retain items and cursors. Streams remain lazy. Resource ownership, cancellation, expiry and failure are checked. Provider controls stay private.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-slack-current-tests.json",
+          "sha256": "e6d969bb51ff239fcd6da0177329eb710da8b1933e8b4abc77207e87b17adfec"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-quality-final.json",
+          "sha256": "5b5c5ddab75300aafd8c127c8d1f5f17e21b7a1ca56e786d8efa1dda6ff5775b"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-coverage-final.json",
+          "sha256": "d1e2be4372b96b8664bcfc37bcb2c189a16fca12edb4ba0a04017f4707fd023e"
+        }
+      ]
+    },
+    {
+      "id": "R5",
+      "state": "pass",
+      "result": "Complete limits reject before the sink. Error, raise, throw, exit and invalid sink results have explicit call/effect assertions. Acceptance, acknowledgement and retry behavior match the frozen transport rule.",
+      "transport_contract": {
+        "forms": [
+          "Events API webhook",
+          "interactive webhook",
+          "Socket Mode"
+        ],
+        "delivery_identity": "binding ID plus event_id or socket envelope_id; interactive requests use a canonical bounded request digest",
+        "item_identity": "provider event identity plus fact kind and ordinal",
+        "acceptance": "Normalize the same inner protocol payload through one mapper. Keep interaction response_url/trigger_id and socket controls private.",
+        "acknowledgement": "Ordinary Socket Mode events acknowledge before the sink; response-bearing envelopes acknowledge after the sink. Preserve both timings. HTTP responses remain private.",
+        "retry_unit": "provider envelope/webhook; no new durable acceptance guarantee",
+        "evidence": [
+          "lib/jido/chat/slack/socket_mode_worker.ex",
+          "lib/jido/chat/slack/interaction_response.ex",
+          "lib/jido/chat/slack/adapter.ex"
+        ]
+      },
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+          "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+        },
+        {
+          "path": "evidence/checkpoint-b4/g6-slack-current-tests.json",
+          "sha256": "e6d969bb51ff239fcd6da0177329eb710da8b1933e8b4abc77207e87b17adfec"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-quality-final.json",
+          "sha256": "5b5c5ddab75300aafd8c127c8d1f5f17e21b7a1ca56e786d8efa1dda6ff5775b"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-coverage-final.json",
+          "sha256": "d1e2be4372b96b8664bcfc37bcb2c189a16fca12edb4ba0a04017f4707fd023e"
+        }
+      ]
+    },
+    {
+      "id": "R6",
+      "state": "pass",
+      "result": "The B3 acceptance report remains applicable. Current package and bounded runtime fixtures pass after the shared schema corrections.",
+      "checks": [
+        {
+          "path": "evidence/checkpoint-b4/g6-slack-current-tests.json",
+          "sha256": "e6d969bb51ff239fcd6da0177329eb710da8b1933e8b4abc77207e87b17adfec"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-quality-final.json",
+          "sha256": "5b5c5ddab75300aafd8c127c8d1f5f17e21b7a1ca56e786d8efa1dda6ff5775b"
+        },
+        {
+          "path": "evidence/checkpoint-b3/slack-coverage-final.json",
+          "sha256": "d1e2be4372b96b8664bcfc37bcb2c189a16fca12edb4ba0a04017f4707fd023e"
+        }
+      ],
+      "coverage_percent": 74.1,
+      "coverage_floor": null
+    }
+  ],
+  "tests": {
+    "passed": 142,
+    "failed": 0,
+    "excluded": 8
+  },
+  "coverage_percent": 74.1,
+  "coverage_floor": null,
+  "proof_reuse": "Package source, tests and configuration match the successful end snapshots. Formatting precedes quality checks. Older positive tests for Signal, Mattermost and Teams remain valid: the only later core library change allows null for a required ReactionRemoved value. Current G6 fixtures, shared catalog checks and schema tests verify that correction. Telegram/Slack code is unchanged from B3 and their package and runtime fixtures were refreshed.",
+  "live_traffic": false,
+  "new_exclusions": false,
+  "frozen_support_changed": false
+}

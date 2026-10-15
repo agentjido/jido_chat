@@ -1,0 +1,21 @@
+==> jido_chat
+Compiling 1 file (.ex)
+==> jido_messaging
+Compiling 11 files (.ex)
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp local/6" was previously defined (lib/jido_messaging/execution.ex:457)
+     │
+ 581 │   defp local(instance, runtime, request, _definition, operation, decision) do
+     │        ~
+     │
+     └─ lib/jido_messaging/execution.ex:581:8
+
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+......
+18:56:57.461 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.1329.0>, nil}
+..........................................................................................................................
+Finished in 8.1 seconds (0.00s async, 8.1s sync)
+
+Result: 128 passed

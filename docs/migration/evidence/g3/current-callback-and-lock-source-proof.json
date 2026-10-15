@@ -1,0 +1,34 @@
+{
+  "state": "pass",
+  "path_sources": [
+    {
+      "package": "jido_chat",
+      "head_sha": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "package": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "package": "jido_messaging",
+      "head_sha": "89690d09ec1415a85359f1a9ebdb3b71487bf27b",
+      "library_test_files": 336,
+      "library_test_sha256": "66ba14a48389ca783c3aa706f0dd818376387272579fc66ad472af507d6ee825"
+    }
+  ],
+  "source_unchanged_since_checks": true,
+  "proof": "Current checked library/test hashes match both dependency graph outputs. Messaging stayed clean at 89690d0 from the start of current coverage, quality, complete profile and API checks through this verification.",
+  "current_checks": [
+    "g3-current-callback-and-lock-inclusive-coverage.json",
+    "g3-current-callback-and-lock-core-full-tests.json",
+    "g3-current-callback-and-lock-ai-full-tests.json",
+    "g3-current-callback-and-lock-quality.json",
+    "g3-current-callback-and-lock-complete-api-audit.json"
+  ],
+  "ai_complete_check": "pass: g3-current-callback-and-lock-ai-uncontended-recheck.json",
+  "final_requirements_unchanged": true
+}

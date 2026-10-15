@@ -1,0 +1,20 @@
+Compiling 3 files (.ex)
+Compiling 2 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+..............................................
+
+  1) test retained identity, author, and input constructors preserve their values (Jido.Chat.RetainedDomainValuesTest)
+     test/jido/chat/retained_domain_values_test.exs:46
+     ** (Jido.Chat.Errors.Validation) invalid Jido.Chat.MessageSubject: type: too small: must have at least 1 character(s)
+     code: assert MessageSubject.new(%{id: "issue-1", kind: :issue}).id == "issue-1"
+     stacktrace:
+       (jido_chat 1.2.1) lib/jido/chat/schema.ex:30: Jido.Chat.Schema.parse!/4
+       test/jido/chat/retained_domain_values_test.exs:69: (test)
+
+................................................................................................................................................................................................
+Finished in 3.9 seconds (3.9s async, 0.00s sync)
+
+Result: 238/239 passed
+Failed: 1 test

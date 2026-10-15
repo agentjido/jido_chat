@@ -1,0 +1,114 @@
+==> jido_chat
+Compiling 3 files (.ex)
+Compiling 2 files (.ex)
+==> jido_messaging
+Compiling 89 files (.ex)
+    warning: variable "instance" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+  9 │   def accept(instance, %Delivery{signals: []} = delivery) do
+    │              ~~~~~~~~
+    │
+    └─ lib/jido_messaging/acceptance.ex:9:14: Jido.Messaging.Acceptance.accept/2
+
+    warning: variable "context" is unused (if the variable is not meant to be used, prefix it with an underscore)
+    │
+ 55 │     with {:ok, message, context} <- Ingest.accept_fact(instance, binding, parent) do
+    │                         ~
+    │
+    └─ lib/jido_messaging/acceptance.ex:55:25: Jido.Messaging.Acceptance.process/3
+
+Compiling 1 file (.ex)
+     warning: Jido.Chat.Adapter.fetch_message/4 is undefined or private
+     │
+ 273 │       Adapter.fetch_message(
+     │               ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:273:15: Jido.Messaging.ChatActions.Executor.invoke/3
+     └─ lib/jido_messaging/chat_actions/executor.ex:449:20: Jido.Messaging.ChatActions.Executor.verify_message_scope/4
+
+     warning: Jido.Chat.Adapter.fetch_channel_messages/3 is undefined or private
+     │
+ 284 │       Adapter.fetch_channel_messages(target.adapter_module, target.channel_id, page_opts(params, target))
+     │               ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:284:15: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.fetch_thread/3 is undefined or private
+     │
+ 289 │     call(target, fn -> Adapter.fetch_thread(target.adapter_module, target.channel_id, target.adapter_opts) end)
+     │                                ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:289:32: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.fetch_messages/3 is undefined or private
+     │
+ 293 │     call(target, fn -> Adapter.fetch_messages(target.adapter_module, target.channel_id, page_opts(params, target)) end)
+     │                                ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:293:32: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.list_threads/3 is undefined or private
+     │
+ 297 │     call(target, fn -> Adapter.list_threads(target.adapter_module, target.channel_id, page_opts(params, target)) end)
+     │                                ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:297:32: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.fetch_metadata/3 is undefined or private
+     │
+ 301 │     call(target, fn -> Adapter.fetch_metadata(target.adapter_module, target.channel_id, target.adapter_opts) end)
+     │                                ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:301:32: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.post_message/4 is undefined or private
+     │
+ 331 │       Adapter.post_message(target.adapter_module, target.channel_id, PostPayload.text(fetch!(params, :text)), opts)
+     │               ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:331:15: Jido.Messaging.ChatActions.Executor.invoke/3
+     └─ lib/jido_messaging/chat_actions/executor.ex:344:17: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.post_channel_message/4 is undefined or private
+     │
+ 337 │       Adapter.post_channel_message(target.adapter_module, target.channel_id, fetch!(params, :text), target.adapter_opts)
+     │               ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:337:15: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.edit_message/5 is undefined or private
+     │
+ 359 │       Adapter.edit_message(
+     │               ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:359:15: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.delete_message/4 is undefined or private
+     │
+ 371 │       Adapter.delete_message(
+     │               ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:371:15: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.add_reaction/5 is undefined or private
+     │
+ 382 │       Adapter.add_reaction(
+     │               ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:382:15: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.remove_reaction/5 is undefined or private
+     │
+ 394 │       Adapter.remove_reaction(
+     │               ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:394:15: Jido.Messaging.ChatActions.Executor.invoke/3
+
+     warning: Jido.Chat.Adapter.start_typing/3 is undefined or private
+     │
+ 405 │     call(target, fn -> Adapter.start_typing(target.adapter_module, target.channel_id, target.adapter_opts) end)
+     │                                ~
+     │
+     └─ lib/jido_messaging/chat_actions/executor.ex:405:32: Jido.Messaging.ChatActions.Executor.invoke/3
+
+Compilation failed due to warnings while using the --warnings-as-errors option

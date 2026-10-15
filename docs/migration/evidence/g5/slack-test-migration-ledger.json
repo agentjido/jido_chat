@@ -1,0 +1,535 @@
+{
+  "package": "jido_chat_slack",
+  "base_sha": "770be0ff63ffe9cd0f7270d6fcf69a32c46e8cba",
+  "state": "source-inventory-complete",
+  "scope": "Named original source cases, including both branches of the optional live-user test. Runtime expansions are counted by ExUnit. Existing live cases are compile-checked only.",
+  "original_named_cases": 75,
+  "unmapped_original_cases": 0,
+  "cases": [
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "card renderer uses Slack tables and readable chart fallbacks",
+      "current_name": "card renderer uses Slack tables and readable chart fallbacks",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "card posts preserve stable link action IDs",
+      "current_name": "card posts preserve stable link action IDs",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "provider table limits fail explicitly",
+      "current_name": "provider table limits fail explicitly",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "table character limit applies across all tables in a card",
+      "current_name": "table character limit applies across all tables in a card",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "modal renderer maps date, number, and external select inputs",
+      "current_name": "modal renderer maps date, number, and external select inputs",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "unsupported native modal constraints return explicit errors",
+      "current_name": "unsupported native modal constraints return explicit errors",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "text, date, number, static select, and external select placeholders allow 150 characters",
+      "current_name": "text, date, number, static select, and external select placeholders allow 150 characters",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "text, date, number, static select, and external select reject longer placeholders",
+      "current_name": "text, date, number, static select, and external select reject longer placeholders",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "card static and external selects use the shared placeholder limit",
+      "current_name": "card static and external selects use the shared placeholder limit",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "number inputs allow decimal values when the canonical input has no integer-only flag",
+      "current_name": "number inputs allow decimal values when the canonical input has no integer-only flag",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "block suggestions normalize and option loaders enforce Slack limits",
+      "current_name": "block suggestions normalize and option loaders enforce Slack limits",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "options-load webhook replies use Slack's response shape",
+      "current_name": "options-load webhook replies use Slack's response shape",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "option loader timeouts stay typed at the core boundary",
+      "current_name": "option loader timeouts stay typed at the core boundary",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/cards_modals_test.exs",
+      "original_name": "capabilities declare native inputs and explicit chart fallback",
+      "current_name": "capabilities declare native inputs and explicit chart fallback",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "channel metadata",
+      "current_name": "channel metadata",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "adapter capabilities matrix declares supported surfaces",
+      "current_name": "adapter capabilities matrix declares supported surfaces",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "get_user/2 returns normalized Slack user information",
+      "current_name": "get_user/2 returns normalized Slack user information",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "get_user/2 rejects malformed successful transport responses",
+      "current_name": "get_user/2 rejects malformed successful transport responses",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "get_user/2 preserves transport errors",
+      "current_name": "get_user/2 preserves transport errors",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "fetch_subject/2 returns channel and thread subjects",
+      "current_name": "fetch_subject/2 returns channel and thread subjects",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "get_thread_participants/2 follows cursors, de-duplicates users, and includes bots",
+      "current_name": "get_thread_participants/2 follows cursors, de-duplicates users, and includes bots",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "get_thread_participants/2 enforces participant and page limits",
+      "current_name": "get_thread_participants/2 enforces participant and page limits",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "thread handles pass the external Slack thread timestamp to resource helpers",
+      "current_name": "native thread requests pass the external Slack timestamp to resource helpers",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "mark_as_read/3 delegates an idempotent Slack receipt",
+      "current_name": "mark_as_read/3 delegates an idempotent Slack receipt",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "transform_incoming/1 normalizes a slack message map",
+      "current_name": "transform_incoming/1 normalizes a slack message map",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "transform_incoming/1 extracts files as media",
+      "current_name": "transform_incoming/1 extracts files as media",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "transform_incoming/1 preserves file share comments",
+      "current_name": "transform_incoming/1 preserves file share comments",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "fetch_media/2 downloads raw URLs and media references with a bot token",
+      "current_name": "fetch_media/2 downloads raw URLs and media references with a bot token",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "send/edit/delete/fetch metadata methods work",
+      "current_name": "send/edit/delete/fetch metadata methods work",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "send_message/3 maps generic thread routing to slack thread_ts",
+      "current_name": "send_message/3 maps generic thread routing to slack thread_ts",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "send_file/3 uploads path-backed and in-memory files",
+      "current_name": "send_file/3 uploads path-backed and in-memory files",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "send_file/3 returns explicit validation errors for unsupported or incomplete inputs",
+      "current_name": "send_file/3 returns explicit validation errors for unsupported or incomplete inputs",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "open_dm, post_ephemeral, reactions, and history helpers",
+      "current_name": "open_dm, post_ephemeral, reactions, and history helpers",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "fetch_message/3 preserves channel id when Slack omits it from the payload",
+      "current_name": "fetch_message/3 preserves channel id when Slack omits it from the payload",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "core post_message/4 routes a single file through Slack send_file/3",
+      "current_name": "native post_message routes a single file through Slack send_file",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "history helpers fail explicitly for unsupported forward direction",
+      "current_name": "history helpers fail explicitly for unsupported forward direction",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "open_modal/3 requires trigger_id and normalizes result",
+      "current_name": "native modal request requires a private trigger and normalizes the result",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "handle_webhook/3 routes app_mention, slash, action, modal, and reaction events",
+      "current_name": "handle_webhook/3 routes app_mention, slash, action, modal, and reaction events",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "parse_event/2 noop and webhook response handle Slack url verification",
+      "current_name": "native empty delivery and private response handle Slack URL verification",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "webhook pipeline uses chat metadata slack_response for interaction replies",
+      "current_name": "private webhook response builder returns the existing interaction response shape",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/channel_test.exs",
+      "original_name": "handle_webhook/3 fails closed when signature verification fails",
+      "current_name": "private webhook verification fails closed on an invalid signature",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "send/fetch/edit/delete message against live Slack API",
+      "current_name": "send/fetch/edit/delete message against live Slack API",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "metadata lookup succeeds against live Slack API",
+      "current_name": "metadata lookup succeeds against live Slack API",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "stream fallback edits a visible draft and leaves the final content",
+      "current_name": "stream fallback edits a visible draft and leaves the final content",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "reply continuity preserves Slack thread metadata",
+      "current_name": "reply continuity preserves Slack thread metadata",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "reaction flow succeeds against live Slack API",
+      "current_name": "reaction flow succeeds against live Slack API",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "send_file accepts local filesystem paths and raw byte uploads",
+      "current_name": "send_file accepts local filesystem paths and raw byte uploads",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "core post_message routes canonical single-file payloads through Slack send_file",
+      "current_name": "core post_message routes canonical single-file payloads through Slack send_file",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "open_dm and post_ephemeral succeed when SLACK_TEST_USER_ID is provided",
+      "current_name": "open_dm and post_ephemeral succeed when SLACK_TEST_USER_ID is provided",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/live_integration_test.exs",
+      "original_name": "open_dm and post_ephemeral live tests require SLACK_TEST_USER_ID",
+      "current_name": "open_dm and post_ephemeral live tests require SLACK_TEST_USER_ID",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/message_lifecycle_event_test.exs",
+      "original_name": "parses a Slack message_changed callback into a typed update event",
+      "current_name": "parses a Slack message_changed callback into a typed update event",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/message_lifecycle_event_test.exs",
+      "original_name": "accepts atom-key Slack provider maps for message_changed",
+      "current_name": "accepts atom-key Slack provider maps for message_changed",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/message_lifecycle_event_test.exs",
+      "original_name": "parses a Slack message_deleted callback without deleted content",
+      "current_name": "parses a Slack message_deleted callback without deleted content",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/message_lifecycle_event_test.exs",
+      "original_name": "accepts a minimal atom-key delete and keeps unavailable values absent",
+      "current_name": "accepts a minimal atom-key delete and keeps unavailable values absent",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/message_lifecycle_event_test.exs",
+      "original_name": "routes lifecycle callbacks only to lifecycle handlers and preserves create routing",
+      "current_name": "routes lifecycle callbacks only to lifecycle handlers and preserves create routing",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/options_test.exs",
+      "original_name": "SendOptions.new/1 normalizes keyword options into typed struct",
+      "current_name": "SendOptions.new/1 normalizes keyword options into typed struct",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/options_test.exs",
+      "original_name": "Edit and Ephemeral options normalize payloads",
+      "current_name": "Edit and Ephemeral options normalize payloads",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/options_test.exs",
+      "original_name": "Fetch, Metadata, Reaction, Delete, and Modal options normalize transport opts",
+      "current_name": "Fetch, Metadata, Reaction, Delete, and Modal options normalize transport opts",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/socket_mode/req_client_test.exs",
+      "original_name": "open_socket/2 calls apps.connections.open with the app token",
+      "current_name": "open_socket/2 calls apps.connections.open with the app token",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/socket_mode/req_client_test.exs",
+      "original_name": "open_socket/2 surfaces Slack API errors explicitly",
+      "current_name": "open_socket/2 surfaces Slack API errors explicitly",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/socket_mode/req_client_test.exs",
+      "original_name": "open_socket/2 uses runtime base_url",
+      "current_name": "open_socket/2 uses runtime base_url",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/socket_mode_worker_test.exs",
+      "original_name": "adapter listener_child_specs/2 returns expected webhook/socket_mode specs",
+      "current_name": "adapter listener_child_specs/2 returns expected webhook/socket_mode specs",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/socket_mode_worker_test.exs",
+      "original_name": "socket mode worker acknowledges envelopes and emits inner payloads through sink",
+      "current_name": "socket mode worker acknowledges envelopes and emits inner payloads through sink",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/socket_mode_worker_test.exs",
+      "original_name": "socket mode worker reconnects after Slack requests a disconnect",
+      "current_name": "socket mode worker reconnects after Slack requests a disconnect",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/socket_mode_worker_test.exs",
+      "original_name": "socket mode worker includes inline response payload when Slack accepts it",
+      "current_name": "socket mode worker includes inline response payload when Slack accepts it",
+      "status": "ported",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "send_message/3 encodes Slack payload into form params",
+      "current_name": "send_message/3 encodes Slack payload into form params",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "Slack API errors are surfaced explicitly",
+      "current_name": "Slack API errors are surfaced explicitly",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "resource operations use the matching Slack Web API methods",
+      "current_name": "resource operations use the matching Slack Web API methods",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "resource operations reject malformed successful responses",
+      "current_name": "resource operations reject malformed successful responses",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "resource operations preserve Slack API errors",
+      "current_name": "resource operations preserve Slack API errors",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "send_message/3 uses runtime base_url for Slack API calls",
+      "current_name": "send_message/3 uses runtime base_url for Slack API calls",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "send_file/3 performs Slack external upload flow",
+      "current_name": "send_file/3 performs Slack external upload flow",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "download_file/2 sends bot authentication and returns raw bytes",
+      "current_name": "download_file/2 sends bot authentication and returns raw bytes",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack/transport/req_client_test.exs",
+      "original_name": "download_file/2 rejects HTML and non-success responses",
+      "current_name": "download_file/2 rejects HTML and non-success responses",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    },
+    {
+      "source": "test/jido/chat/slack_test.exs",
+      "original_name": "adapter/0 returns the slack adapter module",
+      "current_name": "adapter/0 returns the slack adapter module",
+      "status": "retained",
+      "reason": "Retain native request/fact or private provider control assertions. Existing live cases remain excluded; no new skip/live tag."
+    }
+  ]
+}

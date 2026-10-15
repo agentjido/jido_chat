@@ -1,0 +1,26 @@
+{
+  "label": "g3-current-owned-ingress-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "ced3715451413ef3a85ad9a3bfd8a83767e7214e",
+  "source_tree_sha256": "ab85f450656e079b9c2fa72967b772fc856596e3f7a033e90b5167c1068b44db",
+  "started_at": "2026-10-12T23:38:38.480009+00:00",
+  "finished_at": "2026-10-12T23:39:13.295172+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-owned-ingress-coverage.log",
+  "log_sha256": "f6827737236790118373963a031004a14cfa46f9cce99a35aa3d14dafb7d744b"
+}

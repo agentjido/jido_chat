@@ -1,0 +1,22 @@
+{
+  "label": "g4-telegram-full-suite-after-surface-port",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_telegram",
+  "head_sha": "f1243bde48f4987a93ad9e26ec12c4742113c613",
+  "source_tree_sha256": "3912442d01f18c5a844b925b08e7899b8aef3407a29b43e09060c27bd9f1310a",
+  "started_at": "2026-10-13T01:08:16.219197+00:00",
+  "finished_at": "2026-10-13T01:08:17.825506+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 3,
+  "log": "migration/evidence/g4/g4-telegram-full-suite-after-surface-port.log",
+  "log_sha256": "cc14ef9a5f21298c3d312eb3eec9abf6ec2d3a2128dbf8af1d8575365ca4d2a7"
+}

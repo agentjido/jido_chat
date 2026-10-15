@@ -1,0 +1,21 @@
+{
+  "label": "g4-current-shared-membership-core-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "4fa1b9360b3927e82498e4293bfcf84673908b19",
+  "source_tree_sha256": "858f30e69a3f8e96c2977fe34221e4d4c8be4b17d906cf6ae0c907afbc93d28f",
+  "started_at": "2026-10-13T00:41:35.494419+00:00",
+  "finished_at": "2026-10-13T00:41:41.926197+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g4/g4-current-shared-membership-core-tests.log",
+  "log_sha256": "9f3f6a10cfe247ebc8abfa54321e564ce4bdd6eeb058a4a5a90637a5eaa9b7ff"
+}

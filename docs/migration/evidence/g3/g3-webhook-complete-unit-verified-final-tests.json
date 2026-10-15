@@ -1,0 +1,57 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "e4881fcd8b6d682d6ff5e9b0cb3fabe41b8efef0",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "756e46b436590b98cfdb42dc3f6ec1e4a0103505",
+      "library_test_files": 348,
+      "library_test_sha256": "de238000810e4138a86395d8fa4c3f6207340d1d630dcee866fbc6f435748733"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-webhook-complete-unit-verified-final-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/webhook_callback_failure_test.exs",
+    "test/jido_messaging/webhook_transport_failure_test.exs",
+    "test/jido_messaging/webhook_plug_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "756e46b436590b98cfdb42dc3f6ec1e4a0103505",
+  "source_tree_sha256": "91316133ee44e8acc2891e4a47c8021eca2c70320b737dda8e256254bbb32be9",
+  "started_at": "2026-10-13T05:25:07.201093+00:00",
+  "finished_at": "2026-10-13T05:25:48.717917+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-webhook-complete-unit-verified-final-tests.log",
+  "log_sha256": "38a25b58468bb1c9e302b5c66506e0b4c4925185e2d60f66053b299dfb6de058"
+}

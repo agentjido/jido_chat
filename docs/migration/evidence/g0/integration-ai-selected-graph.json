@@ -1,0 +1,21 @@
+{
+  "label": "integration-ai-selected-graph",
+  "command": [
+    "mix",
+    "run",
+    "scripts/report_dependency_graph.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "f730d190e1921fd72f4cba0e6ced1f74902905e52c45bc879c17da39c5087768",
+  "started_at": "2026-10-12T16:31:34.369538+00:00",
+  "finished_at": "2026-10-12T16:31:36.541851+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_INTEGRATION_AI": "1",
+    "MIX_BUILD_PATH": "_build/with_ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g0/integration-ai-selected-graph.log",
+  "log_sha256": "4089371cd0db8135746c0f9f414cff960405fd44e88ac44a0477eae38cfd7173"
+}

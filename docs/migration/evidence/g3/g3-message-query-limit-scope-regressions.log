@@ -1,0 +1,47 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+
+
+  1) test Elixir.Jido.Messaging.Persistence.ETS invalid limits return the defined error and keep complete records (Jido.Messaging.Persistence.MessageQueryLimitScopeTest)
+     test/jido_messaging/persistence/message_query_limit_scope_test.exs:12
+     match (=) failed
+     code:  assert {:error, :invalid_limit} = adapter.get_messages(state, "owned", opts)
+     left:  {:error, :invalid_limit}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/message_query_limit_scope_test.exs:20: anonymous fn/4 in Jido.Messaging.Persistence.MessageQueryLimitScopeTest."test Elixir.Jido.Messaging.Persistence.ETS invalid limits return the defined error and keep complete records"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/persistence/message_query_limit_scope_test.exs:18: (test)
+
+.
+
+  2) test Elixir.Jido.Messaging.Persistence.SQLite invalid limits return the defined error and keep complete records (Jido.Messaging.Persistence.MessageQueryLimitScopeTest)
+     test/jido_messaging/persistence/message_query_limit_scope_test.exs:12
+     match (=) failed
+     code:  assert {:error, :invalid_limit} = adapter.get_messages(state, "owned", opts)
+     left:  {:error, :invalid_limit}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/message_query_limit_scope_test.exs:20: anonymous fn/4 in Jido.Messaging.Persistence.MessageQueryLimitScopeTest."test Elixir.Jido.Messaging.Persistence.SQLite invalid limits return the defined error and keep complete records"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/persistence/message_query_limit_scope_test.exs:18: (test)
+
+.
+
+  3) test Elixir.Jido.Messaging.Persistence.Postgres invalid limits return the defined error and keep complete records (Jido.Messaging.Persistence.MessageQueryLimitScopeTest)
+     test/jido_messaging/persistence/message_query_limit_scope_test.exs:12
+     match (=) failed
+     code:  assert {:error, :invalid_limit} = adapter.get_messages(state, "owned", opts)
+     left:  {:error, :invalid_limit}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/message_query_limit_scope_test.exs:20: anonymous fn/4 in Jido.Messaging.Persistence.MessageQueryLimitScopeTest."test Elixir.Jido.Messaging.Persistence.Postgres invalid limits return the defined error and keep complete records"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/persistence/message_query_limit_scope_test.exs:18: (test)
+
+.
+Finished in 0.3 seconds (0.00s async, 0.3s sync)
+
+Result: 3/6 passed
+Failed: 3 tests

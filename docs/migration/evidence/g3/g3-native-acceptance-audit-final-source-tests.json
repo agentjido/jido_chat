@@ -1,0 +1,58 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "204072e833804ba8f995299eabfda9e225c8779c",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "a690ab32bb8327fa9aaf1398b68642f74745b699",
+      "library_test_files": 361,
+      "library_test_sha256": "291cbea3fd462e2e937064dfe23f74c4faec315aafa6d20979bd45c4c1ee8e7d"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-native-acceptance-audit-final-source-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/native_audit_logger_test.exs",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "test/jido_messaging/acceptance_failure_test.exs",
+    "test/jido_messaging/audit_logger_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "a690ab32bb8327fa9aaf1398b68642f74745b699",
+  "source_tree_sha256": "b7d16801ac53c4707d7b903a881a10f27abb4110b290a0bb379abb5e6fcc237f",
+  "started_at": "2026-10-13T06:26:35.369770+00:00",
+  "finished_at": "2026-10-13T06:26:44.044429+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-native-acceptance-audit-final-source-tests.log",
+  "log_sha256": "ec70641255ba7632344b2ee245ebf695a1e0a0303d7720debbf665e6d314519e"
+}

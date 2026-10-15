@@ -1,0 +1,59 @@
+Compiling 20 files (.ex)
+     warning: def format_webhook_response/2 has multiple clauses and also declares default values. In such cases, the default values should be defined in a header. Instead of:
+
+         def foo(:first_clause, b \\ :default) do ... end
+         def foo(:second_clause, b) do ... end
+
+     one should write:
+
+         def foo(a, b \\ :default)
+         def foo(:first_clause, b) do ... end
+         def foo(:second_clause, b) do ... end
+
+     the previous clause is defined on line 576
+
+     │
+ 587 │   def format_webhook_response({:error, reason}, _opts)
+     │       ~
+     │
+     └─ lib/jido/chat/slack/adapter.ex:587:7
+
+     warning: function slash_command_payload?/1 is unused
+     │
+ 645 │   defp slash_command_payload?(payload) when is_map(payload) do
+     │        ~
+     │
+     └─ lib/jido/chat/slack/adapter.ex:645:8: Jido.Chat.Slack.Adapter (module)
+
+     warning: function message_like_payload?/1 is unused
+     │
+ 641 │   defp message_like_payload?(payload) when is_map(payload) do
+     │        ~
+     │
+     └─ lib/jido/chat/slack/adapter.ex:641:8: Jido.Chat.Slack.Adapter (module)
+
+     warning: function interactive_payload?/1 is unused
+     │
+ 650 │   defp interactive_payload?(payload) when is_map(payload) do
+     │        ~
+     │
+     └─ lib/jido/chat/slack/adapter.ex:650:8: Jido.Chat.Slack.Adapter (module)
+
+     warning: function event_callback_payload?/1 is unused
+     │
+ 661 │   defp event_callback_payload?(payload) when is_map(payload) do
+     │        ~
+     │
+     └─ lib/jido/chat/slack/adapter.ex:661:8: Jido.Chat.Slack.Adapter (module)
+
+     error: undefined function normalize_event_type/1 (expected Jido.Chat.Slack.Adapter to define such a function or for it to be imported, but none are available)
+     │
+ 642 │     normalize_event_type(map_get(payload, [:type, "type"])) in [:message, :app_mention]
+     │     ^^^^^^^^^^^^^^^^^^^^
+     │
+     └─ lib/jido/chat/slack/adapter.ex:642:5: Jido.Chat.Slack.Adapter.message_like_payload?/1
+
+
+== Compilation error in file lib/jido/chat/slack/adapter.ex ==
+** (CompileError) lib/jido/chat/slack/adapter.ex: cannot compile module Jido.Chat.Slack.Adapter (errors have been logged)
+

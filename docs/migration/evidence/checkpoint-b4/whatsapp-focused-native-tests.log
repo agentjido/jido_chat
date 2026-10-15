@@ -1,0 +1,9 @@
+Compiling 2 files (.ex)
+Compiling 1 file (.ex)
+Running ExUnit with seed: 267010, max_cases: 20
+Excluding tags: [:live]
+
+............................
+Finished in 0.5 seconds (0.2s async, 0.3s sync)
+
+Result: 28 passed

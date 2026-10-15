@@ -1,0 +1,834 @@
+{
+  "jido_chat_telegram": {
+    "MessageReceived": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram MessageReceived matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "MessageUpdated": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram MessageUpdated matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "MessageDeleted": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram MessageDeleted matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "ReactionAdded": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram ReactionAdded matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ReactionRemoved": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram ReactionRemoved matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ActionReceived": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram ActionReceived matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ModalSubmitted": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram ModalSubmitted matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "ModalClosed": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram ModalClosed matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "OptionsRequested": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram OptionsRequested matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "SlashCommandReceived": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram SlashCommandReceived matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "AssistantThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram AssistantThreadStarted matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "AssistantContextChanged": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram AssistantContextChanged matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "MembershipChanged": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram MembershipChanged matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram ThreadStarted matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "ReceiptReceived": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram ReceiptReceived matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "NormalizationFailed": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram NormalizationFailed matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ThreadChanged": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_telegram ThreadChanged matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_slack": {
+    "MessageReceived": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack MessageReceived matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "MessageUpdated": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack MessageUpdated matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "MessageDeleted": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack MessageDeleted matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ReactionAdded": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack ReactionAdded matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ReactionRemoved": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack ReactionRemoved matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ActionReceived": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack ActionReceived matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ModalSubmitted": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack ModalSubmitted matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ModalClosed": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack ModalClosed matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "OptionsRequested": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack OptionsRequested matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "SlashCommandReceived": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack SlashCommandReceived matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "AssistantThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack AssistantThreadStarted matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "AssistantContextChanged": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack AssistantContextChanged matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "MembershipChanged": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack MembershipChanged matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack ThreadStarted matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "ReceiptReceived": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack ReceiptReceived matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    },
+    "NormalizationFailed": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack NormalizationFailed matches frozen native support in every declared form",
+      "support": "native"
+    },
+    "ThreadChanged": {
+      "category": "fixtures",
+      "file": "jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "name": "jido_chat_slack ThreadChanged matches frozen unsupported support in every declared form",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_discord": {
+    "MessageReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "MessageReceived has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "MessageUpdated": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "MessageUpdated has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "MessageDeleted": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "MessageDeleted has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "ReactionAdded": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "ReactionAdded has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "ReactionRemoved": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "ReactionRemoved has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "ActionReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "ActionReceived has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "ModalSubmitted": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "ModalSubmitted has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "ModalClosed": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "ModalClosed has frozen unsupported mapping through all gateway forms",
+      "support": "unsupported"
+    },
+    "OptionsRequested": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "OptionsRequested has frozen unsupported mapping through all gateway forms",
+      "support": "unsupported"
+    },
+    "SlashCommandReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "SlashCommandReceived has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "AssistantThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "AssistantThreadStarted has frozen unsupported mapping through all gateway forms",
+      "support": "unsupported"
+    },
+    "AssistantContextChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "AssistantContextChanged has frozen unsupported mapping through all gateway forms",
+      "support": "unsupported"
+    },
+    "MembershipChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "MembershipChanged has frozen unsupported mapping through all gateway forms",
+      "support": "unsupported"
+    },
+    "ThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "ThreadStarted has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "ReceiptReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "ReceiptReceived has frozen unsupported mapping through all gateway forms",
+      "support": "unsupported"
+    },
+    "NormalizationFailed": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "NormalizationFailed has frozen native mapping through all gateway forms",
+      "support": "native"
+    },
+    "ThreadChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "name": "ThreadChanged has frozen unsupported mapping through all gateway forms",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_github": {
+    "MessageReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "MessageReceived matches frozen native through a verified webhook",
+      "support": "native"
+    },
+    "MessageUpdated": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "MessageUpdated matches frozen native through a verified webhook",
+      "support": "native"
+    },
+    "MessageDeleted": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "MessageDeleted matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "ReactionAdded": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "ReactionAdded matches frozen native through a verified webhook",
+      "support": "native"
+    },
+    "ReactionRemoved": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "ReactionRemoved matches frozen native through a verified webhook",
+      "support": "native"
+    },
+    "ActionReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "ActionReceived matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "ModalSubmitted": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "ModalSubmitted matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "ModalClosed": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "ModalClosed matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "OptionsRequested": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "OptionsRequested matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "SlashCommandReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "SlashCommandReceived matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "AssistantThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "AssistantThreadStarted matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "AssistantContextChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "AssistantContextChanged matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "MembershipChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "MembershipChanged matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "ThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "ThreadStarted matches frozen native through a verified webhook",
+      "support": "native"
+    },
+    "ReceiptReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "ReceiptReceived matches frozen unsupported through a verified webhook",
+      "support": "unsupported"
+    },
+    "NormalizationFailed": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "NormalizationFailed matches frozen native through a verified webhook",
+      "support": "native"
+    },
+    "ThreadChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "name": "ThreadChanged matches frozen native through a verified webhook",
+      "support": "native"
+    }
+  },
+  "jido_chat_signal": {
+    "MessageReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "MessageReceived matches frozen native without inferred events",
+      "support": "native"
+    },
+    "MessageUpdated": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "MessageUpdated matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "MessageDeleted": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "MessageDeleted matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "ReactionAdded": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "ReactionAdded matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "ReactionRemoved": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "ReactionRemoved matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "ActionReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "ActionReceived matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "ModalSubmitted": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "ModalSubmitted matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "ModalClosed": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "ModalClosed matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "OptionsRequested": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "OptionsRequested matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "SlashCommandReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "SlashCommandReceived matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "AssistantThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "AssistantThreadStarted matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "AssistantContextChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "AssistantContextChanged matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "MembershipChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "MembershipChanged matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "ThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "ThreadStarted matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "ReceiptReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "ReceiptReceived matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    },
+    "NormalizationFailed": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "NormalizationFailed matches frozen native without inferred events",
+      "support": "native"
+    },
+    "ThreadChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "name": "ThreadChanged matches frozen unsupported without inferred events",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_teams": {
+    "MessageReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "MessageReceived matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "MessageUpdated": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "MessageUpdated matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "MessageDeleted": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "MessageDeleted matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "ReactionAdded": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "ReactionAdded matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "ReactionRemoved": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "ReactionRemoved matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "ActionReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "ActionReceived matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "ModalSubmitted": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "ModalSubmitted matches frozen unsupported in verified and injected forms",
+      "support": "unsupported"
+    },
+    "ModalClosed": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "ModalClosed matches frozen unsupported in verified and injected forms",
+      "support": "unsupported"
+    },
+    "OptionsRequested": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "OptionsRequested matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "SlashCommandReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "SlashCommandReceived matches frozen unsupported in verified and injected forms",
+      "support": "unsupported"
+    },
+    "AssistantThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "AssistantThreadStarted matches frozen unsupported in verified and injected forms",
+      "support": "unsupported"
+    },
+    "AssistantContextChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "AssistantContextChanged matches frozen unsupported in verified and injected forms",
+      "support": "unsupported"
+    },
+    "MembershipChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "MembershipChanged matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "ThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "ThreadStarted matches frozen unsupported in verified and injected forms",
+      "support": "unsupported"
+    },
+    "ReceiptReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "ReceiptReceived matches frozen unsupported in verified and injected forms",
+      "support": "unsupported"
+    },
+    "NormalizationFailed": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "NormalizationFailed matches frozen native in verified and injected forms",
+      "support": "native"
+    },
+    "ThreadChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "name": "ThreadChanged matches frozen unsupported in verified and injected forms",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_whatsapp": {
+    "MessageReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "MessageReceived matches frozen native including a cold reaction clear",
+      "support": "native"
+    },
+    "MessageUpdated": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "MessageUpdated matches frozen native including a cold reaction clear",
+      "support": "native"
+    },
+    "MessageDeleted": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "MessageDeleted matches frozen native including a cold reaction clear",
+      "support": "native"
+    },
+    "ReactionAdded": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "ReactionAdded matches frozen native including a cold reaction clear",
+      "support": "native"
+    },
+    "ReactionRemoved": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "ReactionRemoved matches frozen native including a cold reaction clear",
+      "support": "native"
+    },
+    "ActionReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "ActionReceived matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "ModalSubmitted": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "ModalSubmitted matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "ModalClosed": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "ModalClosed matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "OptionsRequested": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "OptionsRequested matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "SlashCommandReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "SlashCommandReceived matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "AssistantThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "AssistantThreadStarted matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "AssistantContextChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "AssistantContextChanged matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "MembershipChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "MembershipChanged matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "ThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "ThreadStarted matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "ReceiptReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "ReceiptReceived matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    },
+    "NormalizationFailed": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "NormalizationFailed matches frozen native including a cold reaction clear",
+      "support": "native"
+    },
+    "ThreadChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "name": "ThreadChanged matches frozen unsupported including a cold reaction clear",
+      "support": "unsupported"
+    }
+  },
+  "jido_chat_x": {
+    "MessageReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "MessageReceived matches frozen native after verification",
+      "support": "native"
+    },
+    "MessageUpdated": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "MessageUpdated matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "MessageDeleted": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "MessageDeleted matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "ReactionAdded": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "ReactionAdded matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "ReactionRemoved": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "ReactionRemoved matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "ActionReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "ActionReceived matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "ModalSubmitted": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "ModalSubmitted matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "ModalClosed": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "ModalClosed matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "OptionsRequested": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "OptionsRequested matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "SlashCommandReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "SlashCommandReceived matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "AssistantThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "AssistantThreadStarted matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "AssistantContextChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "AssistantContextChanged matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "MembershipChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "MembershipChanged matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "ThreadStarted": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "ThreadStarted matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "ReceiptReceived": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "ReceiptReceived matches frozen unsupported after verification",
+      "support": "unsupported"
+    },
+    "NormalizationFailed": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "NormalizationFailed matches frozen native after verification",
+      "support": "native"
+    },
+    "ThreadChanged": {
+      "category": "fixtures",
+      "file": "jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "name": "ThreadChanged matches frozen unsupported after verification",
+      "support": "unsupported"
+    }
+  }
+}

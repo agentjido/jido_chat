@@ -1,0 +1,23 @@
+{
+  "label": "g2-core-new-boundary-full",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "d891f8702a3d6b83c641083e29a5889c20da344b8f8236eeabfa2c0810d30771",
+  "started_at": "2026-10-12T18:14:50.794722+00:00",
+  "finished_at": "2026-10-12T18:14:57.475887+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-new-boundary-full.log",
+  "log_sha256": "c54b7e36e8300335e66fda3c7e15382b7dea2dad0f26db430ac6428d070c00c3"
+}

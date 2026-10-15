@@ -1,0 +1,22 @@
+{
+  "label": "g3-full-suite-after-protocol-fixtures",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "f7fcc565094cfa8891672fb22c6fc67da2942f75417b7a4fb3539b77f422b4cb",
+  "started_at": "2026-10-12T21:53:07.611917+00:00",
+  "finished_at": "2026-10-12T21:53:17.678994+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-full-suite-after-protocol-fixtures.log",
+  "log_sha256": "17c00449b40dc5f8771c31d6b4332253e17b60093b180b67cdd985bba3896ed1"
+}

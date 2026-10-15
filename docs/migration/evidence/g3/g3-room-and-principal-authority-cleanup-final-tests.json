@@ -1,0 +1,56 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "4242af836de22ebad1dc209c5e5d68c71745d231",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "1ed7ee3e084620cac5ba4b08af6e65e352b02160",
+      "library_test_files": 346,
+      "library_test_sha256": "f1271dabe48f87c04ac2230499982b0b3e934f820b6c374b37e9d80ece076d07"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-room-and-principal-authority-cleanup-final-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/persistence/room_authority_cleanup_test.exs",
+    "test/jido_messaging/authorization_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "1ed7ee3e084620cac5ba4b08af6e65e352b02160",
+  "source_tree_sha256": "3784e4ccc9945eae0e8480e4b6d6fbcd21b775dcac3375c3cc3ad42829edc2ca",
+  "started_at": "2026-10-13T05:16:10.771083+00:00",
+  "finished_at": "2026-10-13T05:16:13.699438+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-room-and-principal-authority-cleanup-final-tests.log",
+  "log_sha256": "2656eb8e90ebeac69d0d910d50e2910637f4dac9b5b57ed75102faf7fd4e4d52"
+}

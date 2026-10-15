@@ -1,0 +1,20 @@
+{
+  "label": "integration-ai-pinned-deps",
+  "command": [
+    "mix",
+    "deps.get"
+  ],
+  "repository": "integration",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "a8f8907c3c21728370369ccb880a8defc7e7c37abd3b45571fdea90dc6b6a323",
+  "started_at": "2026-10-12T16:33:13.692276+00:00",
+  "finished_at": "2026-10-12T16:33:16.163850+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_INTEGRATION_AI": "1",
+    "MIX_BUILD_PATH": "_build/with_ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g0/integration-ai-pinned-deps.log",
+  "log_sha256": "00f4a3f30b2ad389708bfdd351895a94e1fd128b6e4c2194002206bf7a45f014"
+}

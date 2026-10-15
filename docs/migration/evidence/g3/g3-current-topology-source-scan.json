@@ -1,0 +1,23 @@
+{
+  "label": "g3-current-topology-source-scan",
+  "command": [
+    "python3",
+    "scripts/scan_public_boundary.py",
+    "G3"
+  ],
+  "repository": "integration",
+  "head_sha": "7739066503bab4e3e329e9d762c3f06193ad4510",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T04:00:20.146039+00:00",
+  "finished_at": "2026-10-13T04:00:21.396466+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-topology-source-scan.log",
+  "log_sha256": "4724ede50ab0fc310e4be3cca04fd12fe668705464897304960809062fa1c49e"
+}

@@ -1,0 +1,154 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.
+
+  1) test unassignment save error restores the old assignment and permits one later cleanup (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:68
+     Assertion with == failed
+     code:  assert AgentSupervisor.count_agents(Instance) == 1
+     left:  0
+     right: 1
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:105: Jido.Messaging.AgentAssignmentStoreFailureTest.assert_old_assignment/1
+       test/jido_messaging/agent_assignment_store_failure_test.exs:71: (test)
+
+     The following output was logged:
+
+     01:36:54.824 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  2) test assign raise save failure returns safely and restores owned state (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:80
+     ** (RuntimeError) private thread save error
+     code: do: Instance.assign_thread(context.room.id, context.assigned.id, "beta"),
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:33: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2880: Jido.Messaging.assign_thread_state/8
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2370: Jido.Messaging.assign_thread/4
+       test/jido_messaging/agent_assignment_store_failure_test.exs:85: (test)
+
+     The following output was logged:
+
+     01:36:54.831 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  3) test assign throw save failure returns safely and restores owned state (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:80
+     ** (throw) :private_thread_save_error
+     code: do: Instance.assign_thread(context.room.id, context.assigned.id, "beta"),
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:34: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2880: Jido.Messaging.assign_thread_state/8
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2370: Jido.Messaging.assign_thread/4
+       test/jido_messaging/agent_assignment_store_failure_test.exs:85: (test)
+
+     The following output was logged:
+
+     01:36:54.838 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  4) test assign exit save failure returns safely and restores owned state (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:80
+     ** (exit) :private_thread_save_error
+     code: do: Instance.assign_thread(context.room.id, context.assigned.id, "beta"),
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:35: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2880: Jido.Messaging.assign_thread_state/8
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2370: Jido.Messaging.assign_thread/4
+       test/jido_messaging/agent_assignment_store_failure_test.exs:85: (test)
+
+     The following output was logged:
+
+     01:36:54.842 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  5) test assign invalid save failure returns safely and restores owned state (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:80
+     ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+     code: do: Instance.assign_thread(context.room.id, context.assigned.id, "beta"),
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2370: Jido.Messaging.assign_thread/4
+       test/jido_messaging/agent_assignment_store_failure_test.exs:85: (test)
+
+     The following output was logged:
+
+     01:36:54.847 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  6) test unassign raise save failure returns safely and restores owned state (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:80
+     ** (RuntimeError) private thread save error
+     code: else: Instance.unassign_thread(context.room.id, context.assigned.id)
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:33: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2888: Jido.Messaging.unassign_thread_state/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2420: Jido.Messaging.unassign_thread/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:86: (test)
+
+     The following output was logged:
+
+     01:36:54.850 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  7) test unassign throw save failure returns safely and restores owned state (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:80
+     ** (throw) :private_thread_save_error
+     code: else: Instance.unassign_thread(context.room.id, context.assigned.id)
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:34: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2888: Jido.Messaging.unassign_thread_state/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2420: Jido.Messaging.unassign_thread/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:86: (test)
+
+     The following output was logged:
+
+     01:36:54.854 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  8) test unassign exit save failure returns safely and restores owned state (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:80
+     ** (exit) :private_thread_save_error
+     code: else: Instance.unassign_thread(context.room.id, context.assigned.id)
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:35: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2888: Jido.Messaging.unassign_thread_state/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2420: Jido.Messaging.unassign_thread/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:86: (test)
+
+     The following output was logged:
+
+     01:36:54.858 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  9) test unassign invalid save failure returns safely and restores owned state (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:80
+     ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+     code: else: Instance.unassign_thread(context.room.id, context.assigned.id)
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2420: Jido.Messaging.unassign_thread/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:86: (test)
+
+     The following output was logged:
+
+     01:36:54.863 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+Finished in 0.5 seconds (0.5s async, 0.00s sync)
+
+Result: 1/10 passed
+Failed: 9 tests

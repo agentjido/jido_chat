@@ -1,0 +1,9 @@
+Compiling 7 files (.ex)
+      error: struct Authorship is undefined (module Authorship is not available or is yet to be defined)
+      │
+ 3183 │   defp projection_authorship_consistent?(%Authorship{} = entry, %Authorship{} = canonical, message) do
+      │                                          ^
+      │
+      └─ lib/jido_messaging.ex:3183:42: Jido.Messaging.projection_authorship_consistent?/3
+
+== Type checking failed with errors ==

@@ -1,0 +1,19 @@
+{
+  "label": "g3-new-tool-admission-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "a76eaa616f8a07b76dd11324fbdee16031ab5969e3d274ec8a08f79f49aa3d49",
+  "started_at": "2026-10-12T22:26:51.843012+00:00",
+  "finished_at": "2026-10-12T22:26:59.424679+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-new-tool-admission-quality.log",
+  "log_sha256": "91f79164c912952b45db6fa092ca1cf6551964c4c8e26d22b225741aa16e0991"
+}

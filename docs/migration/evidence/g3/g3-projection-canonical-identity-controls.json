@@ -1,0 +1,23 @@
+{
+  "label": "g3-projection-canonical-identity-controls",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/facade_record_ownership_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "76f4318d78421294d4bcb0f9845d71d37e934cba",
+  "source_tree_sha256": "1c39b474aa2cd1c498b83dda17e4315c85294a6d0ca646f0ebcac727ec68d8b0",
+  "started_at": "2026-10-13T03:00:36.187398+00:00",
+  "finished_at": "2026-10-13T03:00:38.773021+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-projection-canonical-identity-controls.log",
+  "log_sha256": "f473ffc3862c073bb67b33a9067899b57a87b5c4a0a8be2804937f5f49a97b78"
+}

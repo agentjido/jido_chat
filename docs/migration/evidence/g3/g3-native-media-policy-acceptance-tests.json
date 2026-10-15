@@ -1,0 +1,60 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "c6ef192695f847fa2c6478bb0df321e6e66a7826",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "61b65204650e28fb909ca197636bb988ef15e278",
+      "library_test_files": 356,
+      "library_test_sha256": "cd13bf847a2c978f81ac734eb5ccd4efd131e111afc474e3a099816871c489db"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-native-media-policy-acceptance-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/native_media_policy_acceptance_test.exs",
+    "test/jido_messaging/native_media_delivery_retry_test.exs",
+    "test/jido_messaging/native_media_acceptance_test.exs",
+    "test/jido_messaging/media_policy_ownership_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "61b65204650e28fb909ca197636bb988ef15e278",
+  "source_tree_sha256": "415bebd94382b65499da1e6a91e524a80239c684f7533677579f7ff21511c5e3",
+  "started_at": "2026-10-13T06:00:36.392169+00:00",
+  "finished_at": "2026-10-13T06:00:43.715230+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-native-media-policy-acceptance-tests.log",
+  "log_sha256": "c6285cda5fd223af05f00f61168b474b2fb07266481abbf664125f3bc3a4171f",
+  "raw_log_sha256": "c4f0bbf9c0f1d155219f24fcd7b82cedd51975bd304232ec511f2d6d089fe8c1",
+  "log_normalization": "Removed trailing spaces and carriage returns for saved evidence; command result and output content are unchanged."
+}

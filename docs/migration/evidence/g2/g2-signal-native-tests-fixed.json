@@ -1,0 +1,24 @@
+{
+  "label": "g2-signal-native-tests-fixed",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_signal",
+  "head_sha": "3efc24e44dd6a316dd8f7dda5bee4a1b647490f4",
+  "source_tree_sha256": "21c8685c48698862dae5704552e53f34df02a034045b173fa297217329250de0",
+  "started_at": "2026-10-12T18:46:18.281823+00:00",
+  "finished_at": "2026-10-12T18:46:20.452614+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g2/g2-signal-native-tests-fixed.log",
+  "log_sha256": "5b08057e14b6e6532019bebe2df138eb8bdd873445ad918bc0a504dcd0756ab8"
+}

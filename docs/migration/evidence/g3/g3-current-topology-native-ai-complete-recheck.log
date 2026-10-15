@@ -1,0 +1,39 @@
+Running ExUnit with seed: 0, max_cases: 4
+Excluding tags: [:live]
+Including tags: [:integration, :story]
+
+......................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+
+  1) test one concurrent assertion use succeeds (Jido.Messaging.IdentityCredentialsTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/identity_credentials_test.exs:337
+     ** (MatchError) no match of right hand side value:
+
+         {:error, :identity_credential_identity_immutable}
+
+     code: for adapter <- [Persistence.ETS, Persistence.SQLite] do
+     stacktrace:
+       /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/identity_credentials_test.exs:341: anonymous fn/1 in Jido.Messaging.IdentityCredentialsTest."test one concurrent assertion use succeeds"/1
+       /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/identity_credentials_test.exs:457: Jido.Messaging.IdentityCredentialsTest.with_runtime/2
+       /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/identity_credentials_test.exs:339: anonymous fn/2 in Jido.Messaging.IdentityCredentialsTest."test one concurrent assertion use succeeds"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/identity_credentials_test.exs:338: (test)
+
+.........................................................................................................Jido Messaging PostgreSQL migrations are current
+...........................................
+
+  2) test creates one canonical room during concurrent external binding calls (Jido.Messaging.Persistence.SQLiteTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/persistence/sqlite_test.exs:191
+     ** (exit) exited in: Task.Supervised.stream(5000)
+         ** (EXIT) time out
+     code: |> Enum.to_list()
+     stacktrace:
+       (elixir 1.20.4) lib/task/supervised.ex:349: Task.Supervised.stream_reduce/7
+       (elixir 1.20.4) lib/enum.ex:4667: Enum.reverse/1
+       (elixir 1.20.4) lib/enum.ex:3926: Enum.to_list/1
+       /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/persistence/sqlite_test.exs:211: (test)
+
+..................................................................................................................................................................................................................................................................
+Finished in 65.0 seconds (32.8s async, 32.2s sync)
+
+Result: 1084/1086 passed (1/1 doctest, 1083/1085 tests)
+Failed: 2 tests

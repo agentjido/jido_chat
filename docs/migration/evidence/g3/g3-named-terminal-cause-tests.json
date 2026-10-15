@@ -1,0 +1,25 @@
+{
+  "label": "g3-named-terminal-cause-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/outbound_router_test.exs",
+    "test/jido_messaging/outbound_gateway_test.exs",
+    "test/jido_messaging/typed_execution_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "7691e99cd1b27aadfadb527d016a09413af49ebd1c2c4d881ef79684aefc54d3",
+  "started_at": "2026-10-12T21:34:56.612916+00:00",
+  "finished_at": "2026-10-12T21:35:05.146634+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-named-terminal-cause-tests.log",
+  "log_sha256": "8c600337bce027944393707730b016c4c3b233703a129f48a6e414f696806312"
+}

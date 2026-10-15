@@ -1,0 +1,25 @@
+{
+  "label": "g3-retained-runtime-event-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/events_test.exs",
+    "test/jido_messaging/message_lifecycle_ingest_test.exs",
+    "test/jido_messaging/message_lifecycle_concurrency_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "656a0242be39901f54208500175e634751cdbf82e234588be896b5b9e8c80e7c",
+  "started_at": "2026-10-12T21:56:32.821980+00:00",
+  "finished_at": "2026-10-12T21:56:35.473674+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-retained-runtime-event-tests.log",
+  "log_sha256": "a6510364f3fd38e383a76bacad5bf77cab94aca1db1929fdde0928781306b660"
+}

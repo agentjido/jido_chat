@@ -1,0 +1,34 @@
+==> jido_chat
+Compiling 59 files (.ex)
+Compiling 8 files (.ex)
+Generated jido_chat app
+==> jido_chat_x
+Compiling 1 file (.ex)
+==> jido_chat_github
+Compiling 1 file (.ex)
+==> jido_chat_signal
+Compiling 1 file (.ex)
+==> jido_chat_mattermost
+Compiling 1 file (.ex)
+==> jido_chat_teams
+Compiling 1 file (.ex)
+==> jido_chat_discord
+Compiling 1 file (.ex)
+==> jido_messaging
+Compiling 71 files (.ex)
+Generated jido_messaging app
+==> jido_chat_slack
+Compiling 2 files (.ex)
+==> jido_chat_telegram
+Compiling 1 file (.ex)
+==> jido_chat_whatsapp
+Compiling 1 file (.ex)
+==> jido_chat_integration
+Compiling 4 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live, :postgres]
+
+...............................................................................................................
+Finished in 4.4 seconds (4.4s async, 0.00s sync)
+
+Result: 111 passed

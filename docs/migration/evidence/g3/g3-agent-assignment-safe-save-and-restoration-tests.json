@@ -1,0 +1,57 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "36e7f7d58df7e0c48c7fd448812c4f859cc290b0",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "bae1949a2f126b693b851bd06f0d3278be32b351",
+      "library_test_files": 363,
+      "library_test_sha256": "72b4dab749537b11c56a8a3881ea0e271319a44a7818b8e22d9269b6d5e49efe"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-agent-assignment-safe-save-and-restoration-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/agent_assignment_store_failure_test.exs",
+    "test/jido_messaging/agent_assignment_recovery_test.exs",
+    "test/jido_messaging/agent_runner_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "bae1949a2f126b693b851bd06f0d3278be32b351",
+  "source_tree_sha256": "a48e6a1601cac50bb9f6fb675e2841d2ae36202c93abc45418c96e220db08e19",
+  "started_at": "2026-10-13T06:37:23.522132+00:00",
+  "finished_at": "2026-10-13T06:37:26.956680+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-agent-assignment-safe-save-and-restoration-tests.log",
+  "log_sha256": "6caa5b645da27774d16c9a46a117c02fa2778b91501431650f393cf325f88b53"
+}

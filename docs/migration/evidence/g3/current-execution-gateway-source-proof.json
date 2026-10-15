@@ -1,0 +1,26 @@
+{
+  "state": "current production checks refreshed; unchanged dependency and core inputs verified",
+  "current_repositories": {
+    "jido_chat": {
+      "head": "f589557bba258361470c6bbe451b09022275cd2e",
+      "library_files": 126,
+      "library_sha256": "04ebe4c977b3f5b5e4d937e2d4196867d2516f759726b8aea901038fc2f287cc"
+    },
+    "jido_messaging": {
+      "head": "c8ca43fb4b03bcd7e4444e620864fb9aec9fdacf",
+      "library_files": 235,
+      "library_sha256": "419e5918182278838ce68e547902179a4bea9027499ba3a899f4e8e09a7e617d"
+    }
+  },
+  "messaging_library_base": "3421cf18d1be58318eecad50f398fef8d004294c",
+  "core_base": "7956751e3b4bec53c7c29589b73ce94c5b065896",
+  "reused_checks": [
+    "g3-current-projection-credential-core-graph",
+    "g3-current-projection-credential-ai-graph"
+  ],
+  "scope": "Dependency manifests/locks and core library/test/harness inputs are unchanged. Reuse is limited to pinned graphs and unchanged core tests. Current Messaging library quality, full suites, coverage, runtime harness, optional AI fixture, source scan and API audit are refreshed.",
+  "support_and_harness_source": "New compiled cold gateway adapter is a test fixture. Integration consumers compile current support and production source. No claim of unchanged Messaging support source.",
+  "optional_ai_fixture_sha256": "57a6f167d6ab21cfc5e195d95b0ee2bfbeca94a7831e231d47988521f73badc5",
+  "source_hash_method": "SHA256 over sorted relative path, NUL, file bytes and NUL for each library file.",
+  "production_change_from_base": "Only outbound_gateway.ex changed: load a cold adapter before channel_type callback detection."
+}

@@ -1,0 +1,22 @@
+{
+  "label": "g3-call-resource-lifetime-regression",
+  "command": [
+    "mix",
+    "test",
+    "test/jido/chat/binding_resources_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "9c5b290565a5ad7c4c027e1090dc5847300ec5da",
+  "source_tree_sha256": "4fe4f0cc3ab7db0b360d44d3b778c77e1c43469e5ce0d2e5ac57fe772e559883",
+  "started_at": "2026-10-13T00:00:40.426336+00:00",
+  "finished_at": "2026-10-13T00:00:41.009725+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-call-resource-lifetime-regression.log",
+  "log_sha256": "31c33a236dc4b6f1c11a557cfd2b88dad1278952f1f142f024b3ab9c122ce151"
+}

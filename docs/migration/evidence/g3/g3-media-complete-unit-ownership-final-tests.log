@@ -1,0 +1,21 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+...
+
+  1) test outbound normalization retains all selected file fields without a provider call (Jido.Messaging.MediaPolicyOwnershipTest)
+     test/jido_messaging/media_policy_ownership_test.exs:98
+     ** (Jido.Chat.Errors.Contract) Signal contract rejected: invalid_binding
+     code: assert {:ok, prepared, metadata} = MediaPolicy.prepare_outbound(payload, MediaAdapter, :send_media)
+     stacktrace:
+       (jido_chat 1.2.1) lib/jido/chat/adapter.ex:128: Jido.Chat.Adapter.capabilities/1
+       (jido_chat 1.2.1) lib/jido/chat/capabilities.ex:160: Jido.Chat.Capabilities.channel_capabilities/1
+       (jido_messaging 1.1.1) lib/jido_messaging/media_policy.ex:512: Jido.Messaging.MediaPolicy.unsupported_causes/3
+       (jido_messaging 1.1.1) lib/jido_messaging/media_policy.ex:139: Jido.Messaging.MediaPolicy.prepare_outbound/4
+       test/jido_messaging/media_policy_ownership_test.exs:109: (test)
+
+...................................................
+Finished in 6.2 seconds (5.7s async, 0.4s sync)
+
+Result: 54/55 passed
+Failed: 1 test

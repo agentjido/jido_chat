@@ -8,127 +8,76 @@
 [![Ecosystem](https://img.shields.io/badge/ecosystem-jido.run-0ea5e9.svg)](https://jido.run/ecosystem)
 [![Discord](https://img.shields.io/badge/discord-join-5865F2.svg?logo=discord&logoColor=white)](https://jido.run/discord)
 
-`jido_chat` is the core adapter contract and canonical data model for `Jido.Chat` integrations.
+`jido_chat` owns the shared typed Signal contract, adapter bindings, retained
+chat value builders and deterministic fallback behavior. Messaging owns runtime
+processes, grants, persistence, routing, retries and delivery acceptance.
 
-## Release Status
+## Release status
 
-`jido_chat` is published on Hex as part of the Jido 1.x chat package release
-line.
+This branch proposes Chat 2.0. It changes the released communication API.
+Use the immutable review commits while the new packages are unpublished.
+Production publication requires compatible upstream Signal releases. The
+published Signal beta does not contain the Catalog and router DSL used here.
 
-`Jido.Chat` is an Elixir implementation aligned to the Vercel Chat SDK
-([chat-sdk.dev/docs](https://www.chat-sdk.dev/docs)).
+## Public contract
 
-The package is intentionally scoped to the adapter layer:
-
-- `jido_chat` owns typed content/event models, adapter contracts, typed thread/channel handles, and deterministic fallback behavior.
-- `jido_messaging` owns supervised runtime concerns such as webhook ingress, delivery queues, retries, room/session state, bridge lifecycle, and process trees.
-- A trusted application/runtime resolver owns stable identity resolution. In an `Author`, `id` is the framework-neutral stable identity and `user_id` is the provider identity. Adapters may pass an `Author.id` supplied by that resolver, but they must not infer it from provider IDs, display names, usernames, or email addresses, and they must not call a provider to obtain it for this contract.
-
-It provides:
-
-- `Jido.Chat` as a lightweight struct + event-loop facade for local/in-memory flows
-- typed thread and channel handles (`Thread`, `ChannelRef`)
-- canonical outbound payloads (`Postable`, `PostPayload`, `FileUpload`, `StreamChunk`)
-- rich content models (`Markdown`, `Card`, `Modal`, `ModalResponse`)
-- typed normalized inbound/event payloads (`Incoming`, `Message`, `SentMessage`, `Response`, `EventEnvelope`)
-- explicit adapter capability negotiation and fallback behavior (`Jido.Chat.Adapter`, `CapabilityMatrix`)
-- lightweight state and concurrency hooks used by `Jido.Chat` today (`StateAdapter`, `Concurrency`)
-- framework-agnostic AI history conversion (`Jido.Chat.AI`)
-- provider-free ExUnit adapter conformance support (`Jido.Chat.AdapterTestKit`)
-
-## Installation
+Bind a protocol-1 adapter once with private configuration. Create a command or
+query with the corresponding `Jido.Chat.Signal` definition. Use
+`Jido.Chat.execute/2` to obtain a typed OperationCompleted or OperationFailed
+result. Use `Jido.Chat.normalize_event/2` to obtain one complete validated
+`Jido.Chat.Delivery`. Messaging accepts that delivery without changing its
+parent facts.
 
 ```elixir
-def deps do
-  [
-    {:jido_chat, "~> 1.0"}
-  ]
-end
+{:ok, binding} = Jido.Chat.bind(adapter_module, private_binding_options)
+request = Jido.Chat.Signal.SendMessage.new!(%{
+  "request_id" => "request-1",
+  "room_id" => provider_room_id,
+  "text" => "Hello"
+})
+{:ok, result} = Jido.Chat.execute(binding, request)
 ```
 
-Run `mix deps.get` after adding the dependency.
+The application supplies the adapter, private options and provider room ID.
+The complete runnable example uses a deterministic local transport:
 
-## Canonical Adapter Interface
-
-`Jido.Chat.Adapter` is the canonical contract for new integrations.
-`Jido.Chat.ChannelRef` and `Jido.Chat.Thread` are the typed handles for room and thread operations.
-Adapters can expose native rich posting through `post_message/3`, which receives the full
-typed `Jido.Chat.PostPayload` including attachments. `send_file/3` remains the low-level
-upload hook used by the core fallback path for single-upload posts.
-
-## Adapter Author Checklist
-
-1. Implement the required `Jido.Chat.Adapter` callbacks for your transport.
-2. Declare explicit surface support through `capabilities/0` instead of relying on callback inference.
-3. If you build directly on the lightweight `Jido.Chat` facade and ship a custom `Jido.Chat.StateAdapter`, implement `lock/5`, `release_lock/3`, and `force_release_lock/2`, and persist `locks` plus `pending_locks` in snapshots. To support bounded queue and burst controls, also implement the optional `lock_with_options/6` and `drain_lock/5` callbacks. Existing adapters can continue to use the original callbacks.
-4. Treat `Jido.Chat.PostPayload` as the canonical outbound contract. It can now carry text, markdown, raw payloads, cards, streams, attachments, and `FileUpload` values.
-5. Preserve compatibility with legacy inbound payloads. Existing messages, wire maps, and adapter payloads do not need `author` or reply fields; normalization keeps their useful values and leaves the enriched fields unset.
-6. Treat `Author.id` as trusted, framework-neutral stable identity. Only pass it through when an application/runtime resolver supplied it. Never derive it from a provider ID, display name, username, or email, and do not make provider profile calls to resolve it for this contract.
-7. Reply context is shallow and uses only data already present in the event. It does not perform replied-message lookup.
-8. Run `mix quality` before publishing adapter changes.
-
-See the [Adapter Test Kit](guides/adapter_test_kit.md) guide for the reusable
-conformance case, deterministic factories and mocks, and provider-extension
-tests.
-
-### Message lifecycle events
-
-Adapter `parse_event/2` implementations must map provider edit and delete
-deliveries to `:message_updated` and `:message_deleted` envelopes. Their typed
-payloads are `Jido.Chat.MessageUpdatedEvent` and
-`Jido.Chat.MessageDeletedEvent`. Each payload must include the provider
-`message_id`. It should also include adapter, channel, thread, author,
-timestamp, metadata, and raw provider context when these values are available.
-
-An update should put the new content in `message`. A delete uses `message: nil`
-when the provider does not send the deleted content. Core does not fetch or
-recover that content. Lifecycle handlers use `on_message_updated/2` and
-`on_message_deleted/2`. They are separate from `on_new_message/3`, so provider
-edit deliveries, including bot streaming edits, do not start a new-message
-handler loop.
-
-Core normalizes and routes each lifecycle delivery. Duplicate-delivery policy,
-persisted-message lookup, and the result for an unknown persisted message ID
-belong to the consuming runtime or persistence layer.
-
-## Usage (Core Loop)
-
-```elixir
-chat =
-  Jido.Chat.new(
-    user_name: "jido",
-    adapters: %{telegram: Jido.Chat.Telegram.Adapter}
-  )
-  |> Jido.Chat.on_new_mention(fn thread, incoming ->
-    Jido.Chat.Thread.post(thread, "hi #{incoming.display_name || "there"}")
-  end)
+```sh
+cd integration
+MIX_ENV=test JIDO_INTEGRATION_PROFILE=all JIDO_INTEGRATION_AI=0 mix deps.get
+MIX_ENV=test JIDO_INTEGRATION_PROFILE=all JIDO_INTEGRATION_AI=0 mix run examples/native_contract.exs
 ```
 
-## Additional Core Helpers
+Check out Messaging and all eight adapters as sibling directories before
+running the complete integration project. No live provider call is required.
 
-```elixir
-ai_messages = Jido.Chat.AI.to_messages(history, include_names: true)
+## Records, identity and resources
 
-payload =
-  Jido.Chat.PostPayload.new(%{
-    text: "Hello",
-    files: [%{path: "/tmp/report.pdf", filename: "report.pdf"}]
-  })
-```
+Pure message, room, participant, card, modal and Markdown builders remain as
+listed in the API map. Provider credentials, transport clients, stream handles
+and interaction tokens stay private. Public resource references have binding,
+actor and owner scope. Expiry, cancellation and provider failures have typed
+results.
 
-## Scope Notes
+A trusted application resolver supplies stable Author.id values. Adapters do
+not infer framework identity from a provider ID, name or email. Membership facts
+are observations; explicit runtime actions own membership, grants and presence.
 
-- `Jido.Chat` includes lightweight subscription/state/concurrency hooks today so the core facade can run locally without a larger runtime.
-- Burst and debounce timing is caller-driven. The core stores bounded pending state and exposes `drain_lock/4`; it does not start a timer or a supervised process.
-- Production ingress, retries, room/session state, and supervised delivery orchestration belong in `jido_messaging`, not this package.
-- The AI conversion helpers are structurally compatible with Chat SDK / AI SDK message shapes, but they keep Elixir-native naming and callback conventions.
+## Adapter requirements
 
-## Reference Docs
+Implement protocol version 1, capture private binding configuration and declare
+all operation capabilities. Normalize complete provider input units in order.
+Keep native, fallback and unsupported behavior explicit. Validate every item,
+size limit and resource before side effects. Follow the declared acknowledgement,
+sink rejection and checkpoint rules. Adapter callbacks remain implementation
+hooks behind the typed public boundary.
 
-The package-level parity matrix and migration notes are tracked in the
-`proj_jido_chat` workspace while this package is moving through the 1.x release
-batch.
+## Migration and checks
 
-## Local Documentation
+See [the migration guide](https://github.com/agentjido/jido_chat/blob/codex/public-signal-v3/docs/migration/MIGRATION_GUIDE.md) for consumer changes,
+[the API map](https://github.com/agentjido/jido_chat/blob/codex/public-signal-v3/docs/migration/api-map.json) for retained and removed interfaces,
+and [the adapter matrix](https://github.com/agentjido/jido_chat/blob/codex/public-signal-v3/docs/migration/adapter-matrix.json) for support claims.
+The goal covers eight adapters; Mattermost is excluded by user instruction.
 
-Run `mix docs` to generate HTML and Markdown documentation in `doc/`, including Markdown pages and `llms.txt`.
+Run `mix test`, `mix quality`, and `mix docs`. The separate integration project
+checks both runtime profiles and the complete provider contract. Publication
+order and exact rollback pins are in the migration evidence.

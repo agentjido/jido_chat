@@ -1,0 +1,247 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+
+
+  1) test timeline accepts missing timestamps and orders equal instants by canonical ID (Jido.Messaging.CanonicalTimelineOrderTest)
+     test/jido_messaging/canonical_timeline_order_test.exs:15
+     ** (FunctionClauseError) no function clause matching in DateTime.compare/2
+
+     The following arguments were given to DateTime.compare/2:
+
+         # 1
+         ~U[2026-08-20 12:00:00Z]
+
+         # 2
+         nil
+
+     Attempted function clauses (showing 1 out of 1):
+
+         def compare(%{utc_offset: utc_offset1, std_offset: std_offset1} = datetime1, -%{utc_offset: utc_offset2, std_offset: std_offset2} = datetime2-)
+
+     code: assert Query.room_timeline([orphan, second, reply, root]) == expected
+     stacktrace:
+       (elixir 1.20.4) lib/calendar/datetime.ex:1475: DateTime.compare/2
+       (elixir 1.20.4) lib/list.ex:574: anonymous fn/4 in List.keysort_fun/2
+       (stdlib 8.1) lists.erl:4062: :lists.fsplit_1/6
+       (elixir 1.20.4) lib/enum.ex:3450: Enum.sort_by/3
+       (jido_messaging 1.1.1) lib/jido_messaging/query.ex:23: Jido.Messaging.Query.room_timeline/1
+       test/jido_messaging/canonical_timeline_order_test.exs:24: (test)
+
+
+
+  2) test equal timestamps preserve ID order across top-level and thread groups (Jido.Messaging.CanonicalTimelineOrderTest)
+     test/jido_messaging/canonical_timeline_order_test.exs:29
+     Assertion with == failed
+     code:  assert timeline.messages == [root, second]
+     left:  [
+              %Jido.Messaging.Message{
+                id: "b-root",
+                role: :user,
+                room_id: "owned-room",
+                thread_id: nil,
+                external_thread_id: nil,
+                delivery_external_room_id: nil,
+                external_id: nil,
+                updated_at: nil,
+                external_reply_to_id: nil,
+                reply_to_id: nil,
+                inserted_at: ~U[2026-08-20 12:00:00Z],
+                sender_id: "sender",
+                status: :sent,
+                metadata: %{complete: "metadata"},
+                reactions: %{},
+                content: [
+                  %{type: :text, text: "complete content"},
+                  %{type: :image, url: "https://example.test/image"}
+                ],
+                receipts: %{}
+              },
+              %Jido.Messaging.Message{
+                id: "a-root",
+                role: :user,
+                room_id: "owned-room",
+                thread_id: nil,
+                external_thread_id: nil,
+                delivery_external_room_id: nil,
+                external_id: nil,
+                updated_at: nil,
+                external_reply_to_id: nil,
+                reply_to_id: nil,
+                inserted_at: ~U[2026-08-20 12:00:00Z],
+                sender_id: "sender",
+                status: :sent,
+                metadata: %{complete: "metadata"},
+                reactions: %{},
+                content: [
+                  %{type: :text, text: "complete content"},
+                  %{type: :image, url: "https://example.test/image"}
+                ],
+                receipts: %{}
+              }
+            ]
+     right: [
+              %Jido.Messaging.Message{
+                id: "a-root",
+                role: :user,
+                room_id: "owned-room",
+                thread_id: nil,
+                external_thread_id: nil,
+                delivery_external_room_id: nil,
+                external_id: nil,
+                updated_at: nil,
+                external_reply_to_id: nil,
+                reply_to_id: nil,
+                inserted_at: ~U[2026-08-20 12:00:00Z],
+                sender_id: "sender",
+                status: :sent,
+                metadata: %{complete: "metadata"},
+                reactions: %{},
+                content: [
+                  %{type: :text, text: "complete content"},
+                  %{type: :image, url: "https://example.test/image"}
+                ],
+                receipts: %{}
+              },
+              %Jido.Messaging.Message{
+                id: "b-root",
+                role: :user,
+                room_id: "owned-room",
+                thread_id: nil,
+                external_thread_id: nil,
+                delivery_external_room_id: nil,
+                external_id: nil,
+                updated_at: nil,
+                external_reply_to_id: nil,
+                reply_to_id: nil,
+                inserted_at: ~U[2026-08-20 12:00:00Z],
+                sender_id: "sender",
+                status: :sent,
+                metadata: %{complete: "metadata"},
+                reactions: %{},
+                content: [
+                  %{type: :text, text: "complete content"},
+                  %{type: :image, url: "https://example.test/image"}
+                ],
+                receipts: %{}
+              }
+            ]
+     stacktrace:
+       test/jido_messaging/canonical_timeline_order_test.exs:33: (test)
+
+
+
+  3) test Elixir.Jido.Messaging.Persistence.ETS complete canonical timeline and cursors retain timestamp-less records (Jido.Messaging.CanonicalTimelineOrderTest)
+     test/jido_messaging/canonical_timeline_order_test.exs:44
+     ** (FunctionClauseError) no function clause matching in DateTime.compare/2
+
+     The following arguments were given to DateTime.compare/2:
+
+         # 1
+         nil
+
+         # 2
+         nil
+
+     Attempted function clauses (showing 1 out of 1):
+
+         def compare(-%{utc_offset: utc_offset1, std_offset: std_offset1} = datetime1-, -%{utc_offset: utc_offset2, std_offset: std_offset2} = datetime2-)
+
+     code: timeline = Query.room_timeline(complete)
+     stacktrace:
+       (elixir 1.20.4) lib/calendar/datetime.ex:1475: DateTime.compare/2
+       (elixir 1.20.4) lib/list.ex:574: anonymous fn/4 in List.keysort_fun/2
+       (stdlib 8.1) lists.erl:1887: :lists.sort/2
+       (elixir 1.20.4) lib/enum.ex:3450: Enum.sort_by/3
+       (jido_messaging 1.1.1) lib/jido_messaging/query.ex:23: Jido.Messaging.Query.room_timeline/1
+       test/jido_messaging/canonical_timeline_order_test.exs:54: (test)
+
+
+
+  4) test Elixir.Jido.Messaging.Persistence.SQLite complete canonical timeline and cursors retain timestamp-less records (Jido.Messaging.CanonicalTimelineOrderTest)
+     test/jido_messaging/canonical_timeline_order_test.exs:44
+     ** (FunctionClauseError) no function clause matching in DateTime.compare/2
+
+     The following arguments were given to DateTime.compare/2:
+
+         # 1
+         nil
+
+         # 2
+         nil
+
+     Attempted function clauses (showing 1 out of 1):
+
+         def compare(-%{utc_offset: utc_offset1, std_offset: std_offset1} = datetime1-, -%{utc_offset: utc_offset2, std_offset: std_offset2} = datetime2-)
+
+     code: timeline = Query.room_timeline(complete)
+     stacktrace:
+       (elixir 1.20.4) lib/calendar/datetime.ex:1475: DateTime.compare/2
+       (elixir 1.20.4) lib/list.ex:574: anonymous fn/4 in List.keysort_fun/2
+       (stdlib 8.1) lists.erl:1887: :lists.sort/2
+       (elixir 1.20.4) lib/enum.ex:3450: Enum.sort_by/3
+       (jido_messaging 1.1.1) lib/jido_messaging/query.ex:23: Jido.Messaging.Query.room_timeline/1
+       test/jido_messaging/canonical_timeline_order_test.exs:54: (test)
+
+
+
+  5) test Elixir.Jido.Messaging.Persistence.Postgres complete canonical timeline and cursors retain timestamp-less records (Jido.Messaging.CanonicalTimelineOrderTest)
+     test/jido_messaging/canonical_timeline_order_test.exs:44
+     ** (FunctionClauseError) no function clause matching in DateTime.compare/2
+
+     The following arguments were given to DateTime.compare/2:
+
+         # 1
+         nil
+
+         # 2
+         nil
+
+     Attempted function clauses (showing 1 out of 1):
+
+         def compare(-%{utc_offset: utc_offset1, std_offset: std_offset1} = datetime1-, -%{utc_offset: utc_offset2, std_offset: std_offset2} = datetime2-)
+
+     code: timeline = Query.room_timeline(complete)
+     stacktrace:
+       (elixir 1.20.4) lib/calendar/datetime.ex:1475: DateTime.compare/2
+       (elixir 1.20.4) lib/list.ex:574: anonymous fn/4 in List.keysort_fun/2
+       (stdlib 8.1) lists.erl:1887: :lists.sort/2
+       (elixir 1.20.4) lib/enum.ex:3450: Enum.sort_by/3
+       (jido_messaging 1.1.1) lib/jido_messaging/query.ex:23: Jido.Messaging.Query.room_timeline/1
+       test/jido_messaging/canonical_timeline_order_test.exs:54: (test)
+
+
+
+  6) test instance and root facade timelines preserve full owned records and no communication effects (Jido.Messaging.CanonicalTimelineOrderTest)
+     test/jido_messaging/canonical_timeline_order_test.exs:64
+     ** (FunctionClauseError) no function clause matching in DateTime.compare/2
+
+     The following arguments were given to DateTime.compare/2:
+
+         # 1
+         nil
+
+         # 2
+         nil
+
+     Attempted function clauses (showing 1 out of 1):
+
+         def compare(-%{utc_offset: utc_offset1, std_offset: std_offset1} = datetime1-, -%{utc_offset: utc_offset2, std_offset: std_offset2} = datetime2-)
+
+     code: for instance <- [ETSInstance, SQLiteInstance] do
+     stacktrace:
+       (elixir 1.20.4) lib/calendar/datetime.ex:1475: DateTime.compare/2
+       (elixir 1.20.4) lib/list.ex:574: anonymous fn/4 in List.keysort_fun/2
+       (stdlib 8.1) lists.erl:1887: :lists.sort/2
+       (elixir 1.20.4) lib/enum.ex:3450: Enum.sort_by/3
+       (jido_messaging 1.1.1) lib/jido_messaging/query.ex:23: Jido.Messaging.Query.room_timeline/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1839: Jido.Messaging.room_timeline/3
+       test/jido_messaging/canonical_timeline_order_test.exs:74: anonymous fn/1 in Jido.Messaging.CanonicalTimelineOrderTest."test instance and root facade timelines preserve full owned records and no communication effects"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido_messaging/canonical_timeline_order_test.exs:70: (test)
+
+
+Finished in 0.6 seconds (0.00s async, 0.6s sync)
+
+Result: 0/6 passed
+Failed: 6 tests

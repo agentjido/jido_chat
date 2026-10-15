@@ -1,0 +1,16 @@
+==> jido_messaging
+Compiling 39 files (.ex)
+Compiling 3 files (.ex)
+==> jido_chat_slack
+Compiling 2 files (.ex)
+==> jido_chat_integration
+Compiling 5 files (.ex)
+Generated jido_chat_integration app
+    error: imported Kernel.binding/1 conflicts with local function
+    │
+ 12 │   defp binding("jido_chat_telegram") do
+    │        ^
+    │
+    └─ fixtures/adapter_pair_conformance_test.exs:12:8: Jido.Chat.AdapterPairConformanceTest (module)
+
+** (CompileError) fixtures/adapter_pair_conformance_test.exs: cannot compile module Jido.Chat.AdapterPairConformanceTest (errors have been logged)

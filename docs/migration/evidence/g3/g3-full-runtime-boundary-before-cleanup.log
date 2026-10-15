@@ -1,0 +1,33 @@
+{
+  "gate": "G3",
+  "state": "fail",
+  "scope": [
+    "jido_chat/lib",
+    "jido_chat_signal/lib",
+    "jido_messaging/lib"
+  ],
+  "checked_files": 369,
+  "rules": [
+    "retired_core_definition",
+    "retired_core_reference",
+    "old_chat_object",
+    "old_facade_route",
+    "old_public_adapter_mapper",
+    "generic_public_signal_constructor",
+    "legacy_context_extension",
+    "custom_domain_catalog",
+    "retired_messaging_definition",
+    "tuple_pubsub_mirror",
+    "legacy_event_option_mapping",
+    "retired_messaging_root_alias",
+    "provider_parent_owned_by_core",
+    "provider_parent_count"
+  ],
+  "findings": [
+    {
+      "rule": "legacy_event_option_mapping",
+      "file": "jido_messaging/lib/jido_messaging/event_options.ex",
+      "line": 28
+    }
+  ]
+}

@@ -1,0 +1,1310 @@
+==> jido_chat_mattermost
+     warning: module attribute @impl was not set for function get_user/2 callback (specified in Jido.Chat.Adapter). This either means you forgot to add the "@impl true" annotation before the definition or that you are accidentally overriding this callback
+     │
+ 323 │   def get_user(user_id, opts \\ []) do
+     │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/jido/chat/mattermost/adapter.ex:323: Jido.Chat.Mattermost.Adapter (module)
+
+{
+  "state": "fail",
+  "missing": [
+    {
+      "arity": 0,
+      "function": "__stacktrace_filters__",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 2,
+      "function": "from_json",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 2,
+      "function": "set_path",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "splode_error?",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 2,
+      "function": "splode_error?",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "to_class",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 2,
+      "function": "to_class",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "to_error",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 2,
+      "function": "to_error",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 2,
+      "function": "traverse_errors",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "unwrap!",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 2,
+      "function": "unwrap!",
+      "module": "Jido.Chat.Errors",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "error_class?",
+      "module": "Jido.Chat.Errors.Ingress",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "exception",
+      "module": "Jido.Chat.Errors.Ingress",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "exception",
+      "module": "Jido.Chat.Errors.Ingress",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "from_json",
+      "module": "Jido.Chat.Errors.Ingress",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "keyword_list_options?",
+      "module": "Jido.Chat.Errors.Ingress",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "splode_error?",
+      "module": "Jido.Chat.Errors.Ingress",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "error_class?",
+      "module": "Jido.Chat.Errors.Unknown",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "exception",
+      "module": "Jido.Chat.Errors.Unknown",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "exception",
+      "module": "Jido.Chat.Errors.Unknown",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "from_json",
+      "module": "Jido.Chat.Errors.Unknown",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "keyword_list_options?",
+      "module": "Jido.Chat.Errors.Unknown",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "message",
+      "module": "Jido.Chat.Errors.Unknown",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "splode_error?",
+      "module": "Jido.Chat.Errors.Unknown",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "error_class?",
+      "module": "Jido.Chat.Errors.Validation",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "exception",
+      "module": "Jido.Chat.Errors.Validation",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "exception",
+      "module": "Jido.Chat.Errors.Validation",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 1,
+      "function": "from_json",
+      "module": "Jido.Chat.Errors.Validation",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "keyword_list_options?",
+      "module": "Jido.Chat.Errors.Validation",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "splode_error?",
+      "module": "Jido.Chat.Errors.Validation",
+      "package": "jido_chat"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostChannelMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Messenger.PostMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Messenger.SendDirectMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Messenger.StartTyping",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Moderator.AddReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Moderator.DeleteSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Moderator.EditMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Moderator.EnsureSubscription",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Moderator.ListSubscriptions",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Moderator.RemoveReaction",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchChannelMetadata",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchMessage",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThread",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Reader.FetchThreadMessages",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Reader.ListThreads",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupParticipant",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "__jido_executable__",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "chat_action_operation",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "description",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "name",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "output_schema",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 2,
+      "function": "run",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 0,
+      "function": "schema",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_output",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "validate_params",
+      "module": "Jido.Messaging.ChatActions.Reader.LookupUser",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "init",
+      "module": "Jido.Messaging.Demo.HeartbeatSensor",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "start_link",
+      "module": "Jido.Messaging.Demo.HeartbeatSensor",
+      "package": "jido_messaging"
+    },
+    {
+      "arity": 1,
+      "function": "child_spec",
+      "module": "Jido.Chat.Slack.SocketMode.WebSockexClient",
+      "package": "jido_chat_slack"
+    },
+    {
+      "arity": 2,
+      "function": "child_spec",
+      "module": "Jido.Chat.Slack.SocketMode.WebSockexClient",
+      "package": "jido_chat_slack"
+    },
+    {
+      "arity": 3,
+      "function": "code_change",
+      "module": "Jido.Chat.Slack.SocketMode.WebSockexClient",
+      "package": "jido_chat_slack"
+    },
+    {
+      "arity": 2,
+      "function": "handle_info",
+      "module": "Jido.Chat.Slack.SocketMode.WebSockexClient",
+      "package": "jido_chat_slack"
+    },
+    {
+      "arity": 2,
+      "function": "handle_ping",
+      "module": "Jido.Chat.Slack.SocketMode.WebSockexClient",
+      "package": "jido_chat_slack"
+    },
+    {
+      "arity": 2,
+      "function": "handle_pong",
+      "module": "Jido.Chat.Slack.SocketMode.WebSockexClient",
+      "package": "jido_chat_slack"
+    },
+    {
+      "arity": 2,
+      "function": "terminate",
+      "module": "Jido.Chat.Slack.SocketMode.WebSockexClient",
+      "package": "jido_chat_slack"
+    },
+    {
+      "arity": 1,
+      "function": "child_spec",
+      "module": "Jido.Chat.Mattermost.WebSocket.Client",
+      "package": "jido_chat_mattermost"
+    },
+    {
+      "arity": 2,
+      "function": "handle_control",
+      "module": "Jido.Chat.Mattermost.WebSocket.Client",
+      "package": "jido_chat_mattermost"
+    },
+    {
+      "arity": 2,
+      "function": "handle_terminate",
+      "module": "Jido.Chat.Mattermost.WebSocket.Client",
+      "package": "jido_chat_mattermost"
+    },
+    {
+      "arity": 1,
+      "function": "start",
+      "module": "Jido.Chat.Mattermost.WebSocket.Client",
+      "package": "jido_chat_mattermost"
+    },
+    {
+      "arity": 1,
+      "function": "start_link",
+      "module": "Jido.Chat.Mattermost.WebSocket.Client",
+      "package": "jido_chat_mattermost"
+    }
+  ],
+  "source_entries": 3270
+}

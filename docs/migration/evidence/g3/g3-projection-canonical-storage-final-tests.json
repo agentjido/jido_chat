@@ -1,0 +1,24 @@
+{
+  "label": "g3-projection-canonical-storage-final-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/facade_record_ownership_test.exs",
+    "test/jido_messaging/participant_transcript_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "76f4318d78421294d4bcb0f9845d71d37e934cba",
+  "source_tree_sha256": "5859a99574f155b434ac6e85314317057413aeb74907dc2364a6d3211ef21227",
+  "started_at": "2026-10-13T03:01:48.231068+00:00",
+  "finished_at": "2026-10-13T03:01:49.840001+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-projection-canonical-storage-final-tests.log",
+  "log_sha256": "a6a48ad0518058d95a0a5c2f4f0b3cd90c14062d3bf5287c1efe1fee41b698fe"
+}

@@ -1,0 +1,1688 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky]
+Including tags: [:integration, :story]
+
+..............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+
+  1) test runs migrations concurrently and reports the current schema (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:15
+     Assertion with == failed
+     code:  assert results == [:ok, :ok, :ok, :ok]
+     left:  [
+              error: %DBConnection.ConnectionError{
+                message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+                severity: :error,
+                reason: :queue_timeout
+              },
+              error: %DBConnection.ConnectionError{
+                message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+                severity: :error,
+                reason: :queue_timeout
+              },
+              error: %DBConnection.ConnectionError{
+                message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+                severity: :error,
+                reason: :queue_timeout
+              },
+              error: %DBConnection.ConnectionError{
+                message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+                severity: :error,
+                reason: :queue_timeout
+              }
+            ]
+     right: [:ok, :ok, :ok, :ok]
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:26: (test)
+
+
+
+  2) test rejects migration versions that the package does not own (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:34
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:35: (test)
+
+
+
+  3) test requires migrations and installs them in a host schema (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:56
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: admin = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:57: (test)
+
+     The following output was logged:
+     
+     22:14:57.200 [error] Postgrex.Protocol (#PID<0.57017.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:14:57.200 [error] Postgrex.Protocol (#PID<0.57016.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:14:57.200 [error] Postgrex.Protocol (#PID<0.57016.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:14:57.200 [error] Postgrex.Protocol (#PID<0.57017.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+  4) test supports connection option boundaries and validates configuration (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:91
+     match (=) failed
+     code:  assert {:ok, direct} = Postgres.init(database_options() ++ [instance_id: " ", pool_size: 1])
+     left:  {:ok, direct}
+     right: {:error,
+             %DBConnection.ConnectionError{
+               message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+               severity: :error,
+               reason: :queue_timeout
+             }}
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:92: (test)
+
+     The following output was logged:
+     
+     22:15:06.211 [error] Postgrex.Protocol (#PID<0.57035.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:15:06.211 [error] Postgrex.Protocol (#PID<0.57034.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:15:06.212 [error] Postgrex.Protocol (#PID<0.57035.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:15:06.212 [error] Postgrex.Protocol (#PID<0.57034.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+  5) test reports production storage capabilities and health (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:134
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:135: (test)
+
+
+
+  6) test keeps host-owned pool ownership with the host (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:142
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: owner = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:143: (test)
+
+     The following output was logged:
+     
+     22:31:49.510 [error] Postgrex.Protocol (#PID<0.57075.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:31:49.510 [error] Postgrex.Protocol (#PID<0.57076.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:31:49.510 [error] Postgrex.Protocol (#PID<0.57075.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:31:49.510 [error] Postgrex.Protocol (#PID<0.57076.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+  7) test runtime supplies its namespace and closes its owned pool (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:156
+     ** (RuntimeError) failed to start child with the spec {Jido.Messaging.Persistence.PostgresTest.RuntimeMessaging, [persistence_opts: [url: "postgres://codex_signal:signal_fixture_only@127.0.0.1:33417/signal_conformance", migrate: true, pool_size: 2]]}.
+     Reason: shutdown: failed to start child: Jido.Messaging.Runtime
+         ** (EXIT) {:persistence_init_failed, %DBConnection.ConnectionError{message: "[Elixir.Jido.Messaging.Persistence.PostgresTest.RuntimeMessaging.Runtime] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n", severity: :error, reason: :queue_timeout}}
+     code: start_supervised!(
+     stacktrace:
+       (ex_unit 1.20.4) lib/ex_unit/callbacks.ex:598: ExUnit.Callbacks.start_supervised!/2
+       test/jido_messaging/persistence/postgres_test.exs:157: (test)
+
+     The following output was logged:
+     
+     22:31:58.502 [error] Postgrex.Protocol (#PID<0.57092.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:31:58.503 [error] Postgrex.Protocol (#PID<0.57091.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:31:58.503 [error] Postgrex.Protocol (#PID<0.57092.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:31:58.503 [error] Postgrex.Protocol (#PID<0.57091.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+  8) test rolls all writes back when a transaction fails (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:179
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:180: (test)
+
+
+
+  9) test commits related writes in one transaction (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:201
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:202: (test)
+
+     The following output was logged:
+     
+     22:32:16.502 [error] Postgrex.Protocol (#PID<0.57145.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:16.502 [error] Postgrex.Protocol (#PID<0.57146.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:16.502 [error] Postgrex.Protocol (#PID<0.57145.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:32:16.502 [error] Postgrex.Protocol (#PID<0.57146.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 10) test keeps two instances isolated in one database (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:219
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: first = start_state(unique_id("instance-one"))
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:220: (test)
+
+     The following output was logged:
+     
+     22:32:25.504 [error] Postgrex.Protocol (#PID<0.57161.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:25.504 [error] Postgrex.Protocol (#PID<0.57162.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:25.504 [error] Postgrex.Protocol (#PID<0.57161.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:32:25.504 [error] Postgrex.Protocol (#PID<0.57162.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 11) test recovers persisted records with a new pool (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:233
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: first = start_state(instance_id)
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:235: (test)
+
+     The following output was logged:
+     
+     22:32:34.505 [error] Postgrex.Protocol (#PID<0.57184.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:34.506 [error] Postgrex.Protocol (#PID<0.57184.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:32:34.506 [error] Postgrex.Protocol (#PID<0.57183.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:34.507 [error] Postgrex.Protocol (#PID<0.57183.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 12) test resolves room and participant binding races across pools (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:245
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: first = start_state(instance_id)
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:247: (test)
+
+     The following output was logged:
+     
+     22:32:43.505 [error] Postgrex.Protocol (#PID<0.57206.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:43.505 [error] Postgrex.Protocol (#PID<0.57205.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:43.505 [error] Postgrex.Protocol (#PID<0.57206.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:32:43.505 [error] Postgrex.Protocol (#PID<0.57205.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 13) test applies one receipt during concurrent updates from separate pools (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:301
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: first = start_state(instance_id)
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:303: (test)
+
+     The following output was logged:
+     
+     22:32:52.509 [error] Postgrex.Protocol (#PID<0.57228.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:52.509 [error] Postgrex.Protocol (#PID<0.57229.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:32:52.509 [error] Postgrex.Protocol (#PID<0.57228.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:32:52.509 [error] Postgrex.Protocol (#PID<0.57229.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 14) test pages participant history and rejects invalid cursors (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:332
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:333: (test)
+
+     The following output was logged:
+     
+     22:33:01.504 [error] Postgrex.Protocol (#PID<0.57251.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:01.504 [error] Postgrex.Protocol (#PID<0.57250.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:01.504 [error] Postgrex.Protocol (#PID<0.57250.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:33:01.504 [error] Postgrex.Protocol (#PID<0.57251.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 15) test supports directory lookup, room filters, and ambiguity (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:408
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:409: (test)
+
+     The following output was logged:
+     
+     22:33:10.506 [error] Postgrex.Protocol (#PID<0.57272.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:10.506 [error] Postgrex.Protocol (#PID<0.57273.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:10.506 [error] Postgrex.Protocol (#PID<0.57272.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:33:10.506 [error] Postgrex.Protocol (#PID<0.57273.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 16) test keeps participant binding claims atomic and repairs stale bindings (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:448
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:449: (test)
+
+     The following output was logged:
+     
+     22:33:19.505 [error] Postgrex.Protocol (#PID<0.57294.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:19.505 [error] Postgrex.Protocol (#PID<0.57295.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:19.506 [error] Postgrex.Protocol (#PID<0.57294.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:33:19.506 [error] Postgrex.Protocol (#PID<0.57295.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 17) test filters bridge control-plane records (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:504
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:505: (test)
+
+     The following output was logged:
+     
+     22:33:28.511 [error] Postgrex.Protocol (#PID<0.57316.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:28.511 [error] Postgrex.Protocol (#PID<0.57317.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:28.512 [error] Postgrex.Protocol (#PID<0.57317.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:33:28.512 [error] Postgrex.Protocol (#PID<0.57316.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 18) test runs the release migration task from a selected environment variable (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:539
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:540: (test)
+
+     The following output was logged:
+     
+     22:33:37.508 [error] Postgrex.Protocol (#PID<0.57339.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:37.508 [error] Postgrex.Protocol (#PID<0.57338.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:37.508 [error] Postgrex.Protocol (#PID<0.57339.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:33:37.509 [error] Postgrex.Protocol (#PID<0.57338.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 19) test emits query telemetry without SQL, parameters, or credentials (Jido.Messaging.Persistence.PostgresTest)
+     test/jido_messaging/persistence/postgres_test.exs:586
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     code: state = start_state()
+     stacktrace:
+       test/jido_messaging/persistence/postgres_test.exs:618: Jido.Messaging.Persistence.PostgresTest.start_state/1
+       test/jido_messaging/persistence/postgres_test.exs:587: (test)
+
+     The following output was logged:
+     
+     22:33:46.510 [error] Postgrex.Protocol (#PID<0.57360.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:46.510 [error] Postgrex.Protocol (#PID<0.57361.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:33:46.510 [error] Postgrex.Protocol (#PID<0.57361.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:33:46.510 [error] Postgrex.Protocol (#PID<0.57360.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+......................................................................................................................................................................
+
+ 20) test returns not_found for records that do not exist (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+
+
+ 21) test reports capabilities and storage health (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:34:11.509 [error] Postgrex.Protocol (#PID<0.69239.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:11.509 [error] Postgrex.Protocol (#PID<0.69238.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:11.509 [error] Postgrex.Protocol (#PID<0.69239.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69238.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69243.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69244.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69245.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69240.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69241.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69242.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69240.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69243.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:11.510 [error] Postgrex.Protocol (#PID<0.69241.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:11.511 [error] Postgrex.Protocol (#PID<0.69242.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:11.511 [error] Postgrex.Protocol (#PID<0.69244.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:11.511 [error] Postgrex.Protocol (#PID<0.69245.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 22) test keeps adapter instances isolated (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:34:20.509 [error] Postgrex.Protocol (#PID<0.69258.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:20.509 [error] Postgrex.Protocol (#PID<0.69260.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:20.509 [error] Postgrex.Protocol (#PID<0.69259.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:20.509 [error] Postgrex.Protocol (#PID<0.69265.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:20.509 [error] Postgrex.Protocol (#PID<0.69261.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:20.510 [error] Postgrex.Protocol (#PID<0.69262.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:20.510 [error] Postgrex.Protocol (#PID<0.69264.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:20.510 [error] Postgrex.Protocol (#PID<0.69263.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:20.510 [error] Postgrex.Protocol (#PID<0.69259.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:20.510 [error] Postgrex.Protocol (#PID<0.69265.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:20.510 [error] Postgrex.Protocol (#PID<0.69261.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:20.510 [error] Postgrex.Protocol (#PID<0.69258.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:20.510 [error] Postgrex.Protocol (#PID<0.69260.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:20.511 [error] Postgrex.Protocol (#PID<0.69262.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:20.511 [error] Postgrex.Protocol (#PID<0.69263.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:20.511 [error] Postgrex.Protocol (#PID<0.69264.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 23) test round-trips and deletes core records (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:34:29.511 [error] Postgrex.Protocol (#PID<0.69304.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:29.511 [error] Postgrex.Protocol (#PID<0.69305.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:29.511 [error] Postgrex.Protocol (#PID<0.69306.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:29.511 [error] Postgrex.Protocol (#PID<0.69304.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:29.511 [error] Postgrex.Protocol (#PID<0.69305.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:29.511 [error] Postgrex.Protocol (#PID<0.69306.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69308.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69307.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69310.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69309.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69311.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69307.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69308.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69311.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69309.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:29.512 [error] Postgrex.Protocol (#PID<0.69310.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 24) test directory lookup retains full provider scope and rejects incomplete or ambiguous selection (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:34:38.516 [error] Postgrex.Protocol (#PID<0.69357.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:38.516 [error] Postgrex.Protocol (#PID<0.69357.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:38.517 [error] Postgrex.Protocol (#PID<0.69350.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69352.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69353.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69354.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69355.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69351.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69356.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69352.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69355.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69356.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69353.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69350.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69351.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:38.518 [error] Postgrex.Protocol (#PID<0.69354.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 25) test room directory lookup requires the complete bridge scope and keeps names case-insensitive (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:34:47.524 [error] Postgrex.Protocol (#PID<0.69397.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:47.524 [error] Postgrex.Protocol (#PID<0.69398.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:47.524 [error] Postgrex.Protocol (#PID<0.69399.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:47.524 [error] Postgrex.Protocol (#PID<0.69400.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:47.524 [error] Postgrex.Protocol (#PID<0.69401.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:47.524 [error] Postgrex.Protocol (#PID<0.69402.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:47.524 [error] Postgrex.Protocol (#PID<0.69403.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:47.525 [error] Postgrex.Protocol (#PID<0.69404.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:47.526 [error] Postgrex.Protocol (#PID<0.69397.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:47.526 [error] Postgrex.Protocol (#PID<0.69398.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:47.527 [error] Postgrex.Protocol (#PID<0.69399.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:47.527 [error] Postgrex.Protocol (#PID<0.69400.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:47.527 [error] Postgrex.Protocol (#PID<0.69403.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:47.528 [error] Postgrex.Protocol (#PID<0.69401.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:47.528 [error] Postgrex.Protocol (#PID<0.69404.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:47.528 [error] Postgrex.Protocol (#PID<0.69402.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 26) test identity revocation is enforced or rejected as unsupported before effects (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:34:56.517 [error] Postgrex.Protocol (#PID<0.69443.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:56.518 [error] Postgrex.Protocol (#PID<0.69448.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:56.518 [error] Postgrex.Protocol (#PID<0.69444.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:56.518 [error] Postgrex.Protocol (#PID<0.69445.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:56.518 [error] Postgrex.Protocol (#PID<0.69449.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:56.518 [error] Postgrex.Protocol (#PID<0.69450.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:56.518 [error] Postgrex.Protocol (#PID<0.69446.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:56.518 [error] Postgrex.Protocol (#PID<0.69447.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:34:56.519 [error] Postgrex.Protocol (#PID<0.69443.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:56.519 [error] Postgrex.Protocol (#PID<0.69444.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:56.519 [error] Postgrex.Protocol (#PID<0.69446.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:56.520 [error] Postgrex.Protocol (#PID<0.69449.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:56.520 [error] Postgrex.Protocol (#PID<0.69450.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:56.520 [error] Postgrex.Protocol (#PID<0.69448.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:56.520 [error] Postgrex.Protocol (#PID<0.69445.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:34:56.520 [error] Postgrex.Protocol (#PID<0.69447.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 27) test membership storage enforces revisions or rejects unsupported administration before effects (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69491.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69494.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69490.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69492.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69493.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69495.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69489.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69496.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69491.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69493.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69494.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69490.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69492.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69496.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69489.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:05.518 [error] Postgrex.Protocol (#PID<0.69495.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 28) test grant storage enforces revisions or rejects unsupported administration before effects (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:35:14.522 [error] Postgrex.Protocol (#PID<0.69535.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:14.522 [error] Postgrex.Protocol (#PID<0.69536.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:14.522 [error] Postgrex.Protocol (#PID<0.69537.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:14.522 [error] Postgrex.Protocol (#PID<0.69536.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:14.522 [error] Postgrex.Protocol (#PID<0.69535.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:14.522 [error] Postgrex.Protocol (#PID<0.69537.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69540.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69538.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69539.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69541.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69542.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69540.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69538.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69542.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69541.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:14.524 [error] Postgrex.Protocol (#PID<0.69539.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 29) test policy storage enforces revisions or rejects unsupported administration before effects (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:35:23.523 [error] Postgrex.Protocol (#PID<0.69583.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:23.523 [error] Postgrex.Protocol (#PID<0.69581.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:23.523 [error] Postgrex.Protocol (#PID<0.69582.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:23.523 [error] Postgrex.Protocol (#PID<0.69581.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:23.523 [error] Postgrex.Protocol (#PID<0.69582.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:23.523 [error] Postgrex.Protocol (#PID<0.69583.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69585.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69587.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69588.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69584.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69586.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69584.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69586.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69585.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69587.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:23.524 [error] Postgrex.Protocol (#PID<0.69588.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 30) test room deletion removes its authorization records and retains records in another room (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:35:32.527 [error] Postgrex.Protocol (#PID<0.69627.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:32.527 [error] Postgrex.Protocol (#PID<0.69628.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:32.527 [error] Postgrex.Protocol (#PID<0.69629.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:32.527 [error] Postgrex.Protocol (#PID<0.69630.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:32.527 [error] Postgrex.Protocol (#PID<0.69631.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:32.527 [error] Postgrex.Protocol (#PID<0.69632.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:32.527 [error] Postgrex.Protocol (#PID<0.69633.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:32.527 [error] Postgrex.Protocol (#PID<0.69634.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:32.529 [error] Postgrex.Protocol (#PID<0.69627.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:32.530 [error] Postgrex.Protocol (#PID<0.69628.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:32.530 [error] Postgrex.Protocol (#PID<0.69629.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:32.530 [error] Postgrex.Protocol (#PID<0.69630.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:32.530 [error] Postgrex.Protocol (#PID<0.69631.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:32.530 [error] Postgrex.Protocol (#PID<0.69632.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:32.530 [error] Postgrex.Protocol (#PID<0.69633.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:32.530 [error] Postgrex.Protocol (#PID<0.69634.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 31) test orders, filters, limits, and pages messages (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69679.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69679.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69674.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69673.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69675.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69677.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69676.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69680.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69678.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:41.528 [error] Postgrex.Protocol (#PID<0.69674.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:41.529 [error] Postgrex.Protocol (#PID<0.69678.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:41.529 [error] Postgrex.Protocol (#PID<0.69676.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:41.529 [error] Postgrex.Protocol (#PID<0.69680.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:41.529 [error] Postgrex.Protocol (#PID<0.69677.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:41.529 [error] Postgrex.Protocol (#PID<0.69673.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:41.529 [error] Postgrex.Protocol (#PID<0.69675.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 32) test room deletion clears child records and external indexes (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69721.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69722.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69726.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69720.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69719.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69723.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69724.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69725.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69719.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69723.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69724.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69726.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69722.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69721.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69720.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:50.530 [error] Postgrex.Protocol (#PID<0.69725.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 33) test external message index follows an updated external id (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:35:59.535 [error] Postgrex.Protocol (#PID<0.69765.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:59.535 [error] Postgrex.Protocol (#PID<0.69766.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:59.535 [error] Postgrex.Protocol (#PID<0.69768.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:59.535 [error] Postgrex.Protocol (#PID<0.69767.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:59.536 [error] Postgrex.Protocol (#PID<0.69770.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:59.536 [error] Postgrex.Protocol (#PID<0.69769.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:59.536 [error] Postgrex.Protocol (#PID<0.69771.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:59.536 [error] Postgrex.Protocol (#PID<0.69772.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:35:59.536 [error] Postgrex.Protocol (#PID<0.69765.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:59.537 [error] Postgrex.Protocol (#PID<0.69768.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:59.537 [error] Postgrex.Protocol (#PID<0.69769.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:59.537 [error] Postgrex.Protocol (#PID<0.69772.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:59.538 [error] Postgrex.Protocol (#PID<0.69766.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:59.538 [error] Postgrex.Protocol (#PID<0.69767.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:59.538 [error] Postgrex.Protocol (#PID<0.69770.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:35:59.538 [error] Postgrex.Protocol (#PID<0.69771.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 34) test provider message IDs remain distinct across rooms (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:36:08.535 [error] Postgrex.Protocol (#PID<0.69811.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:08.535 [error] Postgrex.Protocol (#PID<0.69814.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:08.535 [error] Postgrex.Protocol (#PID<0.69812.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:08.535 [error] Postgrex.Protocol (#PID<0.69815.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:08.535 [error] Postgrex.Protocol (#PID<0.69817.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:08.535 [error] Postgrex.Protocol (#PID<0.69813.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:08.535 [error] Postgrex.Protocol (#PID<0.69816.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:08.536 [error] Postgrex.Protocol (#PID<0.69812.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:08.536 [error] Postgrex.Protocol (#PID<0.69814.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:08.536 [error] Postgrex.Protocol (#PID<0.69815.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:08.536 [error] Postgrex.Protocol (#PID<0.69817.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:08.536 [error] Postgrex.Protocol (#PID<0.69818.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:08.536 [error] Postgrex.Protocol (#PID<0.69813.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:08.536 [error] Postgrex.Protocol (#PID<0.69816.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:08.536 [error] Postgrex.Protocol (#PID<0.69811.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:08.537 [error] Postgrex.Protocol (#PID<0.69818.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 35) test concurrent get-or-create returns one external room binding (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:36:17.537 [error] Postgrex.Protocol (#PID<0.69861.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:17.537 [error] Postgrex.Protocol (#PID<0.69863.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:17.537 [error] Postgrex.Protocol (#PID<0.69864.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69857.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69858.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69859.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69860.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69862.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69863.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69861.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69857.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69864.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69858.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69859.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69862.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:17.538 [error] Postgrex.Protocol (#PID<0.69860.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 36) test concurrent participant binding claims return one participant (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69908.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69903.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69909.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69904.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69910.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69906.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69907.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69905.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69910.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69904.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69908.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69906.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69905.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69909.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:26.540 [error] Postgrex.Protocol (#PID<0.69907.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:26.541 [error] Postgrex.Protocol (#PID<0.69903.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 37) test persists participant history and atomic read receipts (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:36:35.547 [error] Postgrex.Protocol (#PID<0.69949.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:35.547 [error] Postgrex.Protocol (#PID<0.69950.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:35.547 [error] Postgrex.Protocol (#PID<0.69949.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:35.547 [error] Postgrex.Protocol (#PID<0.69950.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:35.548 [error] Postgrex.Protocol (#PID<0.69954.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:35.548 [error] Postgrex.Protocol (#PID<0.69954.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:35.549 [error] Postgrex.Protocol (#PID<0.69951.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:35.549 [error] Postgrex.Protocol (#PID<0.69955.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:35.549 [error] Postgrex.Protocol (#PID<0.69955.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:35.549 [error] Postgrex.Protocol (#PID<0.69951.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:35.550 [error] Postgrex.Protocol (#PID<0.69956.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:35.550 [error] Postgrex.Protocol (#PID<0.69952.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:35.550 [error] Postgrex.Protocol (#PID<0.69953.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:35.550 [error] Postgrex.Protocol (#PID<0.69956.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:35.550 [error] Postgrex.Protocol (#PID<0.69952.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:35.550 [error] Postgrex.Protocol (#PID<0.69953.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+
+
+ 38) test round-trips directory and control-plane records (Jido.Messaging.Persistence.PostgresConformanceTest)
+     test/jido_messaging/persistence/conformance_test.exs:17
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %DBConnection.ConnectionError{
+            message: "[] connection not available and request was dropped from queue after 4000ms. This means requests are coming in and your connection pool cannot serve them fast enough. You can address this by:\n\n  1. Ensuring your database is available and that you can connect to it\n  2. Tracking down slow queries and making sure they are running fast enough\n  3. Increasing the pool_size (although this increases resource consumption)\n  4. Allowing requests to wait longer by increasing :queue_target and :queue_interval\n\nSee DBConnection.start_link/2 for more information\n",
+            severity: :error,
+            reason: :queue_timeout
+          }}
+
+     stacktrace:
+       test/jido_messaging/persistence/conformance_test.exs:17: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit_setup_0/1
+       test/jido_messaging/persistence/conformance_test.exs:16: Jido.Messaging.Persistence.PostgresConformanceTest.__ex_unit__/2
+
+     The following output was logged:
+     
+     22:36:44.540 [error] Postgrex.Protocol (#PID<0.70000.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:44.540 [error] Postgrex.Protocol (#PID<0.70002.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:44.540 [error] Postgrex.Protocol (#PID<0.69996.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:44.540 [error] Postgrex.Protocol (#PID<0.70003.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:44.540 [error] Postgrex.Protocol (#PID<0.70001.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:44.540 [error] Postgrex.Protocol (#PID<0.69998.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:44.540 [error] Postgrex.Protocol (#PID<0.69997.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:44.540 [error] Postgrex.Protocol (#PID<0.69999.0>) timed out because it was handshaking for longer than 15000ms
+     
+     22:36:44.542 [error] Postgrex.Protocol (#PID<0.70000.0> ("db_conn_5")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:44.542 [error] Postgrex.Protocol (#PID<0.70002.0> ("db_conn_7")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:44.542 [error] Postgrex.Protocol (#PID<0.70001.0> ("db_conn_6")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:44.542 [error] Postgrex.Protocol (#PID<0.69996.0> ("db_conn_1")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:44.542 [error] Postgrex.Protocol (#PID<0.69998.0> ("db_conn_3")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:44.542 [error] Postgrex.Protocol (#PID<0.70003.0> ("db_conn_8")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:44.542 [error] Postgrex.Protocol (#PID<0.69997.0> ("db_conn_2")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+     22:36:44.542 [error] Postgrex.Protocol (#PID<0.69999.0> ("db_conn_4")) failed to connect: ** (DBConnection.ConnectionError) tcp recv (idle): closed
+     
+.............................................................................................
+Finished in 375.1 seconds (11.6s async, 363.5s sync)
+
+Result: 1041/1079 passed (1/1 doctest, 1040/1078 tests)
+Failed: 38 tests
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+ 77.8% lib/jido_messaging.ex                        3243      619      137
+ 86.9% lib/jido_messaging/acceptance.ex              157       69        9
+ 85.2% lib/jido_messaging/access_control.ex          264      102       15
+ 71.7% lib/jido_messaging/activity_data.ex           100       39       11
+ 65.0% lib/jido_messaging/activity_page.ex            58       20        7
+ 89.7% lib/jido_messaging/activity_projection.e       93       39        4
+ 65.8% lib/jido_messaging/adapter_bridge.ex          491      164       56
+100.0% lib/jido_messaging/adapters/heartbeat.ex      118        5        0
+ 78.5% lib/jido_messaging/agent_directory.ex         272      107       23
+ 71.8% lib/jido_messaging/agent_directory_data.      193       71       20
+ 75.0% lib/jido_messaging/agent_directory_endpo       47        8        2
+100.0% lib/jido_messaging/agent_directory_entry       89       18        0
+ 88.8% lib/jido_messaging/agent_directory_proje      148       18        2
+  0.0% lib/jido_messaging/agent_directory_proje       19        0        0
+ 80.0% lib/jido_messaging/agent_directory_scope       61       10        2
+ 73.6% lib/jido_messaging/agent_endpoint_data.e      120       38       10
+ 77.5% lib/jido_messaging/agent_endpoint_delive      159       58       13
+  0.0% lib/jido_messaging/agent_endpoint_provid       23        0        0
+100.0% lib/jido_messaging/agent_endpoint_target       44        6        0
+ 86.6% lib/jido_messaging/agent_endpoints.ex         406      150       20
+ 60.0% lib/jido_messaging/agent_invocation_summ       50        5        2
+ 77.2% lib/jido_messaging/agent_messaging_endpo      107       22        5
+ 82.2% lib/jido_messaging/agent_runner.ex            295      107       19
+ 68.4% lib/jido_messaging/agent_supervisor.ex        209       57       18
+ 90.4% lib/jido_messaging/agent_thread_route.ex       98       21        2
+ 52.1% lib/jido_messaging/audit_logger.ex            283       94       45
+ 60.0% lib/jido_messaging/authorization_action.       51        5        2
+ 61.9% lib/jido_messaging/authorization_data.ex      131       42       16
+100.0% lib/jido_messaging/authorization_decisio       63       13        0
+ 84.9% lib/jido_messaging/authorization_scope.e      171       53        8
+ 85.5% lib/jido_messaging/authorizer.ex              214       76       11
+ 83.3% lib/jido_messaging/authorship.ex              111       18        3
+ 34.3% lib/jido_messaging/bridge_config.ex           130       32       21
+100.0% lib/jido_messaging/bridge_plugin.ex           116        9        0
+ 79.6% lib/jido_messaging/bridge_registry.ex         741      187       38
+ 50.0% lib/jido_messaging/bridge_room_spec.ex         34        2        1
+100.0% lib/jido_messaging/bridge_server.ex           184       53        0
+ 50.0% lib/jido_messaging/bridge_status.ex            32        2        1
+ 85.1% lib/jido_messaging/bridge_supervisor.ex       156       47        7
+ 79.5% lib/jido_messaging/chat_actions.ex            143       44        9
+  0.0% lib/jido_messaging/chat_actions/action.e       45        5        5
+ 85.7% lib/jido_messaging/chat_actions/executor      550      231       33
+  0.0% lib/jido_messaging/chat_actions/messenge       40        0        0
+  0.0% lib/jido_messaging/chat_actions/moderato       66        0        0
+ 95.4% lib/jido_messaging/chat_actions/policy.e      140       44        2
+  0.0% lib/jido_messaging/chat_actions/reader.e       75        0        0
+ 74.0% lib/jido_messaging/chat_actions/resolver      134       54       14
+  0.0% lib/jido_messaging/chat_actions/schemas.       93        8        8
+ 89.4% lib/jido_messaging/chat_actions/scope.ex      211       57        6
+ 77.7% lib/jido_messaging/chat_actions/signal_r      117       36        8
+ 76.2% lib/jido_messaging/config_store.ex            465      164       39
+ 60.0% lib/jido_messaging/context.ex                  54        5        2
+ 88.8% lib/jido_messaging/continuity.ex              287       99       11
+ 66.1% lib/jido_messaging/continuity_data.ex         151       59       20
+ 97.9% lib/jido_messaging/dead_letter.ex             469      147        3
+100.0% lib/jido_messaging/dead_letter/replay_su       34        9        0
+ 72.0% lib/jido_messaging/dead_letter/replay_wo      168       50       14
+ 92.9% lib/jido_messaging/deduper.ex                 303       85        6
+ 70.1% lib/jido_messaging/delegation_data.ex         171       67       20
+ 90.9% lib/jido_messaging/delegation_transport.      167       55        5
+ 80.8% lib/jido_messaging/deliver.ex                 458      162       31
+ 50.0% lib/jido_messaging/delivery_policy.ex          33        4        2
+ 40.0% lib/jido_messaging/demo/bridge.ex             330      105       63
+ 90.0% lib/jido_messaging/demo/heartbeat_sensor       94       30        3
+  0.0% lib/jido_messaging/demo/messaging.ex            6        0        0
+ 68.4% lib/jido_messaging/demo/supervisor.ex         163       19        6
+ 64.8% lib/jido_messaging/demo/topology.ex           441      185       65
+ 43.7% lib/jido_messaging/directory.ex                76       16        9
+ 86.9% lib/jido_messaging/dispatch.ex                 65       23        3
+ 56.2% lib/jido_messaging/event_options.ex            83       16        7
+ 76.5% lib/jido_messaging/events.ex                  324      166       39
+ 86.5% lib/jido_messaging/execution.ex               724      313       42
+ 55.0% lib/jido_messaging/external_identity_bin      157       40       18
+100.0% lib/jido_messaging/gating.ex                   99        5        0
+ 83.7% lib/jido_messaging/grant.ex                   130       37        6
+ 42.8% lib/jido_messaging/history_scope.ex            43        7        4
+ 83.2% lib/jido_messaging/identity.ex                447      137       23
+100.0% lib/jido_messaging/identity_assertion_us       26        1        0
+ 73.6% lib/jido_messaging/identity_credential.e      188       72       19
+ 71.4% lib/jido_messaging/identity_credential_c       49        7        2
+ 80.2% lib/jido_messaging/identity_credentials.      206       86       17
+ 64.1% lib/jido_messaging/identity_data.ex           129       39       14
+ 90.9% lib/jido_messaging/identity_evidence.ex       129       33        3
+  0.0% lib/jido_messaging/identity_provider.ex        23        0        0
+ 87.9% lib/jido_messaging/identity_verifier.ex       291      116       14
+ 88.0% lib/jido_messaging/inbound_router.ex           90       42        5
+ 80.5% lib/jido_messaging/ingest.ex                 1437      426       83
+ 77.7% lib/jido_messaging/ingress_sink.ex             26        9        2
+ 38.9% lib/jido_messaging/ingress_subscription.      146       59       36
+ 80.3% lib/jido_messaging/ingress_subscriptions      273      102       20
+100.0% lib/jido_messaging/instance.ex                 38        2        0
+ 71.8% lib/jido_messaging/instance_reconnect_wo      360       96       27
+ 91.3% lib/jido_messaging/instance_server.ex         401      115       10
+ 88.5% lib/jido_messaging/instance_supervisor.e      218       61        7
+ 80.4% lib/jido_messaging/invocation_policy.ex       141       41        8
+100.0% lib/jido_messaging/jidoka_continuity_con       24        1        0
+ 57.1% lib/jido_messaging/jidoka_continuity_ref       73        7        3
+100.0% lib/jido_messaging/jidoka_delegation_con       24        1        0
+ 84.0% lib/jido_messaging/jidoka_delegation_eve      206       44        7
+ 77.2% lib/jido_messaging/jidoka_delegation_ref      111       22        5
+ 66.6% lib/jido_messaging/jidoka_delegation_sco      102       15        5
+ 85.0% lib/jido_messaging/jidoka_emission_ref.e       98       20        3
+ 69.6% lib/jido_messaging/jidoka_execution_ref.      121       33       10
+ 79.1% lib/jido_messaging/media_policy.ex            566      187       39
+ 85.7% lib/jido_messaging/membership.ex               81       14        2
+100.0% lib/jido_messaging/message.ex                  48        3        0
+ 77.9% lib/jido_messaging/message_lifecycle.ex       181       59       13
+ 80.0% lib/jido_messaging/messaging_activity_en      217       60       12
+ 26.6% lib/jido_messaging/messaging_activity_su       61       15       11
+100.0% lib/jido_messaging/moderation.ex               90       11        0
+ 95.0% lib/jido_messaging/moderators/keyword_fi       65       20        1
+ 96.5% lib/jido_messaging/moderators/rate_limit      107       29        1
+ 96.2% lib/jido_messaging/msg_context.ex             180       27        1
+ 86.3% lib/jido_messaging/msg_context/command_p      200       44        6
+ 90.2% lib/jido_messaging/msg_context/normalize      432      164       16
+ 67.8% lib/jido_messaging/onboarding.ex              111       28        9
+ 66.6% lib/jido_messaging/onboarding/flow.ex          53        3        1
+ 83.3% lib/jido_messaging/onboarding/state_mach      148       36        6
+ 63.1% lib/jido_messaging/onboarding/supervisor       85       19        7
+ 84.7% lib/jido_messaging/onboarding/worker.ex       169       46        7
+ 70.7% lib/jido_messaging/outbound_gateway.ex        524      140       41
+ 87.3% lib/jido_messaging/outbound_gateway/part      814      284       36
+100.0% lib/jido_messaging/outbound_gateway/supe       42        8        0
+ 92.5% lib/jido_messaging/outbound_router.ex         283       80        6
+  0.0% lib/jido_messaging/persistence.ex             565        0        0
+100.0% lib/jido_messaging/persistence/conforman      803        8        0
+ 87.8% lib/jido_messaging/persistence/ets.ex        2600      958      116
+ 13.4% lib/jido_messaging/persistence/postgres.     1637      498      431
+  0.0% lib/jido_messaging/persistence/postgres/       26        2        2
+ 87.4% lib/jido_messaging/persistence/sqlite.ex     2844      934      117
+ 88.5% lib/jido_messaging/presence.ex                673      219       25
+ 82.1% lib/jido_messaging/principal.ex               110       28        5
+100.0% lib/jido_messaging/query.ex                    34        7        0
+ 83.3% lib/jido_messaging/read_receipt.ex            125       42        7
+ 85.7% lib/jido_messaging/room_binding.ex             57        7        1
+ 88.8% lib/jido_messaging/room_membership.ex          61        9        1
+ 75.5% lib/jido_messaging/room_server.ex             789      270       66
+ 87.5% lib/jido_messaging/room_supervisor.ex         105       24        3
+ 26.0% lib/jido_messaging/routing_policy.ex           88       23       17
+ 94.7% lib/jido_messaging/runtime.ex                 280       76        4
+  0.0% lib/jido_messaging/search_projection.ex        28        0        0
+ 60.5% lib/jido_messaging/secret_resolver.ex         152       38       15
+ 67.6% lib/jido_messaging/security.ex                580      133       43
+ 65.3% lib/jido_messaging/security/default_adap      175       49       17
+ 83.4% lib/jido_messaging/sender.ex                  380      109       18
+100.0% lib/jido_messaging/session_key.ex             138       11        0
+ 77.0% lib/jido_messaging/session_manager.ex         223       48       11
+ 78.0% lib/jido_messaging/session_manager/parti      459      141       31
+100.0% lib/jido_messaging/session_manager/super       39        8        0
+ 75.0% lib/jido_messaging/signal.ex                  105       24        6
+  0.0% lib/jido_messaging/signal/add_reaction.e       20        0        0
+  0.0% lib/jido_messaging/signal/add_room_react       20        0        0
+  0.0% lib/jido_messaging/signal/agent_complete       20        0        0
+  0.0% lib/jido_messaging/signal/agent_failed.e       20        0        0
+  0.0% lib/jido_messaging/signal/agent_started.       20        0        0
+  0.0% lib/jido_messaging/signal/agent_triggere       20        0        0
+ 92.3% lib/jido_messaging/signal/context.ex           42       13        1
+  0.0% lib/jido_messaging/signal/create_room.ex       20        0        0
+  0.0% lib/jido_messaging/signal/delete_message       20        0        0
+  0.0% lib/jido_messaging/signal/edit_message.e       20        0        0
+  0.0% lib/jido_messaging/signal/fetch_channel_       20        0        0
+  0.0% lib/jido_messaging/signal/fetch_media.ex       20        0        0
+  0.0% lib/jido_messaging/signal/fetch_message.       20        0        0
+  0.0% lib/jido_messaging/signal/fetch_messages       20        0        0
+  0.0% lib/jido_messaging/signal/fetch_metadata       20        0        0
+  0.0% lib/jido_messaging/signal/fetch_subject.       20        0        0
+  0.0% lib/jido_messaging/signal/fetch_thread.e       20        0        0
+  0.0% lib/jido_messaging/signal/get_thread_par       20        0        0
+  0.0% lib/jido_messaging/signal/get_user.ex          20        0        0
+ 66.6% lib/jido_messaging/signal/identity.ex          25        6        2
+  0.0% lib/jido_messaging/signal/instance_conne       20        0        0
+  0.0% lib/jido_messaging/signal/instance_conne       20        0        0
+  0.0% lib/jido_messaging/signal/instance_disco       20        0        0
+  0.0% lib/jido_messaging/signal/instance_error       20        0        0
+  0.0% lib/jido_messaging/signal/instance_start       20        0        0
+  0.0% lib/jido_messaging/signal/instance_stopp       20        0        0
+  0.0% lib/jido_messaging/signal/list_threads.e       20        0        0
+  0.0% lib/jido_messaging/signal/load_options.e       20        0        0
+  0.0% lib/jido_messaging/signal/mark_as_read.e       20        0        0
+  0.0% lib/jido_messaging/signal/mark_delivered       20        0        0
+  0.0% lib/jido_messaging/signal/mark_read.ex         20        0        0
+  0.0% lib/jido_messaging/signal/membership_obs       20        0        0
+  0.0% lib/jido_messaging/signal/message_delive       20        0        0
+  0.0% lib/jido_messaging/signal/message_failed       20        0        0
+  0.0% lib/jido_messaging/signal/message_read.e       20        0        0
+  0.0% lib/jido_messaging/signal/message_receiv       20        0        0
+  0.0% lib/jido_messaging/signal/message_sent.e       20        0        0
+  0.0% lib/jido_messaging/signal/open_dm.ex           20        0        0
+  0.0% lib/jido_messaging/signal/open_modal.ex        20        0        0
+  0.0% lib/jido_messaging/signal/open_thread.ex       20        0        0
+  0.0% lib/jido_messaging/signal/operation_comp       20        0        0
+  0.0% lib/jido_messaging/signal/operation_fail       20        0        0
+  0.0% lib/jido_messaging/signal/participant_jo       20        0        0
+  0.0% lib/jido_messaging/signal/participant_jo       20        0        0
+  0.0% lib/jido_messaging/signal/participant_le       20        0        0
+  0.0% lib/jido_messaging/signal/participant_le       20        0        0
+  0.0% lib/jido_messaging/signal/post_channel_m       20        0        0
+  0.0% lib/jido_messaging/signal/post_ephemeral       20        0        0
+  0.0% lib/jido_messaging/signal/post_message.e       20        0        0
+  0.0% lib/jido_messaging/signal/post_provider_       20        0        0
+  0.0% lib/jido_messaging/signal/presence_chang       20        0        0
+  0.0% lib/jido_messaging/signal/reaction_added       20        0        0
+  0.0% lib/jido_messaging/signal/reaction_remov       20        0        0
+  0.0% lib/jido_messaging/signal/remove_reactio       20        0        0
+  0.0% lib/jido_messaging/signal/remove_room_re       20        0        0
+  0.0% lib/jido_messaging/signal/room_created.e       20        0        0
+  0.0% lib/jido_messaging/signal/room_message_a       20        0        0
+  0.0% lib/jido_messaging/signal/send_file.ex         20        0        0
+  0.0% lib/jido_messaging/signal/send_message.e       20        0        0
+  0.0% lib/jido_messaging/signal/set_presence.e       20        0        0
+  0.0% lib/jido_messaging/signal/set_typing.ex        20        0        0
+  0.0% lib/jido_messaging/signal/start_typing.e       20        0        0
+  0.0% lib/jido_messaging/signal/stream.ex            20        0        0
+  0.0% lib/jido_messaging/signal/thread_changed       20        0        0
+  0.0% lib/jido_messaging/signal/thread_created       20        0        0
+  0.0% lib/jido_messaging/signal/thread_reply_a       20        0        0
+  0.0% lib/jido_messaging/signal/typing_changed       20        0        0
+ 97.2% lib/jido_messaging/streaming.ex               234       37        1
+ 97.6% lib/jido_messaging/supervisor.ex              119       42        1
+100.0% lib/jido_messaging/thread.ex                   42        3        0
+ 88.3% lib/jido_messaging/thread_continuity_lin      240       60        7
+ 87.0% lib/jido_messaging/topology_validator.ex      148       54        7
+ 90.4% lib/jido_messaging/transcript.ex               62       21        2
+ 91.3% lib/jido_messaging/transcript_entry.ex         98       23        2
+ 80.5% lib/jido_messaging/trust_evidence.ex          187       36        7
+ 71.2% lib/jido_messaging/trust_evidence_data.e      202       73       21
+  0.0% lib/jido_messaging/trust_evidence_provid       19        0        0
+ 91.3% lib/jido_messaging/trust_evidence_query.      139       46        4
+ 90.0% lib/jido_messaging/trust_evidence_result       72       10        1
+ 66.6% lib/jido_messaging/trust_evidence_scope.      103       12        4
+ 83.0% lib/jido_messaging/trust_evidence_servic      264      100       17
+ 78.5% lib/jido_messaging/trust_evidence_source       75       14        3
+ 66.1% lib/jido_messaging/webhook_plug.ex            160       59       20
+ 79.1% lib/mix/tasks/jido_messaging.demo.ex          471      139       29
+  0.0% lib/mix/tasks/jido_messaging.postgres.mi       43       12       12
+  0.0% test/support/core_profile_messaging.ex          9        0        0
+ 56.2% test/support/persistence_conformance_fac       60       16        7
+  0.0% test/support/read_receipt_doctest_exampl        5        0        0
+ 60.0% test/support/test_helpers.ex                   65       15        6
+  0.0% test/support/test_messaging.ex                  4        0        0
+  0.0% test/support/test_messaging_with_pubsub.        6        0        0
+[TOTAL]  77.9%
+----------------
+Coverage data exported.

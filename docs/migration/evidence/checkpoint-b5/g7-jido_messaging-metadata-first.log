@@ -1,0 +1,5 @@
+** (Mix) Unused dependencies in mix.lock file:
+
+  * :fuse
+  * :poolboy
+  * :time_zone_info

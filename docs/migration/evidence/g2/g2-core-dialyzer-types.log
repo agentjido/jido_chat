@@ -1,0 +1,85 @@
+Finding suitable PLTs
+Checking PLT...
+[:asn1, :compiler, :crypto, :decimal, :eex, :elixir, :ex_unit, :excoveralls, :inets, :jason, :jido_chat, :jido_signal, :kernel, :logger, :mix, :public_key, :splode, :ssl, :stdlib, :telemetry, :tools, :xmerl, :zoi]
+PLT is up to date!
+No :ignore_warnings opt specified in mix.exs and default does not exist.
+
+Starting Dialyzer
+[
+  check_plt: false,
+  init_plt: ~c"priv/plts/project.plt/dialyxir_erlang-29.1_elixir-1.20.4_deps-test.plt",
+  files: [~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.Operations.Result.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.Signal.ActionReceived.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.Markdown.StreamRenderer.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.ThreadSummary.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.AdapterTestKit.Assertions.beam",
+   ...],
+  ...
+]
+Total errors: 2, Skipped: 0, Unnecessary Skips: 0
+done in 0m3.32s
+lib/jido/chat/handlers/families.ex:1:call_without_opaque
+Function call without opaqueness type mismatch.
+
+Call does not have expected opaque term of type Jido.Signal.Router.t() in the 1st position.
+
+Jido.Signal.Router.route(
+  %Jido.Signal.Router.Router{
+    :entries => [
+      %{
+        :class => 2,
+        :complexity => 38000,
+        :order => byte(),
+        :route => map(),
+        :segments => [any(), ...]
+      },
+      ...
+    ],
+    :exact_index => %{<<_::64, _::size(8)>> => [map(), ...]},
+    :next_node_id => 1,
+    :next_order => 17,
+    :wildcard_index => %{
+      :exact => %{},
+      :globstar? => false,
+      :id => 0,
+      :multi => nil,
+      :single => nil,
+      :terminals => []
+    }
+  },
+  _1 :: any()
+)
+
+________________________________________________________________________________
+lib/jido/chat/handlers/families.ex:1:contract_with_opaque
+The @spec for Jido.Chat.Handlers.Families.router/0 has an opaque
+subtype Jido.Signal.Router.t() which is violated by the success typing.
+
+Success typing:
+() :: %Jido.Signal.Router.Router{
+  :entries => [
+    %{
+      :class => 2,
+      :complexity => 38000,
+      :order => byte(),
+      :route => map(),
+      :segments => [any(), ...]
+    },
+    ...
+  ],
+  :exact_index => %{<<_::64, _::size(8)>> => [map(), ...]},
+  :next_node_id => 1,
+  :next_order => 17,
+  :wildcard_index => %{
+    :exact => %{},
+    :globstar? => false,
+    :id => 0,
+    :multi => nil,
+    :single => nil,
+    :terminals => []
+  }
+}
+
+________________________________________________________________________________
+done (warnings were emitted)
+Halting VM with exit status 2

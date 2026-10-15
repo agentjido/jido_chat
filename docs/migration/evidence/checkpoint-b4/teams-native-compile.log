@@ -1,0 +1,318 @@
+
+18:59:44.845 [info] Compiling file system watcher for Mac...
+
+18:59:45.326 [info] Done.
+==> file_system
+Compiling 7 files (.ex)
+Generated file_system app
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> bunt
+Compiling 2 files (.ex)
+Generated bunt app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+==> mint
+Compiling 1 file (.erl)
+Compiling 21 files (.ex)
+Generated mint app
+==> jose
+Compiling 113 files (.erl)
+src/jose_server.erl:137:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  137| 		_ = catch jose_jwa:unsecured_signing(UnsecuredSigning),
+%     | 		    ^
+
+src/jose_server.erl:797:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  797| 	case catch jose_crypto_compat:crypto_one_time(Cipher, Key, PlainText, true) of
+%     | 	     ^
+
+src/jose_server.erl:799:9: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  799| 			case catch jose_crypto_compat:crypto_one_time(Cipher, Key, CipherText, false) of
+%     | 			     ^
+
+src/jose_server.erl:809:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  809| 	case catch jose_crypto_compat:crypto_one_time(Cipher, Key, IV, PlainText, true) of
+%     | 	     ^
+
+src/jose_server.erl:811:9: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  811| 			case catch jose_crypto_compat:crypto_one_time(Cipher, Key, IV, CipherText, false) of
+%     | 			     ^
+
+src/jose_server.erl:821:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  821| 	case catch jose_crypto_compat:crypto_one_time(Cipher, Key, IV, {AAD, PlainText}, true) of
+%     | 	     ^
+
+src/jose_server.erl:823:9: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  823| 			case catch jose_crypto_compat:crypto_one_time(Cipher, Key, IV, {AAD, CipherText, CipherTag}, false) of
+%     | 			     ^
+
+src/jose_server.erl:837:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  837| 	case catch public_key:encrypt_public(PlainText, PublicKey, FutureOptions) of
+%     | 	     ^
+
+src/jose_server.erl:840:9: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  840| 			case catch public_key:decrypt_private(CipherText, PrivateKey, FutureOptions) of
+%     | 			     ^
+
+src/jose_server.erl:842:11: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  842| 					case catch public_key:decrypt_private(rsa_ciphertext(Algorithm), PrivateKey, FutureOptions) of
+%     | 					     ^
+
+src/jose_server.erl:859:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  859| 	case catch public_key:encrypt_public(PlainText, PublicKey, LegacyOptions) of
+%     | 	     ^
+
+src/jose_server.erl:862:9: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  862| 			case catch public_key:decrypt_private(CipherText, PrivateKey, LegacyOptions) of
+%     | 			     ^
+
+src/jose_server.erl:864:11: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  864| 					case catch public_key:decrypt_private(rsa_ciphertext(Algorithm), PrivateKey, LegacyOptions) of
+%     | 					     ^
+
+src/jose_server.erl:882:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  882| 	case catch public_key:sign(Message, DigestType, PrivateKey, Options) of
+%     | 	     ^
+
+src/jose_server.erl:885:9: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  885| 			case catch public_key:verify(Message, DigestType, Signature, PublicKey, Options) of
+%     | 			     ^
+
+src/jose_server.erl:897:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  897| 	case catch public_key:sign(Message, DigestType, PrivateKey) of
+%     | 	     ^
+
+src/jose_server.erl:900:9: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  900| 			case catch public_key:verify(Message, DigestType, Signature, PublicKey) of
+%     | 			     ^
+
+src/jwa/jose_jwa.erl:230:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  230| 	case catch block_cipher(Cipher) of
+%     | 	     ^
+
+src/jwa/jose_jwa.erl:238:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  238| 	case catch ?MAYBE_START_JOSE(ets:lookup_element(?TAB, chacha20_poly1305_module, 2)) of
+%     | 	     ^
+
+src/jwa/jose_jwa.erl:246:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  246| 	case catch rsa_crypt(Padding) of
+%     | 	     ^
+
+src/jwa/jose_jwa.erl:254:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  254| 	case catch rsa_sign(Padding) of
+%     | 	     ^
+
+src/jwa/jose_jwa.erl:262:7: Warning: 'catch ...' is deprecated; please use 'try ... catch ... end' instead.
+Compile directive 'nowarn_deprecated_catch' can be used to suppress
+warnings in selected modules.
+%  262| 	case catch ?MAYBE_START_JOSE(ets:lookup_element(?TAB, xchacha20_poly1305_module, 2)) of
+%     | 	     ^
+
+Compiling 8 files (.ex)
+Generated jose app
+==> recase
+Compiling 15 files (.ex)
+Generated recase app
+==> git_hooks
+Compiling 15 files (.ex)
+Generated git_hooks app
+==> erlex
+Compiling 1 file (.xrl)
+Compiling 1 file (.yrl)
+Compiling 2 files (.erl)
+Compiling 2 files (.ex)
+Generated erlex app
+==> decimal
+Compiling 4 files (.ex)
+Generated decimal app
+==> jason
+Compiling 10 files (.ex)
+Generated jason app
+==> excoveralls
+Compiling 29 files (.ex)
+    warning: unused require EEx
+    │
+  5 │   require EEx
+    │   ~
+    │
+    └─ lib/excoveralls/html/view.ex:5:3
+
+    warning: unused require ExCoveralls.Html.Safe
+    │
+  6 │   require ExCoveralls.Html.Safe
+    │   ~
+    │
+    └─ lib/excoveralls/html/view.ex:6:3
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--pretty=format:%s"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 50 │       _ -> "[no commit message]"
+    │         ~
+    │
+    └─ lib/excoveralls/semaphore.ex:50:9: ExCoveralls.Semaphore.get_message!/0
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--pretty=format:%s"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 51 │       _ -> "[no commit message]"
+    │         ~
+    │
+    └─ lib/excoveralls/circle.ex:51:9: ExCoveralls.Circle.get_message!/0
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--format=%an"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 56 │       _ -> "[no committer name]"
+    │         ~
+    │
+    └─ lib/excoveralls/gitlab.ex:56:9: ExCoveralls.Gitlab.get_committer/0
+
+     warning: CAStore.file_path/0 is undefined (module CAStore is not available or is yet to be defined). Make sure the module name is correct and has been specified in full (or that an alias has been defined)
+     │
+ 111 │         [cacertfile: String.to_charlist(CAStore.file_path())]
+     │                                                 ~
+     │
+     └─ lib/excoveralls/poster.ex:111:49: ExCoveralls.Poster.cacert_option/0
+
+Generated excoveralls app
+==> jido_chat_teams
+===> Analyzing applications...
+===> Compiling telemetry
+==> zoi
+Compiling 84 files (.ex)
+Generated zoi app
+==> doctor
+Compiling 17 files (.ex)
+    warning: this clause of defp valid_moduledoc?/2 is never used (or it will always fail/warn when invoked)
+    │
+ 96 │   defp valid_moduledoc?(%ModuleReport{is_protocol_implementation: true}, _config), do: true
+    │        ~
+    │
+    └─ lib/reporters/module_explain.ex:96:8: Doctor.Reporters.ModuleExplain.valid_moduledoc?/2
+
+     warning: this clause of defp valid_doc_coverage?/2 is never used (or it will always fail/warn when invoked)
+     │
+ 103 │   defp valid_doc_coverage?(%ModuleReport{is_protocol_implementation: true}, _config), do: true
+     │        ~
+     │
+     └─ lib/reporters/module_explain.ex:103:8: Doctor.Reporters.ModuleExplain.valid_doc_coverage?/2
+
+Generated doctor app
+==> dialyxir
+Compiling 70 files (.ex)
+Generated dialyxir app
+==> splode
+Compiling 5 files (.ex)
+Generated splode app
+==> jido_signal
+Compiling 33 files (.ex)
+Generated jido_signal app
+==> jido_chat
+Compiling 126 files (.ex)
+Generated jido_chat app
+==> credo
+Compiling 257 files (.ex)
+Generated credo app
+==> dotenvy
+Compiling 3 files (.ex)
+Generated dotenvy app
+==> nimble_pool
+Compiling 2 files (.ex)
+Generated nimble_pool app
+==> finch
+Compiling 23 files (.ex)
+Generated finch app
+==> req
+Compiling 24 files (.ex)
+Generated req app
+==> jido_chat_teams
+Compiling 10 files (.ex)
+      warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp native_activity/3" was previously defined (lib/jido/chat/teams/adapter.ex:1152)
+      │
+ 1322 │   defp native_activity(context, "invoke", payload) do
+      │        ~
+      │
+      └─ lib/jido/chat/teams/adapter.ex:1322:8
+
+Compilation failed due to warnings while using the --warnings-as-errors option

@@ -1,0 +1,25 @@
+{
+  "label": "g3-current-canonical-storage-ai-harness-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "7218766544fc4383c1a3147d4e81829da410a855",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T03:04:51.796296+00:00",
+  "finished_at": "2026-10-13T03:05:04.187316+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "1",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-canonical-storage-ai-harness-tests.log",
+  "log_sha256": "906850873235ce11e580b901192191cc3ae13ad9e381db4b21df6d6e0d166929"
+}

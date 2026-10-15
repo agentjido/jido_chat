@@ -1,0 +1,21 @@
+Running ExUnit with seed: 0, max_cases: 20
+
+.........................................................
+
+  1) test Telegram send through Messaging preserves one provider call and rejects revoked authority (Jido.Chat.Telegram.ExecutionRuntimeTest)
+     fixtures/telegram_execution_runtime_test.exs:76
+     Assertion with == failed
+     code:  assert result.type == "jido.messaging.operation.completed"
+     left:  "jido.messaging.operation.failed"
+     right: "jido.messaging.operation.completed"
+     stacktrace:
+       fixtures/telegram_execution_runtime_test.exs:65: Jido.Chat.Telegram.ExecutionRuntimeTest.portable_result/3
+       fixtures/telegram_execution_runtime_test.exs:80: (test)
+
+.......
+17:21:28.929 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.2968.0>, nil}
+................................................................
+Finished in 6.3 seconds (4.7s on load, 0.1s async, 1.4s sync)
+
+Result: 128/129 passed
+Failed: 1 test

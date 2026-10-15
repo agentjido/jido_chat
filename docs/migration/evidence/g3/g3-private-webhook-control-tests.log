@@ -1,0 +1,11 @@
+==> jido_chat
+Compiling 1 file (.ex)
+==> jido_messaging
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.............
+Finished in 0.6 seconds (0.00s async, 0.6s sync)
+
+Result: 13 passed

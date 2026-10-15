@@ -1,0 +1,20 @@
+{
+  "label": "g3-native-emission-first-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "7076c19df3ff308ce3712903097d95c6373a05c9f5bd3bf18b57ac1192c2682e",
+  "started_at": "2026-10-12T19:20:46.008627+00:00",
+  "finished_at": "2026-10-12T19:20:47.548870+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-native-emission-first-compile.log",
+  "log_sha256": "94efae7dba465d5e84a65eb89ff1681e797efc806d10a0989acf2e38b0574799"
+}

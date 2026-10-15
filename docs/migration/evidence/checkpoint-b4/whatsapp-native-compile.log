@@ -1,0 +1,389 @@
+
+19:14:26.127 [info] Compiling file system watcher for Mac...
+
+19:14:26.758 [info] Done.
+==> file_system
+Compiling 7 files (.ex)
+Generated file_system app
+==> jido_chat_whatsapp
+===> Analyzing applications...
+===> Compiling base64url
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+==> result
+Compiling 7 files (.ex)
+Generated result app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> bunt
+Compiling 2 files (.ex)
+Generated bunt app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+==> mint
+Compiling 1 file (.erl)
+Compiling 21 files (.ex)
+Generated mint app
+==> xml_builder
+Compiling 4 files (.ex)
+Generated xml_builder app
+==> recase
+Compiling 15 files (.ex)
+Generated recase app
+==> git_hooks
+Compiling 15 files (.ex)
+Generated git_hooks app
+==> binary
+Compiling 2 files (.ex)
+Generated binary app
+==> erlex
+Compiling 1 file (.xrl)
+Compiling 1 file (.yrl)
+Compiling 2 files (.erl)
+Compiling 2 files (.ex)
+Generated erlex app
+==> decimal
+Compiling 4 files (.ex)
+Generated decimal app
+==> jason
+Compiling 10 files (.ex)
+Generated jason app
+==> protobuf
+Compiling 50 files (.ex)
+Generated protobuf app
+==> ex_maybe
+Compiling 1 file (.ex)
+Generated ex_maybe app
+==> excoveralls
+Compiling 29 files (.ex)
+    warning: unused require EEx
+    │
+  5 │   require EEx
+    │   ~
+    │
+    └─ lib/excoveralls/html/view.ex:5:3
+
+    warning: unused require ExCoveralls.Html.Safe
+    │
+  6 │   require ExCoveralls.Html.Safe
+    │   ~
+    │
+    └─ lib/excoveralls/html/view.ex:6:3
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--pretty=format:%s"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 50 │       _ -> "[no commit message]"
+    │         ~
+    │
+    └─ lib/excoveralls/semaphore.ex:50:9: ExCoveralls.Semaphore.get_message!/0
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--pretty=format:%s"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 51 │       _ -> "[no commit message]"
+    │         ~
+    │
+    └─ lib/excoveralls/circle.ex:51:9: ExCoveralls.Circle.get_message!/0
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--format=%an"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 56 │       _ -> "[no committer name]"
+    │         ~
+    │
+    └─ lib/excoveralls/gitlab.ex:56:9: ExCoveralls.Gitlab.get_committer/0
+
+     warning: CAStore.file_path/0 is undefined (module CAStore is not available or is yet to be defined). Make sure the module name is correct and has been specified in full (or that an alias has been defined)
+     │
+ 111 │         [cacertfile: String.to_charlist(CAStore.file_path())]
+     │                                                 ~
+     │
+     └─ lib/excoveralls/poster.ex:111:49: ExCoveralls.Poster.cacert_option/0
+
+Generated excoveralls app
+==> zoi
+Compiling 84 files (.ex)
+Generated zoi app
+==> jido_chat_whatsapp
+===> Analyzing applications...
+===> Compiling telemetry
+==> websockex
+Compiling 6 files (.ex)
+     warning: the variable "size" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 109 │     <<payload::bytes-size(size), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:109:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 125 │       <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                             ~
+     │
+     └─ lib/websockex/frame.ex:125:29: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 125 │       <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                             ~
+     │
+     └─ lib/websockex/frame.ex:125:29: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 145 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:145:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 150 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:150:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 155 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:155:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 164 │       <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                             ~
+     │
+     └─ lib/websockex/frame.ex:164:29: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 171 │       <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                             ~
+     │
+     └─ lib/websockex/frame.ex:171:29: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 176 │       <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                             ~
+     │
+     └─ lib/websockex/frame.ex:176:29: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 164 │       <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                             ~
+     │
+     └─ lib/websockex/frame.ex:164:29: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 171 │       <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                             ~
+     │
+     └─ lib/websockex/frame.ex:171:29: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 176 │       <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                             ~
+     │
+     └─ lib/websockex/frame.ex:176:29: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 183 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:183:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 188 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:188:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 193 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:193:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 199 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:199:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 204 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:204:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 209 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:209:27: WebSockex.Frame.parse_frame/1
+
+     warning: the variable "len" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 358 │     <<payload::bytes-size(len), rest::bitstring>> = remaining
+     │                           ~
+     │
+     └─ lib/websockex/frame.ex:358:27: WebSockex.Frame.parse_text_payload/3
+
+Generated websockex app
+==> doctor
+Compiling 17 files (.ex)
+    warning: this clause of defp valid_moduledoc?/2 is never used (or it will always fail/warn when invoked)
+    │
+ 96 │   defp valid_moduledoc?(%ModuleReport{is_protocol_implementation: true}, _config), do: true
+    │        ~
+    │
+    └─ lib/reporters/module_explain.ex:96:8: Doctor.Reporters.ModuleExplain.valid_moduledoc?/2
+
+     warning: this clause of defp valid_doc_coverage?/2 is never used (or it will always fail/warn when invoked)
+     │
+ 103 │   defp valid_doc_coverage?(%ModuleReport{is_protocol_implementation: true}, _config), do: true
+     │        ~
+     │
+     └─ lib/reporters/module_explain.ex:103:8: Doctor.Reporters.ModuleExplain.valid_doc_coverage?/2
+
+Generated doctor app
+==> dialyxir
+Compiling 70 files (.ex)
+Generated dialyxir app
+==> splode
+Compiling 5 files (.ex)
+Generated splode app
+==> jido_signal
+Compiling 33 files (.ex)
+Generated jido_signal app
+==> jido_chat
+Compiling 126 files (.ex)
+Generated jido_chat app
+==> credo
+Compiling 257 files (.ex)
+Generated credo app
+==> matrix_reloaded
+Compiling 3 files (.ex)
+     warning: List.zip/1 is deprecated. Use Enum.zip/1 instead
+     │
+ 117 │       |> List.zip()
+     │               ~
+     │
+     └─ lib/matrix_reloaded/vector.ex:117:15: MatrixReloaded.Vector.add/2
+     └─ lib/matrix_reloaded/vector.ex:146:15: MatrixReloaded.Vector.sub/2
+     └─ lib/matrix_reloaded/vector.ex:175:15: MatrixReloaded.Vector.dot/2
+     └─ lib/matrix_reloaded/vector.ex:207:15: MatrixReloaded.Vector.inner_product/2
+
+Generated matrix_reloaded app
+==> dotenvy
+Compiling 3 files (.ex)
+Generated dotenvy app
+==> pngex
+Compiling 4 files (.ex)
+    warning: the variable "row_size" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+    │
+ 23 │       <<row::size(row_size), rest::bitstring>> ->
+    │                   ~
+    │
+    └─ lib/pngex/bitmap.ex:23:19: Pngex.Bitmap.build/2
+
+Generated pngex app
+==> nimble_pool
+Compiling 2 files (.ex)
+Generated nimble_pool app
+==> finch
+Compiling 23 files (.ex)
+Generated finch app
+==> req
+Compiling 24 files (.ex)
+Generated req app
+==> qr_code
+Compiling 24 files (.ex)
+     warning: the variable "bytes_in_group1" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 312 │     <<data_group1::binary-size(bytes_in_group1), data_group2::binary-size(bytes_in_group2)>> =
+     │                                ~
+     │
+     └─ lib/qr_code/error_correction.ex:312:32: QRCode.ErrorCorrection.put_groups/2
+
+     warning: the variable "bytes_in_group2" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 312 │     <<data_group1::binary-size(bytes_in_group1), data_group2::binary-size(bytes_in_group2)>> =
+     │                                                                           ~
+     │
+     └─ lib/qr_code/error_correction.ex:312:75: QRCode.ErrorCorrection.put_groups/2
+
+     warning: the variable "codewords" is accessed inside size(...) of a bitstring but it was defined outside of the match. You must precede it with the pin operator
+     │
+ 350 │     <<block_data::binary-size(codewords), rest::binary>> = data
+     │                               ~
+     │
+     └─ lib/qr_code/error_correction.ex:350:31: QRCode.ErrorCorrection.group/3
+
+Generated qr_code app
+==> uuid
+Compiling 1 file (.ex)
+    warning: use Bitwise is deprecated. import Bitwise instead
+    │
+  2 │   use Bitwise, only_operators: true
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/uuid.ex:2: UUID (module)
+
+Generated uuid app
+==> amarula
+Compiling 138 files (.ex)
+Generated amarula app
+==> jido_chat_whatsapp
+Compiling 10 files (.ex)
+Generated jido_chat_whatsapp app

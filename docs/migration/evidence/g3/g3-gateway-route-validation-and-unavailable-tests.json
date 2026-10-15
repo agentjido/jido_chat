@@ -1,0 +1,56 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "f589557bba258361470c6bbe451b09022275cd2e",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "35777721401e9b3fcf08ab0977f74b22e1bb8be4",
+      "library_test_files": 376,
+      "library_test_sha256": "48b4585815ae1c5a977d86df6212b779f3d0e86a48a194fd37f4eac1c5560f18"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-gateway-route-validation-and-unavailable-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/outbound_gateway_route_failure_test.exs",
+    "test/jido_messaging/outbound_gateway_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "35777721401e9b3fcf08ab0977f74b22e1bb8be4",
+  "source_tree_sha256": "153c7df7d48ac06c2e2c318bb0f1ba1e14fe0a3b6e909a31f012189b35bb3cb3",
+  "started_at": "2026-10-13T07:26:44.530072+00:00",
+  "finished_at": "2026-10-13T07:26:46.821107+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-gateway-route-validation-and-unavailable-tests.log",
+  "log_sha256": "64cdd2fc189f8cc86e66dd389d63858f5d895b02ede219c3824f9cdf44e11903"
+}

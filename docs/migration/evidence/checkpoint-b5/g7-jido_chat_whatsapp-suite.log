@@ -1,0 +1,13 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+.....................................................................................
+20:59:06.112 [info] Pairing "new-string-profile". Scan the QR in this terminal.
+.....
+20:59:06.140 [info] Using auth credentials from config
+
+20:59:26.119 [info] Consumer event sink #PID<0.606.0> went down (:shutdown)
+........
+Finished in 23.5 seconds (3.1s async, 20.3s sync)
+
+Result: 98 passed, 13 excluded

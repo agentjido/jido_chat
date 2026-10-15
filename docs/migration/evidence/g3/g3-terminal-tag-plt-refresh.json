@@ -1,0 +1,20 @@
+{
+  "label": "g3-terminal-tag-plt-refresh",
+  "command": [
+    "mix",
+    "dialyzer",
+    "--force-check"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "7691e99cd1b27aadfadb527d016a09413af49ebd1c2c4d881ef79684aefc54d3",
+  "started_at": "2026-10-12T21:36:51.120022+00:00",
+  "finished_at": "2026-10-12T21:37:13.834019+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-terminal-tag-plt-refresh.log",
+  "log_sha256": "060ea82938fcd4ac2453358aea10c848eede9a8567be53e0b19b131fd8ac56fc"
+}

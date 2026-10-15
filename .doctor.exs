@@ -1,12 +1,6 @@
 %Doctor.Config{
   ignore_modules: [
-    Jido.Chat.AdapterRegistry,
-    Jido.Chat.EventNormalizer,
-    Jido.Chat.EventRouter,
-    Jido.Chat.HandlerDispatch,
     Jido.Chat.Schema,
-    Jido.Chat.Serialization,
-    Jido.Chat.WebhookPipeline,
     Jido.Chat.Wire
   ],
   ignore_paths: [],

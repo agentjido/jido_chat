@@ -1,0 +1,41 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.......
+
+  1) test thread-scoped runner lifecycle restoration waits for a stale registered runner outside the current supervisor (Jido.Messaging.AgentRunnerTest)
+     test/jido_messaging/agent_runner_test.exs:223
+     Assertion failed, no matching message after 100ms
+     The following variables were pinned:
+       stale = #PID<0.1273.0>
+     Showing 2 of 2 messages in the mailbox
+     code: assert_receive {:stale_runner, ^stale}
+     mailbox:
+       pattern: {:stale_runner, ^stale}
+       value:   {#Reference<0.0.152451.1263585316.3404005380.7439>,
+                 {:ok, #PID<0.1273.0>}}
+
+       pattern: {:stale_runner, ^stale}
+       value:   {:DOWN, #Reference<0.0.152451.1263585316.3404005380.7439>,
+                 :process, #PID<0.1275.0>, :normal}
+     stacktrace:
+       test/jido_messaging/agent_runner_test.exs:263: (test)
+
+     The following output was logged:
+     
+     11:28:38.101 [info] The function passed as a handler with ID {Jido.Messaging.AgentRunnerTest, #Reference<0.1263585316.3403939844.7421>} is a local function.
+     This means that it is either an anonymous function or a capture of a function without a module specified. That may cause a performance penalty when calling that handler. For more details see the note in `telemetry:attach/4` documentation.
+     
+     https://hexdocs.pm/telemetry/telemetry.html#attach/4
+     
+...
+11:28:38.463 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.1573.0>, nil}
+
+11:28:38.463 [debug] [signal] type=jido.messaging.message.sent id=01a130f1-d8bf-7519-8236-6a76c40c49ed
+
+11:28:38.463 [debug] [signal] type=jido.messaging.agent.completed id=01a130f1-d8bf-7fec-9594-256609ef7b9b
+....
+Finished in 1.5 seconds (0.00s async, 1.5s sync)
+
+Result: 14/15 passed
+Failed: 1 test

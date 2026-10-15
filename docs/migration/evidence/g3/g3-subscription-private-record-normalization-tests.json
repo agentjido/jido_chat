@@ -1,0 +1,57 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "8ee64319bef43d3c8552095197db4520d655a5fb",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "80147c1fe1efb65614074eb2556da74d04bd0f19",
+      "library_test_files": 360,
+      "library_test_sha256": "8fea7d2282a1a912fdc49386b35ecae46fc3cd6d5e6ff5be2ac2968c8c4c9a94"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-subscription-private-record-normalization-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/ingress_subscription_record_test.exs",
+    "test/jido_messaging/ingress_subscriptions_test.exs",
+    "test/jido_messaging/config_store_keys_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "80147c1fe1efb65614074eb2556da74d04bd0f19",
+  "source_tree_sha256": "e571c76ffde9fd7cfadc592fbde2b654457b28b7c694e19bf6e7fa4d76651f50",
+  "started_at": "2026-10-13T06:16:55.692808+00:00",
+  "finished_at": "2026-10-13T06:17:00.369670+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-subscription-private-record-normalization-tests.log",
+  "log_sha256": "08efb203c3765ed55ce9a1a5c3cf88b2f3b7603976ca97889d896108ab76debb"
+}

@@ -1,0 +1,18 @@
+{
+  "label": "g2-core-final-quality-review",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "56c5aaa59ec192867ac38e8e6d78d0898097c9af902331bcbba21b2f7630bc08",
+  "started_at": "2026-10-12T19:03:46.857523+00:00",
+  "finished_at": "2026-10-12T19:03:50.424653+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g2/g2-core-final-quality-review.log",
+  "log_sha256": "3b7bdaf67f17b55e9acaacd2d92b98edf61febf977eb2c7f5eda48cc52e5c901"
+}

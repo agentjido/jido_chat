@@ -1,0 +1,66 @@
+
+13:42:47.864 [info] Compiling file system watcher for Mac...
+
+13:42:48.609 [info] Done.
+==> file_system
+Compiling 7 files (.ex)
+Generated file_system app
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> bunt
+Compiling 2 files (.ex)
+Generated bunt app
+==> jason
+Compiling 10 files (.ex)
+Generated jason app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+==> mint
+Compiling 1 file (.erl)
+Compiling 21 files (.ex)
+Generated mint app
+==> jido_chat_signal
+===> Analyzing applications...
+===> Compiling telemetry
+==> zoi
+Compiling 84 files (.ex)
+Generated zoi app
+==> splode
+Compiling 5 files (.ex)
+Generated splode app
+==> jido_signal
+Compiling 33 files (.ex)
+Generated jido_signal app
+==> jido_chat
+Compiling 129 files (.ex)
+    warning: Jido.Chat.MessageContext.new/1 is undefined (module Jido.Chat.MessageContext is not available or is yet to be defined)
+    │
+ 76 │     Jido.Chat.MessageContext.new(
+    │                              ~
+    │
+    └─ lib/jido/chat/concurrency.ex:76:30: Jido.Chat.Concurrency.message_context/1
+
+Generated jido_chat app
+==> credo
+Compiling 257 files (.ex)
+Generated credo app
+==> dotenvy
+Compiling 3 files (.ex)
+Generated dotenvy app
+==> nimble_pool
+Compiling 2 files (.ex)
+Generated nimble_pool app
+==> finch
+Compiling 23 files (.ex)
+Generated finch app
+==> req
+Compiling 24 files (.ex)
+Generated req app
+==> jido_chat_signal
+Compiling 8 files (.ex)
+Generated jido_chat_signal app

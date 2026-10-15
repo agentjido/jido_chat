@@ -1,0 +1,19 @@
+{
+  "label": "messaging-compatible-action-deps",
+  "command": [
+    "mix",
+    "deps.get"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "981df853df7b4da70cbb2cc0dfae39f81fa03b10c1a065e79a66a2c4e0a5782d",
+  "started_at": "2026-10-12T16:17:08.493370+00:00",
+  "finished_at": "2026-10-12T16:17:10.591245+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g0/messaging-compatible-action-deps.log",
+  "log_sha256": "4c9a9f7c3c2af0426723864a0628126a4b45938bbc4cedb77ed040a9a57b0db5"
+}

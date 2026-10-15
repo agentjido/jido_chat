@@ -1,0 +1,19 @@
+{
+  "label": "g3-current-canonical-history-and-storage-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "528e06dd16ed8ca52346de29876b23419023f517",
+  "source_tree_sha256": "b474d5a94d8f4e239bbb812f9604a603eea20fb955f23fc60774dd685b777253",
+  "started_at": "2026-10-13T03:03:57.774480+00:00",
+  "finished_at": "2026-10-13T03:04:33.418920+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-canonical-history-and-storage-quality.log",
+  "log_sha256": "3002aa4204497a82a05ccb70f0adc57d2f2a00089f7ce35b3afb16cdc156933b"
+}

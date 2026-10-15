@@ -1,0 +1,24 @@
+{
+  "label": "g3-create-room-owned-bridge-scope-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/typed_room_creation_test.exs",
+    "test/jido_messaging/typed_execution_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "dfd84b04ec391267c2b7938ee1f6f5da2b524cf0",
+  "source_tree_sha256": "ab85f450656e079b9c2fa72967b772fc856596e3f7a033e90b5167c1068b44db",
+  "started_at": "2026-10-12T23:35:19.656308+00:00",
+  "finished_at": "2026-10-12T23:35:29.102294+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-create-room-owned-bridge-scope-tests.log",
+  "log_sha256": "408ffa21c3b7cd4806240823a4d5148dc634c9376a2f1b9d9abb6a84ffb8359c"
+}

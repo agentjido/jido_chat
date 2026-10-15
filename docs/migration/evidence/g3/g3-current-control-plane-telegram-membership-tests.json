@@ -1,0 +1,23 @@
+{
+  "label": "g3-current-control-plane-telegram-membership-tests",
+  "command": [
+    "mix",
+    "run",
+    "scripts/run_telegram_membership_runtime_tests.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "9ab08e88473136350d2685bc0ca5db5ad21eb939",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T02:46:15.853057+00:00",
+  "finished_at": "2026-10-13T02:46:18.158642+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "telegram_slack",
+    "MIX_BUILD_PATH": "_build/telegram-slack-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-control-plane-telegram-membership-tests.log",
+  "log_sha256": "8976be05c6dad409e6c98b14b8465850dd503c829f2a8a0b5aaedaab2ce4617a"
+}

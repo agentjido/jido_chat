@@ -1,0 +1,41 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+..........
+
+  1) test foreign success cannot claim a persisted receipt (Jido.Messaging.ReadReceiptCallbackOutcomeTest)
+     test/jido_messaging/read_receipt_callback_outcome_test.exs:166
+     Assertion with == failed
+     code:  assert failed.type == "jido.messaging.operation.failed"
+     left:  "jido.messaging.operation.completed"
+     right: "jido.messaging.operation.failed"
+     stacktrace:
+       test/jido_messaging/read_receipt_callback_outcome_test.exs:169: (test)
+
+
+
+  2) test incomplete success cannot claim a persisted receipt (Jido.Messaging.ReadReceiptCallbackOutcomeTest)
+     test/jido_messaging/read_receipt_callback_outcome_test.exs:166
+     Assertion with == failed
+     code:  assert failed.type == "jido.messaging.operation.failed"
+     left:  "jido.messaging.operation.completed"
+     right: "jido.messaging.operation.failed"
+     stacktrace:
+       test/jido_messaging/read_receipt_callback_outcome_test.exs:169: (test)
+
+
+
+  3) test invalid_change success cannot claim a persisted receipt (Jido.Messaging.ReadReceiptCallbackOutcomeTest)
+     test/jido_messaging/read_receipt_callback_outcome_test.exs:166
+     Assertion with == failed
+     code:  assert failed.type == "jido.messaging.operation.failed"
+     left:  "jido.messaging.operation.completed"
+     right: "jido.messaging.operation.failed"
+     stacktrace:
+       test/jido_messaging/read_receipt_callback_outcome_test.exs:169: (test)
+
+.
+Finished in 2.0 seconds (0.00s async, 2.0s sync)
+
+Result: 11/14 passed
+Failed: 3 tests

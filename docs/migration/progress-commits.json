@@ -1,0 +1,2046 @@
+{
+  "updated_at": "2026-10-14T13:01:20.070582+00:00",
+  "goal_state": "complete",
+  "rule": "Make small progress commits after each complete change passes its relevant tests. First, commit completed and tested work already in the worktrees. Do not wait for all gates to pass. Keep each commit focused. Record passed checks and open work. Keep all final completion requirements unchanged.",
+  "proof_scope": "All C01-C14, required package and coverage checks, both runtime profiles, ten PRs and current source CI pass. G8 publication readiness remains blocked by named upstream releases.",
+  "commits": [
+    {
+      "package": "jido_chat",
+      "sha": "630f9c77e2622dd6fb443cf772fa1354200ec40a",
+      "subject": "build(signal): pin the tested Signal v3 source",
+      "checks": [
+        "evidence/g3/g3-core-progress-commit-tests.json",
+        "evidence/g3/g3-core-progress-commit-quality.json",
+        "evidence/g3/g3-progress-contract-catalog-check.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "a60c5f312c7b8443c6ed5a1f33489fbaf07549f4",
+      "subject": "feat(chat)!: replace public event wrappers with typed Signal v3 operations",
+      "checks": [
+        "evidence/g3/g3-core-progress-commit-tests.json",
+        "evidence/g3/g3-core-progress-commit-quality.json",
+        "evidence/g3/g3-progress-contract-catalog-check.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c925cfd4de0a1d5950998806ec2d01ef6da45369",
+      "subject": "test(sender): check the queue capacity with a controlled backlog",
+      "checks": [
+        "evidence/g3/g3-room-scoped-lifecycle-queue-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-quality.json",
+        "evidence/g3/g3-optional-ai-progress-commit-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "093b551f72ec1b2866cfe5537a4aa50b929d7aa0",
+      "subject": "build(runtime): pin the compatible v3 dependency graph",
+      "checks": [
+        "evidence/g3/g3-room-scoped-lifecycle-queue-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-quality.json",
+        "evidence/g3/g3-optional-ai-progress-commit-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "4e1e127e6712545453388269da0c68f9194f58ea",
+      "subject": "fix(storage): scope provider message lookup by canonical room",
+      "checks": [
+        "evidence/g3/g3-room-scoped-lifecycle-queue-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-quality.json",
+        "evidence/g3/g3-optional-ai-progress-commit-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "2873df7c813e41d3dda9328c9d8d33b42a3343fe",
+      "subject": "feat(signals): add native Messaging request fact and result definitions",
+      "checks": [
+        "evidence/g3/g3-room-scoped-lifecycle-queue-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-quality.json",
+        "evidence/g3/g3-optional-ai-progress-commit-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "af66430be63b24fdd46c017cba6138b7507790d3",
+      "subject": "feat(messaging)!: use direct typed runtime execution and delivery acceptance",
+      "checks": [
+        "evidence/g3/g3-room-scoped-lifecycle-queue-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-quality.json",
+        "evidence/g3/g3-optional-ai-progress-commit-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "4f2792bed047599d7b03210de83d0dd8447a00d7",
+      "subject": "feat(tools)!: return registered Signals and admit logical requests once",
+      "checks": [
+        "evidence/g3/g3-room-scoped-lifecycle-queue-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-quality.json",
+        "evidence/g3/g3-optional-ai-progress-commit-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "b73792261b0dac91a6243ab70257e3311c688474",
+      "subject": "fix(ai): port the optional chat example to the v3 profile DSL",
+      "checks": [
+        "evidence/g3/g3-room-scoped-lifecycle-queue-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-tests.json",
+        "evidence/g3/g3-messaging-progress-commit-quality.json",
+        "evidence/g3/g3-optional-ai-progress-commit-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_chat_signal",
+      "sha": "c6d5d01bfc3ca1cce3d23b13edc7bf4b2d7138e3",
+      "subject": "build(chat): add a tested local v3 dependency override",
+      "checks": [
+        "evidence/g3/g3-signal-progress-commit-tests.json",
+        "evidence/g3/g3-signal-progress-commit-quality.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_chat_signal",
+      "sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "subject": "feat(signal)!: normalize complete provider deliveries into typed facts",
+      "checks": [
+        "evidence/g3/g3-signal-progress-commit-tests.json",
+        "evidence/g3/g3-signal-progress-commit-quality.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_chat_mattermost",
+      "sha": "2774d140f4cdffee3c4aaf6437fed498c2d247f7",
+      "subject": "fix(adapter): mark the Mattermost user callback implementation",
+      "checks": [
+        "evidence/g3/g3-mattermost-baseline-annotation-compile.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Read gate-status.json."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "00721c2c82916cdd96984ea37459b20185e5c018",
+      "subject": "docs(migration): save the contract harness and progress commit rule",
+      "checks": [
+        "evidence/g3/g3-progress-contract-catalog-check.json",
+        "evidence/g3/g3-progress-manifest-check.json",
+        "evidence/g3/g3-progress-contract-tests.json"
+      ],
+      "open_work": "G3-G9 and every final completion requirement remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "9a38e932a4a7a77529967cba8f9e38825ba0e4af",
+      "subject": "test(boundary): scan Messaging and record checked source revisions",
+      "checks": [
+        "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-auto-thread-admission-quality.json",
+        "evidence/g3/g3-large-message-single-projection-tests.json",
+        "evidence/g3/g3-large-message-projection-quality.json",
+        "evidence/g3/g3-provider-fact-observation-tests.json",
+        "evidence/g3/g3-retired-event-option-tests.json",
+        "evidence/g3/g3-create-room-scope-current-tests.json",
+        "evidence/g3/g3-create-room-current-quality.json",
+        "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-record-api-contract-check.json",
+        "evidence/g3/g3-current-three-package-boundary-scan.json"
+      ],
+      "open_work": "G3-G9 remain open. All final completion requirements stay in place."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "fb46efaa9af910ab6bcf5d04773f4b38c2ad1d1c",
+      "subject": "docs(api): classify room and scoped message record helpers",
+      "checks": [
+        "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-auto-thread-admission-quality.json",
+        "evidence/g3/g3-large-message-single-projection-tests.json",
+        "evidence/g3/g3-large-message-projection-quality.json",
+        "evidence/g3/g3-provider-fact-observation-tests.json",
+        "evidence/g3/g3-retired-event-option-tests.json",
+        "evidence/g3/g3-create-room-scope-current-tests.json",
+        "evidence/g3/g3-create-room-current-quality.json",
+        "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-record-api-contract-check.json",
+        "evidence/g3/g3-current-three-package-boundary-scan.json"
+      ],
+      "open_work": "G3-G9 remain open. All final completion requirements stay in place."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "ce605570295b76d435219ed17e367ac965585da7",
+      "subject": "fix(ingest): admit messages before automatic provider thread creation",
+      "checks": [
+        "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-auto-thread-admission-quality.json",
+        "evidence/g3/g3-large-message-single-projection-tests.json",
+        "evidence/g3/g3-large-message-projection-quality.json",
+        "evidence/g3/g3-provider-fact-observation-tests.json",
+        "evidence/g3/g3-retired-event-option-tests.json",
+        "evidence/g3/g3-create-room-scope-current-tests.json",
+        "evidence/g3/g3-create-room-current-quality.json",
+        "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-record-api-contract-check.json",
+        "evidence/g3/g3-current-three-package-boundary-scan.json"
+      ],
+      "open_work": "G3-G9 remain open. All final completion requirements stay in place."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "b686ecbbdf52b637a7175fd39a2116d8dfbc224d",
+      "subject": "fix(events): keep one complete text field in message facts",
+      "checks": [
+        "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-auto-thread-admission-quality.json",
+        "evidence/g3/g3-large-message-single-projection-tests.json",
+        "evidence/g3/g3-large-message-projection-quality.json",
+        "evidence/g3/g3-provider-fact-observation-tests.json",
+        "evidence/g3/g3-retired-event-option-tests.json",
+        "evidence/g3/g3-create-room-scope-current-tests.json",
+        "evidence/g3/g3-create-room-current-quality.json",
+        "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-record-api-contract-check.json",
+        "evidence/g3/g3-current-three-package-boundary-scan.json"
+      ],
+      "open_work": "G3-G9 remain open. All final completion requirements stay in place."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "033efc47eaac2cab2acf313a7979735645bca4fa",
+      "subject": "test(acceptance): verify provider observations preserve runtime ownership",
+      "checks": [
+        "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-auto-thread-admission-quality.json",
+        "evidence/g3/g3-large-message-single-projection-tests.json",
+        "evidence/g3/g3-large-message-projection-quality.json",
+        "evidence/g3/g3-provider-fact-observation-tests.json",
+        "evidence/g3/g3-retired-event-option-tests.json",
+        "evidence/g3/g3-create-room-scope-current-tests.json",
+        "evidence/g3/g3-create-room-current-quality.json",
+        "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-record-api-contract-check.json",
+        "evidence/g3/g3-current-three-package-boundary-scan.json"
+      ],
+      "open_work": "G3-G9 remain open. All final completion requirements stay in place."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "dfd84b04ec391267c2b7938ee1f6f5da2b524cf0",
+      "subject": "refactor(events): remove the retired tuple-mirror option",
+      "checks": [
+        "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-auto-thread-admission-quality.json",
+        "evidence/g3/g3-large-message-single-projection-tests.json",
+        "evidence/g3/g3-large-message-projection-quality.json",
+        "evidence/g3/g3-provider-fact-observation-tests.json",
+        "evidence/g3/g3-retired-event-option-tests.json",
+        "evidence/g3/g3-create-room-scope-current-tests.json",
+        "evidence/g3/g3-create-room-current-quality.json",
+        "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-record-api-contract-check.json",
+        "evidence/g3/g3-current-three-package-boundary-scan.json"
+      ],
+      "open_work": "G3-G9 remain open. All final completion requirements stay in place."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "ced3715451413ef3a85ad9a3bfd8a83767e7214e",
+      "subject": "fix(execution): enforce room creation scope and reject record overwrite",
+      "checks": [
+        "evidence/g3/g3-auto-thread-owned-storage-tests.json",
+        "evidence/g3/g3-auto-thread-admission-quality.json",
+        "evidence/g3/g3-large-message-single-projection-tests.json",
+        "evidence/g3/g3-large-message-projection-quality.json",
+        "evidence/g3/g3-provider-fact-observation-tests.json",
+        "evidence/g3/g3-retired-event-option-tests.json",
+        "evidence/g3/g3-create-room-scope-current-tests.json",
+        "evidence/g3/g3-create-room-current-quality.json",
+        "evidence/g3/g3-current-owned-ingress-coverage.json",
+        "evidence/g3/g3-current-record-api-contract-check.json",
+        "evidence/g3/g3-current-three-package-boundary-scan.json"
+      ],
+      "open_work": "G3-G9 remain open. All final completion requirements stay in place."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "9c5b290565a5ad7c4c027e1090dc5847300ec5da",
+      "subject": "refactor(resources): support a captured runtime resource owner",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "c1de4eddf125d5e59129a9179f38cd977f19e628",
+      "subject": "fix(resources): clear values after call expiry or creator exit",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "2a93487099876af5935e681f643c66c5fe206d0f",
+      "subject": "docs(contract): record runtime resource references and controls",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "824df2d60c1a8efa8ff887212bd49eadd6183edf",
+      "subject": "fix(messaging): retain maximum-size messages through scoped runtime resources",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "ea7d46b8466ecb648e66df4d87993d7ce6210fc9",
+      "subject": "fix(schema): match room creation kinds to stored room types",
+      "checks": [
+        "evidence/g3/g3-owned-resource-core-tests.json",
+        "evidence/g3/g3-resource-owner-core-quality.json",
+        "evidence/g3/g3-call-lifetime-final-core-tests.json",
+        "evidence/g3/g3-call-resource-lifetime-core-quality.json",
+        "evidence/g3/g3-runtime-message-resource-final-tests.json",
+        "evidence/g3/g3-runtime-large-resource-current-quality.json",
+        "evidence/g3/g3-runtime-resource-plt-refresh.json",
+        "evidence/g3/g3-current-runtime-resource-schema-quality.json",
+        "evidence/g3/g3-current-runtime-schema-catalog.json",
+        "evidence/g3/g3-resource-control-api-manifest-check.json",
+        "evidence/g3/g3-inclusive-runtime-resource-coverage.json",
+        "evidence/g3/g3-current-resource-boundary-scan.json",
+        "evidence/g3/g3-current-resource-optional-ai-tests.json",
+        "evidence/g3/g3-room-kind-current-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "924bb8f62624d01da308713b68da2fc13e4a4f3d",
+      "subject": "test(messaging): verify admission across all public runtime requests",
+      "checks": [
+        "evidence/g3/g3-all-request-admission-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "7d044199c05f40d8e41fc1271f003e21300047c8",
+      "subject": "test(presence): verify native facts and session ownership",
+      "checks": [
+        "evidence/g3/g3-presence-ownership-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "8d0ef375e99a42dd4de6fd16ec636bb32b3bece3",
+      "subject": "test(story): resolve specification fixtures from the test source",
+      "checks": [
+        "evidence/g3/g3-runtime-core-story-fixture-paths.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "ccf85aa84bf947239a76562745a708e6b54d6ed4",
+      "subject": "test(contract): audit compiled runtime and generated API exports",
+      "checks": [
+        "evidence/g3/g3-final-compiled-runtime-export-audit.json",
+        "evidence/g3/g3-versioned-api-audit-controls.json",
+        "evidence/g3/g3-expanded-export-api-manifest-check.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "938533b664456b16ba47b992a6706c011fd6b29a",
+      "subject": "test(integration): verify runtime graphs with and without optional AI",
+      "checks": [
+        "evidence/g3/g3-runtime-core-corrected-graph-deps.json",
+        "evidence/g3/g3-runtime-core-graph-compile.json",
+        "evidence/g3/g3-runtime-core-chat-suite.json",
+        "evidence/g3/g3-runtime-core-messaging-inclusive-suite.json",
+        "evidence/g3/g3-final-runtime-core-harness-suite.json",
+        "evidence/g3/g3-runtime-core-graph-report.json",
+        "evidence/g3/g3-runtime-ai-graph-deps.json",
+        "evidence/g3/g3-runtime-ai-graph-compile.json",
+        "evidence/g3/g3-runtime-ai-chat-suite.json",
+        "evidence/g3/g3-runtime-ai-messaging-inclusive-suite.json",
+        "evidence/g3/g3-runtime-ai-harness-suite.json",
+        "evidence/g3/g3-runtime-ai-optional-fixture.json",
+        "evidence/g3/g3-runtime-ai-graph-report.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "5839fc3e0fa41ad0723ed31326a2d0f17ea7030d",
+      "subject": "fix(acceptance): retain safe errors and retry failed membership lookups",
+      "checks": [
+        "evidence/g3/g3-safe-acceptance-storage-failure-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "9f6c91715ba7cc82bb26552a09286c701dc42378",
+      "subject": "feat(schema): retain verified membership permission and expiry fields",
+      "checks": [
+        "evidence/g4/g4-updated-membership-native-catalog-tests.json",
+        "evidence/g4/g4-telegram-membership-runtime-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "a405ff3a0c3b66734d7c949ba84a70ad5f1b1f24",
+      "subject": "feat(membership): map Telegram status and restriction evidence to typed facts",
+      "checks": [
+        "evidence/g4/g4-telegram-membership-warning-free-tests.json",
+        "evidence/g4/g4-updated-membership-native-catalog-tests.json",
+        "evidence/g4/g4-telegram-membership-runtime-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "9d2921d7c60dd906dcce9748973d062242416460",
+      "subject": "test(membership): keep cross-package runtime fixtures in the harness",
+      "checks": [
+        "evidence/g4/g4-versioned-membership-runtime-fixtures.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "0ea7e2d6a6f6195934321902d21da695e9302cc5",
+      "subject": "feat(contract): retain verified membership restrictions in shared schemas",
+      "checks": [
+        "evidence/g4/g4-telegram-membership-warning-free-tests.json",
+        "evidence/g4/g4-updated-membership-native-catalog-tests.json",
+        "evidence/g4/g4-telegram-membership-runtime-tests.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "4fa1b9360b3927e82498e4293bfcf84673908b19",
+      "subject": "test(integration): own Telegram membership runtime fixtures in the harness",
+      "checks": [
+        "evidence/g4/g4-versioned-membership-runtime-fixtures.json"
+      ],
+      "open_work": "G3-G9 and all final completion requirements remain open. Telegram mapper preparation does not complete the adapter or transport gates."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "b92ad1154335eb665cadad955051f13646a03d06",
+      "subject": "feat(telegram)!: use captured Signal v3 bindings and native deliveries",
+      "checks": [
+        "evidence/g4/g4-telegram-protocol-graph-deps.json",
+        "evidence/g4/g4-telegram-native-protocol-clean-compile.json",
+        "evidence/g4/g4-telegram-native-normalizer-final-tests.json",
+        "evidence/g4/g4-telegram-captured-protocol-final-tests.json"
+      ],
+      "open_work": "Full Telegram test/extension/operation migration and package checks remain open. G3-G9 and final completion requirements remain unchanged."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "953611b0462e79ff6746724da2461d6759be9047",
+      "subject": "feat(telegram): validate typed polling batches before sink and checkpoint",
+      "checks": [
+        "evidence/g4/g4-telegram-typed-polling-final-tests.json"
+      ],
+      "open_work": "Full Telegram test/extension/operation migration and package checks remain open. G3-G9 and final completion requirements remain unchanged."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "25f3fbcbcab7f6ee27d84fcb46e2ccbf2a246393",
+      "subject": "fix(telegram): preserve private media details and channel publisher identity",
+      "checks": [
+        "evidence/g4/g4-telegram-private-media-final-tests.json"
+      ],
+      "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "f1243bde48f4987a93ad9e26ec12c4742113c613",
+      "subject": "test(telegram): migrate original adapter cases to native Signal boundaries",
+      "checks": [
+        "evidence/g4/g4-telegram-original-surface-ported-tests.json"
+      ],
+      "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "a7eb66308f8c2c52f42d8cc3efe7084c220d8428",
+      "subject": "refactor(telegram)!: retire the duplicate update envelope parser",
+      "checks": [
+        "evidence/g4/g4-telegram-retired-extension-native-tests.json"
+      ],
+      "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "67890bbe538a46e1d004a7b14a1d8f10fe96d04a",
+      "subject": "test(telegram): migrate excluded live fixtures to the native contract",
+      "checks": [
+        "evidence/g4/g4-telegram-all-tests-native-fixtures.json",
+        "evidence/g4/g4-telegram-current-package-quality.json",
+        "evidence/g4/g4-telegram-current-coverage.json",
+        "evidence/g4/g4-telegram-unused-lock-check.json",
+        "evidence/g4/g4-telegram-dependency-audit.json",
+        "evidence/g4/g4-telegram-package-metadata-build.json"
+      ],
+      "open_work": "Real Messaging membership/agent/grant isolation, complete adapter operation conformance, final versions/docs, G3 coverage, all remaining G4-G9 requirements, PR review, and current-head CI remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "76eab25861201330eae3d7fb8d6357c9a90d4ffe",
+      "subject": "test(membership): verify real Telegram runtime isolation in the pinned graph",
+      "checks": [
+        "evidence/g4/g4-real-telegram-membership-isolation-tests.json",
+        "evidence/g4/g4-real-telegram-harness-profile-tests.json",
+        "evidence/g4/g4-real-telegram-graph-report.json"
+      ],
+      "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "01d7b8df396d280bb2617bf45b4dd8bd4189216d",
+      "subject": "test(membership): validate partial Slack events against the shared schema",
+      "checks": [
+        "evidence/g4/g4-slack-partial-membership-schema-tests.json"
+      ],
+      "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "f8c1ed6644f6b7eeb5091fd6aa2f11d43b323dc0",
+      "subject": "test(telegram): verify every native Signal operation mapping",
+      "checks": [
+        "evidence/g5/g5-telegram-real-operation-matrix-final-tests.json",
+        "evidence/g5/g5-telegram-all-operation-package-tests.json",
+        "evidence/g5/g5-telegram-all-operation-package-quality.json"
+      ],
+      "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "subject": "test(telegram): prove lazy streams and membership checkpoint rejection",
+      "checks": [
+        "evidence/g5/g5-telegram-stream-membership-checkpoint-tests.json",
+        "evidence/g5/g5-telegram-current-complete-package-tests.json"
+      ],
+      "open_work": "Remaining event/interaction/resource matrix, full Slack and other adapter ports, G3 coverage, G4-G9 whole-group/package/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "51d426c461d2ac5b2bb2ec65f0a3c879c5535ce7",
+      "subject": "feat(slack): normalize complete native facts with private interaction controls",
+      "checks": [
+        "evidence/g5/g5-slack-native-normalizer-complete-tests.json"
+      ],
+      "open_work": "Full original Slack test migration, all declared operation/event/resource/interaction matrix cases, package/runtime checks, G3 coverage, remaining adapters, and all G4-G9 final requirements remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "6a0be6a469f476ef2ab0820a3354f9c25a8e6594",
+      "subject": "feat(slack)!: use captured native Signal bindings and selected query results",
+      "checks": [
+        "evidence/g5/g5-slack-native-graph-deps.json",
+        "evidence/g5/g5-slack-native-protocol-compile.json",
+        "evidence/g5/g5-slack-captured-socket-clean-compile.json",
+        "evidence/g5/g5-slack-current-scoped-protocol-tests.json",
+        "evidence/g5/g5-slack-native-protocol-order-final-tests.json",
+        "evidence/g5/g5-slack-current-library-quality.json"
+      ],
+      "open_work": "Full original Slack test migration, all declared operation/event/resource/interaction matrix cases, package/runtime checks, G3 coverage, remaining adapters, and all G4-G9 final requirements remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "d4412e02d1c0ab38961fe338b9ebe611233bcda9",
+      "subject": "feat(slack): deliver validated native Socket Mode units with retained ack timing",
+      "checks": [
+        "evidence/g5/g5-slack-captured-socket-clean-compile.json",
+        "evidence/g5/g5-slack-current-scoped-protocol-tests.json",
+        "evidence/g5/g5-slack-native-protocol-order-final-tests.json",
+        "evidence/g5/g5-slack-current-library-quality.json"
+      ],
+      "open_work": "Full original Slack test migration, all declared operation/event/resource/interaction matrix cases, package/runtime checks, G3 coverage, remaining adapters, and all G4-G9 final requirements remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "092a73c1b3a56261915c9b3969f821d9b91993c6",
+      "subject": "fix(slack): retain lifecycle context in native provider facts",
+      "checks": [
+        "evidence/g5/g5-slack-original-lifecycle-native-final-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "6510c3c5ffe5fe7afb543108eb4cdb02128f515d",
+      "subject": "test(slack): migrate card modal and options cases to native requests",
+      "checks": [
+        "evidence/g5/g5-slack-original-cards-modals-native-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "677ea05a510342eccb3adaaa5147554a6ee6dcc1",
+      "subject": "test(slack): preserve channel behavior through native requests",
+      "checks": [
+        "evidence/g5/g5-slack-original-channel-native-tests-pass.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "a7f30143891f23593eb99f2616ac1268cfbf35f9",
+      "subject": "test(slack): compile existing live cases against native APIs",
+      "checks": [
+        "evidence/g5/g5-slack-live-fixture-native-complete-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "2e9ec68e5d502d12435811b6cf3a124e4588fd9d",
+      "subject": "test(slack): verify all native operation mappings and call counts",
+      "checks": [
+        "evidence/g5/g5-slack-all-operation-matrix-final-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "034ba1c2fe48a9dcdcbe020cd835587802478ade",
+      "subject": "style(slack): format migrated interaction and lifecycle code",
+      "checks": [
+        "evidence/g5/g5-slack-complete-package-quality-formatted.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "subject": "fix(slack): reject malformed query pages without losing items",
+      "checks": [
+        "evidence/g5/g5-slack-malformed-page-final-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "db5980704c21e541151d560241d97335e8b557d4",
+      "subject": "test(integration): verify native Slack membership isolation",
+      "checks": [
+        "evidence/g5/g5-real-slack-membership-isolation-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "55b03f6e725452dba1c64cbbb8b04bcd8b28c4f1",
+      "subject": "test(integration): verify actual Slack Messaging execution and selection",
+      "checks": [
+        "evidence/g5/g5-real-slack-messaging-execution-final-tests.json"
+      ],
+      "open_work": "Remaining adapter/transport/resource matrix, G3 ownership/90 percent Messaging coverage, all-nine G7 conformance, G8 versions/docs/package readiness and G9 PR/review/current-head CI remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "30ae85d6d83aa1642db5621ee7099a5cb85998fc",
+      "subject": "fix(ingress): retain confirmed and uncertain message write outcomes",
+      "checks": [
+        "evidence/g3/g3-uncertain-write-and-accepted-runtime-final-tests.json",
+        "evidence/g3/g3-accepted-message-failure-quality.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "50ca6216d4ccbc9575b14c0a98140295b241773e",
+      "subject": "test(ingress): verify lifecycle exceptions before and after updates",
+      "checks": [
+        "evidence/g3/g3-lifecycle-exception-and-partial-effect-tests.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "1f39406dcf73cf596f2279ebc2867cd6718f7005",
+      "subject": "test(ingress): give the retry store fixture a confirmation read",
+      "checks": [
+        "evidence/g3/g3-original-ingest-confirmation-fixture-tests.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a41c45e3f99978db3081e689ad884eadaecc695c",
+      "subject": "style(ingress): format the lifecycle request fixture",
+      "checks": [
+        "evidence/g3/g3-current-message-outcome-formatted-quality.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "4a38782802c1bf9e5511e78c9f04ea9b093e0244",
+      "subject": "fix(context): preserve text when mention spans split Unicode characters",
+      "checks": [
+        "evidence/g3/g3-private-mention-normalization-final-tests.json",
+        "evidence/g3/g3-current-message-outcome-and-context-inclusive-coverage.json",
+        "evidence/g3/g3-current-outcome-context-quality.json"
+      ],
+      "open_work": "Lifecycle delete and remaining facade/runtime ownership checks, 90 percent Messaging coverage, all provider conformance, final G4-G9 package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "655f23f492488b1cb9d35b84b2a3747a12e44489",
+      "subject": "fix(ingress): return safe errors when acceptance state is unavailable",
+      "checks": [
+        "evidence/g3/g3-delete-and-runtime-unavailable-final-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "721cc6d241305f8d66c22b73c12bbd01d4b73b69",
+      "subject": "fix(subscriptions): retain caller scope for provider metadata",
+      "checks": [
+        "evidence/g3/g3-ingress-subscription-scope-and-page-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "60df299fd502ba6207bbf04f91c2e172d7701c66",
+      "subject": "fix(subscriptions): reject malformed page wrappers before writes",
+      "checks": [
+        "evidence/g3/g3-subscription-malformed-wrapper-final-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "0a712c28d6b96aa0adda29550e3c56d7bc651f83",
+      "subject": "test(dead-letter): verify bounded record and replay ownership",
+      "checks": [
+        "evidence/g3/g3-dead-letter-ownership-controls.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "039cc8bf6b107e91c8f91391ace445dab810ee4d",
+      "subject": "fix(demo): start the typed runtime without provider credentials in echo mode",
+      "checks": [
+        "evidence/g3/g3-demo-cli-sourced-environment-final-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "fbe11f5049cae4ea67da3916dba4a41a29dc53bb",
+      "subject": "fix(demo): use the typed environment source API",
+      "checks": [
+        "evidence/g3/g3-demo-cli-typed-environment-source-tests.json"
+      ],
+      "open_work": "Remaining facade/runtime/storage ownership checks, required 90 percent Messaging coverage, remaining adapter and G4-G9 conformance/package/docs/version/PR/review/current-head CI requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "7d3a357e40c0accb01982b47856a28c096bf2b84",
+      "subject": "fix(storage): scope PostgreSQL participant directory lookup by bridge",
+      "checks": [
+        "evidence/g3/g3-storage-scope-and-unsupported-admission-final-tests.json"
+      ],
+      "open_work": "Restore local PostgreSQL fixture and rerun affected inclusive/profile checks; finish remaining ownership and 90 percent Messaging coverage; all adapter and final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "76f4318d78421294d4bcb0f9845d71d37e934cba",
+      "subject": "test(facade): verify canonical record ownership through default APIs",
+      "checks": [
+        "evidence/g3/g3-facade-record-ownership-tests.json"
+      ],
+      "open_work": "Restore local PostgreSQL fixture and rerun affected inclusive/profile checks; finish remaining ownership and 90 percent Messaging coverage; all adapter and final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "528e06dd16ed8ca52346de29876b23419023f517",
+      "subject": "fix(history): verify search results against canonical storage",
+      "checks": [
+        "evidence/g3/g3-projection-canonical-identity-and-lifetime-final-tests.json"
+      ],
+      "open_work": "Restore local PostgreSQL fixture and rerun affected inclusive/profile checks; finish remaining ownership and 90 percent Messaging coverage; all adapter and final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "5830b25f528a452ca510a10df8009ec9c172eb57",
+      "subject": "fix(topology): reject foreign bindings and malformed sections before writes",
+      "checks": [
+        "evidence/g3/g3-topology-owner-and-sections-warning-free-tests.json",
+        "evidence/g3/g3-current-topology-ownership-quality.json",
+        "evidence/g3/g3-current-topology-native-postgres-inclusive-coverage.json"
+      ],
+      "open_work": "Required 90 percent Messaging coverage, remaining ownership/storage/runtime cases, remaining adapters and all final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "3719da68344200140411b83bd87a87a97d42da5c",
+      "subject": "test(identity): isolate SQLite fixture files across test runs",
+      "checks": [
+        "evidence/g3/g3-ai-identity-isolated-files-tests.json"
+      ],
+      "open_work": "Current full-source refresh and 90 percent coverage remain. All final G4-G9 adapter, conformance, audit, package, docs, versions, PR, review and current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "39f676ff9c3fc61f84aee08c5799fa7d74b87f6a",
+      "subject": "test(gateway): control queue pressure with process barriers",
+      "checks": [
+        "evidence/g3/g3-ai-pressure-barrier-tests.json"
+      ],
+      "open_work": "Current full-source refresh and 90 percent coverage remain. All final G4-G9 adapter, conformance, audit, package, docs, versions, PR, review and current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "47f8d8c82c5de4b36c6381215c532f3a7413986c",
+      "subject": "fix(storage): shorten SQLite binding lock contention retries",
+      "checks": [
+        "evidence/g3/g3-sqlite-retry-release-corrected-tests.json"
+      ],
+      "open_work": "Current full-source refresh and 90 percent coverage remain. All final G4-G9 adapter, conformance, audit, package, docs, versions, PR, review and current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "3080d69116156c0f981596c8d4258ceb314a7862",
+      "subject": "test(storage): isolate SQLite paths across suite processes",
+      "checks": [
+        "evidence/g3/g3-ai-sqlite-isolated-paths-final-tests.json"
+      ],
+      "open_work": "Current full-source refresh and 90 percent coverage remain. All final G4-G9 adapter, conformance, audit, package, docs, versions, PR, review and current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a91ce63e514667ab578cb1eb6f5881532f5c3a04",
+      "subject": "refactor(storage): remove unreachable SQLite lock abort branches",
+      "checks": [
+        "evidence/g3/g3-sqlite-lock-final-focused-tests.json",
+        "evidence/g3/g3-sqlite-lock-typed-quality.json"
+      ],
+      "open_work": "Current full-source refresh and 90 percent coverage remain. All final G4-G9 adapter, conformance, audit, package, docs, versions, PR, review and current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "89690d09ec1415a85359f1a9ebdb3b71487bf27b",
+      "subject": "fix(bridge): retain callback failure class dispositions",
+      "checks": [
+        "evidence/g3/g3-adapter-callback-disposition-final-tests.json",
+        "evidence/g3/g3-ai-callback-disposition-runtime-tests.json"
+      ],
+      "open_work": "Current full-source refresh and 90 percent coverage remain. All final G4-G9 adapter, conformance, audit, package, docs, versions, PR, review and current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a749b52569884ec7ad7c27f953089f7fa445f755",
+      "subject": "fix(security): isolate failed hooks from runtime callers",
+      "checks": [
+        "evidence/g3/g3-security-hook-runtime-ownership-tests.json",
+        "evidence/g3/g3-security-hook-isolation-quality.json"
+      ],
+      "open_work": "Current source profile refresh, required 90 percent Messaging coverage, remaining provider ports and every final G4-G9 requirement stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c60bbe76ff043e0a4b059da6b93504e08f1a7584",
+      "subject": "fix(ingest): isolate policy hook failures and preserve retry claims",
+      "checks": [
+        "evidence/g3/g3-ingest-policy-lifetime-and-ownership-final-tests.json",
+        "evidence/g3/g3-policy-hook-isolation-quality.json",
+        "evidence/g3/g3-current-hook-failure-inclusive-coverage.json"
+      ],
+      "open_work": "Current source profile refresh, required 90 percent Messaging coverage, remaining provider ports and every final G4-G9 requirement stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "bb03e31e4b40ca7c3de45d11bffc787e0b73075a",
+      "subject": "fix(config): preserve routing policy fields from string keys",
+      "checks": [
+        "evidence/g3/g3-config-record-fields-and-scope-final-tests.json",
+        "evidence/g3/g3-config-record-keys-quality.json"
+      ],
+      "open_work": "Current complete suites and 90 percent coverage remain; all final G4-G9 requirements stay unchanged."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "fa567577170552c075b37a65bcc6d7e3ef7d4d15",
+      "subject": "fix(config): reject failed existing-record reads before writes",
+      "checks": [
+        "evidence/g3/g3-config-read-scope-and-failure-final-tests.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a9be7231584b5d8abed30978622e9de5de2f247c",
+      "subject": "refactor(config): remove unreachable plain existing-record branch",
+      "checks": [
+        "evidence/g3/g3-config-read-typed-final-tests.json",
+        "evidence/g3/g3-config-read-typed-final-quality.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "72f30f62855a0bb8eabb4bbd8d9bad0f31f02146",
+      "subject": "test(room): verify typing timer ownership and native facts",
+      "checks": [
+        "evidence/g3/g3-room-typing-timeout-controls.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "523114511b90e29924dc1bb4de1927e8c773906c",
+      "subject": "fix(room): drop private context when thread history evicts messages",
+      "checks": [
+        "evidence/g3/g3-room-state-context-and-receipt-final-tests.json",
+        "evidence/g3/g3-room-context-pruning-quality.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "487992f93130c27827cd87cabd76a4acef4d6236",
+      "subject": "fix(demo): forward validated room facts through authorized requests",
+      "checks": [
+        "evidence/g3/g3-demo-configured-actor-and-native-final-tests.json",
+        "evidence/g3/g3-demo-final-native-quality.json"
+      ],
+      "open_work": "Current full-source checks, meaningful ownership coverage to 90 percent, remaining provider ports and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "eb415d53c2cc467c6421da47b10ca5458730bfc8",
+      "subject": "fix(demo): complete owned room setup before subscription",
+      "checks": [
+        "evidence/g3/g3-demo-setup-errors-and-ownership-final-tests.json",
+        "evidence/g3/g3-demo-setup-ownership-quality.json"
+      ],
+      "open_work": "Current full verification, meaningful coverage to 90 percent and all final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6365d011d9cd3cfc2ca188e715286c10dd8f7d60",
+      "subject": "fix(config): preserve record outcomes after failed save callbacks",
+      "checks": [
+        "evidence/g3/g3-config-write-before-after-outcome-final-tests.json",
+        "evidence/g3/g3-config-write-outcome-quality.json"
+      ],
+      "open_work": "Current full verification, meaningful coverage to 90 percent and all final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "1ed7ee3e084620cac5ba4b08af6e65e352b02160",
+      "subject": "test(media): verify complete private payload units and limits",
+      "checks": [
+        "evidence/g3/g3-media-private-payload-final-tests.json"
+      ],
+      "open_work": "Current full verification, meaningful coverage to 90 percent and all final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "33fdfea06e9add63029c684ef21a1f66ef4ee0ea",
+      "subject": "test(storage): verify scoped authority cleanup on record deletion",
+      "checks": [
+        "evidence/g3/g3-room-and-principal-authority-cleanup-final-tests.json"
+      ],
+      "open_work": "Current full verification, meaningful coverage to 90 percent and all final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "36c32f28255beed9409131e9a2971b59988ad7c3",
+      "subject": "fix(ingress): contain webhook verification and response callback failures",
+      "checks": [
+        "evidence/g3/g3-webhook-native-acceptance-failure-final-tests.json",
+        "evidence/g3/g3-webhook-callback-failure-quality.json"
+      ],
+      "open_work": "Current complete profiles/coverage, meaningful 90 percent coverage and every final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirement stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "756e46b436590b98cfdb42dc3f6ec1e4a0103505",
+      "subject": "fix(webhook): reject missing instance and failed bridge resolvers",
+      "checks": [
+        "evidence/g3/g3-webhook-http-config-and-body-final-tests.json",
+        "evidence/g3/g3-webhook-http-config-quality.json"
+      ],
+      "open_work": "Current complete profiles/coverage, meaningful 90 percent coverage and every final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirement stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "0e7899794256c2d302f37401a58823570c5281b8",
+      "subject": "test(ingress): verify complete webhook normalization before writes",
+      "checks": [
+        "evidence/g3/g3-webhook-complete-unit-verified-final-tests.json"
+      ],
+      "open_work": "Current complete profiles/coverage, meaningful 90 percent coverage and every final G4-G9 provider/conformance/quality/audit/package/docs/version/PR/review/current-head CI requirement stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "73fe2b6098af6bd3bc90452659675cfae4ffd750",
+      "subject": "test(deduper): control expiry inside the owning process",
+      "checks": [
+        "evidence/g3/g3-deduper-owned-clock-and-room-final-tests.json"
+      ],
+      "open_work": "Complete current source rechecks and required 90 percent coverage; all final G4-G9 requirements stay unchanged."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "04c346f84be6fc8a338360d0410879a13c7f8995",
+      "subject": "fix(storage): preserve canonical room ownership of agent thread routes",
+      "checks": [
+        "evidence/g3/g3-agent-route-reroute-preserved-final-tests.json",
+        "evidence/g3/g3-agent-route-room-final-quality.json"
+      ],
+      "open_work": "Current full source verification, meaningful 90 percent coverage and all final G4-G9 requirements remain unchanged."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "4c65c022332d50a5ea11880ec90396adeb98372e",
+      "subject": "test(storage): verify activity cleanup and scoped cursor indexes",
+      "checks": [
+        "evidence/g3/g3-activity-cleanup-index-and-scope-final-tests.json"
+      ],
+      "open_work": "Current full source verification, meaningful 90 percent coverage and all final G4-G9 requirements remain unchanged."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "d1bcc8234a4509bca079f690e8b5a6747af143f2",
+      "subject": "test(identity): verify principal projection and controller ownership",
+      "checks": [
+        "evidence/g3/g3-principal-projection-and-controller-ownership-tests.json"
+      ],
+      "open_work": "Current full source verification, required 90 percent coverage and all final G4-G9 requirements stay open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "da9c038bdcf4785bdb0e00fc4b265637efef64d8",
+      "subject": "fix(ingest): resolve native media resources before canonical processing",
+      "checks": [
+        "evidence/g3/g3-native-media-complete-kinds-and-lifetime-tests.json",
+        "evidence/g3/g3-native-media-private-resolution-quality.json"
+      ],
+      "open_work": "Current complete verification, required 90 percent coverage and all final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "49195e9e864fb566a1ddd0a45e3bd8704c3974be",
+      "subject": "test(integration): verify native provider media through Messaging",
+      "checks": [
+        "evidence/g3/g3-provider-media-real-runtime-final-tests.json"
+      ],
+      "open_work": "Current complete verification, required 90 percent coverage and all final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c1b116da1542025b8680de411cfd5d76150ea0fd",
+      "subject": "test(ingress): verify native reply and stored context room scope",
+      "checks": [
+        "evidence/g3/g3-native-reply-parent-and-context-final-tests.json"
+      ],
+      "open_work": "Current complete verification, required 90 percent coverage and all final G4-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "61b65204650e28fb909ca197636bb988ef15e278",
+      "subject": "test(acceptance): verify ordered native media retry after partial acceptance",
+      "checks": [
+        "evidence/g3/g3-native-media-partial-delivery-retry-tests.json"
+      ],
+      "open_work": "Complete current verification, 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "10fce8f1176a52261e226f5eb8cda353a32fd3e8",
+      "subject": "test(ingest): verify native media policy denial and complete retry",
+      "checks": [
+        "evidence/g3/g3-native-media-policy-authority-final-tests.json"
+      ],
+      "open_work": "Complete current verification, 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "31023287241abeff2df9c36d2f6e8a8fb68cb201",
+      "subject": "fix(routing): normalize fixed YAML policy values before dispatch",
+      "checks": [
+        "evidence/g3/g3-topology-routing-yaml-execution-final-tests.json",
+        "evidence/g3/g3-routing-yaml-enums-quality.json"
+      ],
+      "open_work": "Complete current verification, 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "979d610b7479a220514cc6b08a65cece5b8988fb",
+      "subject": "fix(adapter): use fixed option atoms at the typed operation boundary",
+      "checks": [
+        "evidence/g3/g3-adapter-fixed-option-scope-tests.json"
+      ],
+      "open_work": "Current complete source checks, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "80147c1fe1efb65614074eb2556da74d04bd0f19",
+      "subject": "fix(adapter): preserve stable media resources and replacement stage identities",
+      "checks": [
+        "evidence/g3/g3-private-media-stage-target-final-tests.json",
+        "evidence/g3/g3-private-media-stable-stage-quality.json"
+      ],
+      "open_work": "Current complete source checks, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "14fc3b4acac318622cec04e27b515a20840421df",
+      "subject": "test(adapter): verify typed thread and paged query result scope",
+      "checks": [
+        "evidence/g3/g3-adapter-thread-page-scope-tests.json"
+      ],
+      "open_work": "Current complete source checks, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "d7c223683d8fa12b8704c4e17e072101de646e5e",
+      "subject": "test(ingress): verify private subscription records and bridge scope",
+      "checks": [
+        "evidence/g3/g3-subscription-private-record-normalization-tests.json"
+      ],
+      "open_work": "Current complete source checks, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a690ab32bb8327fa9aaf1398b68642f74745b699",
+      "subject": "fix(audit): retain native Signal identity without requiring legacy correlation",
+      "checks": [
+        "evidence/g3/g3-native-audit-parent-and-room-final-tests.json",
+        "evidence/g3/g3-native-audit-identity-quality.json"
+      ],
+      "open_work": "Current complete checks, 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6fee235776a415ff804d8912cfa3bfb828cbca7a",
+      "subject": "fix(acceptance): emit one native audit observation after message acceptance",
+      "checks": [
+        "evidence/g3/g3-native-acceptance-audit-final-source-tests.json",
+        "evidence/g3/g3-native-acceptance-audit-quality.json"
+      ],
+      "open_work": "Current complete checks, 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "bae1949a2f126b693b851bd06f0d3278be32b351",
+      "subject": "test(runtime): verify scoped agent restoration and unavailable supervisor state",
+      "checks": [
+        "evidence/g3/g3-agent-assignment-exact-supervisor-final-tests.json"
+      ],
+      "open_work": "Current complete checks, 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "4c2b3b0a17e46dd24a37edb3779d1a730f30cfca",
+      "subject": "fix(runtime): contain assignment store failures and restore owned runners",
+      "checks": [
+        "evidence/g3/g3-agent-assignment-save-before-after-rollback-final-tests.json",
+        "evidence/g3/g3-agent-assignment-safe-save-quality.json"
+      ],
+      "open_work": "Current complete source checks, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "2768b005b051c00924bc439580a4421c4f4340c4",
+      "subject": "fix(topology): reject missing binding identities before normalization",
+      "checks": [
+        "evidence/g3/g3-topology-and-facade-missing-identity-final-tests.json",
+        "evidence/g3/g3-topology-owned-identity-final-quality.json"
+      ],
+      "open_work": "Current complete source checks, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "8c0c0853dade6492d5700c57e85abae7c22edf76",
+      "subject": "fix(runtime): ignore stopped runner PIDs before Registry cleanup",
+      "checks": [
+        "evidence/g3/g3-agent-runner-stopped-registry-final-tests.json",
+        "evidence/g3/g3-agent-runner-stopped-registry-quality.json"
+      ],
+      "open_work": "Final current evidence, 90 percent coverage and all G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "140f73216c02ca3839490deadb273ca52f7ffdde",
+      "subject": "fix(history): validate constructed room scope before projection admission",
+      "checks": [
+        "evidence/g3/g3-transcript-all-admission-scope-final-tests.json",
+        "evidence/g3/g3-transcript-validated-admission-quality.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "98d6630b0162ad0e9c8497cbeeb6d258e09928d7",
+      "subject": "test(history): verify scoped cursor rejection and complete backend rebuilds",
+      "checks": [
+        "evidence/g3/g3-transcript-real-backend-scope-and-rebuild-final-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "00bb2df25e2170bf1ef3303eaa66b96ae3f219ce",
+      "subject": "test(storage): verify authorization revision and terminal scope ownership",
+      "checks": [
+        "evidence/g3/g3-authorization-backend-terminal-revision-final-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "5953331d7178e10f138ed8505c96b12e46302d69",
+      "subject": "fix(history): contain projection and canonical read failures",
+      "checks": [
+        "evidence/g3/g3-projection-all-canonical-failure-final-tests.json",
+        "evidence/g3/g3-projection-safe-outcomes-quality.json"
+      ],
+      "open_work": "Complete current source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "3421cf18d1be58318eecad50f398fef8d004294c",
+      "subject": "test(identity): verify backend credential rotation and immutable scope",
+      "checks": [
+        "evidence/g3/g3-credential-backend-lineage-and-terminal-final-tests.json"
+      ],
+      "open_work": "Complete current source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6b2109abb0b9340836ae7561abac263fd39a8edc",
+      "subject": "test(directory): verify backend source revisions and endpoint scope",
+      "checks": [
+        "evidence/g3/g3-directory-backend-owned-endpoint-final-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a2ddad9b92d56bed88a6c9fb7a4eda62162e1ab5",
+      "subject": "test(storage): verify advisory claim scope and cleanup ownership",
+      "checks": [
+        "evidence/g3/g3-advisory-backend-claim-scope-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "9095ede1ad0bddfae6dc84cd9480d8234ec4c5b0",
+      "subject": "test(ingest): verify native thread store outcomes before and after acceptance",
+      "checks": [
+        "evidence/g3/g3-native-thread-verified-before-after-final-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "cffbce27e70f819b059f6e7401c82fd6134655d5",
+      "subject": "test(ingest): verify automatic thread failures and exact accepted effects",
+      "checks": [
+        "evidence/g3/g3-native-auto-thread-exact-insert-update-final-tests.json"
+      ],
+      "open_work": "Complete source verification, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "cd1db80d499cc4d894ce2d949860e682f938ad43",
+      "subject": "test(storage): verify directory query identities and onboarding record scope",
+      "checks": [
+        "evidence/g3/g3-directory-query-and-onboarding-scope-tests.json"
+      ],
+      "open_work": "Complete source verification, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "35777721401e9b3fcf08ab0977f74b22e1bb8be4",
+      "subject": "test(execution): verify request admission and provider failure effects",
+      "checks": [
+        "evidence/g3/g3-execution-admission-target-and-result-final-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c182f163f90517a48ca4fafd80dcfc54ba8b6bb1",
+      "subject": "test(gateway): verify route selection and failures before dispatch",
+      "checks": [
+        "evidence/g3/g3-gateway-route-validation-and-stopped-partition-tests.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "c8ca43fb4b03bcd7e4444e620864fb9aec9fdacf",
+      "subject": "fix(gateway): load the adapter before selecting its session route",
+      "checks": [
+        "evidence/g3/g3-gateway-cold-adapter-route-final-tests.json",
+        "evidence/g3/g3-gateway-cold-adapter-quality.json"
+      ],
+      "open_work": "Current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "d59bd5038d9ea14381b63affe65756925e528e50",
+      "subject": "fix(directory): reject duplicate normalized endpoint scope IDs",
+      "checks": [
+        "evidence/g3/g3-directory-input-and-normalized-scope-final-tests.json",
+        "evidence/g3/g3-directory-normalized-scope-quality.json"
+      ],
+      "open_work": "Complete current source profiles, remaining facade/storage paths, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6b89b59adf253e0d93d02a7c9c29700d162fdfa3",
+      "subject": "fix(context): validate retained mentions and private target values",
+      "checks": [
+        "evidence/g3/g3-normalizer-whole-record-and-invalid-target-final-tests.json",
+        "evidence/g3/g3-normalizer-retained-record-quality.json"
+      ],
+      "open_work": "Complete current source profiles, remaining facade/storage paths, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "f90f6ccf55f8eb651a3dc9a1ea918ca86fc3c3b3",
+      "subject": "fix(subscriptions): preserve exact store failures and validate deletion first",
+      "checks": [
+        "evidence/g3/g3-subscription-store-safe-spec-final-tests.json",
+        "evidence/g3/g3-subscription-store-outcome-final-quality.json"
+      ],
+      "open_work": "Directory callback outcomes, complete current source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "8c7a4548a087a09a748cf2fab4e7be8b62fbe338",
+      "subject": "fix(runtime): contain bridge reads before binding configuration",
+      "checks": [
+        "evidence/g3/g3-runtime-binding-read-final-tests.json",
+        "evidence/g3/g3-runtime-binding-read-quality.json"
+      ],
+      "open_work": "Directory callback outcomes, complete current source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "9a75066f619db84cab1469b3a8f250a499a06ee1",
+      "subject": "fix(directory): contain persistence failures and validate complete results",
+      "checks": [
+        "evidence/g3/g3-directory-whole-list-and-semantic-save-final-tests.json",
+        "evidence/g3/g3-directory-callback-safe-outcome-quality.json"
+      ],
+      "open_work": "Bridge list outcome handling, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "069dce789fb9b847dcb602e25d46ea92a2fb6912",
+      "subject": "fix(config): contain routing reads and control record deletion failures",
+      "checks": [
+        "evidence/g3/g3-config-facade-exact-room-read-delete-final-tests.json",
+        "evidence/g3/g3-config-facade-exact-room-quality.json"
+      ],
+      "open_work": "Bridge list outcome handling, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6513e4682d60e4b85d13f0c032b5935a5ad5ba69",
+      "subject": "fix(bridges): keep workers when the config inventory read fails",
+      "checks": [
+        "evidence/g3/g3-bridge-inventory-whole-filter-and-topology-final-tests.json",
+        "evidence/g3/g3-bridge-inventory-safe-reconcile-quality.json"
+      ],
+      "open_work": "Complete current source proof, remaining facade/backend ownership gaps, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6688aaf18156b42315ba1e808ca7771c676ad9f6",
+      "subject": "test(identity): verify credential and replay marker cleanup scope",
+      "checks": [
+        "evidence/g3/g3-credential-cleanup-and-expired-replay-tests.json"
+      ],
+      "open_work": "Remaining facade/backend ownership gaps, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "238bb86827874f0a33fde40400a3dd852bb01ea8",
+      "subject": "test(identity): verify root facade default lifecycle and assurance",
+      "checks": [
+        "evidence/g3/g3-identity-root-facade-defaults-tests.json"
+      ],
+      "open_work": "Remaining facade/backend ownership gaps, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "590daeb0c1d2fc483b78c96d0e42a63f12ac9f06",
+      "subject": "fix(agents): preserve registration when thread cleanup fails",
+      "checks": [
+        "evidence/g3/g3-agent-unregister-exact-cleanup-rollback-final-tests.json",
+        "evidence/g3/g3-agent-unregister-store-quality.json"
+      ],
+      "open_work": "Remaining facade/backend ownership gaps, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "e49a0c88e91bde13a21f1ca0e115946d5f930e78",
+      "subject": "fix(agents): validate assignment inventory before runtime changes",
+      "checks": [
+        "evidence/g3/g3-assignment-inventory-complete-owned-restore-final-tests.json",
+        "evidence/g3/g3-assignment-inventory-safe-restore-quality.json"
+      ],
+      "open_work": "Principal/binding and credential callback outcomes, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "cd49f6cfcb342eefc37546c6ae53ad224bd3806a",
+      "subject": "fix(identity): contain callbacks and validate canonical record scope",
+      "checks": [
+        "evidence/g3/g3-identity-callback-authorship-and-scope-final-tests.json",
+        "evidence/g3/g3-identity-callback-safe-result-quality.json"
+      ],
+      "open_work": "Credential/verifier callback outcomes, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "4ab926940792068ba22294e9eab5333346ad2d73",
+      "subject": "fix(credentials): contain store callbacks and validate exact lifecycle results",
+      "checks": [
+        "evidence/g3/g3-credential-callback-owned-outcome-final-tests.json",
+        "evidence/g3/g3-credential-callback-safe-result-quality.json"
+      ],
+      "open_work": "Remaining execution/setup and facade/backend failures, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "83a31475a0b28d9ec0dcd6c95724fa794b4e77cb",
+      "subject": "fix(verification): validate owned records and contain replay store failures",
+      "checks": [
+        "evidence/g3/g3-verifier-store-read-and-replay-final-tests.json",
+        "evidence/g3/g3-verifier-store-safe-result-quality.json"
+      ],
+      "open_work": "Remaining execution/setup and facade/backend failures, current complete source proof, required 90 percent coverage and all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "77bfd25505c2e1aa616cc1ff4dd319e8810153eb",
+      "subject": "test(execution): verify canonical message and thread authorization scope",
+      "checks": [
+        "evidence/g3/g3-execution-canonical-message-thread-scope-tests.json"
+      ],
+      "passed_checks": "123 canonical scope and typed execution checks with warnings as errors.",
+      "open_work": "Remaining execution, receipt, setup and facade failure paths; at least 90 percent Messaging coverage; all final G3-G9 requirements remain open."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "20468bf6636999c6e02edc06bdb93c19828acb0f",
+      "subject": "fix(receipts): validate complete owned store results before acknowledgment",
+      "checks": [
+        "evidence/g3/g3-read-receipt-callback-owned-tests.json",
+        "evidence/g3/g3-read-receipt-owned-quality.json"
+      ],
+      "passed_checks": "151 receipt/execution/scope checks with warnings as errors and package quality.",
+      "open_work": "Complete current source profiles, remaining runtime/facade cases, 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "d82ba5c4c9592b7f863512386e7c42dd6fb57c5a",
+      "subject": "test(receipts): verify publication failure and stable retry ownership",
+      "checks": [
+        "evidence/g3/g3-read-receipt-publication-retry-tests.json"
+      ],
+      "passed_checks": "31 receipt checks with warnings as errors.",
+      "open_work": "Complete current source profiles, remaining runtime/facade cases, 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "04bbd680522787ea15f77ac33570090ef6f08335",
+      "subject": "fix(topology): contain room and binding setup failures",
+      "checks": [
+        "evidence/g3/g3-topology-room-binding-owned-tests.json",
+        "evidence/g3/g3-topology-room-binding-owned-quality.json"
+      ],
+      "passed_checks": "67 affected topology and bridge-room checks with warnings as errors and package quality.",
+      "open_work": "Remaining facade/backend failure checks, 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "ab751299976622b056cedaeba8dff2362163d9a3",
+      "subject": "fix(directory): apply search limits after complete ordered matching",
+      "checks": [
+        "evidence/g3/g3-directory-limit-order-warning-free-tests.json",
+        "evidence/g3/g3-directory-limit-order-quality.json"
+      ],
+      "passed_checks": "78 affected directory and storage conformance checks without warnings plus package quality.",
+      "open_work": "Remaining runtime/facade/storage cases, Messaging coverage at least 90 percent and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "7ff472ee0e0598a99e6bb8f419b2784683a67e30",
+      "subject": "fix(query): retain timestamp-less messages in stable timeline order",
+      "checks": [
+        "evidence/g3/g3-canonical-timeline-order-final-tests.json",
+        "evidence/g3/g3-canonical-timeline-order-quality.json"
+      ],
+      "passed_checks": "34 canonical timeline/facade/SQLite checks with warnings as errors and package quality.",
+      "open_work": "Remaining runtime/record cases, Messaging coverage at least 90 percent and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "a9132abb136a11554db6a4d18efc775ff9113d93",
+      "subject": "fix(records): reject ambiguous constraints and invalid endpoint metadata",
+      "checks": [
+        "evidence/g3/g3-durable-record-input-final-tests.json",
+        "evidence/g3/g3-durable-record-input-quality.json"
+      ],
+      "passed_checks": "38 durable input/authorization/credential/endpoint checks with warnings as errors and package quality.",
+      "open_work": "Remaining runtime/record cases, Messaging coverage at least 90 percent and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "e7426bd5667d16a0029855c94b2df55d05bc240d",
+      "subject": "test(records): verify strict Jidoka reference and validity input boundaries",
+      "checks": [
+        "evidence/g3/g3-jidoka-record-input-tests.json",
+        "evidence/g3/g3-jidoka-record-input-quality.json"
+      ],
+      "passed_checks": "55 affected Jidoka record, continuity, delegation and advisory evidence checks with warnings as errors. Package quality also passes for the current test source.",
+      "open_work": "Remaining G3 runtime/record/backend cases, required 90 percent Messaging coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "47847c4fc16b6371062833185337c58059c4ec65",
+      "subject": "fix(activity): reject duplicate fields and malformed opaque references",
+      "checks": [
+        "evidence/g3/g3-activity-input-boundary-final-tests.json",
+        "evidence/g3/g3-activity-input-boundary-quality.json"
+      ],
+      "passed_checks": "21 affected activity input/projection/storage checks with warnings as errors plus package quality.",
+      "open_work": "Remaining G3 runtime/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "82f15f47216dfe721eda56861541330814099e4a",
+      "subject": "fix(execution): clear unpublished local post resources after failures",
+      "checks": [
+        "evidence/g3/g3-local-post-resource-failure-warning-free-tests.json",
+        "evidence/g3/g3-local-post-resource-failure-quality.json"
+      ],
+      "passed_checks": "128 affected local post/resource/size/typed execution checks without warnings and package quality.",
+      "open_work": "Remaining G3 runtime/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "3187b43e139d51f80b20a1983e42d49913871ff5",
+      "subject": "fix(execution): clear result resources after publication failure",
+      "checks": [
+        "evidence/g3/g3-provider-result-publication-tests.json",
+        "evidence/g3/g3-provider-result-publication-quality.json"
+      ],
+      "passed_checks": "130 affected provider result/local post/resource/size/typed execution checks without warnings and package quality.",
+      "open_work": "Remaining G3 runtime/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "6fc890d22f110b1acdfb802b947489d6fa9ebc8c",
+      "subject": "fix(events): reject message projections under a foreign room subject",
+      "checks": [
+        "evidence/g3/g3-event-projection-scope-final-tests.json",
+        "evidence/g3/g3-event-projection-scope-quality.json"
+      ],
+      "passed_checks": "35 affected event projection/native event/message size/bridge ownership checks without warnings plus package quality.",
+      "open_work": "Remaining G3 native result/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "0bd8a0557a553730cec3fd5fa013772b71ebf364",
+      "subject": "fix(storage): reject invalid canonical message query limits consistently",
+      "checks": [
+        "evidence/g3/g3-message-query-limit-scope-tests.json",
+        "evidence/g3/g3-message-query-limit-scope-quality.json"
+      ],
+      "passed_checks": "73 affected message query/storage conformance/timeline/transcript checks without warnings plus package quality.",
+      "open_work": "Remaining G3 native result/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "397be2a66bade144fba0ec31ec4819e84158beac",
+      "subject": "test(storage): retain SQLite statement cleanup after strict limit validation",
+      "checks": [
+        "evidence/g3/g3-message-query-bind-cleanup-tests.json",
+        "evidence/g3/g3-message-query-bind-cleanup-quality.json"
+      ],
+      "passed_checks": "93 expanded query/SQLite/storage conformance/timeline/transcript checks without warnings and package quality.",
+      "open_work": "Complete current suites, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "aa987d585c94a7244d0bde40f14347697c4b3687",
+      "subject": "fix(storage): clear stale scoped room binding indexes during recovery",
+      "checks": [
+        "evidence/g3/g3-ets-scope-index-recovery-tests.json",
+        "evidence/g3/g3-ets-scope-index-recovery-quality.json"
+      ],
+      "passed_checks": "32 affected ETS/index/authorization/agent ownership checks without warnings plus package quality.",
+      "open_work": "Remaining G3 native result/facade/backend cases, required 90 percent coverage and all final G3-G9 requirements."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "35ed1e6ce03836fc388a1fd03e270b5333c7c06c",
+      "subject": "test(execution): preserve large route results and owned resources",
+      "checks": [
+        "evidence/checkpoint-b0-b2/b0-route-resource-tests.json",
+        "evidence/checkpoint-b0-b2/b0-quality.json"
+      ],
+      "open_work": "B1 contract checks and B2 coverage remain open. Stop after the Chat and Messaging checkpoint."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "c7eb9f71f3c5373df618d7ea0b601484c80b79f8",
+      "subject": "docs(migration): fix gate dependencies and save B0 checkpoint",
+      "checks": [
+        "evidence/checkpoint-b0-b2/checkpoint-report.json"
+      ],
+      "open_work": "B0-B2 complete. G4-G9 remain open. Execution stopped at the user boundary."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "416ae441e111290c0ef6e06cc0e588733c80e2f6",
+      "subject": "fix(adapter): reject nil content capabilities",
+      "checks": [
+        "evidence/checkpoint-b0-b2/checkpoint-report.json"
+      ],
+      "open_work": "B0-B2 complete. G4-G9 remain open. Execution stopped at the user boundary."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "583e00e4c76b90bb39ec377ecd2e404d524e00f3",
+      "subject": "fix(topology): reject malformed nested bridge configuration",
+      "checks": [
+        "evidence/checkpoint-b0-b2/checkpoint-report.json"
+      ],
+      "open_work": "B0-B2 complete. G4-G9 remain open. Execution stopped at the user boundary."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "08b87e1911bea689c08430cfe30db5cf98e4afea",
+      "subject": "test(runtime): verify facade defaults and scoped route recovery",
+      "checks": [
+        "evidence/checkpoint-b0-b2/checkpoint-report.json"
+      ],
+      "open_work": "B0-B2 complete. G4-G9 remain open. Execution stopped at the user boundary."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "17db6f1b30464493cfdc3ae208a8b80e8dc51770",
+      "subject": "test(runtime): verify media failure and identity event contracts",
+      "checks": [
+        "evidence/checkpoint-b0-b2/checkpoint-report.json"
+      ],
+      "open_work": "B0-B2 complete. G4-G9 remain open. Execution stopped at the user boundary."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "f1244634f63e8b6345ee93089c64901916a018ac",
+      "subject": "fix(slack): contain sink failures and preserve socket acknowledgement order",
+      "checks": [
+        "evidence/checkpoint-b3/checkpoint-report.json"
+      ],
+      "open_work": "B3 is complete. G6-G9 and final current-head CI remain open. Stop at B3."
+    },
+    {
+      "package": "jido_chat_slack",
+      "sha": "78df382391209bb8b1a6feccce4a0a03a33887e6",
+      "subject": "fix(slack): retain interaction scope and cancel rejected private controls",
+      "checks": [
+        "evidence/checkpoint-b3/checkpoint-report.json"
+      ],
+      "open_work": "B3 is complete. G6-G9 and final current-head CI remain open. Stop at B3."
+    },
+    {
+      "package": "jido_chat_telegram",
+      "sha": "8688a30d07d70da235aae7c8e639605ec203b479",
+      "subject": "test(telegram): verify every delivery limit preserves the polling checkpoint",
+      "checks": [
+        "evidence/checkpoint-b3/checkpoint-report.json"
+      ],
+      "open_work": "B3 is complete. G6-G9 and final current-head CI remain open. Stop at B3."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "ce4fc3a4be35fae399ca5b9f99b794d64648d944",
+      "subject": "test(chat): complete the Telegram and Slack membership checkpoint",
+      "checks": [
+        "evidence/checkpoint-b3/checkpoint-report.json"
+      ],
+      "open_work": "B3 is complete. G6-G9 and final current-head CI remain open. Stop at B3."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "6a9d441d93106add611ae993f76138c6f6d4dd66",
+      "subject": "docs(chat): save B4 work and record pending conversion decisions",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "f1029f89d9f6c11f2c74e80999923e2ddfd07f84",
+      "subject": "fix(chat): preserve null text in partial message updates",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "dd83dcab76497776995377cf24567fc342b0adea",
+      "subject": "fix(chat): preserve unknown cleared reaction values",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_discord",
+      "sha": "30e6d5caac47f21875a01bf735d33e16e975afb7",
+      "subject": "feat(discord): use typed deliveries and private interaction resources",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_discord",
+      "sha": "b45c22d8ba3f018d9403c60fdf76814a9fb4aac6",
+      "subject": "fix(discord): map authenticated webhook bytes and scope delivery identity",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_github",
+      "sha": "1c17eaf8e107c0043a17861253d07018f155be92",
+      "subject": "feat(github): normalize verified lifecycle deliveries",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_github",
+      "sha": "104e7a9eadab77bb253142d531f584da10ea9ad7",
+      "subject": "fix(github): map authenticated webhook bytes and scope delivery identity",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_signal",
+      "sha": "10db758905527e1bc57e2330df5819e629727247",
+      "subject": "fix(signal): reject complete limits and contain sink failures",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_mattermost",
+      "sha": "13b43f5e50098c541984e835bd7ae8d7028db5e6",
+      "subject": "feat(mattermost): validate native deliveries above raw websocket dispatch",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_teams",
+      "sha": "0522afe3966a50f5df9f291dd75ee565e78f7c68",
+      "subject": "feat(teams): preserve verified native activities and complete membership",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_whatsapp",
+      "sha": "0b6c32d26dbce89e16146b81d2d8d22b18f3ef1b",
+      "subject": "feat(whatsapp): normalize complete upserts and keep linked-device controls private",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat_x",
+      "sha": "5242a2512d4f224d9dbbca5a12d7c749fd890dde",
+      "subject": "feat(x): normalize verified direct-message batches and private CRC controls",
+      "checks": [
+        "evidence/checkpoint-b4/checkpoint-report.json"
+      ],
+      "open_work": "B4 is complete. G7-G9 remain open. Stop at B4."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "f8fea7317196201f068127e0e97eb4d6dccbb796",
+      "subject": "build(chat): declare the production Signal v3 requirement",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_chat-suite.json",
+        "evidence/checkpoint-b5/g7-jido_chat-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_messaging",
+      "sha": "022a94667f3988589b744eafc2b37de6615f15b4",
+      "subject": "build(messaging): declare the production v3 package requirements",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_messaging-suite.json",
+        "evidence/checkpoint-b5/g7-jido_messaging-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_chat_mattermost",
+      "sha": "e2d16e890568acc7c02b5ab8bcab65540399df1b",
+      "subject": "build(mattermost): update Req and remove unused dependencies",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_chat_mattermost-suite.json",
+        "evidence/checkpoint-b5/g7-jido_chat_mattermost-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_chat_whatsapp",
+      "sha": "5b0a531d1a34e80ea458368156567f3a1df898d6",
+      "subject": "build(whatsapp): remove the production dependency override",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_chat_whatsapp-suite.json",
+        "evidence/checkpoint-b5/g7-jido_chat_whatsapp-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_chat_discord",
+      "sha": "ed9d2fef341f933b1bdab1482d1beacf947f8ee4",
+      "subject": "build(discord): require the planned Chat 2.0 package",
+      "checks": [
+        "evidence/checkpoint-b5/g7-jido_chat_discord-suite.json",
+        "evidence/checkpoint-b5/g7-jido_chat_discord-quality.json"
+      ],
+      "open_work": "G7 remains failed. Stop after B5. B6 has not started."
+    },
+    {
+      "package": "jido_chat",
+      "sha": "29ccbc0f75745af265e34f9dc58fd19501bc29d6",
+      "subject": "feat(conformance): report C01-C14 from native fixture and source proof",
+      "checks": [
+        "evidence/checkpoint-b5/g7-harness-core.json",
+        "evidence/checkpoint-b5/g7-harness-ai.json",
+        "evidence/checkpoint-b5/conformance-report.json"
+      ],
+      "open_work": "C14 and G7 fail. B6 has not started."
+    }
+  ],
+  "passed_checks": {
+    "core_tests": 260,
+    "signal_adapter_tests": 80,
+    "signal_existing_live_excluded": 1,
+    "messaging_inclusive_tests": 2006,
+    "messaging_skipped_tests": 0,
+    "optional_ai_tests": 4,
+    "focused_scope_queue_storage_tests": 63,
+    "native_catalog_definitions": 110,
+    "quality": [
+      "jido_chat",
+      "jido_messaging",
+      "jido_chat_telegram",
+      "jido_chat_slack",
+      "jido_chat_discord",
+      "jido_chat_github",
+      "jido_chat_signal",
+      "jido_chat_mattermost",
+      "jido_chat_teams",
+      "jido_chat_whatsapp",
+      "jido_chat_x"
+    ],
+    "current_library_scan_files": 471,
+    "current_library_scan_findings": 0,
+    "runtime_harness_tests_per_profile": 244,
+    "compiled_core_messaging_exports": 4071,
+    "compiled_generated_instance_exports": 240,
+    "public_runtime_request_admission_rows": 36,
+    "runtime_dependency_count_without_ai": 72,
+    "runtime_dependency_count_with_ai": 83,
+    "telegram_membership_mapper_tests": 20,
+    "telegram_membership_runtime_tests": 2,
+    "telegram_protocol_normalizer_membership_tests": 44,
+    "telegram_polling_normalizer_membership_tests": 45,
+    "telegram_package_tests": 240,
+    "telegram_existing_live_excluded": 16,
+    "telegram_package_quality": "pass",
+    "telegram_package_audit": "pass",
+    "telegram_unused_lock_check": "pass",
+    "telegram_prod_metadata_build": "pass",
+    "telegram_coverage_percent": 79.7,
+    "telegram_original_named_source_cases": 172,
+    "telegram_unmapped_original_named_cases": 0,
+    "real_telegram_runtime_membership_tests": 8,
+    "slack_partial_schema_tests": 5,
+    "real_telegram_operation_rows": 26,
+    "telegram_operation_matrix_tests": 30,
+    "telegram_operation_polling_tests": 41,
+    "telegram_pinned_graph_dependencies": 42,
+    "slack_native_mapper_cases": 15,
+    "slack_native_protocol_mapper_socket_cases": 27,
+    "slack_library_quality": "pass",
+    "real_slack_runtime_membership_tests": 7,
+    "real_slack_runtime_execution_tests": 4,
+    "provider_media_real_runtime_tests": 2,
+    "compiled_api_scope": "Consumer runtime API audit: 4071 exports, 240 generated instance exports; no mapping failures.",
+    "B4": "evidence/checkpoint-b4/checkpoint-report.json",
+    "compiled_api_exports": 4818,
+    "adapter_fixtures_per_profile": 521,
+    "operation_rows": 234,
+    "event_rows": 153,
+    "B5": "evidence/checkpoint-b5/checkpoint-report.json"
+  },
+  "open_work": [],
+  "coverage_note": "B5 exact inclusive coverage: Messaging 90.05059021922429%; Mattermost 91.56414762741652%; WhatsApp 80.83333333333333%. All existing floors pass.",
+  "evidence_commit_note": "The next core commit saves the evidence bundle and this index. Its message records passed checks and open work; use Git history for that commit SHA.",
+  "progress_reporting": {
+    "github_issue_progress_comments": "disabled_by_user",
+    "github_issue_progress_body_updates": "disabled_by_user",
+    "destinations": [
+      "local files",
+      "commit messages",
+      "current chat"
+    ],
+    "final_completion_requirements_unchanged": true
+  },
+  "current_ai_profile": {
+    "state": "pass",
+    "passed": 2006,
+    "check": "evidence/checkpoint-b5/g7-messaging-suite-ai.json",
+    "scope": "Complete all-nine-adapter profile; 521 adapter fixtures and 244 harness tests also pass."
+  },
+  "checkpoint_state": "B6 complete; G0-G9 implementation gates pass; publication blocked",
+  "execution_state": "stopped_after_B6",
+  "evidence_corrections": [
+    {
+      "commit": "416ae44",
+      "incorrect_focused_count": 53,
+      "correct_focused_count": 51,
+      "record": "evidence/checkpoint-b0-b2/b2-batches-one-two-tests.json"
+    }
+  ],
+  "B3_report": "evidence/checkpoint-b3/checkpoint-report.json",
+  "B4_pending_record": "evidence/checkpoint-b4/pending-report.json",
+  "B4_report": "evidence/checkpoint-b4/checkpoint-report.json",
+  "B5_report": "evidence/checkpoint-b5/checkpoint-report.json",
+  "excluded_packages": [
+    "jido_chat_mattermost"
+  ],
+  "latest_instruction": "Ten pushes and review PRs approved; Mattermost excluded; exact Cowlib/Gun exception accepted."
+}

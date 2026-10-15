@@ -1,0 +1,22 @@
+Compiling 3 files (.ex)
+Compiling 3 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+................................................
+
+  1) test retained records serialize independently without a public wrapper reviver (Jido.Chat.DomainSerializationTest)
+     test/jido/chat/domain_serialization_test.exs:23
+     ** (Jido.Chat.Errors.Validation) invalid Jido.Chat.StreamChunk: kind: invalid enum value: expected one of text, markdown, status, plan, data, step_start, step_finish, timeline
+     code: for {module, value} <- values do
+     stacktrace:
+       (jido_chat 1.2.1) lib/jido/chat/schema.ex:30: Jido.Chat.Schema.parse!/4
+       test/jido/chat/domain_serialization_test.exs:47: anonymous fn/2 in Jido.Chat.DomainSerializationTest."test retained records serialize independently without a public wrapper reviver"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido/chat/domain_serialization_test.exs:45: (test)
+
+..........................................................................................................................................................................................................
+Finished in 4.2 seconds (4.2s async, 0.00s sync)
+
+Result: 250/251 passed
+Failed: 1 test

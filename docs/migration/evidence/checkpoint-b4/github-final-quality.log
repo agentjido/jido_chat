@@ -1,0 +1,80 @@
+warning: using commas as separators in "mix do" is deprecated, use + between commands instead
+  (mix 1.20.4) lib/mix/tasks/do.ex:129: Mix.Tasks.Do.gather_commands/3
+  (mix 1.20.4) lib/mix/tasks/do.ex:75: Mix.Tasks.Do.run/1
+  (mix 1.20.4) lib/mix/task.ex:502: anonymous fn/3 in Mix.Task.run_task/5
+  (mix 1.20.4) lib/mix/cli.ex:129: Mix.CLI.run_task/2
+  /Users/mhostetler/.local/share/mise/installs/elixir/1.20.4-otp-28/bin/mix:7: (file)
+  (elixir 1.20.4) src/elixir_compiler.erl:102: :elixir_compiler.dispatch/4
+
+Compiling 1 file (.ex)
+Checking 8 source files ...
+
+  Software Design
+┃
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/protocol_test.exs:132:13 #(Jido.Chat.GitHub.ProtocolTest.request)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/protocol_test.exs:120:17 #(Jido.Chat.GitHub.ProtocolTest.request)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       lib/jido/chat/github/adapter.ex:1186:13 #(Jido.Chat.GitHub.Adapter.native_fact)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/protocol_test.exs:209:16 #(Jido.Chat.GitHub.ProtocolTest.portable)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/protocol_test.exs:208:14 #(Jido.Chat.GitHub.ProtocolTest.portable)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/protocol_test.exs:205:19 #(Jido.Chat.GitHub.ProtocolTest.portable)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       lib/jido/chat/github/adapter.ex:1301:33 #(Jido.Chat.GitHub.Adapter.native_inputs)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       lib/jido/chat/github/adapter.ex:1109:17 #(Jido.Chat.GitHub.Adapter.normalize_event)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       lib/jido/chat/github/adapter.ex:1107:14 #(Jido.Chat.GitHub.Adapter.normalize_event)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       lib/jido/chat/github/adapter.ex:1104:20 #(Jido.Chat.GitHub.Adapter.normalize_event)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/protocol_test.exs:244:14 #(Jido.Chat.GitHub.ProtocolTest)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/protocol_test.exs:244:14 #(Jido.Chat.GitHub.ProtocolTest)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/protocol_test.exs:243:14 #(Jido.Chat.GitHub.ProtocolTest)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/adapter_test.exs:603:26 #(Jido.Chat.GitHub.AdapterTest)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/adapter_test.exs:598:7 #(Jido.Chat.GitHub.AdapterTest)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/adapter_test.exs:595:23 #(Jido.Chat.GitHub.AdapterTest)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/adapter_test.exs:567:26 #(Jido.Chat.GitHub.AdapterTest)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/adapter_test.exs:563:7 #(Jido.Chat.GitHub.AdapterTest)
+┃ [D] ↘ Nested modules could be aliased at the top of the invoking module.
+┃       test/jido/chat/github/adapter_test.exs:560:23 #(Jido.Chat.GitHub.AdapterTest)
+
+  Code Readability
+┃
+┃ [R] ↗ Numbers larger than 9999 should be written with underscores: 65_039
+┃       lib/jido/chat/github/adapter.ex:40:20 #(Jido.Chat.GitHub.Adapter)
+┃ [R] ↗ Numbers larger than 9999 should be written with underscores: 10_084
+┃       lib/jido/chat/github/adapter.ex:40:7 #(Jido.Chat.GitHub.Adapter)
+┃ [R] ↗ Numbers larger than 9999 should be written with underscores: 10_084
+┃       lib/jido/chat/github/adapter.ex:39:7 #(Jido.Chat.GitHub.Adapter)
+┃ [R] → `with` contains only one <- clause and an `else` branch, consider using
+┃       `case` instead
+┃       lib/jido/chat/github/adapter.ex:1202:7 #(Jido.Chat.GitHub.Adapter.native_media)
+┃ [R] ↘ The alias `Jido.Chat.GitHub.Adapter` is not alphabetically ordered among
+┃       its group.
+┃       test/jido/chat/github/protocol_test.exs:3:9 #(Jido.Chat.GitHub.ProtocolTest)
+
+  Refactoring opportunities
+┃
+┃ [F] → Function is too complex (cyclomatic complexity is 14, max is 9).
+┃       lib/jido/chat/github/adapter.ex:1305:8 #(Jido.Chat.GitHub.Adapter.native_map)
+┃ [F] → Function body is nested too deep (max depth is 2, was 3).
+┃       lib/jido/chat/github/adapter.ex:1163:11 #(Jido.Chat.GitHub.Adapter.native_items)
+
+Please report incorrect results: https://github.com/rrrene/credo/issues
+
+Analysis took 0.1 seconds (0.01s to load, 0.1s running 69 checks on 8 files)
+244 mods/funs, found 2 refactoring opportunities, 5 code readability issues, 19 software design suggestions.
+
+Use `mix credo explain` to explain issues, `mix credo --help` for options.

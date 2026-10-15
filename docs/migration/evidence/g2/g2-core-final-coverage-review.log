@@ -1,0 +1,138 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+.............................................................................................................................................................................................................................................................
+Finished in 4.0 seconds (4.0s async, 0.00s sync)
+
+Result: 253 passed
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+ 41.6% lib/jido/chat/adapter.ex                      167       12        7
+ 75.0% lib/jido/chat/adapter_test_kit.ex              32        4        1
+100.0% lib/jido/chat/adapter_test_kit/assertion       53       18        0
+ 44.4% lib/jido/chat/adapter_test_kit/factories       94       27       15
+ 70.0% lib/jido/chat/adapter_test_kit/mock_adap      221       40       12
+100.0% lib/jido/chat/adapter_test_kit/mock_stat       59       13        0
+ 68.0% lib/jido/chat/adapter_test_kit/mock_tran       89       25        8
+ 67.4% lib/jido/chat/adapters/mentions.ex            275       43       14
+100.0% lib/jido/chat/adapters/threading.ex           132        6        0
+ 67.9% lib/jido/chat/ai.ex                           228       81       26
+ 49.5% lib/jido/chat/attachment.ex                   261      105       53
+ 50.0% lib/jido/chat/author.ex                        32        2        1
+ 87.5% lib/jido/chat/binding.ex                       55       16        2
+ 76.7% lib/jido/chat/capabilities.ex                 265       73       17
+  0.0% lib/jido/chat/capability_matrix.ex            124       35       35
+ 60.9% lib/jido/chat/card.ex                         627      228       89
+ 33.3% lib/jido/chat/card/chart_data.ex               49        6        4
+ 28.5% lib/jido/chat/card/chart_series.ex             50        7        5
+ 80.0% lib/jido/chat/card/component.ex               256       65       13
+ 50.0% lib/jido/chat/channel_info.ex                  28        2        1
+  0.0% lib/jido/chat/channel_meta.ex                  31        2        2
+ 66.6% lib/jido/chat/channel_ref.ex                   64        9        3
+ 66.6% lib/jido/chat/content/audio.ex                 71        3        1
+ 50.0% lib/jido/chat/content/file.ex                  78        4        2
+ 66.6% lib/jido/chat/content/image.ex                 84        3        1
+ 50.0% lib/jido/chat/content/text.ex                  29        2        1
+ 66.6% lib/jido/chat/content/tool_result.ex           63        3        1
+ 50.0% lib/jido/chat/content/tool_use.ex              56        2        1
+ 66.6% lib/jido/chat/content/video.ex                 81        3        1
+ 89.1% lib/jido/chat/delivery.ex                      99       37        4
+ 73.9% lib/jido/chat/emoji.ex                         93       23        6
+  0.0% lib/jido/chat/errors.ex                        12        0        0
+  0.0% lib/jido/chat/errors/contract.ex               16        1        1
+  0.0% lib/jido/chat/errors/ingress.ex                32        8        8
+  0.0% lib/jido/chat/errors/unknown.ex                 5        0        0
+ 62.5% lib/jido/chat/errors/validation.ex             50       16        6
+ 22.2% lib/jido/chat/fetch_options.ex                 41        9        7
+ 64.2% lib/jido/chat/file_upload.ex                   80       14        5
+ 82.8% lib/jido/chat/handlers.ex                     203       70       12
+  0.0% lib/jido/chat/handlers/families.ex             22        0        0
+  0.0% lib/jido/chat/handlers/router_boundary.e       23        6        6
+100.0% lib/jido/chat/id.ex                            11        1        0
+ 55.5% lib/jido/chat/markdown.ex                     582      198       88
+ 61.5% lib/jido/chat/markdown/node.ex                109       13        5
+ 96.1% lib/jido/chat/markdown/stream_renderer.e      429      155        6
+ 79.5% lib/jido/chat/media.ex                        215       83       17
+ 72.7% lib/jido/chat/media_type.ex                   146       33        9
+  0.0% lib/jido/chat/mention.ex                       29        2        2
+ 74.3% lib/jido/chat/message.ex                      145       39       10
+ 62.5% lib/jido/chat/message_page.ex                  51        8        3
+ 71.4% lib/jido/chat/message_subject.ex               76       14        4
+ 93.3% lib/jido/chat/messaging_target.ex             198       30        2
+ 84.2% lib/jido/chat/modal.ex                        322      114       18
+ 86.7% lib/jido/chat/modal/element.ex                210       53        7
+ 85.7% lib/jido/chat/operations/capabilities.ex       38       14        2
+100.0% lib/jido/chat/operations/definitions.ex       194        2        0
+ 89.4% lib/jido/chat/operations/executor.ex          171       76        8
+ 76.5% lib/jido/chat/operations/invocation.ex        273      111       26
+ 81.6% lib/jido/chat/operations/result.ex            164       60       11
+  0.0% lib/jido/chat/options_load_option.ex           44        5        5
+  0.0% lib/jido/chat/options_load_option_group.       52        8        8
+ 50.0% lib/jido/chat/participant.ex                   37        2        1
+ 71.6% lib/jido/chat/post_payload.ex                 345      134       38
+ 55.5% lib/jido/chat/postable.ex                     108       18        8
+ 64.2% lib/jido/chat/reply_context.ex                 73       14        5
+ 78.7% lib/jido/chat/resources.ex                    101       33        7
+ 50.0% lib/jido/chat/room.ex                          37        2        1
+100.0% lib/jido/chat/schema.ex                        33        7        0
+  0.0% lib/jido/chat/signal/action_received.ex        20        0        0
+  0.0% lib/jido/chat/signal/add_reaction.ex           20        0        0
+  0.0% lib/jido/chat/signal/assistant_context_c       20        0        0
+  0.0% lib/jido/chat/signal/assistant_thread_st       20        0        0
+  0.0% lib/jido/chat/signal/definition.ex             52        6        6
+  0.0% lib/jido/chat/signal/delete_message.ex         20        0        0
+  0.0% lib/jido/chat/signal/edit_message.ex           20        0        0
+  0.0% lib/jido/chat/signal/fetch_channel_messa       20        0        0
+  0.0% lib/jido/chat/signal/fetch_media.ex            20        0        0
+  0.0% lib/jido/chat/signal/fetch_message.ex          20        0        0
+  0.0% lib/jido/chat/signal/fetch_messages.ex         20        0        0
+  0.0% lib/jido/chat/signal/fetch_metadata.ex         20        0        0
+  0.0% lib/jido/chat/signal/fetch_subject.ex          20        0        0
+  0.0% lib/jido/chat/signal/fetch_thread.ex           20        0        0
+  0.0% lib/jido/chat/signal/get_thread_particip       20        0        0
+  0.0% lib/jido/chat/signal/get_user.ex               20        0        0
+100.0% lib/jido/chat/signal/identity.ex               26        5        0
+  0.0% lib/jido/chat/signal/list_threads.ex           20        0        0
+  0.0% lib/jido/chat/signal/load_options.ex           20        0        0
+  0.0% lib/jido/chat/signal/mark_as_read.ex           20        0        0
+  0.0% lib/jido/chat/signal/membership_changed.       20        0        0
+  0.0% lib/jido/chat/signal/message_deleted.ex        20        0        0
+  0.0% lib/jido/chat/signal/message_received.ex       20        0        0
+  0.0% lib/jido/chat/signal/message_updated.ex        20        0        0
+  0.0% lib/jido/chat/signal/modal_closed.ex           20        0        0
+  0.0% lib/jido/chat/signal/modal_submitted.ex        20        0        0
+  0.0% lib/jido/chat/signal/normalization_faile       20        0        0
+  0.0% lib/jido/chat/signal/open_dm.ex                20        0        0
+  0.0% lib/jido/chat/signal/open_modal.ex             20        0        0
+  0.0% lib/jido/chat/signal/open_thread.ex            20        0        0
+  0.0% lib/jido/chat/signal/operation_completed       20        0        0
+  0.0% lib/jido/chat/signal/operation_failed.ex       20        0        0
+  0.0% lib/jido/chat/signal/options_requested.e       20        0        0
+ 86.6% lib/jido/chat/signal/policy.ex                113       45        6
+  0.0% lib/jido/chat/signal/post_channel_messag       20        0        0
+  0.0% lib/jido/chat/signal/post_ephemeral.ex         20        0        0
+  0.0% lib/jido/chat/signal/post_message.ex           20        0        0
+  0.0% lib/jido/chat/signal/reaction_added.ex         20        0        0
+  0.0% lib/jido/chat/signal/reaction_removed.ex       20        0        0
+  0.0% lib/jido/chat/signal/receipt_received.ex       20        0        0
+  0.0% lib/jido/chat/signal/remove_reaction.ex        20        0        0
+  0.0% lib/jido/chat/signal/send_file.ex              20        0        0
+  0.0% lib/jido/chat/signal/send_message.ex           20        0        0
+  0.0% lib/jido/chat/signal/slash_command_recei       20        0        0
+  0.0% lib/jido/chat/signal/start_typing.ex           20        0        0
+  0.0% lib/jido/chat/signal/stream.ex                 20        0        0
+  0.0% lib/jido/chat/signal/thread_changed.ex         20        0        0
+  0.0% lib/jido/chat/signal/thread_started.ex         20        0        0
+ 58.6% lib/jido/chat/stream_chunk.ex                 243       87       36
+ 85.7% lib/jido/chat/thread.ex                        66        7        1
+ 62.5% lib/jido/chat/thread_page.ex                   45        8        3
+ 42.8% lib/jido/chat/thread_summary.ex                50        7        4
+ 81.8% lib/jido/chat/user_info.ex                     73       11        2
+ 47.3% lib/jido/chat/webhook_request.ex               88       19       10
+ 33.3% lib/jido/chat/webhook_response.ex              60        9        6
+ 57.8% lib/jido/chat/wire.ex                          50       19        8
+ 70.5% lib/jido_chat.ex                              121       17        5
+100.0% test/support/stream_markdown_fixtures.ex       20        2        0
+[TOTAL]  69.9%
+----------------
+Coverage data exported.

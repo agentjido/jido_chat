@@ -1,0 +1,19 @@
+{
+  "label": "g3-current-lock-and-fixture-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "47f8d8c82c5de4b36c6381215c532f3a7413986c",
+  "source_tree_sha256": "66d6c07648b62a93ea1ad939eddea8006edc4aea7a510df26d68ee2c1b855916",
+  "started_at": "2026-10-13T04:25:12.789225+00:00",
+  "finished_at": "2026-10-13T04:26:51.146384+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-current-lock-and-fixture-quality.log",
+  "log_sha256": "71395dafbe16d548c7b35c08198bb0b138e0fb11928f19fb3ecd4e8fefcda69c"
+}

@@ -1,0 +1,51 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "de6e2314a50da0c8b1906b3d7f38a312ad8e5175",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "73fe2b6098af6bd3bc90452659675cfae4ffd750",
+      "library_test_files": 349,
+      "library_test_sha256": "8abfb142536d8e8696a089c00a36d8ca008f35e89988961db52857e13d61e2b4"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-agent-route-owner-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "73fe2b6098af6bd3bc90452659675cfae4ffd750",
+  "source_tree_sha256": "240ec97340a9bb557c66f142d6a7157df6ddb2eb6681fe0f05deaed2b57f3ebd",
+  "started_at": "2026-10-13T05:37:45.937220+00:00",
+  "finished_at": "2026-10-13T05:38:10.123215+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-agent-route-owner-quality.log",
+  "log_sha256": "0fd538617777d75592e74084c755cbb9a9f339abc1408495dc81ad6b05f36624"
+}

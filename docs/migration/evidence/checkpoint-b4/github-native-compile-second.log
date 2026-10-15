@@ -1,0 +1,46 @@
+Compiling 4 files (.ex)
+     error: undefined function first_title_line/1 (expected Jido.Chat.GitHub.Adapter to define such a function or for it to be imported, but none are available)
+     │
+ 669 │     |> Enum.find_value(&first_title_line/1)
+     │                         ^^^^^^^^^^^^^^^^
+     │
+     └─ lib/jido/chat/github/adapter.ex:669:25: Jido.Chat.GitHub.Adapter.issue_title/2
+
+     error: undefined function first_title_line/1 (expected Jido.Chat.GitHub.Adapter to define such a function or for it to be imported, but none are available)
+     │
+ 669 │     |> Enum.find_value(&first_title_line/1)
+     │                         ^^^^^^^^^^^^^^^^
+     │
+     └─ lib/jido/chat/github/adapter.ex:669:25: Jido.Chat.GitHub.Adapter.issue_title/2
+
+     error: undefined function first_title_line/1 (expected Jido.Chat.GitHub.Adapter to define such a function or for it to be imported, but none are available)
+     │
+ 669 │     |> Enum.find_value(&first_title_line/1)
+     │                         ^^^^^^^^^^^^^^^^
+     │
+     └─ lib/jido/chat/github/adapter.ex:669:25: Jido.Chat.GitHub.Adapter.issue_title/2
+
+     error: undefined function first_title_line/1 (expected Jido.Chat.GitHub.Adapter to define such a function or for it to be imported, but none are available)
+     │
+ 669 │     |> Enum.find_value(&first_title_line/1)
+     │                         ^^^^^^^^^^^^^^^^
+     │
+     └─ lib/jido/chat/github/adapter.ex:669:25: Jido.Chat.GitHub.Adapter.issue_title/2
+
+     error: undefined function github_user_key/1 (expected Jido.Chat.GitHub.Adapter to define such a function or for it to be imported, but none are available)
+     │
+ 208 │         |> Enum.uniq_by(&github_user_key/1)
+     │                          ^^^^^^^^^^^^^^^
+     │
+     └─ lib/jido/chat/github/adapter.ex:208:26: Jido.Chat.GitHub.Adapter.get_thread_participants/2
+
+     error: undefined function valid_github_user?/1 (expected Jido.Chat.GitHub.Adapter to define such a function or for it to be imported, but none are available)
+     │
+ 207 │         |> Enum.filter(&valid_github_user?/1)
+     │                         ^^^^^^^^^^^^^^^^^^
+     │
+     └─ lib/jido/chat/github/adapter.ex:207:25: Jido.Chat.GitHub.Adapter.get_thread_participants/2
+
+
+== Compilation error in file lib/jido/chat/github/adapter.ex ==
+** (CompileError) lib/jido/chat/github/adapter.ex: cannot compile module Jido.Chat.GitHub.Adapter (errors have been logged)

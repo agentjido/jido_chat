@@ -1,0 +1,29 @@
+{
+  "label": "g3-thread-page-fidelity-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/agent_runner_test.exs",
+    "test/jido_messaging/typed_execution_test.exs",
+    "test/jido_messaging/typed_room_subscription_test.exs",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "test/jido_messaging/bridge_listener_ingress_test.exs",
+    "test/jido_messaging/outbound_gateway_test.exs",
+    "test/jido_messaging/outbound_router_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "0d8610dc34597134694919ed4f0322a9e67484d436945fa6d56e7d40dead80a0",
+  "started_at": "2026-10-12T21:19:13.384361+00:00",
+  "finished_at": "2026-10-12T21:19:24.769294+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-thread-page-fidelity-tests.log",
+  "log_sha256": "20b732e32a7a547ba1183e9bb65302bed50139e48cdfe6362cb6b61231a24900"
+}

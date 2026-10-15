@@ -1,0 +1,24 @@
+{
+  "label": "g1-contract-verifier-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/g1_contract_test.exs",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "318fc4b8af25a462c1af0f55709592038e8aebbc6ca408a370e15be15b9d58a0",
+  "started_at": "2026-10-12T17:23:36.136765+00:00",
+  "finished_at": "2026-10-12T17:23:39.694463+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g1/g1-contract-verifier-tests.log",
+  "log_sha256": "a45877de769fd7057b0b3c0298d0cdfc9c349df238a1b37d88786fdf2f78564f"
+}
