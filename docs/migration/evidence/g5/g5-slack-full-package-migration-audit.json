@@ -1,0 +1,22 @@
+{
+  "label": "g5-slack-full-package-migration-audit",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_slack",
+  "head_sha": "d4412e02d1c0ab38961fe338b9ebe611233bcda9",
+  "source_tree_sha256": "7df9160efd43a36a5d87b2433caf77b521ef88aed7eb1f61c505a783e331fc33",
+  "started_at": "2026-10-13T01:40:49.625129+00:00",
+  "finished_at": "2026-10-13T01:40:50.985068+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g5/g5-slack-full-package-migration-audit.log",
+  "log_sha256": "a76be5012e3ff9ca8f5c41e62700978c14c23084a0af4ae174cac9c6b0f7c84d"
+}

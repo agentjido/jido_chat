@@ -1,0 +1,22 @@
+{
+  "label": "g3-runtime-core-coverage-current",
+  "command": [
+    "mix",
+    "coveralls",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "d14c97a38f8c1a75cf76598fb38a41c4a0374b51d00a95a3bfb9f761f60594b4",
+  "started_at": "2026-10-12T22:20:47.913781+00:00",
+  "finished_at": "2026-10-12T22:21:20.298726+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-runtime-core-coverage-current.log",
+  "log_sha256": "2d3641199b335627045c3b6e5ca5fc285fe942d04ecd68e3a50e8c7d96561833"
+}

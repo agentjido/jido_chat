@@ -1,0 +1,17 @@
+{
+  "label": "g3-current-resource-boundary-scan",
+  "command": [
+    "python3",
+    "integration/scripts/scan_public_boundary.py",
+    "G3"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "2a93487099876af5935e681f643c66c5fe206d0f",
+  "source_tree_sha256": "64a48414a656dba39fab51ba8bda92d7546ebe94a26db405afd5a0d2c1d8a350",
+  "started_at": "2026-10-13T00:05:31.906873+00:00",
+  "finished_at": "2026-10-13T00:05:32.364820+00:00",
+  "environment": {},
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-resource-boundary-scan.log",
+  "log_sha256": "b9c06b5a37cbba8202f7fb21c20f3209d09bcdcc79b3beeb913690721eb9a1e0"
+}

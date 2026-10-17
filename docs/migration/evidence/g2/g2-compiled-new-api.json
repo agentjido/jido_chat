@@ -1,0 +1,20 @@
+{
+  "label": "g2-compiled-new-api",
+  "command": [
+    "mix",
+    "run",
+    "../jido_chat/integration/scripts/export_g2_api.exs"
+  ],
+  "repository": "jido_chat_signal",
+  "head_sha": "3efc24e44dd6a316dd8f7dda5bee4a1b647490f4",
+  "source_tree_sha256": "b8a91a1007b6e357e86bb12bc5d9183a9e1b30607a84c09961ab5dbc67daf99b",
+  "started_at": "2026-10-12T19:00:19.433044+00:00",
+  "finished_at": "2026-10-12T19:00:20.653824+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-compiled-new-api.log",
+  "log_sha256": "6991217b4a4d6bead36ce644245066ff88342c4c8746e0cf42b43a6275818fb4"
+}

@@ -1,0 +1,3252 @@
+{
+  "cases": [
+    {
+      "line": 177,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack capabilities match every frozen operation and participant row",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 177,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram capabilities match every frozen operation and participant row",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack ActionReceived matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack AssistantContextChanged matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack AssistantThreadStarted matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack MembershipChanged matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack MessageDeleted matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack MessageReceived matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack MessageUpdated matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack ModalClosed matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack ModalSubmitted matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack NormalizationFailed matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack OptionsRequested matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack ReactionAdded matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack ReactionRemoved matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack ReceiptReceived matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack SlashCommandReceived matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack ThreadChanged matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_slack ThreadStarted matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram ActionReceived matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram AssistantContextChanged matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram AssistantThreadStarted matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram MembershipChanged matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram MessageDeleted matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram MessageReceived matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram MessageUpdated matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram ModalClosed matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram ModalSubmitted matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram NormalizationFailed matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram OptionsRequested matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram ReactionAdded matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram ReactionRemoved matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram ReceiptReceived matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram SlashCommandReceived matches frozen native support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram ThreadChanged matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 192,
+      "module": "Jido.Chat.AdapterPairConformanceTest",
+      "name": "test jido_chat_telegram ThreadStarted matches frozen unsupported support in every declared form",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/adapter_pair_conformance_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 7,
+      "module": "Jido.Chat.Integration.G6AdapterCheckpointTest",
+      "name": "test all eight bindings start at protocol 1 with their frozen operation support",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g6_adapter_checkpoint_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 139,
+      "module": "Jido.Chat.Integration.G6AdapterCheckpointTest",
+      "name": "test every G6 provider accepts one complete typed unit with exact source and subject",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g6_adapter_checkpoint_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 168,
+      "module": "Jido.Chat.Integration.G6AdapterCheckpointTest",
+      "name": "test every G6 provider reports sink error with one call and zero accepted effects",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g6_adapter_checkpoint_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 168,
+      "module": "Jido.Chat.Integration.G6AdapterCheckpointTest",
+      "name": "test every G6 provider reports sink exit with one call and zero accepted effects",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g6_adapter_checkpoint_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 168,
+      "module": "Jido.Chat.Integration.G6AdapterCheckpointTest",
+      "name": "test every G6 provider reports sink invalid with one call and zero accepted effects",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g6_adapter_checkpoint_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 168,
+      "module": "Jido.Chat.Integration.G6AdapterCheckpointTest",
+      "name": "test every G6 provider reports sink raise with one call and zero accepted effects",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g6_adapter_checkpoint_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 168,
+      "module": "Jido.Chat.Integration.G6AdapterCheckpointTest",
+      "name": "test every G6 provider reports sink throw with one call and zero accepted effects",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g6_adapter_checkpoint_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test discord direct delivery keeps parent identity, trace and one stored observation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test github direct delivery keeps parent identity, trace and one stored observation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test signal direct delivery keeps parent identity, trace and one stored observation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test slack direct delivery keeps parent identity, trace and one stored observation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test teams direct delivery keeps parent identity, trace and one stored observation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test telegram direct delivery keeps parent identity, trace and one stored observation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test whatsapp direct delivery keeps parent identity, trace and one stored observation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 102,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test x direct delivery keeps parent identity, trace and one stored observation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 136,
+      "module": "Jido.Chat.Integration.G7BoundaryTest",
+      "name": "test Teams membership leaves active agents, grants, runtime membership and presence unchanged",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/g7_boundary_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 25,
+      "module": "Jido.Chat.ProviderMediaRuntimeTest",
+      "name": "test Telegram native photo retains private URL and dimensions through Messaging",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/provider_media_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 80,
+      "module": "Jido.Chat.ProviderMediaRuntimeTest",
+      "name": "test Slack native file retains private URL and complete text through Messaging",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/provider_media_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 95,
+      "module": "Jido.Chat.Slack.ExecutionRuntimeTest",
+      "name": "test native Messaging send uses one real Slack callback and checks revoked authority before a cached result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_execution_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 112,
+      "module": "Jido.Chat.Slack.ExecutionRuntimeTest",
+      "name": "test native Messaging history keeps every Slack item and cursor and applies the grant limit",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_execution_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 131,
+      "module": "Jido.Chat.Slack.ExecutionRuntimeTest",
+      "name": "test an incorrect canonical scope causes zero Slack calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_execution_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 144,
+      "module": "Jido.Chat.Slack.ExecutionRuntimeTest",
+      "name": "test a private interaction opens a modal through Messaging and retains its conversation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_execution_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.Slack.ExecutionRuntimeTest",
+      "name": "test native Slack interaction observation selects the exact binding and conversation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_execution_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.Slack.MembershipRuntimeTest",
+      "name": "test real Slack bot-self join changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.Slack.MembershipRuntimeTest",
+      "name": "test real Slack joined with blank inviter changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.Slack.MembershipRuntimeTest",
+      "name": "test real Slack joined with inviter changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.Slack.MembershipRuntimeTest",
+      "name": "test real Slack joined without inviter changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.Slack.MembershipRuntimeTest",
+      "name": "test real Slack left without actor or prior state changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 157,
+      "module": "Jido.Chat.Slack.MembershipRuntimeTest",
+      "name": "test unresolved room and absent prior state stay partial without record mutation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 180,
+      "module": "Jido.Chat.Slack.MembershipRuntimeTest",
+      "name": "test standalone membership handler never selects message or mention handlers",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.SlackMembershipSchemaTest",
+      "name": "test Slack partial fixture: joined with blank inviter",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_schema_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.SlackMembershipSchemaTest",
+      "name": "test Slack partial fixture: joined with inviter",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_schema_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.SlackMembershipSchemaTest",
+      "name": "test Slack partial fixture: joined without inviter",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_schema_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.SlackMembershipSchemaTest",
+      "name": "test Slack partial fixture: left without actor or prior state",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_schema_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 40,
+      "module": "Jido.Chat.Integration.SlackMembershipSchemaTest",
+      "name": "test partial state cannot introduce provider permissions or raw payload fields",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/slack_membership_schema_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 76,
+      "module": "Jido.Chat.Telegram.ExecutionRuntimeTest",
+      "name": "test Telegram send through Messaging preserves one provider call and rejects revoked authority",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_execution_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.ExecutionRuntimeTest",
+      "name": "test Telegram history is typed unsupported through Messaging with zero provider calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_execution_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 107,
+      "module": "Jido.Chat.Telegram.ExecutionRuntimeTest",
+      "name": "test Telegram interactions select only the bound room and use application payload policy",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_execution_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 101,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test real Telegram join changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 101,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test real Telegram leave changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 101,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test real Telegram remove changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 101,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test real Telegram restricted member changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 101,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test real Telegram restricted non-member changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 101,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test real Telegram role changes only native observations",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 138,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test unresolved room and absent prior state stay partial without record mutation",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 158,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test bot-self membership remains observation only with an active agent",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 179,
+      "module": "Jido.Chat.Telegram.MembershipRuntimeTest",
+      "name": "test standalone membership handler never selects message or mention handlers",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/fixtures/telegram_membership_runtime_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 95,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test interaction controls remain private and scoped to their owner and room",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 131,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test unsupported interactions release private controls and HTTP controls report rejection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test add_reaction matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test delete_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test edit_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_channel_messages matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_media matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_messages matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_metadata matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_subject matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_thread matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test get_user matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test list_threads matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test load_options matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test open_dm matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test open_modal matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test open_thread matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test post_channel_message matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test post_ephemeral matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test post_message matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test remove_reaction matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test send_file matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test send_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test start_typing matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test stream matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ActionReceived has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test AssistantContextChanged has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test AssistantThreadStarted has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test MembershipChanged has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test MessageDeleted has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test MessageReceived has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test MessageUpdated has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ModalClosed has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ModalSubmitted has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test NormalizationFailed has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test OptionsRequested has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ReactionAdded has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ReactionRemoved has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ReceiptReceived has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test SlashCommandReceived has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ThreadChanged has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ThreadStarted has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 275,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test zero, one and many preserve item order and identity across batches",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 285,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test provider failure is typed and cached with one call",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 295,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test cancelled stream has zero enumeration and provider calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 311,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test HTTP mapping uses the signed body and requires a captured public key",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 150,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test typed query cursors and private media keep complete results and scope",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 187,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test binding credentials remain captured when the environment changes",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test add_reaction matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test delete_message matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test edit_message matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test fetch_channel_messages matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test fetch_media matches frozen unsupported with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test fetch_message matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test fetch_messages matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test fetch_metadata matches frozen fallback with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test fetch_subject matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test fetch_thread matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test get_thread_participants matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test get_user matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test list_threads matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test load_options matches frozen unsupported with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test mark_as_read matches frozen unsupported with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test open_dm matches frozen unsupported with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test open_modal matches frozen unsupported with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test open_thread matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test post_channel_message matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test post_ephemeral matches frozen unsupported with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test post_message matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test remove_reaction matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test send_file matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test send_message matches frozen native with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test start_typing matches frozen unsupported with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 227,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test stream matches frozen fallback with exact calls and cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test ActionReceived matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test AssistantContextChanged matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test AssistantThreadStarted matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test MembershipChanged matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test MessageDeleted matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test MessageReceived matches frozen native through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test MessageUpdated matches frozen native through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test ModalClosed matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test ModalSubmitted matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test NormalizationFailed matches frozen native through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test OptionsRequested matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test ReactionAdded matches frozen native through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test ReactionRemoved matches frozen native through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test ReceiptReceived matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test SlashCommandReceived matches frozen unsupported through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test ThreadChanged matches frozen native through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 315,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test ThreadStarted matches frozen native through a verified webhook",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 335,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test all lifecycle actions remain distinct and ordered",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 370,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test verification and complete limits fail before acceptance; controls never expose private reasons",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 409,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test failed provider work and cancelled streams cannot repeat callbacks",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 428,
+      "module": "Jido.Chat.GitHub.ProtocolTest",
+      "name": "test HTTP mapping uses the signed body and delivery identities are binding scoped",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_github/test/jido/chat/github/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 46,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test sends a typed request through one captured signal-cli transport",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 65,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test declares native delivery and exact finite core fallback capabilities",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 90,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test posts private file references through the transport attachment path",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 109,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test normalizes receive notification with independent quote identity and private media",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 160,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test non-message and empty envelopes produce typed failure facts without blank messages",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 174,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test zero/one/many receive items keep stable identities and complete order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 200,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test JSON-RPC and direct forms use the same mapper; group routing stays separate",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test add_reaction: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test delete_message: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test edit_message: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test fetch_channel_messages: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test fetch_media: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test fetch_message: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test fetch_messages: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test fetch_metadata: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test fetch_subject: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test fetch_thread: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test get_thread_participants: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test get_user: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test list_threads: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test load_options: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test mark_as_read: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test open_dm: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test open_modal: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test open_thread: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test post_channel_message: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test post_ephemeral: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test post_message: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test remove_reaction: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test send_file: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test send_message: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test start_typing: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test stream: declared operation selects its exact native/fallback/unsupported result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 261,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test automatic and subscription notifications share the same delivery identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 276,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test sent sync messages use the destination conversation and mark the sender as self",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 298,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test unverified group master keys do not become public conversation IDs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 311,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test missing provider identity uses a stable digest without merging distinct invalid items",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 333,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test provider failure is typed and has no private error input",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test ActionReceived matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test AssistantContextChanged matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test AssistantThreadStarted matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test MembershipChanged matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test MessageDeleted matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test MessageReceived matches frozen native without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test MessageUpdated matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test ModalClosed matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test ModalSubmitted matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test NormalizationFailed matches frozen native without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test OptionsRequested matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test ReactionAdded matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test ReactionRemoved matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test ReceiptReceived matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test SlashCommandReceived matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test ThreadChanged matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 352,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test ThreadStarted matches frozen unsupported without inferred events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 370,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test an item keeps its identity when its batch position changes",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 380,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test all four complete limits reject and cancel newly created media",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 415,
+      "module": "Jido.Chat.Signal.AdapterTest",
+      "name": "test media owner, cancellation and expiry remain private",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_signal/test/jido_chat_signal/adapter_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 167,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test the finite operation inventory is complete",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test add_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test delete_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test edit_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test fetch_channel_messages matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test fetch_media matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test fetch_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test fetch_messages matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test fetch_metadata matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test fetch_subject matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test fetch_thread matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test get_thread_participants matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test get_user matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test list_threads matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test load_options matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test mark_as_read matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test open_dm matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test open_modal matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test open_thread matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test post_channel_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test post_ephemeral matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test post_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test remove_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test send_file matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test send_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test start_typing matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 176,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test stream matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 203,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test provider failure is typed and cached without repeat calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 214,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test channel and thread subjects have different native kinds",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test malformed page items fail the whole query without dropping an item",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 242,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test a stream stays lazy before execution and is consumed once",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 260,
+      "module": "Jido.Chat.Slack.OperationMatrixTest",
+      "name": "test a cancelled stream is never enumerated and invokes no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_slack/test/jido/chat/slack/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test add_reaction matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test delete_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test edit_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test fetch_channel_messages matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test fetch_media matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test fetch_message matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test fetch_messages matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test fetch_metadata matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test fetch_subject matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test fetch_thread matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test get_user matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test list_threads matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test load_options matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test open_dm matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test open_modal matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test open_thread matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test post_channel_message matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test post_ephemeral matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test post_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test remove_reaction matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test send_file matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test send_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test start_typing matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 83,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test stream matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test ActionReceived matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test AssistantContextChanged matches frozen unsupported in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test AssistantThreadStarted matches frozen unsupported in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test MembershipChanged matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test MessageDeleted matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test MessageReceived matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test MessageUpdated matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test ModalClosed matches frozen unsupported in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test ModalSubmitted matches frozen unsupported in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test NormalizationFailed matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test OptionsRequested matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test ReactionAdded matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test ReactionRemoved matches frozen native in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test ReceiptReceived matches frozen unsupported in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test SlashCommandReceived matches frozen unsupported in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test ThreadChanged matches frozen unsupported in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 155,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test ThreadStarted matches frozen unsupported in verified and injected forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 177,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test all members and reactions survive in order; absent actors and previous state stay unknown",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 211,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test malformed list items produce failures while retaining later members and reactions",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 229,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test installation facts are explicit bot self evidence",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 238,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test zero, many and all four limits validate before acceptance",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 268,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test a real JWT is verified before service URL or media controls can be trusted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 339,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test options loading is native, cached and rendered only as a private invoke response",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 356,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test provider failure is typed and cached with one call",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 366,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test cancelled stream has zero enumeration and provider calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 382,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test verified routing controls reject wrong owners and expired resources",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 406,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test native options timeout is recoverable and a repeated request cannot restart the loader",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 431,
+      "module": "Jido.Chat.Teams.ProtocolTest",
+      "name": "test partial update sender and text remain unknown",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_teams/test/jido/chat/teams/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 85,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test the finite operation inventory is complete",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test add_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test delete_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test edit_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_channel_messages matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_media matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_messages matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_metadata matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_subject matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test fetch_thread matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test get_thread_participants matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test get_user matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test list_threads matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test load_options matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test mark_as_read matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test open_dm matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test open_modal matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test open_thread matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test post_channel_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test post_ephemeral matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test post_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test remove_reaction matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test send_file matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test send_message matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test start_typing matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test stream matches its declared native/fallback/unsupported result and exact calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 121,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test provider failure is typed and cached without repeat calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 132,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test a stream stays lazy before execution and is consumed once",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 150,
+      "module": "Jido.Chat.Telegram.OperationMatrixTest",
+      "name": "test a cancelled stream is never enumerated and invokes no provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_telegram/test/jido/chat/telegram/operation_matrix_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test add_reaction matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test delete_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test edit_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test fetch_channel_messages matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test fetch_media matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test fetch_message matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test fetch_messages matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test fetch_metadata matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test fetch_subject matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test fetch_thread matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test get_user matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test list_threads matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test load_options matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test open_dm matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test open_modal matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test open_thread matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test post_channel_message matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test post_ephemeral matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test post_message matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test remove_reaction matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test send_file matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test send_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test start_typing matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 116,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test stream matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test ActionReceived matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test AssistantContextChanged matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test AssistantThreadStarted matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test MembershipChanged matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test MessageDeleted matches frozen native including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test MessageReceived matches frozen native including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test MessageUpdated matches frozen native including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test ModalClosed matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test ModalSubmitted matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test NormalizationFailed matches frozen native including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test OptionsRequested matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test ReactionAdded matches frozen native including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test ReactionRemoved matches frozen native including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test ReceiptReceived matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test SlashCommandReceived matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test ThreadChanged matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 165,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test ThreadStarted matches frozen unsupported including a cold reaction clear",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test complete upsert order and batch identity survive repeat acquisition",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 211,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test one complete upsert has exactly one sink call for error",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 211,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test one complete upsert has exactly one sink call for exit",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 211,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test one complete upsert has exactly one sink call for invalid",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 211,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test one complete upsert has exactly one sink call for ok",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 211,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test one complete upsert has exactly one sink call for raise",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 211,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test one complete upsert has exactly one sink call for throw",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 228,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test all four limits and malformed upsert reject before every sink call",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test controls, pairing and QR data never enter the public sink",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 280,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test encrypted media remains scoped and failures cancel unaccepted resources",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 313,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test provider failure is typed and cached with one call",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 323,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test cancelled stream has zero enumeration and provider calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 339,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test actual Amarula edit and revoke references retain their target and order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 381,
+      "module": "Jido.Chat.WhatsApp.ProtocolTest",
+      "name": "test invalid setup, malformed targets and a failed file cannot call the provider",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_whatsapp/test/jido/chat/whatsapp/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test add_reaction matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test delete_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test edit_message matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test fetch_channel_messages matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test fetch_media matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test fetch_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test fetch_messages matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test fetch_metadata matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test fetch_subject matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test fetch_thread matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test get_user matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test list_threads matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test load_options matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test open_dm matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test open_modal matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test open_thread matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test post_channel_message matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test post_ephemeral matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test post_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test remove_reaction matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test send_file matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test send_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test start_typing matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 114,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test stream matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test ActionReceived matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test AssistantContextChanged matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test AssistantThreadStarted matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test MembershipChanged matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test MessageDeleted matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test MessageReceived matches frozen native after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test MessageUpdated matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test ModalClosed matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test ModalSubmitted matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test NormalizationFailed matches frozen native after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test OptionsRequested matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test ReactionAdded matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test ReactionRemoved matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test ReceiptReceived matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test SlashCommandReceived matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test ThreadChanged matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test ThreadStarted matches frozen unsupported after verification",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 189,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test zero, one and every DM item keep their order and stable identity",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 208,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test a malformed DM is retained as a failure before the next valid DM",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 217,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test verification, all limits and sink rejection cannot produce an accepted HTTP control",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 246,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test CRC responses stay private and binding secrets remain captured",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 274,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test history returns every item and cursor without private SDK state",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 293,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test media ownership, expiry and cancellation stay private",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 316,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test provider failure is typed and cached with one call",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 326,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test cancelled stream has zero enumeration and provider calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 342,
+      "module": "Jido.Chat.X.ProtocolTest",
+      "name": "test HTTP mapping uses the signed body and a POST request cannot bypass acceptance",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_x/test/jido/chat/x/protocol_test.exs",
+      "state": "pass"
+    }
+  ]
+}

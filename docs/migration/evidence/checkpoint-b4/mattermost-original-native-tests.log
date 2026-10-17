@@ -1,0 +1,22 @@
+Compiling 5 files (.ex)
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp native_map/3" was previously defined (lib/jido/chat/mattermost/adapter.ex:774)
+     │
+ 803 │   defp native_map(context, kind, _), do: native_failure(context,"unsupported_item",kind,nil)
+     │        ~
+     │
+     └─ lib/jido/chat/mattermost/adapter.ex:803:8
+
+Generated jido_chat_mattermost app
+Running ExUnit with seed: 249503, max_cases: 20
+Excluding tags: [:integration]
+
+...........     error: imported Kernel.binding/0 conflicts with local function
+     │
+ 124 │   defp binding do
+     │        ^
+     │
+     └─ test/jido/chat/mattermost/adapter_test.exs:124:8: Jido.Chat.Mattermost.AdapterTest (module)
+
+
+== Compilation error in file test/jido/chat/mattermost/adapter_test.exs ==
+** (CompileError) test/jido/chat/mattermost/adapter_test.exs: cannot compile module Jido.Chat.Mattermost.AdapterTest (errors have been logged)

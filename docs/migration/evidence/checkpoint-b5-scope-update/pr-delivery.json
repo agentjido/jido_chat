@@ -1,0 +1,2320 @@
+[
+  {
+    "package": "jido_messaging",
+    "repository": "agentjido/jido_messaging",
+    "url": "https://github.com/agentjido/jido_messaging/pull/109",
+    "head_sha": "30f1164abb6c257ee0fadc002c4af26c17b12fef",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:46:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860178271",
+        "name": "CI / Resolve Platform",
+        "startedAt": "2026-10-14T12:46:50Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:46:59Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566434849/job/115860176496",
+        "name": "Jido Review / Jido Review",
+        "startedAt": "2026-10-14T12:46:49Z",
+        "status": "COMPLETED",
+        "workflowName": "Jido Review"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:46:58Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860213833",
+        "name": "CI / Release Validation",
+        "startedAt": "2026-10-14T12:46:55Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:20Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860259116",
+        "name": "CI / Compile",
+        "startedAt": "2026-10-14T12:47:01Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:18Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860258677",
+        "name": "CI / Prepare Quality Cache",
+        "startedAt": "2026-10-14T12:47:00Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:27Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860419711",
+        "name": "CI / Test / Resolve Test Matrix",
+        "startedAt": "2026-10-14T12:47:22Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:20Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860421822",
+        "name": "CI / Test / Experimental Compile",
+        "startedAt": "2026-10-14T12:47:21Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:49Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860466352",
+        "name": "CI / Test / 27 - 1.18",
+        "startedAt": "2026-10-14T12:47:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:34Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860466386",
+        "name": "CI / Test / 28 - 1.18",
+        "startedAt": "2026-10-14T12:47:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:24Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860466380",
+        "name": "CI / Test / 28 - 1.19",
+        "startedAt": "2026-10-14T12:47:30Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:31Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860466525",
+        "name": "CI / Test / 29 - 1.20",
+        "startedAt": "2026-10-14T12:47:53Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:24Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860419733",
+        "name": "CI / Quality / Release Validation",
+        "startedAt": "2026-10-14T12:47:22Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:32Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860450901",
+        "name": "CI / Quality / Changelog Guard",
+        "startedAt": "2026-10-14T12:47:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860450920",
+        "name": "CI / Quality / Audit",
+        "startedAt": "2026-10-14T12:47:27Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:55Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860451160",
+        "name": "CI / Quality / Format",
+        "startedAt": "2026-10-14T12:47:30Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:47Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860450914",
+        "name": "CI / Quality / Credo",
+        "startedAt": "2026-10-14T12:47:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860450917",
+        "name": "CI / Quality / Dialyzer",
+        "startedAt": "2026-10-14T12:47:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:53Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860450942",
+        "name": "CI / Quality / Unused Deps",
+        "startedAt": "2026-10-14T12:47:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:44Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860450974",
+        "name": "CI / Quality / Hex Package Dry Run",
+        "startedAt": "2026-10-14T12:47:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:55Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860450908",
+        "name": "CI / Quality / Docs",
+        "startedAt": "2026-10-14T12:47:28Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:57Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115861509622",
+        "name": "CI / Summary",
+        "startedAt": "2026-10-14T12:49:53Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:31Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860177485",
+        "name": "Optional jido_ai example",
+        "startedAt": "2026-10-14T12:46:49Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:31Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_messaging/actions/runs/38566435072/job/115860178048",
+        "name": "PostgreSQL persistence",
+        "startedAt": "2026-10-14T12:46:50Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "55e13ef46c5a9310d9cf223140e9eec3be4e100f",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 235,
+        "sha256": "8c18a1e4db189e7c653e55816983b9e3a89a5f3c88e701230da7afc95e1138c0"
+      },
+      "test": {
+        "files": 176,
+        "sha256": "6acc9255836f559da6b47b0e75efc85690fcace2fe1559effc4722f8186f4f3d"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "7fdab68df3d898d2f241c7cc1613f3f016e62e38eece172460d080d25983d585",
+      "mix.lock": "efe823663881b540c18e6461bc7708b719865988c95bcfa852c3ccf5cf769022",
+      "config/config.exs": "9cfc9e6e07bca41a76e95248181dc30b4accbc9228cbcd54816ede86553ccd59",
+      "config/test.exs": "16da1804e7d3c693b3aa6a7af4965c3d980b8f66fdf5bf725778f987b4890229"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:18.364705+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat_telegram",
+    "repository": "agentjido/jido_chat_telegram",
+    "url": "https://github.com/agentjido/jido_chat_telegram/pull/49",
+    "head_sha": "ec98f9e4dab9825df48e4d9cdd6a155300c493ea",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:46:54Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860195951",
+        "name": "CI / Resolve Platform",
+        "startedAt": "2026-10-14T12:46:52Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:00Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566438853/job/115860191629",
+        "name": "Jido Review / Jido Review",
+        "startedAt": "2026-10-14T12:46:52Z",
+        "status": "COMPLETED",
+        "workflowName": "Jido Review"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:01Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860225332",
+        "name": "CI / Release Validation",
+        "startedAt": "2026-10-14T12:46:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860275882",
+        "name": "CI / Compile",
+        "startedAt": "2026-10-14T12:47:03Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:29Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860275892",
+        "name": "CI / Prepare Quality Cache",
+        "startedAt": "2026-10-14T12:47:03Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:34Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860454072",
+        "name": "CI / Test / Resolve Test Matrix",
+        "startedAt": "2026-10-14T12:47:31Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:25Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860456469",
+        "name": "CI / Test / Experimental Compile",
+        "startedAt": "2026-10-14T12:47:25Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:09Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860523559",
+        "name": "CI / Test / 27 - 1.18",
+        "startedAt": "2026-10-14T12:47:40Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:24Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860523627",
+        "name": "CI / Test / 28 - 1.18",
+        "startedAt": "2026-10-14T12:48:02Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:11Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860523521",
+        "name": "CI / Test / 28 - 1.19",
+        "startedAt": "2026-10-14T12:47:45Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:14Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860523648",
+        "name": "CI / Test / 29 - 1.20",
+        "startedAt": "2026-10-14T12:47:47Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:40Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860482628",
+        "name": "CI / Quality / Release Validation",
+        "startedAt": "2026-10-14T12:47:36Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:50Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860562399",
+        "name": "CI / Quality / Changelog Guard",
+        "startedAt": "2026-10-14T12:48:46Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:26Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860562360",
+        "name": "CI / Quality / Audit",
+        "startedAt": "2026-10-14T12:48:09Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:17Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860562532",
+        "name": "CI / Quality / Format",
+        "startedAt": "2026-10-14T12:48:53Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:19Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860562917",
+        "name": "CI / Quality / Credo",
+        "startedAt": "2026-10-14T12:49:02Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860562328",
+        "name": "CI / Quality / Dialyzer",
+        "startedAt": "2026-10-14T12:48:04Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:03Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860562539",
+        "name": "CI / Quality / Unused Deps",
+        "startedAt": "2026-10-14T12:48:48Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:29Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860562551",
+        "name": "CI / Quality / Hex Package Dry Run",
+        "startedAt": "2026-10-14T12:48:12Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:26Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115860562552",
+        "name": "CI / Quality / Docs",
+        "startedAt": "2026-10-14T12:48:09Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:30Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_telegram/actions/runs/38566439801/job/115861291057",
+        "name": "CI / Summary",
+        "startedAt": "2026-10-14T12:49:27Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "84a5ae4f4de3eb7ae651522b2d55615a05098d3b",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 27,
+        "sha256": "bcad486ec50c4deae91ef50327ee794c51f49965b910dc77c3df025bf40493f6"
+      },
+      "test": {
+        "files": 17,
+        "sha256": "d64e018290b28607211a4e03206afd0b10e34343f4394311ec49a294fc9facbc"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "a91bbf2d1b13617e197ae9ef1e9f968e79f55fce8995ddf126a87ac9cd1f609e",
+      "mix.lock": "17fa1e42f32e837f5e23a2cbb9eeb5957d6fbadbc98f3969562ae76668f3bbff",
+      "config/config.exs": "eba8d124b7e0700a3c08c8c88133c5957eb858978342d8e6809b2d765d1c59f9",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:18.192539+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat_slack",
+    "repository": "agentjido/jido_chat_slack",
+    "url": "https://github.com/agentjido/jido_chat_slack/pull/32",
+    "head_sha": "0607ef6a74ede9814a82a9a9ed37661ceb2e2875",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:46:59Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_slack/actions/runs/38566443348/job/115860208848",
+        "name": "Lint / Changelog Guard",
+        "startedAt": "2026-10-14T12:46:54Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:23Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_slack/actions/runs/38566443348/job/115860208856",
+        "name": "Lint / Lint",
+        "startedAt": "2026-10-14T12:46:54Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_slack/actions/runs/38566443348/job/115860208314",
+        "name": "Docs",
+        "startedAt": "2026-10-14T12:46:54Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:14Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_slack/actions/runs/38566443348/job/115860208280",
+        "name": "Test / 27.3 - 1.18.4",
+        "startedAt": "2026-10-14T12:46:54Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:46:52Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_slack/actions/runs/38566443348/job/115860212659",
+        "name": "Test / ${{ matrix.otp }} - ${{ matrix.elixir }} (experimental compile)",
+        "startedAt": "2026-10-14T12:46:53Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:15Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_slack/actions/runs/38566443348/job/115860208133",
+        "name": "Coverage",
+        "startedAt": "2026-10-14T12:46:54Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "fec899f072ea0af226ae178701852356704d7dda",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 20,
+        "sha256": "09adebaf687d0470482cf0a4c083efe2efd3cd7c23a0c51a1298539ad5f75ebe"
+      },
+      "test": {
+        "files": 13,
+        "sha256": "8a250ed691067ab4ba5167e172eb9d3e038aa509b3933bd0a5f70c2c77f1acb5"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "379064540502b1ee5bedd1fe9cf6f290a0cddf28a63c1051d2ed48226bb6aeeb",
+      "mix.lock": "f0f2b8fb9cec8b3bbad88d5cc759f7b530967007aa41f98fc9345d1ffd346459",
+      "config/config.exs": "90564c595fec92ac91b07f4346cf73c6655882133fbb06d924b77e61e7c7bcf7",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:18.125201+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat_discord",
+    "repository": "agentjido/jido_chat_discord",
+    "url": "https://github.com/agentjido/jido_chat_discord/pull/31",
+    "head_sha": "ed0dedd270ed9a029cdc0766f332497fc1fd03ac",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:46:59Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860223366",
+        "name": "CI / Resolve Platform",
+        "startedAt": "2026-10-14T12:46:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:06Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566446602/job/115860220622",
+        "name": "Jido Review / Jido Review",
+        "startedAt": "2026-10-14T12:46:56Z",
+        "status": "COMPLETED",
+        "workflowName": "Jido Review"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:06Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860266315",
+        "name": "CI / Release Validation",
+        "startedAt": "2026-10-14T12:47:02Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:30Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860312841",
+        "name": "CI / Compile",
+        "startedAt": "2026-10-14T12:47:08Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:24Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860312653",
+        "name": "CI / Prepare Quality Cache",
+        "startedAt": "2026-10-14T12:47:07Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:38Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860491476",
+        "name": "CI / Test / Resolve Test Matrix",
+        "startedAt": "2026-10-14T12:47:35Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:30Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860493503",
+        "name": "CI / Test / Experimental Compile",
+        "startedAt": "2026-10-14T12:47:30Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:07Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860552607",
+        "name": "CI / Test / 27 - 1.18",
+        "startedAt": "2026-10-14T12:47:46Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:01Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860552551",
+        "name": "CI / Test / 28 - 1.18",
+        "startedAt": "2026-10-14T12:47:42Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:07Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860552721",
+        "name": "CI / Test / 28 - 1.19",
+        "startedAt": "2026-10-14T12:47:46Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:19Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860552818",
+        "name": "CI / Test / 29 - 1.20",
+        "startedAt": "2026-10-14T12:47:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:37Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860491871",
+        "name": "CI / Quality / Release Validation",
+        "startedAt": "2026-10-14T12:47:34Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:15Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860547514",
+        "name": "CI / Quality / Changelog Guard",
+        "startedAt": "2026-10-14T12:48:10Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:37Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860547599",
+        "name": "CI / Quality / Audit",
+        "startedAt": "2026-10-14T12:48:16Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:46Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860547559",
+        "name": "CI / Quality / Format",
+        "startedAt": "2026-10-14T12:48:29Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:27Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860547777",
+        "name": "CI / Quality / Credo",
+        "startedAt": "2026-10-14T12:48:03Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:04Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860547715",
+        "name": "CI / Quality / Dialyzer",
+        "startedAt": "2026-10-14T12:48:31Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:10Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860547836",
+        "name": "CI / Quality / Unused Deps",
+        "startedAt": "2026-10-14T12:48:52Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860547651",
+        "name": "CI / Quality / Hex Package Dry Run",
+        "startedAt": "2026-10-14T12:47:41Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:02Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115860547935",
+        "name": "CI / Quality / Docs",
+        "startedAt": "2026-10-14T12:48:41Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:36Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_discord/actions/runs/38566447086/job/115861224625",
+        "name": "CI / Summary",
+        "startedAt": "2026-10-14T12:49:31Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "ff14a48703123386c7e48f8f22e60c0666920933",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 14,
+        "sha256": "13e1ee411f7ab67b4d13b3a2f26b8a27e89b21de6f6c95c0d393b012d6992194"
+      },
+      "test": {
+        "files": 9,
+        "sha256": "edbf6ec63b93d8c71d0a74354444f7bef65fdbdab269f9344c32dfe843cfdba9"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "03e62c96d3fe9cf4c9e7fa0511dca143b54baf8728d3e895ee74f9f823c7beed",
+      "mix.lock": "6e2730b6dc8594563eb0b8238948e459af9b1155246a267e1cb5f441d551d721",
+      "config/config.exs": "42b6f026b36d317d5ec261c56895cb5692ef15b7f1b317d11e5eb71bd80e947c",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:18.755454+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat_github",
+    "repository": "agentjido/jido_chat_github",
+    "url": "https://github.com/agentjido/jido_chat_github/pull/22",
+    "head_sha": "67feea832d04459f6685b49c12c83639fc22ec29",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:01Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860238076",
+        "name": "CI / Resolve Platform",
+        "startedAt": "2026-10-14T12:46:58Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:07Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860275850",
+        "name": "CI / Release Validation",
+        "startedAt": "2026-10-14T12:47:03Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:29Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860325936",
+        "name": "CI / Compile",
+        "startedAt": "2026-10-14T12:47:10Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:28Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860326014",
+        "name": "CI / Prepare Quality Cache",
+        "startedAt": "2026-10-14T12:47:09Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:40Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860485623",
+        "name": "CI / Test / Resolve Test Matrix",
+        "startedAt": "2026-10-14T12:47:36Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:29Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860487897",
+        "name": "CI / Test / Experimental Compile",
+        "startedAt": "2026-10-14T12:47:30Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:08Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860578661",
+        "name": "CI / Test / 27 - 1.18",
+        "startedAt": "2026-10-14T12:47:48Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:59Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860578583",
+        "name": "CI / Test / 28 - 1.18",
+        "startedAt": "2026-10-14T12:48:38Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:09Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860578767",
+        "name": "CI / Test / 28 - 1.19",
+        "startedAt": "2026-10-14T12:47:48Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:45Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860578604",
+        "name": "CI / Test / 29 - 1.20",
+        "startedAt": "2026-10-14T12:48:27Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:40Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860485573",
+        "name": "CI / Quality / Release Validation",
+        "startedAt": "2026-10-14T12:47:36Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:32Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860576473",
+        "name": "CI / Quality / Changelog Guard",
+        "startedAt": "2026-10-14T12:49:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:39Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860576247",
+        "name": "CI / Quality / Audit",
+        "startedAt": "2026-10-14T12:49:18Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:46Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860576139",
+        "name": "CI / Quality / Format",
+        "startedAt": "2026-10-14T12:49:23Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:38Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860576119",
+        "name": "CI / Quality / Credo",
+        "startedAt": "2026-10-14T12:48:17Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:29Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860575970",
+        "name": "CI / Quality / Dialyzer",
+        "startedAt": "2026-10-14T12:48:13Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:39Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860576267",
+        "name": "CI / Quality / Unused Deps",
+        "startedAt": "2026-10-14T12:48:17Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860576151",
+        "name": "CI / Quality / Hex Package Dry Run",
+        "startedAt": "2026-10-14T12:48:31Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:48Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115860576336",
+        "name": "CI / Quality / Docs",
+        "startedAt": "2026-10-14T12:49:23Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_github/actions/runs/38566451050/job/115861501356",
+        "name": "CI / Summary",
+        "startedAt": "2026-10-14T12:49:50Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "5522b8ef133ae4d91a6141fc4935a119606bb3bf",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 4,
+        "sha256": "148686b186b70aec5755204a3f82117d4352ee375566507db36619914f70c0e9"
+      },
+      "test": {
+        "files": 4,
+        "sha256": "69695a5d8b6932831dfcf5e4306797d33fcbc378962da8eb88d33897e219fbe1"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "1248604932bd19a67bb9e76b5b37aad728d623232001c8e017041f51fbeeb6de",
+      "mix.lock": "0aa66e3a79b3c20c2465ae44ef713932cdeb92617d6bed822eabb3bc5d4353f6",
+      "config/config.exs": "79fb7077e1a28f392b940b13edaf5eee0c0776dcf42eac9b7c4a8e362ae69c70"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:18.762463+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat_signal",
+    "repository": "agentjido/jido_chat_signal",
+    "url": "https://github.com/agentjido/jido_chat_signal/pull/20",
+    "head_sha": "707b61a68e8eb80a0cf591a178b8a1f0fb33fb1c",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:01Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860241294",
+        "name": "CI / Resolve Platform",
+        "startedAt": "2026-10-14T12:46:58Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:09Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860278206",
+        "name": "CI / Release Validation",
+        "startedAt": "2026-10-14T12:47:04Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:35Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860339718",
+        "name": "CI / Compile",
+        "startedAt": "2026-10-14T12:47:17Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:33Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860340016",
+        "name": "CI / Prepare Quality Cache",
+        "startedAt": "2026-10-14T12:47:11Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:44Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860526230",
+        "name": "CI / Test / Resolve Test Matrix",
+        "startedAt": "2026-10-14T12:47:39Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:35Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860528473",
+        "name": "CI / Test / Experimental Compile",
+        "startedAt": "2026-10-14T12:47:35Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:48Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860593229",
+        "name": "CI / Test / 27 - 1.18",
+        "startedAt": "2026-10-14T12:48:21Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:54Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860594045",
+        "name": "CI / Test / 28 - 1.18",
+        "startedAt": "2026-10-14T12:49:30Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:49Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860593342",
+        "name": "CI / Test / 28 - 1.19",
+        "startedAt": "2026-10-14T12:49:23Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:32Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860593350",
+        "name": "CI / Test / 29 - 1.20",
+        "startedAt": "2026-10-14T12:49:05Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:45Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860526629",
+        "name": "CI / Quality / Release Validation",
+        "startedAt": "2026-10-14T12:47:42Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:38Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860601427",
+        "name": "CI / Quality / Changelog Guard",
+        "startedAt": "2026-10-14T12:49:33Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:54Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860601438",
+        "name": "CI / Quality / Audit",
+        "startedAt": "2026-10-14T12:49:34Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:44Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860601531",
+        "name": "CI / Quality / Format",
+        "startedAt": "2026-10-14T12:49:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:59Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860601622",
+        "name": "CI / Quality / Credo",
+        "startedAt": "2026-10-14T12:49:37Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:17Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860601317",
+        "name": "CI / Quality / Dialyzer",
+        "startedAt": "2026-10-14T12:48:52Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:54Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860601319",
+        "name": "CI / Quality / Unused Deps",
+        "startedAt": "2026-10-14T12:49:33Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860601708",
+        "name": "CI / Quality / Hex Package Dry Run",
+        "startedAt": "2026-10-14T12:49:36Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:39Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115860601475",
+        "name": "CI / Quality / Docs",
+        "startedAt": "2026-10-14T12:49:19Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:50:03Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_signal/actions/runs/38566452703/job/115861578898",
+        "name": "CI / Summary",
+        "startedAt": "2026-10-14T12:50:01Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "94b029ebe8b9f55e7521890a5d159d765afeef3c",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 8,
+        "sha256": "2d0ccc681dbacaf3026d67ac435fc5441661849a212637aab401d4a0de88dee5"
+      },
+      "test": {
+        "files": 6,
+        "sha256": "b5c681bf22e89d7a651f620444bc9905292b89ab348f80cb68424d8fb75c9e88"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "90396ddc566f52f3d0b26ad4e695789168d21550aa496fadfb6ad055ddfcbfca",
+      "mix.lock": "0aa66e3a79b3c20c2465ae44ef713932cdeb92617d6bed822eabb3bc5d4353f6",
+      "config/config.exs": "988fdc142717f9f1bef84258d1d63794a9be5d147afd8ec017be1f09f3784c6f"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:18.954657+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat_teams",
+    "repository": "agentjido/jido_chat_teams",
+    "url": "https://github.com/agentjido/jido_chat_teams/pull/9",
+    "head_sha": "bbe724b62320f9a33b40c1e54479dd520a6d8894",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:08Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_teams/actions/runs/38566456321/job/115860251485",
+        "name": "Lint / Changelog Guard",
+        "startedAt": "2026-10-14T12:47:00Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:23Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_teams/actions/runs/38566456321/job/115860250999",
+        "name": "Lint / Lint",
+        "startedAt": "2026-10-14T12:47:00Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:23Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_teams/actions/runs/38566456321/job/115860251387",
+        "name": "Test / 27.3 - 1.18.4",
+        "startedAt": "2026-10-14T12:47:00Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:46:58Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_teams/actions/runs/38566456321/job/115860253160",
+        "name": "Test / ${{ matrix.otp }} - ${{ matrix.elixir }} (experimental compile)",
+        "startedAt": "2026-10-14T12:46:58Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "cbe5edb5150bb4f1a5c5d046f057b61434eed18d",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 10,
+        "sha256": "f6a59e6e83e36196b80098ac57f99d3baaac51cb08adeb1c0e1acee18983608d"
+      },
+      "test": {
+        "files": 9,
+        "sha256": "2814dd96e3b8466398a655103c6de9db1c6d9b0e4f2c15abb071a1fb06d2d6c2"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "1d5ad57a2be12e1e879b434ac67f3d9d6ce23899251ed607e6cadcf7cb774681",
+      "mix.lock": "1c832a1fbed17410a328a16c8590637ce1e5d6e4291a538a8fd12dc95d2b1cde",
+      "config/config.exs": "64a2bacfcccd805394e6ad01476c9bb0ec7e423212ab7f1940adce8e22383513",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:19.348406+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat_whatsapp",
+    "repository": "agentjido/jido_chat_whatsapp",
+    "url": "https://github.com/agentjido/jido_chat_whatsapp/pull/27",
+    "head_sha": "e12cc045e2d29f138fc89cd212f47b2581f0a1a1",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:05Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860265108",
+        "name": "CI / Resolve Platform",
+        "startedAt": "2026-10-14T12:47:02Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:10Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566459334/job/115860261472",
+        "name": "Jido Review / Jido Review",
+        "startedAt": "2026-10-14T12:47:01Z",
+        "status": "COMPLETED",
+        "workflowName": "Jido Review"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:11Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860310461",
+        "name": "CI / Release Validation",
+        "startedAt": "2026-10-14T12:47:07Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:30Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860350257",
+        "name": "CI / Compile",
+        "startedAt": "2026-10-14T12:47:13Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:35Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860350286",
+        "name": "CI / Prepare Quality Cache",
+        "startedAt": "2026-10-14T12:47:15Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:41Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860491238",
+        "name": "CI / Test / Resolve Test Matrix",
+        "startedAt": "2026-10-14T12:47:37Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:30Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860494285",
+        "name": "CI / Test / Experimental Compile",
+        "startedAt": "2026-10-14T12:47:31Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:15Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860570972",
+        "name": "CI / Test / 27 - 1.18",
+        "startedAt": "2026-10-14T12:48:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:00Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860571062",
+        "name": "CI / Test / 27 - 1.19",
+        "startedAt": "2026-10-14T12:48:11Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:37Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860571231",
+        "name": "CI / Test / 27 - 1.20",
+        "startedAt": "2026-10-14T12:48:50Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:28Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860571209",
+        "name": "CI / Test / 28 - 1.18",
+        "startedAt": "2026-10-14T12:48:40Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:00Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860570931",
+        "name": "CI / Test / 28 - 1.19",
+        "startedAt": "2026-10-14T12:48:12Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:21Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860571043",
+        "name": "CI / Test / 28 - 1.20",
+        "startedAt": "2026-10-14T12:48:38Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:41Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860530815",
+        "name": "CI / Quality / Release Validation",
+        "startedAt": "2026-10-14T12:47:38Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:10Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860571948",
+        "name": "CI / Quality / Changelog Guard",
+        "startedAt": "2026-10-14T12:48:04Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:15Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860571981",
+        "name": "CI / Quality / Audit",
+        "startedAt": "2026-10-14T12:47:54Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:46Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860572028",
+        "name": "CI / Quality / Format",
+        "startedAt": "2026-10-14T12:48:28Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:15Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860572030",
+        "name": "CI / Quality / Credo",
+        "startedAt": "2026-10-14T12:48:54Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860572052",
+        "name": "CI / Quality / Dialyzer",
+        "startedAt": "2026-10-14T12:49:02Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:36Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860571962",
+        "name": "CI / Quality / Unused Deps",
+        "startedAt": "2026-10-14T12:48:17Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:29Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860572113",
+        "name": "CI / Quality / Hex Package Dry Run",
+        "startedAt": "2026-10-14T12:49:04Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:25Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115860572246",
+        "name": "CI / Quality / Docs",
+        "startedAt": "2026-10-14T12:49:05Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:45Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_whatsapp/actions/runs/38566460126/job/115861422034",
+        "name": "CI / Summary",
+        "startedAt": "2026-10-14T12:49:41Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "72e6e0e947cd065a8af20b27606723ecfe9d2943",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 9,
+        "sha256": "0166ba989f0f3500bd1141ed2f205c9b2a5a8da0ec5a364ef308aee2a5116aec"
+      },
+      "test": {
+        "files": 12,
+        "sha256": "f3aa5c98cb2a9fe15f3b03b28a65ea333f993c0aa6ad673f368d64a9246a1075"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "970ebad2f4fd5096fd338b66d24d5bba8c758c0099856428323c2799095a6c38",
+      "mix.lock": "b3c98c4f804eb4527986e916c975a8394856262a1977160a0b3dd2bb6d33d87b",
+      "config/config.exs": "cfe8f62351e990327c597f997d8dbb57cce8601b99c3afd879b432f1ed5e8bf0",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:19.350208+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat_x",
+    "repository": "agentjido/jido_chat_x",
+    "url": "https://github.com/agentjido/jido_chat_x/pull/16",
+    "head_sha": "76c19a9ddcc3e76e6c514d0e64fa6cc315b93253",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:07Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860277660",
+        "name": "CI / Resolve Platform",
+        "startedAt": "2026-10-14T12:47:03Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:14Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860327318",
+        "name": "CI / Release Validation",
+        "startedAt": "2026-10-14T12:47:10Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:37Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860376777",
+        "name": "CI / Compile",
+        "startedAt": "2026-10-14T12:47:17Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:34Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860376596",
+        "name": "CI / Prepare Quality Cache",
+        "startedAt": "2026-10-14T12:47:16Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:45Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860540540",
+        "name": "CI / Test / Resolve Test Matrix",
+        "startedAt": "2026-10-14T12:47:42Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:37Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860543476",
+        "name": "CI / Test / Experimental Compile",
+        "startedAt": "2026-10-14T12:47:37Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860601289",
+        "name": "CI / Test / 27 - 1.18",
+        "startedAt": "2026-10-14T12:48:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:48:16Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860601356",
+        "name": "CI / Test / 28 - 1.18",
+        "startedAt": "2026-10-14T12:47:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860601499",
+        "name": "CI / Test / 28 - 1.19",
+        "startedAt": "2026-10-14T12:49:33Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:42Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860601444",
+        "name": "CI / Test / 29 - 1.20",
+        "startedAt": "2026-10-14T12:49:17Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:47:47Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860540602",
+        "name": "CI / Quality / Release Validation",
+        "startedAt": "2026-10-14T12:47:43Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:22Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860615038",
+        "name": "CI / Quality / Changelog Guard",
+        "startedAt": "2026-10-14T12:49:15Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:58Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860614994",
+        "name": "CI / Quality / Audit",
+        "startedAt": "2026-10-14T12:49:41Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:56Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860615029",
+        "name": "CI / Quality / Format",
+        "startedAt": "2026-10-14T12:49:39Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:51Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860614990",
+        "name": "CI / Quality / Credo",
+        "startedAt": "2026-10-14T12:49:31Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:13Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860614925",
+        "name": "CI / Quality / Dialyzer",
+        "startedAt": "2026-10-14T12:48:49Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:52Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860615098",
+        "name": "CI / Quality / Unused Deps",
+        "startedAt": "2026-10-14T12:49:33Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:24Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860614999",
+        "name": "CI / Quality / Hex Package Dry Run",
+        "startedAt": "2026-10-14T12:49:01Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:49:55Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115860615115",
+        "name": "CI / Quality / Docs",
+        "startedAt": "2026-10-14T12:49:32Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:50:04Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat_x/actions/runs/38566463793/job/115861576973",
+        "name": "CI / Summary",
+        "startedAt": "2026-10-14T12:50:01Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "ci_head_sha": "9f1641df4cf0ccbeedc18002ec2e658338e356bc",
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 4,
+        "sha256": "abac23002c65372bbbed39e22e388cf03552ded80f2145806db6f131353bf8da"
+      },
+      "test": {
+        "files": 4,
+        "sha256": "9d096fff1a2b96ca92ec94517b734c823f884b8d9ef6a4c8dd9df7f8a744baff"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/examples": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "87c68db1f90c83ee967ed53862b27adaeab56a4776e7b7b45cc9eb05a3fcf261",
+      "mix.lock": "88b9b9c5ab1f1377700cb751ac2d1e04d02a958170e7f1c86f52a7c82611a1a2",
+      "config/config.exs": "88584e0e3561233a4509705e4e7c354bb65042733bd5081a832fbe0f32d19923"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:19.525187+00:00",
+    "runtime_sources_equal_G7": true
+  },
+  {
+    "package": "jido_chat",
+    "repository": "agentjido/jido_chat",
+    "url": "https://github.com/agentjido/jido_chat/pull/66",
+    "head_sha": "2dd5a5c86802a31dd7d31f4e9852f3763154cda8",
+    "base": "main",
+    "ci_state": "pass",
+    "evidence_sha256": "8d930172a20a9b1b9ad47a99918abf12775af8913b0c360b0743eff116ca7d3a",
+    "ci_checks": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:59:15Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115865751366",
+        "name": "CI / Resolve Platform",
+        "startedAt": "2026-10-14T12:59:12Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:59:20Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568060625/job/115865747087",
+        "name": "Jido Review / Jido Review",
+        "startedAt": "2026-10-14T12:59:11Z",
+        "status": "COMPLETED",
+        "workflowName": "Jido Review"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:59:20Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115865792457",
+        "name": "CI / Release Validation",
+        "startedAt": "2026-10-14T12:59:17Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:59:45Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115865832130",
+        "name": "CI / Compile",
+        "startedAt": "2026-10-14T12:59:22Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:59:48Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115865832249",
+        "name": "CI / Prepare Quality Cache",
+        "startedAt": "2026-10-14T12:59:23Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:59:50Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866023303",
+        "name": "CI / Test / Resolve Test Matrix",
+        "startedAt": "2026-10-14T12:59:47Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:59:45Z",
+        "conclusion": "SKIPPED",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866026301",
+        "name": "CI / Test / Experimental Compile",
+        "startedAt": "2026-10-14T12:59:46Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:22Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866058842",
+        "name": "CI / Test / 27 - 1.18",
+        "startedAt": "2026-10-14T12:59:52Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:19Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866058970",
+        "name": "CI / Test / 28 - 1.18",
+        "startedAt": "2026-10-14T12:59:52Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:18Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866058891",
+        "name": "CI / Test / 28 - 1.19",
+        "startedAt": "2026-10-14T12:59:52Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:23Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866058883",
+        "name": "CI / Test / 29 - 1.20",
+        "startedAt": "2026-10-14T12:59:52Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T12:59:54Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866042519",
+        "name": "CI / Quality / Release Validation",
+        "startedAt": "2026-10-14T12:59:50Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:01Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866088853",
+        "name": "CI / Quality / Changelog Guard",
+        "startedAt": "2026-10-14T12:59:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:14Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866088964",
+        "name": "CI / Quality / Audit",
+        "startedAt": "2026-10-14T12:59:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:20Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866089104",
+        "name": "CI / Quality / Format",
+        "startedAt": "2026-10-14T12:59:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:15Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866088984",
+        "name": "CI / Quality / Credo",
+        "startedAt": "2026-10-14T12:59:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:23Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866088865",
+        "name": "CI / Quality / Dialyzer",
+        "startedAt": "2026-10-14T12:59:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:13Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866088834",
+        "name": "CI / Quality / Unused Deps",
+        "startedAt": "2026-10-14T12:59:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:17Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866088905",
+        "name": "CI / Quality / Hex Package Dry Run",
+        "startedAt": "2026-10-14T12:59:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:14Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866089123",
+        "name": "CI / Quality / Docs",
+        "startedAt": "2026-10-14T12:59:56Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-14T13:00:30Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/agentjido/jido_chat/actions/runs/38568061518/job/115866315841",
+        "name": "CI / Summary",
+        "startedAt": "2026-10-14T13:00:26Z",
+        "status": "COMPLETED",
+        "workflowName": "CI"
+      }
+    ],
+    "related_issues": [
+      "https://github.com/agentjido/jido_chat/issues/57",
+      "https://github.com/agentjido/jido_chat/issues/58"
+    ],
+    "source_snapshot": {
+      "lib": {
+        "files": 126,
+        "sha256": "117e2806a161d8bb42db72b4b6477eb62b1af4c2392ac704859eed83f4a8f256"
+      },
+      "test": {
+        "files": 25,
+        "sha256": "b9997423ab46afee12127edf140433b23a91545fd67a7bfd11777e5ad776bd22"
+      },
+      "integration/lib": {
+        "files": 3,
+        "sha256": "48330a743fe81dcf1701f7a9a78255837a90452d41ddcd85557d9a9d1edc0a5b"
+      },
+      "integration/test": {
+        "files": 5,
+        "sha256": "ee63b5888cd2d27eb5618f7a4b9058b4a32a26d24bdc1e8d879466bbb2d612ec"
+      },
+      "integration/scripts": {
+        "files": 24,
+        "sha256": "5a8a66c956c6f1277455f0858118e60619c060fb858d98d9293061aeaa7098e0"
+      },
+      "integration/fixtures": {
+        "files": 13,
+        "sha256": "0565aea6037afa9a75e6b1122e6c8cb9de5d237e81f312ac27b0f45076fa643b"
+      },
+      "integration/examples": {
+        "files": 1,
+        "sha256": "49838441d5426836193bfbbc7f68bc2fc1a7c6158ae412d045a3b5ae68e756fc"
+      },
+      "mix.exs": "b038a38c88f97c6a13d5ca9bc0bad167b2c2fd0286246ae6c5b75ac3458739dc",
+      "mix.lock": "0eefe02d24c9bcaa2b0df7a8dbbf0d32dac4b7bfe24c8b39cef87bdb86c41a84",
+      "config/config.exs": "022ea66b2482babcf0538f2d27721ce1925617fca4d4f936fa71da2bca16f8bd",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297",
+      "integration/mix.exs": "7fbe209506da74d67b9c7287d9518d9d2a84a51ed0b12e20de10288eddd9aa07",
+      "integration/mix.lock": "307cdcf397a778ca4003cda379891ca4f1987b2983b85e2b052b72526e564304"
+    },
+    "pr_state": "OPEN",
+    "ci_checked_at": "2026-10-14T13:01:20.070276+00:00",
+    "runtime_sources_equal_G7": true
+  }
+]

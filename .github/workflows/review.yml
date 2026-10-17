@@ -12,10 +12,36 @@ concurrency:
 permissions:
   actions: read
   contents: read
-  issues: write
-  pull-requests: write
 
 jobs:
   review:
-    name: Jido Review
-    uses: agentjido/github-actions/.github/workflows/jido-review.yml@v5
+    name: Jido Review / Jido Review
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Check review packet builder
+        run: python3 -m unittest discover -s .github/scripts -p 'test_review_packet.py'
+      - name: Build complete review packet
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: >-
+          python3 .github/scripts/review_packet.py
+          --base "$BASE_SHA" --head "$HEAD_SHA" --title "$PR_TITLE"
+          --repository "$REPOSITORY" --pr-number "$PR_NUMBER"
+      - name: Upload review packet
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: jido-review
+          path: .jido-review/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,30 @@
+{
+  "label": "g3-current-callback-and-lock-ai-full-tests",
+  "command": [
+    "mix",
+    "test",
+    "../../jido_messaging/test",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T04:29:35.980007+00:00",
+  "finished_at": "2026-10-13T04:33:50.790536+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "1",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-ai"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-current-callback-and-lock-ai-full-tests.log",
+  "log_sha256": "1169abca207a35d43f2742edb65773123d6817e1be7e118d5295ea1ae635f975"
+}

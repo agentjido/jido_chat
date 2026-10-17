@@ -1,0 +1,58 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test missing instance rejects before resolver and body read (Jido.Messaging.WebhookTransportFailureTest)
+     test/jido_messaging/webhook_transport_failure_test.exs:38
+     ** (exit) exited in: GenServer.call(ConfigStore, {:get_bridge_config, "owned"}, 5000)
+         ** (EXIT) no process: the process is not alive or there's no process currently associated with the given name, possibly because its application isn't started
+     code: response = conn(:post, "/owned", "{}") |> WebhookPlug.call(bridge_id_resolver: resolver)
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1176: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/inbound_router.ex:51: Jido.Messaging.InboundRouter.binding/2
+       (jido_messaging 1.1.1) lib/jido_messaging/inbound_router.ex:22: Jido.Messaging.InboundRouter.route_webhook_request/5
+       (jido_messaging 1.1.1) lib/jido_messaging/webhook_plug.ex:29: Jido.Messaging.WebhookPlug.call/2
+       test/jido_messaging/webhook_transport_failure_test.exs:44: (test)
+
+.
+
+  2) test raise bridge resolver returns safe failure before body read (Jido.Messaging.WebhookTransportFailureTest)
+     test/jido_messaging/webhook_transport_failure_test.exs:58
+     ** (RuntimeError) private resolver failure
+     code: response = body_conn([{:ok, "{}"}]) |> WebhookPlug.call(instance_module: Instance, bridge_id_resolver: resolver)
+     stacktrace:
+       test/jido_messaging/webhook_transport_failure_test.exs:110: Jido.Messaging.WebhookTransportFailureTest.resolver_failure/1
+       (jido_messaging 1.1.1) lib/jido_messaging/webhook_plug.ex:75: Jido.Messaging.WebhookPlug.resolve_bridge_id_with_resolver/2
+       (jido_messaging 1.1.1) lib/jido_messaging/webhook_plug.ex:24: Jido.Messaging.WebhookPlug.call/2
+       test/jido_messaging/webhook_transport_failure_test.exs:60: (test)
+
+
+
+  3) test throw bridge resolver returns safe failure before body read (Jido.Messaging.WebhookTransportFailureTest)
+     test/jido_messaging/webhook_transport_failure_test.exs:58
+     ** (throw) :private_resolver_failure
+     code: response = body_conn([{:ok, "{}"}]) |> WebhookPlug.call(instance_module: Instance, bridge_id_resolver: resolver)
+     stacktrace:
+       test/jido_messaging/webhook_transport_failure_test.exs:111: Jido.Messaging.WebhookTransportFailureTest.resolver_failure/1
+       (jido_messaging 1.1.1) lib/jido_messaging/webhook_plug.ex:75: Jido.Messaging.WebhookPlug.resolve_bridge_id_with_resolver/2
+       (jido_messaging 1.1.1) lib/jido_messaging/webhook_plug.ex:24: Jido.Messaging.WebhookPlug.call/2
+       test/jido_messaging/webhook_transport_failure_test.exs:60: (test)
+
+
+
+  4) test exit bridge resolver returns safe failure before body read (Jido.Messaging.WebhookTransportFailureTest)
+     test/jido_messaging/webhook_transport_failure_test.exs:58
+     ** (exit) :private_resolver_failure
+     code: response = body_conn([{:ok, "{}"}]) |> WebhookPlug.call(instance_module: Instance, bridge_id_resolver: resolver)
+     stacktrace:
+       test/jido_messaging/webhook_transport_failure_test.exs:112: Jido.Messaging.WebhookTransportFailureTest.resolver_failure/1
+       (jido_messaging 1.1.1) lib/jido_messaging/webhook_plug.ex:75: Jido.Messaging.WebhookPlug.resolve_bridge_id_with_resolver/2
+       (jido_messaging 1.1.1) lib/jido_messaging/webhook_plug.ex:24: Jido.Messaging.WebhookPlug.call/2
+       test/jido_messaging/webhook_transport_failure_test.exs:60: (test)
+
+.............
+Finished in 1.3 seconds (1.3s async, 0.00s sync)
+
+Result: 14/18 passed
+Failed: 4 tests

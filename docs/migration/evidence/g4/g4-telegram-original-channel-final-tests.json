@@ -1,0 +1,23 @@
+{
+  "label": "g4-telegram-original-channel-final-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido/chat/telegram/channel_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_telegram",
+  "head_sha": "25f3fbcbcab7f6ee27d84fcb46e2ccbf2a246393",
+  "source_tree_sha256": "44676b74bf44da71805d3f786efe7c39a5f4d5e48dde684743186e848a8def11",
+  "started_at": "2026-10-13T01:05:53.398500+00:00",
+  "finished_at": "2026-10-13T01:05:54.913715+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g4/g4-telegram-original-channel-final-tests.log",
+  "log_sha256": "ed195783024acc07b92c9c4e66deed51d7cb04a982c5d98096b0af9cdf6a276f"
+}

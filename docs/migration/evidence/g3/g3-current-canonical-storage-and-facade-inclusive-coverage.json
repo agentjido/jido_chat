@@ -1,0 +1,26 @@
+{
+  "label": "g3-current-canonical-storage-and-facade-inclusive-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "528e06dd16ed8ca52346de29876b23419023f517",
+  "source_tree_sha256": "b474d5a94d8f4e239bbb812f9604a603eea20fb955f23fc60774dd685b777253",
+  "started_at": "2026-10-13T03:04:50.640014+00:00",
+  "finished_at": "2026-10-13T03:36:49.585070+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-current-canonical-storage-and-facade-inclusive-coverage.log",
+  "log_sha256": "d400333bce391fa1d23f6dc806946adb6e924690664a4a596be9be5c0ee74d74"
+}

@@ -1,0 +1,53 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "7c426ea010049cffc361d46302546cd9af664c1a",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "04bbd680522787ea15f77ac33570090ef6f08335",
+      "library_test_files": 393,
+      "library_test_sha256": "a7f1a4f2fe57cf561d7954d32544e912f2c42465c3c71561f3a866a2519eee30"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-directory-limit-order-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "04bbd680522787ea15f77ac33570090ef6f08335",
+  "source_tree_sha256": "0875c23677f3d99c16eb74cacbb4e7e08d60b13ae36dcc7b012d30239d4576c0",
+  "started_at": "2026-10-13T09:18:34.384842+00:00",
+  "finished_at": "2026-10-13T09:18:42.338695+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-directory-limit-order-quality.log",
+  "log_sha256": "ce7d288e31af88d9af062b5a9cdf3cf01becdeba03939b8eca6f7c1fcfa1513b",
+  "raw_log_sha256": "e34ca1d5dded360d49329283e697b4c80684736cb2501abd11dbd5f87cd7d0a9",
+  "log_normalization": "Trailing whitespace and extra final blank lines removed after completion."
+}

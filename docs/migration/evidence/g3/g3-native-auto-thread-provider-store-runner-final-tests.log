@@ -1,0 +1,24 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+............
+
+  1) test unavailable runner supervisor keeps the accepted message and one unassigned opened thread (Jido.Messaging.NativeAutoThreadOutcomeTest)
+     test/jido_messaging/native_auto_thread_outcome_test.exs:95
+     Assertion with == failed
+     code:  assert Process.get(:message_writes) == 1
+     left:  2
+     right: 1
+     stacktrace:
+       test/jido_messaging/native_auto_thread_outcome_test.exs:128: Jido.Messaging.NativeAutoThreadOutcomeTest.assert_one_acceptance/2
+       test/jido_messaging/native_auto_thread_outcome_test.exs:101: (test)
+
+     The following output was logged:
+
+     02:15:13.810 [debug] [Jido.Messaging.Ingest] Message jch_w-YO4GS_vSpobG4VYeGTRQ ingested in room jch_76L37AutGdqguyIwo-gVwQ
+
+.........................
+Finished in 2.3 seconds (1.3s async, 1.0s sync)
+
+Result: 37/38 passed
+Failed: 1 test

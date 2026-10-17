@@ -1,0 +1,32 @@
+{
+  "state": "pass",
+  "checks": [
+    {
+      "case": "all nine adapters must be loaded for G7",
+      "state": "pass",
+      "missing_applications": [
+        "jido_chat_telegram",
+        "jido_chat_slack",
+        "jido_chat_discord",
+        "jido_chat_github",
+        "jido_chat_signal",
+        "jido_chat_mattermost",
+        "jido_chat_teams",
+        "jido_chat_whatsapp",
+        "jido_chat_x"
+      ]
+    },
+    {
+      "case": "unmapped compiled execute/3 fails the audit",
+      "state": "pass"
+    },
+    {
+      "case": "a retired compiled communication export fails the audit",
+      "state": "pass"
+    },
+    {
+      "case": "a missing required package row fails the audit",
+      "state": "pass"
+    }
+  ]
+}

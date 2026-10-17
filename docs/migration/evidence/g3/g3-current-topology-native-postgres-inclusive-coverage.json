@@ -1,0 +1,26 @@
+{
+  "label": "g3-current-topology-native-postgres-inclusive-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "5830b25f528a452ca510a10df8009ec9c172eb57",
+  "source_tree_sha256": "897431f26d9767b6f44d2044c6615fc59fa323f32eb07cfa7400e85da4d1b9ad",
+  "started_at": "2026-10-13T04:00:17.661952+00:00",
+  "finished_at": "2026-10-13T04:01:47.409881+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-topology-native-postgres-inclusive-coverage.log",
+  "log_sha256": "5e1f1f318c665d11a99162d64998c0796c690127cadc5ca8ff43e8d86f0eccd8"
+}

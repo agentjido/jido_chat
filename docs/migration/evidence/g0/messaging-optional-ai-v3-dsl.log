@@ -1,0 +1,5 @@
+** (CompileError) examples/jido_ai/chat_agent.ex:187: signal_source is required for as:
+    (jido 3.0.0-beta.1) lib/jido/agent/dsl/compiler.ex:167: Jido.Agent.DSL.Compiler.fail!/2
+    (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+    (jido 3.0.0-beta.1) expanding macro: Jido.Agent.DSL.Compiler.__before_compile__/1
+    examples/jido_ai/chat_agent.ex:102: Jido.Messaging.Demo.ChatAgent (module)

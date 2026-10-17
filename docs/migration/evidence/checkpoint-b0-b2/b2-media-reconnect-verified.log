@@ -1,0 +1,105 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+...............
+
+  1) test media edit fallback sends complete text through the edit path once (Jido.Messaging.CheckpointMediaDeliveryTest)
+     test/jido_messaging/checkpoint_media_delivery_test.exs:107
+     match (=) failed
+     The following variables were pinned:
+       result = %{partition: 6, result: %{:external_room_id => "provider-room", :message_id => "original", :external_message_id => "original", "id" => "original", "room_id" => "provider-room"}, operation: :edit_media, media: %{count: 0, policy: %{allow: [:image, :audio, :video, :file], max_total_bytes: 20000000, max_items: 4, max_item_bytes: 10000000, on_policy_violation: :reject, unsupported_policy: :fallback_text}, rejected: [%{index: 0, reason: :missing_capability, kind: :image, causes: [:missing_capability]}], fallback: true, total_bytes: 0, accepted: [], fallback_policy: :fallback_text, fallback_reason: :unsupported_media, fallback_mode: :text_edit, fallback_operation: :edit}, attempts: 1, message_id: "original", routing_key: "bridge:provider-room", security: %{sanitize: %{metadata: %{changed: false, channel_rule: :default_normalization}, decision: %{mode: :permissive, action: :allow, policy: :allow_original, changed: false, outcome: :allow, stage: :sanitize, adapter: Jido.Messaging.Security.DefaultAdapter, channel: Jido.Messaging.CheckpointMediaDeliveryTest.Adapter, elapsed_ms: 0, classification: :allow, channel_rule: :default_normalization}}}, route_resolution: %{partition: 12, source: :provided_fallback, fallback: true, stale: false, route: %{thread_id: nil, channel_type: :checkpoint_media, room_id: "jch_IF9hkUGg58GxV2h7KljByA", bridge_id: "bridge", external_room_id: "provider-room"}, external_room_id: "provider-room", fallback_reason: :miss, session_key: {:checkpoint_media, "bridge", "jch_IF9hkUGg58GxV2h7KljByA", nil}}, pressure_level: :normal, idempotent: false}
+     code:  assert {:ok, ^result} = OutboundGateway.edit_media(Instance, context.context, "original", payload, opts)
+     left:  {:ok, ^result}
+     right: {:ok,
+             %{
+               partition: 6,
+               result: %{
+                 :external_room_id => "provider-room",
+                 :message_id => "original",
+                 :external_message_id => "original",
+                 "id" => "original",
+                 "room_id" => "provider-room"
+               },
+               operation: :edit_media,
+               media: %{
+                 count: 0,
+                 policy: %{
+                   allow: [:image, :audio, :video, :file],
+                   max_total_bytes: 20000000,
+                   max_items: 4,
+                   max_item_bytes: 10000000,
+                   on_policy_violation: :reject,
+                   unsupported_policy: :fallback_text
+                 },
+                 rejected: [
+                   %{
+                     index: 0,
+                     reason: :missing_capability,
+                     kind: :image,
+                     causes: [:missing_capability]
+                   }
+                 ],
+                 fallback: true,
+                 total_bytes: 0,
+                 accepted: [],
+                 fallback_policy: :fallback_text,
+                 fallback_reason: :unsupported_media,
+                 fallback_mode: :text_edit,
+                 fallback_operation: :edit
+               },
+               attempts: 1,
+               message_id: "original",
+               routing_key: "bridge:provider-room",
+               security: %{
+                 sanitize: %{
+                   metadata: %{
+                     changed: false,
+                     channel_rule: :default_normalization
+                   },
+                   decision: %{
+                     mode: :permissive,
+                     action: :allow,
+                     policy: :allow_original,
+                     changed: false,
+                     outcome: :allow,
+                     stage: :sanitize,
+                     adapter: Jido.Messaging.Security.DefaultAdapter,
+                     channel: Jido.Messaging.CheckpointMediaDeliveryTest.Adapter,
+                     elapsed_ms: 0,
+                     classification: :allow,
+                     channel_rule: :default_normalization
+                   }
+                 }
+               },
+               route_resolution: %{
+                 partition: 12,
+                 source: :provided_fallback,
+                 fallback: true,
+                 stale: false,
+                 route: %{
+                   thread_id: nil,
+                   channel_type: :checkpoint_media,
+                   room_id: "jch_IF9hkUGg58GxV2h7KljByA",
+                   bridge_id: "bridge",
+                   external_room_id: "provider-room"
+                 },
+                 external_room_id: "provider-room",
+                 fallback_reason: :miss,
+                 session_key: {:checkpoint_media, "bridge",
+                  "jch_IF9hkUGg58GxV2h7KljByA", nil}
+               },
+               pressure_level: :normal,
+               idempotent: true
+             }}
+     stacktrace:
+       test/jido_messaging/checkpoint_media_delivery_test.exs:114: (test)
+
+     The following output was logged:
+     
+     16:52:51.786 [warning] [Jido.Messaging.OutboundGateway] Media fallback applied for Jido.Messaging.CheckpointMediaDeliveryTest.Adapter: [%{index: 0, reason: :missing_capability, kind: :image, causes: [:missing_capability]}]
+     
+.
+Finished in 0.5 seconds (0.2s async, 0.3s sync)
+
+Result: 16/17 passed
+Failed: 1 test

@@ -1,0 +1,18 @@
+** (Mix) mix format failed due to --check-formatted.
+The following files are not formatted:
+
+[1m[31m/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/native_signal_context_test.exs
+[0m
+       |
+30 30  |                 "role" => "user",
+31 31  |                 "status" => "received"
+32    -|               }, parent_signal: parent)
+   32 +|               },
+   33 +|               parent_signal: parent
+   34 +|             )
+33 35  |
+34 36  |    assert Context.get(child, "causationid") == parent.id
+       |
+
+
+

@@ -1,0 +1,22 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+........................................................
+
+  1) test malformed page items fail the whole query without dropping an item (Jido.Chat.Slack.OperationMatrixTest)
+     test/jido/chat/slack/operation_matrix_test.exs:230
+     Assertion with == failed
+     code:  assert failed.data["code"] == "invalid_provider_result"
+     left:  "provider_failure"
+     right: "invalid_provider_result"
+     stacktrace:
+       test/jido/chat/slack/operation_matrix_test.exs:237: anonymous fn/2 in Jido.Chat.Slack.OperationMatrixTest."test malformed page items fail the whole query without dropping an item"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/jido/chat/slack/operation_matrix_test.exs:233: (test)
+
+..
+Finished in 0.7 seconds (0.6s async, 0.05s sync)
+
+Result: 58/59 passed
+Failed: 1 test

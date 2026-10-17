@@ -1,0 +1,22 @@
+{
+  "label": "g2-core-current-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--seed",
+    "0",
+    "--exclude",
+    "live"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "ea84509404362bd542d7a7cc60ede1c665fa9e9356767f732a594c8938c11e88",
+  "started_at": "2026-10-12T19:09:30.768948+00:00",
+  "finished_at": "2026-10-12T19:09:36.484833+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-current-coverage.log",
+  "log_sha256": "d6af7d4e7d5b1b5abfa1b416a9d1f89440ef17a5c5d44dab4370aab769692955"
+}

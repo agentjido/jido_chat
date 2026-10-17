@@ -1,0 +1,228 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.
+
+  1) test search raise projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (RuntimeError) private projection failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:46: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1945: Jido.Messaging.search_transcript/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+  2) test search throw projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (throw) :private_projection_failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:47: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1945: Jido.Messaging.search_transcript/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+  3) test search exit projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (exit) :private_projection_failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:48: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1945: Jido.Messaging.search_transcript/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+  4) test search invalid projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     match (=) failed
+     code:  assert {:error, _} = result
+     left:  {:error, _}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:82: (test)
+
+.
+
+  5) test upsert raise projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (RuntimeError) private projection failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:46: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+  6) test upsert throw projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (throw) :private_projection_failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:47: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+  7) test upsert exit projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (exit) :private_projection_failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:48: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+  8) test upsert invalid projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     match (=) failed
+     code:  assert {:error, _} = result
+     left:  {:error, _}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:82: (test)
+
+.
+
+  9) test delete raise projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (RuntimeError) private projection failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:46: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+ 10) test delete throw projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (throw) :private_projection_failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:47: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+ 11) test delete exit projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (exit) :private_projection_failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:48: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+ 12) test delete invalid projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     match (=) failed
+     code:  assert {:error, _} = result
+     left:  {:error, _}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:82: (test)
+
+.
+
+ 13) test rebuild raise projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (RuntimeError) private projection failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:46: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+ 14) test rebuild throw projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (throw) :private_projection_failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:47: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+ 15) test rebuild exit projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     ** (exit) :private_projection_failure
+     code: result = project(unquote(operation), context, failure: unquote(failure))
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:48: Jido.Messaging.TranscriptProjectionOutcomeTest.Projection.result/4
+       test/jido_messaging/transcript_projection_outcome_test.exs:81: (test)
+
+
+
+ 16) test rebuild invalid projection failure returns safely without changing canonical messages (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:80
+     match (=) failed
+     code:  assert {:error, _} = result
+     left:  {:error, _}
+     right: :invalid
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:82: (test)
+
+.
+
+ 17) test raise later canonical page cannot return a partial successful rebuild (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:91
+     ** (RuntimeError) private history failure
+     code: assert {:error, _} = project(:rebuild, context, batch_size: 1)
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:24: Jido.Messaging.TranscriptProjectionOutcomeTest.Store.failure/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1901: Jido.Messaging.participant_transcript/5
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:3226: Jido.Messaging.collect_older_transcript/6
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1994: Jido.Messaging.rebuild_transcript_search/5
+       test/jido_messaging/transcript_projection_outcome_test.exs:93: (test)
+
+
+
+ 18) test throw later canonical page cannot return a partial successful rebuild (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:91
+     ** (throw) :private_history_failure
+     code: assert {:error, _} = project(:rebuild, context, batch_size: 1)
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:25: Jido.Messaging.TranscriptProjectionOutcomeTest.Store.failure/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1901: Jido.Messaging.participant_transcript/5
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:3226: Jido.Messaging.collect_older_transcript/6
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1994: Jido.Messaging.rebuild_transcript_search/5
+       test/jido_messaging/transcript_projection_outcome_test.exs:93: (test)
+
+
+
+ 19) test exit later canonical page cannot return a partial successful rebuild (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:91
+     ** (exit) :private_history_failure
+     code: assert {:error, _} = project(:rebuild, context, batch_size: 1)
+     stacktrace:
+       test/jido_messaging/transcript_projection_outcome_test.exs:26: Jido.Messaging.TranscriptProjectionOutcomeTest.Store.failure/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1901: Jido.Messaging.participant_transcript/5
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:3226: Jido.Messaging.collect_older_transcript/6
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1994: Jido.Messaging.rebuild_transcript_search/5
+       test/jido_messaging/transcript_projection_outcome_test.exs:93: (test)
+
+
+
+ 20) test invalid later canonical page cannot return a partial successful rebuild (Jido.Messaging.TranscriptProjectionOutcomeTest)
+     test/jido_messaging/transcript_projection_outcome_test.exs:91
+     ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+     code: assert {:error, _} = project(:rebuild, context, batch_size: 1)
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:3226: Jido.Messaging.collect_older_transcript/6
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:1994: Jido.Messaging.rebuild_transcript_search/5
+       test/jido_messaging/transcript_projection_outcome_test.exs:93: (test)
+
+
+Finished in 1.8 seconds (1.8s async, 0.00s sync)
+
+Result: 5/25 passed
+Failed: 20 tests

@@ -1,0 +1,228 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test runtime-only startup needs no provider credentials and creates no bridge (Mix.Tasks.Jido.Messaging.DemoTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/mix/tasks/jido_messaging_demo_test.exs:69
+     ** (exit) exited in: GenServer.stop(#PID<0.570.0>, :normal, :infinity)
+         ** (EXIT) no process: the process is not alive or there's no process currently associated with the given name, possibly because its application isn't started
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1144: GenServer.stop/3
+       test/mix/tasks/jido_messaging_demo_test.exs:46: anonymous fn/4 in Mix.Tasks.Jido.Messaging.DemoTest.__ex_unit_setup_0/1
+       (ex_unit 1.20.4) lib/ex_unit/on_exit_handler.ex:140: ExUnit.OnExitHandler.exec_callback/1
+       (ex_unit 1.20.4) lib/ex_unit/on_exit_handler.ex:126: ExUnit.OnExitHandler.on_exit_runner_loop/0
+
+     The following output was logged:
+     
+     21:37:34.892 [info] [Demo] Starting Jido.Messaging Demo (echo mode)
+     
+     21:37:34.893 [info] [Demo] Press Ctrl+C twice to stop
+     
+     21:37:34.894 [info] [Demo] Starting supervisor in echo mode
+     
+
+
+  2) test a YAML echo topology starts the runtime and creates its local room (Mix.Tasks.Jido.Messaging.DemoTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/mix/tasks/jido_messaging_demo_test.exs:77
+     ** (exit) exited in: GenServer.stop(#PID<0.664.0>, :normal, :infinity)
+         ** (EXIT) exited in: :sys.terminate(#PID<0.664.0>, :normal, :infinity)
+             ** (EXIT) shutdown
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1144: GenServer.stop/3
+       test/mix/tasks/jido_messaging_demo_test.exs:46: anonymous fn/4 in Mix.Tasks.Jido.Messaging.DemoTest.__ex_unit_setup_0/1
+       (ex_unit 1.20.4) lib/ex_unit/on_exit_handler.ex:140: ExUnit.OnExitHandler.exec_callback/1
+       (ex_unit 1.20.4) lib/ex_unit/on_exit_handler.ex:126: ExUnit.OnExitHandler.on_exit_runner_loop/0
+
+     The following output was logged:
+     
+     21:37:35.118 [info] [Demo] Loaded topology: echo.yaml
+     
+     21:37:35.118 [info] [Demo] Starting Jido.Messaging Demo (echo mode)
+     
+     21:37:35.118 [info] [Demo] Press Ctrl+C twice to stop
+     
+     21:37:35.118 [info] [Demo] Starting supervisor in echo mode
+     
+     21:37:35.133 [info] [Demo] Applied topology: %{room_bindings: 0, bridge_configs: 0, rooms: 1, routing_policies: 0, bridge_rooms: 0}
+     
+
+
+  3) test CLI bridge IDs select the fake adapters and preserve the two routes (Mix.Tasks.Jido.Messaging.DemoTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/mix/tasks/jido_messaging_demo_test.exs:84
+     ** (BadMapError) expected a map, got:
+
+         {:telegram, Mix.Tasks.Jido.Messaging.DemoTest.A,
+          "Elixir.Mix.Tasks.Jido.Messaging.DemoTest.A", "123"}
+
+     stacktrace:
+       test/mix/tasks/jido_messaging_demo_test.exs:88: anonymous fn/1 in Mix.Tasks.Jido.Messaging.DemoTest."test CLI bridge IDs select the fake adapters and preserve the two routes"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/mix/tasks/jido_messaging_demo_test.exs:88: (test)
+
+     The following output was logged:
+     
+     21:37:35.136 [info] [Demo] Starting Jido.Messaging Demo (bridge mode)
+     
+     21:37:35.136 [info] [Demo] Press Ctrl+C twice to stop
+     
+     21:37:35.136 [info] [Demo] Starting supervisor in bridge mode
+     
+     21:37:35.139 [info] [Bridge] Started - TG:123 <-> DC:456
+     
+     21:37:35.140 [info] [Bridge] Created binding bind_0cb8dca504cc14b9: telegram/Elixir.Mix.Tasks.Jido.Messaging.DemoTest.A/123 -> demo:lobby
+     
+     21:37:35.140 [info] [Bridge] Created binding bind_1e6980baf6202113: discord/Elixir.Mix.Tasks.Jido.Messaging.DemoTest.B/456 -> demo:lobby
+     
+     21:37:35.140 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+     
+
+
+  4) test dotenv fixtures and environment IDs start the same provider-free bridge (Mix.Tasks.Jido.Messaging.DemoTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/mix/tasks/jido_messaging_demo_test.exs:92
+     ** (BadMapError) expected a map, got:
+
+         {:telegram, Mix.Tasks.Jido.Messaging.DemoTest.A,
+          "Elixir.Mix.Tasks.Jido.Messaging.DemoTest.A", "789"}
+
+     stacktrace:
+       test/mix/tasks/jido_messaging_demo_test.exs:99: anonymous fn/1 in Mix.Tasks.Jido.Messaging.DemoTest."test dotenv fixtures and environment IDs start the same provider-free bridge"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/mix/tasks/jido_messaging_demo_test.exs:99: (test)
+
+     The following output was logged:
+     
+     21:37:35.143 [info] [Demo] Loaded .env file
+     
+     21:37:35.143 [info] [Demo] Starting Jido.Messaging Demo (bridge mode)
+     
+     21:37:35.143 [info] [Demo] Press Ctrl+C twice to stop
+     
+     21:37:35.143 [info] [Demo] Starting supervisor in bridge mode
+     
+     21:37:35.145 [info] [Bridge] Started - TG:789 <-> DC:987
+     
+     21:37:35.145 [info] [Bridge] Created binding bind_ca7687393074238e: telegram/Elixir.Mix.Tasks.Jido.Messaging.DemoTest.A/789 -> demo:lobby
+     
+     21:37:35.145 [info] [Bridge] Created binding bind_3319d97c18bf08a8: discord/Elixir.Mix.Tasks.Jido.Messaging.DemoTest.B/987 -> demo:lobby
+     
+     21:37:35.145 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+     
+     21:37:35.152 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.Messaging.SignalBus
+     
+
+
+  5) test YAML bridge settings retain adapter modules, route IDs and bridge IDs (Mix.Tasks.Jido.Messaging.DemoTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/mix/tasks/jido_messaging_demo_test.exs:102
+     ** (BadMapError) expected a map, got:
+
+         {:telegram, Mix.Tasks.Jido.Messaging.DemoTest.A, "first", "11"}
+
+     stacktrace:
+       test/mix/tasks/jido_messaging_demo_test.exs:112: anonymous fn/1 in Mix.Tasks.Jido.Messaging.DemoTest."test YAML bridge settings retain adapter modules, route IDs and bridge IDs"/1
+       (elixir 1.20.4) lib/enum.ex:1725: Enum."-map/2-lists^map/1-1-"/2
+       test/mix/tasks/jido_messaging_demo_test.exs:112: (test)
+
+     The following output was logged:
+     
+     21:37:35.157 [info] [Demo] Loaded topology: bridge.yaml
+     
+     21:37:35.157 [info] [Demo] Starting Jido.Messaging Demo (bridge mode)
+     
+     21:37:35.157 [info] [Demo] Press Ctrl+C twice to stop
+     
+     21:37:35.157 [info] [Demo] Starting supervisor in bridge mode
+     
+     21:37:35.160 [info] [Bridge] Started - TG:11 <-> DC:22
+     
+     21:37:35.160 [info] [Demo] Applied topology: %{room_bindings: 0, bridge_configs: 0, rooms: 0, routing_policies: 0, bridge_rooms: 0}
+     
+     21:37:35.160 [info] [Bridge] Created binding bind_14c494fd6d8a6362: telegram/first/11 -> demo:lobby
+     
+     21:37:35.160 [info] [Bridge] Created binding bind_70933c6c434d45b2: discord/second/22 -> demo:lobby
+     
+     21:37:35.160 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+     
+     21:37:35.160 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.Messaging.SignalBus
+     
+
+
+  6) test missing bridge credentials fail before a supervisor starts (Mix.Tasks.Jido.Messaging.DemoTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/mix/tasks/jido_messaging_demo_test.exs:116
+     ** (EXIT from #PID<0.1042.0>) shutdown: failed to start child: Jido.Messaging.Demo.Bridge
+         ** (EXIT) an exception was raised:
+             ** (ArgumentError) cannot convert the given list to a string.
+
+     To be converted to a string, a list must either be empty or only
+     contain the following elements:
+
+       * strings
+       * integers representing Unicode code points
+       * a list containing one of these three elements
+
+     Please check the given list or call inspect/1 to get the list representation, got:
+
+     [default: nil]
+
+                 (elixir 1.20.4) lib/list.ex:1184: List.to_string/1
+                 (jido_messaging 1.1.1) lib/jido_messaging/demo/bridge.ex:73: Jido.Messaging.Demo.Bridge.init/1
+                 (stdlib 8.1) gen_server.erl:2276: :gen_server.init_it/2
+                 (stdlib 8.1) gen_server.erl:2236: :gen_server.init_it/6
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+
+
+
+  7) test agent mode rejects a missing model key before agent or provider startup (Mix.Tasks.Jido.Messaging.DemoTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/mix/tasks/jido_messaging_demo_test.exs:123
+     ** (EXIT from #PID<0.1130.0>) shutdown: failed to start child: Jido.Messaging.Demo.Bridge
+         ** (EXIT) an exception was raised:
+             ** (ArgumentError) cannot convert the given list to a string.
+
+     To be converted to a string, a list must either be empty or only
+     contain the following elements:
+
+       * strings
+       * integers representing Unicode code points
+       * a list containing one of these three elements
+
+     Please check the given list or call inspect/1 to get the list representation, got:
+
+     [default: nil]
+
+                 (elixir 1.20.4) lib/list.ex:1184: List.to_string/1
+                 (jido_messaging 1.1.1) lib/jido_messaging/demo/bridge.ex:73: Jido.Messaging.Demo.Bridge.init/1
+                 (stdlib 8.1) gen_server.erl:2276: :gen_server.init_it/2
+                 (stdlib 8.1) gen_server.erl:2236: :gen_server.init_it/6
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+
+
+
+  8) test missing route IDs fail before bridge startup (Mix.Tasks.Jido.Messaging.DemoTest)
+     /Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/mix/tasks/jido_messaging_demo_test.exs:130
+     ** (EXIT from #PID<0.1252.0>) shutdown: failed to start child: Jido.Messaging.Demo.Bridge
+         ** (EXIT) an exception was raised:
+             ** (ArgumentError) cannot convert the given list to a string.
+
+     To be converted to a string, a list must either be empty or only
+     contain the following elements:
+
+       * strings
+       * integers representing Unicode code points
+       * a list containing one of these three elements
+
+     Please check the given list or call inspect/1 to get the list representation, got:
+
+     [default: nil]
+
+                 (elixir 1.20.4) lib/list.ex:1184: List.to_string/1
+                 (jido_messaging 1.1.1) lib/jido_messaging/demo/bridge.ex:73: Jido.Messaging.Demo.Bridge.init/1
+                 (stdlib 8.1) gen_server.erl:2276: :gen_server.init_it/2
+                 (stdlib 8.1) gen_server.erl:2236: :gen_server.init_it/6
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+
+...
+Finished in 4.2 seconds (0.00s async, 4.2s sync)
+
+Result: 3/11 passed
+Failed: 8 tests

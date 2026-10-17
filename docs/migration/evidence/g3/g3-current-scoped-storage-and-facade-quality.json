@@ -1,0 +1,19 @@
+{
+  "label": "g3-current-scoped-storage-and-facade-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "76f4318d78421294d4bcb0f9845d71d37e934cba",
+  "source_tree_sha256": "b545b5aee2974d14ee89f09c04285c524662d54aa139797612f3ec519184b0d1",
+  "started_at": "2026-10-13T02:59:13.102085+00:00",
+  "finished_at": "2026-10-13T02:59:21.419869+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-scoped-storage-and-facade-quality.log",
+  "log_sha256": "c392e30e817ea3836b1ed6a4dff6b83d04e600d56db6fe29adc303e88fd727b6"
+}

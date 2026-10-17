@@ -1,0 +1,57 @@
+{
+  "state": "Test-only Jidoka input additions. Exact production library, core test/harness, optional fixture, manifest and lock inputs remain unchanged.",
+  "current_repositories": {
+    "jido_chat": {
+      "head": "e122927be11f867c0ae47c742061840d24324bb5",
+      "library_files": 126,
+      "library_sha256": "35d0004841c50828139eceeea7f7a481f280dd9119487774ba4134a66d9340e5"
+    },
+    "jido_messaging": {
+      "head": "e7426bd5667d16a0029855c94b2df55d05bc240d",
+      "library_files": 235,
+      "library_sha256": "5a20ba14835ecfe5b300c1d8f14cea4ee1d6b5938e9fd5374aaeeb8feb027b41"
+    }
+  },
+  "messaging_library_base": "3421cf18d1be58318eecad50f398fef8d004294c",
+  "core_base": "7956751e3b4bec53c7c29589b73ce94c5b065896",
+  "reused_checks": [
+    "g3-current-canonical-record-api-audit",
+    "g3-current-canonical-record-core-harness",
+    "g3-current-canonical-record-ai-harness",
+    "g3-current-canonical-record-optional-ai",
+    "current-canonical-record-runtime-boundary-scan",
+    "g3-current-projection-credential-core-graph",
+    "g3-current-projection-credential-ai-graph"
+  ],
+  "scope": "Reuse only exact unchanged production API/source-scan, harness/optional fixture and dependency graph checks. Quality is rerun because Credo reads test files. Complete current Messaging suites and coverage are rerun for the new test file.",
+  "support_and_harness_source": "Messaging support/optional fixtures and integration/core test inputs are unchanged. Current Messaging complete profiles and harness/optional fixtures are refreshed. Only pinned graphs and unchanged core tests are reused.",
+  "optional_ai_fixture_sha256": "57a6f167d6ab21cfc5e195d95b0ee2bfbeca94a7831e231d47988521f73badc5",
+  "source_hash_method": "SHA256 over sorted relative path, NUL, file bytes and NUL for each library file.",
+  "production_change_from_base": "No production change from a9132ab. One new public facade input test file adds complete scope/state/write-count evidence.",
+  "reuse_comparisons": [
+    {
+      "repository": "jido_chat",
+      "base": "e122927be11f867c0ae47c742061840d24324bb5",
+      "paths": [
+        "lib",
+        "test",
+        "integration",
+        "mix.exs",
+        "mix.lock"
+      ],
+      "changed_paths": []
+    },
+    {
+      "repository": "jido_messaging",
+      "base": "a9132abb136a11554db6a4d18efc775ff9113d93",
+      "paths": [
+        "lib",
+        "mix.exs",
+        "mix.lock",
+        "test/support",
+        "test/optional"
+      ],
+      "changed_paths": []
+    }
+  ]
+}

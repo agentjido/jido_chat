@@ -1,0 +1,55 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
+      "library_test_files": 149,
+      "library_test_sha256": "95f61a2926e599a801697a98e330f00510c55193b6ca6a337f689f7f41925a1b"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "89690d09ec1415a85359f1a9ebdb3b71487bf27b",
+      "library_test_files": 336,
+      "library_test_sha256": "074dfebf0120d92bb1f6d5f2ae56376fa78c13cc1f47f0837112a8a52ded9c37"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "77bef6c4c0be4e0e99bcc546b36b959aef5b2e1598b62baeaf1a44d9a32f9c26"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "81035b0a4686c07e441dde025bd500ae1ecdc51a14cb36a2c156adb3cba3240d"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "25ee251616f3f2856d09697b39930a0d65843ad56a07990db84521671e32d250"
+    }
+  ],
+  "label": "g3-current-callback-and-lock-ai-graph",
+  "command": [
+    "mix",
+    "run",
+    "scripts/report_dependency_graph.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T04:30:04.821564+00:00",
+  "finished_at": "2026-10-13T04:32:19.050875+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "1",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-callback-and-lock-ai-graph.log",
+  "log_sha256": "8a4a3e80df1838d8339e7ef1ba0b75988ebe08b77ab24fbeffe09d6c9e37e67d"
+}

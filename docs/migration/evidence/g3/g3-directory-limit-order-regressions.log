@@ -1,0 +1,176 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+
+
+  1) test Elixir.Jido.Messaging.Persistence.ETS participant limit applies after complete matching and ID ordering (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:15
+     match (=) failed
+     The following variables were pinned:
+       first = %Jido.Chat.Participant{id: "b-match", type: :human, metadata: %{}, identity: %{name: "Matching first"}, capabilities: [:text], presence: :offline, external_ids: %{}}
+     code:  assert {:ok, [^first]} = adapter.directory_search(state, target, %{name: "MATCHING"}, limit: 1)
+     left:  {:ok, [^first]}
+     right: {:ok,
+             [
+               %Jido.Chat.Participant{
+                 id: "b-match",
+                 type: :human,
+                 metadata: %{},
+                 identity: %{name: "Matching first"},
+                 capabilities: [:text],
+                 presence: :offline,
+                 external_ids: %{}
+               },
+               %Jido.Chat.Participant{
+                 id: "z-match",
+                 type: :human,
+                 metadata: %{},
+                 identity: %{name: "Matching last"},
+                 capabilities: [:text],
+                 presence: :offline,
+                 external_ids: %{}
+               }
+             ]}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:30: (test)
+
+.
+
+  2) test Elixir.Jido.Messaging.Persistence.ETS room limit applies after complete matching and ID ordering (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:15
+     match (=) failed
+     The following variables were pinned:
+       first = %Jido.Chat.Room{id: "b-match", name: "Matching first", type: :group, inserted_at: ~U[2026-10-13 09:16:01.416571Z], metadata: %{}, external_bindings: %{}}
+     code:  assert {:ok, [^first]} = adapter.directory_search(state, target, %{name: "MATCHING"}, limit: 1)
+     left:  {:ok, [^first]}
+     right: {:ok,
+             [
+               %Jido.Chat.Room{
+                 id: "b-match",
+                 name: "Matching first",
+                 type: :group,
+                 inserted_at: ~U[2026-10-13 09:16:01.416571Z],
+                 metadata: %{},
+                 external_bindings: %{}
+               },
+               %Jido.Chat.Room{
+                 id: "z-match",
+                 name: "Matching last",
+                 type: :group,
+                 inserted_at: ~U[2026-10-13 09:16:01.411869Z],
+                 metadata: %{},
+                 external_bindings: %{}
+               }
+             ]}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:30: (test)
+
+.
+
+  3) test Elixir.Jido.Messaging.Persistence.SQLite participant limit applies after complete matching and ID ordering (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:15
+     match (=) failed
+     The following variables were pinned:
+       first = %Jido.Chat.Participant{id: "b-match", type: :human, metadata: %{}, identity: %{name: "Matching first"}, capabilities: [:text], presence: :offline, external_ids: %{}}
+     code:  assert {:ok, [^first]} = adapter.directory_search(state, target, %{name: "MATCHING"}, limit: 1)
+     left:  {:ok, [^first]}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:30: (test)
+
+
+
+  4) test Elixir.Jido.Messaging.Persistence.SQLite participant matching beyond the first 500 records remains complete (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:42
+     match (=) failed
+     The following variables were pinned:
+       wanted = %Jido.Chat.Participant{id: "z-wanted", type: :human, metadata: %{}, identity: %{name: "Complete wanted"}, capabilities: [:text], presence: :offline, external_ids: %{}}
+     code:  assert {:ok, [^wanted]} = adapter.directory_search(state, target, %{id: wanted.id}, limit: 1)
+     left:  {:ok, [^wanted]}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:55: (test)
+
+
+
+  5) test Elixir.Jido.Messaging.Persistence.SQLite room limit applies after complete matching and ID ordering (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:15
+     match (=) failed
+     The following variables were pinned:
+       first = %Jido.Chat.Room{id: "b-match", name: "Matching first", type: :group, inserted_at: ~U[2026-10-13 09:16:02.183314Z], metadata: %{}, external_bindings: %{}}
+     code:  assert {:ok, [^first]} = adapter.directory_search(state, target, %{name: "MATCHING"}, limit: 1)
+     left:  {:ok, [^first]}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:30: (test)
+
+
+
+  6) test Elixir.Jido.Messaging.Persistence.SQLite room matching beyond the first 500 records remains complete (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:42
+     match (=) failed
+     The following variables were pinned:
+       wanted = %Jido.Chat.Room{id: "z-wanted", name: "Complete wanted", type: :group, inserted_at: ~U[2026-10-13 09:16:02.543556Z], metadata: %{}, external_bindings: %{}}
+     code:  assert {:ok, [^wanted]} = adapter.directory_search(state, target, %{id: wanted.id}, limit: 1)
+     left:  {:ok, [^wanted]}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:55: (test)
+
+
+
+  7) test Elixir.Jido.Messaging.Persistence.Postgres participant limit applies after complete matching and ID ordering (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:15
+     match (=) failed
+     The following variables were pinned:
+       first = %Jido.Chat.Participant{id: "b-match", type: :human, metadata: %{}, identity: %{name: "Matching first"}, capabilities: [:text], presence: :offline, external_ids: %{}}
+     code:  assert {:ok, [^first]} = adapter.directory_search(state, target, %{name: "MATCHING"}, limit: 1)
+     left:  {:ok, [^first]}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:30: (test)
+
+
+
+  8) test Elixir.Jido.Messaging.Persistence.Postgres participant matching beyond the first 500 records remains complete (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:42
+     match (=) failed
+     The following variables were pinned:
+       wanted = %Jido.Chat.Participant{id: "z-wanted", type: :human, metadata: %{}, identity: %{name: "Complete wanted"}, capabilities: [:text], presence: :offline, external_ids: %{}}
+     code:  assert {:ok, [^wanted]} = adapter.directory_search(state, target, %{id: wanted.id}, limit: 1)
+     left:  {:ok, [^wanted]}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:55: (test)
+
+
+
+  9) test Elixir.Jido.Messaging.Persistence.Postgres room limit applies after complete matching and ID ordering (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:15
+     match (=) failed
+     The following variables were pinned:
+       first = %Jido.Chat.Room{id: "b-match", name: "Matching first", type: :group, inserted_at: ~U[2026-10-13 09:16:03.024443Z], metadata: %{}, external_bindings: %{}}
+     code:  assert {:ok, [^first]} = adapter.directory_search(state, target, %{name: "MATCHING"}, limit: 1)
+     left:  {:ok, [^first]}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:30: (test)
+
+
+
+ 10) test Elixir.Jido.Messaging.Persistence.Postgres room matching beyond the first 500 records remains complete (Jido.Messaging.Persistence.DirectoryLimitOrderTest)
+     test/jido_messaging/persistence/directory_limit_order_test.exs:42
+     match (=) failed
+     The following variables were pinned:
+       wanted = %Jido.Chat.Room{id: "z-wanted", name: "Complete wanted", type: :group, inserted_at: ~U[2026-10-13 09:16:03.451051Z], metadata: %{}, external_bindings: %{}}
+     code:  assert {:ok, [^wanted]} = adapter.directory_search(state, target, %{id: wanted.id}, limit: 1)
+     left:  {:ok, [^wanted]}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/persistence/directory_limit_order_test.exs:55: (test)
+
+
+Finished in 2.3 seconds (0.00s async, 2.3s sync)
+
+Result: 2/12 passed
+Failed: 10 tests

@@ -1,0 +1,306 @@
+==> jido_chat
+Compiling 2 files (.ex)
+==> jido_messaging
+Compiling 7 files (.ex)
+Checking 331 source files (this might take a while) ...
+
+Please report incorrect results: https://github.com/rrrene/credo/issues
+
+Analysis took 0.1 seconds (0.1s to load, 0.00s running 0 checks on 331 files)
+5451 mods/funs, found no issues.
+
+Showing priority issues: ↑ ↗ →  (use `mix credo explain` to explain issues, `mix credo --help` for options).
+Finding suitable PLTs
+Checking PLT...
+[:abnf_parsec, :asn1, :compiler, :crontab, :crypto, :db_connection, :decimal, :dotenvy, :eex, :elixir, :excoveralls, :exqlite, :finch, :flow, :fsmx, :gen_stage, :hpax, :idna, :inets, :jason, :jido, :jido_action, :jido_ai, :jido_chat, :jido_messaging, :jido_signal, :jsv, :kernel, :llm_db, :logger, :mime, :mint, :mix, :mnesia, :multigraph, :nimble_options, :nimble_parsec, :nimble_pool, :phoenix_pubsub, :plug, :plug_crypto, :postgrex, :public_key, :req, :req_llm, :runic, :sched_ex, :server_sent_events, :spark, :splode, :ssl, :stdlib, :telemetry, :telemetry_metrics, :texture, :toml, :tools, :uniq, :websockex, :xmerl, :yamerl, :yaml_elixir, :zoi]
+PLT is up to date!
+ignore_warnings: .dialyzer_ignore.exs
+
+Starting Dialyzer
+[
+  check_plt: false,
+  init_plt: ~c"priv/plts/project.plt/dialyxir_erlang-29.1_elixir-1.20.4_deps-test.plt",
+  files: [~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/_build/test/lib/jido_messaging/ebin/Elixir.Jido.Messaging.InstanceReconnectWorker.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/_build/test/lib/jido_messaging/ebin/Elixir.Jido.Messaging.ChatActions.Policy.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/_build/test/lib/jido_messaging/ebin/Elixir.Jido.Messaging.ChatActions.MessengerSchema.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/_build/test/lib/jido_messaging/ebin/Elixir.Jido.Messaging.Demo.Supervisor.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/_build/test/lib/jido_messaging/ebin/Elixir.Jido.Messaging.AgentEndpointTarget.beam",
+   ...],
+  ...
+]
+Total errors: 0, Skipped: 0, Unnecessary Skips: 0
+done in 0m6.53s
+done (passed successfully)
+Doctor file not found. Using defaults.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Doc Cov  Spec Cov  Module                                   File                                                      Functions  No Docs  No Specs  Module Doc  Struct Spec
+99%      2%        Jido.Messaging                           lib/jido_messaging.ex                                     307        2        302       Yes         N/A        
+100%     100%      Jido.Messaging.Acceptance                lib/jido_messaging/acceptance.ex                          1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AccessControl             lib/jido_messaging/access_control.ex                      14         0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ActivityData              lib/jido_messaging/activity_data.ex                       8          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ActivityPage              lib/jido_messaging/activity_page.ex                       1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ActivityProjection        lib/jido_messaging/activity_projection.ex                 2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AdapterBridge             lib/jido_messaging/adapter_bridge.ex                      18         0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Adapters.Heartbeat        lib/jido_messaging/adapters/heartbeat.ex                  3          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AgentDirectory            lib/jido_messaging/agent_directory.ex                     8          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AgentDirectoryData        lib/jido_messaging/agent_directory_data.ex                13         0        0         Yes         N/A        
+100%     50%       Jido.Messaging.AgentDirectoryEndpointRe  lib/jido_messaging/agent_directory_endpoint_ref.ex        2          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.AgentDirectoryEntry       lib/jido_messaging/agent_directory_entry.ex               1          0        0         Yes         Yes        
+100%     80%       Jido.Messaging.AgentDirectoryProjection  lib/jido_messaging/agent_directory_projection.ex          5          0        1         Yes         Yes        
+N/A      N/A       Jido.Messaging.AgentDirectoryProjector   lib/jido_messaging/agent_directory_projector.ex           0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AgentDirectoryScope       lib/jido_messaging/agent_directory_scope.ex               3          0        0         Yes         Yes        
+100%     100%      Jido.Messaging.AgentEndpointData         lib/jido_messaging/agent_endpoint_data.ex                 4          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AgentEndpointDelivery     lib/jido_messaging/agent_endpoint_delivery.ex             2          0        0         Yes         Yes        
+N/A      N/A       Jido.Messaging.AgentEndpointProvider     lib/jido_messaging/agent_endpoint_provider.ex             0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AgentEndpointTarget       lib/jido_messaging/agent_endpoint_target.ex               1          0        0         Yes         Yes        
+100%     100%      Jido.Messaging.AgentEndpoints            lib/jido_messaging/agent_endpoints.ex                     17         0        0         Yes         N/A        
+100%     50%       Jido.Messaging.AgentInvocationSummary    lib/jido_messaging/agent_invocation_summary.ex            2          0        1         Yes         Yes        
+100%     75%       Jido.Messaging.AgentMessagingEndpoint    lib/jido_messaging/agent_messaging_endpoint.ex            4          0        1         Yes         Yes        
+100%     40%       Jido.Messaging.AgentRunner               lib/jido_messaging/agent_runner.ex                        10         0        6         Yes         Yes        
+86%      14%       Jido.Messaging.AgentSupervisor           lib/jido_messaging/agent_supervisor.ex                    7          1        6         Yes         N/A        
+100%     75%       Jido.Messaging.AgentThreadRoute          lib/jido_messaging/agent_thread_route.ex                  4          0        1         Yes         Yes        
+100%     67%       Jido.Messaging.AuditLogger               lib/jido_messaging/audit_logger.ex                        3          0        1         Yes         N/A        
+100%     100%      Jido.Messaging.AuthorizationAction       lib/jido_messaging/authorization_action.ex                2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AuthorizationData         lib/jido_messaging/authorization_data.ex                  6          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.AuthorizationDecision     lib/jido_messaging/authorization_decision.ex              1          0        0         Yes         Yes        
+100%     83%       Jido.Messaging.AuthorizationScope        lib/jido_messaging/authorization_scope.ex                 6          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.Authorizer                lib/jido_messaging/authorizer.ex                          1          0        0         Yes         N/A        
+100%     83%       Jido.Messaging.Authorship                lib/jido_messaging/authorship.ex                          6          0        1         Yes         Yes        
+100%     80%       Jido.Messaging.BridgeConfig              lib/jido_messaging/bridge_config.ex                       5          0        1         Yes         Yes        
+100%     75%       Jido.Messaging.BridgePlugin              lib/jido_messaging/bridge_plugin.ex                       4          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.BridgeRegistry            lib/jido_messaging/bridge_registry.ex                     12         0        0         Yes         N/A        
+100%     50%       Jido.Messaging.BridgeRoomSpec            lib/jido_messaging/bridge_room_spec.ex                    2          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.BridgeServer              lib/jido_messaging/bridge_server.ex                       9          0        0         Yes         N/A        
+100%     50%       Jido.Messaging.BridgeStatus              lib/jido_messaging/bridge_status.ex                       2          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.BridgeSupervisor          lib/jido_messaging/bridge_supervisor.ex                   6          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ChatActions               lib/jido_messaging/chat_actions.ex                        3          0        0         Yes         N/A        
+67%      0%        Jido.Messaging.ChatActions.Action        lib/jido_messaging/chat_actions/action.ex                 3          1        3         Yes         N/A        
+67%      100%      Jido.Messaging.ChatActions.Executor      lib/jido_messaging/chat_actions/executor.ex               3          1        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Messenger.St  lib/jido_messaging/chat_actions/messenger.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Messenger.Se  lib/jido_messaging/chat_actions/messenger.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Messenger.Po  lib/jido_messaging/chat_actions/messenger.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Messenger.Po  lib/jido_messaging/chat_actions/messenger.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Moderator.Re  lib/jido_messaging/chat_actions/moderator.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Moderator.Li  lib/jido_messaging/chat_actions/moderator.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Moderator.En  lib/jido_messaging/chat_actions/moderator.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Moderator.Ed  lib/jido_messaging/chat_actions/moderator.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Moderator.De  lib/jido_messaging/chat_actions/moderator.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Moderator.De  lib/jido_messaging/chat_actions/moderator.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Moderator.Ad  lib/jido_messaging/chat_actions/moderator.ex              0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ChatActions.Policy        lib/jido_messaging/chat_actions/policy.ex                 6          0        0         Yes         Yes        
+N/A      N/A       Jido.Messaging.ChatActions.Reader.Looku  lib/jido_messaging/chat_actions/reader.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Reader.Looku  lib/jido_messaging/chat_actions/reader.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Reader.ListT  lib/jido_messaging/chat_actions/reader.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Reader.Fetch  lib/jido_messaging/chat_actions/reader.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Reader.Fetch  lib/jido_messaging/chat_actions/reader.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Reader.Fetch  lib/jido_messaging/chat_actions/reader.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Reader.Fetch  lib/jido_messaging/chat_actions/reader.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ChatActions.Reader.Fetch  lib/jido_messaging/chat_actions/reader.ex                 0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ChatActions.Resolver      lib/jido_messaging/chat_actions/resolver.ex               2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ChatActions.TargetSchema  lib/jido_messaging/chat_actions/schemas.ex                1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ChatActions.ReaderSchema  lib/jido_messaging/chat_actions/schemas.ex                3          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ChatActions.ModeratorSch  lib/jido_messaging/chat_actions/schemas.ex                3          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ChatActions.MessengerSch  lib/jido_messaging/chat_actions/schemas.ex                1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ChatActions.Scope         lib/jido_messaging/chat_actions/scope.ex                  9          0        0         Yes         Yes        
+100%     100%      Jido.Messaging.ChatActions.SignalResult  lib/jido_messaging/chat_actions/signal_result.ex          2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ConfigStore               lib/jido_messaging/config_store.ex                        14         0        0         Yes         N/A        
+100%     60%       Jido.Messaging.Context                   lib/jido_messaging/context.ex                             5          0        2         Yes         Yes        
+100%     100%      Jido.Messaging.Continuity                lib/jido_messaging/continuity.ex                          6          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ContinuityData            lib/jido_messaging/continuity_data.ex                     11         0        0         Yes         N/A        
+100%     100%      Jido.Messaging.DeadLetter                lib/jido_messaging/dead_letter.ex                         15         0        0         Yes         N/A        
+100%     100%      Jido.Messaging.DeadLetter.ReplaySupervi  lib/jido_messaging/dead_letter/replay_supervisor.ex       2          0        0         Yes         N/A        
+67%      100%      Jido.Messaging.DeadLetter.ReplayWorker   lib/jido_messaging/dead_letter/replay_worker.ex           6          2        0         Yes         N/A        
+92%      85%       Jido.Messaging.Deduper                   lib/jido_messaging/deduper.ex                             13         1        2         Yes         Yes        
+100%     100%      Jido.Messaging.DelegationData            lib/jido_messaging/delegation_data.ex                     12         0        0         Yes         N/A        
+100%     100%      Jido.Messaging.DelegationTransport       lib/jido_messaging/delegation_transport.ex                3          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Deliver                   lib/jido_messaging/deliver.ex                             6          0        0         Yes         N/A        
+100%     50%       Jido.Messaging.DeliveryPolicy            lib/jido_messaging/delivery_policy.ex                     2          0        1         Yes         Yes        
+67%      67%       Jido.Messaging.Demo.Bridge               lib/jido_messaging/demo/bridge.ex                         3          1        1         Yes         Yes        
+100%     100%      Jido.Messaging.Demo.HeartbeatSensor      lib/jido_messaging/demo/heartbeat_sensor.ex               3          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Demo.Messaging            lib/jido_messaging/demo/messaging.ex                      0          0        0         Yes         N/A        
+50%      50%       Jido.Messaging.Demo.Supervisor           lib/jido_messaging/demo/supervisor.ex                     2          1        1         Yes         N/A        
+100%     100%      Jido.Messaging.Demo.Topology             lib/jido_messaging/demo/topology.ex                       5          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Directory                 lib/jido_messaging/directory.ex                           2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Dispatch                  lib/jido_messaging/dispatch.ex                            3          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.EventOptions              lib/jido_messaging/event_options.ex                       1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Events                    lib/jido_messaging/events.ex                              13         0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Execution                 lib/jido_messaging/execution.ex                           1          0        0         Yes         N/A        
+100%     83%       Jido.Messaging.ExternalIdentityBinding   lib/jido_messaging/external_identity_binding.ex           6          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.Gating                    lib/jido_messaging/gating.ex                              2          0        0         Yes         N/A        
+100%     80%       Jido.Messaging.Grant                     lib/jido_messaging/grant.ex                               5          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.HistoryScope              lib/jido_messaging/history_scope.ex                       2          0        0         Yes         Yes        
+100%     100%      Jido.Messaging.Identity                  lib/jido_messaging/identity.ex                            12         0        0         Yes         N/A        
+100%     100%      Jido.Messaging.IdentityAssertionUse      lib/jido_messaging/identity_assertion_use.ex              1          0        0         Yes         Yes        
+100%     75%       Jido.Messaging.IdentityCredential        lib/jido_messaging/identity_credential.ex                 4          0        1         Yes         Yes        
+100%     50%       Jido.Messaging.IdentityCredentialCondit  lib/jido_messaging/identity_credential_conditions.ex      2          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.IdentityCredentials       lib/jido_messaging/identity_credentials.ex                5          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.IdentityData              lib/jido_messaging/identity_data.ex                       6          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.IdentityEvidence          lib/jido_messaging/identity_evidence.ex                   4          0        0         Yes         Yes        
+N/A      N/A       Jido.Messaging.IdentityProvider          lib/jido_messaging/identity_provider.ex                   0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.IdentityVerifier          lib/jido_messaging/identity_verifier.ex                   2          0        0         Yes         N/A        
+100%     0%        Jido.Messaging.InboundRouter             lib/jido_messaging/inbound_router.ex                      3          0        3         Yes         N/A        
+100%     100%      Jido.Messaging.Ingest                    lib/jido_messaging/ingest.ex                              5          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.IngressSink               lib/jido_messaging/ingress_sink.ex                        1          0        0         Yes         N/A        
+100%     50%       Jido.Messaging.IngressSubscription       lib/jido_messaging/ingress_subscription.ex                2          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.IngressSubscriptions      lib/jido_messaging/ingress_subscriptions.ex               3          0        0         Yes         N/A        
+100%     0%        Jido.Messaging.Instance                  lib/jido_messaging/instance.ex                            2          0        2         Yes         Yes        
+75%      100%      Jido.Messaging.InstanceReconnectWorker   lib/jido_messaging/instance_reconnect_worker.ex           4          1        0         Yes         N/A        
+95%      53%       Jido.Messaging.InstanceServer            lib/jido_messaging/instance_server.ex                     19         1        9         Yes         Yes        
+89%      78%       Jido.Messaging.InstanceSupervisor        lib/jido_messaging/instance_supervisor.ex                 9          1        2         Yes         N/A        
+100%     80%       Jido.Messaging.InvocationPolicy          lib/jido_messaging/invocation_policy.ex                   5          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.JidokaContinuityContext   lib/jido_messaging/jidoka_continuity_context.ex           1          0        0         Yes         Yes        
+100%     75%       Jido.Messaging.JidokaContinuityRef       lib/jido_messaging/jidoka_continuity_ref.ex               4          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.JidokaDelegationContext   lib/jido_messaging/jidoka_delegation_context.ex           1          0        0         Yes         Yes        
+100%     86%       Jido.Messaging.JidokaDelegationEvent     lib/jido_messaging/jidoka_delegation_event.ex             7          0        1         Yes         Yes        
+100%     50%       Jido.Messaging.JidokaDelegationRef       lib/jido_messaging/jidoka_delegation_ref.ex               2          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.JidokaDelegationScope     lib/jido_messaging/jidoka_delegation_scope.ex             3          0        0         Yes         Yes        
+100%     50%       Jido.Messaging.JidokaEmissionRef         lib/jido_messaging/jidoka_emission_ref.ex                 2          0        1         Yes         Yes        
+100%     75%       Jido.Messaging.JidokaExecutionRef        lib/jido_messaging/jidoka_execution_ref.ex                4          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.MediaPolicy               lib/jido_messaging/media_policy.ex                        3          0        0         Yes         N/A        
+100%     67%       Jido.Messaging.Membership                lib/jido_messaging/membership.ex                          3          0        1         Yes         Yes        
+100%     0%        Jido.Messaging.Message                   lib/jido_messaging/message.ex                             2          0        2         Yes         Yes        
+100%     100%      Jido.Messaging.MessageLifecycle          lib/jido_messaging/message_lifecycle.ex                   1          0        0         Yes         N/A        
+100%     83%       Jido.Messaging.MessagingActivityEntry    lib/jido_messaging/messaging_activity_entry.ex            6          0        1         Yes         Yes        
+100%     50%       Jido.Messaging.MessagingActivitySummary  lib/jido_messaging/messaging_activity_summary.ex          2          0        1         Yes         Yes        
+100%     0%        Jido.Messaging.Moderation                lib/jido_messaging/moderation.ex                          2          0        2         Yes         N/A        
+100%     100%      Jido.Messaging.Moderators.KeywordFilter  lib/jido_messaging/moderators/keyword_filter.ex           1          0        0         Yes         N/A        
+100%     25%       Jido.Messaging.Moderators.RateLimiter    lib/jido_messaging/moderators/rate_limiter.ex             4          0        3         Yes         N/A        
+100%     67%       Jido.Messaging.MsgContext                lib/jido_messaging/msg_context.ex                         3          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.MsgContext.CommandParser  lib/jido_messaging/msg_context/command_parser.ex          3          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.MsgContext.Normalizer     lib/jido_messaging/msg_context/normalizer.ex              1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Onboarding                lib/jido_messaging/onboarding.ex                          7          0        0         Yes         N/A        
+100%     50%       Jido.Messaging.Onboarding.Flow           lib/jido_messaging/onboarding/flow.ex                     2          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.Onboarding.StateMachine   lib/jido_messaging/onboarding/state_machine.ex            2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Onboarding.Supervisor     lib/jido_messaging/onboarding/supervisor.ex               6          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Onboarding.Worker         lib/jido_messaging/onboarding/worker.ex                   6          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.OutboundGateway           lib/jido_messaging/outbound_gateway.ex                    9          0        0         Yes         N/A        
+50%      100%      Jido.Messaging.OutboundGateway.Partitio  lib/jido_messaging/outbound_gateway/partition.ex          6          3        0         Yes         N/A        
+100%     100%      Jido.Messaging.OutboundGateway.Supervis  lib/jido_messaging/outbound_gateway/supervisor.ex         2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.OutboundRouter            lib/jido_messaging/outbound_router.ex                     4          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Persistence               lib/jido_messaging/persistence.ex                         0          0        0         Yes         N/A        
+100%     0%        Jido.Messaging.Persistence.Conformance   lib/jido_messaging/persistence/conformance.ex             2          0        2         Yes         N/A        
+100%     99%       Jido.Messaging.Persistence.ETS           lib/jido_messaging/persistence/ets.ex                     94         0        1         Yes         Yes        
+100%     100%      Jido.Messaging.Persistence.Postgres      lib/jido_messaging/persistence/postgres.ex                52         0        0         Yes         Yes        
+100%     100%      Jido.Messaging.Persistence.Postgres.Mig  lib/jido_messaging/persistence/postgres/migrations.ex     2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Persistence.SQLite        lib/jido_messaging/persistence/sqlite.ex                  95         0        0         Yes         Yes        
+50%      0%        Jido.Messaging.Presence                  lib/jido_messaging/presence.ex                            24         12       24        Yes         N/A        
+100%     67%       Jido.Messaging.Principal                 lib/jido_messaging/principal.ex                           3          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.Query                     lib/jido_messaging/query.ex                               1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.ReadReceipt               lib/jido_messaging/read_receipt.ex                        3          0        0         Yes         N/A        
+100%     0%        Jido.Messaging.RoomBinding               lib/jido_messaging/room_binding.ex                        2          0        2         Yes         Yes        
+100%     67%       Jido.Messaging.RoomMembership            lib/jido_messaging/room_membership.ex                     3          0        1         Yes         Yes        
+100%     16%       Jido.Messaging.RoomServer                lib/jido_messaging/room_server.ex                         32         0        27        Yes         Yes        
+86%      14%       Jido.Messaging.RoomSupervisor            lib/jido_messaging/room_supervisor.ex                     7          1        6         Yes         N/A        
+100%     67%       Jido.Messaging.RoutingPolicy             lib/jido_messaging/routing_policy.ex                      3          0        1         Yes         Yes        
+93%      60%       Jido.Messaging.Runtime                   lib/jido_messaging/runtime.ex                             15         1        6         Yes         Yes        
+N/A      N/A       Jido.Messaging.SearchProjection          lib/jido_messaging/search_projection.ex                   0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.SecretResolver            lib/jido_messaging/secret_resolver.ex                     4          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Security                  lib/jido_messaging/security.ex                            3          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Security.DefaultAdapter   lib/jido_messaging/security/default_adapter.ex            2          0        0         Yes         N/A        
+90%      70%       Jido.Messaging.Sender                    lib/jido_messaging/sender.ex                              10         1        3         Yes         Yes        
+100%     100%      Jido.Messaging.SessionKey                lib/jido_messaging/session_key.ex                         4          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.SessionManager            lib/jido_messaging/session_manager.ex                     8          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.SessionManager.Partition  lib/jido_messaging/session_manager/partition.ex           9          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.SessionManager.Superviso  lib/jido_messaging/session_manager/supervisor.ex          2          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Signal                    lib/jido_messaging/signal.ex                              7          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.AddReaction        lib/jido_messaging/signal/add_reaction.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.AddRoomReaction    lib/jido_messaging/signal/add_room_reaction.ex            0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.AgentCompleted     lib/jido_messaging/signal/agent_completed.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.AgentFailed        lib/jido_messaging/signal/agent_failed.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.AgentStarted       lib/jido_messaging/signal/agent_started.ex                0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.AgentTriggered     lib/jido_messaging/signal/agent_triggered.ex              0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Signal.Context            lib/jido_messaging/signal/context.ex                      1          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.CreateRoom         lib/jido_messaging/signal/create_room.ex                  0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.DeleteMessage      lib/jido_messaging/signal/delete_message.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.EditMessage        lib/jido_messaging/signal/edit_message.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.FetchChannelMessa  lib/jido_messaging/signal/fetch_channel_messages.ex       0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.FetchMedia         lib/jido_messaging/signal/fetch_media.ex                  0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.FetchMessage       lib/jido_messaging/signal/fetch_message.ex                0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.FetchMessages      lib/jido_messaging/signal/fetch_messages.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.FetchMetadata      lib/jido_messaging/signal/fetch_metadata.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.FetchSubject       lib/jido_messaging/signal/fetch_subject.ex                0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.FetchThread        lib/jido_messaging/signal/fetch_thread.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.GetThreadParticip  lib/jido_messaging/signal/get_thread_participants.ex      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.GetUser            lib/jido_messaging/signal/get_user.ex                     0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Signal.Identity           lib/jido_messaging/signal/identity.ex                     2          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.InstanceConnected  lib/jido_messaging/signal/instance_connected.ex           0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.InstanceConnectin  lib/jido_messaging/signal/instance_connecting.ex          0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.InstanceDisconnec  lib/jido_messaging/signal/instance_disconnected.ex        0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.InstanceError      lib/jido_messaging/signal/instance_error.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.InstanceStarted    lib/jido_messaging/signal/instance_started.ex             0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.InstanceStopped    lib/jido_messaging/signal/instance_stopped.ex             0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ListThreads        lib/jido_messaging/signal/list_threads.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.LoadOptions        lib/jido_messaging/signal/load_options.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MarkAsRead         lib/jido_messaging/signal/mark_as_read.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MarkDelivered      lib/jido_messaging/signal/mark_delivered.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MarkRead           lib/jido_messaging/signal/mark_read.ex                    0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MembershipObserve  lib/jido_messaging/signal/membership_observed.ex          0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MessageDelivered   lib/jido_messaging/signal/message_delivered.ex            0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MessageFailed      lib/jido_messaging/signal/message_failed.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MessageRead        lib/jido_messaging/signal/message_read.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MessageReceived    lib/jido_messaging/signal/message_received.ex             0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.MessageSent        lib/jido_messaging/signal/message_sent.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.OpenDm             lib/jido_messaging/signal/open_dm.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.OpenModal          lib/jido_messaging/signal/open_modal.ex                   0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.OpenThread         lib/jido_messaging/signal/open_thread.ex                  0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.OperationComplete  lib/jido_messaging/signal/operation_completed.ex          0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.OperationFailed    lib/jido_messaging/signal/operation_failed.ex             0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ParticipantJoined  lib/jido_messaging/signal/participant_joined.ex           0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ParticipantJoined  lib/jido_messaging/signal/participant_joined_request.ex   0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ParticipantLeft    lib/jido_messaging/signal/participant_left.ex             0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ParticipantLeftRe  lib/jido_messaging/signal/participant_left_request.ex     0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.PostChannelMessag  lib/jido_messaging/signal/post_channel_message.ex         0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.PostEphemeral      lib/jido_messaging/signal/post_ephemeral.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.PostMessage        lib/jido_messaging/signal/post_message.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.PostProviderMessa  lib/jido_messaging/signal/post_provider_message.ex        0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.PresenceChanged    lib/jido_messaging/signal/presence_changed.ex             0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ReactionAdded      lib/jido_messaging/signal/reaction_added.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ReactionRemoved    lib/jido_messaging/signal/reaction_removed.ex             0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.RemoveReaction     lib/jido_messaging/signal/remove_reaction.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.RemoveRoomReactio  lib/jido_messaging/signal/remove_room_reaction.ex         0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.RoomCreated        lib/jido_messaging/signal/room_created.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.RoomMessageAdded   lib/jido_messaging/signal/room_message_added.ex           0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.SendFile           lib/jido_messaging/signal/send_file.ex                    0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.SendMessage        lib/jido_messaging/signal/send_message.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.SetPresence        lib/jido_messaging/signal/set_presence.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.SetTyping          lib/jido_messaging/signal/set_typing.ex                   0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.StartTyping        lib/jido_messaging/signal/start_typing.ex                 0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.Stream             lib/jido_messaging/signal/stream.ex                       0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ThreadChanged      lib/jido_messaging/signal/thread_changed.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ThreadCreated      lib/jido_messaging/signal/thread_created.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.ThreadReplyAdded   lib/jido_messaging/signal/thread_reply_added.ex           0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.Signal.TypingChanged      lib/jido_messaging/signal/typing_changed.ex               0          0        0         Yes         N/A        
+100%     40%       Jido.Messaging.Streaming                 lib/jido_messaging/streaming.ex                           10         0        6         Yes         Yes        
+67%      67%       Jido.Messaging.Supervisor                lib/jido_messaging/supervisor.ex                          3          1        1         Yes         N/A        
+100%     0%        Jido.Messaging.Thread                    lib/jido_messaging/thread.ex                              2          0        2         Yes         Yes        
+100%     91%       Jido.Messaging.ThreadContinuityLink      lib/jido_messaging/thread_continuity_link.ex              11         0        1         Yes         Yes        
+100%     100%      Jido.Messaging.TopologyValidator         lib/jido_messaging/topology_validator.ex                  1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Transcript                lib/jido_messaging/transcript.ex                          1          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.TranscriptEntry           lib/jido_messaging/transcript_entry.ex                    1          0        0         Yes         Yes        
+100%     83%       Jido.Messaging.TrustEvidence             lib/jido_messaging/trust_evidence.ex                      6          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.TrustEvidenceData         lib/jido_messaging/trust_evidence_data.ex                 13         0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.TrustEvidenceProvider     lib/jido_messaging/trust_evidence_provider.ex             0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.TrustEvidenceQuery        lib/jido_messaging/trust_evidence_query.ex                3          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.TrustEvidenceResult       lib/jido_messaging/trust_evidence_result.ex               3          0        0         Yes         Yes        
+100%     100%      Jido.Messaging.TrustEvidenceScope        lib/jido_messaging/trust_evidence_scope.ex                3          0        0         Yes         Yes        
+100%     100%      Jido.Messaging.TrustEvidenceService      lib/jido_messaging/trust_evidence_service.ex              2          0        0         Yes         N/A        
+100%     67%       Jido.Messaging.TrustEvidenceSource       lib/jido_messaging/trust_evidence_source.ex               3          0        1         Yes         Yes        
+100%     100%      Jido.Messaging.WebhookPlug               lib/jido_messaging/webhook_plug.ex                        2          0        0         Yes         N/A        
+100%     100%      Mix.Tasks.Jido.Messaging.Demo            lib/mix/tasks/jido_messaging.demo.ex                      1          0        0         Yes         N/A        
+100%     100%      Mix.Tasks.JidoMessaging.Postgres.Migrat  lib/mix/tasks/jido_messaging.postgres.migrate.ex          1          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.CoreProfileMessaging      test/support/core_profile_messaging.ex                    0          0        0         Yes         N/A        
+100%     100%      Jido.Messaging.Test.PersistenceConforma  test/support/persistence_conformance_factory.ex           6          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.ReadReceiptDoctestExampl  test/support/read_receipt_doctest_example.ex              0          0        0         Yes         N/A        
+100%     0%        Jido.Messaging.TestHelpers               test/support/test_helpers.ex                              2          0        2         Yes         N/A        
+N/A      N/A       Jido.Messaging.TestMessaging             test/support/test_messaging.ex                            0          0        0         Yes         N/A        
+N/A      N/A       Jido.Messaging.TestMessagingWithPubSub   test/support/test_messaging_with_pubsub.ex                0          0        0         Yes         N/A        
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Summary:
+
+Passed Modules: 260
+Failed Modules: 0
+Total Doc Coverage: 97.6%
+Total Moduledoc Coverage: 100.0%
+Total Spec Coverage: 65.3%
+
+Doctor validation has passed!

@@ -1,0 +1,42 @@
+{
+  "state": "recovered with isolated native PostgreSQL fixture",
+  "updated_at": "2026-10-13T11:45:17.531971+00:00",
+  "messaging_head": "528e06dd16ed8ca52346de29876b23419023f517",
+  "inclusive_run": {
+    "state": "fail",
+    "passed": 1041,
+    "total": 1079,
+    "failures": 38,
+    "all_failed_cases": "PostgreSQL tests",
+    "check": "g3-current-canonical-storage-and-facade-inclusive-coverage.json"
+  },
+  "external_observations": {
+    "docker_context": "orbstack",
+    "orbstack_status": "Running",
+    "docker_inspect": "observation_timeout",
+    "docker_info": "observation_timeout",
+    "database_query": "confirmed live but no response",
+    "coverage_process": "terminal exit 2; record retained"
+  },
+  "last_complete_inclusive_coverage": {
+    "percent": 80.5,
+    "check": "g3-current-control-plane-and-cli-inclusive-coverage.json",
+    "source": "prior source only"
+  },
+  "current_inclusive_coverage_proven": true,
+  "coverage_floor": 90,
+  "final_requirements_unchanged": true,
+  "recovery_fixture": "native-postgres-fixture.json",
+  "docker_fixture": "still unavailable; no shared service restart",
+  "current_inclusive_check": "g3-current-ets-recovery-inclusive-coverage.json",
+  "current_inclusive_checks": 1953,
+  "current_inclusive_coverage_percent": 87.2,
+  "runtime_profile_recheck": {
+    "core": "1953 pass current source",
+    "ai_first_full_attempt": "1083/1086; one pressure timing race and two SQLite task deadline failures",
+    "ai_focused_recheck": "34 affected-file tests pass",
+    "ai_complete_recheck": "1084/1086; identity credential conflict and SQLite concurrent room task timeout. max-cases 4; internal 40-call concurrency and all assertions unchanged.",
+    "ai_current": "1953 pass current source"
+  },
+  "recovery_messaging_head": "d1bcc8234a4509bca079f690e8b5a6747af143f2"
+}

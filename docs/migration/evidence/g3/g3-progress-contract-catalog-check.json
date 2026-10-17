@@ -1,0 +1,20 @@
+{
+  "label": "g3-progress-contract-catalog-check",
+  "command": [
+    "mix",
+    "run",
+    "integration/scripts/verify_g2_catalog.exs",
+    "G3"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "a60c5f312c7b8443c6ed5a1f33489fbaf07549f4",
+  "source_tree_sha256": "44155d6a79ea14c0abdb5929da8bd1b1300679ccd31ff153d32b9c9c1fed2dba",
+  "started_at": "2026-10-12T23:18:46.088073+00:00",
+  "finished_at": "2026-10-12T23:18:48.911762+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-progress-contract-catalog-check.log",
+  "log_sha256": "2776bfc6e4c39a3871a7e370a64182cb01bdd99d5c37aefd732bc00655add239"
+}

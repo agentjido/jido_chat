@@ -1,0 +1,21 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :story, {:postgres, true}]
+Including tags: [:integration]
+
+........
+
+  1) test tracks last error (Jido.Messaging.BridgeStatusTest)
+     test/jido_messaging/bridge_status_test.exs:77
+     ** (MatchError) no match of right hand side value:
+
+         {:error, {:reconcile_bridge_failed, "bridge_status", :not_found}}
+
+     code: :ok = Jido.Messaging.BridgeSupervisor.reconcile(TestMessaging)
+     stacktrace:
+       test/jido_messaging/bridge_status_test.exs:88: (test)
+
+......
+Finished in 1.1 seconds (0.5s async, 0.6s sync)
+
+Result: 14/15 passed
+Failed: 1 test

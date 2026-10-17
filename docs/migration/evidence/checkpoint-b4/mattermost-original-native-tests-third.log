@@ -1,0 +1,32 @@
+Compiling 1 file (.ex)
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp native_map/3" was previously defined (lib/jido/chat/mattermost/adapter.ex:774)
+     │
+ 803 │   defp native_map(context, kind, _), do: native_failure(context,"unsupported_item",kind,nil)
+     │        ~
+     │
+     └─ lib/jido/chat/mattermost/adapter.ex:803:8
+
+Running ExUnit with seed: 839926, max_cases: 20
+Excluding tags: [:integration]
+
+.............................
+18:56:19.953 [warning] [Mattermost WS] Invalid JSON frame
+.
+18:56:19.956 [warning] [Mattermost WS] Disconnected bridge_id=mattermost_1 code=1001 reason="going away", reconnecting
+....
+18:56:19.959 [info] [Mattermost WS] Connected bridge_id=mattermost_1, sending auth
+..........
+18:56:19.961 [info] [Mattermost WS] Connected bridge_id=mattermost_1, sending auth
+.    warning: unused alias Adapter
+    │
+  4 │   alias Jido.Chat.{Adapter, ChannelInfo, FileUpload, Media, PostPayload, Thread}
+    │   ~
+    │
+    └─ test/jido/chat/mattermost/adapter_test.exs:4:3
+
+..................................
+Finished in 0.2 seconds (0.2s async, 0.00s sync)
+
+Result: 79 passed, 4 excluded
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

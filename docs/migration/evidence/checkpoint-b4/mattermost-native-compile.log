@@ -1,0 +1,608 @@
+
+18:52:32.741 [info] Compiling file system watcher for Mac...
+
+18:52:33.300 [info] Done.
+==> file_system
+Compiling 7 files (.ex)
+Generated file_system app
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> bunt
+Compiling 2 files (.ex)
+Generated bunt app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+==> recase
+Compiling 15 files (.ex)
+Generated recase app
+==> git_hooks
+Compiling 16 files (.ex)
+    warning: default arguments in protocol definitions is deprecated
+    │
+ 18 │   def run(task, opts \\ [])
+    │   ~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/task.ex:18: GitHooks.Task (module)
+
+    warning: protocols can only define functions without implementation via def/1, found: run/1
+    │
+  1 │ defprotocol GitHooks.Task do
+    │ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    │
+    └─ lib/task.ex:1: GitHooks.Task (module)
+
+    warning: GitHooks.Tasks.MFA.new/3 is deprecated. Use mfa without arity, all functions are expected to have arity 1 and receive a list with the git hook args
+    │
+ 61 │     MFA.new(mfa, git_hook_type, git_hook_args)
+    │         ~
+    │
+    └─ lib/git_hooks.ex:61:9: GitHooks.new_task/3
+    └─ lib/git_hooks.ex:65:9: GitHooks.new_task/3
+
+Generated git_hooks app
+==> erlex
+Compiling 1 file (.xrl)
+Compiling 1 file (.yrl)
+Compiling 2 files (.erl)
+Compiling 2 files (.ex)
+Generated erlex app
+==> castore
+Compiling 1 file (.ex)
+Generated castore app
+==> mint
+Compiling 1 file (.erl)
+Compiling 21 files (.ex)
+Generated mint app
+==> mint_web_socket
+Compiling 7 files (.ex)
+Generated mint_web_socket app
+==> fresh
+Compiling 5 files (.ex)
+    warning: a struct for Fresh.Connection is expected on struct update:
+
+        %Fresh.Connection{data | connection: conn, request_ref: ref}
+
+    but got type:
+
+        dynamic(%{..., opts: empty_list() or non_empty_list(term(), term()), uri: %URI{} or binary()})
+
+    where "data" was given the types:
+
+        # type: dynamic(%{..., uri: %URI{} or binary()})
+        # from: lib/fresh/connection.ex:68:15
+        URI.parse(data.uri)
+
+        # type: dynamic(%{..., opts: empty_list() or non_empty_list(term(), term()), uri: %URI{} or binary()})
+        # from: lib/fresh/connection.ex:84:22
+        Fresh.Option.headers(data.opts)
+
+    when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+    type warning found at:
+    │
+ 95 │       {:next_state, :connected, %__MODULE__{data | connection: conn, request_ref: ref}}
+    │                                 ~
+    │
+    └─ lib/fresh/connection.ex:95:33: Fresh.Connection.disconnected/3
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | connection: conn}
+
+     but got type:
+
+         dynamic(%{..., connection: term()})
+
+     where "data" was given the type:
+
+         # type: dynamic(%{..., connection: term()})
+         # from: lib/fresh/connection.ex:125:25
+         Mint.WebSocket.stream(data.connection, message)
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 128 │         |> Enum.reduce(%__MODULE__{data | connection: conn}, &handle_response/2)
+     │                        ~
+     │
+     └─ lib/fresh/connection.ex:128:24: Fresh.Connection.connected/3
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | response_status: status}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:166:49
+         data
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 167 │     %__MODULE__{data | response_status: status}
+     │     ~
+     │
+     └─ lib/fresh/connection.ex:167:5: Fresh.Connection.handle_response/2
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | response_headers: headers}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:170:51
+         data
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 171 │     %__MODULE__{data | response_headers: headers}
+     │     ~
+     │
+     └─ lib/fresh/connection.ex:171:5: Fresh.Connection.handle_response/2
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | connection: conn, websocket: websocket}
+
+     but got type:
+
+         dynamic(%{
+           ...,
+           connection: %Mint.HTTP1{} or %Mint.HTTP2{} or %Mint.UnsafeProxy{},
+           opts: term(),
+           response_headers: term(),
+           response_status: term()
+         })
+
+     where "data" was given the types:
+
+         # type: dynamic(%{..., connection: %Mint.HTTP1{} or %Mint.HTTP2{} or %Mint.UnsafeProxy{}})
+         # from: lib/fresh/connection.ex:175:25
+         Mint.WebSocket.new(data.connection, ref, data.response_status, data.response_headers)
+
+         # type: dynamic(%{
+           ...,
+           connection: %Mint.HTTP1{} or %Mint.HTTP2{} or %Mint.UnsafeProxy{},
+           response_status: term()
+         })
+         # from: lib/fresh/connection.ex:175:25
+         Mint.WebSocket.new(data.connection, ref, data.response_status, data.response_headers)
+
+         # type: dynamic(%{
+           ...,
+           connection: %Mint.HTTP1{} or %Mint.HTTP2{} or %Mint.UnsafeProxy{},
+           response_headers: term(),
+           response_status: term()
+         })
+         # from: lib/fresh/connection.ex:175:25
+         Mint.WebSocket.new(data.connection, ref, data.response_status, data.response_headers)
+
+         # type: dynamic(%{
+           ...,
+           connection: %Mint.HTTP1{} or %Mint.HTTP2{} or %Mint.UnsafeProxy{},
+           opts: term(),
+           response_headers: term(),
+           response_status: term()
+         })
+         # from: lib/fresh/connection.ex:177:9
+         Fresh.Log.log(:info, :established, nil, data.opts)
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 179 │         data = %__MODULE__{data | connection: conn, websocket: websocket}
+     │                ~
+     │
+     └─ lib/fresh/connection.ex:179:16: Fresh.Connection.handle_response/2
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | websocket: websocket}
+
+     but got type:
+
+         dynamic(%{..., websocket: not nil})
+
+     where "data" was given the types:
+
+         # type: dynamic(%{..., websocket: term()})
+         # from: lib/fresh/connection.ex:197:23
+         data.websocket != nil
+
+         # type: dynamic(%{..., websocket: not nil})
+         # from: lib/fresh/connection.ex:197:23
+         data.websocket != nil
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 200 │           Enum.reduce(frames, %__MODULE__{data | websocket: websocket}, &handle_frame/2)
+     │                               ~
+     │
+     └─ lib/fresh/connection.ex:200:31: Fresh.Connection.handle_response/2
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | response_queue: [message | data.response_queue]}
+
+     but got type:
+
+         dynamic(%{..., websocket: nil})
+
+     where "data" was given the types:
+
+         # type: dynamic(%{..., websocket: term()})
+         # from: lib/fresh/connection.ex:197:23
+         data.websocket != nil
+
+         # type: dynamic(%{..., websocket: nil})
+         # from: lib/fresh/connection.ex:197:23
+         data.websocket != nil
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 206 │       %__MODULE__{data | response_queue: [message | data.response_queue]}
+     │       ~
+     │
+     └─ lib/fresh/connection.ex:206:7: Fresh.Connection.handle_response/2
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | websocket: websocket}
+
+     but got type:
+
+         dynamic(%{..., websocket: term()})
+
+     where "data" was given the type:
+
+         # type: dynamic(%{..., websocket: term()})
+         # from: lib/fresh/connection.ex:221:57
+         Mint.WebSocket.encode(data.websocket, frame)
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 222 │          data = %__MODULE__{data | websocket: websocket},
+     │                 ~
+     │
+     └─ lib/fresh/connection.ex:222:17: Fresh.Connection.send_frame/2
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | inner_state: inner_state}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:274:52
+         data
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 275 │     %__MODULE__{data | inner_state: inner_state}
+     │     ~
+     │
+     └─ lib/fresh/connection.ex:275:5: Fresh.Connection.handle_generic_callback/2
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | inner_state: inner_state, reconnect: nil}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:305:59
+         data
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 306 │     %__MODULE__{data | inner_state: inner_state, reconnect: nil}
+     │     ~
+     │
+     └─ lib/fresh/connection.ex:306:5: Fresh.Connection.handle_connection_callback/3
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | default_state: inner_state, reconnect: true}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:310:62
+         data
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 311 │     %__MODULE__{data | default_state: inner_state, reconnect: true}
+     │     ~
+     │
+     └─ lib/fresh/connection.ex:311:5: Fresh.Connection.handle_connection_callback/3
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | reconnect: true}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:315:47
+         data
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 316 │     %__MODULE__{data | reconnect: true}
+     │     ~
+     │
+     └─ lib/fresh/connection.ex:316:5: Fresh.Connection.handle_connection_callback/3
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | reconnect: false}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:320:43
+         data
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 321 │     %__MODULE__{data | reconnect: false}
+     │     ~
+     │
+     └─ lib/fresh/connection.ex:321:5: Fresh.Connection.handle_connection_callback/3
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | reconnect: {false, reason}}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:325:53
+         data
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 326 │     %__MODULE__{data | reconnect: {false, reason}}
+     │     ~
+     │
+     └─ lib/fresh/connection.ex:326:5: Fresh.Connection.handle_connection_callback/3
+
+     warning: a struct for Fresh.Connection is expected on struct update:
+
+         %Fresh.Connection{data | response_queue: tail}
+
+     but got type:
+
+         dynamic()
+
+     where "data" was given the type:
+
+         # type: dynamic()
+         # from: lib/fresh/connection.ex:359:10
+         data = handle_response({:data, :fake_ref, head}, data)
+
+     when defining the variable "data", you must also pattern match on "%Fresh.Connection{}"
+
+     type warning found at:
+     │
+ 360 │     handle_response_queue(%__MODULE__{data | response_queue: tail})
+     │                           ~
+     │
+     └─ lib/fresh/connection.ex:360:27: Fresh.Connection.handle_response_queue/1
+
+Generated fresh app
+==> decimal
+Compiling 4 files (.ex)
+Generated decimal app
+==> jason
+Compiling 10 files (.ex)
+Generated jason app
+==> excoveralls
+Compiling 29 files (.ex)
+    warning: unused require EEx
+    │
+  5 │   require EEx
+    │   ~
+    │
+    └─ lib/excoveralls/html/view.ex:5:3
+
+    warning: unused require ExCoveralls.Html.Safe
+    │
+  6 │   require ExCoveralls.Html.Safe
+    │   ~
+    │
+    └─ lib/excoveralls/html/view.ex:6:3
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--pretty=format:%s"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 50 │       _ -> "[no commit message]"
+    │         ~
+    │
+    └─ lib/excoveralls/semaphore.ex:50:9: ExCoveralls.Semaphore.get_message!/0
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--format=%an"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 56 │       _ -> "[no committer name]"
+    │         ~
+    │
+    └─ lib/excoveralls/gitlab.ex:56:9: ExCoveralls.Gitlab.get_committer/0
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--pretty=format:%s"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 51 │       _ -> "[no commit message]"
+    │         ~
+    │
+    └─ lib/excoveralls/circle.ex:51:9: ExCoveralls.Circle.get_message!/0
+
+Generated excoveralls app
+==> jido_chat_mattermost
+===> Analyzing applications...
+===> Compiling telemetry
+==> zoi
+Compiling 84 files (.ex)
+Generated zoi app
+==> doctor
+Compiling 17 files (.ex)
+    warning: this clause of defp valid_moduledoc?/2 is never used (or it will always fail/warn when invoked)
+    │
+ 96 │   defp valid_moduledoc?(%ModuleReport{is_protocol_implementation: true}, _config), do: true
+    │        ~
+    │
+    └─ lib/reporters/module_explain.ex:96:8: Doctor.Reporters.ModuleExplain.valid_moduledoc?/2
+
+     warning: this clause of defp valid_doc_coverage?/2 is never used (or it will always fail/warn when invoked)
+     │
+ 103 │   defp valid_doc_coverage?(%ModuleReport{is_protocol_implementation: true}, _config), do: true
+     │        ~
+     │
+     └─ lib/reporters/module_explain.ex:103:8: Doctor.Reporters.ModuleExplain.valid_doc_coverage?/2
+
+Generated doctor app
+==> dialyxir
+Compiling 67 files (.ex)
+Generated dialyxir app
+==> splode
+Compiling 5 files (.ex)
+Generated splode app
+==> jido_signal
+Compiling 33 files (.ex)
+Generated jido_signal app
+==> jido_chat
+Compiling 126 files (.ex)
+Generated jido_chat app
+==> credo
+Compiling 257 files (.ex)
+Generated credo app
+==> nimble_pool
+Compiling 2 files (.ex)
+Generated nimble_pool app
+==> finch
+Compiling 22 files (.ex)
+Generated finch app
+warning: "xref: [exclude: ...]" in your mix.exs file is deprecated, instead use: "elixirc_options: [no_warn_undefined: ...]"
+  (mix 1.20.4) lib/mix/tasks/compile.elixir.ex:243: Mix.Tasks.Compile.Elixir.xref_exclude_opts/2
+  (mix 1.20.4) lib/mix/tasks/compile.elixir.ex:142: Mix.Tasks.Compile.Elixir.run/1
+  (mix 1.20.4) lib/mix/task.ex:502: anonymous fn/3 in Mix.Task.run_task/5
+  (mix 1.20.4) lib/mix/task.compiler.ex:299: Mix.Task.Compiler.run_compiler/2
+  (mix 1.20.4) lib/mix/task.compiler.ex:287: Mix.Task.Compiler.run/4
+  (mix 1.20.4) lib/mix/tasks/compile.all.ex:75: Mix.Tasks.Compile.All.do_run/2
+
+==> req
+Compiling 19 files (.ex)
+Generated req app
+==> jido_chat_mattermost
+Compiling 14 files (.ex)
+     warning: function native_time/1 is unused
+     │
+ 721 │   defp native_time(%DateTime{} = value), do: DateTime.to_iso8601(value)
+     │        ~
+     │
+     └─ lib/jido/chat/mattermost/adapter.ex:721:8: Jido.Chat.Mattermost.Adapter (module)
+
+     warning: Jido.Chat.EventEnvelope.new/1 is undefined (module Jido.Chat.EventEnvelope is not available or is yet to be defined)
+     │
+ 266 │       EventEnvelope.new(%{
+     │                     ~
+     │
+     └─ lib/jido/chat/mattermost/websocket/client.ex:266:21: Jido.Chat.Mattermost.WebSocket.Client.emit_reaction_event/5
+
+Compilation failed due to warnings while using the --warnings-as-errors option

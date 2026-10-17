@@ -1,0 +1,826 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+    warning: unused alias Message
+    │
+  3 │   alias Jido.Chat.{Message, MessagePage, MessagingTarget, Thread, ThreadPage}
+    │   ~
+    │
+    └─ test/jido_messaging/chat_actions_test.exs:3:3
+
+    warning: unused alias Thread
+    │
+  3 │   alias Jido.Chat.{Message, MessagePage, MessagingTarget, Thread, ThreadPage}
+    │   ~
+    │
+    └─ test/jido_messaging/chat_actions_test.exs:3:3
+
+.
+
+  1) test capability-first action sets rejects unsupported work before a provider call (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:328
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "unsupported_operation"}}} =
+              Jido.Exec.run(
+                DeleteMessage,
+                %{target: target_map("read-main", :read_only, "room-1"), message_id: "m-1"},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "unsupported_operation"}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "unsupported_operation",
+                 "operation" => "tool.delete_message",
+                 "request_id" => "jch_0ERegq2SornSz1_yu4FDIg",
+                 "retryable" => false
+               },
+               id: "01a13227-4da3-7f1c-b194-183d0a0ac8ed",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-f0e069dcd8cb5c8343b275b7f2770b69-5b8d0d23fc85bf65-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:331: (test)
+
+
+
+  2) test reader operations and scope returns canonical normalized models from adapter reads (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:347
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.completed", data: %{"result" => %{"id" => "m-1"}}}} =
+              Jido.Exec.run(
+                FetchMessage,
+                %{target: target_map("full-main", :full, "room-1"), message_id: "m-1"},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.completed", data: %{"result" => %{"id" => "m-1"}}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "bridge_id" => "full-main",
+                 "operation" => "tool.fetch_message",
+                 "request_id" => "jch_OVonimBlv7xAuR0wtRa1cA",
+                 "result" => %{
+                   "id" => "m-1",
+                   "room_id" => "room-1",
+                   "text" => "hello"
+                 }
+               },
+               id: "01a13227-4dc0-7806-a8fb-e86932454549",
+               type: "jido.messaging.operation.completed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-2c337d21b5db0a2d78d047ce68696e01-b74cc4b22fa0d3bc-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_completed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:350: (test)
+
+
+
+  3) test reader operations and scope blocks cross-channel and spoofed adapter reads before provider access (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:377
+     match (=) failed
+     code:  assert {:ok, %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "out_of_scope"}}} =
+              Jido.Exec.run(
+                FetchMessage,
+                %{target: target_map("full-main", :full, "room-2"), message_id: "m-1"},
+                context
+              )
+     left:  {:ok, %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "out_of_scope"}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "out_of_scope",
+                 "operation" => "tool.fetch_message",
+                 "request_id" => "jch_jk9Lld8DvygsIoear0VJ-g",
+                 "retryable" => false
+               },
+               id: "01a13227-4dc6-73ac-83b2-d5853e88a601",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-5a57d7eb3912c4016869889d1a7cef84-78443417b31e18ee-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:380: (test)
+
+
+
+  4) test reader operations and scope strict thread rejects a sibling thread and its parent channel (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:405
+     match (=) failed
+     code:  assert {:ok, %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "out_of_scope"}}} =
+              Jido.Exec.run(
+                FetchThreadMessages,
+                %{target: target_map("full-main", :full, "room-1", "thread-2")},
+                context
+              )
+     left:  {:ok, %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "out_of_scope"}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "out_of_scope",
+                 "operation" => "tool.fetch_thread_messages",
+                 "request_id" => "jch_l3j8amZhRL068NcBmmBbAQ",
+                 "retryable" => false
+               },
+               id: "01a13227-4dca-730c-b2f6-69e0d49ccf55",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-620a4d87c7c99745a13e8c937c830262-200953115f5671ab-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:409: (test)
+
+
+
+  5) test reader operations and scope strict thread rejects channel-only work even when the target carries its thread (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:434
+     match (=) failed
+     code:  assert {:ok, %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "out_of_scope"}}} =
+              Jido.Exec.run(
+                Jido.Messaging.ChatActions.Messenger.PostChannelMessage,
+                %{target: target, text: "escape"},
+                context
+              )
+     left:  {:ok, %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "out_of_scope"}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "out_of_scope",
+                 "operation" => "tool.post_channel_message",
+                 "request_id" => "jch_bjoSLoFvVV0abOwR0Nmbzw",
+                 "retryable" => false
+               },
+               id: "01a13227-4dce-7a61-9e58-8b0d2a4ca3fd",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-0578a40a342ae5515d0b24f9775143ae-ddac5773e6fe0226-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:440: (test)
+
+
+
+  6) test reader operations and scope strict thread verifies message membership before reads and mutations (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:454
+     match (=) failed
+     code:  assert {:ok, %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "out_of_scope"}}} =
+              Jido.Exec.run(action, Map.put(params, :target, target), context)
+     left:  {:ok, %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "out_of_scope"}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "out_of_scope",
+                 "operation" => "tool.fetch_message",
+                 "request_id" => "jch_SmySn079u_v2ywT1ULZLqQ",
+                 "retryable" => false
+               },
+               id: "01a13227-4dd3-7208-b251-9f450c5599f8",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-71e703e4254af5785973c7debc3938e9-47b72f76a93b2dc1-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:473: anonymous fn/4 in Jido.Messaging.ChatActionsTest."test reader operations and scope strict thread verifies message membership before reads and mutations"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/chat_actions_test.exs:472: (test)
+
+
+
+  7) test reader operations and scope participant lookup cannot replace the trusted adapter selector (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:521
+     match (=) failed
+     The following variables were pinned:
+       participant_id = "participant-trusted-adapter"
+     code:  assert {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => ^participant_id}}
+             }} =
+              Jido.Exec.run(
+                Jido.Messaging.ChatActions.Reader.LookupParticipant,
+                %{
+                  target: target_map("full-main", :full, "room-1"),
+                  query: %{external_id: "trusted-user", channel: :read_only}
+                },
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => ^participant_id}}
+             }}
+     right: {:error,
+             %Jido.Action.Error.ExecutionFailureError{
+               message: "function Jido.Chat.Participant.fetch/2 is undefined (Jido.Chat.Participant does not implement the Access behaviour\n\nYou can use the \"struct.field\" syntax to access struct fields. You can also use Access.key!/1 to access struct fields dynamically inside get_in/put_in/update_in)",
+               details: %{
+                 action: Jido.Messaging.ChatActions.Reader.LookupParticipant,
+                 retry: false,
+                 exception: UndefinedFunctionError
+               },
+               splode: Jido.Action.Error,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :execution
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:534: (test)
+
+
+
+  8) test reader operations and scope provider errors do not expose provider credentials (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:549
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "provider_error"}} =
+               result} =
+              Jido.Exec.run(
+                FetchMessage,
+                %{target: target_map("full-main", :full, "room-1"), message_id: "credential-error"},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "provider_error"}} =
+               result}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "provider_error",
+                 "operation" => "tool.fetch_message",
+                 "request_id" => "jch_Uks73pJp8-5ZfxJS_V-Qzg",
+                 "retryable" => false
+               },
+               id: "01a13227-4de9-7cb7-98d2-a44af4ef1c73",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-7b57ee7562512aeb4ae906b56fc594a6-3c675d256ee3b4be-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:552: (test)
+
+
+
+  9) test reader operations and scope workspace reads require an explicit workspace scope (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:569
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.failed",
+               data: %{"code" => "workspace_scope_not_explicit"}
+             }} =
+              Jido.Exec.run(
+                FetchMessage,
+                %{target: target_map("full-main", :full, "room-1"), message_id: "m-1"},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.failed",
+               data: %{"code" => "workspace_scope_not_explicit"}
+             }}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "workspace_scope_not_explicit",
+                 "operation" => "tool.fetch_message",
+                 "request_id" => "jch_ZkkU9bod7XLKrrZNgkLCQw",
+                 "retryable" => false
+               },
+               id: "01a13227-4def-760e-8f0e-55e4129bfc47",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-71f91fabd1938f3b5babdc9550b832b3-f000a97d75c6de53-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:573: (test)
+
+
+
+ 10) test reader operations and scope inherits a thread scope from active normalized context (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:594
+     match (=) failed
+     code:  assert {:ok, %Jido.Signal{type: "jido.messaging.operation.completed", data: %{}}} =
+              Jido.Exec.run(
+                FetchThreadMessages,
+                %{target: target_map("full-main", :full, "room-1", "thread-1")},
+                context
+              )
+     left:  {:ok, %Jido.Signal{type: "jido.messaging.operation.completed", data: %{}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "authorization_denied",
+                 "operation" => "tool.fetch_thread_messages",
+                 "request_id" => "jch_g7iGByr93OmHd6zGkESekg",
+                 "retryable" => false
+               },
+               id: "01a13227-4df3-7a71-b44c-8ad5abe72de5",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-b41f333e000d7f1ece03d5bdb39ddfe2-a594fdb902f4c5bb-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:605: (test)
+
+
+
+ 11) test reader operations and scope executes the remaining reader seams with normalized results (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:613
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => "thread-1"}}
+             }} =
+              Jido.Exec.run(
+                Jido.Messaging.ChatActions.Reader.FetchThread,
+                %{target: thread_target},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => "thread-1"}}
+             }}
+     right: {:ok,
+             %{
+               data: %{
+                 "bridge_id" => "full-main",
+                 "operation" => "tool.fetch_thread",
+                 "request_id" => "jch_aMJ_aADq0nuhw9mpfy1PAw",
+                 "result" => %{
+                   "id" => "full:room-1:",
+                   "room_id" => "room-1"
+                 }
+               },
+               id: "01a13227-4df8-7a93-9bfb-48a86ee3e078",
+               type: "jido.messaging.operation.completed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-0ad0bdf5ad77adb1f452721e017a094d-e6f76b704182d902-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_completed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:626: (test)
+
+
+
+ 12) test write approval policy matches an adapter-scoped allow rule and uses the text post fallback (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:694
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => "read-send-1"}}
+             }} =
+              Jido.Exec.run(
+                PostMessage,
+                %{target: target_map("read-main", :read_only, "room-1"), text: "fallback"},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => "read-send-1"}}
+             }}
+     right: {:ok,
+             %{
+               data: %{
+                 "bridge_id" => "read-main",
+                 "operation" => "tool.post_message",
+                 "request_id" => "jch_v_x4QAZfX-ji4b6rdIw4ZQ",
+                 "result" => %{
+                   "id" => "read-send-1",
+                   "room_id" => "room-1"
+                 }
+               },
+               id: "01a13227-4e06-76ed-87d5-dd5d0d6f5de1",
+               type: "jido.messaging.operation.completed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-9f4bab087d7eef29e29a2109d6f13480-379a5e6997c0b475-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_completed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:700: (test)
+
+
+
+ 13) test write approval policy visible writes need approval by default and return audit context (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:714
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "approval_required"}}} =
+              Jido.Exec.run(
+                PostMessage,
+                %{target: target_map("full-main", :full, "room-1"), text: "hello"},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "approval_required"}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "approval_required",
+                 "operation" => "tool.post_message",
+                 "request_id" => "jch_aKrmISe0lpvHt4r8JcOlvw",
+                 "retryable" => false
+               },
+               id: "01a13227-4e0b-7ecd-bce3-1a3b0a65e189",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-6a7c3d4aec7010e452448cf1ae580a3b-82ff07a0efcf7faf-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:717: (test)
+
+
+
+ 14) test write approval policy allows only a narrow configured action and denies a matching action (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:731
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => "post-1"}}
+             }} =
+              Jido.Exec.run(
+                PostMessage,
+                %{target: target_map("full-main", :full, "room-1"), text: "hello"},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.completed",
+               data: %{"result" => %{"id" => "post-1"}}
+             }}
+     right: {:ok,
+             %{
+               data: %{
+                 "bridge_id" => "full-main",
+                 "operation" => "tool.post_message",
+                 "request_id" => "jch_-gi4UY9U_LO6gKTSXeV76g",
+                 "result" => %{
+                   "id" => "post-1",
+                   "room_id" => "room-1"
+                 }
+               },
+               id: "01a13227-4e10-7a77-98b1-bee4dce1555d",
+               type: "jido.messaging.operation.completed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-ad8b52cfb9c5d0957fb601c9daa1ae88-474eac1240b86f35-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_completed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:748: (test)
+
+
+
+ 15) test write approval policy does not accept an actor identifier supplied by action parameters (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:775
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "approval_required"}}} =
+              Jido.Exec.run(
+                PostMessage,
+                %{
+                  target: target_map("full-main", :full, "room-1"),
+                  text: "spoof",
+                  actor_id: "privileged-actor"
+                },
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "approval_required"}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "approval_required",
+                 "operation" => "tool.post_message",
+                 "request_id" => "jch_POdM9Zi5zt1W0DtkVtBMvQ",
+                 "retryable" => false
+               },
+               id: "01a13227-4e15-745d-84ea-6a331424a803",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-b394f280b7d3fd2260362ef0ea27119b-7d97ec3fa355e63e-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:779: (test)
+
+
+
+ 16) test write approval policy uses one trusted actor when a supplied scope has a different actor (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:797
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "approval_required"}}} =
+              Jido.Exec.run(
+                PostMessage,
+                %{target: target_map("full-main", :full, "room-1"), text: "blocked"},
+                context
+              )
+     left:  {:ok,
+             %Jido.Signal{type: "jido.messaging.operation.failed", data: %{"code" => "approval_required"}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "approval_required",
+                 "operation" => "tool.post_message",
+                 "request_id" => "jch_0awqPuK02V96i5WpKw9i7A",
+                 "retryable" => false
+               },
+               id: "01a13227-4e19-7aa7-98c1-bf249d869792",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-5a0874b41f0db6cd938aed146038a0c6-1b6510ae18c1efcd-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:811: (test)
+
+
+
+ 17) test write approval policy direct messages and subscription changes require explicit workspace and approval (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:825
+     match (=) failed
+     code:  assert {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.failed",
+               data: %{"code" => "workspace_scope_required"}
+             }} =
+              Jido.Exec.run(
+                SendDirectMessage,
+                %{target: target_map("full-main", :full, "room-1"), user_id: "user-1", text: "secret"},
+                channel_context
+              )
+     left:  {:ok,
+             %Jido.Signal{
+               type: "jido.messaging.operation.failed",
+               data: %{"code" => "workspace_scope_required"}
+             }}
+     right: {:ok,
+             %{
+               data: %{
+                 "code" => "workspace_scope_required",
+                 "operation" => "tool.send_direct_message",
+                 "request_id" => "jch_PG7FexNxlnB_4HQOKtmMNw",
+                 "retryable" => false
+               },
+               id: "01a13227-4e1e-7d27-ab9b-787aa57b781d",
+               type: "jido.messaging.operation.failed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-92aa84bf9456c2ea77dc422e7b670251-623c67c5fcf5bc18-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_failed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:839: (test)
+
+
+
+ 18) test write approval policy executes edit, delete, reaction, typing, channel-post, and subscription operations (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:889
+     match (=) failed
+     code:  assert {:ok, %Jido.Signal{type: "jido.messaging.operation.completed", data: %{}}} =
+              Jido.Exec.run(
+                Jido.Messaging.ChatActions.Messenger.PostChannelMessage,
+                %{target: room_target, text: "channel"},
+                channel_context
+              )
+     left:  {:ok, %Jido.Signal{type: "jido.messaging.operation.completed", data: %{}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "bridge_id" => "full-main",
+                 "operation" => "tool.post_channel_message",
+                 "request_id" => "jch_B8_gG4u2ed4XkJ5CXBhaJw",
+                 "result" => %{
+                   "id" => "channel-post-1",
+                   "room_id" => "room-1"
+                 }
+               },
+               id: "01a13227-4e24-707a-82b8-d81048386401",
+               type: "jido.messaging.operation.completed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-fe4370fd18179ed1af0750f1d047e4dc-5f50e2ad21ed2197-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_completed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:903: (test)
+
+
+
+ 19) test serializes scope and policy and preserves them through async action execution (Jido.Messaging.ChatActionsTest)
+     test/jido_messaging/chat_actions_test.exs:971
+     match (=) failed
+     code:  assert {:ok, %Jido.Signal{type: "jido.messaging.operation.completed", data: %{}}} =
+              Jido.Exec.Async.await(async_ref)
+     left:  {:ok, %Jido.Signal{type: "jido.messaging.operation.completed", data: %{}}}
+     right: {:ok,
+             %{
+               data: %{
+                 "bridge_id" => "full-main",
+                 "operation" => "tool.post_message",
+                 "request_id" => "jch_zGaAN94TKFaMLST6kn0Guw",
+                 "result" => %{
+                   "id" => "post-1",
+                   "room_id" => "room-1"
+                 }
+               },
+               id: "01a13227-4e2d-74b0-8ae4-729be54595df",
+               type: "jido.messaging.operation.completed",
+               time: nil,
+               extensions: %{
+                 "traceparent" => "00-4c3f27cd73663375c70e315831ebb8d4-556d788f79d41334-00"
+               },
+               source: "urn:jido:messaging:instance:RWxpeGlyLkppZG8uTWVzc2FnaW5nLkNoYXRBY3Rpb25zVGVzdC5UZXN0TWVzc2FnaW5n",
+               subject: nil,
+               datacontenttype: nil,
+               dataschema: "urn:jido:messaging:schema:operation_completed:1",
+               specversion: "1.0",
+               data_present?: true,
+               data_base64?: false
+             }}
+     stacktrace:
+       test/jido_messaging/chat_actions_test.exs:987: (test)
+
+     The following output was logged:
+     
+     17:06:39.142 [error] Task #PID<0.1565.0> started from Jido.Messaging.ChatActionsTest.TestMessaging.ConfigStore terminating
+     ** (stop) exited in: GenServer.call(Jido.Messaging.ChatActionsTest.TestMessaging.ConfigStore, {:list_bridge_configs, [enabled: true]}, 5000)
+         ** (EXIT) no process: the process is not alive or there's no process currently associated with the given name, possibly because its application isn't started
+         (elixir 1.20.4) lib/gen_server.ex:1176: GenServer.call/3
+         (jido_messaging 1.1.1) lib/jido_messaging/bridge_supervisor.ex:55: Jido.Messaging.BridgeSupervisor.do_reconcile/1
+         (kernel 11.0.4) global.erl:703: :global.trans/4
+         (jido_messaging 1.1.1) lib/jido_messaging/bridge_supervisor.ex:46: Jido.Messaging.BridgeSupervisor.reconcile/1
+         (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+     Function: #Function<1.22755667/0 in Jido.Messaging.ConfigStore.trigger_reconcile/1>
+         Args: []
+     
+
+Finished in 0.9 seconds (0.00s async, 0.9s sync)
+
+Result: 1/20 passed
+Failed: 19 tests
+
+17:06:39.156 [error] Task #PID<0.1197.0> started from Jido.Messaging.ChatActionsTest.TestMessaging.ConfigStore terminating
+** (stop) exited in: GenServer.call(Jido.Messaging.ChatActionsTest.TestMessaging.ConfigStore, {:list_bridge_configs, [enabled: true]}, 5000)
+    ** (EXIT) no process: the process is not alive or there's no process currently associated with the given name, possibly because its application isn't started
+    (elixir 1.20.4) lib/gen_server.ex:1176: GenServer.call/3
+    (jido_messaging 1.1.1) lib/jido_messaging/bridge_supervisor.ex:55: Jido.Messaging.BridgeSupervisor.do_reconcile/1
+    (kernel 11.0.4) global.erl:703: :global.trans/4
+    (jido_messaging 1.1.1) lib/jido_messaging/bridge_supervisor.ex:46: Jido.Messaging.BridgeSupervisor.reconcile/1
+    (elixir 1.20.4) lib/task/supervised.ex:105: Task.Supervised.invoke_mfa/2
+Function: #Function<1.22755667/0 in Jido.Messaging.ConfigStore.trigger_reconcile/1>
+    Args: []

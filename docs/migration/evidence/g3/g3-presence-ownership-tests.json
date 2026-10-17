@@ -1,0 +1,25 @@
+{
+  "label": "g3-presence-ownership-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/presence_test.exs",
+    "test/jido_messaging/provider_fact_observation_test.exs",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "924bb8f62624d01da308713b68da2fc13e4a4f3d",
+  "source_tree_sha256": "4dfe5369b3cf06b4169be2c7dde603de222750f8ab4dbffc53e802d9dfc3a8f3",
+  "started_at": "2026-10-13T00:14:08.211518+00:00",
+  "finished_at": "2026-10-13T00:14:22.486459+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-presence-ownership-tests.log",
+  "log_sha256": "275ff41757cf9e350b82958b2228cb4f4a83ebe413f362acbb36d2416e6c6ec1"
+}

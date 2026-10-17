@@ -1,0 +1,43 @@
+Building jido_chat_teams 0.1.0
+  Dependencies:
+    jido_chat ~> 2.0 (app: jido_chat)
+    req ~> 0.7 (app: req)
+    jason ~> 1.4 (app: jason)
+    jose ~> 1.11 (app: jose)
+  App: jido_chat_teams
+  Name: jido_chat_teams
+  Files:
+    lib
+    lib/jido
+    lib/jido/chat
+    lib/jido/chat/teams.ex
+    lib/jido/chat/teams
+    lib/jido/chat/teams/adapter.ex
+    lib/jido/chat/teams/transport
+    lib/jido/chat/teams/transport/req_client.ex
+    lib/jido/chat/teams/conversation_ref.ex
+    lib/jido/chat/teams/auth
+    lib/jido/chat/teams/auth/jwt_verifier.ex
+    lib/jido/chat/teams/auth/token_cache.ex
+    lib/jido/chat/teams/auth.ex
+    lib/jido/chat/teams/modal_renderer.ex
+    lib/jido/chat/teams/transport.ex
+    lib/jido/chat/teams/card_renderer.ex
+    appPackage
+    appPackage/manifest.json
+    mix.exs
+    README.md
+    LICENSE
+    usage-rules.md
+  Version: 0.1.0
+  Build tools: mix
+  Description: Microsoft Teams adapter package for Jido.Chat
+  Licenses: Apache-2.0
+  Links: 
+    Discord: https://jido.run/discord
+    Documentation: https://hexdocs.pm/jido_chat_teams
+    GitHub: https://github.com/agentjido/jido_chat_teams
+    Website: https://jido.run
+  Elixir: ~> 1.18
+Package checksum: d46fd5580504d434068c90ae66653653873a91aeac63ddf88559ab7303a0c05c
+Saved to jido_chat_teams-0.1.0.tar

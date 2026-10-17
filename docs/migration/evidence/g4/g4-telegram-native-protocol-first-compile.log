@@ -1,0 +1,188 @@
+
+19:54:04.120 [info] Compiling file system watcher for Mac...
+
+19:54:04.651 [info] Done.
+==> file_system
+Compiling 7 files (.ex)
+Generated file_system app
+==> mime
+Compiling 1 file (.ex)
+Generated mime app
+==> nimble_options
+Compiling 3 files (.ex)
+Generated nimble_options app
+==> bunt
+Compiling 2 files (.ex)
+Generated bunt app
+==> hpax
+Compiling 4 files (.ex)
+Generated hpax app
+==> mint
+Compiling 1 file (.erl)
+Compiling 21 files (.ex)
+Generated mint app
+==> recase
+Compiling 15 files (.ex)
+Generated recase app
+==> git_hooks
+Compiling 15 files (.ex)
+Generated git_hooks app
+==> erlex
+Compiling 1 file (.xrl)
+Compiling 1 file (.yrl)
+Compiling 2 files (.erl)
+Compiling 2 files (.ex)
+Generated erlex app
+==> decimal
+Compiling 4 files (.ex)
+Generated decimal app
+==> jason
+Compiling 10 files (.ex)
+Generated jason app
+==> excoveralls
+Compiling 29 files (.ex)
+    warning: unused require EEx
+    │
+  5 │   require EEx
+    │   ~
+    │
+    └─ lib/excoveralls/html/view.ex:5:3
+
+    warning: unused require ExCoveralls.Html.Safe
+    │
+  6 │   require ExCoveralls.Html.Safe
+    │   ~
+    │
+    └─ lib/excoveralls/html/view.ex:6:3
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--pretty=format:%s"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 50 │       _ -> "[no commit message]"
+    │         ~
+    │
+    └─ lib/excoveralls/semaphore.ex:50:9: ExCoveralls.Semaphore.get_message!/0
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--pretty=format:%s"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 51 │       _ -> "[no commit message]"
+    │         ~
+    │
+    └─ lib/excoveralls/circle.ex:51:9: ExCoveralls.Circle.get_message!/0
+
+    warning: the following clause cannot match because the previous clauses already matched all possible values:
+
+        _ ->
+
+    it attempts to match on the result of:
+
+        System.cmd("git", ["log", "-1", "--format=%an"])
+
+    which has the already matched type:
+
+        dynamic({term(), term()})
+
+    type warning found at:
+    │
+ 56 │       _ -> "[no committer name]"
+    │         ~
+    │
+    └─ lib/excoveralls/gitlab.ex:56:9: ExCoveralls.Gitlab.get_committer/0
+
+     warning: CAStore.file_path/0 is undefined (module CAStore is not available or is yet to be defined). Make sure the module name is correct and has been specified in full (or that an alias has been defined)
+     │
+ 111 │         [cacertfile: String.to_charlist(CAStore.file_path())]
+     │                                                 ~
+     │
+     └─ lib/excoveralls/poster.ex:111:49: ExCoveralls.Poster.cacert_option/0
+
+Generated excoveralls app
+==> jido_chat_telegram
+===> Analyzing applications...
+===> Compiling telemetry
+==> zoi
+Compiling 84 files (.ex)
+Generated zoi app
+==> doctor
+Compiling 17 files (.ex)
+    warning: this clause of defp valid_moduledoc?/2 is never used (or it will always fail/warn when invoked)
+    │
+ 96 │   defp valid_moduledoc?(%ModuleReport{is_protocol_implementation: true}, _config), do: true
+    │        ~
+    │
+    └─ lib/reporters/module_explain.ex:96:8: Doctor.Reporters.ModuleExplain.valid_moduledoc?/2
+
+     warning: this clause of defp valid_doc_coverage?/2 is never used (or it will always fail/warn when invoked)
+     │
+ 103 │   defp valid_doc_coverage?(%ModuleReport{is_protocol_implementation: true}, _config), do: true
+     │        ~
+     │
+     └─ lib/reporters/module_explain.ex:103:8: Doctor.Reporters.ModuleExplain.valid_doc_coverage?/2
+
+Generated doctor app
+==> dialyxir
+Compiling 70 files (.ex)
+Generated dialyxir app
+==> splode
+Compiling 5 files (.ex)
+Generated splode app
+==> jido_signal
+Compiling 33 files (.ex)
+Generated jido_signal app
+==> jido_chat
+Compiling 126 files (.ex)
+Generated jido_chat app
+==> credo
+Compiling 257 files (.ex)
+Generated credo app
+==> dotenvy
+Compiling 3 files (.ex)
+Generated dotenvy app
+==> nimble_pool
+Compiling 2 files (.ex)
+Generated nimble_pool app
+==> finch
+Compiling 23 files (.ex)
+Generated finch app
+==> req
+Compiling 24 files (.ex)
+Generated req app
+==> nimble_ownership
+Compiling 2 files (.ex)
+Generated nimble_ownership app
+==> ex_gram
+Compiling 83 files (.ex)
+Generated ex_gram app
+==> jido_chat_telegram
+Compiling 29 files (.ex)
+     warning: function normalize_metadata/1 is unused
+     │
+ 770 │   defp normalize_metadata(%_{} = struct) do
+     │        ~
+     │
+     └─ lib/jido/chat/telegram/adapter.ex:770:8: Jido.Chat.Telegram.Adapter (module)
+
+Compilation failed due to warnings while using the --warnings-as-errors option

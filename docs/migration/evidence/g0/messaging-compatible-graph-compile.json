@@ -1,0 +1,20 @@
+{
+  "label": "messaging-compatible-graph-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "99717e9fcfb407f2cd3b09741876f0aa84ddbbe127b4e77be0e3d1ecc048c032",
+  "started_at": "2026-10-12T16:17:42.286153+00:00",
+  "finished_at": "2026-10-12T16:18:04.356754+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g0/messaging-compatible-graph-compile.log",
+  "log_sha256": "b6753bb4695331f0ab9276ed364890ed648fdc8b752087d2047cbb21b559e167"
+}

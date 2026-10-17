@@ -1,0 +1,167 @@
+Checking 149 source files (this might take a while) ...
+
+Please report incorrect results: https://github.com/rrrene/credo/issues
+
+Analysis took 0.03 seconds (0.03s to load, 0.00s running 0 checks on 149 files)
+1380 mods/funs, found no issues.
+
+Showing priority issues: ↑ ↗ →  (use `mix credo explain` to explain issues, `mix credo --help` for options).
+Finding suitable PLTs
+Checking PLT...
+[:asn1, :compiler, :crypto, :decimal, :eex, :elixir, :ex_unit, :excoveralls, :inets, :jason, :jido_chat, :jido_signal, :kernel, :logger, :mix, :public_key, :splode, :ssl, :stdlib, :telemetry, :tools, :xmerl, :zoi]
+PLT is up to date!
+No :ignore_warnings opt specified in mix.exs and default does not exist.
+
+Starting Dialyzer
+[
+  check_plt: false,
+  init_plt: ~c"priv/plts/project.plt/dialyxir_erlang-29.1_elixir-1.20.4_deps-test.plt",
+  files: [~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.Operations.Result.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.Signal.ActionReceived.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.Markdown.StreamRenderer.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.ThreadSummary.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/_build/test/lib/jido_chat/ebin/Elixir.Jido.Chat.AdapterTestKit.Assertions.beam",
+   ...],
+  ...
+]
+Total errors: 0, Skipped: 0, Unnecessary Skips: 0
+done in 0m3.94s
+done (passed successfully)
+Doctor file found. Loading configuration.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Doc Cov  Spec Cov  Module                                   File                                                      Functions  No Docs  No Specs  Module Doc  Struct Spec
+90%      90%       Jido.Chat.Adapter                        lib/jido/chat/adapter.ex                                  10         1        1         Yes         N/A        
+100%     100%      Jido.Chat.AdapterTestKit                 lib/jido/chat/adapter_test_kit.ex                         1          0        0         Yes         N/A        
+100%     100%      Jido.Chat.AdapterTestKit.Assertions      lib/jido/chat/adapter_test_kit/assertions.ex              5          0        0         Yes         N/A        
+100%     100%      Jido.Chat.AdapterTestKit.Factories       lib/jido/chat/adapter_test_kit/factories.ex               8          0        0         Yes         N/A        
+100%     100%      Jido.Chat.AdapterTestKit.MockAdapter     lib/jido/chat/adapter_test_kit/mock_adapter.ex            19         0        0         Yes         N/A        
+100%     100%      Jido.Chat.AdapterTestKit.MockState       lib/jido/chat/adapter_test_kit/mock_state.ex              8          0        0         Yes         N/A        
+100%     100%      Jido.Chat.AdapterTestKit.MockTransport   lib/jido/chat/adapter_test_kit/mock_transport.ex          7          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Adapters.Mentions              lib/jido/chat/adapters/mentions.ex                        6          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Adapters.Threading             lib/jido/chat/adapters/threading.ex                       3          0        0         Yes         N/A        
+100%     100%      Jido.Chat.AI                             lib/jido/chat/ai.ex                                       2          0        0         Yes         N/A        
+100%     50%       Jido.Chat.Attachment                     lib/jido/chat/attachment.ex                               4          0        2         Yes         Yes        
+100%     0%        Jido.Chat.Author                         lib/jido/chat/author.ex                                   2          0        2         Yes         Yes        
+100%     100%      Jido.Chat.Binding                        lib/jido/chat/binding.ex                                  1          0        0         Yes         Yes        
+100%     100%      Jido.Chat.Capabilities                   lib/jido/chat/capabilities.ex                             7          0        0         Yes         N/A        
+100%     83%       Jido.Chat.CapabilityMatrix               lib/jido/chat/capability_matrix.ex                        6          0        1         Yes         Yes        
+92%      97%       Jido.Chat.Card                           lib/jido/chat/card.ex                                     36         3        1         Yes         Yes        
+100%     75%       Jido.Chat.Card.ChartData                 lib/jido/chat/card/chart_data.ex                          4          0        1         Yes         Yes        
+100%     60%       Jido.Chat.Card.ChartSeries               lib/jido/chat/card/chart_series.ex                        5          0        2         Yes         Yes        
+100%     67%       Jido.Chat.Card.Component                 lib/jido/chat/card/component.ex                           6          0        2         Yes         Yes        
+100%     0%        Jido.Chat.ChannelInfo                    lib/jido/chat/channel_info.ex                             2          0        2         Yes         Yes        
+100%     0%        Jido.Chat.ChannelMeta                    lib/jido/chat/channel_meta.ex                             2          0        2         Yes         Yes        
+100%     100%      Jido.Chat.ChannelRef                     lib/jido/chat/channel_ref.ex                              6          0        0         Yes         Yes        
+100%     0%        Jido.Chat.Content.Audio                  lib/jido/chat/content/audio.ex                            3          0        3         Yes         Yes        
+100%     0%        Jido.Chat.Content.File                   lib/jido/chat/content/file.ex                             3          0        3         Yes         Yes        
+100%     0%        Jido.Chat.Content.Image                  lib/jido/chat/content/image.ex                            3          0        3         Yes         Yes        
+100%     0%        Jido.Chat.Content.Text                   lib/jido/chat/content/text.ex                             2          0        2         Yes         Yes        
+100%     0%        Jido.Chat.Content.ToolResult             lib/jido/chat/content/tool_result.ex                      2          0        2         Yes         Yes        
+100%     0%        Jido.Chat.Content.ToolUse                lib/jido/chat/content/tool_use.ex                         2          0        2         Yes         Yes        
+100%     0%        Jido.Chat.Content.Video                  lib/jido/chat/content/video.ex                            3          0        3         Yes         Yes        
+100%     100%      Jido.Chat.Delivery                       lib/jido/chat/delivery.ex                                 3          0        0         Yes         Yes        
+67%      100%      Jido.Chat.Emoji                          lib/jido/chat/emoji.ex                                    3          1        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Errors                         lib/jido/chat/errors.ex                                   0          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Errors.Contract                lib/jido/chat/errors/contract.ex                          1          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Errors.Ingress                 lib/jido/chat/errors/ingress.ex                           1          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Errors.Unknown                 lib/jido/chat/errors/unknown.ex                           0          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Errors.Validation              lib/jido/chat/errors/validation.ex                        1          0        0         Yes         N/A        
+100%     33%       Jido.Chat.FetchOptions                   lib/jido/chat/fetch_options.ex                            3          0        2         Yes         Yes        
+100%     67%       Jido.Chat.FileUpload                     lib/jido/chat/file_upload.ex                              6          0        2         Yes         Yes        
+100%     100%      Jido.Chat.Handlers                       lib/jido/chat/handlers.ex                                 5          0        0         Yes         Yes        
+N/A      N/A       Jido.Chat.Handlers.Families              lib/jido/chat/handlers/families.ex                        0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Handlers.RouterBoundary        lib/jido/chat/handlers/router_boundary.ex                 0          0        0         Yes         N/A        
+100%     100%      Jido.Chat.ID                             lib/jido/chat/id.ex                                       1          0        0         Yes         N/A        
+100%     96%       Jido.Chat.Markdown                       lib/jido/chat/markdown.ex                                 25         0        1         Yes         Yes        
+100%     80%       Jido.Chat.Markdown.Node                  lib/jido/chat/markdown/node.ex                            5          0        1         Yes         Yes        
+100%     100%      Jido.Chat.Markdown.StreamRenderer        lib/jido/chat/markdown/stream_renderer.ex                 6          0        0         Yes         Yes        
+100%     50%       Jido.Chat.Media                          lib/jido/chat/media.ex                                    4          0        2         Yes         Yes        
+100%     100%      Jido.Chat.MediaType                      lib/jido/chat/media_type.ex                               5          0        0         Yes         N/A        
+100%     0%        Jido.Chat.Mention                        lib/jido/chat/mention.ex                                  2          0        2         Yes         Yes        
+100%     50%       Jido.Chat.Message                        lib/jido/chat/message.ex                                  4          0        2         Yes         Yes        
+100%     0%        Jido.Chat.MessagePage                    lib/jido/chat/message_page.ex                             2          0        2         Yes         Yes        
+100%     100%      Jido.Chat.MessageSubject                 lib/jido/chat/message_subject.ex                          4          0        0         Yes         Yes        
+100%     83%       Jido.Chat.MessagingTarget                lib/jido/chat/messaging_target.ex                         6          0        1         Yes         Yes        
+100%     93%       Jido.Chat.Modal                          lib/jido/chat/modal.ex                                    15         0        1         Yes         Yes        
+100%     67%       Jido.Chat.Modal.Element                  lib/jido/chat/modal/element.ex                            6          0        2         Yes         Yes        
+100%     100%      Jido.Chat.Operations.Capabilities        lib/jido/chat/operations/capabilities.ex                  1          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Operations.Definitions         lib/jido/chat/operations/definitions.ex                   2          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Operations.Executor            lib/jido/chat/operations/executor.ex                      1          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Operations.Failure             lib/jido/chat/operations/failure.ex                       5          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Operations.Invocation          lib/jido/chat/operations/invocation.ex                    1          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Operations.Result              lib/jido/chat/operations/result.ex                        1          0        0         Yes         N/A        
+100%     75%       Jido.Chat.OptionsLoadOption              lib/jido/chat/options_load_option.ex                      4          0        1         Yes         Yes        
+100%     75%       Jido.Chat.OptionsLoadOptionGroup         lib/jido/chat/options_load_option_group.ex                4          0        1         Yes         Yes        
+100%     0%        Jido.Chat.Participant                    lib/jido/chat/participant.ex                              2          0        2         Yes         Yes        
+100%     90%       Jido.Chat.PostPayload                    lib/jido/chat/post_payload.ex                             10         0        1         Yes         Yes        
+100%     22%       Jido.Chat.Postable                       lib/jido/chat/postable.ex                                 9          0        7         Yes         Yes        
+100%     75%       Jido.Chat.ReplyContext                   lib/jido/chat/reply_context.ex                            4          0        1         Yes         Yes        
+100%     100%      Jido.Chat.Resources                      lib/jido/chat/resources.ex                                5          0        0         Yes         N/A        
+100%     0%        Jido.Chat.Room                           lib/jido/chat/room.ex                                     2          0        2         Yes         Yes        
+N/A      N/A       Jido.Chat.Signal.ActionReceived          lib/jido/chat/signal/action_received.ex                   0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.AddReaction             lib/jido/chat/signal/add_reaction.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.AssistantContextChange  lib/jido/chat/signal/assistant_context_changed.ex         0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.AssistantThreadStarted  lib/jido/chat/signal/assistant_thread_started.ex          0          0        0         Yes         N/A        
+50%      50%       Jido.Chat.Signal.Definition              lib/jido/chat/signal/definition.ex                        4          2        2         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.DeleteMessage           lib/jido/chat/signal/delete_message.ex                    0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.EditMessage             lib/jido/chat/signal/edit_message.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.FetchChannelMessages    lib/jido/chat/signal/fetch_channel_messages.ex            0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.FetchMedia              lib/jido/chat/signal/fetch_media.ex                       0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.FetchMessage            lib/jido/chat/signal/fetch_message.ex                     0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.FetchMessages           lib/jido/chat/signal/fetch_messages.ex                    0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.FetchMetadata           lib/jido/chat/signal/fetch_metadata.ex                    0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.FetchSubject            lib/jido/chat/signal/fetch_subject.ex                     0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.FetchThread             lib/jido/chat/signal/fetch_thread.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.GetThreadParticipants   lib/jido/chat/signal/get_thread_participants.ex           0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.GetUser                 lib/jido/chat/signal/get_user.ex                          0          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Signal.Identity                lib/jido/chat/signal/identity.ex                          2          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.ListThreads             lib/jido/chat/signal/list_threads.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.LoadOptions             lib/jido/chat/signal/load_options.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.MarkAsRead              lib/jido/chat/signal/mark_as_read.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.MembershipChanged       lib/jido/chat/signal/membership_changed.ex                0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.MessageDeleted          lib/jido/chat/signal/message_deleted.ex                   0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.MessageReceived         lib/jido/chat/signal/message_received.ex                  0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.MessageUpdated          lib/jido/chat/signal/message_updated.ex                   0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.ModalClosed             lib/jido/chat/signal/modal_closed.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.ModalSubmitted          lib/jido/chat/signal/modal_submitted.ex                   0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.NormalizationFailed     lib/jido/chat/signal/normalization_failed.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.OpenDm                  lib/jido/chat/signal/open_dm.ex                           0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.OpenModal               lib/jido/chat/signal/open_modal.ex                        0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.OpenThread              lib/jido/chat/signal/open_thread.ex                       0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.OperationCompleted      lib/jido/chat/signal/operation_completed.ex               0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.OperationFailed         lib/jido/chat/signal/operation_failed.ex                  0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.OptionsRequested        lib/jido/chat/signal/options_requested.ex                 0          0        0         Yes         N/A        
+100%     100%      Jido.Chat.Signal.Policy                  lib/jido/chat/signal/policy.ex                            4          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.PostChannelMessage      lib/jido/chat/signal/post_channel_message.ex              0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.PostEphemeral           lib/jido/chat/signal/post_ephemeral.ex                    0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.PostMessage             lib/jido/chat/signal/post_message.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.ReactionAdded           lib/jido/chat/signal/reaction_added.ex                    0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.ReactionRemoved         lib/jido/chat/signal/reaction_removed.ex                  0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.ReceiptReceived         lib/jido/chat/signal/receipt_received.ex                  0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.RemoveReaction          lib/jido/chat/signal/remove_reaction.ex                   0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.SendFile                lib/jido/chat/signal/send_file.ex                         0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.SendMessage             lib/jido/chat/signal/send_message.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.SlashCommandReceived    lib/jido/chat/signal/slash_command_received.ex            0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.StartTyping             lib/jido/chat/signal/start_typing.ex                      0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.Stream                  lib/jido/chat/signal/stream.ex                            0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.ThreadChanged           lib/jido/chat/signal/thread_changed.ex                    0          0        0         Yes         N/A        
+N/A      N/A       Jido.Chat.Signal.ThreadStarted           lib/jido/chat/signal/thread_started.ex                    0          0        0         Yes         N/A        
+100%     78%       Jido.Chat.StreamChunk                    lib/jido/chat/stream_chunk.ex                             9          0        2         Yes         Yes        
+100%     100%      Jido.Chat.Thread                         lib/jido/chat/thread.ex                                   5          0        0         Yes         Yes        
+100%     0%        Jido.Chat.ThreadPage                     lib/jido/chat/thread_page.ex                              2          0        2         Yes         Yes        
+100%     0%        Jido.Chat.ThreadSummary                  lib/jido/chat/thread_summary.ex                           2          0        2         Yes         Yes        
+100%     100%      Jido.Chat.UserInfo                       lib/jido/chat/user_info.ex                                4          0        0         Yes         Yes        
+100%     80%       Jido.Chat.WebhookRequest                 lib/jido/chat/webhook_request.ex                          5          0        1         Yes         Yes        
+100%     83%       Jido.Chat.WebhookResponse                lib/jido/chat/webhook_response.ex                         6          0        1         Yes         Yes        
+100%     100%      Jido.Chat                                lib/jido_chat.ex                                          12         0        0         Yes         N/A        
+100%     100%      Jido.Chat.StreamMarkdownFixtures         test/support/stream_markdown_fixtures.ex                  2          0        0         Yes         N/A        
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Summary:
+
+Passed Modules: 125
+Failed Modules: 0
+Total Doc Coverage: 98.2%
+Total Moduledoc Coverage: 100.0%
+Total Spec Coverage: 79.9%
+
+Doctor validation has passed!

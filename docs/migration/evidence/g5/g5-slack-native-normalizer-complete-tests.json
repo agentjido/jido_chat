@@ -1,0 +1,19 @@
+{
+  "label": "g5-slack-native-normalizer-complete-tests",
+  "command": [
+    "mix",
+    "run",
+    "integration/scripts/run_slack_normalizer_tests.exs"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "b9f3a5f3fcae300bb680ae533cec4a5705f987bf",
+  "source_tree_sha256": "3adf471dd39c37a82fcce95cb3cc4192805105c752a62e2e0220652a65a0643a",
+  "started_at": "2026-10-13T01:31:43.244990+00:00",
+  "finished_at": "2026-10-13T01:31:44.138366+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g5/g5-slack-native-normalizer-complete-tests.log",
+  "log_sha256": "bad3a9fb46ee693adc244194e8172976df8ef059ec48b9f1c03fdc93a49a4d12"
+}

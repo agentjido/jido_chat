@@ -1,0 +1,19 @@
+{
+  "label": "g4-slack-partial-membership-schema-tests",
+  "command": [
+    "mix",
+    "run",
+    "integration/scripts/run_slack_membership_schema_tests.exs"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "76eab25861201330eae3d7fb8d6357c9a90d4ffe",
+  "source_tree_sha256": "87a5fcfeb85fa62bd015d51522c19b1e2aea647ea945680a97e67b5543b3f26b",
+  "started_at": "2026-10-13T01:21:50.422213+00:00",
+  "finished_at": "2026-10-13T01:21:51.064488+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g4/g4-slack-partial-membership-schema-tests.log",
+  "log_sha256": "62fb48b53e890455a6041638f5dabecb7558d18a0ac69c2df394846bf2a8eb3b"
+}

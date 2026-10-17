@@ -1,0 +1,26 @@
+{
+  "label": "g3-runtime-ai-chat-suite",
+  "command": [
+    "mix",
+    "test",
+    "../test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "ccf85aa84bf947239a76562745a708e6b54d6ed4",
+  "source_tree_sha256": "bc6398b141b8fd6826e2c2231c23e105abb64bfbad8347491bb6af2048e24546",
+  "started_at": "2026-10-13T00:25:35.616505+00:00",
+  "finished_at": "2026-10-13T00:25:42.473914+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "1",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-runtime-ai-chat-suite.log",
+  "log_sha256": "cebca96714c9237aa8c4c81a5733e290367798307de12870f0f930f9182e1bc7"
+}

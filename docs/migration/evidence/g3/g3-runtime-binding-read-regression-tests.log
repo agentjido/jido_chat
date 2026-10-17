@@ -1,0 +1,481 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+..
+
+  1) test secret adapter options error read returns failure without a configure callback (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:98
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, :bridge_read_unavailable}
+
+     code: assert {:error, ^expected} = SecretResolver.adapter_opts(Instance, "owned", Adapter, :configure, notify: self())
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/secret_resolver.ex:56: Jido.Messaging.SecretResolver.adapter_opts/5
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:101: (test)
+
+
+
+  2) test new binding raise read fails before configure and preserves the runtime (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:72
+     ** (exit) exited in: GenServer.call(Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime, {:ensure_binding, Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter, "owned", [notify: #PID<0.813.0>]}, 5000)
+         ** (EXIT) an exception was raised:
+             ** (RuntimeError) private bridge read
+                 test/jido_messaging/runtime_binding_read_outcome_test.exs:20: Jido.Messaging.RuntimeBindingReadOutcomeTest.Store.get_bridge_config/2
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:266: Jido.Messaging.Runtime.binding_options/4
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:236: Jido.Messaging.Runtime.create_binding/4
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: assert {:error, ^expected} = Runtime.ensure_binding(context.runtime, Adapter, "owned", notify: self())
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:75: (test)
+
+     The following output was logged:
+
+     03:00:42.078 [error] GenServer Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime terminating
+     ** (RuntimeError) private bridge read
+         test/jido_messaging/runtime_binding_read_outcome_test.exs:20: Jido.Messaging.RuntimeBindingReadOutcomeTest.Store.get_bridge_config/2
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:266: Jido.Messaging.Runtime.binding_options/4
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:236: Jido.Messaging.Runtime.create_binding/4
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.813.0>): {:ensure_binding, Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter, "owned", [notify: #PID<0.813.0>]}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, #Zoi.null<>]>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, transition: #Zoi.enum<required: true, coerce: false, values: ["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]>}>}}, "jido.chat.command.post_ephemeral" => %{"urn:jido:chat:schema:command_post_ephemeral:1" => {Jido.Chat.Signal.PostEphemeral, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{fallback_to_dm: #Zoi.boolean<required: false, coerce: false>, format: #Zoi.enum<required: false, coerce: false, values: ["plain", "markdown", "html"]>, reply_to_id: #Zoi.string<required: false, coerce: false, min_length: 1>, request_id: #Zoi.string (truncated)
+
+
+
+  3) test current binding raise read retains the binding and returns a failure (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:84
+     ** (exit) exited in: GenServer.call(Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime, {:binding, "owned"}, 5000)
+         ** (EXIT) an exception was raised:
+             ** (RuntimeError) private bridge read
+                 test/jido_messaging/runtime_binding_read_outcome_test.exs:20: Jido.Messaging.RuntimeBindingReadOutcomeTest.Store.get_bridge_config/2
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:208: Jido.Messaging.Runtime.current_binding/2
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:146: Jido.Messaging.Runtime.handle_call/3
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: assert {:error, ^expected} = Runtime.binding(context.runtime, "owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:89: (test)
+
+     The following output was logged:
+
+     03:00:42.098 [error] GenServer Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime terminating
+     ** (RuntimeError) private bridge read
+         test/jido_messaging/runtime_binding_read_outcome_test.exs:20: Jido.Messaging.RuntimeBindingReadOutcomeTest.Store.get_bridge_config/2
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:208: Jido.Messaging.Runtime.current_binding/2
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:146: Jido.Messaging.Runtime.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.899.0>): {:binding, "owned"}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, #Zoi.null<>]>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, transition: #Zoi.enum<required: true, coerce: false, values: ["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]>}>}}, "jido.chat.command.post_ephemeral" => %{"urn:jido:chat:schema:command_post_ephemeral:1" => {Jido.Chat.Signal.PostEphemeral, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{fallback_to_dm: #Zoi.boolean<required: false, coerce: false>, format: #Zoi.enum<required: false, coerce: false, values: ["plain", "markdown", "html"]>, reply_to_id: #Zoi.string<required: false, coerce: false, min_length: 1>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coer (truncated)
+
+
+
+  4) test secret adapter options raise read returns failure without a configure callback (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:98
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, :persistence_failed}
+
+     code: assert {:error, ^expected} = SecretResolver.adapter_opts(Instance, "owned", Adapter, :configure, notify: self())
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/secret_resolver.ex:56: Jido.Messaging.SecretResolver.adapter_opts/5
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:101: (test)
+
+
+
+  5) test new binding throw read fails before configure and preserves the runtime (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:72
+     ** (exit) exited in: GenServer.call(Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime, {:ensure_binding, Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter, "owned", [notify: #PID<0.1069.0>]}, 5000)
+         ** (EXIT) bad return value: :private_bridge_read
+     code: assert {:error, ^expected} = Runtime.ensure_binding(context.runtime, Adapter, "owned", notify: self())
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:75: (test)
+
+     The following output was logged:
+
+     03:00:42.113 [error] GenServer Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime terminating
+     ** (stop) bad return value: :private_bridge_read
+     Last message (from #PID<0.1069.0>): {:ensure_binding, Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter, "owned", [notify: #PID<0.1069.0>]}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, #Zoi.null<>]>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, transition: #Zoi.enum<required: true, coerce: false, values: ["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]>}>}}, "jido.chat.command.post_ephemeral" => %{"urn:jido:chat:schema:command_post_ephemeral:1" => {Jido.Chat.Signal.PostEphemeral, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{fallback_to_dm: #Zoi.boolean<required: false, coerce: false>, format: #Zoi.enum<required: false, coerce: false, values: ["plain", "markdown", "html"]>, reply_to_id: #Zoi.string<required: false, coerce: false, min_length: 1>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, text: #Zoi.string<required: true, coerce: false>, thread_id: #Zoi.string<required: false, coerce: false, min_length: 1>, user_id: #Zoi.string<required: true, coerce: false, min_length: 1>}>}}, "jido.messaging.instance.error" => %{"urn:jido:messaging:schema:instance_error:1" => {Jido.Messaging.Signal.InstanceError, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{bridge_id: #Zoi.string<require (truncated)
+
+
+
+  6) test current binding throw read retains the binding and returns a failure (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:84
+     ** (exit) exited in: GenServer.call(Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime, {:binding, "owned"}, 5000)
+         ** (EXIT) bad return value: :private_bridge_read
+     code: assert {:error, ^expected} = Runtime.binding(context.runtime, "owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:89: (test)
+
+     The following output was logged:
+
+     03:00:42.123 [error] GenServer Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime terminating
+     ** (stop) bad return value: :private_bridge_read
+     Last message (from #PID<0.1155.0>): {:binding, "owned"}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, #Zoi.null<>]>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, transition: #Zoi.enum<required: true, coerce: false, values: ["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]>}>}}, "jido.chat.command.post_ephemeral" => %{"urn:jido:chat:schema:command_post_ephemeral:1" => {Jido.Chat.Signal.PostEphemeral, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{fallback_to_dm: #Zoi.boolean<required: false, coerce: false>, format: #Zoi.enum<required: false, coerce: false, values: ["plain", "markdown", "html"]>, reply_to_id: #Zoi.string<required: false, coerce: false, min_length: 1>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, text: #Zoi.string<required: true, coerce: false>, thread_id: #Zoi.string<required: false, coerce: false, min_length: 1>, user_id: #Zoi.string<required: true, coerce: false, min_length: 1>}>}}, "jido.messaging.instance.error" => %{"urn:jido:messaging:schema:instance_error:1" => {Jido.Messaging.Signal.InstanceError, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{bridge_id: #Zoi.string<required: false, coerce: false, min_length: 1>, code: #Zoi.string<required: false, coerce: fal (truncated)
+
+
+
+  7) test secret adapter options throw read returns failure without a configure callback (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:98
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, :persistence_failed}
+
+     code: assert {:error, ^expected} = SecretResolver.adapter_opts(Instance, "owned", Adapter, :configure, notify: self())
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/secret_resolver.ex:56: Jido.Messaging.SecretResolver.adapter_opts/5
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:101: (test)
+
+
+
+  8) test new binding exit read fails before configure and preserves the runtime (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:72
+     ** (exit) exited in: GenServer.call(Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime, {:ensure_binding, Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter, "owned", [notify: #PID<0.1325.0>]}, 5000)
+         ** (EXIT) :private_bridge_read
+     code: assert {:error, ^expected} = Runtime.ensure_binding(context.runtime, Adapter, "owned", notify: self())
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:75: (test)
+
+     The following output was logged:
+
+     03:00:42.136 [error] GenServer Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime terminating
+     ** (stop) :private_bridge_read
+         test/jido_messaging/runtime_binding_read_outcome_test.exs:26: Jido.Messaging.RuntimeBindingReadOutcomeTest.Store.get_bridge_config/2
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:266: Jido.Messaging.Runtime.binding_options/4
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:236: Jido.Messaging.Runtime.create_binding/4
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1325.0>): {:ensure_binding, Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter, "owned", [notify: #PID<0.1325.0>]}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, #Zoi.null<>]>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, transition: #Zoi.enum<required: true, coerce: false, values: ["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]>}>}}, "jido.chat.command.post_ephemeral" => %{"urn:jido:chat:schema:command_post_ephemeral:1" => {Jido.Chat.Signal.PostEphemeral, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{fallback_to_dm: #Zoi.boolean<required: false, coerce: false>, format: #Zoi.enum<required: false, coerce: false, values: ["plain", "markdown", "html"]>, reply_to_id: #Zoi.string<required: false, coerce: false, min_length: 1>, request_id: #Zoi.string<requ (truncated)
+
+
+
+  9) test current binding exit read retains the binding and returns a failure (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:84
+     ** (exit) exited in: GenServer.call(Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime, {:binding, "owned"}, 5000)
+         ** (EXIT) :private_bridge_read
+     code: assert {:error, ^expected} = Runtime.binding(context.runtime, "owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:89: (test)
+
+     The following output was logged:
+
+     03:00:42.148 [error] GenServer Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime terminating
+     ** (stop) :private_bridge_read
+         test/jido_messaging/runtime_binding_read_outcome_test.exs:26: Jido.Messaging.RuntimeBindingReadOutcomeTest.Store.get_bridge_config/2
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:208: Jido.Messaging.Runtime.current_binding/2
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:146: Jido.Messaging.Runtime.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1411.0>): {:binding, "owned"}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, #Zoi.null<>]>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, transition: #Zoi.enum<required: true, coerce: false, values: ["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]>}>}}, "jido.chat.command.post_ephemeral" => %{"urn:jido:chat:schema:command_post_ephemeral:1" => {Jido.Chat.Signal.PostEphemeral, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{fallback_to_dm: #Zoi.boolean<required: false, coerce: false>, format: #Zoi.enum<required: false, coerce: false, values: ["plain", "markdown", "html"]>, reply_to_id: #Zoi.string<required: false, coerce: false, min_length: 1>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: fa (truncated)
+
+
+
+ 10) test secret adapter options exit read returns failure without a configure callback (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:98
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, :persistence_failed}
+
+     code: assert {:error, ^expected} = SecretResolver.adapter_opts(Instance, "owned", Adapter, :configure, notify: self())
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/secret_resolver.ex:56: Jido.Messaging.SecretResolver.adapter_opts/5
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:101: (test)
+
+
+
+ 11) test new binding invalid read fails before configure and preserves the runtime (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:72
+     ** (exit) exited in: GenServer.call(Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime, {:ensure_binding, Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter, "owned", [notify: #PID<0.1581.0>]}, 5000)
+         ** (EXIT) an exception was raised:
+             ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:266: Jido.Messaging.Runtime.binding_options/4
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:236: Jido.Messaging.Runtime.create_binding/4
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: assert {:error, ^expected} = Runtime.ensure_binding(context.runtime, Adapter, "owned", notify: self())
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:75: (test)
+
+     The following output was logged:
+
+     03:00:42.164 [error] GenServer Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime terminating
+     ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:266: Jido.Messaging.Runtime.binding_options/4
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:236: Jido.Messaging.Runtime.create_binding/4
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1581.0>): {:ensure_binding, Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter, "owned", [notify: #PID<0.1581.0>]}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, #Zoi.null<>]>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, transition: #Zoi.enum<required: true, coerce: false, values: ["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]>}>}}, "jido.chat.command.post_ephemeral" => %{"urn:jido:chat:schema:command_post_ephemeral:1" => {Jido.Chat.Signal.PostEphemeral, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{fallback_to_dm: #Zoi.boolean<required: false, coerce: false>, format: #Zoi.enum<required: false, coerce: false, values: ["plain", "markdown", "html"]>, reply_to_id: #Zoi.string<required: false, coerce: false, min_length: 1>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length:  (truncated)
+
+
+
+ 12) test current binding invalid read retains the binding and returns a failure (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:84
+     ** (exit) exited in: GenServer.call(Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime, {:binding, "owned"}, 5000)
+         ** (EXIT) an exception was raised:
+             ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:208: Jido.Messaging.Runtime.current_binding/2
+                 (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:146: Jido.Messaging.Runtime.handle_call/3
+                 (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+                 (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+                 (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     code: assert {:error, ^expected} = Runtime.binding(context.runtime, "owned")
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1183: GenServer.call/3
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:89: (test)
+
+     The following output was logged:
+
+     03:00:42.175 [error] GenServer Jido.Messaging.RuntimeBindingReadOutcomeTest.Instance.Runtime terminating
+     ** (CaseClauseError) no case clause matching:
+
+         :invalid
+
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:208: Jido.Messaging.Runtime.current_binding/2
+         (jido_messaging 1.1.1) lib/jido_messaging/runtime.ex:146: Jido.Messaging.Runtime.handle_call/3
+         (stdlib 8.1) gen_server.erl:2470: :gen_server.try_handle_call/4
+         (stdlib 8.1) gen_server.erl:2499: :gen_server.handle_msg/3
+         (stdlib 8.1) proc_lib.erl:333: :proc_lib.init_p_do_apply/3
+     Last message (from #PID<0.1667.0>): {:binding, "owned"}
+     State: %Jido.Messaging.Runtime{catalog: %Jido.Signal.Catalog{definitions: %{"jido.messaging.message.read" => %{"urn:jido:messaging:schema:message_read:1" => {Jido.Messaging.Signal.MessageRead, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, timestamp: #Zoi.string<required: false, coerce: false>}>}}, "jido.messaging.command.create_room" => %{"urn:jido:messaging:schema:command_create_room:1" => {Jido.Messaging.Signal.CreateRoom, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{kind: #Zoi.enum<required: true, coerce: false, values: ["direct", "group", "channel", "thread"]>, name: #Zoi.string<required: true, coerce: false>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: false, coerce: false, min_length: 1>}>}}, "jido.chat.message.received" => %{"urn:jido:chat:schema:message_received:1" => {Jido.Chat.Signal.MessageReceived, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{conversation_kind: #Zoi.enum<required: false, coerce: false, values: ["direct", "group", "channel", "thread", "unknown"]>, conversation_name: #Zoi.string<required: false, coerce: false>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, media: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{caption: #Zoi.string<required: false, coerce: false>, kind: #Zoi.enum<required: true, coerce: false, values: ["image", "audio", "video", "file"]>, media_type: #Zoi.string<required: false, coerce: false>, name: #Zoi.string<required: false, coerce: false>, resource_ref: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{binding_id: #Zoi.string<required: true, coerce: false, min_length: 1>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, kind: #Zoi.enum<required: true, coerce: false, values: ["file", "media", "stream", "card", "modal", "result"]>, scope: #Zoi.enum<required: true, coerce: false, values: ["call"]>}>}>>, mention_details: #Zoi.array<required: false, coerce: false, inner: #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: true, coerce: false, min_length: 1>, length: #Zoi.integer<required: false, coerce: false, gte: 0>, offset: #Zoi.integer<required: false, coerce: false, gte: 0>, username: #Zoi.string<required: false, coerce: false>}>>, mentioned: #Zoi.boolean<required: false, coerce: false>, mentions: #Zoi.array<required: false, coerce: false, inner: #Zoi.string<coerce: false, min_length: 1>>, message_id: #Zoi.string<required: true, coerce: false, min_length: 1>, reply_context: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{id: #Zoi.string<required: false, coerce: false, min_length: 1>, message_id: #Zoi.string<required: false, coerce: false, min_length: 1>, sender: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{display_name: #Zoi.string<required: false, coerce: false>, id: #Zoi.string<required: true, coerce: false, min_length: 1>, is_bot: #Zoi.boolean<required: false, coerce: false>, is_self: #Zoi.boolean<required: false, coerce: false>, username: #Zoi.string<required: false, coerce: false>}>, text: #Zoi.string<required: false, coerce: false>}>, ...}>}}, "jido.chat.membership.changed" => %{"urn:jido:chat:schema:membership_changed:1" => {Jido.Chat.Signal.MembershipChanged, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{actor_id: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false, min_length: 1>, #Zoi.null<>]>, bot_self: #Zoi.boolean<required: true, coerce: false>, current: #Zoi.map<required: true, coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, delivery_id: #Zoi.string<required: true, coerce: false, min_length: 1>, evidence: #Zoi.enum<required: true, coerce: false, values: ["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]>, item_id: #Zoi.string<required: true, coerce: false, min_length: 1>, participant_id: #Zoi.string<required: true, coerce: false, min_length: 1>, previous: #Zoi.union<required: true, schemas: [#Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{is_member: #Zoi.union<required: true, schemas: [#Zoi.boolean<coerce: false>, #Zoi.null<>]>, restrictions: #Zoi.map<required: false, coerce: false, unrecognized_keys: :error, fields: %{can_add_web_page_previews: #Zoi.boolean<required: false, coerce: false>, can_change_info: #Zoi.boolean<required: false, coerce: false>, can_edit_tag: #Zoi.boolean<required: false, coerce: false>, can_invite_users: #Zoi.boolean<required: false, coerce: false>, can_manage_topics: #Zoi.boolean<required: false, coerce: false>, can_pin_messages: #Zoi.boolean<required: false, coerce: false>, can_react_to_messages: #Zoi.boolean<required: false, coerce: false>, can_send_audios: #Zoi.boolean<required: false, coerce: false>, can_send_documents: #Zoi.boolean<required: false, coerce: false>, can_send_messages: #Zoi.boolean<required: false, coerce: false>, ...}>, role: #Zoi.union<required: false, schemas: [#Zoi.string<coerce: false>, #Zoi.null<>]>, status: #Zoi.enum<required: true, coerce: false, values: ["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]>}>, #Zoi.null<>]>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, transition: #Zoi.enum<required: true, coerce: false, values: ["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]>}>}}, "jido.chat.command.post_ephemeral" => %{"urn:jido:chat:schema:command_post_ephemeral:1" => {Jido.Chat.Signal.PostEphemeral, #Zoi.map<coerce: false, unrecognized_keys: :error, fields: %{fallback_to_dm: #Zoi.boolean<required: false, coerce: false>, format: #Zoi.enum<required: false, coerce: false, values: ["plain", "markdown", "html"]>, reply_to_id: #Zoi.string<required: false, coerce: false, min_length: 1>, request_id: #Zoi.string<required: true, coerce: false, min_length: 1>, room_id: #Zoi.string<required: true, coerce: false, min_length: 1>, text: #Zoi.string<required: true, coerce: false>, thread_id: #Zoi.string<required: fal (truncated)
+
+
+
+ 13) test secret adapter options invalid read returns failure without a configure callback (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:98
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, :persistence_failed}
+
+     code: assert {:error, ^expected} = SecretResolver.adapter_opts(Instance, "owned", Adapter, :configure, notify: self())
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/secret_resolver.ex:56: Jido.Messaging.SecretResolver.adapter_opts/5
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:101: (test)
+
+
+
+ 14) test new binding invalid_record read fails before configure and preserves the runtime (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:72
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = Runtime.ensure_binding(context.runtime, Adapter, "owned", notify: self())
+     left:  {:error, ^expected}
+     right: {:error,
+             {:bridge_adapter_mismatch, "owned", Adapter,
+              Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter}}
+     stacktrace:
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:75: (test)
+
+
+
+ 15) test current binding invalid_record read retains the binding and returns a failure (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:84
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = Runtime.binding(context.runtime, "owned")
+     left:  {:error, ^expected}
+     right: {:error, :binding_outdated}
+     stacktrace:
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:89: (test)
+
+
+
+ 16) test secret adapter options invalid_record read returns failure without a configure callback (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:98
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, :persistence_failed}
+
+     code: assert {:error, ^expected} = SecretResolver.adapter_opts(Instance, "owned", Adapter, :configure, notify: self())
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/secret_resolver.ex:56: Jido.Messaging.SecretResolver.adapter_opts/5
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:101: (test)
+
+
+
+ 17) test new binding foreign_record read fails before configure and preserves the runtime (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:72
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = Runtime.ensure_binding(context.runtime, Adapter, "owned", notify: self())
+     left:  {:error, ^expected}
+     right: {:ok,
+             %Jido.Chat.Binding{
+               id: "owned",
+               options: [
+                 settings: %{},
+                 credentials: %{},
+                 bridge_config: %Jido.Messaging.BridgeConfig{
+                   id: "foreign",
+                   updated_at: ~U[2026-10-13 08:00:42.202627Z],
+                   inserted_at: ~U[2026-10-13 08:00:42.202627Z],
+                   adapter_module: Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter,
+                   enabled: true,
+                   opts: %{},
+                   credentials: %{},
+                   revision: 1,
+                   capabilities: %{
+                     stream: :fallback,
+                     get_user: :unsupported,
+                     send_message: :unsupported,
+                     fetch_metadata: :fallback,
+                     delete_message: :unsupported,
+                     list_threads: :unsupported,
+                     post_message: :fallback,
+                     fetch_thread: :fallback,
+                     fetch_subject: :unsupported,
+                     post_channel_message: :fallback,
+                     post_ephemeral: :unsupported,
+                     start_typing: :unsupported,
+                     send_file: :unsupported,
+                     remove_reaction: :unsupported,
+                     open_thread: :unsupported,
+                     open_modal: :unsupported,
+                     open_dm: :unsupported,
+                     mark_as_read: :unsupported,
+                     load_options: :unsupported,
+                     get_thread_participants: :unsupported,
+                     fetch_messages: :unsupported,
+                     fetch_message: :unsupported,
+                     fetch_media: :unsupported,
+                     fetch_channel_messages: :unsupported,
+                     edit_message: :unsupported,
+                     add_reaction: :unsupported
+                   },
+                   delivery_policy: %Jido.Messaging.DeliveryPolicy{
+                     max_attempts: 3,
+                     dead_letter: true,
+                     base_backoff_ms: 25,
+                     max_backoff_ms: 500
+                   },
+                   secret_refs: %{}
+                 },
+                 notify: #PID<0.2091.0>
+               ],
+               source: "urn:jido:chat:binding:b3duZWQ",
+               resources: #Reference<0.1927189217.327024643.250914>,
+               adapter: Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter
+             }}
+     stacktrace:
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:75: (test)
+
+
+
+ 18) test current binding foreign_record read retains the binding and returns a failure (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:84
+     match (=) failed
+     The following variables were pinned:
+       expected = :persistence_failed
+     code:  assert {:error, ^expected} = Runtime.binding(context.runtime, "owned")
+     left:  {:error, ^expected}
+     right: {:ok,
+             %Jido.Chat.Binding{
+               id: "owned",
+               options: [
+                 settings: %{},
+                 credentials: %{},
+                 bridge_config: %Jido.Messaging.BridgeConfig{
+                   id: "owned",
+                   updated_at: ~U[2026-10-13 08:00:42.206273Z],
+                   inserted_at: ~U[2026-10-13 08:00:42.206273Z],
+                   adapter_module: Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter,
+                   enabled: true,
+                   opts: %{},
+                   credentials: %{},
+                   revision: 1,
+                   capabilities: %{
+                     stream: :fallback,
+                     get_user: :unsupported,
+                     send_message: :unsupported,
+                     fetch_metadata: :fallback,
+                     delete_message: :unsupported,
+                     list_threads: :unsupported,
+                     post_message: :fallback,
+                     fetch_thread: :fallback,
+                     fetch_subject: :unsupported,
+                     post_channel_message: :fallback,
+                     post_ephemeral: :unsupported,
+                     start_typing: :unsupported,
+                     send_file: :unsupported,
+                     remove_reaction: :unsupported,
+                     open_thread: :unsupported,
+                     open_modal: :unsupported,
+                     open_dm: :unsupported,
+                     mark_as_read: :unsupported,
+                     load_options: :unsupported,
+                     get_thread_participants: :unsupported,
+                     fetch_messages: :unsupported,
+                     fetch_message: :unsupported,
+                     fetch_media: :unsupported,
+                     fetch_channel_messages: :unsupported,
+                     edit_message: :unsupported,
+                     add_reaction: :unsupported
+                   },
+                   delivery_policy: %Jido.Messaging.DeliveryPolicy{
+                     max_attempts: 3,
+                     dead_letter: true,
+                     base_backoff_ms: 25,
+                     max_backoff_ms: 500
+                   },
+                   secret_refs: %{}
+                 },
+                 notify: #PID<0.2175.0>
+               ],
+               source: "urn:jido:chat:binding:b3duZWQ",
+               resources: #Reference<0.1927189217.327024642.230801>,
+               adapter: Jido.Messaging.RuntimeBindingReadOutcomeTest.Adapter
+             }}
+     stacktrace:
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:89: (test)
+
+
+
+ 19) test secret adapter options foreign_record read returns failure without a configure callback (Jido.Messaging.RuntimeBindingReadOutcomeTest)
+     test/jido_messaging/runtime_binding_read_outcome_test.exs:98
+     ** (CaseClauseError) no case clause matching:
+
+         {:error, :persistence_failed}
+
+     code: assert {:error, ^expected} = SecretResolver.adapter_opts(Instance, "owned", Adapter, :configure, notify: self())
+     stacktrace:
+       (jido_messaging 1.1.1) lib/jido_messaging/secret_resolver.ex:56: Jido.Messaging.SecretResolver.adapter_opts/5
+       test/jido_messaging/runtime_binding_read_outcome_test.exs:101: (test)
+
+
+Finished in 0.9 seconds (0.00s async, 0.9s sync)
+
+Result: 2/21 passed
+Failed: 19 tests

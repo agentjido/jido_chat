@@ -1,0 +1,38 @@
+==> jido_chat
+Compiling 3 files (.ex)
+Generated jido_chat app
+==> jido_messaging
+Compiling 8 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+     warning: Jido.Messaging.TypedExecutionTest.Instance.create_thread/1 is undefined or private. Did you mean:
+
+         * create_room/1
+
+     │
+ 231 │     {:ok, thread} = Instance.create_thread(%{room_id: other.id, external_thread_id: "private-thread"})
+     │                              ~
+     │
+     └─ test/jido_messaging/typed_execution_test.exs:231:30: Jido.Messaging.TypedExecutionTest."test a thread from another canonical room cannot select a provider target"/1
+
+
+16:04:47.157 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.711.0>, nil}
+..................
+
+  1) test a thread from another canonical room cannot select a provider target (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:229
+     ** (UndefinedFunctionError) function Jido.Messaging.TypedExecutionTest.Instance.create_thread/1 is undefined or private. Did you mean:
+
+         * create_room/1
+
+     code: {:ok, thread} = Instance.create_thread(%{room_id: other.id, external_thread_id: "private-thread"})
+     stacktrace:
+       Jido.Messaging.TypedExecutionTest.Instance.create_thread(%{room_id: "jch_y2Rh3Ze4D10AmS5uD2ZIHA", external_thread_id: "private-thread"})
+       test/jido_messaging/typed_execution_test.exs:231: (test)
+
+...........................................................................................
+Finished in 6.6 seconds (0.00s async, 6.6s sync)
+
+Result: 109/110 passed
+Failed: 1 test

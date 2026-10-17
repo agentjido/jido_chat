@@ -1,0 +1,23 @@
+{
+  "label": "g2-core-tests-after-retirement",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "8535a454d3b99ea05f7dd4e3d7368efd6dd1e8e15aec0907abd854c40ec680cd",
+  "started_at": "2026-10-12T18:40:46.720756+00:00",
+  "finished_at": "2026-10-12T18:40:51.264587+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g2/g2-core-tests-after-retirement.log",
+  "log_sha256": "c8f47bb84d29546e727a430c99ad06dab84366b513dd9dfc6b68d7f8d5d22d65"
+}

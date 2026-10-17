@@ -1,0 +1,53 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "36e7f7d58df7e0c48c7fd448812c4f859cc290b0",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "bae1949a2f126b693b851bd06f0d3278be32b351",
+      "library_test_files": 363,
+      "library_test_sha256": "6df4f43b877d003804dca40dd143701fd701379f07717d1b348ca7c70696a6f5"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-agent-assignment-safe-save-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "bae1949a2f126b693b851bd06f0d3278be32b351",
+  "source_tree_sha256": "5666f366f300ae7fb44900157f29dfb7b0f13356a4521781fd1013dad76d2457",
+  "started_at": "2026-10-13T06:38:14.605266+00:00",
+  "finished_at": "2026-10-13T06:38:23.832169+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-agent-assignment-safe-save-quality.log",
+  "log_sha256": "0c3f445a4fcbf49f9062ea3a75d883373faff3349c7d0af56ff6cc0d135e3e42",
+  "raw_log_sha256": "2d1b3555d44ce26e182ad1ae99cd2f46d3a6a332a7a1bcc3f2f93eee5fac2e9e",
+  "log_normalization": "Removed trailing spaces and carriage returns for saved evidence; command result and output content are unchanged."
+}

@@ -1,0 +1,20 @@
+{
+  "label": "g5-slack-current-unused-lock-check",
+  "command": [
+    "mix",
+    "deps.unlock",
+    "--check-unused"
+  ],
+  "repository": "jido_chat_slack",
+  "head_sha": "034ba1c2fe48a9dcdcbe020cd835587802478ade",
+  "source_tree_sha256": "dd5ff6e1f058e4ac63e7f19dfac1141416751361c62f2fb273cc29b12027ebf0",
+  "started_at": "2026-10-13T01:58:04.073714+00:00",
+  "finished_at": "2026-10-13T01:58:04.525454+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g5/g5-slack-current-unused-lock-check.log",
+  "log_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+}

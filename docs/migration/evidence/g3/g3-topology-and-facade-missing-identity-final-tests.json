@@ -1,0 +1,58 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "36e7f7d58df7e0c48c7fd448812c4f859cc290b0",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "4c2b3b0a17e46dd24a37edb3779d1a730f30cfca",
+      "library_test_files": 364,
+      "library_test_sha256": "1892a5be0161149b6bf2b7c10454abd5cbfe0954cc7cfc39a92d58fb2816299d"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-topology-and-facade-missing-identity-final-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/demo/topology_outcome_test.exs",
+    "test/jido_messaging/demo/topology_test.exs",
+    "test/jido_messaging/topology_validator_test.exs",
+    "test/jido_messaging/create_bridge_room_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "4c2b3b0a17e46dd24a37edb3779d1a730f30cfca",
+  "source_tree_sha256": "61ad80eb2b9990e31bd1a711865f69469b996014fd05b671737780b24c948f14",
+  "started_at": "2026-10-13T06:40:27.991226+00:00",
+  "finished_at": "2026-10-13T06:40:29.988342+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-topology-and-facade-missing-identity-final-tests.log",
+  "log_sha256": "a26a615859153b7faf3b9e50fba09288d529da2a2cf10f7151566491fbdca58c"
+}

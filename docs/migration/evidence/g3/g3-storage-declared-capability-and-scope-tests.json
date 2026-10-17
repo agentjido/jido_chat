@@ -1,0 +1,23 @@
+{
+  "label": "g3-storage-declared-capability-and-scope-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/persistence/conformance_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "fbe11f5049cae4ea67da3916dba4a41a29dc53bb",
+  "source_tree_sha256": "3ece683ac42501afe4e2aa442d7934a2202e1d87c741044f17e1e900855ecbe7",
+  "started_at": "2026-10-13T02:54:50.435344+00:00",
+  "finished_at": "2026-10-13T02:54:51.190473+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g3/g3-storage-declared-capability-and-scope-tests.log",
+  "log_sha256": "7d6384183fb1ecab78a3470b6fe33469a5df83667c0f3c475c6e135bcd107568"
+}

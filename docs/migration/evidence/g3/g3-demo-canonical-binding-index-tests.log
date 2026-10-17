@@ -1,0 +1,60 @@
+Compiling 8 files (.ex)
+     warning: Jido.Messaging.Events.request/4 is undefined or private
+     │
+ 256 │            Events.request(
+     │                   ~
+     │
+     └─ lib/jido_messaging/demo/bridge.ex:256:19: Jido.Messaging.Demo.Bridge.send_to_binding/4
+
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+
+  1) test stored facts forward once to the other captured binding (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:87
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:provider_send, :discord, "dc-room", "[TG alice] hello"}
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:112: (test)
+
+     The following output was logged:
+     
+     00:06:17.819 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+     
+     00:06:17.820 [info] [Bridge] Created binding bind_dc441c5390139bfb: telegram/tg/tg-room -> demo:lobby
+     
+     00:06:17.820 [info] [Bridge] Created binding bind_9e1ea7fb9c081101: discord/dc/dc-room -> demo:lobby
+     
+     00:06:17.820 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+     
+     00:06:17.820 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+     
+.
+
+  2) test revocation precedes repeated request cache access (Jido.Messaging.Demo.BridgeOwnershipTest)
+     test/jido_messaging/demo/bridge_ownership_test.exs:146
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:provider_send, :discord, "dc-room", _}
+     stacktrace:
+       test/jido_messaging/demo/bridge_ownership_test.exs:150: (test)
+
+     The following output was logged:
+     
+     00:06:17.931 [info] [Bridge] Started - TG:tg-room <-> DC:dc-room
+     
+     00:06:17.931 [info] [Bridge] Created binding bind_5488d48f2c4fa9c8: telegram/tg/tg-room -> demo:lobby
+     
+     00:06:17.931 [info] [Bridge] Created binding bind_9bd47614b4f89b78: discord/dc/dc-room -> demo:lobby
+     
+     00:06:17.931 [info] [Bridge] Shared room demo:lobby ready with 2 bindings
+     
+     00:06:17.931 [info] [Bridge] Subscribed to Signal Bus Jido.Messaging.Demo.BridgeOwnershipTest.Instance.SignalBus
+     
+...............................................................................................................
+Finished in 6.7 seconds (0.00s async, 6.7s sync)
+
+Result: 112/114 passed
+Failed: 2 tests

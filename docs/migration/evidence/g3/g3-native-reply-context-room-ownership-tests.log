@@ -1,0 +1,39 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+........
+
+  1) test native replies retain one-level context and same-room canonical parent (Jido.Messaging.NativeReplyContextTest)
+     test/jido_messaging/native_reply_context_test.exs:30
+     Assertion with == failed
+     code:  assert context.msg_context.timestamp == 1_760_331_600_000
+     left:  1791867600000
+     right: 1760331600000
+     stacktrace:
+       test/jido_messaging/native_reply_context_test.exs:77: anonymous fn/3 in Jido.Messaging.NativeReplyContextTest."test native replies retain one-level context and same-room canonical parent"/1
+       (elixir 1.20.4) lib/enum.ex:2622: Enum."-reduce/3-lists^foldl/2-0-"/3
+       test/jido_messaging/native_reply_context_test.exs:48: (test)
+
+     The following output was logged:
+
+     00:50:23.435 [debug] [Jido.Messaging.Ingest] Message jch_0vUZTSjnDL2ox7ZfoYJW5g ingested in room jch_NxO10yAk9q4fmASAm9vhkw
+
+     00:50:23.435 [debug] [Jido.Messaging.Ingest] Message jch_eGO_yz8jndn81D1h8WsqOQ ingested in room jch_aWe8pITYOA5TmZruSU6_0w
+
+     00:50:23.438 [debug] [Jido.Messaging.Ingest] Message jch_k0iROWYhEhZPlaP2_j5mBA ingested in room jch_aWe8pITYOA5TmZruSU6_0w
+
+     00:50:23.440 [debug] [Jido.Messaging.Ingest] Message jch_7Ont-pMEpSlQf6MVxZR3gQ ingested in room jch__O7s50sJaE__qKoz72QNlA
+
+     00:50:23.439 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.1212.0>, nil}
+
+     00:50:23.443 [debug] [Jido.Messaging.Ingest] Message jch_BgWM54TDbDzGwEAP9jJhUg ingested in room jch_3QuSg3wPcFXzKCSjAsg0vA
+
+     00:50:23.444 [debug] [Jido.Messaging.Ingest] Message jch_jFkc-TcgO3ZaUqpGA96Dlg ingested in room jch_NxO10yAk9q4fmASAm9vhkw
+
+     00:50:23.444 [debug] [Jido.Messaging.Ingest] Message jch_63JG-9lc7XIqEx8NqTj0xw ingested in room jch__ydTF8s95zjoUJXVJ8RzaA
+
+......
+Finished in 0.4 seconds (0.4s async, 0.00s sync)
+
+Result: 14/15 passed
+Failed: 1 test

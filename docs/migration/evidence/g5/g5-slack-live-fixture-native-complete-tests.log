@@ -1,0 +1,7 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+.........................................................................................
+Finished in 0.3 seconds (0.3s async, 0.03s sync)
+
+Result: 89 passed, 8 excluded

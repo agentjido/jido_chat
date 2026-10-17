@@ -1,0 +1,22 @@
+{
+  "label": "g5-telegram-current-complete-package-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_telegram",
+  "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+  "source_tree_sha256": "50250a53a15480224b58b5dbc8ed6c994385685ab950687eeba3993225378df8",
+  "started_at": "2026-10-13T01:24:01.748598+00:00",
+  "finished_at": "2026-10-13T01:24:03.534455+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g5/g5-telegram-current-complete-package-tests.log",
+  "log_sha256": "a831a68bf0210fe8f73dabbb634e9de6cd08d738130e81c1f91b00d13c76d963"
+}

@@ -1,0 +1,11 @@
+Compiling 2 files (.ex)
+
+== Compilation error in file lib/jido_messaging/persistence/conformance.ex ==
+** (SyntaxError) invalid syntax found on lib/jido_messaging/persistence/conformance.ex:594:18:
+     error: syntax error before: ','
+     │
+ 594 │                  , [])
+     │                  ^
+     │
+     └─ lib/jido_messaging/persistence/conformance.ex:594:18
+    (elixir 1.20.4) lib/kernel/parallel_compiler.ex:548: anonymous fn/5 in Kernel.ParallelCompiler.spawn_workers/8

@@ -1,0 +1,23 @@
+{
+  "label": "g3-private-mention-parser-failure-controls",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/msg_context/normalizer_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "a41c45e3f99978db3081e689ad884eadaecc695c",
+  "source_tree_sha256": "321742eac46f8cb3519f6d4e1bf882822abc4090ce26d10b12accd116eebbee4",
+  "started_at": "2026-10-13T02:13:11.550957+00:00",
+  "finished_at": "2026-10-13T02:13:13.283327+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 3,
+  "log": "migration/evidence/g3/g3-private-mention-parser-failure-controls.log",
+  "log_sha256": "1e1a1a67a8083746ef7915e06377791004bef48079fe60325f4ef2d4b570f25b"
+}

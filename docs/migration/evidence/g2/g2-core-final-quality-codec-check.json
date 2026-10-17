@@ -1,0 +1,18 @@
+{
+  "label": "g2-core-final-quality-codec-check",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "cf61674706fa147e6856f820a8dee6ea9f02a777b5076d3d69703ce527ce5c7b",
+  "started_at": "2026-10-12T19:06:41.567856+00:00",
+  "finished_at": "2026-10-12T19:06:45.347136+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-final-quality-codec-check.log",
+  "log_sha256": "0cda688c09502d548d6baa147743de040cb976ff66e07a3a332f1daee40b624d"
+}

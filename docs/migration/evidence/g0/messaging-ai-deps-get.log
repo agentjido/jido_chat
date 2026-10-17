@@ -1,0 +1,18 @@
+* Getting zoi (https://github.com/mikehostetler/zoi.git - 2fff2a23e23e7ac0b26f62f49bbc1b12f7818ac9)
+* Getting jido (https://github.com/agentjido/jido.git - 90763478104f1edbf0afcfcf9444621c3f9755e8)
+* Getting jido_action (https://github.com/agentjido/jido_action.git - d7358a32cde07429848278d98f994fbb121393ea)
+* Getting runic (https://github.com/mikehostetler/runic.git - 6b1c8c85d2d560a7ff5da6c3a417254c5d2b85b6)
+* Getting jido_signal (https://github.com/agentjido/jido_signal.git - d6611eca1c95eb507843baceb55991e4801d8421)
+* Getting jido_ai (https://github.com/agentjido/jido_ai.git - 1f19ff262081bc13eb30da7bff8bfe42685d63c8)
+Dependencies have diverged:
+* jido (https://github.com/agentjido/jido.git - 90763478104f1edbf0afcfcf9444621c3f9755e8)
+  the dependency jido in mix.exs is overriding a child dependency:
+
+  > In mix.exs:
+    {:jido, [env: :prod, git: "https://github.com/agentjido/jido.git", ref: "90763478104f1edbf0afcfcf9444621c3f9755e8"]}
+
+  > In deps/jido_ai/mix.exs:
+    {:jido, [env: :prod, git: "https://github.com/agentjido/jido.git", ref: "8322de574c53d5c2096243d230c9de4f14803bda", override: true]}
+
+  Ensure they match or specify one of the above in your deps and set "override: true"
+** (Mix) Can't continue due to errors on dependencies

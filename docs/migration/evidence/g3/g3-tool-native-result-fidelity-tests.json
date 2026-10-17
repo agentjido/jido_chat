@@ -1,0 +1,23 @@
+{
+  "label": "g3-tool-native-result-fidelity-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/chat_actions_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "caa1642063a838d869aac57b5c38c5924ac9603c03edbda071b7ebff43b9130f",
+  "started_at": "2026-10-12T22:11:39.172350+00:00",
+  "finished_at": "2026-10-12T22:11:43.179931+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-tool-native-result-fidelity-tests.log",
+  "log_sha256": "d4f79cb9f5365f69ae632c1c5f6d2d442b5bd0ffc0ebb809987b7f4cd8605227"
+}

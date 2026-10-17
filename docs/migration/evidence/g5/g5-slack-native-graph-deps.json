@@ -1,0 +1,19 @@
+{
+  "label": "g5-slack-native-graph-deps",
+  "command": [
+    "mix",
+    "deps.get"
+  ],
+  "repository": "jido_chat_slack",
+  "head_sha": "51d426c461d2ac5b2bb2ec65f0a3c879c5535ce7",
+  "source_tree_sha256": "67a0c5dce0a0bdb2b6c1b37daeac85ac820ea2d694978a91be53a86075b2acbd",
+  "started_at": "2026-10-13T01:34:08.787146+00:00",
+  "finished_at": "2026-10-13T01:34:11.514551+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g5/g5-slack-native-graph-deps.log",
+  "log_sha256": "5ec28814885b79155364d69411b6a751563d58c916694df7f7945c23f57797f5"
+}

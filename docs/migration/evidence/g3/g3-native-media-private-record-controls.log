@@ -1,0 +1,35 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+00:47:23.559 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.557.0>, nil}
+
+
+  1) test native media reference retains complete private bytes in the accepted record (Jido.Messaging.NativeMediaAcceptanceTest)
+     test/jido_messaging/native_media_acceptance_test.exs:30
+     match (=) failed
+     code:  assert {:ok, _} = Instance.accept_delivery(delivery)
+     left:  {:ok, _}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :handler_failed,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido_messaging/native_media_acceptance_test.exs:57: (test)
+
+     The following output was logged:
+
+     00:47:23.556 [warning] [Jido.Messaging.Ingest] Media policy rejection: :missing_payload
+
+
+Finished in 0.3 seconds (0.3s async, 0.00s sync)
+
+Result: 0/1 passed
+Failed: 1 test

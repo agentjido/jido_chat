@@ -1,0 +1,26 @@
+{
+  "label": "g3-runtime-ai-harness-suite",
+  "command": [
+    "mix",
+    "test",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "ccf85aa84bf947239a76562745a708e6b54d6ed4",
+  "source_tree_sha256": "41c7419267ed879e2c9a4ae3de0f0875e60541620dac2e321901f66e14bb6111",
+  "started_at": "2026-10-13T00:26:50.243813+00:00",
+  "finished_at": "2026-10-13T00:26:56.590522+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "1",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-ai"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-runtime-ai-harness-suite.log",
+  "log_sha256": "5526493ca24c415bcb759dfc76e33600bcf7f86e5ca318cc36f3ee3fdf2c77d7"
+}

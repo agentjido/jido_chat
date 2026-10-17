@@ -1,0 +1,25 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+...
+
+  1) test direct native delivery records one received audit observation and never repeats it (Jido.Messaging.NativeAuditLoggerTest)
+     test/jido_messaging/native_audit_logger_test.exs:115
+     Assertion with == failed
+     code:  assert length(Regex.scan(~r/message\.received:/, log)) == 1
+     left:  0
+     right: 1
+     stacktrace:
+       test/jido_messaging/native_audit_logger_test.exs:131: (test)
+
+     The following output was logged:
+
+     01:25:07.134 [debug] [Jido.Messaging.Ingest] Message jch_Gl0dmpS4gN5KlyimkNDhSg ingested in room jch_auJgq2jAbRVdN818HzKDiw
+
+
+Finished in 0.7 seconds (0.00s async, 0.7s sync)
+
+Result: 3/4 passed
+Failed: 1 test
+
+01:25:07.136 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.827.0>, nil}

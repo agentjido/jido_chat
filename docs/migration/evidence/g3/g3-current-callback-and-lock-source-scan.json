@@ -1,0 +1,17 @@
+{
+  "label": "g3-current-callback-and-lock-source-scan",
+  "command": [
+    "python3",
+    "scripts/scan_public_boundary.py",
+    "G3"
+  ],
+  "repository": "integration",
+  "head_sha": "92a51a694d886ce582e7bd0cccfdd51c44fb33b5",
+  "source_tree_sha256": "551a1746ab590304a00f807cfc2579e817c3c318cfc4fe475fd9b6b378c4c3af",
+  "started_at": "2026-10-13T04:29:38.514245+00:00",
+  "finished_at": "2026-10-13T04:29:40.751811+00:00",
+  "environment": {},
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-callback-and-lock-source-scan.log",
+  "log_sha256": "83658fe7edb1b365dc86c597b391605e73e6eee1a82a393c0b3d76862037b069"
+}

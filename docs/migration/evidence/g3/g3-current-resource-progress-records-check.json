@@ -1,0 +1,25 @@
+{
+  "label": "g3-current-resource-progress-records-check",
+  "command": [
+    "mix",
+    "run",
+    "-r",
+    "integration/lib/manifest.ex",
+    "integration/scripts/verify_signal_migration.exs",
+    "--phase",
+    "G1",
+    "--manifest",
+    "docs/migration/version-matrix.json"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "2a93487099876af5935e681f643c66c5fe206d0f",
+  "source_tree_sha256": "ec3b132647dc004117c048d56d360f2e35f1fdc519f9c151c19306d0c783592c",
+  "started_at": "2026-10-13T00:07:14.983017+00:00",
+  "finished_at": "2026-10-13T00:07:15.689972+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-resource-progress-records-check.log",
+  "log_sha256": "69a0b5d76a0bb375178a8d467f531e2374d47c9ee1c3071bc711a0297be6ee31"
+}

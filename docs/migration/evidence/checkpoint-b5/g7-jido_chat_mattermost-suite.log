@@ -1,0 +1,59 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live, :integration]
+
+...........
+20:58:50.685 [info] [Mattermost WS] Connected bridge_id=mattermost_1, sending auth
+.
+20:58:50.690 [info] [Mattermost WS] Connected bridge_id=mattermost_1, sending auth
+...........
+20:58:50.697 [warning] [Mattermost WS] Disconnected bridge_id=mattermost_1 code=1001 reason="going away", reconnecting
+..
+20:58:50.698 [warning] [Mattermost WS] Invalid JSON frame
+.....................................
+20:58:50.746 [warning] retry: got exception, will retry in 979ms, 3 attempts left
+
+20:58:50.751 [warning] ** (Req.TransportError) connection refused
+..................................
+20:58:51.731 [warning] retry: got exception, will retry in 1807ms, 2 attempts left
+
+20:58:51.731 [warning] ** (Req.TransportError) connection refused
+...............................
+20:58:53.539 [warning] retry: got exception, will retry in 3773ms, 1 attempt left
+
+20:58:53.539 [warning] ** (Req.TransportError) connection refused
+.............
+20:58:53.631 [info] [Mattermost Listener] Starting WebSocket connection bridge_id=mm uri=wss://fixture.test/api/v4/websocket
+
+20:58:53.631 [info] [Mattermost WS] Connected bridge_id=mm, sending auth
+
+20:58:53.633 [warning] [Mattermost WS] Disconnected bridge_id=mm code=1006 reason=:closed, reconnecting
+.
+20:58:53.633 [info] [Mattermost WS] Connected bridge_id=mm, sending auth
+...........
+20:58:57.314 [warning] retry: got exception, will retry in 955ms, 3 attempts left
+
+20:58:57.314 [warning] ** (Req.TransportError) connection refused
+
+20:58:58.270 [warning] retry: got exception, will retry in 1934ms, 2 attempts left
+
+20:58:58.270 [warning] ** (Req.TransportError) connection refused
+
+20:59:00.205 [warning] retry: got exception, will retry in 3949ms, 1 attempt left
+
+20:59:00.205 [warning] ** (Req.TransportError) connection refused
+
+20:59:04.158 [warning] retry: got exception, will retry in 971ms, 3 attempts left
+
+20:59:04.158 [warning] ** (Req.TransportError) connection refused
+
+20:59:05.131 [warning] retry: got exception, will retry in 1836ms, 2 attempts left
+
+20:59:05.131 [warning] ** (Req.TransportError) connection refused
+
+20:59:06.968 [warning] retry: got exception, will retry in 3805ms, 1 attempt left
+
+20:59:06.968 [warning] ** (Req.TransportError) connection refused
+.
+Finished in 20.2 seconds (20.2s async, 0.00s sync)
+
+Result: 153 passed, 4 excluded

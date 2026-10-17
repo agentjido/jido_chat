@@ -1,0 +1,16 @@
+{
+  "id": "G6-WA-reaction-clear",
+  "state": "resolved",
+  "provider_evidence": "Amarula.Content.Reaction: an empty emoji clears the existing reaction; no previous emoji is supplied.",
+  "contract_failure": "The frozen ReactionRemoved schema requires a non-empty string. A cold clear cannot be represented without inventing the previous emoji.",
+  "correction": "Keep reaction required. Permit a non-empty string or null. Add no fields. Keep ReactionAdded and outbound reaction command schemas unchanged.",
+  "authorization": "B4 implementation authorization; closeout plan execution rule permits a passed interface change for a recorded defect.",
+  "scope": "Nullable ReactionRemoved fact value and matching catalog schema; provider emits null for unknown previous emoji.",
+  "checks": [
+    "chat-final-tests.json",
+    "chat-schema-final-quality.json",
+    "catalog-final-refresh.json",
+    "whatsapp-final-coverage-third.json",
+    "g6-provider-checkpoint-complete.json"
+  ]
+}

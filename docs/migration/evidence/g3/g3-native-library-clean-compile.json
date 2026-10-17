@@ -1,0 +1,20 @@
+{
+  "label": "g3-native-library-clean-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "c48d27418631aa5ecc25e663507e32272ae534ca0ea9616e26e0dbbc54e89fdc",
+  "started_at": "2026-10-12T19:40:26.672663+00:00",
+  "finished_at": "2026-10-12T19:40:28.121023+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-native-library-clean-compile.log",
+  "log_sha256": "048761f629db36f3564ae39f9c3cda68224d119fe2f6f9711c1cfac6e56846eb"
+}

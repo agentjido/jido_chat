@@ -1,0 +1,20 @@
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+............
+
+  1) test bridge room configuration retains string fields and exact provider identity (Jido.Messaging.CheckpointFacadeDefaultsTest)
+     test/jido_messaging/checkpoint_facade_defaults_test.exs:61
+     match (=) failed
+     code:  assert {:ok, %{routes: [_]}} = Messaging.resolve_outbound_routes(Instance, "checkpoint-room")
+     left:  {:ok, %{routes: [_]}}
+     right: {:ok, []}
+     stacktrace:
+       test/jido_messaging/checkpoint_facade_defaults_test.exs:75: (test)
+
+.
+Finished in 0.4 seconds (0.1s async, 0.2s sync)
+
+Result: 13/14 passed
+Failed: 1 test

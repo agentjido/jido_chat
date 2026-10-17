@@ -1,0 +1,12 @@
+{
+  "scope": [
+    "jido_chat",
+    "jido_messaging"
+  ],
+  "state": "pass",
+  "failures": [],
+  "gate": "G3",
+  "export_count": 5029,
+  "generated_instance_export_count": 1200,
+  "note": "This audit checks compiled API mappings and retired exports. Behavioral tests, all-adapter conformance, coverage, and current-head CI remain separate requirements."
+}

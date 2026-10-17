@@ -1,0 +1,23 @@
+{
+  "label": "g2-core-retained-map-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "09909877373862fa2adb1fe686c5c7480b3b15676ae074ab08a575591902b43b",
+  "started_at": "2026-10-12T18:53:33.023214+00:00",
+  "finished_at": "2026-10-12T18:53:37.926850+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-retained-map-tests.log",
+  "log_sha256": "504b7b9d26cbab41198eecf5d4c9f7bc742f6d6cd5d529cd2d3630ba9bca5801"
+}

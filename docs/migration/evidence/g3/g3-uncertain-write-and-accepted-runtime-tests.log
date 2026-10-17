@@ -1,0 +1,45 @@
+Compiling 9 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+......
+
+  1) test claim lifecycle an uncertain outcome stays an error across claim expiry and a sweep (Jido.Messaging.DeduperTest)
+     test/jido_messaging/deduper_test.exs:53
+     ** (ArgumentError) errors were found at the given arguments:
+
+       * 1st argument: invalid destination
+
+     code: send(Module.concat(TestMessaging, Deduper), :sweep)
+     stacktrace:
+       (erts 17.1) :erlang.send(Jido.Messaging.DeduperTest.TestMessaging.Jido.Messaging.Deduper, :sweep)
+       test/jido_messaging/deduper_test.exs:57: (test)
+
+..............................
+
+  2) test a stopped session registry after the write cannot release the accepted message (Jido.Messaging.AcceptanceFailureTest)
+     test/jido_messaging/acceptance_failure_test.exs:181
+     ** (exit) exited in: GenServer.call(Jido.Messaging.AcceptanceFailureTest.Instance.Deduper, {:release, {:chat_fact, "urn:jido:chat:binding:YWNjZXB0YW5jZS1mYWlsdXJl", "jido.chat.message.received", "message-item"}, #Reference<0.1108133621.808714242.128568>}, 5000)
+         ** (EXIT) no process: the process is not alive or there's no process currently associated with the given name, possibly because its application isn't started
+     code: assert {:ok, [received]} = Instance.accept_delivery(unit)
+     stacktrace:
+       (elixir 1.20.4) lib/gen_server.ex:1176: GenServer.call/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:56: Jido.Messaging.Acceptance.accept_item/3
+       (jido_messaging 1.1.1) lib/jido_messaging/acceptance.ex:19: anonymous fn/4 in Jido.Messaging.Acceptance.accept/2
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       test/jido_messaging/acceptance_failure_test.exs:185: (test)
+
+     The following output was logged:
+     
+     21:08:12.145 [warning] [Jido.Messaging.Ingest] Accepted message runtime observation failed
+     
+     21:08:12.146 [warning] [Jido.Messaging.Ingest] Accepted message runtime observation failed
+     
+     21:08:12.147 [debug] [Jido.Messaging.Ingest] Message jch_U6oPHDBRRCOsOqijYUFqCg ingested in room jch_IMzf1TJPdFAjtMgFlt1DQQ
+     
+........
+Finished in 1.1 seconds (0.6s async, 0.5s sync)
+
+Result: 44/46 passed
+Failed: 2 tests

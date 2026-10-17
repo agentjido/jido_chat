@@ -1,0 +1,21 @@
+{
+  "label": "g3-native-executor-credo",
+  "command": [
+    "mix",
+    "credo",
+    "--min-priority",
+    "higher"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "35a1a18d35235cd26f4f95822770568175c313ad6355f080456a401c3b1a6541",
+  "started_at": "2026-10-12T20:29:19.484410+00:00",
+  "finished_at": "2026-10-12T20:29:20.598630+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-native-executor-credo.log",
+  "log_sha256": "698d735fc735ddf0e22df641122b63b337822030fe6cd115387075b00c75227c"
+}

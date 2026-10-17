@@ -1,0 +1,18 @@
+{
+  "label": "g2-core-quality-native-boundary",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "15ac2f5cbaa12169906392c0d487db709aed9e00a67ff2da6ed2e72d459f0bf8",
+  "started_at": "2026-10-12T18:20:16.409045+00:00",
+  "finished_at": "2026-10-12T18:20:20.796094+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-quality-native-boundary.log",
+  "log_sha256": "241fd6b53fd10269fcd7bb530ada7ab706f69b9a22362444bdf439b0ebb598ac"
+}

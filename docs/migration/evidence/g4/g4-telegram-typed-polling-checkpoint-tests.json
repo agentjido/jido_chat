@@ -1,0 +1,25 @@
+{
+  "label": "g4-telegram-typed-polling-checkpoint-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido/chat/telegram/polling_worker_test.exs",
+    "test/jido/chat/telegram/normalizer_test.exs",
+    "test/jido/chat/telegram/membership_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_telegram",
+  "head_sha": "b92ad1154335eb665cadad955051f13646a03d06",
+  "source_tree_sha256": "7379f9112aa2fd7ce2ec6fe4fd7a6c343298d8d65a9e9b5107aa4c3fc3efe88f",
+  "started_at": "2026-10-13T00:58:09.012283+00:00",
+  "finished_at": "2026-10-13T00:58:10.253179+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g4/g4-telegram-typed-polling-checkpoint-tests.log",
+  "log_sha256": "04786d55b35e0727012f98791f37ca91d252daceeb1ec0cafa86089722cd2ecb"
+}

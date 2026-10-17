@@ -1,0 +1,163 @@
+{
+  "gate": "G3",
+  "state": "fixture-port",
+  "rule": "Error-only old normalizers now declare protocol 1 and reject input. No assertions are removed. Full runtime verification remains open.",
+  "files": [
+    {
+      "file": "test/jido_messaging/session_manager_test.exs",
+      "stubs": 1,
+      "before_sha256": "01b246fec5a24a42de38e10e9152f0c9b9aebf71a3e6ce6dd58264dffa0b8124",
+      "after_sha256": "5243afa2c649621456d614666c13d3782d673c091294e2fe21e48dffd4941076"
+    },
+    {
+      "file": "test/jido_messaging/adapter_bridge_test.exs",
+      "stubs": 3,
+      "before_sha256": "d37e8e32167bada4caf9e783a30db5fa30dcf4ba8152216e1ac5a7c33397eabd",
+      "after_sha256": "c259dc84e6473093459d3fda27b5c6fe86e1dfcbe2b91703ec346e84e3034eaf"
+    },
+    {
+      "file": "test/jido_messaging/msg_context_test.exs",
+      "stubs": 1,
+      "before_sha256": "52bda95157d64a94b1dc38b7cb06416b7fb7dfaa7c238507db4af2502bd9d05f",
+      "after_sha256": "a0a61fa009f32bd44d7f48e5103a638a0a9d5bdfc7c53889f5e996fca65e59d6"
+    },
+    {
+      "file": "test/jido_messaging/create_bridge_room_test.exs",
+      "stubs": 1,
+      "before_sha256": "39885f68d2d23af11822f13a5de67b4781890ed3bc5e3df93a3f6b361b9f6038",
+      "after_sha256": "a90ca5b6825675028909b0bedb306ed83cef2b6270f48fb050ce7e0c473e9793"
+    },
+    {
+      "file": "test/jido_messaging/ingress_subscriptions_test.exs",
+      "stubs": 3,
+      "before_sha256": "6889fe1523a21bdfcbf206e9bb6385533e034988003527d8f106a7a3c0d0ae25",
+      "after_sha256": "f76670b537b1093c9dad6581040d33fb924c704deba9f735f776a1c11612af56"
+    },
+    {
+      "file": "test/jido_messaging/reply_mapping_test.exs",
+      "stubs": 1,
+      "before_sha256": "7f600de6cf145b4b28ae6680c59f94b49e31828c2fd82886d10c07bd26a6bfdd",
+      "after_sha256": "79bda1c2818493bcad3f4775ab646996bddf2a809645af9b6c25d08bd1a812c4"
+    },
+    {
+      "file": "test/jido_messaging/message_lifecycle_ingest_test.exs",
+      "stubs": 1,
+      "before_sha256": "8eb0ad85f0347b2908fb049f9195f03ad15471ba8b178cac23994d4cf216a970",
+      "after_sha256": "82f178f70d5bb3c04d1336d7108fd9d3c55bb44a767d191aa4b40e2ff7b0673f"
+    },
+    {
+      "file": "test/jido_messaging/topology_validator_test.exs",
+      "stubs": 1,
+      "before_sha256": "be3090ae9ecde265b465a9aac0af8d60374d24da5b2a91eef0631a5b8146a4bb",
+      "after_sha256": "2c4b98d6da0dc34e1735e8278939d29dbc385ec032adeafad65432b4cd084960"
+    },
+    {
+      "file": "test/jido_messaging/secret_resolver_test.exs",
+      "stubs": 2,
+      "before_sha256": "0db82b98b133af626e0cfc62d144c283061b289996ce3dca02baa00c36545891",
+      "after_sha256": "fbdaaf5bd6c0ead8fbe90f6b7cc44cf756a715aef01f53653b6636dc78623163"
+    },
+    {
+      "file": "test/jido_messaging/bridge_startup_reconcile_test.exs",
+      "stubs": 3,
+      "before_sha256": "a8f1ef3e99241f49098bd0345c596f9e3d52a71e3ba41c563b021f68fd343af9",
+      "after_sha256": "88586764b81c2966a39d02c297abf053b6a2168f5e2b9ac78921b0819ba7d610"
+    },
+    {
+      "file": "test/jido_messaging/config_store_test.exs",
+      "stubs": 1,
+      "before_sha256": "4c611d6231750d0b1252b2a11b573ff07e6972d967146e6d15889f8f6e72cec6",
+      "after_sha256": "7321a459a649ca586353a27b69101793d59f52f04fb7826ae24ed9d967b0abbe"
+    },
+    {
+      "file": "test/jido_messaging/bridge_plugin_test.exs",
+      "stubs": 2,
+      "before_sha256": "6196544292f7493b6c65642041d6835c9c773613d9226a8155120d5ce12a8c90",
+      "after_sha256": "43f32390638e1e3a51d1bea3c389d1247a93f2f707df251d42f9e5c532eec2ff"
+    },
+    {
+      "file": "test/jido_messaging/authorization_test.exs",
+      "stubs": 1,
+      "before_sha256": "60e341272b3b5fd4750c995a8c4c42c54c6a0d397479bbd43f7a75e94bc54910",
+      "after_sha256": "8efca83ef6a053478c29e12133d753757c174bc9484cd45d18a2c6daab21a5dc"
+    },
+    {
+      "file": "test/jido_messaging/bridge_registry_test.exs",
+      "stubs": 2,
+      "before_sha256": "0512749b83eba2576236bf4368d920fbdc8c4192634aaef6211e95c8a535c3ed",
+      "after_sha256": "850fd92874bc32350f5e7843b935497462a23e4f69e6458654ade34d146259f3"
+    },
+    {
+      "file": "test/jido_messaging/messaging_target_test.exs",
+      "stubs": 1,
+      "before_sha256": "87d0c81bf43ab4d1c19e4bfe76b01388f1683707b3e522d45e9ca68737956fa1",
+      "after_sha256": "5e6b979757d00237c0e7de23f9d5a12be27e96efb25e6886f06baa59fab91ce7"
+    },
+    {
+      "file": "test/jido_messaging/ingest_test.exs",
+      "stubs": 5,
+      "before_sha256": "05e321a94692e25e4b5ecd4aa738e8255d75768eee46696a3cc89096a6cbcdfd",
+      "after_sha256": "dc12c481cc3832f8aab359b39962078df85b6413e173fbc09572420be89cb1a8"
+    },
+    {
+      "file": "test/jido_messaging/identity_test.exs",
+      "stubs": 1,
+      "before_sha256": "48fdbb29db10714f9e120e934108ec2c18ae7593a572da3f5c3415424800c0bd",
+      "after_sha256": "6375ced02eaf2457dbab0d241708ecf46b4060e578472d76255f259230d39243"
+    },
+    {
+      "file": "test/jido_messaging/bridge_manifest_bootstrap_test.exs",
+      "stubs": 2,
+      "before_sha256": "f72ea827638d4eeb31161d9866a6ed52eff614cc7a128b236d9215c82b00aed6",
+      "after_sha256": "89906e440249670fa724e3840fa8495070c4baa45f4772e9069b2fb7cc6cefa9"
+    },
+    {
+      "file": "test/jido_messaging/chat_actions_test.exs",
+      "stubs": 2,
+      "before_sha256": "2c6fcb7c131309b633d34a859b6ebd51ac0a495ad59d7d56cd1d00fda968a903",
+      "after_sha256": "d58ec1b7a1ec566eeb8a21666cb9a3dfcc5209894d557ff09a6f2ccde228607e"
+    },
+    {
+      "file": "test/jido_messaging/deliver_test.exs",
+      "stubs": 2,
+      "before_sha256": "dcf23cb59613c0444b9638d61a316ca6b0d38c103e33d6aed54a92178a7d743e",
+      "after_sha256": "bba718a689a249b977805ce0b330a5e12dd60ceab3e7e023b83fbe9bec449169"
+    },
+    {
+      "file": "test/jido_messaging/security_test.exs",
+      "stubs": 1,
+      "before_sha256": "52c52e7f9f52e4a468c206210f6a593ddf85ddfbf876ce502a1a598998d89af6",
+      "after_sha256": "9d00062a066c7150c9963a07cb5c26c626b1ca8d56a72d4cf4aae455b747d4f4"
+    },
+    {
+      "file": "test/jido_messaging/session_key_test.exs",
+      "stubs": 1,
+      "before_sha256": "b0c7cdda8e3dbd95dd2e0a19086f811b658f2163dcead78021bd4f904387b8f9",
+      "after_sha256": "f6e9a3f426cce19c411c8976f506e1632ee530ca8a9b17b0cb4d9f853cc0391c"
+    },
+    {
+      "file": "test/jido_messaging/signal_test.exs",
+      "stubs": 1,
+      "before_sha256": "cc4ab9aa96e8b1a60d7d487a285bf57ca4787f00f806b1b0f97ed6473164f372",
+      "after_sha256": "50a6d0bb7587eb3ca67883470448c105c3c4ee9dc2787b8cb2b4b6976316dd55"
+    },
+    {
+      "file": "test/jido_messaging/resilience_ops_test.exs",
+      "stubs": 2,
+      "before_sha256": "6766a0546e6855f0e707cc28db5274047b51cf5185834c31684c85bc28f6ecc3",
+      "after_sha256": "a9f6166487c13a3b4a5efd6023dc04501d8261e7f7a8d22df60804c925ea103e"
+    },
+    {
+      "file": "test/jido_messaging/instance_lifecycle_runtime_test.exs",
+      "stubs": 4,
+      "before_sha256": "d71b615d646c287bc58661e6223949a092df67da46d0b2795333844520626cff",
+      "after_sha256": "dc23c721306665190c0d471f1201b596f8c4c7517ecdcda95d2aef6c46660142"
+    },
+    {
+      "file": "test/jido_messaging/demo/bridge_test.exs",
+      "stubs": 2,
+      "before_sha256": "76b2430bb99b033fd09f423ce6b64170160e935706dc86c0a92454ab8f2b7968",
+      "after_sha256": "4576beaa09ec22f7a56c9cad7147398eb6768388e046271b1f81d44dd759e1b7"
+    }
+  ]
+}

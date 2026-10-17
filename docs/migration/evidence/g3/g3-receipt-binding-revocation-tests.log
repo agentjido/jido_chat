@@ -1,0 +1,17 @@
+Compiling 7 files (.ex)
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp binding_revision_changed?/2" was previously defined (lib/jido_messaging/runtime.ex:193)
+     │
+ 213 │   defp binding_revision_changed?(binding, %Jido.Messaging.BridgeConfig{} = config) do
+     │        ~
+     │
+     └─ lib/jido_messaging/runtime.ex:213:8
+
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+
+16:44:54.250 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.725.0>, nil}
+..........................................................................................................................................
+Finished in 8.0 seconds (0.00s async, 8.0s sync)
+
+Result: 138 passed

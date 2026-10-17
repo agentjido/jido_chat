@@ -1,0 +1,26 @@
+{
+  "label": "g3-current-safe-acceptance-inclusive-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "9f6c91715ba7cc82bb26552a09286c701dc42378",
+  "source_tree_sha256": "a0b92aa28526a3386b25d8600e0ec5baf9cfa218ac2dcd2d404fa5db1d436266",
+  "started_at": "2026-10-13T00:41:35.500223+00:00",
+  "finished_at": "2026-10-13T00:42:12.103313+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-safe-acceptance-inclusive-coverage.log",
+  "log_sha256": "231ee23b47dff4b5619bd88773f18645f277b5a1e22a1e9ce5809b36370a5c56"
+}

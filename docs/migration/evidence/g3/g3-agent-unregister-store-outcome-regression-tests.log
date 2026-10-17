@@ -1,0 +1,191 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+........................
+
+  1) test unregister error save failure retains registration and restores the old assignment (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:130
+     match (=) failed
+     code:  assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     left:  {:error, _}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:132: (test)
+
+     The following output was logged:
+
+     03:26:43.991 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  2) test unregister raise save failure retains registration and restores the old assignment (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:130
+     ** (RuntimeError) private thread save error
+     code: assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:42: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2330: anonymous fn/7 in Jido.Messaging.unregister_agent/3
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2328: Jido.Messaging.unregister_agent/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:132: (test)
+
+     The following output was logged:
+
+     03:26:44.000 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  3) test unregister throw save failure retains registration and restores the old assignment (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:130
+     ** (throw) :private_thread_save_error
+     code: assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:43: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2330: anonymous fn/7 in Jido.Messaging.unregister_agent/3
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2328: Jido.Messaging.unregister_agent/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:132: (test)
+
+     The following output was logged:
+
+     03:26:44.008 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  4) test unregister exit save failure retains registration and restores the old assignment (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:130
+     ** (exit) :private_thread_save_error
+     code: assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:44: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2330: anonymous fn/7 in Jido.Messaging.unregister_agent/3
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2328: Jido.Messaging.unregister_agent/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:132: (test)
+
+     The following output was logged:
+
+     03:26:44.017 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  5) test unregister invalid save failure retains registration and restores the old assignment (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:130
+     match (=) failed
+     code:  assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     left:  {:error, _}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:132: (test)
+
+     The following output was logged:
+
+     03:26:44.025 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  6) test unregister foreign_record save failure retains registration and restores the old assignment (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:130
+     match (=) failed
+     code:  assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     left:  {:error, _}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:132: (test)
+
+     The following output was logged:
+
+     03:26:44.041 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  7) test unregister after-write error cannot remove the agent after a failed cleanup (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:145
+     match (=) failed
+     code:  assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     left:  {:error, _}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:147: (test)
+
+     The following output was logged:
+
+     03:26:44.055 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  8) test unregister after-write raise cannot remove the agent after a failed cleanup (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:145
+     ** (RuntimeError) private thread save error
+     code: assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:42: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2330: anonymous fn/7 in Jido.Messaging.unregister_agent/3
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2328: Jido.Messaging.unregister_agent/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:147: (test)
+
+     The following output was logged:
+
+     03:26:44.066 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+  9) test unregister after-write throw cannot remove the agent after a failed cleanup (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:145
+     ** (throw) :private_thread_save_error
+     code: assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:43: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2330: anonymous fn/7 in Jido.Messaging.unregister_agent/3
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2328: Jido.Messaging.unregister_agent/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:147: (test)
+
+     The following output was logged:
+
+     03:26:44.076 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+ 10) test unregister after-write exit cannot remove the agent after a failed cleanup (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:145
+     ** (exit) :private_thread_save_error
+     code: assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:44: Jido.Messaging.AgentAssignmentStoreFailureTest.Store.fail/1
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2330: anonymous fn/7 in Jido.Messaging.unregister_agent/3
+       (elixir 1.20.4) lib/enum.ex:5119: Enumerable.List.reduce/3
+       (elixir 1.20.4) lib/enum.ex:2676: Enum.reduce_while/3
+       (jido_messaging 1.1.1) lib/jido_messaging.ex:2328: Jido.Messaging.unregister_agent/3
+       test/jido_messaging/agent_assignment_store_failure_test.exs:147: (test)
+
+     The following output was logged:
+
+     03:26:44.086 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+
+ 11) test unregister after-write invalid cannot remove the agent after a failed cleanup (Jido.Messaging.AgentAssignmentStoreFailureTest)
+     test/jido_messaging/agent_assignment_store_failure_test.exs:145
+     match (=) failed
+     code:  assert {:error, _} = Instance.unregister_agent(context.room.id, "alpha")
+     left:  {:error, _}
+     right: :ok
+     stacktrace:
+       test/jido_messaging/agent_assignment_store_failure_test.exs:147: (test)
+
+     The following output was logged:
+
+     03:26:44.096 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room assignment-store-room thread thread
+
+
+Finished in 2.3 seconds (2.3s async, 0.00s sync)
+
+Result: 24/35 passed
+Failed: 11 tests

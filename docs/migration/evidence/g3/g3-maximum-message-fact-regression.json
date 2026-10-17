@@ -1,0 +1,23 @@
+{
+  "label": "g3-maximum-message-fact-regression",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/message_fact_size_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "ced3715451413ef3a85ad9a3bfd8a83767e7214e",
+  "source_tree_sha256": "f5103d3e25176557fc200d29b0573fa02821481e1c2ec51d7aa710c7cabc70ac",
+  "started_at": "2026-10-12T23:47:14.854926+00:00",
+  "finished_at": "2026-10-12T23:47:18.213589+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-maximum-message-fact-regression.log",
+  "log_sha256": "d86a3ac4b3ce600018bfcb79cafdaf117a6e42fcb9ddb920dd8159697a507614"
+}

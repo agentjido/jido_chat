@@ -1,0 +1,21 @@
+{
+  "label": "g3-current-core-full-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "7008653f628a775bd78b0f818741760f1b3dca2d3b7c8127547dea73e726852f",
+  "started_at": "2026-10-12T21:21:51.433097+00:00",
+  "finished_at": "2026-10-12T21:21:57.193767+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-core-full-tests.log",
+  "log_sha256": "09ef6b2aa3e57d11dfc8a09f5fbc8ce09df44b75c91ce44b0a64fe23e6e0977a"
+}

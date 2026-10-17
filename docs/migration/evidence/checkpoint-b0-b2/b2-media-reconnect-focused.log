@@ -1,0 +1,99 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+     warning: Jido.Messaging.CheckpointMediaDeliveryTest.Instance.get_messages/1 is undefined or private. Did you mean:
+
+         * get_message/1
+         * get_message_by_external_id/3
+         * get_message_by_external_id/4
+         * save_message/1
+
+     │
+ 118 │     assert {:ok, messages} = Instance.get_messages(context.room.id)
+     │                                       ~
+     │
+     └─ test/jido_messaging/checkpoint_media_delivery_test.exs:118:39: Jido.Messaging.CheckpointMediaDeliveryTest."test failed media delivery records a complete failed reply while retaining its parent"/1
+
+........
+
+  1) test invalid policy input uses bounded defaults and empty fallback text cannot dispatch (Jido.Messaging.CheckpointMediaDeliveryTest)
+     test/jido_messaging/checkpoint_media_delivery_test.exs:69
+     match (=) failed
+     code:  assert {:error, {:unsupported_media, :image, causes}, _} =
+              MediaPolicy.prepare_outbound(Map.put(media(), :fallback_text, " "), Adapter, :send_media,
+                unsupported_policy: :fallback_text
+              )
+     left:  {:error, {:unsupported_media, :image, causes}, _}
+     right: {:ok,
+             %{
+               data: "complete image bytes",
+               kind: :image,
+               media_type: "image/png"
+             },
+             %{
+               count: 1,
+               policy: %{
+                 allow: [:image, :audio, :video, :file],
+                 on_policy_violation: :reject,
+                 max_items: 4,
+                 max_item_bytes: 10000000,
+                 max_total_bytes: 20000000,
+                 unsupported_policy: :fallback_text
+               },
+               rejected: [],
+               fallback: false,
+               total_bytes: 20,
+               accepted: [
+                 %{
+                   kind: :image,
+                   media_type: "image/png",
+                   has_data: true,
+                   has_url: false,
+                   size_bytes: 20
+                 }
+               ]
+             }}
+     stacktrace:
+       test/jido_messaging/checkpoint_media_delivery_test.exs:78: (test)
+
+.
+
+  2) test a denied media edit changes no canonical record or provider state (Jido.Messaging.CheckpointMediaDeliveryTest)
+     test/jido_messaging/checkpoint_media_delivery_test.exs:94
+     Assertion with == failed
+     code:  assert Enum.map(calls(), &elem(&1, 0)) == [:upload]
+     left:  [:upload, :upload, :upload]
+     right: [:upload]
+     stacktrace:
+       test/jido_messaging/checkpoint_media_delivery_test.exs:97: (test)
+
+
+
+  3) test media edit fallback sends complete text through the edit path once (Jido.Messaging.CheckpointMediaDeliveryTest)
+     test/jido_messaging/checkpoint_media_delivery_test.exs:102
+     Expected truthy, got false
+     code: assert result.media.fallback
+     stacktrace:
+       test/jido_messaging/checkpoint_media_delivery_test.exs:108: (test)
+
+
+
+  4) test failed media delivery records a complete failed reply while retaining its parent (Jido.Messaging.CheckpointMediaDeliveryTest)
+     test/jido_messaging/checkpoint_media_delivery_test.exs:115
+     ** (UndefinedFunctionError) function Jido.Messaging.CheckpointMediaDeliveryTest.Instance.get_messages/1 is undefined or private. Did you mean:
+
+         * get_message/1
+         * get_message_by_external_id/3
+         * get_message_by_external_id/4
+         * save_message/1
+
+     code: assert {:ok, messages} = Instance.get_messages(context.room.id)
+     stacktrace:
+       Jido.Messaging.CheckpointMediaDeliveryTest.Instance.get_messages("jch_kDYXjk5xp6F8AWv8RahMLg")
+       test/jido_messaging/checkpoint_media_delivery_test.exs:118: (test)
+
+
+Finished in 0.7 seconds (0.00s async, 0.7s sync)
+
+Result: 9/13 passed
+Failed: 4 tests

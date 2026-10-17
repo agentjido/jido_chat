@@ -1,0 +1,29 @@
+Compiling 10 files (.ex)
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "def directory_search/4" was previously defined (lib/jido_messaging/persistence/postgres.ex:512)
+     │
+ 545 │   def directory_search(_state, target, _query, _opts) do
+     │       ~
+     │
+     └─ lib/jido_messaging/persistence/postgres.ex:545:7
+
+      warning: clauses with the same name and arity (number of arguments) should be grouped together, "def directory_search/4" was previously defined (lib/jido_messaging/persistence/sqlite.ex:1152)
+      │
+ 1185 │   def directory_search(state, :agent, query, opts) when is_map(query) do
+      │       ~
+      │
+      └─ lib/jido_messaging/persistence/sqlite.ex:1185:7
+
+      warning: clauses with the same name and arity (number of arguments) should be grouped together, "def directory_search/4" was previously defined (lib/jido_messaging/persistence/ets.ex:1192)
+      │
+ 1219 │   def directory_search(state, :agent, query, opts) when is_map(query) do
+      │       ~
+      │
+      └─ lib/jido_messaging/persistence/ets.ex:1219:7
+
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story]
+
+..............................................................................
+Finished in 4.7 seconds (1.6s async, 3.1s sync)
+
+Result: 78 passed

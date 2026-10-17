@@ -1,0 +1,24 @@
+{
+  "label": "g3-runtime-failure-inflight-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/typed_execution_test.exs",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "41a78e2ca02024a9a7d8d53839bbc66c77140d2659a9993c0821f235de2b3cdb",
+  "started_at": "2026-10-12T21:04:38.212815+00:00",
+  "finished_at": "2026-10-12T21:04:47.650641+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 3,
+  "log": "migration/evidence/g3/g3-runtime-failure-inflight-tests.log",
+  "log_sha256": "f7b57bbeb5d57d529805a24b407c09fabd3f345889f093f97ea2564825fd724a"
+}

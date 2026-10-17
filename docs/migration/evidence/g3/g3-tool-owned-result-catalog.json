@@ -1,0 +1,20 @@
+{
+  "label": "g3-tool-owned-result-catalog",
+  "command": [
+    "mix",
+    "run",
+    "integration/scripts/verify_g2_catalog.exs",
+    "G3"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "29e673c32b2e82e53aab81c784439b7041b6818a73fba4d40895e1494e0ccefb",
+  "started_at": "2026-10-12T22:06:37.443859+00:00",
+  "finished_at": "2026-10-12T22:06:40.477637+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-tool-owned-result-catalog.log",
+  "log_sha256": "2776bfc6e4c39a3871a7e370a64182cb01bdd99d5c37aefd732bc00655add239"
+}

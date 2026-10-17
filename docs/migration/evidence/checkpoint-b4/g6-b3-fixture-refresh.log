@@ -1,0 +1,16 @@
+==> jido_chat
+Compiling 3 files (.ex)
+==> jido_chat_signal
+Compiling 2 files (.ex)
+==> jido_messaging
+Compiling 2 files (.ex)
+==> jido_chat_integration
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+
+.................................................................
+19:48:06.729 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.3089.0>, nil}
+................................................................
+Finished in 6.1 seconds (4.6s on load, 0.1s async, 1.4s sync)
+
+Result: 129 passed

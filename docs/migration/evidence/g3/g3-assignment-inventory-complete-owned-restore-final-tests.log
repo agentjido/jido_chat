@@ -1,0 +1,10 @@
+Compiling 7 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.......................................................................
+03:34:48.786 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.6942.0>, nil}
+....
+Finished in 1.8 seconds (0.7s async, 1.1s sync)
+
+Result: 75 passed

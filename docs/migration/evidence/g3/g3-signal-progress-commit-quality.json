@@ -1,0 +1,19 @@
+{
+  "label": "g3-signal-progress-commit-quality",
+  "command": [
+    "mix",
+    "quality"
+  ],
+  "repository": "jido_chat_signal",
+  "head_sha": "3efc24e44dd6a316dd8f7dda5bee4a1b647490f4",
+  "source_tree_sha256": "d7da04b36837a9ccf8d8e0228604b3e3668c6ede2719e49f377e0b64640d62f8",
+  "started_at": "2026-10-12T23:14:48.275189+00:00",
+  "finished_at": "2026-10-12T23:14:50.623963+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-signal-progress-commit-quality.log",
+  "log_sha256": "a40cc49fc6ecccc12040ad2619f1c34a0ec0e323eb5084d3dfc7dafe8c16f708"
+}

@@ -1,0 +1,23 @@
+{
+  "label": "g5-real-slack-messaging-execution-tests",
+  "command": [
+    "mix",
+    "run",
+    "scripts/run_slack_execution_runtime_tests.exs"
+  ],
+  "repository": "integration",
+  "head_sha": "db5980704c21e541151d560241d97335e8b557d4",
+  "source_tree_sha256": "69332f4fb59c981b82e771a06a251378b4f65892a83b4a3b5a01cfc22099b5d1",
+  "started_at": "2026-10-13T02:02:06.692914+00:00",
+  "finished_at": "2026-10-13T02:02:08.466522+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "telegram_slack",
+    "MIX_BUILD_PATH": "_build/telegram-slack-core"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g5/g5-real-slack-messaging-execution-tests.log",
+  "log_sha256": "3f45fa9e287affeebd0777262afcf4f2aad25e2c763ee31fd64897dbfffc4ab0"
+}

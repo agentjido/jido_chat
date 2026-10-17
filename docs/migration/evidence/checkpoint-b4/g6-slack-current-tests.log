@@ -1,0 +1,10 @@
+==> jido_chat
+Compiling 3 files (.ex)
+==> jido_chat_slack
+Running ExUnit with seed: 643933, max_cases: 20
+Excluding tags: [:live]
+
+..............................................................................................................................................
+Finished in 0.9 seconds (0.7s async, 0.2s sync)
+
+Result: 142 passed, 8 excluded

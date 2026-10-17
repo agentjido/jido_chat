@@ -1,0 +1,14 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+..............
+
+  1) test invalid timer configuration fails before a process starts (Jido.Messaging.DemoHeartbeatTest)
+     test/jido_messaging/demo_heartbeat_test.exs:26
+     ** (EXIT from #PID<0.708.0>) {:invalid_config, [%Zoi.Error{code: :greater_than_or_equal_to, issue: {"too small: must be at least %{count}", [type: :integer, count: 1]}, message: "too small: must be at least 1", path: [:interval]}]}
+
+
+Finished in 0.1 seconds (0.08s async, 0.08s sync)
+
+Result: 14/15 passed
+Failed: 1 test

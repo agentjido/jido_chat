@@ -1,0 +1,168 @@
+{
+  "protocol_version": 1,
+  "state": "frozen",
+  "wire_namespaces": {
+    "chat": "jido.chat.",
+    "messaging": "jido.messaging."
+  },
+  "module_namespaces": {
+    "chat": "Jido.Chat.Signal.",
+    "messaging": "Jido.Messaging.Signal."
+  },
+  "reserved_parent_module": {
+    "module": "Jido.Chat.Signal",
+    "owner": "jido_chat_signal"
+  },
+  "limits": {
+    "signal_bytes": 262144,
+    "delivery_bytes": 1048576,
+    "signals_per_delivery": 100,
+    "item_failures_per_delivery": 20
+  },
+  "error_module": "Jido.Chat.Errors.Contract",
+  "rejection_codes": [
+    "context_mismatch",
+    "delivery_too_large",
+    "handler_failed",
+    "incompatible_protocol",
+    "invalid_binding",
+    "invalid_context",
+    "invalid_delivery",
+    "invalid_handler",
+    "invalid_handler_input",
+    "invalid_handler_result",
+    "invalid_options",
+    "invalid_request",
+    "invalid_resource",
+    "request_conflict",
+    "request_in_progress",
+    "request_outcome_unknown",
+    "resource_cancelled",
+    "resource_expired",
+    "resource_failure",
+    "resource_owner_mismatch",
+    "signal_too_large",
+    "too_many_failures",
+    "too_many_signals",
+    "unknown_definition",
+    "unsafe_data"
+  ],
+  "context_fields": [
+    "traceparent",
+    "tracestate",
+    "causationid"
+  ],
+  "identity_encoding": {
+    "encoding": "UTF-8 bytes as unpadded Base64url",
+    "binding_source": "urn:jido:chat:binding:{binding_id_encoded}",
+    "conversation_subject": "conversation:{binding_id_encoded}:{external_room_id_encoded}",
+    "instance_source": "urn:jido:messaging:instance:{stable_instance_id_encoded}",
+    "room_subject": "room:{canonical_room_id_encoded}",
+    "unresolved_membership_subject": null,
+    "rename_rule": "Display names do not form identity.",
+    "authority_rule": "Source, subject, type, and data do not grant authority."
+  },
+  "identity_fixtures": {
+    "binding_id": "binding/alpha",
+    "binding_id_encoded": "YmluZGluZy9hbHBoYQ",
+    "external_room_id": "room/1",
+    "external_room_id_encoded": "cm9vbS8x",
+    "instance_id": "instance/alpha",
+    "instance_id_encoded": "aW5zdGFuY2UvYWxwaGE",
+    "canonical_room_id": "room/one",
+    "canonical_room_id_encoded": "cm9vbS9vbmU"
+  },
+  "bus_selection": {
+    "syntax": "selector: [source: value, subject: value]",
+    "fields": [
+      "source",
+      "subject"
+    ],
+    "type_selection": "upstream exact and wildcard Router paths",
+    "match": "all supplied conditions",
+    "ordinary_subscriptions_only": true,
+    "callbacks": false,
+    "payload_filters": false
+  },
+  "handler_precedence": [
+    "subscribed conversation message handlers",
+    "mention message handlers",
+    "matching message patterns in registration order"
+  ],
+  "handler_isolation": "Membership and other non-message facts use their own Signal type routes. They cannot enter message or mention handlers.",
+  "execution_boundary": {
+    "chat": [
+      "Jido.Chat.bind/2",
+      "Jido.Chat.execute/2",
+      "Jido.Chat.normalize_event/2"
+    ],
+    "messaging": [
+      "Jido.Messaging.accept_delivery/2",
+      "Jido.Messaging.execute/3"
+    ]
+  },
+  "resource_lifetime": "call-local; owner-bound; explicit cancellation and expiry; no restart-safe replay",
+  "delivery_rule": "Validate the complete ordered Signal list and all limits before authoritative processing. A breach rejects the complete delivery.",
+  "identity_helpers": {
+    "chat": "Jido.Chat.Signal.Identity.binding_source/1 and conversation_subject/2",
+    "messaging": "Jido.Messaging.Signal.Identity.instance_source/1 and room_subject/1"
+  },
+  "resources": {
+    "put": "Jido.Chat.put_resource(binding, kind, value, options) -> {:ok, resource_ref}",
+    "resolve": "Jido.Chat.resolve_resource(binding, resource_ref) -> {:ok, private_value} | {:error, Contract}",
+    "cancel": "Jido.Chat.cancel_resource(binding, resource_ref) -> :ok | {:error, Contract}",
+    "ownership": "The call owner and binding key are checked. The reference never carries bytes, a local path, client, PID, function, or lazy stream.",
+    "lifetime": "Binding-owned local storage; explicit expiry/cancel/failure; no restart-safe replay.",
+    "kind_checks": [
+      "file",
+      "media",
+      "stream",
+      "card",
+      "modal",
+      "result"
+    ]
+  },
+  "trusted_actor_options": [
+    "principal_id",
+    "authorization_scope",
+    "policy",
+    "resource_owner"
+  ],
+  "retained_records_note": "Domain records and builders remain separate. Public communication wrappers, raw provider payload kinds, and legacy event mirrors are removed.",
+  "binding_options": {
+    "required": [
+      "id"
+    ],
+    "private_provider_options": "Remaining keyword options are captured once by configure_binding/1. They never enter Signal data.",
+    "required_adapter_callbacks": [
+      "signal_protocol/0 returning 1",
+      "configure_binding/1 returning {:ok, private_options}",
+      "normalize_event/2 accepting binding and private provider request"
+    ],
+    "startup_rule": "Reject missing/wrong protocol or callback contracts before listeners start."
+  },
+  "constructor_options": [
+    "id",
+    "source",
+    "subject",
+    "time",
+    "extensions",
+    "datacontenttype"
+  ],
+  "handler_api": {
+    "new": "Jido.Chat.Handlers.new(application_state, observers: native_targets, dedupe_limit: 1000)",
+    "on": "Jido.Chat.Handlers.on(handler_value, exact_fact_module, callback, mode: fact|message|mention|subscribed, pattern: regex)",
+    "handle": "Jido.Chat.Handlers.handle(handler_value, fact) -> {:ok, updated_value, observation_result}; callback failure returns {:error, Contract, claimed_value}",
+    "ownership": "Keep the returned claimed value after callback failure. The native Router selects exact fact targets; application policy decides message precedence; native Dispatch observes the unchanged Signal."
+  },
+  "acceptance_failure_rule": "A failed read-only membership lookup returns Contract handler_failed, releases its item claim, and emits no observation. Private message/lifecycle store error values are converted to handler_failed. Previously accepted items in a partial unit remain claimed; retry preserves order without repeating their observations.",
+  "membership_restrictions": {
+    "new_fields": {
+      "can_react_to_messages": "boolean",
+      "can_edit_tag": "boolean",
+      "until_date": "nonnegative integer; zero retains the provider forever value"
+    },
+    "source": "https://core.telegram.org/bots/api#chatmemberrestricted",
+    "scope": "Portable previous/current membership evidence only. It cannot change canonical grants, membership, or presence."
+  }
+}

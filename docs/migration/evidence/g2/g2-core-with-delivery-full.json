@@ -1,0 +1,23 @@
+{
+  "label": "g2-core-with-delivery-full",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--exclude",
+    "live",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "0e623e9285f4efbf615c1d895751cb9e7838a3eb4ffc99669b3485764a319b82",
+  "started_at": "2026-10-12T17:40:21.825184+00:00",
+  "finished_at": "2026-10-12T17:40:23.730917+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-with-delivery-full.log",
+  "log_sha256": "cd7b903527ff7aa0d289bc3d4d8cc27b6e71e189808de4e24735faffae68e7b7"
+}

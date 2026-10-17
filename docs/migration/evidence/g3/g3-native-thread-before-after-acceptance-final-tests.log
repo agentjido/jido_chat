@@ -1,0 +1,138 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+.
+02:09:28.214 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.574.0>, nil}
+
+
+  1) test error thread backfill after message write keeps acceptance and emits one causal failure (Jido.Messaging.NativeThreadStoreOutcomeTest)
+     test/jido_messaging/native_thread_store_outcome_test.exs:34
+     ** (UndefinedFunctionError) function Instance.subscribe_signals/1 is undefined (module Instance is not available). Did you mean:
+
+           * Jido.Messaging.NativeReplyContextTest.Instance.subscribe_signals/1
+           * Jido.Messaging.NativeThreadStoreOutcomeTest.Instance.subscribe_signals/1
+           * Jido.Messaging.TypedAcceptanceTest.Instance.subscribe_signals/1
+
+     code: {:ok, _} = Instance.subscribe_signals("jido.messaging.message.**")
+     stacktrace:
+       Instance.subscribe_signals("jido.messaging.message.**")
+       test/jido_messaging/native_thread_store_outcome_test.exs:37: (test)
+
+
+
+  2) test raise thread backfill after message write keeps acceptance and emits one causal failure (Jido.Messaging.NativeThreadStoreOutcomeTest)
+     test/jido_messaging/native_thread_store_outcome_test.exs:34
+     ** (UndefinedFunctionError) function Instance.subscribe_signals/1 is undefined (module Instance is not available). Did you mean:
+
+           * Jido.Messaging.NativeReplyContextTest.Instance.subscribe_signals/1
+           * Jido.Messaging.NativeThreadStoreOutcomeTest.Instance.subscribe_signals/1
+           * Jido.Messaging.TypedAcceptanceTest.Instance.subscribe_signals/1
+
+     code: {:ok, _} = Instance.subscribe_signals("jido.messaging.message.**")
+     stacktrace:
+       Instance.subscribe_signals("jido.messaging.message.**")
+       test/jido_messaging/native_thread_store_outcome_test.exs:37: (test)
+
+
+
+  3) test throw thread backfill after message write keeps acceptance and emits one causal failure (Jido.Messaging.NativeThreadStoreOutcomeTest)
+     test/jido_messaging/native_thread_store_outcome_test.exs:34
+     ** (UndefinedFunctionError) function Instance.subscribe_signals/1 is undefined (module Instance is not available). Did you mean:
+
+           * Jido.Messaging.NativeReplyContextTest.Instance.subscribe_signals/1
+           * Jido.Messaging.NativeThreadStoreOutcomeTest.Instance.subscribe_signals/1
+           * Jido.Messaging.TypedAcceptanceTest.Instance.subscribe_signals/1
+
+     code: {:ok, _} = Instance.subscribe_signals("jido.messaging.message.**")
+     stacktrace:
+       Instance.subscribe_signals("jido.messaging.message.**")
+       test/jido_messaging/native_thread_store_outcome_test.exs:37: (test)
+
+
+
+  4) test exit thread backfill after message write keeps acceptance and emits one causal failure (Jido.Messaging.NativeThreadStoreOutcomeTest)
+     test/jido_messaging/native_thread_store_outcome_test.exs:34
+     ** (UndefinedFunctionError) function Instance.subscribe_signals/1 is undefined (module Instance is not available). Did you mean:
+
+           * Jido.Messaging.NativeReplyContextTest.Instance.subscribe_signals/1
+           * Jido.Messaging.NativeThreadStoreOutcomeTest.Instance.subscribe_signals/1
+           * Jido.Messaging.TypedAcceptanceTest.Instance.subscribe_signals/1
+
+     code: {:ok, _} = Instance.subscribe_signals("jido.messaging.message.**")
+     stacktrace:
+       Instance.subscribe_signals("jido.messaging.message.**")
+       test/jido_messaging/native_thread_store_outcome_test.exs:37: (test)
+
+
+
+  5) test invalid thread backfill after message write keeps acceptance and emits one causal failure (Jido.Messaging.NativeThreadStoreOutcomeTest)
+     test/jido_messaging/native_thread_store_outcome_test.exs:34
+     ** (UndefinedFunctionError) function Instance.subscribe_signals/1 is undefined (module Instance is not available). Did you mean:
+
+           * Jido.Messaging.NativeReplyContextTest.Instance.subscribe_signals/1
+           * Jido.Messaging.NativeThreadStoreOutcomeTest.Instance.subscribe_signals/1
+           * Jido.Messaging.TypedAcceptanceTest.Instance.subscribe_signals/1
+
+     code: {:ok, _} = Instance.subscribe_signals("jido.messaging.message.**")
+     stacktrace:
+       Instance.subscribe_signals("jido.messaging.message.**")
+       test/jido_messaging/native_thread_store_outcome_test.exs:37: (test)
+
+.....    warning: Instance.subscribe_signals/1 is undefined (module Instance is not available or is yet to be defined). Did you mean:
+
+          * Jido.Messaging.NativeReplyContextTest.Instance.subscribe_signals/1
+          * Jido.Messaging.NativeThreadStoreOutcomeTest.Instance.subscribe_signals/1
+          * Jido.Messaging.TypedAcceptanceTest.Instance.subscribe_signals/1
+
+    │
+ 37 │       {:ok, _} = Instance.subscribe_signals("jido.messaging.message.**")
+    │                           ~
+    │
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:37:27: Jido.Messaging.NativeThreadStoreOutcomeTest."test error thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:37:27: Jido.Messaging.NativeThreadStoreOutcomeTest."test exit thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:37:27: Jido.Messaging.NativeThreadStoreOutcomeTest."test invalid thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:37:27: Jido.Messaging.NativeThreadStoreOutcomeTest."test raise thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:37:27: Jido.Messaging.NativeThreadStoreOutcomeTest."test throw thread backfill after message write keeps acceptance and emits one causal failure"/1
+
+    warning: Instance.accept_delivery/1 is undefined (module Instance is not available or is yet to be defined). Did you mean:
+
+          * Jido.Messaging.NativeReplyContextTest.Instance.accept_delivery/1
+          * Jido.Messaging.NativeThreadStoreOutcomeTest.Instance.accept_delivery/1
+          * Jido.Messaging.TypedAcceptanceTest.Instance.accept_delivery/1
+
+    │
+ 41 │       assert {:ok, [received]} = Instance.accept_delivery(delivery)
+    │                                           ~
+    │
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:41:43: Jido.Messaging.NativeThreadStoreOutcomeTest."test error thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:41:43: Jido.Messaging.NativeThreadStoreOutcomeTest."test exit thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:41:43: Jido.Messaging.NativeThreadStoreOutcomeTest."test invalid thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:41:43: Jido.Messaging.NativeThreadStoreOutcomeTest."test raise thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:41:43: Jido.Messaging.NativeThreadStoreOutcomeTest."test throw thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:52:35: Jido.Messaging.NativeThreadStoreOutcomeTest."test error thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:52:35: Jido.Messaging.NativeThreadStoreOutcomeTest."test exit thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:52:35: Jido.Messaging.NativeThreadStoreOutcomeTest."test invalid thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:52:35: Jido.Messaging.NativeThreadStoreOutcomeTest."test raise thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:52:35: Jido.Messaging.NativeThreadStoreOutcomeTest."test throw thread backfill after message write keeps acceptance and emits one causal failure"/1
+
+    warning: Instance.list_messages/1 is undefined (module Instance is not available or is yet to be defined). Did you mean:
+
+          * Jido.Messaging.NativeReplyContextTest.Instance.list_messages/1
+          * Jido.Messaging.NativeThreadStoreOutcomeTest.Instance.list_messages/1
+          * Jido.Messaging.TypedAcceptanceTest.Instance.list_messages/1
+
+    │
+ 48 │       assert {:ok, [message]} = Instance.list_messages(context.room.id)
+    │                                          ~
+    │
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:48:42: Jido.Messaging.NativeThreadStoreOutcomeTest."test error thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:48:42: Jido.Messaging.NativeThreadStoreOutcomeTest."test exit thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:48:42: Jido.Messaging.NativeThreadStoreOutcomeTest."test invalid thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:48:42: Jido.Messaging.NativeThreadStoreOutcomeTest."test raise thread backfill after message write keeps acceptance and emits one causal failure"/1
+    └─ test/jido_messaging/native_thread_store_outcome_test.exs:48:42: Jido.Messaging.NativeThreadStoreOutcomeTest."test throw thread backfill after message write keeps acceptance and emits one causal failure"/1
+
+.......
+Finished in 2.0 seconds (1.8s async, 0.2s sync)
+
+Result: 13/18 passed
+Failed: 5 tests

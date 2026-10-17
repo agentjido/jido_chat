@@ -1,0 +1,19 @@
+{
+  "label": "g4-telegram-package-build",
+  "command": [
+    "mix",
+    "hex.build"
+  ],
+  "repository": "jido_chat_telegram",
+  "head_sha": "67890bbe538a46e1d004a7b14a1d8f10fe96d04a",
+  "source_tree_sha256": "a2313fa8063ef6d8158c61a2f2becaa5418e1aea11656e8d5c2583f14788ba52",
+  "started_at": "2026-10-13T01:13:42.120883+00:00",
+  "finished_at": "2026-10-13T01:13:42.482460+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g4/g4-telegram-package-build.log",
+  "log_sha256": "73ce27e5a4fde4e661a3be108998652cd006dbc99e69a9adab718f0df280b560"
+}

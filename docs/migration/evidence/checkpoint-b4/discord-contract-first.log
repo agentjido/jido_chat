@@ -1,0 +1,50 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+........................................     warning: unknown key .raw in expression:
+
+         fetched.raw
+
+     the given type does not have the given key:
+
+         dynamic(%{
+           attachments: term(),
+           id: term(),
+           room_id: term(),
+           sender: %{display_name: term(), id: term(), username: term()},
+           text: not false and not nil,
+           thread_id: term(),
+           timestamp: term()
+         })
+
+     where "fetched" was given the type:
+
+         # type: dynamic(%{
+           attachments: term(),
+           id: term(),
+           room_id: term(),
+           sender: %{display_name: term(), id: term(), username: term()},
+           text: not false and not nil,
+           thread_id: term(),
+           timestamp: term()
+         })
+         # from: test/jido/chat/discord/live_integration_test.exs:145
+         {fetched} =
+           case right do
+             ...
+           end
+
+     type warning found at:
+     │
+ 147 │     message_reference = map_get(fetched.raw, [:message_reference, "message_reference"])
+     │                                         ~~~
+     │
+     └─ test/jido/chat/discord/live_integration_test.exs:147:41: Jido.Chat.Discord.LiveIntegrationTest."test reply continuity preserves Discord message_reference metadata"/1
+
+...........................................................
+Finished in 0.6 seconds (0.4s async, 0.1s sync)
+
+Result: 99 passed, 9 excluded
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

@@ -1,0 +1,144 @@
+{
+  "gate": "G1",
+  "state": "pass",
+  "definition_count": 110,
+  "operation_count": 26,
+  "adapter_count": 9,
+  "classified_source_and_generated_exports": 3486,
+  "checks": [
+    {
+      "label": "g1-all-adapter-deps",
+      "command": [
+        "mix",
+        "deps.get"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "9c1271ac5e95074c48c6066e122b4c2f26e9656f87a54626bb4b0427cd28bf68",
+      "started_at": "2026-10-12T17:11:15.864448+00:00",
+      "finished_at": "2026-10-12T17:11:20.053993+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g1/g1-all-adapter-deps.log",
+      "log_sha256": "9c38113afee95c7c28008913d4575a4a759c8a26334cc5ab26715e915e1dc6ae"
+    },
+    {
+      "label": "g1-all-adapter-compile",
+      "command": [
+        "mix",
+        "compile",
+        "--warnings-as-errors"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "a72e4b28dc66e0df8eea2aa5cac57f467e046c3a6eea8a989315c143f097f4c3",
+      "started_at": "2026-10-12T17:12:26.774289+00:00",
+      "finished_at": "2026-10-12T17:13:09.262404+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g1/g1-all-adapter-compile.log",
+      "log_sha256": "307a30c590dfaa687f049867e7339e31d88b02e810d50f299469c2cd057ab70d"
+    },
+    {
+      "label": "g1-schema-fixtures",
+      "command": [
+        "mix",
+        "test",
+        "test/g1_contract_test.exs",
+        "--seed",
+        "0",
+        "--exclude",
+        "live",
+        "--warnings-as-errors"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "2612128a02651d19a640625cde3f470196d1766dc3002fe8f1bc9e129861d6d0",
+      "started_at": "2026-10-12T17:09:29.079220+00:00",
+      "finished_at": "2026-10-12T17:09:32.153337+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g1/g1-schema-fixtures.log",
+      "log_sha256": "526222a26eceda0a072b967d584663fd45ae9a7fd5d4ae63f088bf0ba3c707ed"
+    },
+    {
+      "label": "g1-contract-verifier-tests",
+      "command": [
+        "mix",
+        "test",
+        "test/g1_contract_test.exs",
+        "--seed",
+        "0",
+        "--exclude",
+        "live",
+        "--warnings-as-errors"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "318fc4b8af25a462c1af0f55709592038e8aebbc6ca408a370e15be15b9d58a0",
+      "started_at": "2026-10-12T17:23:36.136765+00:00",
+      "finished_at": "2026-10-12T17:23:39.694463+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g1/g1-contract-verifier-tests.log",
+      "log_sha256": "a45877de769fd7057b0b3c0298d0cdfc9c349df238a1b37d88786fdf2f78564f"
+    },
+    {
+      "label": "g1-api-export-complete",
+      "command": [
+        "mix",
+        "run",
+        "scripts/audit_api_exports.exs"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "749c78021d51f4f6d75e20bddfbc4c2ecd6a371a886eead97f9f9051ace29868",
+      "started_at": "2026-10-12T17:20:23.168510+00:00",
+      "finished_at": "2026-10-12T17:20:25.651295+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g1/g1-api-export-complete.log",
+      "log_sha256": "f66fb89d4abc04187ca6039e3c6952d60feac455c2c8ee3477839c64ca3e3a88"
+    },
+    {
+      "label": "g1-frozen-contract-check",
+      "command": [
+        "mix",
+        "run",
+        "scripts/verify_signal_migration.exs",
+        "--phase",
+        "G1",
+        "--manifest",
+        "../docs/migration/version-matrix.json"
+      ],
+      "repository": "integration",
+      "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+      "source_tree_sha256": "318fc4b8af25a462c1af0f55709592038e8aebbc6ca408a370e15be15b9d58a0",
+      "started_at": "2026-10-12T17:24:31.361985+00:00",
+      "finished_at": "2026-10-12T17:24:33.025639+00:00",
+      "environment": {
+        "MIX_ENV": "test"
+      },
+      "exit_status": 0,
+      "log": "migration/evidence/g1/g1-frozen-contract-check.log",
+      "log_sha256": "3180379caee1b54c3b297937f106c20998abd901216b91228577a36a3bc4ffe9"
+    }
+  ],
+  "remaining_quality_blockers": [
+    "G7: cowlib/gun Hex audit remains failed; no exception is used."
+  ],
+  "notes": [
+    "Schema/identity tests prove the frozen G1 contract. G2 must implement each definition and pass native Catalog build/JSON/validation.",
+    "The phase all verifier cannot pass until C01\u2013C14 are implemented. No final conformance is claimed."
+  ]
+}

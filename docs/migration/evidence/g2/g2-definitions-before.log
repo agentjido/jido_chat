@@ -1,0 +1,214 @@
+Compiling 1 file (.ex)
+Generated jido_chat app
+Running ExUnit with seed: 0, max_cases: 20
+
+
+
+  1) test native definition Jido.Chat.Signal.SendMessage keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.SendMessage.new/2 is undefined (module Jido.Chat.Signal.SendMessage is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.SendMessage.new(%{"request_id" => "request-1", "room_id" => "room/1", "text" => "hello"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+  2) test native definition Jido.Chat.Signal.SendFile keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.SendFile.new/2 is undefined (module Jido.Chat.Signal.SendFile is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.SendFile.new(%{"request_id" => "request-1", "resource_ref" => %{"binding_id" => "binding/alpha", "id" => "resource-1", "kind" => "file", "scope" => "call"}, "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+  3) test native definition Jido.Chat.Signal.PostMessage keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.PostMessage.new/2 is undefined (module Jido.Chat.Signal.PostMessage is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.PostMessage.new(%{"content" => %{"kind" => "text", "text" => "hello"}, "request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+  4) test native definition Jido.Chat.Signal.EditMessage keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.EditMessage.new/2 is undefined (module Jido.Chat.Signal.EditMessage is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.EditMessage.new(%{"message_id" => "message-1", "request_id" => "request-1", "room_id" => "room/1", "text" => "hello"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+  5) test native definition Jido.Chat.Signal.DeleteMessage keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.DeleteMessage.new/2 is undefined (module Jido.Chat.Signal.DeleteMessage is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.DeleteMessage.new(%{"message_id" => "message-1", "request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+  6) test native definition Jido.Chat.Signal.StartTyping keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.StartTyping.new/2 is undefined (module Jido.Chat.Signal.StartTyping is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.StartTyping.new(%{"request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+  7) test native definition Jido.Chat.Signal.FetchMetadata keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.FetchMetadata.new/2 is undefined (module Jido.Chat.Signal.FetchMetadata is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.FetchMetadata.new(%{"request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+  8) test native definition Jido.Chat.Signal.FetchThread keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.FetchThread.new/2 is undefined (module Jido.Chat.Signal.FetchThread is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.FetchThread.new(%{"request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+  9) test native definition Jido.Chat.Signal.FetchMessage keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.FetchMessage.new/2 is undefined (module Jido.Chat.Signal.FetchMessage is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.FetchMessage.new(%{"message_id" => "message-1", "request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+ 10) test native definition Jido.Chat.Signal.GetUser keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.GetUser.new/2 is undefined (module Jido.Chat.Signal.GetUser is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.GetUser.new(%{"request_id" => "request-1", "user_id" => "actor-1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+ 11) test native definition Jido.Chat.Signal.FetchSubject keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.FetchSubject.new/2 is undefined (module Jido.Chat.Signal.FetchSubject is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.FetchSubject.new(%{"request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+ 12) test native definition Jido.Chat.Signal.GetThreadParticipants keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.GetThreadParticipants.new/2 is undefined (module Jido.Chat.Signal.GetThreadParticipants is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.GetThreadParticipants.new(%{"request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+
+
+ 13) test native definition Jido.Chat.Signal.MarkAsRead keeps identity through JSON and Catalog (Jido.Chat.PublicSignalContractTest)
+     test/jido/chat/public_signal_contract_test.exs:15
+     ** (UndefinedFunctionError) function Jido.Chat.Signal.MarkAsRead.new/2 is undefined (module Jido.Chat.Signal.MarkAsRead is not available)
+     code: assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+     stacktrace:
+       Jido.Chat.Signal.MarkAsRead.new(%{"message_id" => "message-1", "request_id" => "request-1", "room_id" => "room/1"}, %{"source" => "urn:jido:chat:producer:local"})
+       test/jido/chat/public_signal_contract_test.exs:18: (test)
+
+    warning: Jido.Chat.signal_definitions/0 is undefined or private
+    │
+ 21 │       catalog = Catalog.new!(Jido.Chat.signal_definitions())
+    │                                        ~
+    │
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ActionReceived keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.AddReaction keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.AssistantContextChanged keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.AssistantThreadStarted keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.DeleteMessage keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.EditMessage keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.FetchChannelMessages keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.FetchMedia keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.FetchMessage keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.FetchMessages keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.FetchMetadata keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.FetchSubject keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.FetchThread keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.GetThreadParticipants keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.GetUser keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ListThreads keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.LoadOptions keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.MarkAsRead keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.MembershipChanged keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.MessageDeleted keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.MessageReceived keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.MessageUpdated keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ModalClosed keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ModalSubmitted keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.NormalizationFailed keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.OpenDm keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.OpenModal keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.OpenThread keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.OperationCompleted keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.OperationFailed keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.OptionsRequested keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.PostChannelMessage keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.PostEphemeral keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.PostMessage keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ReactionAdded keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ReactionRemoved keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ReceiptReceived keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.RemoveReaction keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.SendFile keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.SendMessage keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.SlashCommandReceived keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.StartTyping keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.Stream keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ThreadChanged keeps identity through JSON and Catalog"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:21:40: Jido.Chat.PublicSignalContractTest."test native definition Jido.Chat.Signal.ThreadStarted keeps identity through JSON and Catalog"/1
+
+    warning: struct Jido.Chat.Errors.Contract is undefined (module Jido.Chat.Errors.Contract is not available or is yet to be defined)
+    │
+ 37 │       assert {:error, %Contract{code: :invalid_options}} = Jido.Chat.Signal.SendMessage.new(data, opts)
+    │                       ~
+    │
+    └─ test/jido/chat/public_signal_contract_test.exs:37:23: Jido.Chat.PublicSignalContractTest."test constructor metadata override attempts fail with one structured contract error"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:45:23: Jido.Chat.PublicSignalContractTest."test private values and unapproved context fail without a raw fallback"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:65:21: Jido.Chat.PublicSignalContractTest."test encoded Signal size is accepted at the exact limit and rejected one byte beyond"/1
+
+    warning: Jido.Chat.Signal.SendMessage.new/2 is undefined (module Jido.Chat.Signal.SendMessage is not available or is yet to be defined)
+    │
+ 37 │       assert {:error, %Contract{code: :invalid_options}} = Jido.Chat.Signal.SendMessage.new(data, opts)
+    │                                                                                         ~
+    │
+    └─ test/jido/chat/public_signal_contract_test.exs:37:89: Jido.Chat.PublicSignalContractTest."test constructor metadata override attempts fail with one structured contract error"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:49:43: Jido.Chat.PublicSignalContractTest."test private values and unapproved context fail without a raw fallback"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:52:43: Jido.Chat.PublicSignalContractTest."test private values and unapproved context fail without a raw fallback"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:58:55: Jido.Chat.PublicSignalContractTest."test encoded Signal size is accepted at the exact limit and rejected one byte beyond"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:61:57: Jido.Chat.PublicSignalContractTest."test encoded Signal size is accepted at the exact limit and rejected one byte beyond"/1
+    └─ test/jido/chat/public_signal_contract_test.exs:66:43: Jido.Chat.PublicSignalContractTest."test encoded Signal size is accepted at the exact limit and rejected one byte beyond"/1
+
+    warning: Jido.Chat.Signal.SendMessage.new/1 is undefined (module Jido.Chat.Signal.SendMessage is not available or is yet to be defined)
+    │
+ 45 │       assert {:error, %Contract{}} = Jido.Chat.Signal.SendMessage.new(%{data | "text" => value})
+    │                                                                   ~
+    │
+    └─ test/jido/chat/public_signal_contract_test.exs:45:67: Jido.Chat.PublicSignalContractTest."test private values and unapproved context fail without a raw fallback"/1
+
+== Type checking failed with errors ==

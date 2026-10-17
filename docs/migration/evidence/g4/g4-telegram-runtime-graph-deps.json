@@ -1,0 +1,22 @@
+{
+  "label": "g4-telegram-runtime-graph-deps",
+  "command": [
+    "mix",
+    "deps.get"
+  ],
+  "repository": "integration",
+  "head_sha": "4144d868472b59f7c7cc53c6754fbd8a4cb6cae6",
+  "source_tree_sha256": "d07c6935760dcbe27d1e9c5efce32fd489d033388913f31790d9a551a2d89343",
+  "started_at": "2026-10-13T01:16:49.554396+00:00",
+  "finished_at": "2026-10-13T01:16:50.933853+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "telegram",
+    "MIX_BUILD_PATH": "_build/telegram-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g4/g4-telegram-runtime-graph-deps.log",
+  "log_sha256": "99fd519c2d49d41f1841991204c946c836ac6226c8bff2dddeb18308df7fd490"
+}

@@ -1,0 +1,688 @@
+{
+  "label": "whatsapp-original-native-tests",
+  "repository": "jido_chat_whatsapp",
+  "command": [
+    "mix",
+    "test",
+    "--warnings-as-errors"
+  ],
+  "started_at": "2026-10-14T00:17:25.673985+00:00",
+  "finished_at": "2026-10-14T00:17:47.797764+00:00",
+  "exit_status": 3,
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "postgres_fixture": {
+    "host": "127.0.0.1",
+    "port": 58157,
+    "database": "signal_conformance"
+  },
+  "sources": {
+    "jido_chat": {
+      "lib": {
+        "files": 126,
+        "sha256": "8726060dacf60d8f310e36f944144c710d91361472a80dce7daec4481b40bf6f"
+      },
+      "test": {
+        "files": 24,
+        "sha256": "e17d64be6c378f85a5093705e3da5fd991cc62f405aa7d3918dbae9c1d7d2732"
+      },
+      "integration/lib": {
+        "files": 1,
+        "sha256": "800f86ac3cbc81bec90ac55e0306b5d6efeba03f2e510307ae569cea807602f7"
+      },
+      "integration/test": {
+        "files": 4,
+        "sha256": "ff3d0a478ae76e9956f56bc8833b854a3bbb269536e3a98ca0910c08c08f8f2d"
+      },
+      "integration/scripts": {
+        "files": 18,
+        "sha256": "27674b8e244b92466616307dd8407a205ba651b096f86e583cb4e77726a20d9b"
+      },
+      "integration/fixtures": {
+        "files": 8,
+        "sha256": "8d89ff746a39f31b196dafa4abb11548a2443dac55862a445d011d213222cbb2"
+      },
+      "mix.exs": "7c279ed0f0880f9917a9f218100c11bf151bba0963e2dcfffb8dc07a6b8f6f11",
+      "mix.lock": "0eefe02d24c9bcaa2b0df7a8dbbf0d32dac4b7bfe24c8b39cef87bdb86c41a84",
+      "config/config.exs": "022ea66b2482babcf0538f2d27721ce1925617fca4d4f936fa71da2bca16f8bd",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_messaging": {
+      "lib": {
+        "files": 235,
+        "sha256": "8c18a1e4db189e7c653e55816983b9e3a89a5f3c88e701230da7afc95e1138c0"
+      },
+      "test": {
+        "files": 176,
+        "sha256": "ac05d025f6503141b818df524bcbfe5bbc9ab9d7fc5c13dde19670bb19ecf50c"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "c0569de96490b322813061fc60645fe66616bf353f83c1a2e9707c0b24a1361a",
+      "mix.lock": "85eeb1b8bf581a8d88dd9ddfdd959cc0516771179596e691da60652a33aa1899",
+      "config/config.exs": "9cfc9e6e07bca41a76e95248181dc30b4accbc9228cbcd54816ede86553ccd59",
+      "config/test.exs": "16da1804e7d3c693b3aa6a7af4965c3d980b8f66fdf5bf725778f987b4890229"
+    },
+    "jido_chat_signal": {
+      "lib": {
+        "files": 8,
+        "sha256": "2d0ccc681dbacaf3026d67ac435fc5441661849a212637aab401d4a0de88dee5"
+      },
+      "test": {
+        "files": 6,
+        "sha256": "1ac7cbe772764317060e188708f32333a6e6a099a649bffdff5b245f839d02aa"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "0952e6c840c4cc14198ee33e2d3e456547147c8ae87c27ec2bb2aba813afaa2e",
+      "mix.lock": "56e5463985f488098bf39da2f1cdc2449fdb13398e45662d8b25e3ee2e467455",
+      "config/config.exs": "988fdc142717f9f1bef84258d1d63794a9be5d147afd8ec017be1f09f3784c6f"
+    },
+    "jido_chat_telegram": {
+      "lib": {
+        "files": 27,
+        "sha256": "bcad486ec50c4deae91ef50327ee794c51f49965b910dc77c3df025bf40493f6"
+      },
+      "test": {
+        "files": 17,
+        "sha256": "d64e018290b28607211a4e03206afd0b10e34343f4394311ec49a294fc9facbc"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "8614632a474421be8270786a69ddf6834e593e8c5e54ba0ca13f8c0cfb763b5e",
+      "mix.lock": "b29d954343fba37cc6766b94a7f5ba0c7dc901f4150923aa1450f57f825f8480",
+      "config/config.exs": "eba8d124b7e0700a3c08c8c88133c5957eb858978342d8e6809b2d765d1c59f9",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_slack": {
+      "lib": {
+        "files": 20,
+        "sha256": "09adebaf687d0470482cf0a4c083efe2efd3cd7c23a0c51a1298539ad5f75ebe"
+      },
+      "test": {
+        "files": 13,
+        "sha256": "8a250ed691067ab4ba5167e172eb9d3e038aa509b3933bd0a5f70c2c77f1acb5"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "4ee124b98df9549ebdcd1cb6ea5dee43bec34d84e30c5030a7fb30054b0e0904",
+      "mix.lock": "8b47d33248c7a8033c92a2bf6786aacb45d05bfe9eca5b63bf67c9e504999fa2",
+      "config/config.exs": "90564c595fec92ac91b07f4346cf73c6655882133fbb06d924b77e61e7c7bcf7",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_discord": {
+      "lib": {
+        "files": 14,
+        "sha256": "0f47409fa2fd068792b132c18132441380833e723d39e459cfd284e1aa092d76"
+      },
+      "test": {
+        "files": 9,
+        "sha256": "190bb0db440f76b5d6508ab5e5a95b7452676ae236cb9a58c0a32e7f74c8aec2"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "3f08f185e20ad627ae7c21b29413e1bd6172d5c05d4416fdb2496554978c3071",
+      "mix.lock": "7119528c08709cce4d3761b8e00510063fb2eef771d518c0664153c9eec72105",
+      "config/config.exs": "42b6f026b36d317d5ec261c56895cb5692ef15b7f1b317d11e5eb71bd80e947c",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_github": {
+      "lib": {
+        "files": 4,
+        "sha256": "9537b78d7c15656ef85e3e21b43f28b6c4c671915af5bc8b24cd1d8eedfaf4db"
+      },
+      "test": {
+        "files": 4,
+        "sha256": "94c6e51a0fe8baf5f025df657111e2a19c0fb419ce0d80c2c7c9d134f77aca66"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "ce0287cf970881ad3742a1193bfe8088672483c402bb1e7031572215d8fd98ca",
+      "mix.lock": "56e5463985f488098bf39da2f1cdc2449fdb13398e45662d8b25e3ee2e467455",
+      "config/config.exs": "79fb7077e1a28f392b940b13edaf5eee0c0776dcf42eac9b7c4a8e362ae69c70"
+    },
+    "jido_chat_mattermost": {
+      "lib": {
+        "files": 14,
+        "sha256": "443a0dd64f64e5c54a88f817d962cddb38073b262301bb8f4712404bcd8f297c"
+      },
+      "test": {
+        "files": 8,
+        "sha256": "eec1a07816f655c5929ac36616322c8f35723102dad37aa4386381a2a8c00c5f"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "0522e0a0e5ff45bb01425d450dd2bd4df7b8aafdf94596c1d08c47db217af92d",
+      "mix.lock": "ea6aa9f47cab17edaf832f73589f8d7683a43576090097cc3ad7a1c8585e5c49",
+      "config/config.exs": "c837f21fb78ead8789d66f9acb733153d7f363a9cbcd45f9dbbfbbeb6a48b15a",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_teams": {
+      "lib": {
+        "files": 10,
+        "sha256": "f6a59e6e83e36196b80098ac57f99d3baaac51cb08adeb1c0e1acee18983608d"
+      },
+      "test": {
+        "files": 9,
+        "sha256": "c1b4c714b66af4d66e33e9acd969e83503d397f8d23d0f0677b0ef1df893cd53"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "b78dc922e1731e4aeb0c0d1b280f1f6a64e4282bf9bb562bd9dbefc776cfc574",
+      "mix.lock": "5d154f263f09a0b4db7351e544d944279d212e2437de9c4cad902a45915a3ce9",
+      "config/config.exs": "64a2bacfcccd805394e6ad01476c9bb0ec7e423212ab7f1940adce8e22383513",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_whatsapp": {
+      "lib": {
+        "files": 9,
+        "sha256": "193f30fd08cea551a7f310364b55df30934e0981144750fda730bd939a9ce639"
+      },
+      "test": {
+        "files": 11,
+        "sha256": "e4a7ee7fa5667a7048cba9e40e3e8c4bc81295567867e8731599d902dac781b2"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "8717a5e109adcb31245fea350845df9fab72325e8e16724e8b63e3dbbf6d9a67",
+      "mix.lock": "dc47c07cf2dd0e45d1c8cb015851d643273592dba5e948e997264e2107132fd1",
+      "config/config.exs": "cfe8f62351e990327c597f997d8dbb57cce8601b99c3afd879b432f1ed5e8bf0",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_x": {
+      "lib": {
+        "files": 4,
+        "sha256": "3ac69f733212ef7109069b75733518abef71b7d23cccf7bc933b0eee552d3149"
+      },
+      "test": {
+        "files": 3,
+        "sha256": "11adc2c3a4509f71cdcafbbb8aa42989f22296c5e74a000e974f136e0726ac54"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "fdf22865942e1de9a4aaec5b8059d5ddf95dbd428c23f3b963feda76e8e1bdc7",
+      "mix.lock": "98447bf7ba7efc436c4f9f181a49d20e2c4fbbcf416ab06587d2954fee6f17b8",
+      "config/config.exs": "88584e0e3561233a4509705e4e7c354bb65042733bd5081a832fbe0f32d19923"
+    }
+  },
+  "log": "evidence/checkpoint-b4/whatsapp-original-native-tests.log",
+  "log_sha256": "f21c4f9a8c4e4ba0c1678f6691287a02784824cc9162af88e1a0430afb5dbb14",
+  "sources_at_end": {
+    "jido_chat": {
+      "lib": {
+        "files": 126,
+        "sha256": "8726060dacf60d8f310e36f944144c710d91361472a80dce7daec4481b40bf6f"
+      },
+      "test": {
+        "files": 24,
+        "sha256": "e17d64be6c378f85a5093705e3da5fd991cc62f405aa7d3918dbae9c1d7d2732"
+      },
+      "integration/lib": {
+        "files": 1,
+        "sha256": "800f86ac3cbc81bec90ac55e0306b5d6efeba03f2e510307ae569cea807602f7"
+      },
+      "integration/test": {
+        "files": 4,
+        "sha256": "ff3d0a478ae76e9956f56bc8833b854a3bbb269536e3a98ca0910c08c08f8f2d"
+      },
+      "integration/scripts": {
+        "files": 18,
+        "sha256": "27674b8e244b92466616307dd8407a205ba651b096f86e583cb4e77726a20d9b"
+      },
+      "integration/fixtures": {
+        "files": 8,
+        "sha256": "8d89ff746a39f31b196dafa4abb11548a2443dac55862a445d011d213222cbb2"
+      },
+      "mix.exs": "7c279ed0f0880f9917a9f218100c11bf151bba0963e2dcfffb8dc07a6b8f6f11",
+      "mix.lock": "0eefe02d24c9bcaa2b0df7a8dbbf0d32dac4b7bfe24c8b39cef87bdb86c41a84",
+      "config/config.exs": "022ea66b2482babcf0538f2d27721ce1925617fca4d4f936fa71da2bca16f8bd",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_messaging": {
+      "lib": {
+        "files": 235,
+        "sha256": "8c18a1e4db189e7c653e55816983b9e3a89a5f3c88e701230da7afc95e1138c0"
+      },
+      "test": {
+        "files": 176,
+        "sha256": "ac05d025f6503141b818df524bcbfe5bbc9ab9d7fc5c13dde19670bb19ecf50c"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "c0569de96490b322813061fc60645fe66616bf353f83c1a2e9707c0b24a1361a",
+      "mix.lock": "85eeb1b8bf581a8d88dd9ddfdd959cc0516771179596e691da60652a33aa1899",
+      "config/config.exs": "9cfc9e6e07bca41a76e95248181dc30b4accbc9228cbcd54816ede86553ccd59",
+      "config/test.exs": "16da1804e7d3c693b3aa6a7af4965c3d980b8f66fdf5bf725778f987b4890229"
+    },
+    "jido_chat_signal": {
+      "lib": {
+        "files": 8,
+        "sha256": "2d0ccc681dbacaf3026d67ac435fc5441661849a212637aab401d4a0de88dee5"
+      },
+      "test": {
+        "files": 6,
+        "sha256": "1ac7cbe772764317060e188708f32333a6e6a099a649bffdff5b245f839d02aa"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "0952e6c840c4cc14198ee33e2d3e456547147c8ae87c27ec2bb2aba813afaa2e",
+      "mix.lock": "56e5463985f488098bf39da2f1cdc2449fdb13398e45662d8b25e3ee2e467455",
+      "config/config.exs": "988fdc142717f9f1bef84258d1d63794a9be5d147afd8ec017be1f09f3784c6f"
+    },
+    "jido_chat_telegram": {
+      "lib": {
+        "files": 27,
+        "sha256": "bcad486ec50c4deae91ef50327ee794c51f49965b910dc77c3df025bf40493f6"
+      },
+      "test": {
+        "files": 17,
+        "sha256": "d64e018290b28607211a4e03206afd0b10e34343f4394311ec49a294fc9facbc"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "8614632a474421be8270786a69ddf6834e593e8c5e54ba0ca13f8c0cfb763b5e",
+      "mix.lock": "b29d954343fba37cc6766b94a7f5ba0c7dc901f4150923aa1450f57f825f8480",
+      "config/config.exs": "eba8d124b7e0700a3c08c8c88133c5957eb858978342d8e6809b2d765d1c59f9",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_slack": {
+      "lib": {
+        "files": 20,
+        "sha256": "09adebaf687d0470482cf0a4c083efe2efd3cd7c23a0c51a1298539ad5f75ebe"
+      },
+      "test": {
+        "files": 13,
+        "sha256": "8a250ed691067ab4ba5167e172eb9d3e038aa509b3933bd0a5f70c2c77f1acb5"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "4ee124b98df9549ebdcd1cb6ea5dee43bec34d84e30c5030a7fb30054b0e0904",
+      "mix.lock": "8b47d33248c7a8033c92a2bf6786aacb45d05bfe9eca5b63bf67c9e504999fa2",
+      "config/config.exs": "90564c595fec92ac91b07f4346cf73c6655882133fbb06d924b77e61e7c7bcf7",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_discord": {
+      "lib": {
+        "files": 14,
+        "sha256": "0f47409fa2fd068792b132c18132441380833e723d39e459cfd284e1aa092d76"
+      },
+      "test": {
+        "files": 9,
+        "sha256": "190bb0db440f76b5d6508ab5e5a95b7452676ae236cb9a58c0a32e7f74c8aec2"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "3f08f185e20ad627ae7c21b29413e1bd6172d5c05d4416fdb2496554978c3071",
+      "mix.lock": "7119528c08709cce4d3761b8e00510063fb2eef771d518c0664153c9eec72105",
+      "config/config.exs": "42b6f026b36d317d5ec261c56895cb5692ef15b7f1b317d11e5eb71bd80e947c",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_github": {
+      "lib": {
+        "files": 4,
+        "sha256": "9537b78d7c15656ef85e3e21b43f28b6c4c671915af5bc8b24cd1d8eedfaf4db"
+      },
+      "test": {
+        "files": 4,
+        "sha256": "94c6e51a0fe8baf5f025df657111e2a19c0fb419ce0d80c2c7c9d134f77aca66"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "ce0287cf970881ad3742a1193bfe8088672483c402bb1e7031572215d8fd98ca",
+      "mix.lock": "56e5463985f488098bf39da2f1cdc2449fdb13398e45662d8b25e3ee2e467455",
+      "config/config.exs": "79fb7077e1a28f392b940b13edaf5eee0c0776dcf42eac9b7c4a8e362ae69c70"
+    },
+    "jido_chat_mattermost": {
+      "lib": {
+        "files": 14,
+        "sha256": "443a0dd64f64e5c54a88f817d962cddb38073b262301bb8f4712404bcd8f297c"
+      },
+      "test": {
+        "files": 8,
+        "sha256": "eec1a07816f655c5929ac36616322c8f35723102dad37aa4386381a2a8c00c5f"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "0522e0a0e5ff45bb01425d450dd2bd4df7b8aafdf94596c1d08c47db217af92d",
+      "mix.lock": "ea6aa9f47cab17edaf832f73589f8d7683a43576090097cc3ad7a1c8585e5c49",
+      "config/config.exs": "c837f21fb78ead8789d66f9acb733153d7f363a9cbcd45f9dbbfbbeb6a48b15a",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_teams": {
+      "lib": {
+        "files": 10,
+        "sha256": "f6a59e6e83e36196b80098ac57f99d3baaac51cb08adeb1c0e1acee18983608d"
+      },
+      "test": {
+        "files": 9,
+        "sha256": "c1b4c714b66af4d66e33e9acd969e83503d397f8d23d0f0677b0ef1df893cd53"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "b78dc922e1731e4aeb0c0d1b280f1f6a64e4282bf9bb562bd9dbefc776cfc574",
+      "mix.lock": "5d154f263f09a0b4db7351e544d944279d212e2437de9c4cad902a45915a3ce9",
+      "config/config.exs": "64a2bacfcccd805394e6ad01476c9bb0ec7e423212ab7f1940adce8e22383513",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_whatsapp": {
+      "lib": {
+        "files": 9,
+        "sha256": "193f30fd08cea551a7f310364b55df30934e0981144750fda730bd939a9ce639"
+      },
+      "test": {
+        "files": 11,
+        "sha256": "e4a7ee7fa5667a7048cba9e40e3e8c4bc81295567867e8731599d902dac781b2"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "8717a5e109adcb31245fea350845df9fab72325e8e16724e8b63e3dbbf6d9a67",
+      "mix.lock": "dc47c07cf2dd0e45d1c8cb015851d643273592dba5e948e997264e2107132fd1",
+      "config/config.exs": "cfe8f62351e990327c597f997d8dbb57cce8601b99c3afd879b432f1ed5e8bf0",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_x": {
+      "lib": {
+        "files": 4,
+        "sha256": "3ac69f733212ef7109069b75733518abef71b7d23cccf7bc933b0eee552d3149"
+      },
+      "test": {
+        "files": 3,
+        "sha256": "11adc2c3a4509f71cdcafbbb8aa42989f22296c5e74a000e974f136e0726ac54"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "fdf22865942e1de9a4aaec5b8059d5ddf95dbd428c23f3b963feda76e8e1bdc7",
+      "mix.lock": "98447bf7ba7efc436c4f9f181a49d20e2c4fbbcf416ab06587d2954fee6f17b8",
+      "config/config.exs": "88584e0e3561233a4509705e4e7c354bb65042733bd5081a832fbe0f32d19923"
+    }
+  },
+  "sources_unchanged": true,
+  "tests": {
+    "passed": 40,
+    "total": 41,
+    "failed": 1
+  },
+  "raw_log_sha256": "f21c4f9a8c4e4ba0c1678f6691287a02784824cc9162af88e1a0430afb5dbb14"
+}

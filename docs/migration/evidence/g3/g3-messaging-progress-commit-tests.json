@@ -1,0 +1,26 @@
+{
+  "label": "g3-messaging-progress-commit-tests",
+  "command": [
+    "mix",
+    "test",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "c925cfd4de0a1d5950998806ec2d01ef6da45369",
+  "source_tree_sha256": "73106ad52691f622293e53c47cd50b1d6adceb659de83ca641cc99dd939cb03e",
+  "started_at": "2026-10-12T23:14:29.020065+00:00",
+  "finished_at": "2026-10-12T23:15:02.531956+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-messaging-progress-commit-tests.log",
+  "log_sha256": "36fd237632fba6c9c1f7f7e728f0bafb383a9635459393061a3afce16fd53172"
+}

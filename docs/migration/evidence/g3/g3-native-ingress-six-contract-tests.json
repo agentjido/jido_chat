@@ -1,0 +1,23 @@
+{
+  "label": "g3-native-ingress-six-contract-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/typed_acceptance_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "7b6595048c7b84e4c0c128ca1bf22110a613bef417e46ec413c4d47ad3e30409",
+  "started_at": "2026-10-12T19:48:05.038384+00:00",
+  "finished_at": "2026-10-12T19:48:07.183502+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-native-ingress-six-contract-tests.log",
+  "log_sha256": "ae1d9727908d8d8c2b2e3ce5a7d37492c5730196312253199549f45312e8032b"
+}

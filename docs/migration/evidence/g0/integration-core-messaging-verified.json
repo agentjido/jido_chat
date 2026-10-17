@@ -1,0 +1,19 @@
+{
+  "label": "integration-core-messaging-verified",
+  "command": [
+    "mix",
+    "test.messaging",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "a098fcc66038741f717a9bf083bdbc6f3c7a93dd60be45defbbc1c00782adda1",
+  "started_at": "2026-10-12T16:25:50.313923+00:00",
+  "finished_at": "2026-10-12T16:26:15.078479+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g0/integration-core-messaging-verified.log",
+  "log_sha256": "cecf207b6b69364ddfca12406152d3f4a80a419c2acdb3f90257f282dd4f7aef"
+}

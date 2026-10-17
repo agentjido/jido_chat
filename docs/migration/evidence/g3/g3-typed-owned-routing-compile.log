@@ -1,0 +1,9 @@
+Compiling 11 files (.ex)
+     warning: clauses with the same name and arity (number of arguments) should be grouped together, "defp local/6" was previously defined (lib/jido_messaging/execution.ex:447)
+     │
+ 536 │   defp local(instance, runtime, request, _definition, "create_room", _decision) do
+     │        ~
+     │
+     └─ lib/jido_messaging/execution.ex:536:8
+
+Compilation failed due to warnings while using the --warnings-as-errors option

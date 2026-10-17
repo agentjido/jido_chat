@@ -1,0 +1,56 @@
+Checking 23 source files ...
+
+Please report incorrect results: https://github.com/rrrene/credo/issues
+
+Analysis took 0.01 seconds (0.01s to load, 0.00s running 0 checks on 23 files)
+409 mods/funs, found no issues.
+
+Showing priority issues: ↑ ↗ →  (use `mix credo explain` to explain issues, `mix credo --help` for options).
+Finding suitable PLTs
+Checking PLT...
+[:asn1, :compiler, :crypto, :decimal, :dotenvy, :eex, :elixir, :excoveralls, :finch, :hpax, :inets, :jason, :jido_chat, :jido_chat_discord, :jido_signal, :kernel, :logger, :mime, :mint, :mix, :nimble_options, :nimble_pool, :nostrum, :public_key, :req, :splode, :ssl, :stdlib, :telemetry, :tools, :xmerl, :zoi]
+PLT is up to date!
+No :ignore_warnings opt specified in mix.exs and default does not exist.
+
+Starting Dialyzer
+[
+  check_plt: false,
+  init_plt: ~c"priv/plts/project.plt/dialyxir_erlang-29.1_elixir-1.20.4_deps-test.plt",
+  files: [~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/_build/test/lib/jido_chat_discord/ebin/Elixir.Jido.Chat.Discord.Adapter.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/_build/test/lib/jido_chat_discord/ebin/Elixir.Jido.Chat.Discord.DeleteOptions.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/_build/test/lib/jido_chat_discord/ebin/Elixir.Jido.Chat.Discord.EditOptions.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/_build/test/lib/jido_chat_discord/ebin/Elixir.Jido.Chat.Discord.FetchOptions.beam",
+   ~c"/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/_build/test/lib/jido_chat_discord/ebin/Elixir.Jido.Chat.Discord.GatewayWorker.beam",
+   ...],
+  ...
+]
+Total errors: 0, Skipped: 0, Unnecessary Skips: 0
+done in 0m3.23s
+done (passed successfully)
+Doctor file not found. Using defaults.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Doc Cov  Spec Cov  Module                                   File                                                      Functions  No Docs  No Specs  Module Doc  Struct Spec
+100%     100%      Jido.Chat.Discord                        lib/jido/chat/discord.ex                                  1          0        0         Yes         N/A
+100%     100%      Jido.Chat.Discord.Adapter                lib/jido/chat/discord/adapter.ex                          27         0        0         Yes         N/A
+100%     33%       Jido.Chat.Discord.DeleteOptions          lib/jido/chat/discord/delete_options.ex                   3          0        2         Yes         Yes
+100%     33%       Jido.Chat.Discord.EditOptions            lib/jido/chat/discord/edit_options.ex                     3          0        2         Yes         Yes
+100%     33%       Jido.Chat.Discord.FetchOptions           lib/jido/chat/discord/fetch_options.ex                    3          0        2         Yes         Yes
+60%      100%      Jido.Chat.Discord.GatewayWorker          lib/jido/chat/discord/gateway_worker.ex                   5          2        0         Yes         N/A
+100%     33%       Jido.Chat.Discord.MetadataOptions        lib/jido/chat/discord/metadata_options.ex                 3          0        2         Yes         Yes
+43%      100%      Jido.Chat.Discord.NostrumGatewayBuffer   lib/jido/chat/discord/nostrum_gateway_buffer.ex           7          4        0         Yes         N/A
+50%      100%      Jido.Chat.Discord.NostrumGatewayListene  lib/jido/chat/discord/nostrum_gateway_listener.ex         4          2        0         Yes         N/A
+100%     33%       Jido.Chat.Discord.ReactionOptions        lib/jido/chat/discord/reaction_options.ex                 3          0        2         Yes         Yes
+100%     33%       Jido.Chat.Discord.SendOptions            lib/jido/chat/discord/send_options.ex                     3          0        2         Yes         Yes
+N/A      N/A       Jido.Chat.Discord.Transport              lib/jido/chat/discord/transport.ex                        0          0        0         Yes         N/A
+100%     100%      Jido.Chat.Discord.Transport.NostrumClie  lib/jido/chat/discord/transport/nostrum_client.ex         16         0        0         Yes         N/A
+100%     33%       Jido.Chat.Discord.TypingOptions          lib/jido/chat/discord/typing_options.ex                   3          0        2         Yes         Yes
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Summary:
+
+Passed Modules: 14
+Failed Modules: 0
+Total Doc Coverage: 90.1%
+Total Moduledoc Coverage: 100.0%
+Total Spec Coverage: 82.7%
+
+Doctor validation has passed!

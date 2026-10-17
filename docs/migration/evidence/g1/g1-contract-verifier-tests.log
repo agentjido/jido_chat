@@ -1,0 +1,16 @@
+==> jido_chat_mattermost
+     warning: module attribute @impl was not set for function get_user/2 callback (specified in Jido.Chat.Adapter). This either means you forgot to add the "@impl true" annotation before the definition or that you are accidentally overriding this callback
+     │
+ 323 │   def get_user(user_id, opts \\ []) do
+     │   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     │
+     └─ lib/jido/chat/mattermost/adapter.ex:323: Jido.Chat.Mattermost.Adapter (module)
+
+==> jido_chat_integration
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live, :postgres]
+
+......................................................................................................................
+Finished in 2.0 seconds (2.0s async, 0.00s sync)
+
+Result: 118 passed

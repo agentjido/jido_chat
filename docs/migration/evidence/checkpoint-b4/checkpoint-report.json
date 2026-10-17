@@ -1,0 +1,593 @@
+{
+  "batch": "B4",
+  "gate": "G6",
+  "state": "pass",
+  "recorded_at": "2026-10-14T00:53:35.747394+00:00",
+  "stopped_at_user_boundary": true,
+  "next_batch": "B5",
+  "next_gate": "G7",
+  "remaining_gates": [
+    "G7",
+    "G8",
+    "G9"
+  ],
+  "overall_goal_complete": false,
+  "heads_after_source_commits": {
+    "jido_chat_telegram": "8688a30d07d70da235aae7c8e639605ec203b479",
+    "jido_chat_slack": "78df382391209bb8b1a6feccce4a0a03a33887e6",
+    "jido_chat_discord": "b45c22d8ba3f018d9403c60fdf76814a9fb4aac6",
+    "jido_chat_github": "104e7a9eadab77bb253142d531f584da10ea9ad7",
+    "jido_chat_signal": "10db758905527e1bc57e2330df5819e629727247",
+    "jido_chat_mattermost": "13b43f5e50098c541984e835bd7ae8d7028db5e6",
+    "jido_chat_teams": "0522afe3966a50f5df9f291dd75ee565e78f7c68",
+    "jido_chat_whatsapp": "0b6c32d26dbce89e16146b81d2d8d22b18f3ef1b",
+    "jido_chat_x": "5242a2512d4f224d9dbbca5a12d7c749fd890dde",
+    "jido_chat": "dd83dcab76497776995377cf24567fc342b0adea",
+    "jido_messaging": "17db6f1b30464493cfdc3ae208a8b80e8dc51770"
+  },
+  "candidate_sources": {
+    "jido_chat_telegram": {
+      "lib": {
+        "files": 27,
+        "sha256": "bcad486ec50c4deae91ef50327ee794c51f49965b910dc77c3df025bf40493f6"
+      },
+      "test": {
+        "files": 17,
+        "sha256": "d64e018290b28607211a4e03206afd0b10e34343f4394311ec49a294fc9facbc"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "8614632a474421be8270786a69ddf6834e593e8c5e54ba0ca13f8c0cfb763b5e",
+      "mix.lock": "b29d954343fba37cc6766b94a7f5ba0c7dc901f4150923aa1450f57f825f8480",
+      "config/config.exs": "eba8d124b7e0700a3c08c8c88133c5957eb858978342d8e6809b2d765d1c59f9",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_slack": {
+      "lib": {
+        "files": 20,
+        "sha256": "09adebaf687d0470482cf0a4c083efe2efd3cd7c23a0c51a1298539ad5f75ebe"
+      },
+      "test": {
+        "files": 13,
+        "sha256": "8a250ed691067ab4ba5167e172eb9d3e038aa509b3933bd0a5f70c2c77f1acb5"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "4ee124b98df9549ebdcd1cb6ea5dee43bec34d84e30c5030a7fb30054b0e0904",
+      "mix.lock": "8b47d33248c7a8033c92a2bf6786aacb45d05bfe9eca5b63bf67c9e504999fa2",
+      "config/config.exs": "90564c595fec92ac91b07f4346cf73c6655882133fbb06d924b77e61e7c7bcf7",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_discord": {
+      "lib": {
+        "files": 14,
+        "sha256": "13e1ee411f7ab67b4d13b3a2f26b8a27e89b21de6f6c95c0d393b012d6992194"
+      },
+      "test": {
+        "files": 9,
+        "sha256": "9753f9ca8345d4b75cc183f32bc1212ad404444a940f95e0e376bdd6ec31f84e"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "3f08f185e20ad627ae7c21b29413e1bd6172d5c05d4416fdb2496554978c3071",
+      "mix.lock": "7119528c08709cce4d3761b8e00510063fb2eef771d518c0664153c9eec72105",
+      "config/config.exs": "42b6f026b36d317d5ec261c56895cb5692ef15b7f1b317d11e5eb71bd80e947c",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_github": {
+      "lib": {
+        "files": 4,
+        "sha256": "148686b186b70aec5755204a3f82117d4352ee375566507db36619914f70c0e9"
+      },
+      "test": {
+        "files": 4,
+        "sha256": "211964c43e7b33a0398722eb3b0b92c1428fad103c6e77ce846407f1d2938cea"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "ce0287cf970881ad3742a1193bfe8088672483c402bb1e7031572215d8fd98ca",
+      "mix.lock": "56e5463985f488098bf39da2f1cdc2449fdb13398e45662d8b25e3ee2e467455",
+      "config/config.exs": "79fb7077e1a28f392b940b13edaf5eee0c0776dcf42eac9b7c4a8e362ae69c70"
+    },
+    "jido_chat_signal": {
+      "lib": {
+        "files": 8,
+        "sha256": "2d0ccc681dbacaf3026d67ac435fc5441661849a212637aab401d4a0de88dee5"
+      },
+      "test": {
+        "files": 6,
+        "sha256": "1ac7cbe772764317060e188708f32333a6e6a099a649bffdff5b245f839d02aa"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "0952e6c840c4cc14198ee33e2d3e456547147c8ae87c27ec2bb2aba813afaa2e",
+      "mix.lock": "56e5463985f488098bf39da2f1cdc2449fdb13398e45662d8b25e3ee2e467455",
+      "config/config.exs": "988fdc142717f9f1bef84258d1d63794a9be5d147afd8ec017be1f09f3784c6f"
+    },
+    "jido_chat_mattermost": {
+      "lib": {
+        "files": 14,
+        "sha256": "443a0dd64f64e5c54a88f817d962cddb38073b262301bb8f4712404bcd8f297c"
+      },
+      "test": {
+        "files": 8,
+        "sha256": "eec1a07816f655c5929ac36616322c8f35723102dad37aa4386381a2a8c00c5f"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "0522e0a0e5ff45bb01425d450dd2bd4df7b8aafdf94596c1d08c47db217af92d",
+      "mix.lock": "ea6aa9f47cab17edaf832f73589f8d7683a43576090097cc3ad7a1c8585e5c49",
+      "config/config.exs": "c837f21fb78ead8789d66f9acb733153d7f363a9cbcd45f9dbbfbbeb6a48b15a",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_teams": {
+      "lib": {
+        "files": 10,
+        "sha256": "f6a59e6e83e36196b80098ac57f99d3baaac51cb08adeb1c0e1acee18983608d"
+      },
+      "test": {
+        "files": 9,
+        "sha256": "c1b4c714b66af4d66e33e9acd969e83503d397f8d23d0f0677b0ef1df893cd53"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "b78dc922e1731e4aeb0c0d1b280f1f6a64e4282bf9bb562bd9dbefc776cfc574",
+      "mix.lock": "5d154f263f09a0b4db7351e544d944279d212e2437de9c4cad902a45915a3ce9",
+      "config/config.exs": "64a2bacfcccd805394e6ad01476c9bb0ec7e423212ab7f1940adce8e22383513",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_whatsapp": {
+      "lib": {
+        "files": 9,
+        "sha256": "0166ba989f0f3500bd1141ed2f205c9b2a5a8da0ec5a364ef308aee2a5116aec"
+      },
+      "test": {
+        "files": 12,
+        "sha256": "3536be79b688353d0b9141145db14ec8071c402fc46ccb77e85b362de62ff49e"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "a07d10554fccab9b5c6d451bd1bf0dbe4830d9a8a2feb53ac74c2443a27cb8b7",
+      "mix.lock": "dc47c07cf2dd0e45d1c8cb015851d643273592dba5e948e997264e2107132fd1",
+      "config/config.exs": "cfe8f62351e990327c597f997d8dbb57cce8601b99c3afd879b432f1ed5e8bf0",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_chat_x": {
+      "lib": {
+        "files": 4,
+        "sha256": "abac23002c65372bbbed39e22e388cf03552ded80f2145806db6f131353bf8da"
+      },
+      "test": {
+        "files": 4,
+        "sha256": "15c43f1fafa4ba2b3ebb1e8a5a4142704ff6f3fd840ee2d56840419731c92f4e"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "c7b2902c881ff1726dea8a666cc110882e9d29f14a371560bff931788946fb4f",
+      "mix.lock": "98447bf7ba7efc436c4f9f181a49d20e2c4fbbcf416ab06587d2954fee6f17b8",
+      "config/config.exs": "88584e0e3561233a4509705e4e7c354bb65042733bd5081a832fbe0f32d19923"
+    },
+    "jido_chat": {
+      "lib": {
+        "files": 126,
+        "sha256": "8726060dacf60d8f310e36f944144c710d91361472a80dce7daec4481b40bf6f"
+      },
+      "test": {
+        "files": 24,
+        "sha256": "1a5a0fbf855ba02562365cf1cd082af4bb6cb0daa6697161911d88e585ffb01e"
+      },
+      "integration/lib": {
+        "files": 1,
+        "sha256": "800f86ac3cbc81bec90ac55e0306b5d6efeba03f2e510307ae569cea807602f7"
+      },
+      "integration/test": {
+        "files": 4,
+        "sha256": "ff3d0a478ae76e9956f56bc8833b854a3bbb269536e3a98ca0910c08c08f8f2d"
+      },
+      "integration/scripts": {
+        "files": 19,
+        "sha256": "3967a9a62e1e6ae6bc0bd8001ccf0a9514f375d386fe4c6b901a2b49539c8e8a"
+      },
+      "integration/fixtures": {
+        "files": 9,
+        "sha256": "e5b05668ba219d19fb5b1f752f2eeae2931ebb906f9f0e1778781583ed6f12f3"
+      },
+      "mix.exs": "7c279ed0f0880f9917a9f218100c11bf151bba0963e2dcfffb8dc07a6b8f6f11",
+      "mix.lock": "0eefe02d24c9bcaa2b0df7a8dbbf0d32dac4b7bfe24c8b39cef87bdb86c41a84",
+      "config/config.exs": "022ea66b2482babcf0538f2d27721ce1925617fca4d4f936fa71da2bca16f8bd",
+      "config/test.exs": "9d4feae7b485ad56f56541cd1abbcd59827ea637f7dc69f7f3fbb764cf854297"
+    },
+    "jido_messaging": {
+      "lib": {
+        "files": 235,
+        "sha256": "8c18a1e4db189e7c653e55816983b9e3a89a5f3c88e701230da7afc95e1138c0"
+      },
+      "test": {
+        "files": 176,
+        "sha256": "ac05d025f6503141b818df524bcbfe5bbc9ab9d7fc5c13dde19670bb19ecf50c"
+      },
+      "integration/lib": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/test": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/scripts": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "integration/fixtures": {
+        "files": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "mix.exs": "c0569de96490b322813061fc60645fe66616bf353f83c1a2e9707c0b24a1361a",
+      "mix.lock": "85eeb1b8bf581a8d88dd9ddfdd959cc0516771179596e691da60652a33aa1899",
+      "config/config.exs": "9cfc9e6e07bca41a76e95248181dc30b4accbc9228cbcd54816ede86553ccd59",
+      "config/test.exs": "16da1804e7d3c693b3aa6a7af4965c3d980b8f66fdf5bf725778f987b4890229"
+    }
+  },
+  "checks": {
+    "g6-provider-checkpoint-complete": {
+      "path": "evidence/checkpoint-b4/g6-provider-checkpoint-complete.json",
+      "sha256": "e8c982409829a7a68d9d4c474280c2707d4e9de67eebe2c4bd5898978a517173"
+    },
+    "g6-b3-fixture-refresh": {
+      "path": "evidence/checkpoint-b4/g6-b3-fixture-refresh.json",
+      "sha256": "7ca816d4a88ec3f6d21fc6583be622b6c9ec5939d5b76b5c60e820669b3ac403"
+    },
+    "g6-all-adapter-compile": {
+      "path": "evidence/checkpoint-b4/g6-all-adapter-compile.json",
+      "sha256": "d0af563063036abf74c3085db8185dd4d9a08d4e30a83a7f494db8d636b974a8"
+    },
+    "g6-all-adapter-graph": {
+      "path": "evidence/checkpoint-b4/g6-all-adapter-graph.json",
+      "sha256": "8451747058f61429af391fecc3448832822741e280ac9c4b3d9aa73429ea8786"
+    },
+    "g6-boundary-scan": {
+      "path": "evidence/checkpoint-b4/g6-boundary-scan.json",
+      "sha256": "c997cd140083eb400d51caf22338a08e69ea00029494d22b7e9e125ac08f0c27"
+    },
+    "g6-fixture-format-check": {
+      "path": "evidence/checkpoint-b4/g6-fixture-format-check.json",
+      "sha256": "4632f774ede3a6def6ed041aa645cc794f21c7930587bf288ece97ac6c1c44dd"
+    },
+    "catalog-final-refresh": {
+      "path": "evidence/checkpoint-b4/catalog-final-refresh.json",
+      "sha256": "aded2bd1c9ff850983eb135dd26c3bd37cebb33b695928f489df407629e54056"
+    },
+    "chat-final-tests": {
+      "path": "evidence/checkpoint-b4/chat-final-tests.json",
+      "sha256": "1c428e0d36162a8834f9851a4953f23206ca032df2a0ebf150536842a7663aff"
+    },
+    "chat-schema-final-quality": {
+      "path": "evidence/checkpoint-b4/chat-schema-final-quality.json",
+      "sha256": "7a5861741818ae6243f02127858a69ced98d4433a6517da98c61234a60d28b6c"
+    }
+  },
+  "adapter_suites": [
+    {
+      "package": "jido_chat_telegram",
+      "tests": {
+        "passed": 243,
+        "failed": 0,
+        "excluded": 16
+      },
+      "quality": "pass",
+      "coverage_percent": 79.8,
+      "coverage_floor": null,
+      "head": "8688a30d07d70da235aae7c8e639605ec203b479"
+    },
+    {
+      "package": "jido_chat_slack",
+      "tests": {
+        "passed": 142,
+        "failed": 0,
+        "excluded": 8
+      },
+      "quality": "pass",
+      "coverage_percent": 74.1,
+      "coverage_floor": null,
+      "head": "78df382391209bb8b1a6feccce4a0a03a33887e6"
+    },
+    {
+      "package": "jido_chat_discord",
+      "tests": {
+        "passed": 108,
+        "failed": 0,
+        "excluded": 9
+      },
+      "quality": "pass",
+      "coverage_percent": 80.5,
+      "coverage_floor": null,
+      "head": "b45c22d8ba3f018d9403c60fdf76814a9fb4aac6"
+    },
+    {
+      "package": "jido_chat_github",
+      "tests": {
+        "passed": 71,
+        "failed": 0,
+        "excluded": 1
+      },
+      "quality": "pass",
+      "coverage_percent": null,
+      "coverage_floor": null,
+      "head": "104e7a9eadab77bb253142d531f584da10ea9ad7"
+    },
+    {
+      "package": "jido_chat_signal",
+      "tests": {
+        "passed": 80,
+        "failed": 0,
+        "excluded": 1
+      },
+      "quality": "pass",
+      "coverage_percent": null,
+      "coverage_floor": null,
+      "head": "10db758905527e1bc57e2330df5819e629727247"
+    },
+    {
+      "package": "jido_chat_mattermost",
+      "tests": {
+        "passed": 153,
+        "failed": 0,
+        "excluded": 4
+      },
+      "quality": "pass",
+      "coverage_percent": 91.5,
+      "coverage_floor": 90,
+      "head": "13b43f5e50098c541984e835bd7ae8d7028db5e6"
+    },
+    {
+      "package": "jido_chat_teams",
+      "tests": {
+        "passed": 87,
+        "failed": 0,
+        "excluded": 2
+      },
+      "quality": "pass",
+      "coverage_percent": 75.5,
+      "coverage_floor": null,
+      "head": "0522afe3966a50f5df9f291dd75ee565e78f7c68"
+    },
+    {
+      "package": "jido_chat_whatsapp",
+      "tests": {
+        "passed": 98,
+        "failed": 0,
+        "excluded": 13
+      },
+      "quality": "pass",
+      "coverage_percent": 80.8,
+      "coverage_floor": 80,
+      "head": "0b6c32d26dbce89e16146b81d2d8d22b18f3ef1b"
+    },
+    {
+      "package": "jido_chat_x",
+      "tests": {
+        "passed": 62,
+        "failed": 0,
+        "excluded": 2
+      },
+      "quality": "pass",
+      "coverage_percent": null,
+      "coverage_floor": null,
+      "head": "5242a2512d4f224d9dbbca5a12d7c749fd890dde"
+    }
+  ],
+  "acceptance_reports": [
+    {
+      "path": "evidence/checkpoint-b4/telegram-acceptance.json",
+      "sha256": "10b26b1cf6e38cf7dd7c966a8ab1ae949313abc63ea4475dc2d9efc80fa620f8"
+    },
+    {
+      "path": "evidence/checkpoint-b4/slack-acceptance.json",
+      "sha256": "eb3ee49441b4a654da428e4a7a98023f869365da2d205ccb9724d942c9920c7f"
+    },
+    {
+      "path": "evidence/checkpoint-b4/discord-acceptance.json",
+      "sha256": "09a2982d8c287aad31cf6d893a445dea876742daa62fd3a4fd2d5e5d68aca943"
+    },
+    {
+      "path": "evidence/checkpoint-b4/github-acceptance.json",
+      "sha256": "5cfb494e1dc124569332b366c0f9064737de85f57003eeece5640ddd8f0ae041"
+    },
+    {
+      "path": "evidence/checkpoint-b4/signal-acceptance.json",
+      "sha256": "93455f6ec03a86dff478d1ca43645dc98012d0e5ac097c12d0733d91efa4526f"
+    },
+    {
+      "path": "evidence/checkpoint-b4/mattermost-acceptance.json",
+      "sha256": "43133abd2404d2a35f8059f00163caa711d92be253af59635dc33dc82e940eee"
+    },
+    {
+      "path": "evidence/checkpoint-b4/teams-acceptance.json",
+      "sha256": "d178ee7a44b716bd6280ad1137cb13d9d6f9ae61fee397863b6ccd8859c4a7d7"
+    },
+    {
+      "path": "evidence/checkpoint-b4/whatsapp-acceptance.json",
+      "sha256": "b7ef597ee88d222fdc1175b7e28343e4a5b9638d9cb4f6b9f97397c02204b390"
+    },
+    {
+      "path": "evidence/checkpoint-b4/x-acceptance.json",
+      "sha256": "b7b56be9f0a3821c2339c3d0805ce49689b2092a8cb424971abd6b5149b09af3"
+    }
+  ],
+  "combined_provider_fixture_tests": {
+    "passed": 382,
+    "failed": 0,
+    "excluded": 0
+  },
+  "refreshed_b3_fixture_tests": {
+    "passed": 129,
+    "failed": 0,
+    "excluded": 0
+  },
+  "frozen_support_claims": {
+    "state": "unchanged",
+    "operations_per_adapter": 26,
+    "events_per_adapter": 17,
+    "adapter_count": 9
+  },
+  "original_case_names": {
+    "count": 297,
+    "missing": 0,
+    "record": "original-test-case-translation.json"
+  },
+  "schema_corrections": [
+    "MessageUpdated.text remains required and accepts string or null; approved by the user.",
+    "ReactionRemoved.reaction remains required and accepts non-empty string or null; cold Amarula clears supply no previous emoji. Recorded B4 defect; no fields added."
+  ],
+  "verification_defect": "Discord, GitHub and X now map the authenticated raw JSON body. Discord rejects missing public keys for HTTP ingress.",
+  "dependency_graph": {
+    "state": "pass",
+    "local_packages": 11,
+    "dependencies": 72,
+    "profile": "core-only",
+    "record": "g6-all-adapter-graph-graph.json"
+  },
+  "boundary_scan": {
+    "state": "pass",
+    "files": 471,
+    "packages": 11,
+    "findings": 0
+  },
+  "limitations": [
+    "Local fixture verification only. Existing live tests remain excluded.",
+    "No durable checkpoint or replay guarantee was added to push ingress.",
+    "B5 whole-group C01-C14 report and current-head runtime profile checks remain pending.",
+    "B6 package readiness, PRs and CI remain pending."
+  ],
+  "no_live_provider_traffic": true,
+  "no_new_exclusions": true,
+  "no_push_pr_merge_publication": true,
+  "no_changelog_changes": true,
+  "saved_report_commit": "The final core documentation/test commit stores this candidate and evidence. Use Git history for its SHA; recording its own hash in its tree would be circular."
+}

@@ -1,0 +1,3 @@
+** (UndefinedFunctionError) function Mix.Dep.load_on_environment/1 is undefined or private
+    (mix 1.20.4) Mix.Dep.load_on_environment([])
+    scripts/report_dependency_graph.exs:9: (file)

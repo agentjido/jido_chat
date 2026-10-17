@@ -1,0 +1,23 @@
+{
+  "label": "g4-telegram-private-media-normalizer-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/jido/chat/telegram/normalizer_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat_telegram",
+  "head_sha": "953611b0462e79ff6746724da2461d6759be9047",
+  "source_tree_sha256": "0a6b4db0de74bfa060ad297bca1e2b5a6762a88bc9c158e56e07f868a4c69c01",
+  "started_at": "2026-10-13T01:02:17.217031+00:00",
+  "finished_at": "2026-10-13T01:02:18.717195+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g4/g4-telegram-private-media-normalizer-tests.log",
+  "log_sha256": "d22252fd8ff1dabf510b6db62a49f2513af20d9820762bcabfc1b52f7c10764e"
+}

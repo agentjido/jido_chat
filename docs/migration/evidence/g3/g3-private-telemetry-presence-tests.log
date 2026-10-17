@@ -1,0 +1,97 @@
+Compiling 9 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+....
+
+  1) test agent lifecycle telemetry emits triggered, started, and completed for successful processing (Jido.Messaging.AgentRunnerSignalsTest)
+     test/jido_messaging/agent_runner_signals_test.exs:31
+     Assertion failed, no matching message after 1000ms
+     The process mailbox is empty.
+     code: assert_receive {:agent_signal, [:jido_messaging, :agent, :triggered], triggered}
+     stacktrace:
+       test/jido_messaging/agent_runner_signals_test.exs:61: (test)
+
+     The following output was logged:
+     
+     17:14:56.451 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room jch_XS26E6wTrKbLCPx_TpWaKg thread jch_fkH9JZkmfArx3WY_yaECqw
+     
+     17:14:56.452 [info] The function passed as a handler with ID "agent-signal-jido_messaging-agent-triggered-4201" is a local function.
+     This means that it is either an anonymous function or a capture of a function without a module specified. That may cause a performance penalty when calling that handler. For more details see the note in `telemetry:attach/4` documentation.
+     
+     https://hexdocs.pm/telemetry/telemetry.html#attach/4
+     
+     17:14:56.453 [info] The function passed as a handler with ID "agent-signal-jido_messaging-agent-started-4233" is a local function.
+     This means that it is either an anonymous function or a capture of a function without a module specified. That may cause a performance penalty when calling that handler. For more details see the note in `telemetry:attach/4` documentation.
+     
+     https://hexdocs.pm/telemetry/telemetry.html#attach/4
+     
+     17:14:56.454 [info] The function passed as a handler with ID "agent-signal-jido_messaging-agent-completed-4265" is a local function.
+     This means that it is either an anonymous function or a capture of a function without a module specified. That may cause a performance penalty when calling that handler. For more details see the note in `telemetry:attach/4` documentation.
+     
+     https://hexdocs.pm/telemetry/telemetry.html#attach/4
+     
+
+
+  2) test agent lifecycle telemetry emits failed when the handler returns an error (Jido.Messaging.AgentRunnerSignalsTest)
+     test/jido_messaging/agent_runner_signals_test.exs:77
+     Assertion failed, no matching message after 1000ms
+     The process mailbox is empty.
+     code: assert_receive {:agent_signal, [:jido_messaging, :agent, :failed], failed}
+     stacktrace:
+       test/jido_messaging/agent_runner_signals_test.exs:101: (test)
+
+     The following output was logged:
+     
+     17:14:57.461 [debug] [Jido.Messaging.AgentRunner] Agent alpha started in room jch_V0FGQtSMMTfyk9GW9tGDow thread jch_dlODTJfTEoJLGKhNAkNwVA
+     
+     17:14:57.461 [info] The function passed as a handler with ID "agent-signal-jido_messaging-agent-failed-18787" is a local function.
+     This means that it is either an anonymous function or a capture of a function without a module specified. That may cause a performance penalty when calling that handler. For more details see the note in `telemetry:attach/4` documentation.
+     
+     https://hexdocs.pm/telemetry/telemetry.html#attach/4
+     
+.
+17:14:58.467 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.1001.0>, nil}
+.......................
+
+  3) test Signal.emit_failed/3 emits [:jido_messaging, :message, :failed] event on delivery failure (Jido.Messaging.SignalTest)
+     test/jido_messaging/signal_test.exs:158
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:telemetry_event, event, measurements, metadata}
+     stacktrace:
+       test/jido_messaging/signal_test.exs:183: (test)
+
+     The following output was logged:
+     
+     17:14:58.634 [debug] [Jido.Messaging.Ingest] Message jch_AcDq54kKuVeidW3UDuO8zA ingested in room jch_bIR7VHSx2v4mEtX-PirBcQ
+     
+     17:14:58.634 [info] The function passed as a handler with ID "test-failed-handler--576460752303387486" is a local function.
+     This means that it is either an anonymous function or a capture of a function without a module specified. That may cause a performance penalty when calling that handler. For more details see the note in `telemetry:attach/4` documentation.
+     
+     https://hexdocs.pm/telemetry/telemetry.html#attach/4
+     
+     17:14:58.639 [warning] [Jido.Messaging.Deliver] Failed to send message: :send_failed
+     
+..
+
+  4) test Signal module direct calls emit_failed/3 executes telemetry (Jido.Messaging.SignalTest)
+     test/jido_messaging/signal_test.exs:267
+     Assertion failed, no matching message after 100ms
+     The process mailbox is empty.
+     code: assert_receive {:telemetry_event, [:jido_messaging, :message, :failed], _, metadata}
+     stacktrace:
+       test/jido_messaging/signal_test.exs:284: (test)
+
+     The following output was logged:
+     
+     17:14:58.760 [info] The function passed as a handler with ID "test-direct-failed--576460752303382526" is a local function.
+     This means that it is either an anonymous function or a capture of a function without a module specified. That may cause a performance penalty when calling that handler. For more details see the note in `telemetry:attach/4` documentation.
+     
+     https://hexdocs.pm/telemetry/telemetry.html#attach/4
+     
+.............
+Finished in 3.1 seconds (0.2s async, 2.8s sync)
+
+Result: 43/47 passed
+Failed: 4 tests

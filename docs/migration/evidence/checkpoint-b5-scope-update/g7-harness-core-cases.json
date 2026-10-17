@@ -1,0 +1,1712 @@
+{
+  "cases": [
+    {
+      "line": 4,
+      "module": "Jido.Chat.Integration.ConformanceReportTest",
+      "name": "test missing evidence fails every row and cannot become an overall pass",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/conformance_report_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.Integration.ConformanceReportTest",
+      "name": "test all frozen support claims have named operation and event fixtures",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/conformance_report_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 30,
+      "module": "Jido.Chat.Integration.ConformanceReportTest",
+      "name": "test incomplete inputs return failed rows instead of raising",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/conformance_report_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.BaselineTest",
+      "name": "test one selected v3 runtime set is loaded",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g0_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 21,
+      "module": "Jido.Chat.Integration.BaselineTest",
+      "name": "test optional AI is present only in the selected profile",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g0_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 31,
+      "module": "Jido.Chat.Integration.BaselineTest",
+      "name": "test the selected package profile contains every required package",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g0_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ActionReceived validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.AddReaction validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.AssistantContextChanged validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.AssistantThreadStarted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.DeleteMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.EditMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.FetchChannelMessages validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.FetchMedia validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.FetchMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.FetchMessages validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.FetchMetadata validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.FetchSubject validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.FetchThread validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.GetThreadParticipants validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.GetUser validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ListThreads validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.LoadOptions validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.MarkAsRead validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.MembershipChanged validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.MessageDeleted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.MessageReceived validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.MessageUpdated validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ModalClosed validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ModalSubmitted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.NormalizationFailed validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.OpenDm validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.OpenModal validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.OpenThread validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.OperationCompleted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.OperationFailed validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.OptionsRequested validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.PostChannelMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.PostEphemeral validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.PostMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ReactionAdded validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ReactionRemoved validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ReceiptReceived validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.RemoveReaction validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.SendFile validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.SendMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.SlashCommandReceived validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.StartTyping validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.Stream validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ThreadChanged validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Chat.Signal.ThreadStarted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.AddReaction validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.AddRoomReaction validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.AgentCompleted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.AgentFailed validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.AgentStarted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.AgentTriggered validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.CreateRoom validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.DeleteMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.EditMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.FetchChannelMessages validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.FetchMedia validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.FetchMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.FetchMessages validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.FetchMetadata validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.FetchSubject validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.FetchThread validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.GetThreadParticipants validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.GetUser validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.InstanceConnected validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.InstanceConnecting validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.InstanceDisconnected validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.InstanceError validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.InstanceStarted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.InstanceStopped validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ListThreads validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.LoadOptions validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MarkAsRead validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MarkDelivered validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MarkRead validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MembershipObserved validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MessageDelivered validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MessageFailed validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MessageRead validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MessageReceived validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.MessageSent validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.OpenDm validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.OpenModal validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.OpenThread validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.OperationCompleted validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.OperationFailed validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ParticipantJoined validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ParticipantJoinedRequest validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ParticipantLeft validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ParticipantLeftRequest validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.PostChannelMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.PostEphemeral validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.PostMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.PostProviderMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.PresenceChanged validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ReactionAdded validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ReactionRemoved validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.RemoveReaction validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.RemoveRoomReaction validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.RoomCreated validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.RoomMessageAdded validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.SendFile validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.SendMessage validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.SetPresence validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.SetTyping validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.StartTyping validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.Stream validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ThreadChanged validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ThreadCreated validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.ThreadReplyAdded validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 11,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test schema fixture Jido.Messaging.Signal.TypingChanged validates without a JSON projection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 21,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test fixed identity encoding separates bindings, instances, rooms, and domain owners",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 44,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test display-name changes do not enter the identity helper",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 52,
+      "module": "Jido.Chat.Integration.ContractTest",
+      "name": "test invalid identity keys fail explicitly",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 81,
+      "module": "Jido.Chat.Integration.ManifestTest",
+      "name": "test the reviewed inventory satisfies the finite contract",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 85,
+      "module": "Jido.Chat.Integration.ManifestTest",
+      "name": "test one missing operation or adapter cannot pass",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 92,
+      "module": "Jido.Chat.Integration.ManifestTest",
+      "name": "test a duplicate schema pair or unsafe open data schema cannot pass",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 105,
+      "module": "Jido.Chat.Integration.ManifestTest",
+      "name": "test invalid fixture data and unclassified public exports cannot pass",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 123,
+      "module": "Jido.Chat.Integration.ManifestTest",
+      "name": "test missing C01–C14 evidence cannot pass",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g1_contract_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ActionReceived",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.AddReaction",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.AssistantContextChanged",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.AssistantThreadStarted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.DeleteMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.EditMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.FetchChannelMessages",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.FetchMedia",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.FetchMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.FetchMessages",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.FetchMetadata",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.FetchSubject",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.FetchThread",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.GetThreadParticipants",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.GetUser",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ListThreads",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.LoadOptions",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.MarkAsRead",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.MembershipChanged",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.MessageDeleted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.MessageReceived",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.MessageUpdated",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ModalClosed",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ModalSubmitted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.NormalizationFailed",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.OpenDm",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.OpenModal",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.OpenThread",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.OperationCompleted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.OperationFailed",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.OptionsRequested",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.PostChannelMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.PostEphemeral",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.PostMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ReactionAdded",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ReactionRemoved",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ReceiptReceived",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.RemoveReaction",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.SendFile",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.SendMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.SlashCommandReceived",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.StartTyping",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.Stream",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ThreadChanged",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Chat.Signal.ThreadStarted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.AddReaction",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.AddRoomReaction",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.AgentCompleted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.AgentFailed",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.AgentStarted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.AgentTriggered",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.CreateRoom",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.DeleteMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.EditMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.FetchChannelMessages",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.FetchMedia",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.FetchMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.FetchMessages",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.FetchMetadata",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.FetchSubject",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.FetchThread",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.GetThreadParticipants",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.GetUser",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.InstanceConnected",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.InstanceConnecting",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.InstanceDisconnected",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.InstanceError",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.InstanceStarted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.InstanceStopped",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ListThreads",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.LoadOptions",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MarkAsRead",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MarkDelivered",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MarkRead",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MembershipObserved",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MessageDelivered",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MessageFailed",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MessageRead",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MessageReceived",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.MessageSent",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.OpenDm",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.OpenModal",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.OpenThread",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.OperationCompleted",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.OperationFailed",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ParticipantJoined",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ParticipantJoinedRequest",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ParticipantLeft",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ParticipantLeftRequest",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.PostChannelMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.PostEphemeral",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.PostMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.PostProviderMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.PresenceChanged",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ReactionAdded",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ReactionRemoved",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.RemoveReaction",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.RemoveRoomReaction",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.RoomCreated",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.RoomMessageAdded",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.SendFile",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.SendMessage",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.SetPresence",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.SetTyping",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.StartTyping",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.Stream",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ThreadChanged",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ThreadCreated",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.ThreadReplyAdded",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 12,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test public native catalog fixture Jido.Messaging.Signal.TypingChanged",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 29,
+      "module": "Jido.Chat.Integration.NativeCatalogTest",
+      "name": "test core and the Signal provider keep one parent module and exact domain ownership",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/integration/test/g2_catalog_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 15,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test catalog JSON decoding preserves the complete typed fact",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 28,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test catalog rejects invalid data and unknown schema identities",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 39,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test Bus uses type, source, and subject conjunction and keeps selected order",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 64,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test invalid selectors fail before Bus state changes or callbacks run",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test filtered durable subscriptions fail without a stored subscription",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 104,
+      "module": "Jido.Chat.V3BaselineTest",
+      "name": "test the same Bus contract selects an unrelated non-chat family",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat/test/jido/chat/v3_baseline_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 7,
+      "module": "Jido.Messaging.NativeSignalContextTest",
+      "name": "test runtime events use native W3C trace context",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/native_signal_context_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 17,
+      "module": "Jido.Messaging.NativeSignalContextTest",
+      "name": "test the child trace and causation identify the unchanged direct parent",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/native_signal_context_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 44,
+      "module": "Jido.Messaging.NativeSignalContextTest",
+      "name": "test direct parent identity is a flat approved context value",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_messaging/test/jido_messaging/native_signal_context_test.exs",
+      "state": "pass"
+    }
+  ]
+}

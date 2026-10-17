@@ -1,0 +1,26 @@
+{
+  "label": "g4-updated-membership-native-catalog-tests",
+  "command": [
+    "mix",
+    "test",
+    "test/g2_catalog_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "c84d654278944a2dec7047bbbe979779a41f2dfe",
+  "source_tree_sha256": "f7f740e5909078a380147ea2deec8cce38d61dd2898c7fc46a6d93c6cc1e3a99",
+  "started_at": "2026-10-13T00:37:00.822450+00:00",
+  "finished_at": "2026-10-13T00:37:09.284407+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g4/g4-updated-membership-native-catalog-tests.log",
+  "log_sha256": "3dffe754340afdaf526fe0071017654cc5e8db0d3d2fb38306046fe69c659d22"
+}

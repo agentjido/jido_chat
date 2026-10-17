@@ -1,0 +1,21 @@
+{
+  "label": "g3-call-lifetime-final-core-tests",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "9c5b290565a5ad7c4c027e1090dc5847300ec5da",
+  "source_tree_sha256": "255b482a0002c5dae8fed3544e4ca53081f33d06a2994862957d90aca523cc08",
+  "started_at": "2026-10-13T00:02:31.400016+00:00",
+  "finished_at": "2026-10-13T00:02:36.341459+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-call-lifetime-final-core-tests.log",
+  "log_sha256": "885e870eca9b3d7211d655712ad62e230ed6b2ae211f5011b01f08f51b784c51"
+}

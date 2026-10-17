@@ -1,0 +1,22 @@
+{
+  "label": "g2-core-clean-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--seed",
+    "0",
+    "--exclude",
+    "live"
+  ],
+  "repository": "jido_chat",
+  "head_sha": "c0a7de818e42b4457c08a27c60fa4a6aaa60b73e",
+  "source_tree_sha256": "9055cf969d63fea25abc87cfa667fef75f196ee7183399b27abe1bd9a0e3d094",
+  "started_at": "2026-10-12T18:49:55.463133+00:00",
+  "finished_at": "2026-10-12T18:50:00.840603+00:00",
+  "environment": {
+    "MIX_ENV": "test"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g2/g2-core-clean-coverage.log",
+  "log_sha256": "bf9a8f744bbe1adec9da42d4791f9747617145b8b3546e4bdde1433ce7600e28"
+}

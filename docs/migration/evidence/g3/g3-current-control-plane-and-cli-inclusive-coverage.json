@@ -1,0 +1,26 @@
+{
+  "label": "g3-current-control-plane-and-cli-inclusive-coverage",
+  "command": [
+    "mix",
+    "coveralls",
+    "--include",
+    "integration",
+    "--include",
+    "story",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "fbe11f5049cae4ea67da3916dba4a41a29dc53bb",
+  "source_tree_sha256": "85468b4ee139b5096c4e9ac37005eb1ea4070723dd6cab6794475bdd33371e94",
+  "started_at": "2026-10-13T02:41:45.880895+00:00",
+  "finished_at": "2026-10-13T02:42:22.373455+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-control-plane-and-cli-inclusive-coverage.log",
+  "log_sha256": "ccf44f5451de0c042939563675fe04e267663c9eee77acddc86c4691fb86d4c4"
+}

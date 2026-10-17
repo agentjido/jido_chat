@@ -1,0 +1,143 @@
+==> jido_chat
+Compiling 2 files (.ex)
+==> jido_chat_discord
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+................    warning: Jido.Chat.Adapter.stream/4 is undefined or private
+    │
+ 89 │              ChatAdapter.stream(
+    │                          ~
+    │
+    └─ test/jido/chat/discord/live_integration_test.exs:89:26: Jido.Chat.Discord.LiveIntegrationTest."test stream fallback edits a visible draft and leaves the final content"/1
+
+     warning: Jido.Chat.Adapter.post_message/3 is undefined or private
+     │
+ 227 │     assert {:ok, canonical_sent} = ChatAdapter.post_message(Adapter, ctx.channel_id, payload)
+     │                                                ~
+     │
+     └─ test/jido/chat/discord/live_integration_test.exs:227:48: Jido.Chat.Discord.LiveIntegrationTest."test send_file accepts raw bytes and core post_message uses canonical file fallback"/1
+
+     warning: unknown key .external_message_id in expression:
+
+         root.external_message_id
+
+     the given type does not have the given key:
+
+         dynamic(%{
+           channel_id: term(),
+           channel_type: :discord,
+           message_id: term(),
+           raw: term(),
+           status: :sent,
+           timestamp: term()
+         })
+
+     where "root" was given the type:
+
+         # type: dynamic(%{
+           channel_id: term(),
+           channel_type: :discord,
+           message_id: term(),
+           raw: term(),
+           status: :sent,
+           timestamp: term()
+         })
+         # from: test/jido/chat/discord/live_integration_test.exs:113
+         {root} =
+           case right do
+             ...
+           end
+
+     type warning found at:
+     │
+ 114 │     root_id = root.external_message_id || root.message_id
+     │                    ~~~~~~~~~~~~~~~~~~~
+     │
+     └─ test/jido/chat/discord/live_integration_test.exs:114:20: Jido.Chat.Discord.LiveIntegrationTest."test reply continuity preserves Discord message_reference metadata"/1
+
+     warning: unknown key .external_message_id in expression:
+
+         bytes_sent.external_message_id
+
+     the given type does not have the given key:
+
+         dynamic(%{
+           channel_id: term(),
+           channel_type: :discord,
+           message_id: term(),
+           metadata: term(),
+           raw: not false,
+           status: :sent,
+           timestamp: term()
+         })
+
+     where "bytes_sent" was given the type:
+
+         # type: dynamic(%{
+           channel_id: term(),
+           channel_type: :discord,
+           message_id: term(),
+           metadata: term(),
+           raw: not false,
+           status: :sent,
+           timestamp: term()
+         })
+         # from: test/jido/chat/discord/live_integration_test.exs:192
+         {bytes_sent} =
+           case right do
+             ...
+           end
+
+     type warning found at:
+     │
+ 203 │     bytes_message_id = bytes_sent.external_message_id || bytes_sent.message_id
+     │                                   ~~~~~~~~~~~~~~~~~~~
+     │
+     └─ test/jido/chat/discord/live_integration_test.exs:203:35: Jido.Chat.Discord.LiveIntegrationTest."test send_file accepts raw bytes and core post_message uses canonical file fallback"/1
+
+     warning: unknown key .attachments in expression:
+
+         fetched.attachments
+
+     the given type does not have the given key:
+
+         dynamic(%{
+           id: term(),
+           room_id: term(),
+           sender: %{display_name: term(), id: term(), username: term()},
+           text: not false and not nil,
+           thread_id: term(),
+           timestamp: term()
+         })
+
+     where "fetched" was given the type:
+
+         # type: dynamic(%{
+           id: term(),
+           room_id: term(),
+           sender: %{display_name: term(), id: term(), username: term()},
+           text: not false and not nil,
+           thread_id: term(),
+           timestamp: term()
+         })
+         # from: test/jido/chat/discord/live_integration_test.exs:260
+         {fetched} =
+           case right do
+             ...
+           end
+
+     type warning found at:
+     │
+ 261 │     assert [attachment] = fetched.attachments
+     │                                   ~~~~~~~~~~~
+     │
+     └─ test/jido/chat/discord/live_integration_test.exs:261:35: Jido.Chat.Discord.LiveIntegrationTest."test uploaded image keeps its kind and downloaded bytes when Discord omits MIME"/1
+
+.....................................
+Finished in 0.3 seconds (0.3s async, 0.04s sync)
+
+Result: 53 passed, 9 excluded
+
+ERROR! Test suite aborted after successful execution due to warnings while using the --warnings-as-errors option

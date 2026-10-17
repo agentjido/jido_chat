@@ -1,0 +1,20 @@
+{
+  "label": "messaging-v3-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "f3ae2ef6aab1d4be6fd8a0ada6697811ac7ee413",
+  "source_tree_sha256": "2f2d9f5730c9e593a9b46a712177e020ab627ee67752b1cc6c7ff8d5ec956a9c",
+  "started_at": "2026-10-12T16:15:54.427417+00:00",
+  "finished_at": "2026-10-12T16:16:30.851335+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 1,
+  "log": "migration/evidence/g0/messaging-v3-compile.log",
+  "log_sha256": "9172f93d4ad0b04c086581864a4ef573558fc577cd07273645454e99aeea2204"
+}

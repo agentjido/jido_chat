@@ -1,0 +1,55 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "7956751e3b4bec53c7c29589b73ce94c5b065896",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "00bb2df25e2170bf1ef3303eaa66b96ae3f219ce",
+      "library_test_files": 368,
+      "library_test_sha256": "2e79769e009c7695f31019b77ecc628b0f67c4fd36768d142cc89b5f80d8e1c8"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-projection-callback-and-page-failure-controls",
+  "command": [
+    "mix",
+    "test",
+    "test/jido_messaging/transcript_projection_outcome_test.exs",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "jido_messaging",
+  "head_sha": "00bb2df25e2170bf1ef3303eaa66b96ae3f219ce",
+  "source_tree_sha256": "cbf2f532741de35eff05bdac3349d1c3245fab907c86745bdae58d1854822ad5",
+  "started_at": "2026-10-13T06:57:31.622834+00:00",
+  "finished_at": "2026-10-13T06:57:36.281515+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "../jido_chat"
+  },
+  "exit_status": 2,
+  "log": "migration/evidence/g3/g3-projection-callback-and-page-failure-controls.log",
+  "log_sha256": "dcf0a95eed0a8ab9430670bd693895029084c98f88f5c0900f44321ef79a3bb9"
+}

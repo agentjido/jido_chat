@@ -1,0 +1,9 @@
+Compiling 10 files (.ex)
+Compiling 6 files (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+......................................
+Finished in 3.2 seconds (0.00s async, 3.2s sync)
+
+Result: 38 passed

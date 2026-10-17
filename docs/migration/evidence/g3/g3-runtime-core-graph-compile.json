@@ -1,0 +1,22 @@
+{
+  "label": "g3-runtime-core-graph-compile",
+  "command": [
+    "mix",
+    "compile",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "ccf85aa84bf947239a76562745a708e6b54d6ed4",
+  "source_tree_sha256": "78062aef370bb87ee17c2ab81f7adc15c4ccdb17c753d4f7dbf2c5ebbc1136ee",
+  "started_at": "2026-10-13T00:20:28.146969+00:00",
+  "finished_at": "2026-10-13T00:20:57.197155+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-runtime-core-graph-compile.log",
+  "log_sha256": "7b07a3db2226c3317ca8168031a0e6e6c9df9797051651d81ed15b0cb80f7d52"
+}

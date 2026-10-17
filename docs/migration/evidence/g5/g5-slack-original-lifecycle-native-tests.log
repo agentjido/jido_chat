@@ -1,0 +1,30 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+...
+
+  1) test accepts a minimal atom-key delete and keeps unavailable values absent (Jido.Chat.Slack.MessageLifecycleEventTest)
+     test/jido/chat/slack/message_lifecycle_event_test.exs:127
+     match (=) failed
+     code:  assert {:ok, binding, event} = parse(payload)
+     left:  {:ok, binding, event}
+     right: {:error,
+             %Jido.Chat.Errors.Contract{
+               code: :invalid_delivery,
+               field: nil,
+               splode: nil,
+               bread_crumbs: [],
+               vars: [],
+               path: [],
+               stacktrace: #Splode.Stacktrace<>,
+               class: :validation
+             }}
+     stacktrace:
+       test/jido/chat/slack/message_lifecycle_event_test.exs:138: (test)
+
+................
+Finished in 0.2 seconds (0.2s async, 0.00s sync)
+
+Result: 19/20 passed
+Failed: 1 test

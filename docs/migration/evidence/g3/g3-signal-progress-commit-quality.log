@@ -1,0 +1,15 @@
+Checking 14 source files ...
+
+Please report incorrect results: https://github.com/rrrene/credo/issues
+
+Analysis took 0.1 seconds (0.00s to load, 0.1s running 69 checks on 14 files)
+189 mods/funs, found no issues.
+
+Use `mix credo explain` to explain issues, `mix credo --help` for options.
+Running ExUnit with seed: 350054, max_cases: 20
+Excluding tags: [live: true]
+
+......................................................
+Finished in 1.2 seconds (1.1s async, 0.04s sync)
+
+Result: 54 passed, 1 excluded

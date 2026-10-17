@@ -1,0 +1,43 @@
+Running ExUnit with seed: 702557, max_cases: 20
+Excluding tags: [:integration]
+
+...................
+18:59:48.857 [info] [Mattermost WS] Connected bridge_id=mattermost_1, sending auth
+........
+18:59:48.863 [warning] [Mattermost WS] Disconnected bridge_id=mattermost_1 code=1001 reason="going away", reconnecting
+.
+18:59:48.863 [warning] [Mattermost WS] Invalid JSON frame
+.
+18:59:48.863 [info] [Mattermost WS] Connected bridge_id=mattermost_1, sending auth
+.........................................................
+18:59:49.565 [info] [Mattermost Listener] Starting WebSocket connection bridge_id=mm uri=wss://fixture.test/api/v4/websocket
+
+18:59:49.565 [info] [Mattermost WS] Connected bridge_id=mm, sending auth
+
+18:59:49.566 [warning] [Mattermost WS] Disconnected bridge_id=mm code=1006 reason=:closed, reconnecting
+
+18:59:49.566 [info] [Mattermost WS] Connected bridge_id=mm, sending auth
+..............................................
+Finished in 1.4 seconds (1.4s async, 0.00s sync)
+
+Result: 132 passed, 4 excluded
+----------------
+COV    FILE                                        LINES RELEVANT   MISSED
+100.0% lib/jido/chat/mattermost.ex                    14        2        0
+ 86.4% lib/jido/chat/mattermost/adapter.ex           919      295       40
+  0.0% lib/jido/chat/mattermost/channel.ex            46       18       18
+ 80.0% lib/jido/chat/mattermost/delete_options.       32        5        1
+ 80.0% lib/jido/chat/mattermost/edit_options.ex       32        5        1
+100.0% lib/jido/chat/mattermost/fetch_options.e       49       12        0
+ 92.3% lib/jido/chat/mattermost/listener.ex           78       13        1
+100.0% lib/jido/chat/mattermost/metadata_option       32        5        0
+100.0% lib/jido/chat/mattermost/reaction_option       35        6        0
+100.0% lib/jido/chat/mattermost/send_options.ex       35        7        0
+  0.0% lib/jido/chat/mattermost/transport.ex          64        0        0
+  0.0% lib/jido/chat/mattermost/transport/req_c      236       78       78
+ 80.0% lib/jido/chat/mattermost/typing_options.       32        5        1
+ 79.0% lib/jido/chat/mattermost/websocket/clien      290      110       23
+[TOTAL]  70.9%
+----------------
+FAILED: Expected minimum coverage of 90%, got 70.9%.
+Coverage data exported.

@@ -1,0 +1,31 @@
+Compiling 1 file (.ex)
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+.............................................................................................................................................................................................................................................
+
+  1) test result construction failure preserves the admitted outcome and cannot repeat a provider call (Jido.Chat.ExecutorSignalTest)
+     test/jido/chat/executor_signal_test.exs:222
+     ** (MatchError) no match of right hand side value:
+
+         {:error,
+          %Jido.Chat.Errors.Contract{
+            code: :invalid_binding,
+            field: nil,
+            splode: nil,
+            bread_crumbs: [],
+            vars: [],
+            path: [],
+            stacktrace: #Splode.Stacktrace<>,
+            class: :validation
+          }}
+
+     code: {:ok, binding} = Jido.Chat.bind(Native, id: String.duplicate("x", 200_000), notify: self(), results: @results)
+     stacktrace:
+       test/jido/chat/executor_signal_test.exs:223: (test)
+
+..............
+Finished in 4.0 seconds (4.0s async, 0.00s sync)
+
+Result: 251/252 passed
+Failed: 1 test

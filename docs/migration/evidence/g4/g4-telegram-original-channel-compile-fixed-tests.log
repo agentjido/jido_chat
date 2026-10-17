@@ -1,0 +1,29 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:live]
+
+............
+
+  1) test transform_incoming/1 accepts ExGram update and message structs (Jido.Chat.Telegram.AdapterSurfaceTest)
+     test/jido/chat/telegram/channel_test.exs:423
+     ** (Jido.Chat.Errors.Validation) invalid Jido.Chat.WebhookRequest: payload: invalid type: expected map
+     code: assert {:ok, _handlers, [webhook_incoming]} = accept_webhook(binding, handlers, update)
+     stacktrace:
+       (jido_chat 1.2.1) lib/jido/chat/schema.ex:30: Jido.Chat.Schema.parse!/4
+       test/jido/chat/telegram/channel_test.exs:59: Jido.Chat.Telegram.AdapterSurfaceTest.accept_webhook/4
+       test/jido/chat/telegram/channel_test.exs:449: (test)
+
+................................
+
+  2) test typed post_message uses telegram send_file support for canonical uploads (Jido.Chat.Telegram.AdapterSurfaceTest)
+     test/jido/chat/telegram/channel_test.exs:1102
+     ** (Jido.Chat.Errors.Contract) Signal contract rejected: invalid_request
+     code: Jido.Chat.Signal.PostMessage.new!(%{
+     stacktrace:
+       (jido_chat 1.2.1) lib/jido/chat/signal/post_message.ex:8: Jido.Chat.Signal.PostMessage.new!/2
+       test/jido/chat/telegram/channel_test.exs:1116: (test)
+
+............
+Finished in 1.0 seconds (1.0s async, 0.00s sync)
+
+Result: 56/58 passed
+Failed: 2 tests

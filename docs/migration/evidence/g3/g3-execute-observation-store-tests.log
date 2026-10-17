@@ -1,0 +1,19 @@
+Running ExUnit with seed: 0, max_cases: 20
+Excluding tags: [:flaky, :integration, :story, {:postgres, true}]
+
+........
+
+  1) test authorization store failure causes zero provider callbacks (Jido.Messaging.TypedExecutionTest)
+     test/jido_messaging/typed_execution_test.exs:166
+     Assertion with == failed
+     code:  assert failed.data["code"] == "authorization_store_failed"
+     left:  "authorization_denied"
+     right: "authorization_store_failed"
+     stacktrace:
+       test/jido_messaging/typed_execution_test.exs:170: (test)
+
+...........................
+Finished in 2.9 seconds (0.00s async, 2.9s sync)
+
+Result: 35/36 passed
+Failed: 1 test

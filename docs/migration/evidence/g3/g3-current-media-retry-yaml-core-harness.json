@@ -1,0 +1,57 @@
+{
+  "path_sources_at_start": [
+    {
+      "repository": "jido_chat",
+      "head_sha": "c6ef192695f847fa2c6478bb0df321e6e66a7826",
+      "library_test_files": 149,
+      "library_test_sha256": "4065c0a133afaabb7b3b10a3f6c08dc766da1f3b03eb2ff2c6ce5fee362e114c"
+    },
+    {
+      "repository": "jido_messaging",
+      "head_sha": "31023287241abeff2df9c36d2f6e8a8fb68cb201",
+      "library_test_files": 356,
+      "library_test_sha256": "890bcd291be3f78ad310636fa74254f32d7a89fda0ecac116bfb3a04b835eb46"
+    },
+    {
+      "repository": "jido_chat_signal",
+      "head_sha": "82fc669785b1c559d2271fbccc4657304f2adfbc",
+      "library_test_files": 14,
+      "library_test_sha256": "33a4ddc5353abf849d19a4aa1a4c63a1e2de75923427fb5ad84da50c88949fd5"
+    },
+    {
+      "repository": "jido_chat_telegram",
+      "head_sha": "6c0d03237d8a26590462b4a15cb41224e9e7135b",
+      "library_test_files": 42,
+      "library_test_sha256": "65161a84a93b9cc7fa87135066fb3d147dc392ff34000111dc398afd57a4dadd"
+    },
+    {
+      "repository": "jido_chat_slack",
+      "head_sha": "299624618e99620b98568c61dc15b25eafb2e770",
+      "library_test_files": 33,
+      "library_test_sha256": "7931323b946f0ce76d1a7768e0f3899fe1af96339b875048899e233dbb25d9ef"
+    }
+  ],
+  "label": "g3-current-media-retry-yaml-core-harness",
+  "command": [
+    "mix",
+    "test",
+    "--seed",
+    "0",
+    "--warnings-as-errors"
+  ],
+  "repository": "integration",
+  "head_sha": "c6ef192695f847fa2c6478bb0df321e6e66a7826",
+  "source_tree_sha256": "6169e1f9fbb234c616ac110e733bd7e3e48a59bbce44980b03c11edff7874258",
+  "started_at": "2026-10-13T06:08:51.319376+00:00",
+  "finished_at": "2026-10-13T06:09:15.752353+00:00",
+  "environment": {
+    "MIX_ENV": "test",
+    "JIDO_CHAT_PATH": "..",
+    "JIDO_INTEGRATION_AI": "0",
+    "JIDO_INTEGRATION_PROFILE": "runtime",
+    "MIX_BUILD_PATH": "_build/runtime-core"
+  },
+  "exit_status": 0,
+  "log": "migration/evidence/g3/g3-current-media-retry-yaml-core-harness.log",
+  "log_sha256": "5ba0d9566495fd82f5ab7f6b60c6751f27dedf672bff4a0f1f0c136e35ed330d"
+}

@@ -1,0 +1,823 @@
+{
+  "cases": [
+    {
+      "line": 234,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test channel metadata",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 245,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test adapter capabilities matrix declares native/fallback/unsupported surfaces",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 258,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 with atom map",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 275,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 with string map",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 292,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 extracts attachments",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 368,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test fetch_media/2 downloads raw URLs and media references",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 381,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test fetch_media/2 refreshes an expired Discord attachment URL",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 412,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test transform_incoming/1 unsupported input",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 418,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test send_message/3 delegates to transport",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 425,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test send_message/3 maps generic reply_to_id to discord message_reference",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 436,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test send_file/3 uploads path-backed and in-memory files",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 484,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test send_file/3 returns explicit validation errors for unsupported or incomplete inputs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 511,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test edit_message/4 delegates to transport",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 517,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test delete/start_typing/fetch_metadata methods work",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 530,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test open_dm and ephemeral fallback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 544,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test reaction and history helpers",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 564,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test handle_webhook/3 normalizes and routes through Jido.Chat.process_message/5",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 589,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test interaction webhook routes slash/action/modal events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 642,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test handle_webhook/3 fails closed when signature verification fails",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 657,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test gateway helper routes reactions and modal_close events",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 671,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test gateway helper routes message lifecycle events without changing message create",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 698,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test gateway helper rejects invalid lifecycle payloads and still routes the next event",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 712,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test post_ephemeral supports native interaction response path",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 725,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test open_modal/3 supports interaction context and errors when missing context",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 747,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test interaction ping parse and format path returns noop and pong body",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 754,
+      "module": "Jido.Chat.Discord.AdapterSurfaceTest",
+      "name": "test component action payload falls back to payload.message.id for message_id",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/channel_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 56,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test adapter listener_child_specs/2 returns expected webhook/gateway specs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 84,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker emits message create payload through sink",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 94,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker normalizes reaction dispatch payload into EventEnvelope",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 113,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker preserves a partial message update as a typed lifecycle event",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 134,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker treats null content as absent and preserves empty content",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 164,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker stays available after an invalid lifecycle payload",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 175,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker stays available after scalar payloads and object-valued lifecycle IDs",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 189,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker preserves populated message update details",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 215,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker preserves a message delete as a typed lifecycle event",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 224,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test gateway worker polls event source and emits events through sink",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 247,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test sink error is reported without stopping the gateway worker",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 247,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test sink exit is reported without stopping the gateway worker",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 247,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test sink invalid is reported without stopping the gateway worker",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 247,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test sink raise is reported without stopping the gateway worker",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 247,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test sink throw is reported without stopping the gateway worker",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 272,
+      "module": "Jido.Chat.Discord.GatewayWorkerTest",
+      "name": "test every complete acquisition limit rejects before all sink calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/gateway_worker_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 68,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test send/edit/delete message against live Discord API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 85,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test typing and metadata calls succeed against live Discord API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 92,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test stream fallback edits a visible draft and leaves the final content",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 133,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test reply continuity preserves Discord message_reference metadata",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 163,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test reaction flow succeeds against live Discord API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 188,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test send_file/3 uploads a local file against live Discord API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 215,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test send_file accepts raw bytes and core post_message uses canonical file fallback",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 265,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test uploaded image keeps its kind and downloaded bytes when Discord omits MIME",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 298,
+      "module": "Jido.Chat.Discord.LiveIntegrationTest",
+      "name": "test open_dm/2 live test requires DISCORD_TEST_USER_ID",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/live_integration_test.exs",
+      "state": "excluded"
+    },
+    {
+      "line": 10,
+      "module": "Jido.Chat.Discord.NostrumGatewayListenerTest",
+      "name": "test listener joins consumer group and forwards supported events into bridge buffer",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/nostrum_gateway_listener_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 50,
+      "module": "Jido.Chat.Discord.NostrumGatewayListenerTest",
+      "name": "test listener ignores unsupported event names",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/nostrum_gateway_listener_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 63,
+      "module": "Jido.Chat.Discord.NostrumGatewayListenerTest",
+      "name": "test buffer enforces max_events limit",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/nostrum_gateway_listener_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 14,
+      "module": "Jido.Chat.Discord.OptionsTest",
+      "name": "test SendOptions.new/1 normalizes keyword options into typed struct",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 30,
+      "module": "Jido.Chat.Discord.OptionsTest",
+      "name": "test EditOptions.new/1 normalizes keyword options into typed struct",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 42,
+      "module": "Jido.Chat.Discord.OptionsTest",
+      "name": "test Delete/Typing/Reaction options normalize",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 59,
+      "module": "Jido.Chat.Discord.OptionsTest",
+      "name": "test Fetch and Metadata options normalize",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/options_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 95,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test interaction controls remain private and scoped to their owner and room",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 131,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test unsupported interactions release private controls and HTTP controls report rejection",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test add_reaction matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test delete_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test edit_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_channel_messages matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_media matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_messages matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_metadata matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_subject matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test fetch_thread matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test get_thread_participants matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test get_user matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test list_threads matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test load_options matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test mark_as_read matches frozen unsupported with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test open_dm matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test open_modal matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test open_thread matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test post_channel_message matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test post_ephemeral matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test post_message matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test remove_reaction matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test send_file matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test send_message matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test start_typing matches frozen native with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 182,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test stream matches frozen fallback with exact calls and a cached native result",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ActionReceived has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test AssistantContextChanged has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test AssistantThreadStarted has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test MembershipChanged has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test MessageDeleted has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test MessageReceived has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test MessageUpdated has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ModalClosed has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ModalSubmitted has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test NormalizationFailed has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test OptionsRequested has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ReactionAdded has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ReactionRemoved has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ReceiptReceived has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test SlashCommandReceived has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ThreadChanged has frozen unsupported mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 252,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test ThreadStarted has frozen native mapping through all gateway forms",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 275,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test zero, one and many preserve item order and identity across batches",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 285,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test provider failure is typed and cached with one call",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 295,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test cancelled stream has zero enumeration and provider calls",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 311,
+      "module": "Jido.Chat.Discord.ProtocolTest",
+      "name": "test HTTP mapping uses the signed body and requires a captured public key",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/protocol_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 143,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test send_message/3 calls Nostrum API and normalizes response",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 159,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test send_message/3 forwards file attachments and omits empty content",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 171,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test edit_message/4 calls Nostrum API and normalizes response",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 183,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test edit_message/4 handles boolean success response",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 193,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test delete/start_typing/fetch_metadata/open_dm methods work",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 213,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test reaction helpers call Nostrum message API",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 230,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test fetch_messages/2 maps cursor and normalizes page",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 254,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test list_threads/fetch_message/create_interaction_response helpers work",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 278,
+      "module": "Jido.Chat.Discord.Transport.NostrumClientTest",
+      "name": "test download_file/2 returns raw bytes and reports invalid responses",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord/transport/nostrum_client_test.exs",
+      "state": "pass"
+    },
+    {
+      "line": 4,
+      "module": "Jido.Chat.DiscordTest",
+      "name": "test adapter/0 returns the discord adapter module",
+      "file": "/Users/mhostetler/Source/Jido/proj_jido_chat/.worktrees/public-signal-v3/jido_chat_discord/test/jido/chat/discord_test.exs",
+      "state": "pass"
+    }
+  ]
+}
