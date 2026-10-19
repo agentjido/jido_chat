@@ -1,0 +1,315 @@
+{
+  "apps": {
+    "jido_chat": {
+      "active": 25,
+      "coverage": 1.0,
+      "covered": 25
+    }
+  },
+  "components": {
+    "jido_chat.actions": {
+      "active": 6,
+      "app": "jido_chat",
+      "coverage": 1.0,
+      "covered": 6,
+      "form": "light",
+      "obligations": {
+        "jido_chat.actions.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test every core Action executes and validates a completion for two client identities"
+          ]
+        },
+        "jido_chat.actions.I2": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test foreign and malformed requests and context fail before provider execution"
+          ]
+        },
+        "jido_chat.actions.I3": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test invalid or foreign provider results cannot produce success Signals"
+          ]
+        },
+        "jido_chat.actions.I4": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test provider failures expose only safe codes, outcomes, hints, and causal context"
+          ]
+        },
+        "jido_chat.actions.I5": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test a failed Flow dependency prevents the next provider write",
+            "test native Flow, Router, Instruction, and Dispatch retain the Action boundary"
+          ]
+        },
+        "jido_chat.actions.I6": {
+          "failing": 0,
+          "kind": "persisted_format",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test agent schemas pin exact wire shapes and accept their serialized request examples"
+          ]
+        }
+      }
+    },
+    "jido_chat.adapter": {
+      "active": 6,
+      "app": "jido_chat",
+      "coverage": 1.0,
+      "covered": 6,
+      "form": "light",
+      "obligations": {
+        "jido_chat.adapter.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test the adapter behaviour has explicit required and optional callbacks and support statuses"
+          ]
+        },
+        "jido_chat.adapter.I2": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test immutable clients and the same SendMessage Action work for two independent adapters"
+          ]
+        },
+        "jido_chat.adapter.I3": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all unsupported operations return typed rejections without I/O or source consumption"
+          ]
+        },
+        "jido_chat.adapter.I4": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test provider Actions and facts extend configured discovery and execution without core edits"
+          ]
+        },
+        "jido_chat.adapter.I5": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test normalization preserves ordered scoped facts and rejects the whole invalid batch"
+          ]
+        },
+        "jido_chat.adapter.I6": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test normalization calls once, keeps options private, and rejects malformed or raised returns"
+          ]
+        }
+      }
+    },
+    "jido_chat.public_api": {
+      "active": 6,
+      "app": "jido_chat",
+      "coverage": 1.0,
+      "covered": 6,
+      "form": "light",
+      "obligations": {
+        "jido_chat.public_api.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test documented SDK functions and macros keep their explicit arities"
+          ]
+        },
+        "jido_chat.public_api.I2": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all eleven helpers execute matching Actions with public data and private options"
+          ]
+        },
+        "jido_chat.public_api.I3": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test generated IDs are fresh and explicit IDs do not suppress repeated writes"
+          ]
+        },
+        "jido_chat.public_api.I4": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test invalid helper and execution options fail before provider calls"
+          ]
+        },
+        "jido_chat.public_api.I5": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test a resource stream is private, consumed once, and closed by one execution task"
+          ]
+        },
+        "jido_chat.public_api.I6": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test a blocked call returns a typed unknown deadline failure with one attempt"
+          ]
+        }
+      }
+    },
+    "jido_chat.sdk": {
+      "active": 1,
+      "app": "jido_chat",
+      "coverage": 1.0,
+      "covered": 1,
+      "form": "light",
+      "obligations": {
+        "jido_chat.sdk.I1": {
+          "failing": 0,
+          "kind": "non_functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test the SDK declares no application callback, registered process, or Messaging dependency"
+          ]
+        }
+      }
+    },
+    "jido_chat.signals": {
+      "active": 6,
+      "app": "jido_chat",
+      "coverage": 1.0,
+      "covered": 6,
+      "form": "light",
+      "obligations": {
+        "jido_chat.signals.I1": {
+          "failing": 0,
+          "kind": "persisted_format",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test the complete core catalog preserves its literal identities and data schemas"
+          ]
+        },
+        "jido_chat.signals.I2": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all definitions reject missing required data, unknown fields, and invalid values"
+          ]
+        },
+        "jido_chat.signals.I3": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test nested private data and invalid runtime context cannot enter Signals"
+          ]
+        },
+        "jido_chat.signals.I4": {
+          "failing": 0,
+          "kind": "persisted_format",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all native Signal examples retain identity and trace through Catalog serialization"
+          ]
+        },
+        "jido_chat.signals.I5": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test file sources and download results use one portable JSON contract",
+            "test keyboards enforce callback byte, row, and total button limits"
+          ]
+        },
+        "jido_chat.signals.I6": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test Deliveries enforce count, failure, and encoded byte limits as a complete ordered batch",
+            "test a Signal accepts the exact encoded byte limit and rejects one extra byte"
+          ]
+        }
+      }
+    }
+  },
+  "covenant": "0.2.0",
+  "totals": {
+    "active": 25,
+    "coverage": 1.0,
+    "covered": 25
+  }
+}

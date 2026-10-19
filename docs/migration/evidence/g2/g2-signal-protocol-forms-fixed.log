@@ -1,8 +1,0 @@
-Compiling 1 file (.ex)
-Running ExUnit with seed: 0, max_cases: 20
-Excluding tags: [:live, {:live, true}]
-
-.....................................................
-Finished in 1.1 seconds (1.1s async, 0.04s sync)
-
-Result: 53 passed, 1 excluded

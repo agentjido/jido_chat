@@ -25,4 +25,4 @@ jobs:
       validate_hex_package: true
       hex_package_command: MIX_ENV=prod mix hex.build
       docs_command: mix docs -f html -f markdown
-      test_command: mix test
+      test_command: mix test && mix test.contracts

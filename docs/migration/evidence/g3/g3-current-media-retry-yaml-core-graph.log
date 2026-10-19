@@ -1,7 +1,0 @@
-==> jido_messaging
-Compiling 3 files (.ex)
-Compiling 3 files (.ex)
-Compiling lib/jido_messaging/persistence/sqlite.ex (it's taking more than 10s)
-==> jido_chat_integration
-Compiling 4 files (.ex)
-{"profile":"core-only","state":"pass","dependency_count":39}

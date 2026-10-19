@@ -1,7 +1,0 @@
-{
-  "state": "fail",
-  "errors": [
-    "C01–C14 conformance did not pass."
-  ],
-  "phase": "all"
-}

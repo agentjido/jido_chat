@@ -1,9 +1,0 @@
-Compiling 1 file (.ex)
-Generated jido_chat_teams app
-Running ExUnit with seed: 698490, max_cases: 20
-Excluding tags: [live: true]
-
-.................................
-Finished in 0.4 seconds (0.4s async, 0.00s sync)
-
-Result: 33 passed, 2 excluded

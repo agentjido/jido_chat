@@ -1,6 +1,0 @@
-** (MatchError) no match of right hand side value:
-
-    "fail"
-
-    /tmp/jido-b4-catalog.exs:26: (file)
-    (elixir 1.20.4) lib/code.ex:1639: Code.require_file/2

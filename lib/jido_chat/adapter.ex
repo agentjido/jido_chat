@@ -1,111 +1,29 @@
 defmodule Jido.Chat.Adapter do
   @moduledoc """
-  Protocol version 1 provider contract.
+  Stateless provider contract. An adapter maps one validated request Signal to
+  one canonical result value. The Action wraps that value in a result Signal.
 
-  Bind once with `Jido.Chat.bind/2`. Public requests and results are typed
-  Signals. Operation callbacks are private provider calls selected only by the
-  direct executor. A normalizer returns a complete ordered delivery of facts.
-  Verification, listener setup, acknowledgement, and provisioning are private
-  transport controls. A Bus-published request cannot invoke these callbacks.
+  `normalize/3` maps private provider input to an immutable Delivery of facts.
+  The host owns webhook verification, acknowledgements, listeners, storage,
+  retries, and publication. Client construction and capability reads perform no I/O.
+
+  An adapter that declares `stream_text: :native` handles the StreamText request
+  in `invoke/3`. Its source Enumerable is `opts[:stream]`. The adapter selects its
+  delivery method and consumes the source in the Action execution task. Return the final
+  canonical message, as for SendMessage. Do not put the source in a Signal.
   """
-
-  alias Jido.Chat.{
-    Binding,
-    Card,
-    CapabilityMatrix,
-    Delivery,
-    Markdown,
-    Modal,
-    PostPayload,
-    WebhookRequest,
-    WebhookResponse
-  }
-
-  @type capability_status :: :native | :fallback | :unsupported
-  @type capability_matrix :: %{optional(atom()) => capability_status()}
-  @type provider_result :: {:ok, term()} | {:error, term()} | :ok
-  @type raw_payload :: term()
-  @type external_room_id :: String.t()
-  @type external_message_id :: String.t()
-  @type external_user_id :: String.t()
-  @type file_input :: Jido.Chat.FileUpload.input()
-  @type media_reference :: term()
-  @type listener_opts :: keyword()
-
-  @doc "Returns the explicitly implemented Signal protocol version."
-  @callback signal_protocol() :: pos_integer()
-  @doc "Captures resolved private transport, credentials, and resources at setup."
-  @callback configure_binding(keyword()) :: {:ok, keyword()} | {:error, term()}
-  @doc "Normalizes a private provider input into a complete validated delivery."
-  @callback normalize_event(Binding.t(), term()) :: {:ok, Delivery.t()} | {:error, Jido.Chat.Errors.Contract.t()}
+  alias Jido.Chat.{Client, Delivery}
+  @type capabilities :: %{optional(atom()) => :native | :unsupported}
   @callback channel_type() :: atom()
-  @callback capabilities() :: capability_matrix()
-  @callback initialize(keyword()) :: :ok | {:ok, term()} | {:error, term()}
-  @callback shutdown(keyword()) :: :ok | {:ok, term()} | {:error, term()}
-  @callback send_message(external_room_id(), String.t(), keyword()) :: provider_result()
-  @callback send_file(external_room_id(), file_input(), keyword()) :: provider_result()
-  @callback post_message(external_room_id(), PostPayload.t(), keyword()) :: provider_result()
-  @callback edit_message(external_room_id(), external_message_id(), String.t(), keyword()) :: provider_result()
-  @callback delete_message(external_room_id(), external_message_id(), keyword()) :: provider_result()
-  @callback start_typing(external_room_id(), keyword()) :: provider_result()
-  @callback fetch_metadata(external_room_id(), keyword()) :: provider_result()
-  @callback fetch_thread(external_room_id(), keyword()) :: provider_result()
-  @callback fetch_message(external_room_id(), external_message_id(), keyword()) :: provider_result()
-  @callback get_user(external_user_id(), keyword()) :: provider_result()
-  @callback fetch_subject(external_room_id(), keyword()) :: provider_result()
-  @callback get_thread_participants(external_room_id(), keyword()) :: provider_result()
-  @callback mark_as_read(external_room_id(), external_message_id(), keyword()) :: provider_result()
-  @callback fetch_media(media_reference(), keyword()) :: provider_result()
-  @callback add_reaction(external_room_id(), external_message_id(), String.t(), keyword()) :: provider_result()
-  @callback remove_reaction(external_room_id(), external_message_id(), String.t(), keyword()) :: provider_result()
-  @callback post_ephemeral(external_room_id(), external_user_id(), String.t(), keyword()) :: provider_result()
-  @callback post_channel_message(external_room_id(), String.t(), keyword()) :: provider_result()
-  @callback stream(external_room_id(), Enumerable.t(), keyword()) :: provider_result()
-  @callback open_modal(external_room_id(), Modal.t(), keyword()) :: provider_result()
-  @callback load_options(Jido.Signal.t(), keyword()) :: provider_result()
-  @callback fetch_messages(external_room_id(), keyword()) :: provider_result()
-  @callback fetch_channel_messages(external_room_id(), keyword()) :: provider_result()
-  @callback list_threads(external_room_id(), keyword()) :: provider_result()
-  @callback open_thread(external_room_id(), external_message_id(), keyword()) :: provider_result()
-  @callback open_dm(external_user_id(), keyword()) :: provider_result()
-  @callback verify_webhook(WebhookRequest.t(), keyword()) :: :ok | {:error, term()}
-  @callback format_webhook_response(term(), keyword()) :: WebhookResponse.t() | map() | {:error, term()}
-  @callback listener_child_specs(String.t(), listener_opts()) :: {:ok, [Supervisor.child_spec()]} | {:error, term()}
+  @callback capabilities() :: capabilities()
+  @callback default_transport() :: module()
+  @callback invoke(Client.t(), Jido.Signal.t(), keyword()) :: {:ok, map()} | {:error, term()}
+  @callback normalize(Client.t(), term(), keyword()) :: {:ok, Delivery.t()} | {:error, term()}
+  @callback operations() :: [{module(), module()}]
+  @callback event_definitions() :: [module()]
+  @optional_callbacks default_transport: 0, operations: 0, event_definitions: 0
 
-  @optional_callbacks capabilities: 0,
-                      initialize: 1,
-                      shutdown: 1,
-                      send_message: 3,
-                      send_file: 3,
-                      post_message: 3,
-                      edit_message: 4,
-                      delete_message: 3,
-                      start_typing: 2,
-                      fetch_metadata: 2,
-                      fetch_thread: 2,
-                      fetch_message: 3,
-                      get_user: 2,
-                      fetch_subject: 2,
-                      get_thread_participants: 2,
-                      mark_as_read: 3,
-                      fetch_media: 2,
-                      add_reaction: 4,
-                      remove_reaction: 4,
-                      post_ephemeral: 4,
-                      post_channel_message: 3,
-                      stream: 3,
-                      open_modal: 3,
-                      load_options: 2,
-                      fetch_messages: 2,
-                      fetch_channel_messages: 2,
-                      list_threads: 2,
-                      open_thread: 3,
-                      open_dm: 2,
-                      verify_webhook: 2,
-                      format_webhook_response: 2,
-                      listener_child_specs: 2
-
-  @doc "Declares the provider contract and a default channel identity."
+  @doc "Declares a stateless provider adapter."
   @spec __using__(keyword()) :: Macro.t()
   defmacro __using__(_opts) do
     quote do
@@ -116,12 +34,32 @@ defmodule Jido.Chat.Adapter do
     end
   end
 
-  @doc "Returns the declared operation support with checked native callbacks."
-  @spec capabilities(module()) :: capability_matrix()
+  @doc "Returns provider extension request/Action pairs; core operations are separate."
+  @spec operations(module()) :: [{module(), module()}]
+  def operations(adapter) do
+    if function_exported?(adapter, :operations, 0), do: adapter.operations(), else: []
+  end
+
+  @doc "Returns admitted incoming facts; older adapters admit the core fact set."
+  @spec event_definitions(module()) :: [module()]
+  def event_definitions(adapter) do
+    if function_exported?(adapter, :event_definitions, 0),
+      do: adapter.event_definitions(),
+      else: Jido.Chat.event_definitions()
+  end
+
+  @doc "Returns explicit operation support. No fallback is inferred."
+  @spec capabilities(module()) :: capabilities()
   def capabilities(adapter) do
-    case Jido.Chat.Operations.Capabilities.read(adapter) do
-      {:ok, operations} ->
-        declared = if function_exported?(adapter, :capabilities, 0), do: adapter.capabilities(), else: %{}
+    case validate_capabilities(adapter) do
+      :ok ->
+        declared = adapter.capabilities()
+
+        operations =
+          Map.new(Jido.Chat.Operations.Definitions.all(), fn {_, {_, operation, _, _, _}} ->
+            {operation, Map.get(declared, operation, :unsupported)}
+          end)
+
         Map.merge(declared, operations)
 
       {:error, error} ->
@@ -129,39 +67,58 @@ defmodule Jido.Chat.Adapter do
     end
   end
 
-  @doc "Checks capability declarations against the exact operation callbacks."
+  @doc "Validates explicit operation statuses without calling a provider."
   @spec validate_capabilities(module()) :: :ok | {:error, Jido.Chat.Errors.Contract.t()}
   def validate_capabilities(adapter) do
-    case Jido.Chat.Operations.Capabilities.read(adapter) do
-      {:ok, _} -> :ok
-      error -> error
-    end
+    true = Code.ensure_loaded?(adapter)
+    declared = adapter.capabilities()
+
+    valid =
+      is_map(declared) and
+        Enum.all?(declared, fn {key, status} -> is_atom(key) and status in [:native, :unsupported] end) and
+        valid_extensions?(adapter)
+
+    if valid, do: :ok, else: Jido.Chat.Signal.Policy.error(:invalid_capabilities)
+  rescue
+    _ -> Jido.Chat.Signal.Policy.error(:invalid_capabilities)
   end
 
-  @doc "Returns a retained capability matrix value."
-  @spec capability_matrix(module()) :: CapabilityMatrix.t()
-  def capability_matrix(adapter),
-    do: CapabilityMatrix.new(%{adapter_name: adapter_type(adapter), capabilities: capabilities(adapter)})
+  defp valid_extensions?(adapter) do
+    extensions = operations(adapter)
+    events = event_definitions(adapter)
+    pairs = Jido.Chat.operations() ++ extensions
 
-  @doc "Returns the configured provider channel identity."
-  @spec adapter_type(module()) :: atom()
-  def adapter_type(adapter), do: adapter.channel_type()
+    types =
+      Enum.map(pairs, fn {definition, action} ->
+        true = Code.ensure_loaded?(action)
+        true = action.signal_definition() == definition
+        definition.type()
+      end)
 
-  @doc "Returns the finite core operation fallback list."
-  @spec core_fallback_capabilities() :: [atom()]
-  def core_fallback_capabilities,
-    do: [:post_message, :fetch_metadata, :fetch_thread, :fetch_subject, :post_channel_message, :post_ephemeral, :stream]
+    definitions =
+      (Jido.Chat.signal_definitions() ++
+         Enum.flat_map(extensions, fn {_, action} -> action.signal_definitions() end) ++ events)
+      |> Enum.uniq()
 
-  @doc "Renders a retained Markdown builder value."
+    _catalog = Jido.Signal.Catalog.new!(definitions)
+
+    length(types) == length(Enum.uniq(types)) and
+      Enum.all?(events, fn definition ->
+        Code.ensure_loaded?(definition) and function_exported?(definition, :__signal_kind__, 0) and
+          definition.__signal_kind__() == :fact
+      end)
+  end
+
+  @doc "Renders a Markdown value."
   @spec render_markdown(term(), keyword()) :: String.t()
-  def render_markdown(value, _opts \\ []), do: value |> Markdown.new() |> Markdown.stringify()
-  @doc "Renders a retained card builder value."
+  def render_markdown(value, _opts \\ []), do: value |> Jido.Chat.Markdown.new() |> Jido.Chat.Markdown.stringify()
+  @doc "Renders a card value."
   @spec render_card(term(), keyword()) :: map()
-  def render_card(value, _opts \\ []), do: value |> Card.normalize() |> Card.to_adapter_payload()
-  @doc "Renders a retained modal builder value."
+  def render_card(value, _opts \\ []), do: value |> Jido.Chat.Card.normalize() |> Jido.Chat.Card.to_adapter_payload()
+  @doc "Renders a modal value."
   @spec render_modal(term(), keyword()) :: map()
-  def render_modal(value, _opts \\ []), do: value |> Modal.new() |> Modal.to_adapter_payload()
-  @doc "Renders a finite stream as a domain value, without a provider callback."
+  def render_modal(value, _opts \\ []), do: value |> Jido.Chat.Modal.new() |> Jido.Chat.Modal.to_adapter_payload()
+  @doc "Renders a finite stream value."
   @spec render_stream(Enumerable.t()) :: String.t() | nil
   def render_stream(value), do: Jido.Chat.Markdown.StreamRenderer.render(value)
 end

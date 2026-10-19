@@ -60,8 +60,13 @@ defmodule Jido.Chat.Signal.Policy do
   @doc false
   @spec validate(Jido.Signal.t()) :: {:ok, Jido.Signal.t()} | {:error, Contract.t()}
   def validate(%Jido.Signal{} = signal) do
-    with :ok <- context(signal), :ok <- encoded_size(signal) do
+    with true <- is_binary(signal.id) and byte_size(signal.id) in 1..128,
+         :ok <- context(signal),
+         :ok <- encoded_size(signal) do
       {:ok, signal}
+    else
+      false -> error(:invalid_request, :id)
+      error -> error
     end
   end
 

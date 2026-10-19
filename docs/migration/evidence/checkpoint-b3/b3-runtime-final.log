@@ -1,8 +1,0 @@
-Running ExUnit with seed: 0, max_cases: 20
-
-.................................................................
-17:22:42.769 [info] init got unexpected: {:"ETS-TRANSFER", :jido_messaging_bridge_registry, #PID<0.2967.0>, nil}
-................................................................
-Finished in 6.8 seconds (5.2s on load, 0.1s async, 1.4s sync)
-
-Result: 129 passed

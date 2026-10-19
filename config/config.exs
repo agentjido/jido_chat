@@ -1,6 +1,11 @@
 import Config
 
-config :git_hooks, auto_install: false
+if config_env() in [:dev, :test] do
+  config :covenant,
+    contracts_dir: "test/contracts",
+    test_paths: ["test/contracts/**/*_test.exs"],
+    sibling_dir: false
+end
 
 if config_env() == :dev do
   config :git_hooks,
@@ -31,6 +36,8 @@ if config_env() == :dev do
     ]
 end
 
-if File.exists?(Path.expand("#{config_env()}.exs", __DIR__)) do
-  import_config "#{config_env()}.exs"
+if config_env() in [:dev, :test] do
+  config :spark, :formatter,
+    remove_parens?: true,
+    "Jido.Agent": [type: Jido.Agent.DSL, extensions: [Jido.Chat.Plugin]]
 end

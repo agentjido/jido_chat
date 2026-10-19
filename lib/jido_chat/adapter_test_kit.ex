@@ -1,9 +1,9 @@
 defmodule Jido.Chat.AdapterTestKit do
   @moduledoc """
-  Shared protocol version 1 conformance support.
+  Shared stateless adapter conformance support.
 
-  Every adapter has an explicit native/fallback/unsupported operation matrix.
-  Provider fixtures execute through a configured binding and typed request.
+  Every adapter has an explicit native/unsupported operation matrix.
+  Provider fixtures execute through a configured client and typed request.
   Unsupported features require a typed result assertion; they do not pass by
   skipping a supported test body.
   """
@@ -28,5 +28,5 @@ defmodule Jido.Chat.AdapterTestKit do
 
   @doc "Returns the explicit supported status for a checked operation."
   @spec supported?(module(), atom()) :: boolean()
-  def supported?(adapter, operation), do: Jido.Chat.Adapter.capabilities(adapter)[operation] in [:native, :fallback]
+  def supported?(adapter, operation), do: Jido.Chat.Adapter.capabilities(adapter)[operation] in [:native]
 end

@@ -1,7 +1,0 @@
-Running ExUnit with seed: 0, max_cases: 20
-Excluding tags: [:flaky, :integration, :story]
-
-.................................................................................................................................
-Finished in 21.8 seconds (0.00s async, 21.8s sync)
-
-Result: 129 passed

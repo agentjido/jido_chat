@@ -1,8 +1,0 @@
-==> jido_chat
-Compiling 1 file (.ex)
-{
-  "scope": "compiled core and Signal provider library exports",
-  "state": "pass",
-  "gate": "G2",
-  "export_count": 1219
-}

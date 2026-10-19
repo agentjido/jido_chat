@@ -1,7 +1,13 @@
 defmodule Jido.Chat.Signal.Definition do
-  @moduledoc false
+  @moduledoc """
+  Defines a strict chat Signal. Provider incoming facts use `kind: :fact` and an
+  explicit `owner`. Declare these definitions in the adapter's `event_definitions/0`.
+  Facts require `item_id` and `delivery_id`; room facts also use `room_id` and the
+  client-scoped conversation subject. Data and trace context follow Chat policy.
+  """
 
-  @doc false
+  @doc "Defines a typed chat fact, request, or result with JSON and context checks."
+  @spec __using__(keyword()) :: Macro.t()
   defmacro __using__(opts) do
     kind = Keyword.fetch!(opts, :kind)
     owner = Keyword.fetch!(opts, :owner)

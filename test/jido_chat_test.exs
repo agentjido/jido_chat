@@ -1,22 +1,18 @@
 defmodule Jido.ChatTest do
   use ExUnit.Case, async: true
 
-  alias Jido.Chat
+  test "the public facade exposes native operations and pure rendering" do
+    assert length(Jido.Chat.actions()) == 23
+    assert Jido.Chat.emoji(":thumbsup:") == "👍"
 
-  test "facade constructors delegate to core structs" do
-    room = Chat.new_room(%{type: :direct})
-    participant = Chat.new_participant(%{type: :human})
+    for {name, arity} <- [message: 1, new_room: 1, new_participant: 1, text: 1] do
+      refute function_exported?(Jido.Chat, name, arity)
+    end
+  end
 
-    message =
-      Chat.message(%{
-        external_room_id: room.id,
-        external_message_id: "m1",
-        text: "hello"
-      })
-
-    assert room.type == :direct
-    assert participant.type == :human
-    assert message.text == "hello"
-    assert message.external_room_id == room.id
+  test "SDK startup metadata does not start Jido or register Chat processes" do
+    refute :jido in Application.spec(:jido_chat, :applications)
+    assert Application.spec(:jido_chat, :registered) == []
+    assert Application.spec(:jido_chat, :mod) == []
   end
 end

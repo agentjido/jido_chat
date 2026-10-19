@@ -1,9 +1,0 @@
-Compiling 14 files (.ex)
-Compiling 3 files (.ex)
-Generated jido_chat app
-Running ExUnit with seed: 0, max_cases: 20
-
-....................................................................................
-Finished in 3.5 seconds (3.5s async, 0.00s sync)
-
-Result: 84 passed

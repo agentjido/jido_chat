@@ -1,1 +1,0 @@
-These files retain earlier command metadata and source snapshots. They are historical metadata only. Their log and case paths can refer to files replaced by later runs. They are not accepted as current proof. inputs.json selects current records in the parent folder.

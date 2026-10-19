@@ -1,9 +1,0 @@
-Compiling 9 files (.ex)
-      warning: Jido.Messaging.ReadReceipt.mark_as_read/5 is undefined or private
-      │
- 1800 │     Jido.Messaging.ReadReceipt.mark_as_read(
-      │                                ~
-      │
-      └─ lib/jido_messaging.ex:1800:32: Jido.Messaging.mark_message_as_read/5
-
-Compilation failed due to warnings while using the --warnings-as-errors option

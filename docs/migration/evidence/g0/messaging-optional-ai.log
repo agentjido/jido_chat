@@ -1,7 +1,0 @@
-[0mWaiting for lock on the build directory (held by process 23944)
-[0mWaiting for lock on the build directory (held by process 23944)
-** (CompileError) examples/jido_ai/chat_agent.ex:1: Unknown authoring fields
-    (jido 3.0.0-beta.1) lib/jido/agent/dsl/compiler.ex:167: Jido.Agent.DSL.Compiler.fail!/2
-    (jido 3.0.0-beta.1) lib/jido/agent/dsl/compiler.ex:70: Jido.Agent.DSL.Compiler.host_config/2
-    (jido 3.0.0-beta.1) expanding macro: Jido.Agent.DSL.Compiler.__before_compile__/1
-    examples/jido_ai/chat_agent.ex:1: Jido.Messaging.Demo.ChatAgent (module)

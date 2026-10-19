@@ -1,8 +1,0 @@
-Generated jido_chat_github app
-Running ExUnit with seed: 0, max_cases: 20
-Excluding tags: [:live, {:live, true}]
-
-.......................................................................
-Finished in 0.9 seconds (0.7s async, 0.1s sync)
-
-Result: 71 passed, 1 excluded

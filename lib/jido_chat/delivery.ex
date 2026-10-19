@@ -6,7 +6,7 @@ defmodule Jido.Chat.Delivery do
   processing. Transport acknowledgement and private resources are separate.
   """
 
-  alias Jido.Chat.Binding
+  alias Jido.Chat.Client
   alias Jido.Chat.Signal.{Identity, Policy}
   alias Jido.Signal.Catalog
 
@@ -19,16 +19,16 @@ defmodule Jido.Chat.Delivery do
   defstruct Zoi.Struct.struct_fields(@schema)
 
   @doc "Builds a completely validated, ordered provider delivery."
-  @spec new(Binding.t(), String.t(), [Jido.Signal.t()]) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
-  def new(binding, id, signals), do: validate(binding, %__MODULE__{id: id, signals: signals})
+  @spec new(Client.t(), String.t(), [Jido.Signal.t()]) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
+  def new(client, id, signals), do: validate(client, %__MODULE__{id: id, signals: signals})
 
   @doc "Revalidates a delivery before direct sink acceptance."
-  @spec validate(Binding.t(), t()) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
-  def validate(%Binding{} = binding, %__MODULE__{id: id, signals: signals} = delivery) do
+  @spec validate(Client.t(), t()) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
+  def validate(%Client{} = client, %__MODULE__{id: id, signals: signals} = delivery) do
     with true <- is_binary(id) and id != "" and String.valid?(id),
          true <- is_list(signals),
          :ok <- count_limit(signals),
-         {:ok, validated} <- validate_signals(binding, id, signals),
+         {:ok, validated} <- validate_signals(client, id, signals),
          :ok <- failure_limit(validated),
          :ok <- size_limit(id, validated) do
       {:ok, %{delivery | signals: validated}}
@@ -42,7 +42,7 @@ defmodule Jido.Chat.Delivery do
     _, _ -> Policy.error(:invalid_delivery)
   end
 
-  def validate(_binding, _delivery), do: Policy.error(:invalid_delivery)
+  def validate(_client, _delivery), do: Policy.error(:invalid_delivery)
 
   @doc false
   @spec validate_empty(t()) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
@@ -68,14 +68,14 @@ defmodule Jido.Chat.Delivery do
       else: Policy.error(:too_many_failures)
   end
 
-  defp validate_signals(binding, delivery_id, signals) do
-    definitions = Jido.Chat.signal_definitions()
-    catalog = Catalog.new!(definitions)
+  defp validate_signals(client, delivery_id, signals) do
+    definitions = Jido.Chat.event_definitions(client)
+    catalog = Jido.Chat.catalog(client)
 
     Enum.reduce_while(signals, {:ok, []}, fn signal, {:ok, acc} ->
       with {:ok, signal} <- Catalog.validate(catalog, signal),
            {:ok, signal} <- Policy.validate(signal),
-           :ok <- fact_identity(binding, delivery_id, definitions, signal) do
+           :ok <- fact_identity(client, delivery_id, definitions, signal) do
         {:cont, {:ok, [signal | acc]}}
       else
         {:error, %Jido.Chat.Errors.Contract{}} = error -> {:halt, error}
@@ -88,16 +88,16 @@ defmodule Jido.Chat.Delivery do
     end
   end
 
-  defp fact_identity(binding, delivery_id, definitions, signal) do
+  defp fact_identity(client, delivery_id, definitions, signal) do
     definition = Enum.find(definitions, &(&1.type() == signal.type and &1.dataschema() == signal.dataschema))
 
     subject =
       case signal.data["room_id"] do
         nil -> nil
-        room_id -> Identity.conversation_subject(binding.id, room_id)
+        room_id -> Identity.conversation_subject(client.id, room_id)
       end
 
-    if definition.__signal_kind__() == :fact and signal.source == binding.source and
+    if not is_nil(definition) and definition.__signal_kind__() == :fact and signal.source == client.source and
          signal.subject == subject and signal.data["delivery_id"] == delivery_id do
       :ok
     else

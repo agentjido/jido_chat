@@ -1,7 +1,0 @@
-Running ExUnit with seed: 794387, max_cases: 20
-Excluding tags: [live: true]
-
-..........
-Finished in 0.1 seconds (0.1s async, 0.00s sync)
-
-Result: 10 passed, 2 excluded

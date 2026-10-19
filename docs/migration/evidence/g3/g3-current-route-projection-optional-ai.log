@@ -1,7 +1,0 @@
-Running ExUnit with seed: 0, max_cases: 20
-Excluding tags: [:live, :postgres]
-
-....
-Finished in 6.7 seconds (6.7s async, 0.00s sync)
-
-Result: 4 passed

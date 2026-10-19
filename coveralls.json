@@ -1,5 +1,9 @@
 {
   "coverage_options": {
     "minimum_coverage": 90
-  }
+  },
+  "skip_files": [
+    "^deps/",
+    "^test/"
+  ]
 }
