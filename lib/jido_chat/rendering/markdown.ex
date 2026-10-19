@@ -243,8 +243,9 @@ defmodule Jido.Chat.Markdown do
   def to_map(%__MODULE__{} = markdown) do
     markdown
     |> Map.from_struct()
-    |> Map.update!(:root, &Node.to_map/1)
+    |> Map.delete(:root)
     |> Wire.to_plain()
+    |> Map.put("root", Node.to_map(markdown.root))
     |> Map.put("__type__", "markdown")
   end
 

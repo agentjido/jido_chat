@@ -1,6 +1,7 @@
 defmodule Jido.Chat.StaticSDKTest do
   use ExUnit.Case, async: true
   @moduletag capture_log: true
+  alias Jido.Chat.ContractFixtures, as: F
 
   alias Jido.Chat.{Client, SendMessage}
   alias Jido.Chat.Signal
@@ -51,7 +52,7 @@ defmodule Jido.Chat.StaticSDKTest do
     request = command(client)
 
     assert {:ok, %{signal: result}} =
-             Jido.Exec.run(SendMessage, %{signal: request}, %{client: client, options: [observer: self()]})
+             F.execute(SendMessage, request, %{client: client, options: [observer: self()]})
 
     assert_receive {:invoked, "test", _}
     assert result.type == Jido.Chat.SendMessage.Completed.type()
@@ -63,7 +64,7 @@ defmodule Jido.Chat.StaticSDKTest do
 
     other_operation = %{result | data: Map.put(result.data, "operation", "edit_message")}
     assert {:error, _} = Jido.Signal.Catalog.validate(Jido.Chat.catalog(), other_operation)
-    assert {:error, _} = SendMessage.validate_output(%{signal: other_operation})
+    assert {:error, _} = SendMessage.validate_output(other_operation.data)
   end
 
   test "execute and the convenience function use the same Action" do
@@ -181,7 +182,7 @@ defmodule Jido.Chat.StaticSDKTest do
 
       {_, operation, _, _, _} = Jido.Chat.Operations.Definitions.lookup(definition.type())
       signal = Jido.Chat.AdapterTestKit.Factories.operation_request(client(), operation)
-      assert {:ok, _} = action.validate_params(%{signal: signal})
+      assert {:ok, _} = action.validate_params(signal.data)
       assert action.name() != ""
       assert {:ok, _} = Jason.encode(action.to_json())
       assert {:error, _} = action.validate_params(%{signal: %{}})

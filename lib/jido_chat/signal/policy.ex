@@ -12,7 +12,7 @@ defmodule Jido.Chat.Signal.Policy do
   """
 
   alias Jido.Chat.Errors.Contract
-  alias Jido.Signal.{Catalog, Context, Serialization, Trace}
+  alias Jido.Signal.{Catalog, Context, Trace}
   alias Jido.Tracing.Context, as: TraceContext
   alias Jido.Tracing.Trace, as: JidoTrace
 
@@ -75,19 +75,25 @@ defmodule Jido.Chat.Signal.Policy do
 
   @doc false
   @spec validate(Jido.Signal.t()) :: {:ok, Jido.Signal.t()} | {:error, Contract.t()}
-  def validate(%Jido.Signal{} = signal) do
-    with true <- is_binary(signal.id) and byte_size(signal.id) in 1..128,
-         :ok <- safe_data(signal.data),
-         :ok <- context(signal),
+  def validate(signal) do
+    with :ok <- fields(signal),
          :ok <- encoded_size(signal) do
       {:ok, signal}
+    end
+  end
+
+  defp fields(%Jido.Signal{} = signal) do
+    with true <- is_binary(signal.id) and byte_size(signal.id) in 1..128,
+         :ok <- safe_data(signal.data),
+         :ok <- context(signal) do
+      :ok
     else
       false -> error(:invalid_request, :id)
       error -> error
     end
   end
 
-  def validate(_signal), do: error(:invalid_request)
+  defp fields(_signal), do: error(:invalid_request)
 
   defp safe_data(data) do
     case validate_json(data, []) do
@@ -135,11 +141,16 @@ defmodule Jido.Chat.Signal.Policy do
   defp valid_causation?(id), do: is_binary(id) and byte_size(id) in 1..128
 
   defp encoded_size(signal) do
-    case Serialization.serialize(signal) do
-      {:ok, encoded} when byte_size(encoded) <= @signal_bytes -> :ok
-      {:ok, _encoded} -> error(:signal_too_large)
-      {:error, _} -> error(:unsafe_data)
+    wire = Jido.Signal.to_map(signal)
+
+    with true <- json_value?(Map.delete(wire, "data"), 0),
+         {:ok, encoded} <- Jason.encode_to_iodata(wire) do
+      if IO.iodata_length(encoded) <= @signal_bytes, do: :ok, else: error(:signal_too_large)
+    else
+      _ -> error(:unsafe_data)
     end
+  rescue
+    _ -> error(:unsafe_data)
   end
 
   @doc "Constructs a native Signal with Chat validation and trace context."
@@ -173,8 +184,8 @@ defmodule Jido.Chat.Signal.Policy do
   @spec validate(Catalog.t(), term()) :: {:ok, Jido.Signal.t()} | {:error, Jido.Chat.Errors.Contract.t()}
   def validate(catalog, signal) do
     with {:ok, signal} <- validate(signal),
-         {:ok, signal} <- Catalog.validate(catalog, signal) do
-      validate(signal)
+         {:ok, validated} <- Catalog.validate(catalog, signal) do
+      if validated === signal, do: {:ok, validated}, else: validate(validated)
     else
       {:error, %Contract{}} = error -> error
       {:error, _} -> error(:invalid_request, :data)
@@ -195,9 +206,11 @@ defmodule Jido.Chat.Signal.Policy do
   @doc false
   @spec prepare(term()) :: {:ok, Jido.Signal.t()} | {:error, Jido.Chat.Errors.Contract.t()}
   def prepare(signal) do
-    with {:ok, signal} <- validate(signal),
-         {:ok, signal} <- ensure_trace(signal) do
-      validate(signal)
+    with :ok <- fields(signal),
+         {:ok, signal} <- ensure_trace(signal),
+         :ok <- context(signal),
+         :ok <- encoded_size(signal) do
+      {:ok, signal}
     else
       {:error, %Jido.Chat.Errors.Contract{}} = error -> error
       {:error, _} -> error(:invalid_context)

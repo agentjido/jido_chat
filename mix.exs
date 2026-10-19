@@ -59,17 +59,18 @@ defmodule Jido.Chat.MixProject do
 
   defp deps do
     [
-      # SDK: execution, Signals, JSON, schemas, and errors.
-      {:jido_action, "~> 3.0.0-beta.20", override: true},
+      # SDK: execution, Signals, Markdown, JSON, schemas, and errors.
+      {:jido_action, github: "agentjido/jido_action", ref: "63268a6f40e16969baa6836f91a4f80f45fa34e0", override: true},
       {:jido_signal, "~> 3.0.0-beta.5"},
       # Keep Jido V3's local development overrides on public Hex packages.
       {:runic, "~> 0.1.0-alpha.12", override: true},
+      {:mdex, "~> 0.14.2"},
       {:jason, "~> 1.4"},
       {:zoi, "~> 0.18.11"},
       {:splode, "~> 0.3.0"},
 
       # Agent Plugin and DSL. The host starts Jido when it activates the Plugin.
-      {:jido, github: "agentjido/jido", ref: "7f4b806052440ef4278dd6826e787afb62c23899", runtime: false},
+      {:jido, github: "agentjido/jido", ref: "5ab36fd9dce864012782ee5d7003ff26e23e50d9", runtime: false},
       {:spark, "~> 2.7", runtime: false},
 
       # Tests and coverage.
@@ -140,6 +141,7 @@ defmodule Jido.Chat.MixProject do
         "guides/adapter_test_kit.md",
         "guides/contracts.md",
         "guides/static_sdk.md",
+        "guides/agent_plugin.md",
         "guides/public_api.md",
         "guides/source_layout.md"
       ]

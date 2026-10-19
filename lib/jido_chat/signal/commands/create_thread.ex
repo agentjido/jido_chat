@@ -1,17 +1,20 @@
 defmodule Jido.Chat.Signal.CreateThread do
-  @moduledoc "Typed command for create_thread. Unsupported request fields are rejected."
-  use Jido.Signal,
-    type: "jido.chat.command.create_thread",
-    dataschema: "urn:jido:chat:schema:command_create_thread:1",
-    default_source: "urn:jido:chat:producer:local",
-    schema:
-      Zoi.map(
-        %{
-          "client_id" => Jido.Chat.Signal.Schemas.id(),
-          "request_id" => Jido.Chat.Signal.Schemas.id(),
-          "room_id" => Jido.Chat.Signal.Schemas.id(),
-          "name" => Jido.Chat.Signal.Schemas.id()
-        },
-        unrecognized_keys: :error
-      )
+  @moduledoc "Request Signal API for `Jido.Chat.CreateThread`. The Action owns the shared schema."
+
+  @doc false
+  defdelegate __signal_definition__(), to: Jido.Chat.CreateThread
+
+  for name <- [:type, :dataschema, :default_source, :datacontenttype, :schema] do
+    @doc "Returns the shared CreateThread definition field."
+    defdelegate unquote(name)(), to: Jido.Chat.CreateThread
+  end
+
+  @doc "Validates data with the shared CreateThread schema."
+  defdelegate validate_data(data), to: Jido.Chat.CreateThread
+
+  @doc "Builds a CreateThread request Signal."
+  defdelegate new(data \\ %{}, opts \\ []), to: Jido.Chat.CreateThread
+
+  @doc "Builds a CreateThread request Signal or raises."
+  defdelegate new!(data \\ %{}, opts \\ []), to: Jido.Chat.CreateThread
 end

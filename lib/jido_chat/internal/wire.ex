@@ -4,7 +4,7 @@ defmodule Jido.Chat.Wire do
   @spec to_plain(term()) :: term()
   def to_plain(%DateTime{} = value), do: DateTime.to_iso8601(value)
   def to_plain(%NaiveDateTime{} = value), do: NaiveDateTime.to_iso8601(value)
-  def to_plain(%MapSet{} = value), do: value |> Enum.to_list() |> Enum.map(&to_plain/1)
+  def to_plain(%MapSet{} = value), do: Enum.map(value, &to_plain/1)
 
   def to_plain(%Regex{} = value) do
     %{"source" => value.source, "opts" => Regex.opts(value)}
@@ -17,10 +17,9 @@ defmodule Jido.Chat.Wire do
   end
 
   def to_plain(map) when is_map(map) do
-    map
-    |> Enum.reject(fn {key, _value} -> key == :__struct__ or key == "__struct__" end)
-    |> Enum.map(fn {key, value} -> {normalize_key(key), to_plain(value)} end)
-    |> Map.new()
+    Map.new(Map.drop(map, [:__struct__, "__struct__"]), fn {key, value} ->
+      {normalize_key(key), to_plain(value)}
+    end)
   end
 
   def to_plain(list) when is_list(list), do: Enum.map(list, &to_plain/1)

@@ -1,6 +1,6 @@
 defmodule Jido.Chat.StreamText do
   @moduledoc """
-  Native streaming Action. Input and output are `%{signal: signal}`. Pass the
+  Native streaming Action. Input and output are data maps. Pass the
   client and lazy chunk source as `%{client: client, options: [stream: chunks]}`.
   The configured adapter owns delivery. Jido.Exec uses its temporary execution
   task; Jido Chat owns no worker or stored state. No retry is made.

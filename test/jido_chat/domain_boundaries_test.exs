@@ -44,4 +44,13 @@ defmodule Jido.Chat.ValueBoundariesTest do
     assert Exception.message(error) ==
              "invalid Jido.Chat.Card: items.0.name: is invalid; is missing; provider message; :unknown"
   end
+
+  test "validation errors do not retain rejected input values" do
+    input = %{kind: :unknown, text: String.duplicate("private", 600_000)}
+    error = assert_raise Validation, fn -> Jido.Chat.Card.Component.new(input) end
+
+    assert Exception.message(error) =~ "kind:"
+    assert :erlang.external_size(error) < 10_000
+    refute inspect(error) =~ "private"
+  end
 end

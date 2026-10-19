@@ -17,20 +17,15 @@ defmodule Jido.Chat.Signal.Schemas do
     fields =
       Map.new(module.schema().fields, fn
         {key, %Zoi.Types.Array{inner: %Zoi.Types.Struct{}} = schema} ->
-          {key, %{schema | inner: Zoi.map()}}
+          {Atom.to_string(key), %{schema | inner: Zoi.map()}}
 
-        field ->
-          field
+        {key, schema} ->
+          {Atom.to_string(key), schema}
       end)
 
     fields
-    |> Zoi.object()
-    |> Zoi.to_json_schema()
-    |> Jason.encode!()
-    |> Jason.decode!()
-    |> Map.put("additionalProperties", false)
-    |> Map.update!("properties", &Map.put(&1, "__type__", %{"const" => marker}))
-    |> Zoi.from_json_schema()
+    |> Map.put("__type__", Zoi.literal(marker) |> Zoi.optional())
+    |> object()
     |> Zoi.refine({__MODULE__, :valid_rendering, [module]})
   end
 
@@ -111,6 +106,16 @@ defmodule Jido.Chat.Signal.Schemas do
       "height" => Zoi.integer() |> Zoi.min(0) |> Zoi.optional(),
       "duration" => Zoi.number() |> Zoi.min(0) |> Zoi.optional(),
       "metadata" => Zoi.map() |> Zoi.optional()
+    })
+  end
+
+  @doc false
+  def completion(operation, result) do
+    object(%{
+      "client_id" => id(),
+      "request_id" => id(),
+      "operation" => Zoi.literal(operation),
+      "result" => result
     })
   end
 

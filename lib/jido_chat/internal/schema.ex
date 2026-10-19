@@ -17,7 +17,6 @@ defmodule Jido.Chat.Schema do
         {:error,
          Errors.to_error(%Validation{
            subject: subject,
-           input: attrs,
            errors: errors
          })}
     end

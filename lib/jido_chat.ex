@@ -106,13 +106,27 @@ defmodule Jido.Chat do
          {:ok, request} <- Jido.Chat.Signal.Policy.prepare(request),
          {_definition, action} <-
            Enum.find(operations(client), fn {definition, _} -> definition.type() == request.type end) do
-      case Jido.Exec.run(action, %{signal: request}, %{client: client, options: private},
+      case Jido.Exec.run(action, request.data, %{client: client, signal: request, options: private},
              max_attempts: 1,
              timeout: timeout
            ) do
-        {:ok, %{signal: signal}} -> {:ok, signal}
-        {:error, %Jido.Action.Error.TimeoutError{}} -> Jido.ChatAction.Execution.timeout(action, client, request)
-        {:error, _} = error -> error
+        {:ok, data} ->
+          with {:ok, signal} <-
+                 action.reply(request, data,
+                   source: client.source,
+                   subject:
+                     request.subject ||
+                       if(request.data["room_id"],
+                         do: Jido.Chat.Signal.Identity.conversation_subject(client.id, request.data["room_id"])
+                       )
+                 ),
+               do: Jido.Chat.Signal.Policy.prepare(signal)
+
+        {:error, %Jido.Action.Error.TimeoutError{}} ->
+          Jido.ChatAction.Execution.timeout(action, client, request)
+
+        {:error, _} = error ->
+          error
       end
     else
       {:error, _} = error -> error

@@ -133,6 +133,25 @@ defmodule Jido.Chat.ContractFixtures do
     signal
   end
 
+  def execute(action, request, context, opts \\ [])
+
+  def execute(action, %Jido.Signal{} = request, context, opts) do
+    case Jido.Exec.run(action, request.data, Map.put(context, :signal, request), opts) do
+      {:ok, data} ->
+        subject =
+          if request.data["room_id"],
+            do: Chat.Signal.Identity.conversation_subject(context.client.id, request.data["room_id"])
+
+        with {:ok, signal} <- action.reply(request, data, source: context.client.source, subject: subject),
+             do: {:ok, %{signal: signal}}
+
+      error ->
+        error
+    end
+  end
+
+  def execute(action, _request, context, opts), do: Jido.Exec.run(action, nil, context, opts)
+
   def public_exports(module) do
     {:docs_v1, _, _, _, _, _, docs} = Code.fetch_docs(module)
     hidden = for {{kind, name, arity}, _, _, doc, _} <- docs, doc in [false, :hidden], do: {kind, name, arity}
@@ -249,8 +268,8 @@ defmodule Jido.Chat.ContractFixtures.ReplyFlow do
   use Jido.Flow, name: "contract_reply_flow"
 
   flow do
-    step("first", action: Jido.Chat.SendMessage, params: %{signal: input(:first)})
-    step("second", action: Jido.Chat.SendMessage, params: %{signal: input(:second)}, needs: ["first"])
-    output(%{first: result("first", [:signal]), second: result("second", [:signal])})
+    step("first", action: Jido.Chat.SendMessage, params: input(:first))
+    step("second", action: Jido.Chat.SendMessage, params: input(:second), needs: ["first"])
+    output(%{first: result("first"), second: result("second")})
   end
 end

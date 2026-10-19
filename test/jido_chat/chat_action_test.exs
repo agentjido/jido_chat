@@ -2,6 +2,7 @@ defmodule Jido.Chat.ChatActionTest do
   use ExUnit.Case, async: true
   @moduletag capture_log: true
   alias Jido.Chat.Client
+  alias Jido.Chat.ContractFixtures, as: F
   alias Jido.Signal.{Catalog, Serialization, Trace}
 
   defmodule AssetRequest do
@@ -36,6 +37,32 @@ defmodule Jido.Chat.ChatActionTest do
           },
           unrecognized_keys: :error
         )
+  end
+
+  defmodule InlineAsset do
+    use Jido.ChatAction,
+      name: "inline_asset",
+      description: "Define both Signal contracts inline",
+      vsn: 1,
+      input: [
+        type: "example.asset.create",
+        default_source: "urn:example:caller",
+        schema:
+          Jido.Chat.Signal.Schemas.object(%{
+            "client_id" => Jido.Chat.Signal.Schemas.id(),
+            "request_id" => Jido.Chat.Signal.Schemas.id(),
+            "room_id" => Jido.Chat.Signal.Schemas.id()
+          })
+      ],
+      output: [
+        type: "example.asset.ready",
+        schema:
+          Jido.Chat.Signal.Schemas.completion(
+            "example.asset.create",
+            Zoi.map(%{"asset_id" => Zoi.string(), "room_id" => Zoi.string()})
+          )
+      ],
+      result_schema: Zoi.map(%{"asset_id" => Zoi.string(), "room_id" => Zoi.string()})
   end
 
   defmodule Adapter do
@@ -76,7 +103,7 @@ defmodule Jido.Chat.ChatActionTest do
     refute AssetRequest in Jido.Chat.signal_definitions()
 
     assert {:ok, %{signal: completed}} =
-             Jido.Exec.run(SendAsset, %{signal: signal}, %{client: client(), options: [observer: self()]})
+             F.execute(SendAsset, signal, %{client: client(), options: [observer: self()]})
 
     assert_receive {:provider, "example", _}
     assert completed.type == signal.type <> ".completed"
@@ -120,10 +147,10 @@ defmodule Jido.Chat.ChatActionTest do
           put_in(signal.data["attachments"], [%{"id" => "file-1", "client_id" => "other", "kind" => "file"}])
         ] do
       assert {:error, _} =
-               Jido.Exec.run(SendAsset, %{signal: invalid}, %{client: client(), options: [observer: self()]})
+               F.execute(SendAsset, invalid, %{client: client(), options: [observer: self()]})
     end
 
-    assert {:error, _} = Jido.Exec.run(SendAsset, %{signal: signal}, %{client: client(), options: [:invalid]})
+    assert {:error, _} = F.execute(SendAsset, signal, %{client: client(), options: [:invalid]})
     refute_receive {:provider, _, _}
   end
 
@@ -139,7 +166,7 @@ defmodule Jido.Chat.ChatActionTest do
           {:throw, :provider_failure, "unknown"}
         ] do
       assert {:error, %Jido.Chat.Error{code: ^code, signal: failed}} =
-               Jido.Exec.run(SendAsset, %{signal: signal}, %{
+               F.execute(SendAsset, signal, %{
                  client: client(),
                  options: [observer: self(), response: response]
                })
@@ -168,7 +195,7 @@ defmodule Jido.Chat.ChatActionTest do
           }
         ] do
       assert {:error, %Jido.Chat.Error{code: :invalid_provider_result, signal: failed}} =
-               Jido.Exec.run(SendAsset, %{signal: request()}, %{
+               F.execute(SendAsset, request(), %{
                  client: client(),
                  options: [observer: self(), response: {:ok, result}]
                })
@@ -176,6 +203,33 @@ defmodule Jido.Chat.ChatActionTest do
       assert failed.type == SendAsset.Failed.type()
       assert_receive {:provider, _, _}
     end
+  end
+
+  test "inline contracts use the explicit output type without a schema URI" do
+    request = InlineAsset.new!(%{"client_id" => "example", "request_id" => "inline-1", "room_id" => "room-1"})
+    assert InlineAsset.signal_definition() == InlineAsset
+    assert InlineAsset.dataschema() == nil
+    assert InlineAsset.Completed.dataschema() == nil
+    assert InlineAsset.Failed.dataschema() == nil
+
+    assert {:ok, data} =
+             Jido.Exec.run(InlineAsset, request.data, %{client: client(), signal: request, options: [observer: self()]})
+
+    assert_receive {:provider, "example", _}
+    assert {:ok, reply} = InlineAsset.reply(request, data, source: client().source)
+    assert reply.type == "example.asset.ready"
+    assert reply.dataschema == nil
+    assert {:ok, ^reply} = Catalog.validate(Catalog.new!(InlineAsset.signal_definitions()), reply)
+  end
+
+  test "request context cannot describe different Action parameters" do
+    request = request()
+    params = Map.put(request.data, "room_id", "another-room")
+
+    assert {:error, _} =
+             Jido.Exec.run(SendAsset, params, %{client: client(), signal: request, options: [observer: self()]})
+
+    refute_received {:provider, _, _}
   end
 
   test "an extension must declare its result schema" do

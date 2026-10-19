@@ -40,6 +40,23 @@ defmodule Jido.Chat.SignalBoundaryTest do
     end
   end
 
+  defmodule TransformingFact do
+    use Jido.Signal,
+      type: "test.native.transform",
+      dataschema: "urn:test:native:transform:1",
+      schema:
+        Zoi.map(%{
+          "mode" => Zoi.string(),
+          "number" => Zoi.number() |> Zoi.optional(),
+          "padding" => Zoi.string() |> Zoi.optional()
+        })
+        |> Zoi.transform({__MODULE__, :transform_data, []})
+
+    def transform_data(%{"mode" => "private"} = data, _opts), do: Map.put(data, "token", "private")
+    def transform_data(%{"mode" => "large"} = data, _opts), do: Map.put(data, "text", String.duplicate("x", 262_144))
+    def transform_data(%{"mode" => "float"} = data, _opts), do: Map.update!(data, "number", &(&1 * 1.0))
+  end
+
   defp client, do: Client.new!(Adapter, id: "native", config: [observer: self()])
   defp data, do: %{"client_id" => "native", "request_id" => "r", "room_id" => "room", "text" => "Hello"}
 
@@ -71,6 +88,54 @@ defmodule Jido.Chat.SignalBoundaryTest do
     end
   end
 
+  test "catalog transforms cannot introduce unsafe or oversized data" do
+    catalog = Jido.Signal.Catalog.new!([TransformingFact])
+
+    for {mode, code} <- [{"private", :unsafe_data}, {"large", :signal_too_large}] do
+      signal =
+        Jido.Signal.new!(TransformingFact.type(), %{"mode" => mode},
+          source: "urn:test",
+          dataschema: TransformingFact.dataschema()
+        )
+
+      assert {:ok, ^signal} = Policy.validate(signal)
+      assert {:error, %Contract{code: ^code}} = Policy.validate(catalog, signal)
+    end
+  end
+
+  test "size checks reject non-JSON envelope values before encoding" do
+    request = Policy.new!(Chat.Signal.SendMessage, data())
+
+    invalid_values = [%{request | type: :invalid}, %{request | subject: :invalid}, %{request | datacontenttype: self()}]
+
+    for invalid <- invalid_values do
+      assert {:error, %Contract{code: :unsafe_data}} = Policy.validate(invalid)
+      assert {:error, %Contract{code: :unsafe_data}} = Policy.prepare(invalid)
+    end
+  end
+
+  test "numerically equal schema transforms still enforce encoded size" do
+    catalog = Jido.Signal.Catalog.new!([TransformingFact])
+
+    base =
+      Jido.Signal.new!(TransformingFact.type(), %{"mode" => "float", "number" => 1, "padding" => ""},
+        source: "urn:test",
+        dataschema: TransformingFact.dataschema()
+      )
+
+    fill = 262_144 - byte_size(Jason.encode!(Jido.Signal.to_map(base)))
+    signal = %{base | data: Map.put(base.data, "padding", String.duplicate("x", fill))}
+    assert {:ok, ^signal} = Policy.validate(signal)
+    assert {:error, %Contract{code: :signal_too_large}} = Policy.validate(catalog, signal)
+  end
+
+  test "serialized Action input is checked before the data schema can strip private fields" do
+    request = Policy.new!(Chat.Signal.SendMessage, data())
+    wire = request |> Jido.Signal.to_map() |> Map.update!("data", &Map.put(&1, "token", "private"))
+    assert {:error, _} = Jido.Exec.run(Chat.SendMessage, %{"signal" => wire}, %{client: client()})
+    refute_receive {:invoked, _, _}
+  end
+
   test "SDK execution carries Jido context into the execution task and native result context" do
     parent = Policy.new!(Chat.Signal.SendMessage, data())
     {:ok, parent} = Trace.put(parent, Trace.new(trace_flags: "01", tracestate: "vendor=example"))
@@ -97,7 +162,8 @@ defmodule Jido.Chat.SignalBoundaryTest do
     ambient = JidoTrace.new_root()
 
     TraceContext.with_context(ambient, fn ->
-      assert {:ok, %{signal: completed}} = Jido.Exec.run(Chat.SendMessage, %{signal: request}, %{client: client()})
+      assert {:ok, data} = Jido.Exec.run(Chat.SendMessage, request.data, %{client: client(), signal: request})
+      assert {:ok, completed} = Chat.SendMessage.reply(request, data, source: client().source)
       assert Trace.get(completed) == Trace.get(request)
       assert TraceContext.get() == ambient
     end)

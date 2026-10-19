@@ -29,7 +29,6 @@ defmodule Jido.Chat.Errors do
       class: :validation,
       fields: [
         :subject,
-        :input,
         errors: []
       ]
 

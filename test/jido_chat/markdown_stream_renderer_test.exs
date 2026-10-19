@@ -5,139 +5,153 @@ defmodule Jido.Chat.Markdown.StreamRendererTest do
   alias Jido.Chat.StreamChunk
   alias Jido.Chat.StreamMarkdownFixtures
 
-  test "complete code spans and fences keep literal Markdown characters" do
-    for source <- [
+  test "complete documents keep their exact source across one-character chunks" do
+    sources =
+      Enum.map(StreamMarkdownFixtures.supported_documents(), &elem(&1, 1)) ++
+        [
           "`array[`",
           "`x](y`",
           "Before `a_*[` after",
           "```text\n[\n```",
           "~~~~text\n[**literal**\n~~~~",
-          "````text\nliteral ``` and [\n````"
-        ] do
-      {renderer, _snapshot} = StreamRenderer.push(StreamRenderer.new(), source)
+          "````text\nliteral ``` and [\n````",
+          "**Olá 世界 👋**"
+        ]
+
+    for source <- sources do
+      renderer =
+        source
+        |> String.codepoints()
+        |> Enum.reduce(StreamRenderer.new(), fn character, renderer ->
+          {renderer, _update} = StreamRenderer.push(renderer, character)
+          renderer
+        end)
+
       assert StreamRenderer.flush(renderer) == source
       assert StreamRenderer.render([source]) == source
-
-      streamed =
-        Enum.reduce(String.graphemes(source), StreamRenderer.new(), fn chunk, state ->
-          {next, _snapshot} = StreamRenderer.push(state, chunk)
-          next
-        end)
-
-      assert StreamRenderer.flush(streamed) == source
-    end
-
-    assert StreamRenderer.render(["```text\n**literal**"]) == "```text\n**literal**\n```"
-    assert StreamRenderer.render(["`array[` and **open"]) == "`array[` and **open**"
-    escaped = ~S(\`literal [\`)
-    assert StreamRenderer.render([escaped]) == escaped <> "]()"
-    assert StreamRenderer.render(["[`array["]) == "[`array[`]()"
-    assert StreamRenderer.render(["**before `code["]) == "**before `code[`**"
-  end
-
-  test "one-character streams flush to the non-streamed Markdown" do
-    for {name, markdown} <- StreamMarkdownFixtures.supported_documents() do
-      {renderer, updates} =
-        markdown
-        |> StreamMarkdownFixtures.one_character_chunks()
-        |> Enum.reduce({StreamRenderer.new(), []}, fn character, {renderer, updates} ->
-          {renderer, update} = StreamRenderer.push(renderer, character)
-          {renderer, [update | updates]}
-        end)
-
-      assert StreamRenderer.flush(renderer) == markdown, "fixture #{name} changed on flush"
-      assert StreamRenderer.render([markdown]) == markdown
-
-      updates
-      |> Enum.reject(&is_nil/1)
-      |> Enum.each(fn update ->
-        assert safe_snapshot?(update), "fixture #{name} emitted unsafe Markdown:\n#{update}"
-      end)
+      assert html(StreamRenderer.snapshot(renderer)) == html(source)
     end
   end
 
-  test "partial emphasis, links, and code fences get safe closing syntax" do
-    {renderer, emphasis} = StreamRenderer.new() |> StreamRenderer.push("**bold")
-    assert String.ends_with?(emphasis, "**")
+  test "fragment completion does not become input for the next chunk" do
+    {renderer, update} = StreamRenderer.push(StreamRenderer.new(), "**bo")
+    assert update == "**bo**"
+    assert html(update) == "<p><strong>bo</strong></p>"
 
-    {renderer, link} = StreamRenderer.push(renderer, " [guide](https://jido.run")
-    assert link =~ "[guide](https://jido.run)"
+    {renderer, update} = StreamRenderer.push(renderer, "ld** x")
+    assert update == "**bold** x"
+    assert StreamRenderer.snapshot(renderer) == update
+    assert StreamRenderer.flush(renderer) == "**bold** x"
 
-    {_renderer, fence} = StreamRenderer.push(renderer, "\n\n```elixir\nIO.puts(:ok)")
-    assert String.ends_with?(fence, "\n```")
-
-    assert StreamRenderer.render(["**bold"]) == "**bold**"
-    assert StreamRenderer.render(["[guide](https://jido.run"]) == "[guide](https://jido.run)"
-    assert StreamRenderer.render(["```elixir\n:ok"]) == "```elixir\n:ok\n```"
-    assert StreamRenderer.render(["Price * tax and trailing_"]) == "Price * tax and trailing_"
+    {renderer, nil} = StreamRenderer.push(renderer, "")
+    {renderer, nil} = StreamRenderer.push(renderer, %{kind: :data, payload: %{ignored: true}})
+    assert StreamRenderer.snapshot(renderer) == update
   end
 
-  test "code fence repairs preserve the opening marker and marker length" do
-    source = "````markdown\nliteral ``` content\nliteral ~~~ content"
-    {renderer, snapshot} = StreamRenderer.new() |> StreamRenderer.push(source)
+  test "an incomplete link uses a placeholder until its destination is complete" do
+    {renderer, update} = StreamRenderer.push(StreamRenderer.new(), "Read [guide](https://ji")
+    assert update == "Read [guide](mdex:incomplete-link)"
+    refute update =~ "https://ji"
 
-    assert snapshot == source <> "\n````"
-
-    {_renderer, closed_snapshot} = StreamRenderer.push(renderer, "\n````\n")
-    assert closed_snapshot == source <> "\n````\n"
-
-    tilde_source = "~~~~text\nliteral ``` and ~~~ content"
-    {_renderer, tilde_snapshot} = StreamRenderer.new() |> StreamRenderer.push(tilde_source)
-    assert tilde_snapshot == tilde_source <> "\n~~~~"
+    {renderer, update} = StreamRenderer.push(renderer, "do.run/docs?q=chat) now.")
+    assert update == "Read [guide](https://jido.run/docs?q=chat) now."
+    assert StreamRenderer.flush(renderer) == update
   end
 
-  test "a possible table header is buffered until its divider is complete" do
-    {renderer, update} = StreamRenderer.new() |> StreamRenderer.push("| Name |  | State |\n")
-    assert update == nil
+  test "code previews close the fence without changing literal Markdown" do
+    source = "````markdown\nliteral ``` content\nliteral ~~~ and ** content"
+    {renderer, update} = StreamRenderer.push(StreamRenderer.new(), source)
+    assert update == source <> "\n````"
+    assert html(update) =~ "literal ~~~ and ** content"
 
-    {renderer, update} = StreamRenderer.push(renderer, "| --- | ---")
-    assert update == nil
+    {renderer, nil} = StreamRenderer.push(renderer, "\n````\n")
+    assert html(StreamRenderer.snapshot(renderer)) == html(source <> "\n````\n")
+    assert StreamRenderer.flush(renderer) == source <> "\n````\n"
+  end
 
-    {renderer, update} = StreamRenderer.push(renderer, " | --- |\n")
-    assert update == "| Name |  | State |\n| --- | --- | --- |\n"
+  test "MDEx completes table headers and rows while preserving empty cells" do
+    {renderer, update} = StreamRenderer.push(StreamRenderer.new(), "| Name |  | State |\n")
+    assert html(update) =~ "<table>"
+    assert update == "| Name |  | State |\n| --- | --- | --- |"
 
-    {renderer, update} = StreamRenderer.push(renderer, "| alpha |  ")
-    assert update == nil
+    {renderer, _update} = StreamRenderer.push(renderer, "| --- | --- | --- |\n| alpha |  ")
+    assert StreamRenderer.snapshot(renderer) =~ "| alpha |  |  |"
 
     {renderer, update} = StreamRenderer.push(renderer, "| ready |\n")
-
-    assert update ==
-             "| Name |  | State |\n| --- | --- | --- |\n| alpha |  | ready |\n"
+    assert update =~ "| alpha |  | ready |"
 
     assert StreamRenderer.flush(renderer) ==
              "| Name |  | State |\n| --- | --- | --- |\n| alpha |  | ready |\n"
+
+    source = "| Name |||\n| --- | --- | --- |\n| alpha |||\n"
+    {renderer, update} = StreamRenderer.push(StreamRenderer.new(), source)
+    assert update =~ "| Name |  |  |"
+    assert update =~ "| alpha |  |  |"
+    assert StreamRenderer.flush(renderer) == source
   end
 
-  test "table parsing preserves adjacent empty cells before one optional outer pipe" do
-    {renderer, update} = StreamRenderer.new() |> StreamRenderer.push("| Name |||\n")
-    assert update == nil
+  test "strikethrough and task lists use the MDEx extensions" do
+    {renderer, update} = StreamRenderer.push(StreamRenderer.new(), "~~old")
+    assert html(update) == "<p><del>old</del></p>"
 
-    {renderer, update} = StreamRenderer.push(renderer, "| --- | --- | --- |\n")
-    assert update == "| Name |||\n| --- | --- | --- |\n"
-
-    {renderer, update} = StreamRenderer.push(renderer, "| alpha |||\n")
-    assert update == "| Name |||\n| --- | --- | --- |\n| alpha |||\n"
-
-    assert StreamRenderer.flush(renderer) ==
-             "| Name |||\n| --- | --- | --- |\n| alpha |||\n"
+    {_renderer, update} = StreamRenderer.push(renderer, "~~\n\n- [x] done\n- [ ] next")
+    assert html(update) =~ "type=\"checkbox\""
+    assert html(update) =~ "checked=\"\""
   end
 
-  test "plain one-character pushes preserve final content" do
-    renderer =
-      Enum.reduce(1..10_000, StreamRenderer.new(), fn _index, renderer ->
-        {renderer, _update} = StreamRenderer.push(renderer, "a")
-        renderer
-      end)
-
-    assert StreamRenderer.flush(renderer) == String.duplicate("a", 10_000)
+  test "final output preserves whitespace and open syntax instead of preview repairs" do
+    for source <- [
+          "  first\n\nsecond  \n",
+          "**bold",
+          "[guide](https://jido.run",
+          "```elixir\n:ok",
+          "Price * tax and trailing_",
+          # MDEx 0.14.2 can add a stray preview backtick for this complete source.
+          "````text\nliteral ``` content\n````\n\nDone."
+        ] do
+      {renderer, _update} = StreamRenderer.push(StreamRenderer.new(), source)
+      assert StreamRenderer.flush(renderer) == source
+      assert StreamRenderer.render([source]) == source
+    end
   end
 
-  test "incremental snapshots preserve leading blank chunks" do
-    {renderer, update} = StreamRenderer.new() |> StreamRenderer.push("\n")
-    assert update == nil
+  test "empty previews are suppressed and buffered chunks remain available" do
+    assert StreamRenderer.snapshot(StreamRenderer.new()) == nil
+    assert StreamRenderer.flush(StreamRenderer.new()) == nil
+    assert StreamRenderer.render(["", " \n\t"]) == nil
 
-    {_renderer, update} = StreamRenderer.push(renderer, "visible")
-    assert update == "\nvisible"
+    {renderer, nil} = StreamRenderer.push(StreamRenderer.new(), "\n")
+    {renderer, "visible"} = StreamRenderer.push(renderer, "visible")
+    assert StreamRenderer.flush(renderer) == "\nvisible"
+
+    renderer = StreamRenderer.append(renderer, " **more")
+    assert StreamRenderer.snapshot(renderer) == "visible"
+    {renderer, "visible **more**"} = StreamRenderer.push(renderer, "")
+    assert StreamRenderer.flush(renderer) == "\nvisible **more"
+  end
+
+  test "a finite source is consumed once and its resource is closed" do
+    owner = self()
+
+    source =
+      Stream.resource(
+        fn -> ["**bo", "ld**\n"] end,
+        fn
+          [] ->
+            {:halt, []}
+
+          [chunk | rest] ->
+            send(owner, {:read, chunk})
+            {[chunk], rest}
+        end,
+        fn _ -> send(owner, :closed) end
+      )
+
+    assert StreamRenderer.render(source) == "**bold**\n"
+    assert_receive {:read, "**bo"}
+    assert_receive {:read, "ld**\n"}
+    assert_receive :closed
+    refute_receive {:read, _}
   end
 
   test "structured stream chunks have deterministic Markdown fallbacks" do
@@ -187,73 +201,10 @@ defmodule Jido.Chat.Markdown.StreamRendererTest do
              "\n> **Status:** Wait \\*now\\* or later\n"
   end
 
-  defp safe_snapshot?(snapshot) do
-    String.trim(snapshot) != "" and balanced_fences?(snapshot) and closed_links?(snapshot) and
-      balanced_emphasis?(snapshot) and aligned_table?(snapshot)
+  defp html(markdown) do
+    MDEx.to_html!(markdown,
+      extension: [table: true, strikethrough: true, tasklist: true],
+      syntax_highlight: nil
+    )
   end
-
-  defp balanced_fences?(snapshot) do
-    snapshot
-    |> String.split("\n")
-    |> Enum.count(&Regex.match?(~r/^\s*(`{3,}|~{3,})/, &1))
-    |> rem(2) == 0
-  end
-
-  defp closed_links?(snapshot) do
-    labels_closed? = count(snapshot, "[") == count(snapshot, "]")
-
-    destinations_closed? =
-      snapshot
-      |> String.split("](")
-      |> Enum.drop(1)
-      |> Enum.all?(&String.contains?(&1, ")"))
-
-    labels_closed? and destinations_closed?
-  end
-
-  defp balanced_emphasis?(snapshot) do
-    text =
-      snapshot
-      |> String.replace(~r/```.*?```/s, "")
-      |> String.replace(~r/`[^`]*`/, "")
-      |> String.replace(~r/\]\([^)]*\)/, "")
-
-    strong_count = count(text, "**")
-    single_asterisk_count = text |> String.replace("**", "") |> count("*")
-    underscore_count = count(text, "_")
-
-    rem(strong_count, 2) == 0 and rem(single_asterisk_count, 2) == 0 and
-      rem(underscore_count, 2) == 0
-  end
-
-  defp aligned_table?(snapshot) do
-    lines = String.split(snapshot, "\n", trim: true)
-
-    case Enum.find_index(lines, &Regex.match?(~r/^\s*\|?\s*:?-{3,}/, &1)) do
-      nil ->
-        true
-
-      0 ->
-        false
-
-      divider_index ->
-        header_cells = table_cell_count(Enum.at(lines, divider_index - 1))
-
-        lines
-        |> Enum.drop(divider_index)
-        |> Enum.take_while(&String.contains?(&1, "|"))
-        |> Enum.all?(&(table_cell_count(&1) == header_cells))
-    end
-  end
-
-  defp table_cell_count(line) do
-    line
-    |> String.trim()
-    |> String.trim_leading("|")
-    |> String.trim_trailing("|")
-    |> String.split("|", trim: false)
-    |> length()
-  end
-
-  defp count(text, pattern), do: length(:binary.matches(text, pattern))
 end

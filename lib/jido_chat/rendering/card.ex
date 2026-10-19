@@ -345,16 +345,11 @@ defmodule Jido.Chat.Card do
   def to_adapter_payload(%__MODULE__{} = card) do
     card
     |> Map.from_struct()
-    |> Map.update!(:components, fn components ->
-      Enum.map(components, &component_to_plain/1)
-    end)
-    |> Map.update!(:markdown, fn
-      nil -> nil
-      %Markdown{} = markdown -> Markdown.stringify(markdown)
-      other -> other
-    end)
-    |> Map.put(:fallback_text, fallback_text(card))
+    |> Map.drop([:components, :markdown])
     |> Wire.to_plain()
+    |> Map.put("components", Enum.map(card.components, &component_to_plain/1))
+    |> Map.put("markdown", markdown_to_plain(card.markdown))
+    |> Map.put("fallback_text", fallback_text(card))
   end
 
   @doc "Serializes a card into a plain map with a type marker."
@@ -362,13 +357,10 @@ defmodule Jido.Chat.Card do
   def to_map(%__MODULE__{} = card) do
     card
     |> Map.from_struct()
-    |> Map.update!(:components, &Enum.map(&1, fn component -> Component.to_map(component) end))
-    |> Map.update!(:markdown, fn
-      nil -> nil
-      %Markdown{} = markdown -> Markdown.to_map(markdown)
-      other -> other
-    end)
+    |> Map.drop([:components, :markdown])
     |> Wire.to_plain()
+    |> Map.put("components", Enum.map(card.components, &Component.to_map/1))
+    |> Map.put("markdown", if(card.markdown, do: Markdown.to_map(card.markdown)))
     |> Map.put("__type__", "card")
   end
 
@@ -534,16 +526,16 @@ defmodule Jido.Chat.Card do
   defp component_to_plain(%Component{} = component) do
     component
     |> Map.from_struct()
-    |> Map.update!(:items, fn items -> Enum.map(items, &component_to_plain/1) end)
-    |> Map.update!(:options, fn options -> Enum.map(options, &component_to_plain/1) end)
-    |> Map.update!(:option_groups, fn groups -> Enum.map(groups, &component_to_plain/1) end)
-    |> Map.update!(:markdown, fn
-      nil -> nil
-      %Markdown{} = markdown -> Markdown.stringify(markdown)
-      other -> other
-    end)
+    |> Map.drop([:items, :options, :option_groups, :markdown])
     |> Wire.to_plain()
+    |> Map.put("items", Enum.map(component.items, &component_to_plain/1))
+    |> Map.put("options", Enum.map(component.options, &component_to_plain/1))
+    |> Map.put("option_groups", Enum.map(component.option_groups, &component_to_plain/1))
+    |> Map.put("markdown", markdown_to_plain(component.markdown))
   end
+
+  defp markdown_to_plain(%Markdown{} = markdown), do: Markdown.stringify(markdown)
+  defp markdown_to_plain(other), do: Wire.to_plain(other)
 
   defp normalize_opts(opts) when is_list(opts), do: Map.new(opts)
   defp normalize_opts(opts) when is_map(opts), do: opts

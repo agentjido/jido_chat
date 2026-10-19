@@ -97,9 +97,10 @@ request = Jido.Chat.Signal.SendMessage.new!(%{
   "text" => "Hello"
 })
 
-{:ok, %{signal: completed}} =
-  Jido.Exec.run(Jido.Chat.SendMessage, %{signal: request},
-    %{client: client}, max_attempts: 1)
+{:ok, data} =
+  Jido.Exec.run(Jido.Chat.SendMessage, request.data,
+    %{client: client, signal: request}, max_attempts: 1)
+{:ok, completed} = Jido.Chat.SendMessage.reply(request, data, source: client.source)
 
 completed.type == Jido.Chat.SendMessage.Completed.type()
 # "jido.chat.command.send_message.completed"
@@ -122,19 +123,22 @@ configuration. The Client captures `id`, `credentials`, optional private keyword
 performs no I/O and starts no process. `Client.options/1` returns private options.
 Never put a Client or credentials in a Signal.
 
-Actions accept `%{signal: request}` and return `{:ok, %{signal: completed}}`.
-Private context is `%{client: client, options: keyword_options}`; options are optional.
-The convenience functions return `{:ok, completed}` instead. `execute/3` accepts
-only `options: private_keyword_options` and `timeout: milliseconds_or_infinity`.
-The lower-level `send_message/3` uses these same execution options and requires
-`request_id` in its data map. The eleven main helpers generate that ID when omitted.
+`Jido.ChatAction` uses `Jido.SignalAction`. Native Actions accept request data
+maps and return `{:ok, completion_data}`. Private context is
+`%{client: client, signal: request, options: keyword_options}`. The request Signal
+and options are optional. Supply the request to retain its envelope and trace
+when the adapter runs. Without it, the Action builds a request from the data.
+Use `Action.reply/3` to build a completion Signal. It does not dispatch the reply.
 
-`Action.to_json/0` exposes complete request and result envelope schemas, including
-the exact request data fields, Signal type, and schema identity. Agent input can
-contain a serialized envelope at `%{"signal" => envelope}`. The Action decodes and
-validates it against its own definition before I/O. Native Exec and Flow calls
-can continue to use `%{signal: %Jido.Signal{}}`. Clients, transport options, and
-stream sources remain private context.
+`Jido.Chat.execute/3` and the convenience functions still return
+`{:ok, completion_signal}`. `execute/3` accepts only `options: private_keyword_options`
+and `timeout: milliseconds_or_infinity`. The lower-level `send_message/3` uses
+these same execution options and requires `request_id` in its data map. The eleven
+main helpers generate that ID when omitted.
+
+`Action.to_json/0` exposes the request and completion data schemas used by native
+execution. Signal envelopes are validated at the SDK and Plugin boundaries.
+Clients, transport options, and stream sources remain private context.
 
 Every Action has its own `Completed` and `Failed` definitions. Result data contains
 `client_id`, `request_id`, and `operation` (the full request Signal type).
@@ -334,19 +338,19 @@ defmodule MyApp.AnnouncePoll do
 
   flow do
     step "announce", action: Jido.Chat.SendMessage,
-      params: %{signal: input(:announcement)}
+      params: input(:announcement)
     step "poll", action: Jido.Chat.Telegram.SendPoll,
-      params: %{signal: input(:poll)}, needs: ["announce"]
+      params: input(:poll), needs: ["announce"]
     output %{
-      announcement: result("announce", [:signal]),
-      poll: result("poll", [:signal])
+      announcement: result("announce"),
+      poll: result("poll")
     }
   end
 end
 
 {:ok, %{announcement: sent, poll: opened}} =
   Jido.Exec.run(MyApp.AnnouncePoll,
-    %{announcement: request, poll: poll}, %{client: client}, max_attempts: 1)
+    %{announcement: request.data, poll: poll.data}, %{client: client}, max_attempts: 1)
 
 router = Jido.Signal.Router.new!([
   {Jido.Chat.Signal.SendMessage,
@@ -355,8 +359,9 @@ router = Jido.Signal.Router.new!([
    Jido.Instruction.template(:action, Jido.Chat.Telegram.SendPoll)}
 ])
 {:ok, [template]} = Jido.Signal.Router.route(router, poll)
-{:ok, instruction} = Jido.Instruction.bind(template, %{signal: poll}, %{client: client})
-{:ok, %{signal: opened}} = Jido.Exec.run(instruction)
+{:ok, instruction} = Jido.Instruction.bind(template, poll.data, %{client: client, signal: poll})
+{:ok, data} = Jido.Exec.run(instruction)
+{:ok, opened} = Jido.Chat.Telegram.SendPoll.reply(poll, data, source: client.source)
 :ok = Jido.Signal.Dispatch.dispatch(opened, {:pid, [target: self()]})
 ```
 
@@ -376,13 +381,13 @@ upload = Jido.Chat.Signal.SendFile.new!(%{
   "client_id" => client.id, "request_id" => "upload:1", "room_id" => "12345",
   "source" => source, "caption" => "Report", "media_kind" => "file"
 })
-{:ok, %{signal: sent}} = Jido.Exec.run(Jido.Chat.SendFile, %{signal: upload}, %{client: client})
+{:ok, sent} = Jido.Chat.execute(client, upload)
 ref = hd(sent.data["result"]["media"])["resource_ref"]
 
 download = Jido.Chat.Signal.DownloadFile.new!(%{
   "client_id" => client.id, "request_id" => "download:1", "resource_ref" => ref
 })
-{:ok, %{signal: fetched}} = Jido.Exec.run(Jido.Chat.DownloadFile, %{signal: download}, %{client: client})
+{:ok, fetched} = Jido.Chat.execute(client, download)
 bytes = Base.decode64!(fetched.data["result"]["content_base64"])
 ```
 
@@ -422,7 +427,15 @@ Telegram selects drafts for positive numeric private chat IDs. It uses
 with `SendMessage`. Other destinations use one `SendMessage`, then `EditMessage`
 updates to that message. Telegram uses a 1000 ms default update interval. Fast
 chunks are combined; final output is always flushed. Markdown previews use the
-pure StreamRenderer to repair incomplete syntax. Plain text and HTML are kept.
+pure StreamRenderer with MDEx fragment completion (`auto_close: true`). Previews
+close open syntax and can normalize formatting. A partial link destination uses
+`mdex:incomplete-link` until it is complete. Only original chunks enter the source
+buffer. Final delivery keeps the exact source, including whitespace and syntax
+still open at EOF. Plain text and HTML are kept.
+
+Preview formatting follows MDEx. In MDEx 0.14.2, literal backticks inside some
+long code fences can cause an extra backtick in a later preview. Final delivery
+keeps the original source and does not include this preview artifact.
 
 To use edits for a private chat, set `Client.config` to
 `[stream_delivery: :edit]`, or pass `options: [stream_delivery: :edit]` on that
@@ -445,8 +458,9 @@ request = Jido.Chat.Signal.StreamText.new!(%{
   "format" => "markdown"
 })
 
-{:ok, %{signal: completed}} = Jido.Exec.run(Jido.Chat.StreamText,
-  %{signal: request}, %{client: client, options: [stream: chunks]}, max_attempts: 1)
+{:ok, data} = Jido.Exec.run(Jido.Chat.StreamText,
+  request.data, %{client: client, signal: request, options: [stream: chunks]}, max_attempts: 1)
+{:ok, completed} = Jido.Chat.StreamText.reply(request, data, source: client.source)
 ```
 
 Use the same Action and context in a Flow step or Router-selected Instruction.

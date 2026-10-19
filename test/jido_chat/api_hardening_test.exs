@@ -82,30 +82,27 @@ defmodule Jido.Chat.APIHardeningTest do
     })
   end
 
-  test "agent schemas expose exact Signal data and accept the serialized input they describe" do
-    schema = Chat.SendMessage.to_json()["input_schema"]["properties"]["signal"]
+  test "Action schemas expose the data accepted by native execution" do
+    schema = Chat.SendMessage.to_json()["input_schema"]
     assert schema["additionalProperties"] == false
-    assert schema["properties"]["type"]["const"] == request().type
-    assert schema["properties"]["data"]["properties"]["room_id"]["type"] == "string"
-    assert "text" in schema["properties"]["data"]["required"]
-    {:ok, json} = Jido.Signal.Serialization.serialize(request())
-    wire = Jason.decode!(json)
-    assert {:ok, %{signal: completed}} = Jido.Exec.run(Chat.SendMessage, %{"signal" => wire}, %{client: client()})
-    assert completed.data["request_id"] == "r"
+    assert schema["properties"]["room_id"]["type"] == "string"
+    assert "text" in schema["required"]
+    data = request().data |> Jason.encode!() |> Jason.decode!()
+    assert {:ok, completed} = Jido.Exec.run(Chat.SendMessage, data, %{client: client()})
+    assert completed["request_id"] == "r"
     assert_receive {:invoked, _, []}
 
     for invalid <- [
-          Map.put(wire, "type", "wrong"),
-          put_in(wire, ["data", "text"], 42),
-          Map.put(wire, "token", "private")
+          %{request() | type: "wrong"},
+          put_in(request(), [Access.key(:data), "text"], 42),
+          %{request() | data: Map.put(data, "token", "private")}
         ] do
-      assert {:error, _} = Jido.Exec.run(Chat.SendMessage, %{signal: invalid}, %{client: client()})
+      assert {:error, _} = Chat.execute(client(), invalid)
     end
 
     refute_receive {:invoked, _, _}
-    assert {:error, _} = Jido.Exec.run(Chat.SendMessage, %{signal: wire, extra: true}, %{client: client()})
     assert {:error, _} = Chat.SendMessage.validate_params(nil)
-    output = Chat.SendMessage.to_json()["output_schema"]["properties"]["signal"]["properties"]["data"]
+    output = Chat.SendMessage.to_json()["output_schema"]
     assert output["properties"]["result"]["properties"]["id"]["type"] == "string"
   end
 

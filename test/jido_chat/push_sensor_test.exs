@@ -46,6 +46,18 @@ defmodule Jido.Chat.PushSensorTest do
     def signal_types, do: []
   end
 
+  defmodule CountingAdapter do
+    use Jido.Chat.Adapter
+    def capabilities, do: %{}
+    def invoke(_, _, _), do: {:error, :unsupported}
+    def normalize(_, _, _), do: {:error, :unused}
+
+    def event_definitions do
+      if observer = Process.whereis(__MODULE__), do: send(observer, :definitions_read)
+      Jido.Chat.event_definitions()
+    end
+  end
+
   defmodule TrappingSource do
     @behaviour Jido.Chat.Sensor.Source
     def mode, do: :push
@@ -120,6 +132,41 @@ defmodule Jido.Chat.PushSensorTest do
     send(sensor, :poll)
     assert :sys.get_state(sensor).timer == nil
     assert Process.alive?(worker)
+  end
+
+  test "a Sensor captures its catalog once before input admission" do
+    client = Client.new!(CountingAdapter, id: "push-client")
+    Process.register(self(), CountingAdapter)
+    {sensor, _worker, ^client} = start(client: client)
+    assert_receive :definitions_read
+    signal = fact(client, "one")
+
+    assert :ok = Sensor.push(sensor, [signal])
+    assert_receive {:signal, ^signal}
+    assert :ok = Sensor.push(sensor, [signal])
+    refute_receive :definitions_read
+    refute_receive {:signal, _}
+  end
+
+  test "large identities use bounded duplicate memory and keep type separation" do
+    {sensor, _worker, client} = start(emit: ["jido.chat.message.received", "jido.chat.message.updated"])
+
+    for index <- 1..8 do
+      signal = fact(client, String.duplicate("x", 120_000) <> to_string(index))
+      assert :ok = Sensor.push(sensor, [signal])
+      assert_receive {:signal, ^signal}
+      assert :ok = Sensor.push(sensor, [signal])
+    end
+
+    seen = :sys.get_state(sensor).seen
+    assert MapSet.size(seen) == 8
+    assert :erlang.external_size(seen) < 2_000
+    refute_receive {:signal, _}
+
+    original = fact(client, String.duplicate("x", 120_000) <> "1")
+    changed = Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.MessageUpdated, original.data, source: client.source)
+    assert :ok = Sensor.push(sensor, [changed])
+    assert_receive {:signal, ^changed}
   end
 
   test "worker exit reports do not expose private reasons or Source options" do

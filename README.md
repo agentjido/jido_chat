@@ -37,8 +37,8 @@ their own Signal definition and result schema. They can override `invoke/3` with
 an edit to the core operation registry. Configure provider discovery with the
 adapter's `operations/0` and `event_definitions/0`. `Jido.Chat.execute/3` then runs
 core and provider requests. Main helpers accept `timeout:` in milliseconds and
-`options:` for private transport options. Agent schemas expose complete typed
-Signal envelopes. See the full API guide for `Telegram.SendPoll`.
+`options:` for private transport options. Action schemas match Signal data.
+Native Exec calls return data; `reply/3` builds the completion Signal. See the full API guide for `Telegram.SendPoll`.
 
 This major release removes Binding, Resources, RequestStore, and Handlers. Covenant contracts now define the public API, Actions, Signals, and adapter boundary. Run `mix test.contracts`; see the [contract guide](guides/contracts.md).
 

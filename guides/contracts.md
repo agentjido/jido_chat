@@ -7,7 +7,7 @@ The SDK keeps its stateless runtime boundary.
 | Component | What the tests enforce |
 | --- | --- |
 | Public API | Documented exports in 26 modules; all eleven main operation helpers; private options; request IDs; streams; deadlines |
-| Actions | All 23 native core Actions; exact requests; validated results; safe failures; agent wire schemas; Exec, Flow, Router, Instruction, and Dispatch composition |
+| Actions | All 23 native core Actions; exact requests; validated results; safe failures; shared Signal and Action data schemas; Exec, Flow, Router, Instruction, and Dispatch composition |
 | Signals | All 86 identities and JSON data schemas; constructor validation; native Catalog round trips; private data rejection; files; keyboards; encoded size limits |
 | Adapters | Explicit support; two adapters and clients; no I/O for unsupported calls; provider Actions and facts; configured discovery; complete ordered Delivery validation |
 | Application metadata | No Chat application callback, registered process, or dependency on Jido Messaging |

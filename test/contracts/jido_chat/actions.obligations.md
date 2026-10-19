@@ -12,7 +12,7 @@ Tests use public functions and independent fixtures. The host owns the messaging
 - **scope:** The 23 core request and Action pairs in the reviewed catalog.
 - **must:** Accept a native request at params.signal with a private Client context. Execute through Jido.Exec. Return a native completion at output.signal and validate the canonical provider result. All core Actions must work for two client identities.
 - **kind:** functional
-- **status:** active
+- **status:** retired
 
 ### jido_chat.actions.I2 — Invalid or foreign requests never reach the provider
 - **scope:** Wrong types, schema identities, clients, subjects, references, data, and private context.
@@ -41,5 +41,17 @@ Tests use public functions and independent fixtures. The host owns the messaging
 ### jido_chat.actions.I6 — Agent discovery describes the accepted wire format
 - **scope:** Each Action to_json input and output schema and serialized request input.
 - **must:** Describe the full Signal envelope and exact typed data. Pin request and completion type and dataschema identities. Accept serialized request envelopes through Exec and reject envelope fields or data outside the declared contract.
+- **kind:** persisted-format
+- **status:** retired
+
+### jido_chat.actions.I7 — Every core operation uses shared Signal data schemas
+- **scope:** The 23 core request and Action pairs in the reviewed catalog.
+- **must:** Accept request data with private Client context. Execute through Jido.Exec and return validated completion data. Build the correlated completion Signal with reply/3. All core Actions must work for two client identities.
+- **kind:** functional
+- **status:** active
+
+### jido_chat.actions.I8 — Agent discovery describes native Action data
+- **scope:** Each Action to_json input and output schema and serialized request data.
+- **must:** Describe the exact request and completion data schemas. Use the same schemas for native Action validation and Signal data. Accept serialized request data through Exec. Preserve the reviewed Signal identities and wire schemas at the SDK boundary.
 - **kind:** persisted-format
 - **status:** active

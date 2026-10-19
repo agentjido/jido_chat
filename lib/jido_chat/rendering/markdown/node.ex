@@ -80,10 +80,15 @@ defmodule Jido.Chat.Markdown.Node do
   @doc "Serializes a Markdown node into a plain map with a type marker."
   @spec to_map(t()) :: map()
   def to_map(%__MODULE__{} = node) do
+    node |> new() |> encode()
+  end
+
+  defp encode(node) do
     node
     |> Map.from_struct()
-    |> Map.update!(:children, &Enum.map(&1, fn child -> child |> normalize() |> to_map() end))
+    |> Map.delete(:children)
     |> Wire.to_plain()
+    |> Map.put("children", Enum.map(node.children, &encode/1))
     |> Map.put("__type__", "markdown_node")
   end
 

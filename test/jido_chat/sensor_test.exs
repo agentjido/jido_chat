@@ -164,14 +164,20 @@ defmodule Jido.Chat.SensorTest do
   end
 
   test "duplicate retention is bounded" do
-    {pid, _} =
+    {pid, client} =
       setup_sensor(fn c ->
         [{:ok, Enum.map(1..1025, &fact(c, to_string(&1))), 1026}]
       end)
 
     state = poll(pid)
     assert MapSet.size(state.seen) == 1024
-    refute MapSet.member?(state.seen, {"jido.chat.message.received", "1"})
+    for _ <- 1..1025, do: assert_receive({:signal, _})
+    refute_receive {:signal, _}
+
+    Agent.update(client.config[:store], fn _ -> [{:ok, [fact(client, "1"), fact(client, "1025")], 1027}] end)
+    assert poll(pid).cursor == 1027
+    assert_receive {:signal, %{data: %{"item_id" => "1"}}}
+    refute_receive {:signal, _}
   end
 
   test "invalid settings fail before a process starts" do

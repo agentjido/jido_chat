@@ -103,23 +103,20 @@ defmodule Jido.Chat.Card.Component do
   @doc "Serializes the component into a plain map with a type marker."
   @spec to_map(t()) :: map()
   def to_map(%__MODULE__{} = component) do
+    component |> new() |> encode()
+  end
+
+  defp encode(component) do
     component
     |> Map.from_struct()
-    |> Map.update!(:items, &Enum.map(&1, fn item -> item |> normalize() |> to_map() end))
-    |> Map.update!(:options, &Enum.map(&1, fn option -> option |> normalize() |> to_map() end))
-    |> Map.update!(:option_groups, fn groups ->
-      Enum.map(groups, fn group -> group |> normalize() |> to_map() end)
-    end)
-    |> Map.update!(:data, &Enum.map(&1, fn point -> point |> ChartData.new() |> ChartData.to_map() end))
-    |> Map.update!(:series, fn series ->
-      Enum.map(series, fn item -> item |> ChartSeries.new() |> ChartSeries.to_map() end)
-    end)
-    |> Map.update!(:markdown, fn
-      nil -> nil
-      %Markdown{} = markdown -> Markdown.to_map(markdown)
-      other -> other
-    end)
+    |> Map.drop([:items, :options, :option_groups, :data, :series, :markdown])
     |> Wire.to_plain()
+    |> Map.put("items", Enum.map(component.items, &encode/1))
+    |> Map.put("options", Enum.map(component.options, &encode/1))
+    |> Map.put("option_groups", Enum.map(component.option_groups, &encode/1))
+    |> Map.put("data", Enum.map(component.data, &ChartData.to_map/1))
+    |> Map.put("series", Enum.map(component.series, &ChartSeries.to_map/1))
+    |> Map.put("markdown", if(component.markdown, do: Markdown.to_map(component.markdown)))
     |> Map.put("__type__", "card_component")
   end
 

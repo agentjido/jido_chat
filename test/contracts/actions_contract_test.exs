@@ -4,7 +4,7 @@ defmodule Jido.Chat.ActionsContractTest do
   alias Jido.Chat
   alias Jido.Chat.ContractFixtures, as: F
 
-  @tag obligation: "jido_chat.actions.I1"
+  @tag obligation: "jido_chat.actions.I7"
   test "every core Action executes and validates a completion for two client identities" do
     assert Chat.operations() == F.pairs()
     assert Enum.sort(Chat.actions()) == F.pairs() |> Enum.map(&elem(&1, 1)) |> Enum.sort()
@@ -15,7 +15,7 @@ defmodule Jido.Chat.ActionsContractTest do
       options = if action == Chat.StreamText, do: [stream: ["one", " two"]], else: []
 
       assert {:ok, %{signal: completed}} =
-               Jido.Exec.run(action, %{signal: request}, %{client: client, options: options}, max_attempts: 1)
+               F.execute(action, request, %{client: client, options: options}, max_attempts: 1)
 
       assert_receive {:contract_invoke, F.FirstAdapter, ^id, ^request, ^options, _}
       assert completed.type == Module.concat(action, Completed).type()
@@ -26,8 +26,8 @@ defmodule Jido.Chat.ActionsContractTest do
       assert completed.extensions["traceparent"] == F.trace()
       assert completed.extensions["tracestate"] == "contract=fixture"
       assert completed.extensions["jidocausationid"] == request.id
-      assert {:ok, _} = action.validate_output(%{signal: completed})
-      assert {:error, _} = action.validate_output(%{signal: request})
+      assert {:ok, _} = action.validate_output(completed.data)
+      assert {:error, _} = action.validate_output(request.data)
       assert F.round_trip(completed) == completed
     end
   end
@@ -50,13 +50,13 @@ defmodule Jido.Chat.ActionsContractTest do
     ]
 
     for bad <- invalid do
-      assert {:error, _} = Jido.Exec.run(Chat.SendMessage, %{signal: bad}, %{client: client}, max_attempts: 1)
+      assert {:error, _} = F.execute(Chat.SendMessage, bad, %{client: client}, max_attempts: 1)
     end
 
-    assert {:error, _} = Jido.Exec.run(Chat.SendMessage, %{signal: request}, %{}, max_attempts: 1)
+    assert {:error, _} = F.execute(Chat.SendMessage, request, %{}, max_attempts: 1)
 
     assert {:error, _} =
-             Jido.Exec.run(Chat.SendMessage, %{signal: request}, %{client: client, options: [:bad]}, max_attempts: 1)
+             F.execute(Chat.SendMessage, request, %{client: client, options: [:bad]}, max_attempts: 1)
 
     foreign =
       F.request(Chat.SendFile, client, %{"source" => %{"client_id" => "beta", "kind" => "file", "id" => "foreign"}})
@@ -177,19 +177,22 @@ defmodule Jido.Chat.ActionsContractTest do
     second = F.request(Chat.SendMessage, client, %{"request_id" => "second"})
 
     assert {:ok, %{first: first_result, second: second_result}} =
-             Jido.Exec.run(F.ReplyFlow, %{first: first, second: second}, %{client: client}, max_attempts: 1)
+             Jido.Exec.run(F.ReplyFlow, %{first: first.data, second: second.data}, %{client: client}, max_attempts: 1)
 
     assert_receive {:contract_invoke, _, _, observed_first, _, _}
-    assert observed_first == first
+    assert observed_first.data == first.data
     assert_receive {:contract_invoke, _, _, observed_second, _, _}
-    assert observed_second == second
-    assert first_result.extensions["jidocausationid"] == first.id
-    assert second_result.extensions["jidocausationid"] == second.id
+    assert observed_second.data == second.data
+    assert {:ok, first_reply} = Chat.SendMessage.reply(first, first_result, source: client.source)
+    assert {:ok, second_reply} = Chat.SendMessage.reply(second, second_result, source: client.source)
+    assert first_reply.extensions["jidocausationid"] == first.id
+    assert second_reply.extensions["jidocausationid"] == second.id
 
     router = Jido.Signal.Router.new!([{Chat.Signal.SendMessage, Jido.Instruction.template(:action, Chat.SendMessage)}])
     assert {:ok, [template]} = Jido.Signal.Router.route(router, first)
-    assert {:ok, instruction} = Jido.Instruction.bind(template, %{signal: first}, %{client: client})
-    assert {:ok, %{signal: completed}} = Jido.Exec.run(instruction)
+    assert {:ok, instruction} = Jido.Instruction.bind(template, first.data, %{client: client, signal: first})
+    assert {:ok, data} = Jido.Exec.run(instruction)
+    assert {:ok, completed} = Chat.SendMessage.reply(first, data, source: client.source)
     assert :ok = Jido.Signal.Dispatch.dispatch(completed, {:pid, [target: self()]})
     assert_receive {:signal, ^completed}
     assert F.round_trip(completed) == completed
@@ -204,64 +207,36 @@ defmodule Jido.Chat.ActionsContractTest do
     assert {:error, _} =
              Jido.Exec.run(
                F.ReplyFlow,
-               %{first: first, second: second},
+               %{first: first.data, second: second.data},
                %{client: client, options: [provider_return: {:error, {:rejected, :forbidden}}]},
                max_attempts: 1
              )
 
     assert_receive {:contract_invoke, _, _, observed, _, _}
-    assert observed == first
+    assert observed.data == first.data
     refute_receive {:contract_invoke, _, _, _, _, _}
   end
 
-  @tag obligation: "jido_chat.actions.I6"
-  test "agent schemas pin exact wire shapes and accept their serialized request examples" do
+  @tag obligation: "jido_chat.actions.I8"
+  test "Action schemas match Signal data schemas and accept serialized data" do
     for {definition, action} <- F.pairs() do
       client = F.client()
       request = F.request(action, client)
       json = action.to_json()
-
-      for {key, entry} <- [
-            {"input_schema", F.entry(definition)},
-            {"output_schema", F.entry(Module.concat(action, Completed))}
-          ] do
-        envelope = json[key]["properties"]["signal"]
-        assert envelope["additionalProperties"] == false
-        assert Enum.sort(envelope["required"]) == Enum.sort(~w(id source type dataschema data))
-        assert envelope["properties"]["type"]["const"] == entry["type"]
-        assert envelope["properties"]["dataschema"]["const"] == entry["dataschema"]
-        assert envelope["properties"]["data"] == entry["data_schema"]
-
-        assert Map.keys(envelope["properties"]) --
-                 ~w(id source type specversion subject time datacontenttype dataschema data traceparent tracestate jidocausationid) ==
-                 []
-      end
-
-      assert {:ok, encoded} = Jido.Signal.Serialization.serialize(request)
+      assert json["input_schema"] == F.entry(definition)["data_schema"]
+      assert json["output_schema"] == F.entry(Module.concat(action, Completed))["data_schema"]
+      assert action.schema() == definition.schema()
+      assert action.output_schema() == Module.concat(action, Completed).schema()
       options = if action == Chat.StreamText, do: [stream: ["one", " two"]], else: []
+      data = request.data |> Jason.encode!() |> Jason.decode!()
 
-      assert {:ok, %{signal: completed}} =
-               Jido.Exec.run(action, %{"signal" => Jason.decode!(encoded)}, %{client: client, options: options},
-                 max_attempts: 1
-               )
+      assert {:ok, completed} =
+               Jido.Exec.run(action, data, %{client: client, signal: request, options: options}, max_attempts: 1)
 
-      assert completed.data["operation"] == request.type
+      assert completed["operation"] == request.type
+      assert {:ok, reply} = action.reply(request, completed, source: client.source)
+      assert F.round_trip(reply) == reply
       assert_receive {:contract_invoke, _, _, _, _, _}
     end
-
-    client = F.client()
-    request = F.request(Chat.SendMessage, client)
-    wire = Jido.Signal.to_map(request)
-
-    for bad <- [
-          Map.put(wire, "token", "private-token"),
-          Map.put(wire, "type", Chat.Signal.DeleteMessage.type()),
-          Map.put(wire, "dataschema", "urn:unknown:1"),
-          put_in(wire, ["data", "text"], 42)
-        ] do
-      assert {:error, _} = Jido.Exec.run(Chat.SendMessage, %{"signal" => bad}, %{client: client}, max_attempts: 1)
-    end
-
-    refute_receive {:contract_invoke, _, _, _, _, _}
   end
 end

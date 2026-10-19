@@ -80,13 +80,16 @@ defmodule Jido.Chat.Modal.Element do
   @doc "Serializes the modal element into a plain map with a type marker."
   @spec to_map(t()) :: map()
   def to_map(%__MODULE__{} = element) do
+    element |> new() |> encode()
+  end
+
+  defp encode(element) do
     element
     |> Map.from_struct()
-    |> Map.update!(:options, &Enum.map(&1, fn option -> option |> normalize() |> to_map() end))
-    |> Map.update!(:option_groups, fn groups ->
-      Enum.map(groups, fn group -> group |> normalize() |> to_map() end)
-    end)
+    |> Map.drop([:options, :option_groups])
     |> Wire.to_plain()
+    |> Map.put("options", Enum.map(element.options, &encode/1))
+    |> Map.put("option_groups", Enum.map(element.option_groups, &encode/1))
     |> Map.put("__type__", "modal_element")
   end
 

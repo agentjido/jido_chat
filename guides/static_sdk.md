@@ -35,8 +35,8 @@ and Bus supervision. Those services belong in Jido Messaging or the hosted app.
 `execute(client, request, options: private_options, timeout: 30_000)` selects core
 or configured provider Actions. Main helpers use the same options. Deadlines do
 not imply cancellation at the provider or make a write safe to retry. Agent Action
-schemas expose the full Signal envelope and typed request data. Serialized Action
-input is decoded before execution.
+schemas match Signal request and completion data. Native Exec calls use data
+maps. `reply/3` builds a completion Signal. The SDK and Plugin validate envelopes.
 
 Use `actions(client)`, `operations(client)`, `signal_definitions(client)`, and
 `catalog(client)` for configured discovery. `event_definitions(client)` declares
@@ -46,7 +46,7 @@ Use `Jido.Chat.Signal.Policy.new/3` to apply Chat data and context rules at
 construction. Native constructors keep their native errors. Chat validates every
 request and incoming fact before it calls a provider or an Agent.
 
-Tracing uses `Jido.Signal.Trace` and `Jido.Tracing.Context`. SDK execution carries
+Tracing uses `Jido.Signal.Trace` and the Jido tracing context. SDK execution carries
 the current Jido trace into the Action task. An explicit request trace takes
 precedence. Results retain that trace and set `jidocausationid` to the request ID.
 The host owns span lifetime, sampling, and export.

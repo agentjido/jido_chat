@@ -55,7 +55,8 @@ defmodule Jido.Chat.PublicSignalContractTest do
   end
 
   test "encoded Signal size is accepted at the exact limit and rejected one byte beyond" do
-    data = %{"client_id" => "binding/alpha", "request_id" => "request-1", "room_id" => "room-1", "text" => ""}
+    text = "\"\\\n\t♥"
+    data = %{"client_id" => "binding/alpha", "request_id" => "request-1", "room_id" => "room-1", "text" => text}
     opts = [id: "fixture-size", time: "2026-10-12T12:00:00Z"]
     assert {:ok, base} = Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.SendMessage, data, opts)
     assert {:ok, encoded} = Serialization.serialize(base)
@@ -64,7 +65,7 @@ defmodule Jido.Chat.PublicSignalContractTest do
     assert {:ok, signal} =
              Jido.Chat.Signal.Policy.new(
                Jido.Chat.Signal.SendMessage,
-               %{data | "text" => String.duplicate("x", fill)},
+               %{data | "text" => text <> String.duplicate("x", fill)},
                opts
              )
 
@@ -74,7 +75,7 @@ defmodule Jido.Chat.PublicSignalContractTest do
     assert {:error, %Contract{code: :signal_too_large}} =
              Jido.Chat.Signal.Policy.new(
                Jido.Chat.Signal.SendMessage,
-               %{data | "text" => String.duplicate("x", fill + 1)},
+               %{data | "text" => text <> String.duplicate("x", fill + 1)},
                opts
              )
   end

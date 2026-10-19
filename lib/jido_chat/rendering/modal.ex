@@ -216,9 +216,10 @@ defmodule Jido.Chat.Modal do
   def to_adapter_payload(%__MODULE__{} = modal) do
     modal
     |> Map.from_struct()
-    |> Map.update!(:elements, fn elements -> Enum.map(elements, &element_to_plain/1) end)
-    |> Map.put(:fallback_text, fallback_text(modal))
+    |> Map.delete(:elements)
     |> Wire.to_plain()
+    |> Map.put("elements", Enum.map(modal.elements, &element_to_plain/1))
+    |> Map.put("fallback_text", fallback_text(modal))
   end
 
   @doc "Serializes the modal into a plain map with a type marker."
@@ -226,8 +227,9 @@ defmodule Jido.Chat.Modal do
   def to_map(%__MODULE__{} = modal) do
     modal
     |> Map.from_struct()
-    |> Map.update!(:elements, &Enum.map(&1, fn element -> Element.to_map(element) end))
+    |> Map.delete(:elements)
     |> Wire.to_plain()
+    |> Map.put("elements", Enum.map(modal.elements, &Element.to_map/1))
     |> Map.put("__type__", "modal")
   end
 
@@ -249,9 +251,10 @@ defmodule Jido.Chat.Modal do
   defp element_to_plain(%Element{} = element) do
     element
     |> Map.from_struct()
-    |> Map.update!(:options, fn options -> Enum.map(options, &element_to_plain/1) end)
-    |> Map.update!(:option_groups, fn groups -> Enum.map(groups, &element_to_plain/1) end)
+    |> Map.drop([:options, :option_groups])
     |> Wire.to_plain()
+    |> Map.put("options", Enum.map(element.options, &element_to_plain/1))
+    |> Map.put("option_groups", Enum.map(element.option_groups, &element_to_plain/1))
   end
 
   defp element_fallback_text(%Element{fallback_text: text}) when is_binary(text), do: text

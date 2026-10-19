@@ -17,12 +17,10 @@
         "jido_chat.actions.I1": {
           "failing": 0,
           "kind": "functional",
-          "passing": 1,
-          "status": "active",
-          "testable": true,
-          "tests": [
-            "test every core Action executes and validates a completion for two client identities"
-          ]
+          "passing": 0,
+          "status": "retired",
+          "testable": false,
+          "tests": []
         },
         "jido_chat.actions.I2": {
           "failing": 0,
@@ -68,11 +66,29 @@
         "jido_chat.actions.I6": {
           "failing": 0,
           "kind": "persisted_format",
+          "passing": 0,
+          "status": "retired",
+          "testable": false,
+          "tests": []
+        },
+        "jido_chat.actions.I7": {
+          "failing": 0,
+          "kind": "functional",
           "passing": 1,
           "status": "active",
           "testable": true,
           "tests": [
-            "test agent schemas pin exact wire shapes and accept their serialized request examples"
+            "test every core Action executes and validates a completion for two client identities"
+          ]
+        },
+        "jido_chat.actions.I8": {
+          "failing": 0,
+          "kind": "persisted_format",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test Action schemas match Signal data schemas and accept serialized data"
           ]
         }
       }

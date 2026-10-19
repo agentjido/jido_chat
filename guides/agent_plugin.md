@@ -61,6 +61,48 @@ another adapter and a distinct Client ID. Incoming context selects the reply
 Client; no Action needs to select a provider. The host supplies any AI Action or
 Flow later through the same routes.
 
+## Create a thread after commit
+
+`CreateThread` defines its request and completion data with `Jido.ChatAction`,
+which uses `Jido.SignalAction`. The Agent route selects a handler that returns a
+Deliver directive. The Plugin calls the provider after the turn commits.
+
+```elixir
+defmodule SupportThreads do
+  use Jido.Agent, name: "support_threads"
+
+  agent do
+    plugin Jido.Chat.Plugin
+    schema Zoi.object(%{})
+  end
+
+  chat do
+    connection :support do
+      client MyApp.ChatAdapter, id: "support"
+      rooms ["room-1"]
+      commands [Jido.Chat.CreateThread]
+    end
+  end
+
+  routes do
+    route Jido.Chat.CreateThread, via: Jido.Chat.Plugin.Execute
+    route "jido.chat.command.create_thread.completed", MyApp.RecordThread
+    route "jido.chat.command.create_thread.failed", MyApp.RecordFailure
+  end
+end
+
+request = Jido.Chat.CreateThread.new!(%{
+  "client_id" => "support", "request_id" => "thread-1",
+  "room_id" => "room-1", "name" => "Support"
+})
+
+Jido.AgentServer.call(server, request)
+```
+
+The result handlers return complete Agent state. A rejected state prevents the
+Deliver directive from running. A provider failure returns the existing typed
+failure Signal to the Agent. The Plugin keeps control of result delivery.
+
 ## Independent composition
 
 The Sensor does not call AgentServer. It uses Signal Dispatch:

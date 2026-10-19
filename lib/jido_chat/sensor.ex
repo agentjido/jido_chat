@@ -11,9 +11,9 @@ defmodule Jido.Chat.Sensor do
       )
 
   Starting a Client does not start a Sensor. The host owns this process.
-  Sources can repeat input. The last 1,024 accepted event identities are kept
-  in memory to suppress repeats within a running process. There is no durable
-  cursor or durable push receipt. The source can provide a global identity.
+  Sources can repeat input. Fixed size hashes of the last 1,024 accepted event
+  identities are kept in memory to suppress repeats within a running process.
+  There is no durable cursor or durable push receipt. The source can provide a global identity.
   A restart can admit an event again.
   """
   use GenServer
@@ -57,6 +57,7 @@ defmodule Jido.Chat.Sensor do
       {:ok,
        %{
          client: client,
+         catalog: Jido.Chat.catalog(client),
          source: source,
          mode: mode,
          worker: nil,
@@ -181,7 +182,7 @@ defmodule Jido.Chat.Sensor do
           {:cont, {:ok, current}}
 
         {:ok, signal} ->
-          key = {signal.type, signal.data["item_id"] || signal.id}
+          key = :crypto.hash(:sha256, :erlang.term_to_iovec({signal.type, signal.data["item_id"] || signal.id}))
 
           if MapSet.member?(current.seen, key) do
             {:cont, {:ok, current}}
@@ -210,7 +211,7 @@ defmodule Jido.Chat.Sensor do
         :skip
 
       true ->
-        with {:ok, validated} <- Jido.Chat.Signal.Policy.validate(Jido.Chat.catalog(state.client), signal) do
+        with {:ok, validated} <- Jido.Chat.Signal.Policy.validate(state.catalog, signal) do
           if state.rooms == :all or validated.data["room_id"] in state.rooms, do: {:ok, validated}, else: :skip
         else
           _ -> :invalid

@@ -87,7 +87,7 @@ defmodule Jido.Chat.AdapterContractTest do
       request = F.request(Chat.SendMessage, client)
 
       assert {:ok, %{signal: completed}} =
-               Jido.Exec.run(Chat.SendMessage, %{signal: request}, %{client: client}, max_attempts: 1)
+               F.execute(Chat.SendMessage, request, %{client: client}, max_attempts: 1)
 
       assert_receive {:contract_invoke, ^adapter, ^id, ^request, [], _}
       assert completed.data["result"]["id"] == inspect(adapter) <> ":provider-id"
@@ -156,9 +156,9 @@ defmodule Jido.Chat.AdapterContractTest do
             Chat.execute(client, request, options: [local_setting: "private-config"])
 
           :exec ->
-            case Jido.Exec.run(
+            case F.execute(
                    F.ProviderAction,
-                   %{signal: request},
+                   request,
                    %{client: client, options: [local_setting: "private-config"]},
                    max_attempts: 1
                  ) do

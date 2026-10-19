@@ -133,7 +133,7 @@ defmodule Jido.Chat.TextAPITest do
 
     for options <- [[observer: self()], [observer: self(), stream: 42]] do
       assert {:error, %Jido.Chat.Error{signal: failed}} =
-               Jido.Exec.run(Jido.Chat.StreamText, %{signal: request}, %{client: client(), options: options},
+               Jido.Exec.run(Jido.Chat.StreamText, request.data, %{client: client(), signal: request, options: options},
                  max_attempts: 1
                )
 
