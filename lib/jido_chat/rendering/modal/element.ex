@@ -60,7 +60,7 @@ defmodule Jido.Chat.Modal.Element do
 
   @doc "Creates a canonical modal element."
   @spec new(t() | map()) :: t()
-  def new(%__MODULE__{} = element), do: element
+  def new(%__MODULE__{} = element), do: element |> Map.from_struct() |> new()
 
   def new(attrs) when is_map(attrs) do
     attrs
@@ -74,7 +74,7 @@ defmodule Jido.Chat.Modal.Element do
 
   @doc "Normalizes modal element input."
   @spec normalize(input()) :: t()
-  def normalize(%__MODULE__{} = element), do: element
+  def normalize(%__MODULE__{} = element), do: new(element)
   def normalize(map) when is_map(map), do: new(map)
 
   @doc "Serializes the modal element into a plain map with a type marker."

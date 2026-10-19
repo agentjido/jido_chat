@@ -1,8 +1,6 @@
 defmodule Jido.Chat.Signal.DownloadFile do
   @moduledoc "Typed query for download_file. Unsupported request fields are rejected."
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :query,
+  use Jido.Signal,
     type: "jido.chat.query.download_file",
     dataschema: "urn:jido:chat:schema:query_download_file:1",
     default_source: "urn:jido:chat:producer:local",

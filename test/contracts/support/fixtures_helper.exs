@@ -47,7 +47,7 @@ defmodule Jido.Chat.ContractFixtures do
     {definition, ^action} = Enum.find(pairs(), fn {_, module} -> module == action end)
     data = entry(definition)["fixture"] |> scope(client) |> Map.merge(overrides)
 
-    definition.new!(data,
+    Jido.Chat.Signal.Policy.new!(definition, data,
       source: client.source,
       extensions: %{"traceparent" => @trace, "tracestate" => "contract=fixture"}
     )
@@ -117,7 +117,7 @@ defmodule Jido.Chat.ContractFixtures do
       }
       |> Map.merge(overrides)
 
-    Chat.Signal.MessageReceived.new!(data,
+    Jido.Chat.Signal.Policy.new!(Chat.Signal.MessageReceived, data,
       source: client.source,
       subject: Chat.Signal.Identity.conversation_subject(client.id, data["room_id"])
     )
@@ -135,7 +135,7 @@ defmodule Jido.Chat.ContractFixtures do
 
   def public_exports(module) do
     {:docs_v1, _, _, _, _, _, docs} = Code.fetch_docs(module)
-    hidden = for {{kind, name, arity}, _, _, false, _} <- docs, do: {kind, name, arity}
+    hidden = for {{kind, name, arity}, _, _, doc, _} <- docs, doc in [false, :hidden], do: {kind, name, arity}
 
     for kind <- [:functions, :macros],
         {name, arity} <- module.__info__(kind),
@@ -190,9 +190,7 @@ defmodule Jido.Chat.ContractFixtures.UnsupportedAdapter do
 end
 
 defmodule Jido.Chat.ContractFixtures.ProviderRequest do
-  use Jido.Chat.Signal.Definition,
-    owner: :contract_provider,
-    kind: :query,
+  use Jido.Signal,
     type: "contract.chat.query.status",
     dataschema: "urn:contract:chat:status:1",
     default_source: "urn:contract:provider",
@@ -216,9 +214,7 @@ defmodule Jido.Chat.ContractFixtures.ProviderAction do
 end
 
 defmodule Jido.Chat.ContractFixtures.ProviderFact do
-  use Jido.Chat.Signal.Definition,
-    owner: :contract_provider,
-    kind: :fact,
+  use Jido.Signal,
     type: "contract.chat.presence.changed",
     dataschema: "urn:contract:chat:presence:1",
     default_source: "urn:contract:provider",

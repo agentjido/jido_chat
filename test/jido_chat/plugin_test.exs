@@ -66,7 +66,7 @@ defmodule Jido.Chat.PluginTest do
         changes
       )
 
-    Jido.Chat.Signal.MessageReceived.new!(data, source: client.source)
+    Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.MessageReceived, data, source: client.source)
   end
 
   defp delivery(server, type, tries \\ 200)
@@ -127,6 +127,9 @@ defmodule Jido.Chat.PluginTest do
       )
 
     assert {:ok, _, []} = Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, signal)
+
+    unsafe = %{signal | data: Map.put(signal.data, "metadata", %{"token" => "private"})}
+    assert {:error, _} = Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, unsafe)
     refute_receive {:mock_send, _, _}
   end
 
@@ -156,7 +159,7 @@ defmodule Jido.Chat.PluginTest do
     assert command.data["reply_to_id"] == "human-message"
     assert command.data["thread_id"] == "topic-1"
     assert command.data["text"] == "Spike received your message."
-    assert command.extensions["causationid"] == incoming.id
+    assert command.extensions["jidocausationid"] == incoming.id
 
     assert delivery(ctx.server, "jido.chat.command.send_message.completed").state.last_request ==
              "mock:item:1:reply"
@@ -172,14 +175,14 @@ defmodule Jido.Chat.PluginTest do
     original = fact(ctx.client)
 
     edit =
-      Jido.Chat.Signal.MessageUpdated.new!(Map.put(original.data, "item_id", "edit:1"),
+      Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.MessageUpdated, Map.put(original.data, "item_id", "edit:1"),
         source: ctx.client.source
       )
 
     assert {:ok, _, _} = Jido.Chat.Plugin.ingest(ctx.server, :telegram, edit)
     assert_receive {:mock_send, _, %{type: "jido.chat.command.edit_message"} = command}, 2_000
     assert command.data["message_id"] == "mock-reply"
-    assert command.extensions["causationid"] == edit.id
+    assert command.extensions["jidocausationid"] == edit.id
     delivery(ctx.server, "jido.chat.command.edit_message.completed")
 
     for {definition, operation, item} <- [
@@ -305,7 +308,7 @@ defmodule Jido.Chat.PluginTest do
           {ctx.client.id, "other-room", :chat_scope_denied}
         ] do
       command =
-        Jido.Chat.Signal.SendMessage.new!(%{
+        Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.SendMessage, %{
           "client_id" => client_id,
           "request_id" => "scope-probe",
           "room_id" => room_id,

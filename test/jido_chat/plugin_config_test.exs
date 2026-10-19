@@ -33,7 +33,8 @@ defmodule Jido.Chat.PluginConfigTest do
     [connection] = Plugin.connections(server)
 
     signal =
-      Jido.Chat.Signal.MessageReceived.new!(
+      Jido.Chat.Signal.Policy.new!(
+        Jido.Chat.Signal.MessageReceived,
         %{
           "item_id" => "one",
           "delivery_id" => "batch",

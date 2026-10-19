@@ -1,8 +1,6 @@
 defmodule Jido.Chat.Signal.LoadOptions do
   @moduledoc "Typed query for load_options. Unsupported request fields are rejected."
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :query,
+  use Jido.Signal,
     type: "jido.chat.query.load_options",
     dataschema: "urn:jido:chat:schema:query_load_options:3",
     default_source: "urn:jido:chat:producer:local",

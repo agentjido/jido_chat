@@ -246,7 +246,8 @@ Jido.Chat.Delivery.validate(client, delivery)
 Normalization validates the whole delivery. It does not acknowledge input,
 publish Signals, retain history, or check for repeated deliveries. Only facts
 declared by `event_definitions(client)` are admitted. An adapter can declare
-provider facts with `use Jido.Chat.Signal.Definition` and return them in a Delivery.
+provider facts with `use Jido.Signal` and return them in a Delivery.
+Their schemas must require `item_id` and `delivery_id`.
 They must pass the same JSON, identity, context, and size checks as core facts.
 Use the configured catalog to decode them.
 
@@ -546,7 +547,7 @@ schema and declared capabilities determine which operations are available.
 | `Jido.Chat.MediaType` | `from_filename/1`, `kind/1,2`, `normalize/1`, `resolve/1,2`, `sniff/1` |
 | `Jido.Chat.Modal` | `date_input/2,3`, `dynamic_select/2,3`, `external_select/2,3`, `fallback_text/1`, `from_map/1`, `new/1`, `number_input/2,3`, `radio_select/3,4`, `schema/0`, `select/3,4`, `select_option/2,3`, `select_option_group/2,3`, `text_input/2,3`, `to_adapter_payload/1`, `to_map/1` |
 | `Jido.Chat.Modal.Element` | `from_map/1`, `new/1`, `normalize/1`, `schema/0`, `to_map/1` |
-| `Jido.Chat.Signal.Definition` | `__using__/1` for provider fact definitions |
+| `Jido.Chat.Signal.Policy` | `new/2,3`, `new!/2,3`, `reply/3,4`, `validate/2` for Chat validation of native Signals |
 | `Jido.Chat.Signal.Identity` | `client_source/1`, `conversation_subject/2` |
 | `Jido.Chat.StreamChunk` | `fallback_text/1`, `from_map/1`, `markdown_fallback/1`, `new/1`, `normalize/1`, `normalize_many/1`, `schema/0`, `text/1,2`, `to_map/1` |
 | `Jido.ChatAction` | `__using__/1` |

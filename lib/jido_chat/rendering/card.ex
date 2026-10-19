@@ -14,7 +14,7 @@ defmodule Jido.Chat.Card do
               title: Zoi.string() |> Zoi.nullish(),
               summary: Zoi.string() |> Zoi.nullish(),
               markdown: Zoi.any() |> Zoi.nullish(),
-              components: Zoi.list() |> Zoi.default([]),
+              components: Zoi.list(Zoi.struct(Component)) |> Zoi.default([]),
               metadata: Zoi.map() |> Zoi.default(%{})
             },
             coerce: true
@@ -31,7 +31,7 @@ defmodule Jido.Chat.Card do
 
   @doc "Creates a canonical card."
   @spec new(t() | map()) :: t()
-  def new(%__MODULE__{} = card), do: card
+  def new(%__MODULE__{} = card), do: card |> Map.from_struct() |> new()
 
   def new(attrs) when is_map(attrs) do
     attrs
@@ -42,7 +42,7 @@ defmodule Jido.Chat.Card do
 
   @doc "Normalizes card input."
   @spec normalize(t() | map()) :: t()
-  def normalize(%__MODULE__{} = card), do: card
+  def normalize(%__MODULE__{} = card), do: new(card)
   def normalize(map) when is_map(map), do: new(map)
 
   @doc "Adds a component to the end of a card."
@@ -382,7 +382,7 @@ defmodule Jido.Chat.Card do
         attrs
 
       %Markdown{} = markdown ->
-        attrs |> Map.delete("markdown") |> Map.put(:markdown, markdown)
+        attrs |> Map.delete("markdown") |> Map.put(:markdown, Markdown.new(markdown))
 
       %{} = markdown ->
         attrs |> Map.delete("markdown") |> Map.put(:markdown, Markdown.new(markdown))

@@ -25,6 +25,7 @@ defmodule Jido.Chat.Wire do
 
   def to_plain(list) when is_list(list), do: Enum.map(list, &to_plain/1)
   def to_plain(tuple) when is_tuple(tuple), do: tuple |> Tuple.to_list() |> Enum.map(&to_plain/1)
+  def to_plain(value) when is_atom(value) and value not in [nil, true, false], do: Atom.to_string(value)
   def to_plain(value), do: value
 
   defp normalize_key(key) when is_atom(key), do: Atom.to_string(key)

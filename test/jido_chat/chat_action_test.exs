@@ -85,7 +85,7 @@ defmodule Jido.Chat.ChatActionTest do
     assert completed.data["result"] == %{"asset_id" => "a1", "room_id" => "room-1"}
     assert completed.source == client().source
     assert completed.subject == Jido.Chat.Signal.Identity.conversation_subject("example", "room-1")
-    assert completed.extensions["causationid"] == signal.id
+    assert completed.extensions["jidocausationid"] == signal.id
     assert completed.extensions["traceparent"] == signal.extensions["traceparent"]
     assert completed.extensions["tracestate"] == signal.extensions["tracestate"]
 
@@ -147,7 +147,7 @@ defmodule Jido.Chat.ChatActionTest do
       assert_receive {:provider, "example", _}
       assert failed.type == signal.type <> ".failed"
       assert failed.data["outcome"] == outcome
-      assert failed.extensions["causationid"] == signal.id
+      assert failed.extensions["jidocausationid"] == signal.id
       assert failed.extensions["traceparent"] == signal.extensions["traceparent"]
       assert failed.extensions["tracestate"] == signal.extensions["tracestate"]
       assert {:ok, ^failed} = Catalog.validate(Catalog.new!(SendAsset.signal_definitions()), failed)

@@ -27,7 +27,7 @@ defmodule Jido.Chat.Markdown.Node do
   @schema Zoi.struct(
             __MODULE__,
             %{
-              type: Zoi.enum(@node_types),
+              type: Zoi.enum(Enum.map(@node_types, &{&1, Atom.to_string(&1)}), coerce: true),
               text: Zoi.string() |> Zoi.nullish(),
               url: Zoi.string() |> Zoi.nullish(),
               language: Zoi.string() |> Zoi.nullish(),
@@ -35,7 +35,7 @@ defmodule Jido.Chat.Markdown.Node do
               ordered: Zoi.boolean() |> Zoi.nullish(),
               start: Zoi.integer() |> Zoi.nullish(),
               align: Zoi.string() |> Zoi.nullish(),
-              children: Zoi.list() |> Zoi.default([]),
+              children: Zoi.list(Zoi.struct(__MODULE__)) |> Zoi.default([]),
               metadata: Zoi.map() |> Zoi.default(%{})
             },
             coerce: true
@@ -69,7 +69,7 @@ defmodule Jido.Chat.Markdown.Node do
 
   @doc "Creates a canonical Markdown node."
   @spec new(t() | map()) :: t()
-  def new(%__MODULE__{} = node), do: node
+  def new(%__MODULE__{} = node), do: node |> Map.from_struct() |> new()
 
   def new(attrs) when is_map(attrs) do
     attrs
@@ -94,7 +94,7 @@ defmodule Jido.Chat.Markdown.Node do
   @doc "Normalizes a Markdown node input."
   @spec normalize(t() | map() | String.t() | nil) :: t() | nil
   def normalize(nil), do: nil
-  def normalize(%__MODULE__{} = node), do: node
+  def normalize(%__MODULE__{} = node), do: new(node)
   def normalize(value) when is_binary(value), do: new(%{type: :text, text: value})
   def normalize(value) when is_map(value), do: new(value)
 

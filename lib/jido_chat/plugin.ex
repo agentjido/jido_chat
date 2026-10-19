@@ -295,8 +295,7 @@ defmodule Jido.Chat.Plugin do
 
       true ->
         with {:ok, signal} <-
-               Jido.Signal.Catalog.validate(Jido.Chat.catalog(connection.client), signal),
-             {:ok, signal} <- Jido.Chat.Signal.Policy.validate(signal),
+               Jido.Chat.Signal.Policy.validate(Jido.Chat.catalog(connection.client), signal),
              true <- signal.data["room_id"] in connection.rooms do
           :ok =
             GenServer.call(
@@ -354,7 +353,7 @@ defmodule Jido.Chat.Plugin do
                    definition.type() == signal.type and action in connection.commands
                  end),
                {:ok, signal} <-
-                 Jido.Signal.Catalog.validate(Jido.Chat.catalog(connection.client), signal) do
+                 Jido.Chat.Signal.Policy.validate(Jido.Chat.catalog(connection.client), signal) do
             # SDK Actions run only here, after the command-handling Turn commits.
             case Jido.Chat.execute(connection.client, signal) do
               {:ok, result} -> return_result(context, result)
@@ -390,11 +389,10 @@ defmodule Jido.Chat.Plugin do
           Map.take(request.data, ["client_id", "request_id"])
           |> Map.merge(%{"operation" => request.type, "code" => code, "outcome" => outcome})
 
-        extensions =
-          Map.take(request.extensions, ["traceparent", "tracestate"])
-          |> Map.put("causationid", request.id)
-
-        case failed.new(data, source: "urn:jido:chat:plugin", subject: request.subject, extensions: extensions) do
+        case Jido.Chat.Signal.Policy.reply(failed, data, request,
+               source: "urn:jido:chat:plugin",
+               subject: request.subject
+             ) do
           {:ok, signal} -> return_result(context, signal)
           {:error, _} -> :ok
         end

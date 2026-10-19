@@ -147,7 +147,8 @@ defmodule Jido.Chat.AdapterContractTest do
     refute F.ProviderFact in Chat.event_definitions()
 
     for execute <- [:chat, :exec] do
-      request = F.ProviderRequest.new!(%{"client_id" => client.id, "request_id" => Atom.to_string(execute)})
+      request =
+        Chat.Signal.Policy.new!(F.ProviderRequest, %{"client_id" => client.id, "request_id" => Atom.to_string(execute)})
 
       result =
         case execute do
@@ -216,7 +217,8 @@ defmodule Jido.Chat.AdapterContractTest do
     core = F.message(narrow)
 
     undeclared =
-      Chat.Signal.ThreadStarted.new!(
+      Jido.Chat.Signal.Policy.new!(
+        Chat.Signal.ThreadStarted,
         %{"item_id" => "topic", "delivery_id" => "delivery-1", "room_id" => "room/1", "thread_id" => "thread"},
         source: narrow.source,
         subject: core.subject

@@ -15,7 +15,7 @@ lib/
     delivery.ex              Ordered native incoming Signals
     actions/                 23 native Jido Actions; generated nested result definitions
     adapter_test_kit/         Native request fixtures and assertions
-    errors/                  Safe typed errors
+    errors.ex                Splode error definitions and handler
     internal/                Schema and serialization helpers
     operations/              Core operation definitions and result schemas
     plugin.ex                Agent Chat DSL and explicit connection scope
@@ -28,9 +28,8 @@ lib/
       queries/               10 query definitions
       events/                17 incoming event definitions
       schemas.ex             Shared result, file source, and keyboard schemas
-      definition.ex          Public provider fact macro and Signal construction rules
       identity.ex            Source and conversation subject keys
-      policy.ex              JSON, context, and size checks
+      policy.ex              Signal construction, tracing, JSON, context, and size checks
 ```
 
 Telegram has flat provider Actions, native request Signals, one internal operation

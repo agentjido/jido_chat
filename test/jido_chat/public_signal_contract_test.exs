@@ -14,7 +14,7 @@ defmodule Jido.Chat.PublicSignalContractTest do
     test "native definition #{entry["module"]} keeps identity through JSON and Catalog" do
       entry = unquote(Macro.escape(entry))
       module = Module.concat([entry["module"]])
-      assert {:ok, signal} = module.new(entry["fixture"], entry["fixture_options"])
+      assert {:ok, signal} = Jido.Chat.Signal.Policy.new(module, entry["fixture"], entry["fixture_options"])
       assert signal.type == entry["type"]
       assert signal.dataschema == entry["dataschema"]
       assert %Jido.Signal.Trace{} = Jido.Signal.Trace.get(signal)
@@ -34,7 +34,8 @@ defmodule Jido.Chat.PublicSignalContractTest do
           [data: %{}],
           [source: "/one", source: "/two"]
         ] do
-      assert {:error, %Contract{code: :invalid_options}} = Jido.Chat.Signal.SendMessage.new(data, opts)
+      assert {:error, %Contract{code: :invalid_options}} =
+               Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.SendMessage, data, opts)
     end
   end
 
@@ -42,27 +43,39 @@ defmodule Jido.Chat.PublicSignalContractTest do
     data = %{"client_id" => "binding/alpha", "request_id" => "request-1", "room_id" => "room-1", "text" => "hello"}
 
     for value <- [self(), fn -> :private end, <<255>>, %{token: "private"}] do
-      assert {:error, %Contract{}} = Jido.Chat.Signal.SendMessage.new(%{data | "text" => value})
+      assert {:error, %Contract{}} =
+               Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.SendMessage, %{data | "text" => value})
     end
 
     assert {:error, %Contract{code: :invalid_context}} =
-             Jido.Chat.Signal.SendMessage.new(data, extensions: %{"correlationid" => "legacy"})
+             Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.SendMessage, data, extensions: %{"correlationid" => "legacy"})
 
     assert {:error, %Contract{code: :invalid_context}} =
-             Jido.Chat.Signal.SendMessage.new(data, extensions: %{"traceparent" => "invalid"})
+             Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.SendMessage, data, extensions: %{"traceparent" => "invalid"})
   end
 
   test "encoded Signal size is accepted at the exact limit and rejected one byte beyond" do
     data = %{"client_id" => "binding/alpha", "request_id" => "request-1", "room_id" => "room-1", "text" => ""}
     opts = [id: "fixture-size", time: "2026-10-12T12:00:00Z"]
-    assert {:ok, base} = Jido.Chat.Signal.SendMessage.new(data, opts)
+    assert {:ok, base} = Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.SendMessage, data, opts)
     assert {:ok, encoded} = Serialization.serialize(base)
     fill = 262_144 - byte_size(encoded)
-    assert {:ok, signal} = Jido.Chat.Signal.SendMessage.new(%{data | "text" => String.duplicate("x", fill)}, opts)
+
+    assert {:ok, signal} =
+             Jido.Chat.Signal.Policy.new(
+               Jido.Chat.Signal.SendMessage,
+               %{data | "text" => String.duplicate("x", fill)},
+               opts
+             )
+
     assert {:ok, encoded} = Serialization.serialize(signal)
     assert byte_size(encoded) == 262_144
 
     assert {:error, %Contract{code: :signal_too_large}} =
-             Jido.Chat.Signal.SendMessage.new(%{data | "text" => String.duplicate("x", fill + 1)}, opts)
+             Jido.Chat.Signal.Policy.new(
+               Jido.Chat.Signal.SendMessage,
+               %{data | "text" => String.duplicate("x", fill + 1)},
+               opts
+             )
   end
 end

@@ -103,6 +103,7 @@ defmodule Jido.Chat do
 
   def execute(%Jido.Chat.Client{} = client, %Jido.Signal{} = request, opts) when is_list(opts) do
     with {:ok, private, timeout} <- execution_options(opts),
+         {:ok, request} <- Jido.Chat.Signal.Policy.prepare(request),
          {_definition, action} <-
            Enum.find(operations(client), fn {definition, _} -> definition.type() == request.type end) do
       case Jido.Exec.run(action, %{signal: request}, %{client: client, options: private},
@@ -146,7 +147,8 @@ defmodule Jido.Chat do
 
   def send_message(%Jido.Chat.Client{} = client, data, opts)
       when is_map(data) and not is_struct(data) and is_list(opts) do
-    with {:ok, request} <- Jido.Chat.Signal.SendMessage.new(Map.put_new(data, "client_id", client.id)) do
+    with {:ok, request} <-
+           Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.SendMessage, Map.put_new(data, "client_id", client.id)) do
       execute(client, request, opts)
     end
   end
@@ -364,7 +366,8 @@ defmodule Jido.Chat do
            |> Map.put("client_id", client.id)
            |> Map.put("request_id", Keyword.get_lazy(opts, :request_id, &Jido.Signal.ID.generate!/0)),
          {:ok, request} <-
-           definition.new(
+           Jido.Chat.Signal.Policy.new(
+             definition,
              request_data,
              Map.put_new(Map.new(signal_opts, fn {key, value} -> {to_string(key), value} end), "source", client.source)
            ) do

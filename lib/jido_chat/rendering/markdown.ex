@@ -27,7 +27,7 @@ defmodule Jido.Chat.Markdown do
 
   @doc "Creates a canonical Markdown document."
   @spec new(t() | map() | String.t() | [node_input()]) :: t()
-  def new(%__MODULE__{} = markdown), do: markdown
+  def new(%__MODULE__{} = markdown), do: markdown |> Map.from_struct() |> new()
 
   def new(value) when is_binary(value), do: parse(value)
   def new(value) when is_list(value), do: root(value)
@@ -256,7 +256,7 @@ defmodule Jido.Chat.Markdown do
     root =
       case attrs[:root] || attrs["root"] do
         %Node{} = root ->
-          root
+          Node.new(root)
 
         %{} = root ->
           Node.new(root)

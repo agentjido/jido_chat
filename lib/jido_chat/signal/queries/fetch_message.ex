@@ -1,8 +1,6 @@
 defmodule Jido.Chat.Signal.FetchMessage do
   @moduledoc "Typed query for fetch_message. Unsupported request fields are rejected."
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :query,
+  use Jido.Signal,
     type: "jido.chat.query.fetch_message",
     dataschema: "urn:jido:chat:schema:query_fetch_message:3",
     default_source: "urn:jido:chat:producer:local",

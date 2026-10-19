@@ -25,7 +25,7 @@ defmodule Jido.Chat.ActionsContractTest do
       assert completed.source == client.source
       assert completed.extensions["traceparent"] == F.trace()
       assert completed.extensions["tracestate"] == "contract=fixture"
-      assert completed.extensions["causationid"] == request.id
+      assert completed.extensions["jidocausationid"] == request.id
       assert {:ok, _} = action.validate_output(%{signal: completed})
       assert {:error, _} = action.validate_output(%{signal: request})
       assert F.round_trip(completed) == completed
@@ -149,7 +149,7 @@ defmodule Jido.Chat.ActionsContractTest do
 
       assert failed.extensions["traceparent"] == F.trace()
       assert failed.extensions["tracestate"] == "contract=fixture"
-      assert failed.extensions["causationid"] == request.id
+      assert failed.extensions["jidocausationid"] == request.id
 
       if code in [:unauthorized, :forbidden, :not_found, :rate_limited, :timeout],
         do: assert(failed.data["retry_after_ms"] == 2000)
@@ -183,8 +183,8 @@ defmodule Jido.Chat.ActionsContractTest do
     assert observed_first == first
     assert_receive {:contract_invoke, _, _, observed_second, _, _}
     assert observed_second == second
-    assert first_result.extensions["causationid"] == first.id
-    assert second_result.extensions["causationid"] == second.id
+    assert first_result.extensions["jidocausationid"] == first.id
+    assert second_result.extensions["jidocausationid"] == second.id
 
     router = Jido.Signal.Router.new!([{Chat.Signal.SendMessage, Jido.Instruction.template(:action, Chat.SendMessage)}])
     assert {:ok, [template]} = Jido.Signal.Router.route(router, first)
@@ -233,7 +233,7 @@ defmodule Jido.Chat.ActionsContractTest do
         assert envelope["properties"]["data"] == entry["data_schema"]
 
         assert Map.keys(envelope["properties"]) --
-                 ~w(id source type specversion subject time datacontenttype dataschema data traceparent tracestate causationid) ==
+                 ~w(id source type specversion subject time datacontenttype dataschema data traceparent tracestate jidocausationid) ==
                  []
       end
 

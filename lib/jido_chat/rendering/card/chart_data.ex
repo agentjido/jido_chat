@@ -27,7 +27,7 @@ defmodule Jido.Chat.Card.ChartData do
 
   @doc "Creates a chart data point."
   @spec new(input()) :: t()
-  def new(%__MODULE__{} = point), do: point
+  def new(%__MODULE__{} = point), do: point |> Map.from_struct() |> new()
   def new({label, value}), do: new(%{label: label, value: value})
 
   def new(attrs) when is_map(attrs) do

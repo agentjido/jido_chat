@@ -1,8 +1,6 @@
 defmodule Jido.Chat.Signal.MarkAsRead do
   @moduledoc "Typed command for mark_as_read. Unsupported request fields are rejected."
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :command,
+  use Jido.Signal,
     type: "jido.chat.command.mark_as_read",
     dataschema: "urn:jido:chat:schema:command_mark_as_read:3",
     default_source: "urn:jido:chat:producer:local",

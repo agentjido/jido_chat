@@ -1,8 +1,6 @@
 defmodule Jido.Chat.Signal.AddReaction do
   @moduledoc "Typed command for add_reaction. Unsupported request fields are rejected."
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :command,
+  use Jido.Signal,
     type: "jido.chat.command.add_reaction",
     dataschema: "urn:jido:chat:schema:command_add_reaction:3",
     default_source: "urn:jido:chat:producer:local",

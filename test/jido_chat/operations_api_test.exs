@@ -98,7 +98,7 @@ defmodule Jido.Chat.OperationsAPITest do
            }
 
     assert completed.extensions["traceparent"] == trace
-    assert completed.extensions["causationid"] == request.id
+    assert completed.extensions["jidocausationid"] == request.id
     assert_completed(completed, Signal.EditMessage)
   end
 
@@ -152,7 +152,7 @@ defmodule Jido.Chat.OperationsAPITest do
     assert request.data == %{"client_id" => "test", "request_id" => "metadata:1", "room_id" => "room"}
     assert completed.data["result"] == %{"id" => "room", "kind" => "group", "name" => "Support"}
     assert completed.extensions["traceparent"] == trace
-    assert completed.extensions["causationid"] == request.id
+    assert completed.extensions["jidocausationid"] == request.id
     assert_completed(completed, Signal.FetchMetadata)
     refute_receive {:request, _, _}
   end

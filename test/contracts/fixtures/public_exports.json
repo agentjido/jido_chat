@@ -678,11 +678,6 @@
       "to_map",
       1,
       "function"
-    ],
-    [
-      "validate",
-      2,
-      "function"
     ]
   ],
   "Jido.Chat.Card.Component": [
@@ -709,11 +704,6 @@
     [
       "to_map",
       1,
-      "function"
-    ],
-    [
-      "validate",
-      2,
       "function"
     ]
   ],
@@ -744,11 +734,6 @@
       "validate",
       2,
       "function"
-    ],
-    [
-      "validate_empty",
-      1,
-      "function"
     ]
   ],
   "Jido.Chat.Emoji": [
@@ -775,11 +760,6 @@
   ],
   "Jido.Chat.Error": [
     [
-      "error_class?",
-      0,
-      "function"
-    ],
-    [
       "exception",
       0,
       "function"
@@ -787,51 +767,11 @@
     [
       "exception",
       1,
-      "function"
-    ],
-    [
-      "from_json",
-      1,
-      "function"
-    ],
-    [
-      "keyword_list_options?",
-      0,
-      "function"
-    ],
-    [
-      "message",
-      1,
-      "function"
-    ],
-    [
-      "splode_error?",
-      0,
       "function"
     ]
   ],
   "Jido.Chat.Errors": [
     [
-      "__stacktrace_filters__",
-      0,
-      "function"
-    ],
-    [
-      "from_json",
-      2,
-      "function"
-    ],
-    [
-      "set_path",
-      2,
-      "function"
-    ],
-    [
-      "splode_error?",
-      1,
-      "function"
-    ],
-    [
       "splode_error?",
       2,
       "function"
@@ -842,18 +782,8 @@
       "function"
     ],
     [
-      "to_class",
-      2,
-      "function"
-    ],
-    [
       "to_error",
       1,
-      "function"
-    ],
-    [
-      "to_error",
-      2,
       "function"
     ],
     [
@@ -874,11 +804,6 @@
   ],
   "Jido.Chat.Errors.Contract": [
     [
-      "error_class?",
-      0,
-      "function"
-    ],
-    [
       "exception",
       0,
       "function"
@@ -886,36 +811,11 @@
     [
       "exception",
       1,
-      "function"
-    ],
-    [
-      "from_json",
-      1,
-      "function"
-    ],
-    [
-      "keyword_list_options?",
-      0,
-      "function"
-    ],
-    [
-      "message",
-      1,
-      "function"
-    ],
-    [
-      "splode_error?",
-      0,
       "function"
     ]
   ],
   "Jido.Chat.Errors.Validation": [
     [
-      "error_class?",
-      0,
-      "function"
-    ],
-    [
       "exception",
       0,
       "function"
@@ -923,26 +823,6 @@
     [
       "exception",
       1,
-      "function"
-    ],
-    [
-      "from_json",
-      1,
-      "function"
-    ],
-    [
-      "keyword_list_options?",
-      0,
-      "function"
-    ],
-    [
-      "message",
-      1,
-      "function"
-    ],
-    [
-      "splode_error?",
-      0,
       "function"
     ]
   ],
@@ -1346,18 +1226,43 @@
       "to_map",
       1,
       "function"
+    ]
+  ],
+  "Jido.Chat.Signal.Policy": [
+    [
+      "new",
+      2,
+      "function"
+    ],
+    [
+      "new",
+      3,
+      "function"
+    ],
+    [
+      "new!",
+      2,
+      "function"
+    ],
+    [
+      "new!",
+      3,
+      "function"
+    ],
+    [
+      "reply",
+      3,
+      "function"
+    ],
+    [
+      "reply",
+      4,
+      "function"
     ],
     [
       "validate",
       2,
       "function"
-    ]
-  ],
-  "Jido.Chat.Signal.Definition": [
-    [
-      "__using__",
-      1,
-      "macro"
     ]
   ],
   "Jido.Chat.Signal.Identity": [

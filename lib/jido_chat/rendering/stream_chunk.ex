@@ -5,20 +5,13 @@ defmodule Jido.Chat.StreamChunk do
 
   alias Jido.Chat.Wire
 
+  @kinds [:text, :markdown, :status, :plan, :data, :step_start, :step_finish, :timeline]
+
   @schema Zoi.struct(
             __MODULE__,
             %{
               kind:
-                Zoi.enum([
-                  :text,
-                  :markdown,
-                  :status,
-                  :plan,
-                  :data,
-                  :step_start,
-                  :step_finish,
-                  :timeline
-                ])
+                Zoi.enum(Enum.map(@kinds, &{&1, Atom.to_string(&1)}), coerce: true)
                 |> Zoi.default(:text),
               text: Zoi.string() |> Zoi.nullish(),
               payload: Zoi.any() |> Zoi.nullish(),
@@ -37,7 +30,7 @@ defmodule Jido.Chat.StreamChunk do
   def schema, do: @schema
 
   @doc "Creates a stream chunk from normalized map input."
-  def new(%__MODULE__{} = chunk), do: chunk
+  def new(%__MODULE__{} = chunk), do: chunk |> Map.from_struct() |> new()
   def new(attrs) when is_map(attrs), do: Jido.Chat.Schema.parse!(__MODULE__, @schema, attrs)
 
   @doc "Builds a text chunk."
@@ -49,7 +42,7 @@ defmodule Jido.Chat.StreamChunk do
 
   @doc "Normalizes supported stream chunk inputs."
   @spec normalize(input()) :: t() | String.t()
-  def normalize(%__MODULE__{} = chunk), do: chunk
+  def normalize(%__MODULE__{} = chunk), do: new(chunk)
   def normalize(value) when is_binary(value), do: value
   def normalize(attrs) when is_map(attrs), do: new(attrs)
 

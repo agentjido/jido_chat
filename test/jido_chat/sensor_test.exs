@@ -6,7 +6,7 @@ defmodule Jido.Chat.SensorTest do
     @behaviour Jido.Chat.Sensor.Source
     def mode, do: :poll
     def poll_interval(options), do: Keyword.get(options, :interval, 1_000)
-    def signal_types, do: ["jido.chat.message.received"]
+    def signal_types, do: ["jido.chat.message.received", "test.chat.room.changed"]
 
     def read(client, cursor, opts) do
       send(opts[:observer], {:read, cursor})
@@ -37,7 +37,8 @@ defmodule Jido.Chat.SensorTest do
   end
 
   defp fact(client, id, room \\ "room-1") do
-    Jido.Chat.Signal.MessageReceived.new!(
+    Jido.Chat.Signal.Policy.new!(
+      Jido.Chat.Signal.MessageReceived,
       %{
         "delivery_id" => "batch",
         "item_id" => id,
@@ -85,6 +86,33 @@ defmodule Jido.Chat.SensorTest do
     assert_receive {:signal, %Jido.Signal{data: %{"item_id" => "one"}}}
     assert poll(pid).cursor == 42
     assert_receive {:read, 42}
+  end
+
+  test "native provider facts cannot pass private data through a Sensor" do
+    store = start_supervised!({Agent, fn -> [] end})
+    client = Client.new!(Jido.Chat.PluginFixture.ProviderAdapter, id: "sensor", config: [store: store])
+
+    fact =
+      Jido.Chat.PluginFixture.RoomChanged.new!(
+        %{"item_id" => "one", "delivery_id" => "batch", "room_id" => "room-1", "metadata" => %{"token" => "private"}},
+        source: client.source
+      )
+
+    Agent.update(store, fn _ -> [{:ok, [fact], 42}] end)
+
+    pid =
+      start_supervised!(
+        {Sensor,
+         client: client,
+         source: Source,
+         interval: 60_000,
+         emit: "test.chat.room.changed",
+         options: [observer: self()],
+         dispatch: {:pid, target: self()}}
+      )
+
+    assert poll(pid).cursor == nil
+    refute_receive {:signal, _}
   end
 
   test "partial delivery retries only unaccepted events before committing the cursor" do

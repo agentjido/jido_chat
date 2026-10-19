@@ -16,7 +16,7 @@ defmodule Jido.Chat.Modal do
               close_label: Zoi.string() |> Zoi.default("Cancel"),
               notify_on_close: Zoi.boolean() |> Zoi.default(false),
               private_metadata: Zoi.string() |> Zoi.nullish(),
-              elements: Zoi.list() |> Zoi.default([]),
+              elements: Zoi.list(Zoi.struct(Element)) |> Zoi.default([]),
               metadata: Zoi.map() |> Zoi.default(%{})
             },
             coerce: true
@@ -32,7 +32,7 @@ defmodule Jido.Chat.Modal do
 
   @doc "Creates a canonical modal."
   @spec new(t() | map()) :: t()
-  def new(%__MODULE__{} = modal), do: modal
+  def new(%__MODULE__{} = modal), do: modal |> Map.from_struct() |> new()
 
   def new(attrs) when is_map(attrs) do
     attrs

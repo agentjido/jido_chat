@@ -5,9 +5,7 @@ defmodule Jido.Chat.Signal.SendFile do
   Data uses the protocol version 3 string-key schema. Request may omit subject. If present, it must equal conversation_subject(client_id, room_id). A room result uses that conversation subject.
   """
 
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :command,
+  use Jido.Signal,
     type: "jido.chat.command.send_file",
     dataschema: "urn:jido:chat:schema:command_send_file:3",
     default_source: "urn:jido:chat:producer:local",

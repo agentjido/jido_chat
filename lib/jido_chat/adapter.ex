@@ -102,11 +102,22 @@ defmodule Jido.Chat.Adapter do
 
     _catalog = Jido.Signal.Catalog.new!(definitions)
 
-    length(types) == length(Enum.uniq(types)) and
-      Enum.all?(events, fn definition ->
-        Code.ensure_loaded?(definition) and function_exported?(definition, :__signal_kind__, 0) and
-          definition.__signal_kind__() == :fact
-      end)
+    length(types) == length(Enum.uniq(types)) and Enum.all?(events, &fact_definition?/1)
+  end
+
+  defp fact_definition?(definition) do
+    if Jido.Signal.defined?(definition) do
+      case definition.schema() do
+        %{fields: fields} when is_map(fields) or is_list(fields) ->
+          fields = Map.new(fields)
+          Enum.all?(["item_id", "delivery_id"], &match?(%{meta: %{required: true}}, fields[&1]))
+
+        _ ->
+          false
+      end
+    else
+      false
+    end
   end
 
   @doc "Renders a Markdown value."

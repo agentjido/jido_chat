@@ -1,8 +1,6 @@
 defmodule Jido.Chat.Signal.PostEphemeral do
   @moduledoc "Typed command for post_ephemeral. Unsupported request fields are rejected."
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :command,
+  use Jido.Signal,
     type: "jido.chat.command.post_ephemeral",
     dataschema: "urn:jido:chat:schema:command_post_ephemeral:3",
     default_source: "urn:jido:chat:producer:local",

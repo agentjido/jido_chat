@@ -8,6 +8,41 @@ defmodule Jido.Chat.Signal.Schemas do
   def object(fields), do: Zoi.map(fields, unrecognized_keys: :error)
 
   @doc false
+  def modal, do: rendering_schema(Jido.Chat.Modal, "modal")
+
+  @doc false
+  def card, do: rendering_schema(Jido.Chat.Card, "card")
+
+  defp rendering_schema(module, marker) do
+    fields =
+      Map.new(module.schema().fields, fn
+        {key, %Zoi.Types.Array{inner: %Zoi.Types.Struct{}} = schema} ->
+          {key, %{schema | inner: Zoi.map()}}
+
+        field ->
+          field
+      end)
+
+    fields
+    |> Zoi.object()
+    |> Zoi.to_json_schema()
+    |> Jason.encode!()
+    |> Jason.decode!()
+    |> Map.put("additionalProperties", false)
+    |> Map.update!("properties", &Map.put(&1, "__type__", %{"const" => marker}))
+    |> Zoi.from_json_schema()
+    |> Zoi.refine({__MODULE__, :valid_rendering, [module]})
+  end
+
+  @doc false
+  def valid_rendering(value, module, _opts) do
+    module.new(value)
+    :ok
+  rescue
+    _ -> {:error, "expected a valid #{inspect(module)} value"}
+  end
+
+  @doc false
   def reference do
     object(%{"id" => id(), "client_id" => id(), "kind" => Zoi.enum(["file", "media", "url"])})
   end

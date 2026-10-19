@@ -79,7 +79,7 @@ defmodule Jido.Chat.Card.Component do
 
   @doc "Creates a canonical card component."
   @spec new(t() | map()) :: t()
-  def new(%__MODULE__{} = component), do: component
+  def new(%__MODULE__{} = component), do: component |> Map.from_struct() |> new()
 
   def new(attrs) when is_map(attrs) do
     attrs
@@ -96,7 +96,7 @@ defmodule Jido.Chat.Card.Component do
 
   @doc "Normalizes component input."
   @spec normalize(input()) :: t()
-  def normalize(%__MODULE__{} = component), do: component
+  def normalize(%__MODULE__{} = component), do: new(component)
   def normalize(value) when is_binary(value), do: new(%{kind: :text, text: value})
   def normalize(value) when is_map(value), do: new(value)
 
@@ -133,7 +133,7 @@ defmodule Jido.Chat.Card.Component do
         attrs
 
       %Markdown{} = markdown ->
-        attrs |> Map.delete("markdown") |> Map.put(:markdown, markdown)
+        attrs |> Map.delete("markdown") |> Map.put(:markdown, Markdown.new(markdown))
 
       %{} = markdown ->
         attrs |> Map.delete("markdown") |> Map.put(:markdown, Markdown.new(markdown))

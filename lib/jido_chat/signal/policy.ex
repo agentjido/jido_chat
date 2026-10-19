@@ -1,16 +1,32 @@
 defmodule Jido.Chat.Signal.Policy do
-  @moduledoc false
+  @moduledoc """
+  Chat construction and admission rules for native `Jido.Signal` definitions.
+
+  Define data with `use Jido.Signal`. Use `new/3` when construction must also
+  enforce Chat data, context, and size rules. Native definition constructors
+  retain their native behavior. Every Chat admission boundary uses `validate/2`.
+
+  Traces use `Jido.Signal.Trace` and the current Jido tracing context. Replies
+  retain the parent trace and use Jido's `jidocausationid` context attribute.
+  The host owns span lifetime, sampling, and export.
+  """
 
   alias Jido.Chat.Errors.Contract
-  alias Jido.Signal.{Context, Serialization, Trace}
+  alias Jido.Signal.{Catalog, Context, Serialization, Trace}
+  alias Jido.Tracing.Context, as: TraceContext
+  alias Jido.Tracing.Trace, as: JidoTrace
 
-  @context_fields ~w(traceparent tracestate causationid)
+  @context_fields ~w(traceparent tracestate jidocausationid)
   @signal_bytes 262_144
   @private_keys ~w(raw credentials token access_token refresh_token password secret client pid qr pairing_code)
 
   @doc false
+  @spec error(atom()) :: {:error, Contract.t()}
+  def error(code), do: error(code, nil)
+
+  @doc false
   @spec error(atom(), atom() | nil) :: {:error, Contract.t()}
-  def error(code, field \\ nil), do: {:error, Contract.exception(code: code, field: field)}
+  def error(code, field), do: {:error, Contract.exception(code: code, field: field)}
 
   @doc false
   @spec constructor_options(term()) :: :ok | {:error, Contract.t()}
@@ -61,6 +77,7 @@ defmodule Jido.Chat.Signal.Policy do
   @spec validate(Jido.Signal.t()) :: {:ok, Jido.Signal.t()} | {:error, Contract.t()}
   def validate(%Jido.Signal{} = signal) do
     with true <- is_binary(signal.id) and byte_size(signal.id) in 1..128,
+         :ok <- safe_data(signal.data),
          :ok <- context(signal),
          :ok <- encoded_size(signal) do
       {:ok, signal}
@@ -70,13 +87,22 @@ defmodule Jido.Chat.Signal.Policy do
     end
   end
 
+  def validate(_signal), do: error(:invalid_request)
+
+  defp safe_data(data) do
+    case validate_json(data, []) do
+      :ok -> :ok
+      {:error, _} -> error(:unsafe_data)
+    end
+  end
+
   defp context(signal) do
     attrs = signal.extensions
 
     valid =
       is_map(attrs) and Map.keys(attrs) -- @context_fields == [] and
         Enum.all?(attrs, fn {_name, value} -> is_binary(value) and String.valid?(value) end) and
-        valid_trace?(attrs) and valid_causation?(Context.get(signal, "causationid")) and
+        valid_trace?(attrs) and valid_causation?(Context.get(signal, "jidocausationid")) and
         valid_source?(signal.source)
 
     if valid, do: :ok, else: error(:invalid_context)
@@ -113,6 +139,79 @@ defmodule Jido.Chat.Signal.Policy do
       {:ok, encoded} when byte_size(encoded) <= @signal_bytes -> :ok
       {:ok, _encoded} -> error(:signal_too_large)
       {:error, _} -> error(:unsafe_data)
+    end
+  end
+
+  @doc "Constructs a native Signal with Chat validation and trace context."
+  @spec new(module(), term(), keyword() | map()) :: {:ok, Jido.Signal.t()} | {:error, Jido.Chat.Errors.Contract.t()}
+  def new(definition, data, opts \\ []) do
+    construct(data, opts, fn -> definition.new(data, opts) end)
+  end
+
+  @doc "Constructs a Chat Signal or raises a contract error."
+  @spec new!(module(), term(), keyword() | map()) :: Jido.Signal.t() | no_return()
+  def new!(definition, data, opts \\ []) do
+    case new(definition, data, opts) do
+      {:ok, signal} -> signal
+      {:error, error} -> raise error
+    end
+  end
+
+  @doc "Constructs a reply with its parent's native trace and causation context."
+  @spec reply(module(), term(), Jido.Signal.t(), keyword() | map()) ::
+          {:ok, Jido.Signal.t()} | {:error, Jido.Chat.Errors.Contract.t()}
+  def reply(definition, data, parent, opts \\ []) do
+    construct(data, opts, fn ->
+      with {:ok, parent} <- prepare(parent),
+           {:ok, signal} <- definition.new(data, opts) do
+        JidoTrace.put(signal, Map.put(JidoTrace.get(parent), :causation_id, parent.id))
+      end
+    end)
+  end
+
+  @doc "Validates a native Signal against its exact catalog definition and Chat policy."
+  @spec validate(Catalog.t(), term()) :: {:ok, Jido.Signal.t()} | {:error, Jido.Chat.Errors.Contract.t()}
+  def validate(catalog, signal) do
+    with {:ok, signal} <- validate(signal),
+         {:ok, signal} <- Catalog.validate(catalog, signal) do
+      validate(signal)
+    else
+      {:error, %Contract{}} = error -> error
+      {:error, _} -> error(:invalid_request, :data)
+    end
+  end
+
+  defp construct(data, opts, build) do
+    with :ok <- constructor_options(opts),
+         :ok <- safe_data(data),
+         {:ok, signal} <- build.() do
+      prepare(signal)
+    else
+      {:error, %Jido.Chat.Errors.Contract{}} = error -> error
+      {:error, _} -> error(:invalid_request, :data)
+    end
+  end
+
+  @doc false
+  @spec prepare(term()) :: {:ok, Jido.Signal.t()} | {:error, Jido.Chat.Errors.Contract.t()}
+  def prepare(signal) do
+    with {:ok, signal} <- validate(signal),
+         {:ok, signal} <- ensure_trace(signal) do
+      validate(signal)
+    else
+      {:error, %Jido.Chat.Errors.Contract{}} = error -> error
+      {:error, _} -> error(:invalid_context)
+    end
+  end
+
+  defp ensure_trace(signal) do
+    case {Trace.get(signal), TraceContext.get()} do
+      {nil, context} when is_map(context) ->
+        cause = Jido.Signal.get_context(signal, "jidocausationid")
+        JidoTrace.put(signal, Map.put(context, :causation_id, cause))
+
+      _ ->
+        with {:ok, traced, _trace} <- Trace.ensure(signal), do: {:ok, traced}
     end
   end
 end

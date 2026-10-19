@@ -1,5 +1,5 @@
 ---
-modules: [Jido.Chat.Signal.Definition, Jido.Chat.Signal.Identity]
+modules: [Jido.Chat.Signal.Policy, Jido.Chat.Signal.Identity]
 ---
 # Public chat Signals
 
@@ -15,14 +15,14 @@ Tests use public functions and independent fixtures. The host owns the messaging
 - **status:** active
 
 ### jido_chat.signals.I2 — Signal data has strict string-key schemas
-- **scope:** Every core Signal constructor and data schema.
+- **scope:** Every native core data schema and Chat policy constructor.
 - **must:** Accept valid fixtures. Reject missing required fields, unknown top-level data fields, invalid JSON values, and malformed envelope metadata. Do not coerce an invalid field into a valid request.
 - **kind:** functional
 - **status:** active
 
 ### jido_chat.signals.I3 — Signals cannot carry private runtime or credential data
-- **scope:** Nested data, constructor metadata, trace extensions, source URI, and Signal ID.
-- **must:** Reject private keys, structs, processes, functions, invalid UTF-8, unapproved context, credential-bearing source URIs, and IDs above 128 bytes. Accept only traceparent, tracestate, and causationid extensions.
+- **scope:** Chat policy construction and all admission boundaries: nested data, constructor metadata, trace extensions, source URI, and Signal ID.
+- **must:** Reject private keys, structs, processes, functions, invalid UTF-8, unapproved context, credential-bearing source URIs, and IDs above 128 bytes. Accept only traceparent, tracestate, and jidocausationid extensions.
 - **kind:** security
 - **status:** active
 

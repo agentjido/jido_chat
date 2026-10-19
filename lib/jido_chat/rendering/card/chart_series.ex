@@ -26,7 +26,7 @@ defmodule Jido.Chat.Card.ChartSeries do
 
   @doc "Creates a named chart series."
   @spec new(t() | map() | {String.t(), [number()]}) :: t()
-  def new(%__MODULE__{} = series), do: series
+  def new(%__MODULE__{} = series), do: series |> Map.from_struct() |> new()
   def new({name, values}), do: new(%{name: name, values: values})
   def new(attrs) when is_map(attrs), do: Jido.Chat.Schema.parse!(__MODULE__, @schema, attrs)
 

@@ -68,7 +68,7 @@ defmodule Jido.Chat.TextAPITest do
 
     assert completed.type == Jido.Chat.SendMessage.Completed.type()
     assert completed.extensions["traceparent"] == trace
-    assert completed.extensions["causationid"] == request.id
+    assert completed.extensions["jidocausationid"] == request.id
     assert {:ok, json} = Jido.Signal.Serialization.serialize(completed)
     refute json =~ "private-token"
   end

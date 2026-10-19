@@ -5,9 +5,7 @@ defmodule Jido.Chat.Signal.MessageUpdated do
   Data uses the protocol version 2 string-key schema. The client-scoped primary conversation subject. NormalizationFailed can omit subject when the room is unknown.
   """
 
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :fact,
+  use Jido.Signal,
     type: "jido.chat.message.updated",
     dataschema: "urn:jido:chat:schema:message_updated:2",
     default_source: "urn:jido:chat:producer:local",

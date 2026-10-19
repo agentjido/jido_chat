@@ -5,9 +5,7 @@ defmodule Jido.Chat.APIHardeningTest do
   alias Jido.Chat.{Client, Delivery}
 
   defmodule ProviderFact do
-    use Jido.Chat.Signal.Definition,
-      owner: :test_provider,
-      kind: :fact,
+    use Jido.Signal,
       type: "test.chat.presence.changed",
       dataschema: "urn:test:presence:1",
       default_source: "urn:test:producer",
@@ -76,7 +74,12 @@ defmodule Jido.Chat.APIHardeningTest do
   defp client(adapter \\ Adapter), do: Client.new!(adapter, id: "test", config: [observer: self()])
 
   defp request do
-    Chat.Signal.SendMessage.new!(%{"client_id" => "test", "request_id" => "r", "room_id" => "room", "text" => "Hello"})
+    Jido.Chat.Signal.Policy.new!(Chat.Signal.SendMessage, %{
+      "client_id" => "test",
+      "request_id" => "r",
+      "room_id" => "room",
+      "text" => "Hello"
+    })
   end
 
   test "agent schemas expose exact Signal data and accept the serialized input they describe" do

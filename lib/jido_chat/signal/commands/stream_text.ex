@@ -3,9 +3,7 @@ defmodule Jido.Chat.Signal.StreamText do
   Requests incremental text delivery. The source Enumerable is private Action
   context (`options[:stream]`), never Signal data. The adapter selects delivery.
   """
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :command,
+  use Jido.Signal,
     type: "jido.chat.command.stream_text",
     dataschema: "urn:jido:chat:schema:command_stream_text:1",
     default_source: "urn:jido:chat:producer:local",

@@ -5,9 +5,7 @@ defmodule Jido.Chat.Signal.MembershipChanged do
   Data uses the protocol version 1 string-key schema. The client-scoped primary conversation subject. NormalizationFailed can omit subject when the room is unknown.
   """
 
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :fact,
+  use Jido.Signal,
     type: "jido.chat.membership.changed",
     dataschema: "urn:jido:chat:schema:membership_changed:1",
     default_source: "urn:jido:chat:producer:local",

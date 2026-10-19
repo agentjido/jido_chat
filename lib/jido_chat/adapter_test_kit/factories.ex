@@ -17,7 +17,7 @@ defmodule Jido.Chat.AdapterTestKit.Factories do
         overrides
       )
 
-    Jido.Chat.Signal.MessageReceived.new!(data,
+    Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.MessageReceived, data,
       source: client.source,
       subject: Jido.Chat.Signal.Identity.conversation_subject(client.id, data["room_id"])
     )
@@ -25,7 +25,7 @@ defmodule Jido.Chat.AdapterTestKit.Factories do
 
   @doc "Builds a typed request from a checked definition module and string-key data."
   @spec request(module(), map()) :: Jido.Signal.t()
-  def request(definition, data), do: definition.new!(data)
+  def request(definition, data), do: Jido.Chat.Signal.Policy.new!(definition, data)
 
   @doc "Builds one portable request fixture without private resource storage."
   @spec operation_request(Jido.Chat.Client.t(), atom(), map()) :: Jido.Signal.t()
@@ -51,6 +51,9 @@ defmodule Jido.Chat.AdapterTestKit.Factories do
       "resource_ref" => %{"id" => "media-1", "client_id" => client.id, "kind" => "media"}
     }
 
-    definition.new!(values |> Map.take(["client_id", "request_id" | fields]) |> Map.merge(overrides))
+    Jido.Chat.Signal.Policy.new!(
+      definition,
+      values |> Map.take(["client_id", "request_id" | fields]) |> Map.merge(overrides)
+    )
   end
 end

@@ -95,7 +95,8 @@ defmodule Jido.Chat.PushSensorTest do
   end
 
   defp fact(client, id, room \\ "room-1") do
-    Jido.Chat.Signal.MessageReceived.new!(
+    Jido.Chat.Signal.Policy.new!(
+      Jido.Chat.Signal.MessageReceived,
       %{
         "item_id" => id,
         "delivery_id" => "batch",
@@ -241,7 +242,12 @@ defmodule Jido.Chat.PushSensorTest do
   test "a list selects disjoint input families without admitting unselected facts" do
     {sensor, worker, client} = start(emit: ["jido.chat.message.received", "jido.chat.message.updated"])
     original = fact(client, "list")
-    changed = Jido.Chat.Signal.MessageUpdated.new!(Map.put(original.data, "item_id", "changed"), source: client.source)
+
+    changed =
+      Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.MessageUpdated, Map.put(original.data, "item_id", "changed"),
+        source: client.source
+      )
+
     assert :ok = GenServer.call(worker, {:batch, [original, changed]})
     assert_receive {:signal, ^original}
     assert_receive {:signal, ^changed}

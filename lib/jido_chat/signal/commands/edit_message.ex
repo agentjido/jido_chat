@@ -1,8 +1,6 @@
 defmodule Jido.Chat.Signal.EditMessage do
   @moduledoc "Typed command for edit_message. Unsupported request fields are rejected."
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :command,
+  use Jido.Signal,
     type: "jido.chat.command.edit_message",
     dataschema: "urn:jido:chat:schema:command_edit_message:3",
     default_source: "urn:jido:chat:producer:local",

@@ -58,7 +58,7 @@ defmodule Jido.Chat.StaticSDKTest do
     assert result.source == client.source
     assert result.data["result"]["id"] == "message-1"
     assert result.data["request_id"] == "request-1"
-    assert result.extensions["causationid"] == request.id
+    assert result.extensions["jidocausationid"] == request.id
     assert {:ok, ^result} = Jido.Signal.Catalog.validate(Jido.Chat.catalog(), result)
 
     other_operation = %{result | data: Map.put(result.data, "operation", "edit_message")}

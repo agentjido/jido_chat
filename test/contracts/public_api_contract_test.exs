@@ -85,7 +85,7 @@ defmodule Jido.Chat.PublicAPIContractTest do
         assert completed.data["client_id"] == id
         assert completed.data["request_id"] == "explicit"
         assert completed.extensions["traceparent"] == F.trace()
-        assert completed.extensions["causationid"] == request.id
+        assert completed.extensions["jidocausationid"] == request.id
         assert F.round_trip(completed) == completed
       end
     end
@@ -210,7 +210,7 @@ defmodule Jido.Chat.PublicAPIContractTest do
              "outcome" => "unknown"
            }
 
-    assert failed.extensions["causationid"] == request.id
+    assert failed.extensions["jidocausationid"] == request.id
     assert F.round_trip(failed) == failed
     refute Process.alive?(task)
     refute_receive {:contract_invoke, _, _, _, _, _}

@@ -5,9 +5,7 @@ defmodule Jido.Chat.Signal.OptionsRequested do
   Data uses the protocol version 1 string-key schema. The client-scoped primary conversation subject. NormalizationFailed can omit subject when the room is unknown.
   """
 
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :fact,
+  use Jido.Signal,
     type: "jido.chat.options.requested",
     dataschema: "urn:jido:chat:schema:options_requested:1",
     default_source: "urn:jido:chat:producer:local",

@@ -37,9 +37,7 @@ end
 
 defmodule Jido.Chat.PluginFixture.RoomChanged do
   @moduledoc false
-  use Jido.Chat.Signal.Definition,
-    owner: :fixture,
-    kind: :fact,
+  use Jido.Signal,
     type: "test.chat.room.changed",
     dataschema: "urn:test:chat:room:1",
     default_source: "urn:test:chat:fixture",
@@ -48,7 +46,8 @@ defmodule Jido.Chat.PluginFixture.RoomChanged do
         %{
           "item_id" => Zoi.string(),
           "delivery_id" => Zoi.string(),
-          "room_id" => Zoi.string() |> Zoi.to_upcase()
+          "room_id" => Zoi.string() |> Zoi.to_upcase(),
+          "metadata" => Zoi.map() |> Zoi.optional()
         },
         unrecognized_keys: :error
       )
@@ -101,7 +100,7 @@ defmodule Jido.Chat.PluginFixture.Reply do
       end
 
     command =
-      Jido.Chat.Signal.SendMessage.new!(data,
+      Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.SendMessage, data,
         source: "urn:jido:spike:telegram-agent",
         subject: incoming.subject
       )
@@ -136,7 +135,7 @@ defmodule Jido.Chat.PluginFixture.EditReply do
 
     if message_id && String.starts_with?(params["text"] || "", "/spike") do
       command =
-        Jido.Chat.Signal.EditMessage.new!(%{
+        Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.EditMessage, %{
           "client_id" => context.chat.client_id,
           "request_id" => params["item_id"] <> ":edit",
           "room_id" => params["room_id"],

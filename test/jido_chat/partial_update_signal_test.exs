@@ -6,7 +6,7 @@ defmodule Jido.Chat.PartialUpdateSignalTest do
 
     for text <- [nil, "", "updated"] do
       signal =
-        Jido.Chat.Signal.MessageUpdated.new!(%{
+        Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.MessageUpdated, %{
           "item_id" => "update-1",
           "delivery_id" => "delivery-1",
           "room_id" => "room-1",
@@ -31,7 +31,7 @@ defmodule Jido.Chat.PartialUpdateSignalTest do
     }
 
     for reaction <- [nil, "👍"] do
-      signal = Jido.Chat.Signal.ReactionRemoved.new!(Map.put(data, "reaction", reaction))
+      signal = Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.ReactionRemoved, Map.put(data, "reaction", reaction))
       assert {:ok, json} = Jido.Signal.Serialization.serialize(signal)
       assert {:ok, ^signal} = Jido.Signal.Catalog.decode(Jido.Signal.Catalog.new!(Jido.Chat.signal_definitions()), json)
       assert signal.data["reaction"] == reaction
@@ -43,10 +43,10 @@ defmodule Jido.Chat.PartialUpdateSignalTest do
           Map.put(data, "reaction", 1),
           Map.put(data, "raw", %{})
         ] do
-      assert {:error, _} = Jido.Chat.Signal.ReactionRemoved.new(invalid)
+      assert {:error, _} = Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.ReactionRemoved, invalid)
     end
 
-    assert {:error, _} = Jido.Chat.Signal.ReactionAdded.new(data)
+    assert {:error, _} = Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.ReactionAdded, data)
   end
 
   test "partial updates still reject absent text, unsafe text and undeclared provider fields" do
@@ -58,8 +58,8 @@ defmodule Jido.Chat.PartialUpdateSignalTest do
       "text" => nil
     }
 
-    assert {:error, _} = Jido.Chat.Signal.MessageUpdated.new(Map.delete(data, "text"))
-    assert {:error, _} = Jido.Chat.Signal.MessageUpdated.new(Map.put(data, "text", 42))
-    assert {:error, _} = Jido.Chat.Signal.MessageUpdated.new(Map.put(data, "raw", %{}))
+    assert {:error, _} = Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.MessageUpdated, Map.delete(data, "text"))
+    assert {:error, _} = Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.MessageUpdated, Map.put(data, "text", 42))
+    assert {:error, _} = Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.MessageUpdated, Map.put(data, "raw", %{}))
   end
 end

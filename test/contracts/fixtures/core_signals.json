@@ -1528,6 +1528,76 @@
             "minLength": 1
           },
           "modal": {
+            "additionalProperties": false,
+            "properties": {
+              "__type__": {
+                "const": "modal"
+              },
+              "callback_id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "close_label": {
+                "default": "Cancel",
+                "type": "string"
+              },
+              "elements": {
+                "default": [],
+                "items": {
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              "id": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "metadata": {
+                "default": {},
+                "type": "object"
+              },
+              "notify_on_close": {
+                "default": false,
+                "type": "boolean"
+              },
+              "private_metadata": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "submit_label": {
+                "default": "Submit",
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "close_label",
+              "elements",
+              "metadata",
+              "notify_on_close",
+              "submit_label",
+              "title"
+            ],
             "type": "object"
           },
           "request_id": {
@@ -1540,7 +1610,7 @@
           }
         }
       },
-      "dataschema": "urn:jido:chat:schema:command_open_modal:3",
+      "dataschema": "urn:jido:chat:schema:command_open_modal:4",
       "fixture": {
         "client_id": "binding/alpha",
         "modal": {
@@ -1597,7 +1667,7 @@
           }
         }
       },
-      "dataschema": "urn:jido:chat:schema:command_open_modal:3:completed",
+      "dataschema": "urn:jido:chat:schema:command_open_modal:4:completed",
       "fixture": {
         "client_id": "binding/alpha",
         "operation": "jido.chat.command.open_modal",
@@ -1664,7 +1734,7 @@
           }
         }
       },
-      "dataschema": "urn:jido:chat:schema:command_open_modal:3:failed",
+      "dataschema": "urn:jido:chat:schema:command_open_modal:4:failed",
       "fixture": {
         "client_id": "binding/alpha",
         "code": "provider_failure",

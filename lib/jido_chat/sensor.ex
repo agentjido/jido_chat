@@ -210,8 +210,7 @@ defmodule Jido.Chat.Sensor do
         :skip
 
       true ->
-        with {:ok, validated} <- Jido.Signal.Catalog.validate(Jido.Chat.catalog(state.client), signal),
-             {:ok, validated} <- Jido.Chat.Signal.Policy.validate(validated) do
+        with {:ok, validated} <- Jido.Chat.Signal.Policy.validate(Jido.Chat.catalog(state.client), signal) do
           if state.rooms == :all or validated.data["room_id"] in state.rooms, do: {:ok, validated}, else: :skip
         else
           _ -> :invalid

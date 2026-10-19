@@ -1,8 +1,6 @@
 defmodule Jido.Chat.Signal.OpenDm do
   @moduledoc "Typed command for open_dm. Unsupported request fields are rejected."
-  use Jido.Chat.Signal.Definition,
-    owner: :chat,
-    kind: :command,
+  use Jido.Signal,
     type: "jido.chat.command.open_dm",
     dataschema: "urn:jido:chat:schema:command_open_dm:3",
     default_source: "urn:jido:chat:producer:local",

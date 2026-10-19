@@ -28,7 +28,7 @@ Tests use public functions and independent fixtures. The host owns the messaging
 
 ### jido_chat.actions.I4 — Failures preserve safe categories and causal context
 - **scope:** Rejected, not-attempted, unknown, raised, and thrown provider failures.
-- **must:** Return Jido.Chat.Error with the matching Failed Signal. Preserve client_id, request_id, operation, traceparent, tracestate, and causationid. Expose only declared safe codes, outcomes, and a non-negative retry_after_ms hint. Never expose raw provider errors.
+- **must:** Return Jido.Chat.Error with the matching Failed Signal. Preserve client_id, request_id, operation, traceparent, tracestate, and jidocausationid. Expose only declared safe codes, outcomes, and a non-negative retry_after_ms hint. Never expose raw provider errors.
 - **kind:** security
 - **status:** active
 

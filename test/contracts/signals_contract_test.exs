@@ -28,7 +28,7 @@ defmodule Jido.Chat.SignalsContractTest do
       assert definition.dataschema() == entry["dataschema"]
       actual_schema = definition.schema() |> Zoi.to_json_schema() |> Jason.encode!() |> Jason.decode!()
       assert actual_schema == entry["data_schema"], "data schema changed for #{entry["module"]}"
-      assert {:ok, signal} = definition.new(entry["fixture"], entry["fixture_options"])
+      assert {:ok, signal} = Jido.Chat.Signal.Policy.new(definition, entry["fixture"], entry["fixture_options"])
       assert signal.type == entry["type"]
       assert signal.dataschema == entry["dataschema"]
     end
@@ -40,15 +40,19 @@ defmodule Jido.Chat.SignalsContractTest do
       definition = F.module(entry["module"])
       data = entry["fixture"]
       opts = entry["fixture_options"]
-      assert {:error, %Chat.Errors.Contract{}} = definition.new(Map.put(data, "unapproved_field", true), opts)
-      assert {:error, %Chat.Errors.Contract{}} = definition.new(nil, opts)
+
+      assert {:error, %Chat.Errors.Contract{}} =
+               Jido.Chat.Signal.Policy.new(definition, Map.put(data, "unapproved_field", true), opts)
+
+      assert {:error, %Chat.Errors.Contract{}} = Jido.Chat.Signal.Policy.new(definition, nil, opts)
 
       for key <- entry["data_schema"]["required"] do
-        assert {:error, %Chat.Errors.Contract{}} = definition.new(Map.delete(data, key), opts)
+        assert {:error, %Chat.Errors.Contract{}} = Jido.Chat.Signal.Policy.new(definition, Map.delete(data, key), opts)
       end
 
       for key <- Map.keys(data) do
-        assert {:error, %Chat.Errors.Contract{}} = definition.new(Map.put(data, key, self()), opts)
+        assert {:error, %Chat.Errors.Contract{}} =
+                 Jido.Chat.Signal.Policy.new(definition, Map.put(data, key, self()), opts)
       end
     end
 
@@ -60,7 +64,7 @@ defmodule Jido.Chat.SignalsContractTest do
           [data: %{}],
           [source: "urn:first", source: "urn:second"]
         ] do
-      assert {:error, %Chat.Errors.Contract{}} = Chat.Signal.SendMessage.new(request, opts)
+      assert {:error, %Chat.Errors.Contract{}} = Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, request, opts)
     end
   end
 
@@ -70,7 +74,7 @@ defmodule Jido.Chat.SignalsContractTest do
     base = F.message(client)
     ref = %{"client_id" => client.id, "kind" => "media", "id" => "file-1"}
     media = %{"kind" => "file", "resource_ref" => ref, "metadata" => %{"nested" => %{"safe" => "value"}}}
-    assert {:ok, _} = Chat.Signal.MessageReceived.new(Map.put(base.data, "media", [media]))
+    assert {:ok, _} = Jido.Chat.Signal.Policy.new(Chat.Signal.MessageReceived, Map.put(base.data, "media", [media]))
 
     values =
       [self(), fn -> :runtime end, %URI{host: "example.com"}, <<255>>] ++
@@ -83,7 +87,7 @@ defmodule Jido.Chat.SignalsContractTest do
       bad_media = put_in(media, ["metadata", "nested"], value)
 
       assert {:error, %Chat.Errors.Contract{}} =
-               Chat.Signal.MessageReceived.new(Map.put(base.data, "media", [bad_media]))
+               Jido.Chat.Signal.Policy.new(Chat.Signal.MessageReceived, Map.put(base.data, "media", [bad_media]))
     end
 
     request = F.entry(Chat.Signal.SendMessage)["fixture"]
@@ -92,19 +96,19 @@ defmodule Jido.Chat.SignalsContractTest do
           [extensions: %{"unapproved" => "value"}],
           [extensions: %{"traceparent" => "invalid"}],
           [extensions: %{"tracestate" => "missing=parent"}],
-          [extensions: %{"causationid" => String.duplicate("x", 129)}],
+          [extensions: %{"jidocausationid" => String.duplicate("x", 129)}],
           [source: "https://user:private-token@example.com"],
           [id: String.duplicate("x", 129)],
           [id: ""],
           [id: <<255>>]
         ] do
-      assert {:error, %Chat.Errors.Contract{}} = Chat.Signal.SendMessage.new(request, opts)
+      assert {:error, %Chat.Errors.Contract{}} = Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, request, opts)
     end
 
     assert {:ok, _} =
-             Chat.Signal.SendMessage.new(request,
+             Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, request,
                id: String.duplicate("x", 128),
-               extensions: %{"traceparent" => F.trace(), "tracestate" => "contract=ok", "causationid" => "parent"}
+               extensions: %{"traceparent" => F.trace(), "tracestate" => "contract=ok", "jidocausationid" => "parent"}
              )
   end
 
@@ -112,7 +116,7 @@ defmodule Jido.Chat.SignalsContractTest do
   test "all native Signal examples retain identity and trace through Catalog serialization" do
     for entry <- F.entries() do
       definition = F.module(entry["module"])
-      assert {:ok, signal} = definition.new(entry["fixture"], entry["fixture_options"])
+      assert {:ok, signal} = Jido.Chat.Signal.Policy.new(definition, entry["fixture"], entry["fixture_options"])
       assert %Jido.Signal.Trace{} = Jido.Signal.Trace.get(signal)
       assert F.round_trip(signal) == signal
       wire = Jido.Signal.to_map(signal)
@@ -129,7 +133,7 @@ defmodule Jido.Chat.SignalsContractTest do
     sources = sources ++ [%{"content_base64" => Base.encode64(<<0, 255, 1>>), "filename" => "bytes.bin"}]
 
     for source <- sources do
-      assert {:ok, signal} = Chat.Signal.SendFile.new(Map.put(data, "source", source))
+      assert {:ok, signal} = Jido.Chat.Signal.Policy.new(Chat.Signal.SendFile, Map.put(data, "source", source))
       assert signal.data["source"] == source
       assert F.round_trip(signal) == signal
     end
@@ -141,7 +145,8 @@ defmodule Jido.Chat.SignalsContractTest do
           %{"content_base64" => "YQ=="},
           %{"client_id" => client.id, "kind" => "invalid", "id" => "f"}
         ] do
-      assert {:error, %Chat.Errors.Contract{}} = Chat.Signal.SendFile.new(Map.put(data, "source", source))
+      assert {:error, %Chat.Errors.Contract{}} =
+               Jido.Chat.Signal.Policy.new(Chat.Signal.SendFile, Map.put(data, "source", source))
     end
 
     for bytes <- ["", <<0, 255, 1>>] do
@@ -154,11 +159,14 @@ defmodule Jido.Chat.SignalsContractTest do
         "result" => result
       }
 
-      assert {:ok, downloaded} = Chat.DownloadFile.Completed.new(envelope)
+      assert {:ok, downloaded} = Chat.Signal.Policy.new(Chat.DownloadFile.Completed, envelope)
       assert Base.decode64!(downloaded.data["result"]["content_base64"]) == bytes
 
       assert {:error, %Chat.Errors.Contract{}} =
-               Chat.DownloadFile.Completed.new(put_in(envelope, ["result", "content_base64"], "invalid"))
+               Chat.Signal.Policy.new(
+                 Chat.DownloadFile.Completed,
+                 put_in(envelope, ["result", "content_base64"], "invalid")
+               )
     end
   end
 
@@ -168,16 +176,17 @@ defmodule Jido.Chat.SignalsContractTest do
     button = %{"text" => "Confirm", "value" => String.duplicate("é", 32)}
     row = List.duplicate(button, 8)
     maximum = %{"rows" => List.duplicate(row, 12) ++ [List.duplicate(button, 4)]}
-    assert {:ok, signal} = Chat.Signal.SendMessage.new(Map.put(data, "keyboard", maximum))
+    assert {:ok, signal} = Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, Map.put(data, "keyboard", maximum))
     assert F.round_trip(signal) == signal
 
     assert {:ok, _} =
-             Chat.Signal.SendMessage.new(
+             Jido.Chat.Signal.Policy.new(
+               Chat.Signal.SendMessage,
                Map.put(data, "keyboard", %{"rows" => [[%{"text" => "Help", "url" => "https://example.com"}]]})
              )
 
     edit = F.entry(Chat.Signal.EditMessage)["fixture"] |> Map.put("keyboard", %{"rows" => []})
-    assert {:ok, _} = Chat.Signal.EditMessage.new(edit)
+    assert {:ok, _} = Jido.Chat.Signal.Policy.new(Chat.Signal.EditMessage, edit)
 
     invalid = [
       %{"rows" => [[%{"text" => "No target"}]]},
@@ -189,22 +198,33 @@ defmodule Jido.Chat.SignalsContractTest do
     ]
 
     for keyboard <- invalid,
-        do: assert({:error, %Chat.Errors.Contract{}} = Chat.Signal.SendMessage.new(Map.put(data, "keyboard", keyboard)))
+        do:
+          assert(
+            {:error, %Chat.Errors.Contract{}} =
+              Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, Map.put(data, "keyboard", keyboard))
+          )
   end
 
   @tag obligation: "jido_chat.signals.I6"
   test "a Signal accepts the exact encoded byte limit and rejects one extra byte" do
     data = %{"client_id" => "alpha", "request_id" => "size", "room_id" => "room/1", "text" => ""}
     opts = [id: "fixed-size", time: "2026-10-17T12:00:00Z", extensions: %{"traceparent" => F.trace()}]
-    assert {:ok, base} = Chat.Signal.SendMessage.new(data, opts)
+    assert {:ok, base} = Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, data, opts)
     assert {:ok, encoded} = Jido.Signal.Serialization.serialize(base)
     fill = 262_144 - byte_size(encoded)
-    assert {:ok, maximum} = Chat.Signal.SendMessage.new(%{data | "text" => String.duplicate("x", fill)}, opts)
+
+    assert {:ok, maximum} =
+             Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, %{data | "text" => String.duplicate("x", fill)}, opts)
+
     assert {:ok, encoded} = Jido.Signal.Serialization.serialize(maximum)
     assert byte_size(encoded) == 262_144
 
     assert {:error, %Chat.Errors.Contract{code: :signal_too_large}} =
-             Chat.Signal.SendMessage.new(%{data | "text" => String.duplicate("x", fill + 1)}, opts)
+             Jido.Chat.Signal.Policy.new(
+               Chat.Signal.SendMessage,
+               %{data | "text" => String.duplicate("x", fill + 1)},
+               opts
+             )
   end
 
   @tag obligation: "jido_chat.signals.I6"
@@ -218,7 +238,8 @@ defmodule Jido.Chat.SignalsContractTest do
              Chat.Delivery.new(client, "delivery-1", List.duplicate(fact, 101))
 
     failure =
-      Chat.Signal.NormalizationFailed.new!(
+      Jido.Chat.Signal.Policy.new!(
+        Chat.Signal.NormalizationFailed,
         %{"item_id" => "failed", "delivery_id" => "delivery-1", "code" => "invalid_item", "item_index" => 0},
         source: client.source
       )
@@ -236,7 +257,7 @@ defmodule Jido.Chat.SignalsContractTest do
       extensions: %{"traceparent" => F.trace()}
     ]
 
-    empty = Chat.Signal.MessageReceived.new!(%{fact.data | "text" => ""}, fixed)
+    empty = Jido.Chat.Signal.Policy.new!(Chat.Signal.MessageReceived, %{fact.data | "text" => ""}, fixed)
 
     base_size =
       byte_size(
@@ -248,7 +269,11 @@ defmodule Jido.Chat.SignalsContractTest do
 
     signals =
       Enum.map(lengths, fn size ->
-        Chat.Signal.MessageReceived.new!(%{fact.data | "text" => String.duplicate("x", size)}, fixed)
+        Jido.Chat.Signal.Policy.new!(
+          Chat.Signal.MessageReceived,
+          %{fact.data | "text" => String.duplicate("x", size)},
+          fixed
+        )
       end)
 
     assert byte_size(Jason.encode!(%{"id" => "delivery-1", "signals" => Enum.map(signals, &Jido.Signal.to_map/1)})) ==
