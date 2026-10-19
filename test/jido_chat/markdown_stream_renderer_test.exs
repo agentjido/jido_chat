@@ -5,6 +5,36 @@ defmodule Jido.Chat.Markdown.StreamRendererTest do
   alias Jido.Chat.StreamChunk
   alias Jido.Chat.StreamMarkdownFixtures
 
+  test "complete code spans and fences keep literal Markdown characters" do
+    for source <- [
+          "`array[`",
+          "`x](y`",
+          "Before `a_*[` after",
+          "```text\n[\n```",
+          "~~~~text\n[**literal**\n~~~~",
+          "````text\nliteral ``` and [\n````"
+        ] do
+      {renderer, _snapshot} = StreamRenderer.push(StreamRenderer.new(), source)
+      assert StreamRenderer.flush(renderer) == source
+      assert StreamRenderer.render([source]) == source
+
+      streamed =
+        Enum.reduce(String.graphemes(source), StreamRenderer.new(), fn chunk, state ->
+          {next, _snapshot} = StreamRenderer.push(state, chunk)
+          next
+        end)
+
+      assert StreamRenderer.flush(streamed) == source
+    end
+
+    assert StreamRenderer.render(["```text\n**literal**"]) == "```text\n**literal**\n```"
+    assert StreamRenderer.render(["`array[` and **open"]) == "`array[` and **open**"
+    escaped = ~S(\`literal [\`)
+    assert StreamRenderer.render([escaped]) == escaped <> "]()"
+    assert StreamRenderer.render(["[`array["]) == "[`array[`]()"
+    assert StreamRenderer.render(["**before `code["]) == "**before `code[`**"
+  end
+
   test "one-character streams flush to the non-streamed Markdown" do
     for {name, markdown} <- StreamMarkdownFixtures.supported_documents() do
       {renderer, updates} =

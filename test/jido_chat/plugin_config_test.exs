@@ -13,6 +13,19 @@ defmodule Jido.Chat.PluginConfigTest do
     hd(entry.data.connections)
   end
 
+  test "a connection name cannot collide with the internal Runtime child ID" do
+    c = %{connection() | name: Plugin.Runtime}
+    root = start_supervised!(Plugin.child_spec(%{options: [connections: [c]], agent_server: self()}))
+    children = Supervisor.which_children(root)
+    assert {Plugin.Runtime, sensor, :worker, [Jido.Chat.Sensor]} = List.keyfind(children, Plugin.Runtime, 0)
+    assert Process.alive?(sensor)
+
+    assert {{Plugin.Runtime, :connections}, runtime, :worker, [Plugin.Runtime]} =
+             List.keyfind(children, {Plugin.Runtime, :connections}, 0)
+
+    assert Process.alive?(runtime)
+  end
+
   test "Sensor is a child of the Agent Plugin; Dispatch admits only the named scope" do
     definition = Jido.Chat.PluginFixture.SensorAgent.definition()
     {:ok, server} = Jido.start_agent(__MODULE__.Jido, definition, id: "sensor")

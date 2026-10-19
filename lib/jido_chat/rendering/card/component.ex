@@ -6,9 +6,9 @@ defmodule Jido.Chat.Card.Component do
   Provider count and text limits belong to each adapter renderer.
   """
 
+  alias Jido.Chat.Card.{ChartData, ChartSeries}
   alias Jido.Chat.Markdown
   alias Jido.Chat.Wire
-  alias Jido.Chat.Card.{ChartData, ChartSeries}
 
   @kinds [
     :text,

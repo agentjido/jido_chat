@@ -1,6 +1,6 @@
 defmodule Jido.Chat.OperationAdapterTest do
-  alias Jido.Chat.{Client, Signal}
   alias Jido.Chat.AdapterTestKit.{Assertions, Factories}
+  alias Jido.Chat.{Client, Signal}
 
   defmodule WireAdapter do
     use Jido.Chat.Adapter

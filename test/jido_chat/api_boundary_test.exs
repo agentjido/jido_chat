@@ -1,8 +1,8 @@
 defmodule Jido.Chat.APIBoundaryTest do
   use ExUnit.Case, async: true
   @moduletag capture_log: true
-  alias Jido.Chat.{Client, AdapterTestKit}
-  alias AdapterTestKit.{Assertions, Factories}
+  alias Jido.Chat.AdapterTestKit.{Assertions, Factories}
+  alias Jido.Chat.Client
 
   defmodule Adapter do
     use Jido.Chat.Adapter

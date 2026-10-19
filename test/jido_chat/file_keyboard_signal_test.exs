@@ -1,6 +1,6 @@
 defmodule Jido.Chat.FileKeyboardSignalTest do
   use ExUnit.Case, async: true
-  alias Jido.Chat.Signal.{SendMessage, SendFile, EditMessage}
+  alias Jido.Chat.Signal.{EditMessage, SendFile, SendMessage}
 
   defp base, do: %{"client_id" => "bot", "request_id" => "r", "room_id" => "123"}
 

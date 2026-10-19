@@ -31,7 +31,7 @@ defmodule Jido.Chat.Markdown.Node do
               text: Zoi.string() |> Zoi.nullish(),
               url: Zoi.string() |> Zoi.nullish(),
               language: Zoi.string() |> Zoi.nullish(),
-              level: Zoi.integer() |> Zoi.nullish(),
+              level: Zoi.integer() |> Zoi.min(1) |> Zoi.max(6) |> Zoi.nullish(),
               ordered: Zoi.boolean() |> Zoi.nullish(),
               start: Zoi.integer() |> Zoi.nullish(),
               align: Zoi.string() |> Zoi.nullish(),

@@ -7,7 +7,7 @@ defmodule Jido.Chat.PushSensorTest do
     use GenServer
     @behaviour Jido.Chat.Sensor.Source
     def mode, do: :push
-    def signal_types, do: ["jido.chat.message.received", "jido.chat.message.updated"]
+    def signal_types, do: ["jido.chat.message.received", "jido.chat.message.updated", "test.chat.room.changed"]
     def start_link(client, sensor, options), do: GenServer.start_link(__MODULE__, {client, sensor, options})
 
     def init({client, sensor, options}) do
@@ -46,8 +46,35 @@ defmodule Jido.Chat.PushSensorTest do
     def signal_types, do: []
   end
 
+  defmodule TrappingSource do
+    @behaviour Jido.Chat.Sensor.Source
+    def mode, do: :push
+    def signal_types, do: ["jido.chat.message.received"]
+
+    def start_link(client, _sensor, opts) do
+      {:ok,
+       spawn_link(fn ->
+         Process.flag(:trap_exit, true)
+         send(opts[:observer], {:source_started, self(), client.id})
+         loop(opts[:observer])
+       end)}
+    end
+
+    defp loop(observer) do
+      receive do
+        {:EXIT, _parent, :shutdown} ->
+          send(observer, :source_ignored_shutdown)
+          loop(observer)
+
+        _ ->
+          loop(observer)
+      end
+    end
+  end
+
   defp start(options \\ []) do
-    client = Client.new!(Jido.Chat.PluginFixture.Adapter, id: "push-client")
+    client =
+      Keyword.get_lazy(options, :client, fn -> Client.new!(Jido.Chat.PluginFixture.Adapter, id: "push-client") end)
 
     opts =
       Keyword.merge(
@@ -130,6 +157,35 @@ defmodule Jido.Chat.PushSensorTest do
     refute_receive {:signal, _}
   end
 
+  test "push rejects invalid Chat context and size before Dispatch" do
+    {sensor, _worker, client} = start()
+    signal = fact(client, "one")
+
+    for invalid <- [
+          %{signal | extensions: %{"correlationid" => "unapproved"}},
+          %{signal | data: Map.put(signal.data, "text", String.duplicate("x", 262_144))}
+        ] do
+      assert {:error, :input_rejected} = Sensor.push(sensor, [invalid])
+    end
+
+    refute_receive {:signal, _}
+  end
+
+  test "room filters use the provider schema's validated data" do
+    client = Client.new!(Jido.Chat.PluginFixture.ProviderAdapter, id: "push-client")
+    {sensor, _worker, ^client} = start(client: client, emit: "test.chat.room.changed")
+
+    signal =
+      Jido.Chat.PluginFixture.RoomChanged.new!(
+        %{"item_id" => "one", "delivery_id" => "batch", "room_id" => "room-1"},
+        source: client.source
+      )
+
+    raw = %{signal | data: Map.put(signal.data, "room_id", "room-1")}
+    assert :ok = Sensor.push(sensor, [raw])
+    refute_receive {:signal, _}
+  end
+
   test "a rejected push batch can be retried without repeating its accepted prefix" do
     store = start_supervised!({Agent, fn -> [true, false, true] end})
     {sensor, _worker, client} = start(dispatch: {__MODULE__.Dispatch, store: store, observer: self()})
@@ -146,6 +202,15 @@ defmodule Jido.Chat.PushSensorTest do
     ref = Process.monitor(worker)
     stop_supervised(Sensor)
     assert_receive {:DOWN, ^ref, :process, ^worker, :shutdown}
+  end
+
+  test "Sensor shutdown stops a plain source worker that traps exits" do
+    {_sensor, worker, _client} = start(source: TrappingSource)
+    on_exit(fn -> if Process.alive?(worker), do: Process.exit(worker, :kill) end)
+    ref = Process.monitor(worker)
+    stop_supervised(Sensor)
+    assert_receive :source_ignored_shutdown
+    assert_receive {:DOWN, ^ref, :process, ^worker, :killed}, 2_000
   end
 
   test "a failed source causes Sensor restart under its host supervisor" do

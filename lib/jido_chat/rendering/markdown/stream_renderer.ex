@@ -122,17 +122,15 @@ defmodule Jido.Chat.Markdown.StreamRenderer do
   defp repair_markdown(nil, _phase), do: nil
 
   defp repair_markdown(text, phase) do
-    text = buffer_trailing_emphasis_delimiter(text, phase)
+    case scan_fences(text) do
+      {nil, prose} ->
+        buffered = buffer_trailing_emphasis_delimiter(prose, phase)
+        dropped = byte_size(prose) - byte_size(buffered)
+        text = binary_part(text, 0, byte_size(text) - dropped)
+        repair_inline_markdown(visible_text(text), buffered)
 
-    case visible_text(text) do
-      nil ->
-        nil
-
-      text ->
-        case open_fence(text) do
-          nil -> repair_inline_markdown(text)
-          fence -> text <> newline_before_closer(text) <> fence
-        end
+      {fence, _prose} ->
+        text <> newline_before_closer(text) <> fence
     end
   end
 
@@ -174,20 +172,26 @@ defmodule Jido.Chat.Markdown.StreamRenderer do
     |> Enum.any?(&String.contains?(&1, delimiter))
   end
 
-  defp repair_inline_markdown(text) do
-    if odd_inline_backticks?(text) do
-      text <> "`"
-    else
-      text
-      |> close_partial_link()
-      |> close_partial_emphasis()
-    end
+  defp repair_inline_markdown(nil, _prose), do: nil
+
+  defp repair_inline_markdown(text, prose) do
+    code = if odd_inline_backticks?(prose), do: "`", else: ""
+    scan = Regex.replace(~r/(?<!\\)`[^`]*`/, prose <> code, "")
+    link = partial_link_closer(scan)
+    text <> code <> link <> partial_emphasis_closer(scan <> link)
   end
 
-  defp open_fence(text) do
-    text
-    |> String.split("\n", trim: false)
-    |> Enum.reduce(nil, fn line, open -> next_fence_state(line, open) end)
+  defp scan_fences(text) do
+    {fence, lines} =
+      text
+      |> String.split("\n", trim: false)
+      |> Enum.reduce({nil, []}, fn line, {open, lines} ->
+        next = next_fence_state(line, open)
+        prose = if is_nil(open) and is_nil(next), do: line, else: ""
+        {next, [prose | lines]}
+      end)
+
+    {fence, lines |> Enum.reverse() |> Enum.join("\n")}
   end
 
   defp next_fence_state(line, nil), do: opening_fence(line)
@@ -225,11 +229,11 @@ defmodule Jido.Chat.Markdown.StreamRenderer do
     |> rem(2) == 1
   end
 
-  defp close_partial_link(text) do
+  defp partial_link_closer(text) do
     cond do
-      unmatched_link_destination?(text) -> text <> ")"
-      unmatched_link_label?(text) -> text <> "]()"
-      true -> text
+      unmatched_link_destination?(text) -> ")"
+      unmatched_link_label?(text) -> "]()"
+      true -> ""
     end
   end
 
@@ -251,13 +255,9 @@ defmodule Jido.Chat.Markdown.StreamRenderer do
     opens > closes
   end
 
-  defp close_partial_emphasis(text) do
-    scan_text =
-      ~r/`[^`]*`/
-      |> Regex.replace(text, "")
-      |> then(&Regex.replace(~r/\]\([^)]*\)/, &1, ""))
-
-    text <> Enum.join(emphasis_stack(scan_text), "")
+  defp partial_emphasis_closer(text) do
+    scan_text = Regex.replace(~r/\]\([^)]*\)/, text, "")
+    Enum.join(emphasis_stack(scan_text), "")
   end
 
   defp emphasis_stack(text) do

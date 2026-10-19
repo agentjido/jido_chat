@@ -35,6 +35,35 @@ defmodule Jido.Chat.PluginFixture.Adapter do
   end
 end
 
+defmodule Jido.Chat.PluginFixture.RoomChanged do
+  @moduledoc false
+  use Jido.Chat.Signal.Definition,
+    owner: :fixture,
+    kind: :fact,
+    type: "test.chat.room.changed",
+    dataschema: "urn:test:chat:room:1",
+    default_source: "urn:test:chat:fixture",
+    schema:
+      Zoi.map(
+        %{
+          "item_id" => Zoi.string(),
+          "delivery_id" => Zoi.string(),
+          "room_id" => Zoi.string() |> Zoi.to_upcase()
+        },
+        unrecognized_keys: :error
+      )
+end
+
+defmodule Jido.Chat.PluginFixture.ProviderAdapter do
+  @moduledoc false
+  use Jido.Chat.Adapter
+  defdelegate capabilities(), to: Jido.Chat.PluginFixture.Adapter
+  defdelegate invoke(client, request, opts), to: Jido.Chat.PluginFixture.Adapter
+  defdelegate normalize(client, input, opts), to: Jido.Chat.PluginFixture.Adapter
+  @doc false
+  def event_definitions, do: Jido.Chat.event_definitions() ++ [Jido.Chat.PluginFixture.RoomChanged]
+end
+
 defmodule Jido.Chat.PluginFixture.Reply do
   @moduledoc "Builds a fixed reply. Replace this Action with a Flow later."
   use Jido.Action,
@@ -253,6 +282,7 @@ defmodule Jido.Chat.PluginFixture.Accept do
 end
 
 defmodule Jido.Chat.PluginFixture.SensorAgent do
+  @moduledoc false
   use Jido.Agent, name: "sensor_agent"
 
   agent do

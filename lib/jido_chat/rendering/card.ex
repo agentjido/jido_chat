@@ -76,14 +76,14 @@ defmodule Jido.Chat.Card do
   @spec field(String.t(), String.t(), keyword() | map()) :: component()
   def field(label, value, opts \\ []) when is_binary(label) do
     opts = normalize_opts(opts)
-    Component.new(%{kind: :field, label: label, text: value, metadata: opts[:metadata] || %{}})
+    Component.new(%{kind: :field, label: label, text: value, metadata: opts[:metadata] || opts["metadata"] || %{}})
   end
 
   @doc "Builds a grouped fields component."
   @spec fields([component() | map()], keyword() | map()) :: component()
   def fields(items, opts \\ []) when is_list(items) do
     opts = normalize_opts(opts)
-    Component.new(%{kind: :fields, title: opts[:title], items: items})
+    Component.new(%{kind: :fields, title: opts[:title] || opts["title"], items: items})
   end
 
   @doc "Builds a button component."
@@ -140,14 +140,14 @@ defmodule Jido.Chat.Card do
   @spec link(String.t(), String.t(), keyword() | map()) :: component()
   def link(label, url, opts \\ []) when is_binary(label) and is_binary(url) do
     opts = normalize_opts(opts)
-    Component.new(%{kind: :link, label: label, url: url, metadata: opts[:metadata] || %{}})
+    Component.new(%{kind: :link, label: label, url: url, metadata: opts[:metadata] || opts["metadata"] || %{}})
   end
 
   @doc "Builds an actions component."
   @spec actions([component() | map()], keyword() | map()) :: component()
   def actions(items, opts \\ []) when is_list(items) do
     opts = normalize_opts(opts)
-    Component.new(%{kind: :actions, title: opts[:title], items: items})
+    Component.new(%{kind: :actions, title: opts[:title] || opts["title"], items: items})
   end
 
   @doc "Builds a select option component."
@@ -409,89 +409,103 @@ defmodule Jido.Chat.Card do
   defp maybe_append_markdown(children, nil), do: children
   defp maybe_append_markdown(children, %Markdown{root: root}), do: children ++ root.children
 
-  defp component_to_markdown(%Component{} = component) do
-    case component.kind do
-      :text ->
-        component_markdown_or_text(component)
+  defp component_to_markdown(%Component{kind: :text} = component) do
+    component_markdown_or_text(component)
+  end
 
-      :section ->
-        []
-        |> maybe_prepend_component_title(component.title)
-        |> maybe_append_component_text(component.text)
-        |> maybe_append_component_markdown(component.markdown)
-        |> Kernel.++(Enum.flat_map(component.items, &component_to_markdown/1))
+  defp component_to_markdown(%Component{kind: :section} = component) do
+    []
+    |> maybe_prepend_component_title(component.title)
+    |> maybe_append_component_text(component.text)
+    |> maybe_append_component_markdown(component.markdown)
+    |> Kernel.++(Enum.flat_map(component.items, &component_to_markdown/1))
+  end
 
-      :field ->
-        label = component.label || component.title || "Field"
-        value = component.text || component.value || ""
-        [Markdown.paragraph("#{label}: #{value}")]
+  defp component_to_markdown(%Component{kind: :field} = component) do
+    label = component.label || component.title || "Field"
+    value = component.text || component.value || ""
+    [Markdown.paragraph("#{label}: #{value}")]
+  end
 
-      :fields ->
-        heading = if component.title, do: [Markdown.heading(3, component.title)], else: []
-        heading ++ Enum.flat_map(component.items, &component_to_markdown/1)
+  defp component_to_markdown(%Component{kind: :fields} = component) do
+    heading = if component.title, do: [Markdown.heading(3, component.title)], else: []
+    heading ++ Enum.flat_map(component.items, &component_to_markdown/1)
+  end
 
-      :button ->
-        label = component.label || component.title || component.id || "Action"
-        [Markdown.list([Markdown.list_item(label)])]
+  defp component_to_markdown(%Component{kind: :button} = component) do
+    label = component.label || component.title || component.id || "Action"
+    [Markdown.list([Markdown.list_item(label)])]
+  end
 
-      :link_button ->
-        [
-          Markdown.list([
-            Markdown.list_item(Markdown.link(component.label || "Open", component.url || "#"))
-          ])
-        ]
+  defp component_to_markdown(%Component{kind: :link_button} = component) do
+    [
+      Markdown.list([
+        Markdown.list_item(Markdown.link(component.label || "Open", component.url || "#"))
+      ])
+    ]
+  end
 
-      :link ->
-        [
-          Markdown.paragraph([
-            Markdown.link(component.label || component.url || "Link", component.url || "#")
-          ])
-        ]
+  defp component_to_markdown(%Component{kind: :link} = component) do
+    [
+      Markdown.paragraph([
+        Markdown.link(component.label || component.url || "Link", component.url || "#")
+      ])
+    ]
+  end
 
-      :actions ->
-        heading = if component.title, do: [Markdown.heading(3, component.title)], else: []
-        heading ++ Enum.flat_map(component.items, &component_to_markdown/1)
+  defp component_to_markdown(%Component{kind: :actions} = component) do
+    heading = if component.title, do: [Markdown.heading(3, component.title)], else: []
+    heading ++ Enum.flat_map(component.items, &component_to_markdown/1)
+  end
 
-      :select ->
-        label = component.label || component.title || component.id || "Select"
-        options = Enum.map(component.options, &select_option_label/1)
-        [Markdown.heading(4, label), Markdown.list(options)]
+  defp component_to_markdown(%Component{kind: :select} = component) do
+    label = component.label || component.title || component.id || "Select"
+    options = Enum.map(component.options, &select_option_label/1)
+    [Markdown.heading(4, label), Markdown.list(options)]
+  end
 
-      :radio_select ->
-        label = component.label || component.title || component.id || "Options"
-        options = Enum.map(component.options, &select_option_label/1)
-        [Markdown.heading(4, label), Markdown.list(options)]
+  defp component_to_markdown(%Component{kind: :radio_select} = component) do
+    label = component.label || component.title || component.id || "Options"
+    options = Enum.map(component.options, &select_option_label/1)
+    [Markdown.heading(4, label), Markdown.list(options)]
+  end
 
-      :external_select ->
-        external_select_to_markdown(component)
+  defp component_to_markdown(%Component{kind: :external_select} = component) do
+    external_select_to_markdown(component)
+  end
 
-      :table ->
-        table_rows = [component.columns | component.rows]
+  defp component_to_markdown(%Component{kind: :table} = component) do
+    table_rows = [component.columns | component.rows]
 
-        []
-        |> maybe_prepend_component_title(component.title)
-        |> maybe_append_component_text(component.caption)
-        |> Kernel.++([Markdown.table(table_rows)])
+    []
+    |> maybe_prepend_component_title(component.title)
+    |> maybe_append_component_text(component.caption)
+    |> Kernel.++([Markdown.table(table_rows)])
+  end
 
-      kind when kind in [:pie_chart, :bar_chart, :area_chart, :line_chart] ->
-        chart_to_markdown(component)
+  defp component_to_markdown(%Component{kind: kind} = component)
+       when kind in [:pie_chart, :bar_chart, :area_chart, :line_chart] do
+    chart_to_markdown(component)
+  end
 
-      :image ->
-        label = component.alt_text || component.title || component.image_url || "image"
-        [Markdown.paragraph(label)]
+  defp component_to_markdown(%Component{kind: :image} = component) do
+    label = component.alt_text || component.title || component.image_url || "image"
+    [Markdown.paragraph(label)]
+  end
 
-      :divider ->
-        [Markdown.divider()]
+  defp component_to_markdown(%Component{kind: :divider}) do
+    [Markdown.divider()]
+  end
 
-      :select_option ->
-        [Markdown.paragraph(select_option_label(component))]
+  defp component_to_markdown(%Component{kind: :select_option} = component) do
+    [Markdown.paragraph(select_option_label(component))]
+  end
 
-      :option_group ->
-        [
-          Markdown.heading(4, component.label || component.title || "Options"),
-          Markdown.list(Enum.map(component.options, &select_option_label/1))
-        ]
-    end
+  defp component_to_markdown(%Component{kind: :option_group} = component) do
+    [
+      Markdown.heading(4, component.label || component.title || "Options"),
+      Markdown.list(Enum.map(component.options, &select_option_label/1))
+    ]
   end
 
   defp component_markdown_or_text(%Component{markdown: %Markdown{root: root}}), do: root.children

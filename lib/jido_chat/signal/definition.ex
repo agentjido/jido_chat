@@ -4,6 +4,10 @@ defmodule Jido.Chat.Signal.Definition do
   explicit `owner`. Declare these definitions in the adapter's `event_definitions/0`.
   Facts require `item_id` and `delivery_id`; room facts also use `room_id` and the
   client-scoped conversation subject. Data and trace context follow Chat policy.
+
+  Each module still constructs a native `Jido.Signal`. This macro adds the Chat
+  data, context, size, and trace rules at construction. `Jido.Signal` owns the
+  envelope, schema identity, validation, and catalog protocol.
   """
 
   @doc "Defines a typed chat fact, request, or result with JSON and context checks."

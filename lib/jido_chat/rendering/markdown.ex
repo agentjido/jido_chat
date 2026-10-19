@@ -207,6 +207,9 @@ defmodule Jido.Chat.Markdown do
         Enum.map(cells, &(&1 |> render_plain_node() |> String.trim()))
       end)
 
+    column_count = rows |> Enum.map(&length/1) |> Enum.max(fn -> 0 end)
+    rows = Enum.map(rows, fn row -> row ++ List.duplicate("", column_count - length(row)) end)
+
     widths =
       rows
       |> Enum.zip_with(fn column ->

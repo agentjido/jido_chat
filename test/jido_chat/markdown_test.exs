@@ -4,6 +4,20 @@ defmodule Jido.Chat.MarkdownTest do
   alias Jido.Chat.Markdown
   alias Jido.Chat.Markdown.Node
 
+  test "node constructors reject heading levels that cannot render" do
+    for level <- [-1, 0, 7] do
+      assert_raise Jido.Chat.Errors.Validation, fn ->
+        Node.new(%{type: :heading, level: level, children: ["Title"]})
+      end
+    end
+
+    for level <- 1..6 do
+      node = Node.new(%{type: :heading, level: level, children: ["Title"]})
+      assert Markdown.stringify(node) == String.duplicate("#", level) <> " Title"
+      assert Node.from_map(Node.to_map(node)) == node
+    end
+  end
+
   test "block parsing preserves headings, lists, quotes, tables and following paragraphs" do
     source =
       "# Report\n\n- First\n- Second\n\n> Quote\n> Next\n\n| Name | Count |\n| --- | --- |\n| Ada | 12 |\n\n---\n\nAfter"
@@ -76,6 +90,13 @@ defmodule Jido.Chat.MarkdownTest do
     assert Markdown.table_to_ascii(Markdown.root(["Intro", Markdown.blockquote([table])])) == expected
     assert Markdown.table_to_ascii(Markdown.paragraph("No table")) == ""
     assert Markdown.table_to_ascii(Markdown.root([])) == ""
+  end
+
+  test "ASCII tables preserve every column when rows have different lengths" do
+    table = Markdown.table([["Name", "N"], ["Ada", "2"], ["Total"], ["Extra", "3", "Note"]])
+
+    assert Markdown.plain_text(table) ==
+             "Name  | N |     \n------+---+-----\nAda   | 2 |     \nTotal |   |     \nExtra | 3 | Note"
   end
 
   test "walking transforms every nested node and leaves the original document intact" do

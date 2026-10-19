@@ -23,7 +23,7 @@ defmodule Jido.Chat.MixProject do
       test_coverage: [
         tool: ExCoveralls,
         summary: [threshold: 90],
-        export: "cov"
+        export: "excoveralls"
       ],
       dialyzer: [
         plt_local_path: "priv/plts/project.plt",
@@ -41,6 +41,7 @@ defmodule Jido.Chat.MixProject do
         "test.contracts": :test,
         cover: :test,
         coveralls: :test,
+        "coveralls.json": :test,
         "coveralls.github": :test,
         "coveralls.html": :test
       ]
@@ -98,7 +99,7 @@ defmodule Jido.Chat.MixProject do
       quality: [
         "format --check-formatted",
         "compile --warnings-as-errors",
-        "credo --min-priority higher",
+        "credo --strict --all",
         "dialyzer",
         "doctor --raise"
       ]

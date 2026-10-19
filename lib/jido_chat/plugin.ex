@@ -14,8 +14,8 @@ defmodule Jido.Chat.Plugin do
   See `guides/agent_plugin.md` for the complete declaration and source contract.
   """
   require Logger
-  alias Spark.Dsl.Extension, as: E
   alias Jido.Chat.Plugin.Patterns
+  alias Spark.Dsl.Extension, as: E
 
   @client %Spark.Dsl.Entity{
     name: :client,
@@ -257,7 +257,12 @@ defmodule Jido.Chat.Plugin do
         )
       end
 
-    children = [{Jido.Chat.Plugin.Runtime, {init.agent_server, connections}} | sensors]
+    runtime =
+      Supervisor.child_spec({Jido.Chat.Plugin.Runtime, {init.agent_server, connections}},
+        id: {Jido.Chat.Plugin.Runtime, :connections}
+      )
+
+    children = [runtime | sensors]
 
     %{
       id: __MODULE__,
@@ -290,7 +295,9 @@ defmodule Jido.Chat.Plugin do
 
       true ->
         with {:ok, signal} <-
-               Jido.Signal.Catalog.validate(Jido.Chat.catalog(connection.client), signal) do
+               Jido.Signal.Catalog.validate(Jido.Chat.catalog(connection.client), signal),
+             {:ok, signal} <- Jido.Chat.Signal.Policy.validate(signal),
+             true <- signal.data["room_id"] in connection.rooms do
           :ok =
             GenServer.call(
               {:global, {Jido.Chat.Plugin.Runtime, server}},
@@ -300,14 +307,17 @@ defmodule Jido.Chat.Plugin do
           Jido.AgentServer.call(server, signal,
             context: %{chat: %{connection: name, client_id: connection.client.id, adapter: connection.client.adapter}}
           )
+        else
+          false -> {:error, :chat_scope_denied}
+          error -> error
         end
     end
   end
 
   def ingest(_server, _name, _signal), do: {:error, :invalid_chat_signal}
 
-  defp emitted?(%{source: nil}, type),
-    do: Enum.any?(Jido.Chat.event_definitions(), &(&1.type() == type))
+  defp emitted?(%{source: nil, client: client}, type),
+    do: Enum.any?(Jido.Chat.event_definitions(client), &(&1.type() == type))
 
   defp emitted?(%{source: %{module: source, emit: emit}}, type),
     do: type in source.signal_types() and Patterns.selected?(type, emit)
@@ -316,7 +326,7 @@ defmodule Jido.Chat.Plugin do
   def dispatch(runtime, %Jido.Chat.Plugin.Deliver{signal: signal}, context, _opts) do
     {_, store, _, _} =
       Enum.find(Supervisor.which_children(runtime), fn {id, _, _, _} ->
-        id == Jido.Chat.Plugin.Runtime
+        id == {Jido.Chat.Plugin.Runtime, :connections}
       end)
 
     connections = GenServer.call(store, :connections)
@@ -426,7 +436,7 @@ defmodule Jido.Chat.Plugin do
   end
 
   defp return_result(context, result) do
-    case Jido.whereis_agent(context.jido, context.agent_id) do
+    case Jido.whereis_agent(context.jido, context.agent_id, partition: Map.get(context, :partition)) do
       server when is_pid(server) ->
         Jido.AgentServer.cast(server, result)
         Logger.info("Chat output: #{result.type}")

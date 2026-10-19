@@ -210,12 +210,11 @@ defmodule Jido.Chat.Sensor do
         :skip
 
       true ->
-        case Jido.Signal.Catalog.validate(Jido.Chat.catalog(state.client), signal) do
-          {:ok, validated} ->
-            if state.rooms == :all or data["room_id"] in state.rooms, do: {:ok, validated}, else: :skip
-
-          _ ->
-            :invalid
+        with {:ok, validated} <- Jido.Signal.Catalog.validate(Jido.Chat.catalog(state.client), signal),
+             {:ok, validated} <- Jido.Chat.Signal.Policy.validate(validated) do
+          if state.rooms == :all or validated.data["room_id"] in state.rooms, do: {:ok, validated}, else: :skip
+        else
+          _ -> :invalid
         end
     end
   end
@@ -239,8 +238,17 @@ defmodule Jido.Chat.Sensor do
 
   @impl true
   def terminate(_reason, %{worker: worker}) when is_pid(worker) do
-    if Process.alive?(worker), do: Process.exit(worker, :shutdown)
-    :ok
+    monitor = Process.monitor(worker)
+    Process.exit(worker, :shutdown)
+
+    receive do
+      {:DOWN, ^monitor, :process, ^worker, _reason} -> :ok
+    after
+      1_000 ->
+        Process.exit(worker, :kill)
+        Process.demonitor(monitor, [:flush])
+        :ok
+    end
   end
 
   def terminate(_reason, _state), do: :ok

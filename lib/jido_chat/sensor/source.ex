@@ -15,6 +15,7 @@ defmodule Jido.Chat.Sensor.Source do
   admission, not a reply or durable storage. The source owns protocol receipts,
   reconnection, and provider retry rules. It must not acknowledge rejected input
   as accepted. The Sensor stops if its worker exits and stops it on shutdown.
+  The worker has 1,000 milliseconds to stop before the Sensor sends `:kill`.
 
   Optional `key/2` returns an opaque identity to prevent concurrent sources.
   Do not return a raw credential. Runtime workers and credentials never belong

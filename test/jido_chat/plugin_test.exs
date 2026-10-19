@@ -13,7 +13,7 @@ defmodule Jido.Chat.PluginTest do
 
   defp start(opts \\ []) do
     client =
-      Jido.Chat.Client.new!(Jido.Chat.PluginFixture.Adapter,
+      Jido.Chat.Client.new!(Keyword.get(opts, :adapter, Jido.Chat.PluginFixture.Adapter),
         id: "mock/support",
         config: [observer: __MODULE__, result: opts[:result]]
       )
@@ -25,11 +25,12 @@ defmodule Jido.Chat.PluginTest do
     connection = %{
       connection
       | client: Map.take(client, [:adapter, :id, :credentials, :config, :transport]),
-        rooms: ["room-1"],
+        rooms: Keyword.get(opts, :rooms, ["room-1"]),
         source: opts[:source]
     }
 
-    routes = Enum.reject(original.routes, &(&1.path in Keyword.get(opts, :remove_routes, [])))
+    routes =
+      Enum.reject(Keyword.get(opts, :routes, original.routes), &(&1.path in Keyword.get(opts, :remove_routes, [])))
 
     definition = %{
       original
@@ -38,7 +39,9 @@ defmodule Jido.Chat.PluginTest do
     }
 
     # No custom startup or dispatch option.
-    {:ok, server} = Jido.start_agent(Jido.Chat.PluginTest.Jido, definition, id: "mock-test")
+    {:ok, server} =
+      Jido.start_agent(Jido.Chat.PluginTest.Jido, definition, id: "mock-test", partition: opts[:partition])
+
     :ok = Jido.AgentServer.await_ready(server)
 
     %{
@@ -78,6 +81,66 @@ defmodule Jido.Chat.PluginTest do
       Process.sleep(10)
       delivery(server, type, tries - 1)
     end
+  end
+
+  test "results return to the same Agent partition" do
+    default = start()
+    tenant = start(partition: "tenant")
+
+    assert {:ok, _, _} = Jido.Chat.Plugin.ingest(tenant.server, tenant.connection.name, fact(tenant.client))
+    assert_receive {:mock_send, "mock/support", _command}, 2_000
+    assert delivery(tenant.server, "jido.chat.command.send_message.completed").state.last_request == "mock:item:1:reply"
+    assert Jido.AgentServer.agent(default.server).state.last_delivery == ""
+  end
+
+  test "incoming facts reject invalid Chat context and size before an Agent turn" do
+    ctx = start()
+    signal = fact(ctx.client)
+
+    for invalid <- [
+          %{signal | extensions: %{"correlationid" => "unapproved"}},
+          %{signal | data: Map.put(signal.data, "text", String.duplicate("x", 262_144))}
+        ] do
+      assert {:error, _} = Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, invalid)
+    end
+
+    assert Jido.AgentServer.agent(ctx.server).state.replies == 0
+    refute_receive {:mock_send, _, _}
+  end
+
+  test "a webhook connection admits declared provider facts without a Sensor" do
+    routes = Jido.Chat.PluginFixture.Agent.definition().routes
+
+    custom = %{
+      hd(routes)
+      | path: "test.chat.room.changed",
+        handler: %{kind: :action, target: Jido.Chat.PluginFixture.Accept},
+        emits: []
+    }
+
+    ctx = start(adapter: Jido.Chat.PluginFixture.ProviderAdapter, rooms: ["ROOM-1"], routes: [custom | routes])
+
+    signal =
+      Jido.Chat.PluginFixture.RoomChanged.new!(
+        %{"item_id" => "one", "delivery_id" => "batch", "room_id" => "room-1"},
+        source: ctx.client.source
+      )
+
+    assert {:ok, _, []} = Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, signal)
+    refute_receive {:mock_send, _, _}
+  end
+
+  test "room scope applies after a provider schema transforms the incoming data" do
+    ctx = start(adapter: Jido.Chat.PluginFixture.ProviderAdapter)
+
+    signal =
+      Jido.Chat.PluginFixture.RoomChanged.new!(
+        %{"item_id" => "one", "delivery_id" => "batch", "room_id" => "room-1"},
+        source: ctx.client.source
+      )
+
+    raw = %{signal | data: Map.put(signal.data, "room_id", "room-1")}
+    assert {:error, :chat_scope_denied} = Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, raw)
   end
 
   test "core facts use the unchanged reply Action and real Chat Action through a mock adapter" do

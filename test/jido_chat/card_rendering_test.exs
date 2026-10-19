@@ -4,6 +4,16 @@ defmodule Jido.Chat.CardRenderingTest do
   alias Jido.Chat.{Card, Markdown}
   alias Jido.Chat.Card.{ChartData, ChartSeries, Component}
 
+  test "builder options preserve string-key titles and metadata" do
+    metadata = %{"source" => "fixture"}
+    assert Card.fields([], %{"title" => "Facts"}) == Card.fields([], title: "Facts")
+    assert Card.actions([], %{"title" => "Actions"}) == Card.actions([], title: "Actions")
+    assert Card.field("A", "B", %{"metadata" => metadata}) == Card.field("A", "B", metadata: metadata)
+
+    assert Card.link("Docs", "https://example.test", %{"metadata" => metadata}) ==
+             Card.link("Docs", "https://example.test", metadata: metadata)
+  end
+
   test "grouped content and actions retain their text in Markdown and adapter payloads" do
     card =
       Card.new(%{title: "Report", summary: "Summary", markdown: "Intro"})

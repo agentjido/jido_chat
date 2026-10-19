@@ -27,24 +27,6 @@ defmodule Jido.Chat.Wire do
   def to_plain(tuple) when is_tuple(tuple), do: tuple |> Tuple.to_list() |> Enum.map(&to_plain/1)
   def to_plain(value), do: value
 
-  @spec encode_module(module() | atom() | nil) :: String.t() | nil
-  def encode_module(nil), do: nil
-  def encode_module(module) when is_atom(module), do: Atom.to_string(module)
-
-  @spec decode_module(module() | String.t() | nil) :: module() | nil
-  def decode_module(nil), do: nil
-  def decode_module(module) when is_atom(module), do: module
-
-  def decode_module(module_name) when is_binary(module_name) do
-    module =
-      module_name
-      |> String.trim_leading("Elixir.")
-      |> String.split(".")
-      |> Module.concat()
-
-    module
-  end
-
   defp normalize_key(key) when is_atom(key), do: Atom.to_string(key)
   defp normalize_key(key), do: key
 end
