@@ -265,6 +265,21 @@ defmodule Jido.Chat.Adapter do
   @callback listener_child_specs(bridge_id :: String.t(), opts :: listener_opts()) ::
               {:ok, [Supervisor.child_spec()]} | {:error, term()}
 
+  @doc "Prepares trusted listener options; adapter-specific connection state stays opaque to hosts."
+  @callback prepare_connection(keyword()) :: {:ok, map()} | {:error, term()}
+
+  @doc "Returns shared provider infrastructure specs. The host owns their supervision."
+  @callback provider_child_specs(keyword()) :: {:ok, [Supervisor.child_spec()]} | {:error, term()}
+
+  @doc "Derives stable connection identity from an opaque binding without requiring a live listener."
+  @callback connection_identity(term()) :: {:ok, term()} | {:error, term()}
+
+  @doc "Returns connection-scoped delivery options from an opaque binding."
+  @callback connection_options(term(), keyword()) :: map() | {:error, term()}
+
+  @doc "Logs out an exact listener; ordinary listener shutdown must retain credentials."
+  @callback logout(GenServer.server()) :: :ok | {:error, term()}
+
   @callback capabilities() :: capability_matrix()
 
   @doc """
@@ -278,7 +293,12 @@ defmodule Jido.Chat.Adapter do
   @callback authenticate(authentication_request(), owner_id :: term(), keyword()) ::
               authentication_result()
 
-  @optional_callbacks initialize: 1,
+  @optional_callbacks prepare_connection: 1,
+                      provider_child_specs: 1,
+                      connection_identity: 1,
+                      connection_options: 2,
+                      logout: 1,
+                      initialize: 1,
                       authenticate: 3,
                       shutdown: 1,
                       send_file: 3,
@@ -328,6 +348,58 @@ defmodule Jido.Chat.Adapter do
 
       defoverridable channel_type: 0
     end
+  end
+
+  @doc "Prepares listener options, preserving legacy adapters' options unchanged."
+  @spec prepare_connection(module(), keyword()) :: {:ok, keyword()} | {:error, term()}
+  def prepare_connection(adapter, opts) do
+    if callback_exported?(adapter, :prepare_connection, 1) do
+      case adapter.prepare_connection(opts) do
+        {:ok, %{} = ingress} -> {:ok, Keyword.put(opts, :ingress, ingress)}
+        {:error, _} = error -> error
+        _ -> {:error, :invalid_connection_options}
+      end
+    else
+      {:ok, opts}
+    end
+  end
+
+  @doc "Returns optional provider infrastructure without starting processes."
+  @spec provider_child_specs(module(), keyword()) :: {:ok, [Supervisor.child_spec()]} | {:error, term()}
+  def provider_child_specs(adapter, opts) do
+    if callback_exported?(adapter, :provider_child_specs, 1),
+      do: adapter.provider_child_specs(opts),
+      else: {:ok, []}
+  end
+
+  @doc "Returns a stable opaque identity, or unsupported for legacy adapters."
+  @spec connection_identity(module(), term()) :: {:ok, term()} | {:error, term()}
+  def connection_identity(adapter, binding) do
+    if callback_exported?(adapter, :connection_identity, 1),
+      do: adapter.connection_identity(binding),
+      else: {:error, :unsupported}
+  end
+
+  @doc "Resolves delivery options without interpreting provider-specific connection state."
+  @spec connection_options(module(), term(), keyword()) :: {:ok, keyword()} | {:error, term()}
+  def connection_options(adapter, binding, opts) do
+    if callback_exported?(adapter, :connection_options, 2) do
+      case adapter.connection_options(binding, opts) do
+        %{} = options -> {:ok, Keyword.merge(opts, Map.to_list(options))}
+        {:error, _} = error -> error
+        _ -> {:error, :invalid_connection_options}
+      end
+    else
+      {:ok, opts}
+    end
+  end
+
+  @doc "Delegates explicit logout to the selected adapter listener."
+  @spec logout(module(), GenServer.server()) :: :ok | {:error, term()}
+  def logout(adapter, listener) do
+    if callback_exported?(adapter, :logout, 1),
+      do: adapter.logout(listener),
+      else: {:error, :unsupported}
   end
 
   @doc "Initializes adapter resources when supported."
