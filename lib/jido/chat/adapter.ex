@@ -11,6 +11,11 @@ defmodule Jido.Chat.Adapter do
   context when available. An update should include the changed `message` when
   available. A delete must leave `message` as `nil` when the provider omits the
   deleted content. Core does not fetch missing deleted content.
+
+  Interactive pairing uses the optional `c:authenticate/3` callback through
+  `authenticate/4` and the existing `:authenticate` capability. Core owns only
+  request validation and delegation; adapters own challenges and session state,
+  while authorized hosts own durable persistence and runtime activation.
   """
 
   alias Jido.Chat.{
@@ -55,6 +60,21 @@ defmodule Jido.Chat.Adapter do
 
   @type capability_status :: :native | :fallback | :unsupported
   @type capability_matrix :: %{optional(atom()) => capability_status()}
+
+  @type authentication_request ::
+          %{op: :begin}
+          | %{op: :status | :retry | :cancel, session: term()}
+          | %{op: :confirm, session: term(), account_id: String.t()}
+  @type authentication_response :: %{
+          :phase => :pending | :challenge | :authenticated | :saved | :failed | :cancelled,
+          :session => term(),
+          optional(:challenge) => %{type: :qr, value: String.t(), expires_at: term()},
+          optional(:account) => %{external_id: String.t(), display_name: String.t() | nil},
+          optional(:receipt) => map(),
+          optional(:runtime_pending) => boolean(),
+          optional(:summary) => String.t()
+        }
+  @type authentication_result :: {:ok, authentication_response()} | {:error, atom()}
 
   @capability_statuses [:native, :fallback, :unsupported]
 
@@ -245,9 +265,41 @@ defmodule Jido.Chat.Adapter do
   @callback listener_child_specs(bridge_id :: String.t(), opts :: listener_opts()) ::
               {:ok, [Supervisor.child_spec()]} | {:error, term()}
 
+  @doc "Prepares trusted listener options; adapter-specific connection state stays opaque to hosts."
+  @callback prepare_connection(keyword()) :: {:ok, map()} | {:error, term()}
+
+  @doc "Returns shared provider infrastructure specs. The host owns their supervision."
+  @callback provider_child_specs(keyword()) :: {:ok, [Supervisor.child_spec()]} | {:error, term()}
+
+  @doc "Derives stable connection identity from an opaque binding without requiring a live listener."
+  @callback connection_identity(term()) :: {:ok, term()} | {:error, term()}
+
+  @doc "Returns connection-scoped delivery options from an opaque binding."
+  @callback connection_options(term(), keyword()) :: map() | {:error, term()}
+
+  @doc "Logs out an exact listener; ordinary listener shutdown must retain credentials."
+  @callback logout(GenServer.server()) :: :ok | {:error, term()}
+
   @callback capabilities() :: capability_matrix()
 
-  @optional_callbacks initialize: 1,
+  @doc """
+  Handles begin/status/retry/confirm/cancel for an authorized non-nil owner.
+
+  Options are trusted host configuration. Handles remain opaque across BEAM node
+  dispatch. Retry preserves a live attempt; confirmation requires the displayed
+  account ID. Responses must exclude credentials, raw errors and host context.
+  See `guides/authentication.md` for phases and trusted persistence handoff.
+  """
+  @callback authenticate(authentication_request(), owner_id :: term(), keyword()) ::
+              authentication_result()
+
+  @optional_callbacks prepare_connection: 1,
+                      provider_child_specs: 1,
+                      connection_identity: 1,
+                      connection_options: 2,
+                      logout: 1,
+                      initialize: 1,
+                      authenticate: 3,
                       shutdown: 1,
                       send_file: 3,
                       post_message: 3,
@@ -298,6 +350,58 @@ defmodule Jido.Chat.Adapter do
     end
   end
 
+  @doc "Prepares listener options, preserving legacy adapters' options unchanged."
+  @spec prepare_connection(module(), keyword()) :: {:ok, keyword()} | {:error, term()}
+  def prepare_connection(adapter, opts) do
+    if callback_exported?(adapter, :prepare_connection, 1) do
+      case adapter.prepare_connection(opts) do
+        {:ok, %{} = ingress} -> {:ok, Keyword.put(opts, :ingress, ingress)}
+        {:error, _} = error -> error
+        _ -> {:error, :invalid_connection_options}
+      end
+    else
+      {:ok, opts}
+    end
+  end
+
+  @doc "Returns optional provider infrastructure without starting processes."
+  @spec provider_child_specs(module(), keyword()) :: {:ok, [Supervisor.child_spec()]} | {:error, term()}
+  def provider_child_specs(adapter, opts) do
+    if callback_exported?(adapter, :provider_child_specs, 1),
+      do: adapter.provider_child_specs(opts),
+      else: {:ok, []}
+  end
+
+  @doc "Returns a stable opaque identity, or unsupported for legacy adapters."
+  @spec connection_identity(module(), term()) :: {:ok, term()} | {:error, term()}
+  def connection_identity(adapter, binding) do
+    if callback_exported?(adapter, :connection_identity, 1),
+      do: adapter.connection_identity(binding),
+      else: {:error, :unsupported}
+  end
+
+  @doc "Resolves delivery options without interpreting provider-specific connection state."
+  @spec connection_options(module(), term(), keyword()) :: {:ok, keyword()} | {:error, term()}
+  def connection_options(adapter, binding, opts) do
+    if callback_exported?(adapter, :connection_options, 2) do
+      case adapter.connection_options(binding, opts) do
+        %{} = options -> {:ok, Keyword.merge(opts, Map.to_list(options))}
+        {:error, _} = error -> error
+        _ -> {:error, :invalid_connection_options}
+      end
+    else
+      {:ok, opts}
+    end
+  end
+
+  @doc "Delegates explicit logout to the selected adapter listener."
+  @spec logout(module(), GenServer.server()) :: :ok | {:error, term()}
+  def logout(adapter, listener) do
+    if callback_exported?(adapter, :logout, 1),
+      do: adapter.logout(listener),
+      else: {:error, :unsupported}
+  end
+
   @doc "Initializes adapter resources when supported."
   @spec initialize(module(), keyword()) :: :ok | {:error, term()}
   def initialize(adapter_module, opts \\ []) do
@@ -340,6 +444,37 @@ defmodule Jido.Chat.Adapter do
 
     ensure_capability_defaults(declared, adapter_module)
   end
+
+  @doc """
+  Invokes optional adapter authentication, returning `{:error, :unsupported}`
+  when unavailable. Validates request fields and non-nil ownership, then forwards
+  the callback result unchanged. Host authorization must precede every call.
+  """
+  @spec authenticate(module(), authentication_request(), term(), keyword()) :: authentication_result()
+  def authenticate(adapter_module, request, owner_id, opts \\ []) do
+    cond do
+      is_nil(owner_id) or not (is_list(opts) and Keyword.keyword?(opts)) or
+          not valid_authentication_request?(request) ->
+        {:error, :invalid_request}
+
+      capabilities(adapter_module).authenticate == :unsupported or
+          not callback_exported?(adapter_module, :authenticate, 3) ->
+        {:error, :unsupported}
+
+      true ->
+        adapter_module.authenticate(request, owner_id, opts)
+    end
+  end
+
+  defp valid_authentication_request?(%{op: :begin}), do: true
+
+  defp valid_authentication_request?(%{op: op, session: session})
+       when op in [:status, :retry, :cancel], do: not is_nil(session)
+
+  defp valid_authentication_request?(%{op: :confirm, session: session, account_id: id}),
+    do: not is_nil(session) and is_binary(id) and byte_size(id) > 0
+
+  defp valid_authentication_request?(_), do: false
 
   @doc "Normalizes adapter inbound transformation to `Jido.Chat.Incoming`."
   @spec transform_incoming(module(), raw_payload()) :: incoming_result()
@@ -1652,6 +1787,7 @@ defmodule Jido.Chat.Adapter do
   defp ensure_capability_defaults(matrix, adapter_module) do
     defaults = %{
       initialize: inferred_capability_status(adapter_module, :initialize),
+      authenticate: inferred_capability_status(adapter_module, :authenticate),
       shutdown: inferred_capability_status(adapter_module, :shutdown),
       send_message: :native,
       send_file: inferred_capability_status(adapter_module, :send_file),
@@ -1801,6 +1937,7 @@ defmodule Jido.Chat.Adapter do
   defp default_webhook_response(_), do: WebhookResponse.accepted(%{ok: true})
 
   defp capability_callback(:initialize), do: {:initialize, 1}
+  defp capability_callback(:authenticate), do: {:authenticate, 3}
   defp capability_callback(:shutdown), do: {:shutdown, 1}
   defp capability_callback(:send_message), do: {:send_message, 3}
   defp capability_callback(:send_file), do: {:send_file, 3}
