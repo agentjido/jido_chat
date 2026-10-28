@@ -128,8 +128,9 @@ configuration. The Client captures `id`, `credentials`, optional private keyword
 performs no I/O and starts no process. `Client.options/1` returns private options.
 Never put a Client or credentials in a Signal.
 
-`Jido.ChatAction` uses `Jido.SignalAction`. Native Actions accept request data
-maps and return `{:ok, completion_data}`. Private context is
+`Jido.ChatAction` defines one Action with typed request and completion Signal
+contracts. Native Actions accept request data maps and return
+`{:ok, completion_data}`. Private context is
 `%{client: client, signal: request, options: keyword_options}`. The request Signal
 and options are optional. Supply the request to retain its envelope and trace
 when the adapter runs. Without it, the Action builds a request from the data.

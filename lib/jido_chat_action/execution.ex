@@ -4,6 +4,30 @@ defmodule Jido.ChatAction.Execution do
   alias Jido.Signal.Catalog
 
   @doc false
+  def new(action, data, opts) do
+    defaults =
+      %{
+        "source" => action.default_source(),
+        "datacontenttype" => action.datacontenttype()
+      }
+      |> Map.reject(fn {_key, value} -> is_nil(value) end)
+
+    with {:ok, data} <- action.validate_data(data),
+         {:ok, attrs} <- Jido.Signal.__normalize_definition_attrs__(opts, defaults) do
+      attrs
+      |> Map.put("type", action.type())
+      |> Map.put("dataschema", action.dataschema())
+      |> Map.put("data", data)
+      |> Jido.Signal.new()
+    end
+  end
+
+  @doc false
+  def reply(contract, request, data, opts) do
+    Jido.Chat.Signal.Policy.reply(contract.completed, data, request, opts)
+  end
+
+  @doc false
   def contract(action, opts, env) do
     input =
       case Keyword.get(opts, :input, opts[:signal]) do
@@ -60,6 +84,7 @@ defmodule Jido.ChatAction.Execution do
       end
 
     %{
+      vsn: Keyword.get(opts, :vsn, 1),
       signal: signal,
       input: signal_options(input),
       output: signal_options(output),

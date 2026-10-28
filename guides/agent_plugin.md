@@ -8,7 +8,7 @@ The AgentServer owns the Plugin supervisor, resolved Clients, and Sensors.
 defmodule SupportAgent do
   use Jido.Agent, name: "support", extensions: [Jido.Chat.Plugin]
 
-  agent do
+  state do
     schema Zoi.object(%{})
   end
 
@@ -26,9 +26,8 @@ defmodule SupportAgent do
   end
 
   routes do
-    route "jido.chat.message.received", SupportReply,
-      emits: ["jido.chat.command.send_message"]
-    route "jido.chat.command.*", Jido.Chat.Plugin.Execute, emits: []
+    route "jido.chat.message.received", SupportReply
+    route "jido.chat.command.*", Jido.Chat.Plugin.Execute
     # Add explicit completion and failure routes when results are needed.
   end
 end
@@ -62,15 +61,15 @@ Flow later through the same routes.
 
 ## Create a thread after commit
 
-`CreateThread` defines its request and completion data with `Jido.ChatAction`,
-which uses `Jido.SignalAction`. The Agent route selects a handler that returns a
-Deliver directive. The Plugin calls the provider after the turn commits.
+`CreateThread` defines its request and completion data with `Jido.ChatAction`.
+The Agent route selects a handler that returns a Deliver directive. The Plugin
+calls the provider after the turn commits.
 
 ```elixir
 defmodule SupportThreads do
   use Jido.Agent, name: "support_threads", extensions: [Jido.Chat.Plugin]
 
-  agent do
+  state do
     schema Zoi.object(%{})
   end
 
@@ -83,7 +82,7 @@ defmodule SupportThreads do
   end
 
   routes do
-    route Jido.Chat.CreateThread, via: Jido.Chat.Plugin.Execute
+    route "jido.chat.command.create_thread", Jido.Chat.Plugin.Execute
     route "jido.chat.command.create_thread.completed", MyApp.RecordThread
     route "jido.chat.command.create_thread.failed", MyApp.RecordFailure
   end
