@@ -60,7 +60,10 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
         _ -> nil
       end
 
-    if definition, do: definition.validate_data(input.signal.data), else: {:ok, nil}
+    case definition do
+      nil -> {:ok, nil}
+      module -> module.validate_data(input.signal.data)
+    end
   end
 
   @impl true
