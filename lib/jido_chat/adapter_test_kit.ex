@@ -18,6 +18,7 @@ defmodule Jido.Chat.AdapterTestKit do
       use ExUnit.Case, async: unquote(async)
       import Jido.Chat.AdapterTestKit.Assertions
       import Jido.Chat.AdapterTestKit.Factories
+      @moduletag capture_log: true
       @adapter unquote(adapter)
       test "adapter implements the typed protocol and coherent capabilities" do
         assert_capability_coherence(@adapter)

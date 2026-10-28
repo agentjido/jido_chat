@@ -1,7 +1,12 @@
 # Current public API
 
-Current `3.0.0-dev` source, 2026-10-18. This is a breaking API change.
+Current `3.0.0-dev` source, 2026-10-27. This is a breaking API change.
 Covenant contracts enforce this boundary; see [the contract guide](contracts.md).
+
+This guide describes the stateless Core API. The stable Integration API remains
+`Jido.Chat.Plugin` and `Jido.Chat.Sensor`. See the [Runtime guide](runtime.md)
+for portable message values, rooms, participants, provider accounts, bridges,
+and storage.
 
 The core has **23 Actions and 86 Signal definitions**: 23 requests, 46 Action
 results, and 17 incoming facts. Telegram adds **14 Actions and 42 definitions**.

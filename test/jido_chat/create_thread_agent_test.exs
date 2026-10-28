@@ -38,10 +38,9 @@ defmodule Jido.Chat.CreateThreadAgentTest do
   end
 
   defmodule Agent do
-    use Jido.Agent, name: "thread_agent"
+    use Jido.Agent, name: "thread_agent", extensions: [Jido.Chat.Plugin]
 
     agent do
-      plugin Jido.Chat.Plugin
       schema Zoi.object(%{count: Zoi.integer() |> Zoi.default(0)})
     end
 

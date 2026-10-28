@@ -15,7 +15,12 @@ Jido chat ecosystem.
 
 - Module namespace for this repository is `Jido.Chat`.
 - Public modules should be defined under `Jido.Chat.*`.
-- Runtime process trees, bridge supervision, queues, retries, and delivery orchestration belong in `jido_messaging`.
+- Keep the public Integration API at `Jido.Chat.Plugin`, `Jido.Chat.Sensor`,
+  and their child modules.
+- Rooms, participants, bridges, provider work, storage contracts, and delivery
+  orchestration belong under `Jido.Chat.Runtime`.
+- Starting the `:jido_chat` application must not start a Chat process, table,
+  queue, room, Sensor, or storage resource.
 - Prefer Zoi-backed structs and Splode errors for new core data and errors.
 - Keep public APIs documented and typed.
 

@@ -222,7 +222,7 @@ defmodule Jido.Chat.ActionsContractTest do
     for {definition, action} <- F.pairs() do
       client = F.client()
       request = F.request(action, client)
-      json = action.to_json()
+      json = action.authoring_contract()
       assert json["input_schema"] == F.entry(definition)["data_schema"]
       assert json["output_schema"] == F.entry(Module.concat(action, Completed))["data_schema"]
       assert action.schema() == definition.schema()

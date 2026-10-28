@@ -1,4 +1,8 @@
 defmodule Jido.ChatAction do
+  use Boundary,
+    top_level?: true,
+    check: [in: false, out: false]
+
   @moduledoc """
   Defines a chat SignalAction that calls an immutable Client.
 

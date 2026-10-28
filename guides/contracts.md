@@ -2,15 +2,20 @@
 
 The active Covenant contracts live in `test/contracts`. They define 25 obligations
 and test the current public boundary. Covenant runs only in development and test.
-The SDK keeps its stateless runtime boundary.
+The Core SDK keeps its stateless boundary. Runtime tests cover the optional
+Room, Participant, Connection, Bridge, and storage APIs.
 
 | Component | What the tests enforce |
 | --- | --- |
-| Public API | Documented exports in 26 modules; all eleven main operation helpers; private options; request IDs; streams; deadlines |
+| Public API | Documented exports in 37 modules; Core values and Runtime facade; all eleven main operation helpers; private options; request IDs; streams; deadlines |
 | Actions | All 23 native core Actions; exact requests; validated results; safe failures; shared Signal and Action data schemas; Exec, Flow, Router, Instruction, and Dispatch composition |
 | Signals | All 86 identities and JSON data schemas; constructor validation; native Catalog round trips; private data rejection; files; keyboards; encoded size limits |
 | Adapters | Explicit support; two adapters and clients; no I/O for unsupported calls; provider Actions and facts; configured discovery; complete ordered Delivery validation |
 | Application metadata | No Chat application callback, registered process, or dependency on Jido Messaging |
+
+Runtime tests also enforce process-free package startup, portable room data,
+trusted room admission, provider-work transitions, bridge echo prevention,
+message links, and pending-work recovery after account activation.
 
 Run from the package root:
 

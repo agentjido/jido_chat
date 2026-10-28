@@ -6,10 +6,9 @@ The AgentServer owns the Plugin supervisor, resolved Clients, and Sensors.
 
 ```elixir
 defmodule SupportAgent do
-  use Jido.Agent, name: "support"
+  use Jido.Agent, name: "support", extensions: [Jido.Chat.Plugin]
 
   agent do
-    plugin Jido.Chat.Plugin
     schema Zoi.object(%{})
   end
 
@@ -69,10 +68,9 @@ Deliver directive. The Plugin calls the provider after the turn commits.
 
 ```elixir
 defmodule SupportThreads do
-  use Jido.Agent, name: "support_threads"
+  use Jido.Agent, name: "support_threads", extensions: [Jido.Chat.Plugin]
 
   agent do
-    plugin Jido.Chat.Plugin
     schema Zoi.object(%{})
   end
 

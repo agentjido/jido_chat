@@ -184,7 +184,7 @@ defmodule Jido.Chat.StaticSDKTest do
       signal = Jido.Chat.AdapterTestKit.Factories.operation_request(client(), operation)
       assert {:ok, _} = action.validate_params(signal.data)
       assert action.name() != ""
-      assert {:ok, _} = Jason.encode(action.to_json())
+      assert {:ok, _} = Jason.encode(action.authoring_contract())
       assert {:error, _} = action.validate_params(%{signal: %{}})
       assert {:error, _} = action.validate_output(%{signal: %{}})
     end

@@ -1,12 +1,19 @@
 # Jido.Chat
 
-A stateless chat SDK for Elixir. Use immutable clients, native Jido Signals, and Jido Actions to call chat providers. The host owns the messaging runtime.
+A chat SDK and optional Jido Runtime for Elixir. Use immutable clients, native
+Jido Signals, and Jido Actions to call chat providers. Use
+`Jido.Chat.Runtime` for local rooms, participants, provider accounts, and
+bridges. The host owns the Jido instance and storage processes.
 
 See the [full static SDK API](guides/static_sdk.md) for all 23 Actions, 86 Signals, provider contracts, Flow and Router examples, and the breaking migration.
 
-See the [current public API reference](guides/public_api.md) for every public function, Telegram support, a two-step Flow, and the remaining Messaging boundary.
+See the [current public API reference](guides/public_api.md) for the Core SDK and
+provider contracts.
 
 See the [Agent Plugin and shared Sensor](guides/agent_plugin.md) for explicit Agent connections, plain routes, and provider sources. These processes start only when the host activates them.
+
+See the [Runtime guide](guides/runtime.md) for rooms, participants, provider
+accounts, bridge mappings, storage, and recovery.
 
 See the [source layout](guides/source_layout.md) for module groups and removed APIs.
 
@@ -31,6 +38,9 @@ an existing Action with a request Signal and returns a completion Signal.
 Capability discovery reads local adapter declarations without I/O.
 
 Provider packages are separate dependencies. Each adapter must implement the native Signal contract. This cleanup verifies the Telegram adapter. Other adapters need migration before they can use this breaking version.
+
+Starting `:jido_chat` starts no process, table, room, queue, or storage resource.
+Core and `Jido.Chat.Plugin` continue to work without Runtime.
 
 Build core or provider Actions with `use Jido.ChatAction`. Provider extensions supply
 their own Signal definition and result schema. They can override `invoke/3` without

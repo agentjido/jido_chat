@@ -3,6 +3,33 @@
 Use regular ExUnit tests for the stateless provider boundary. The core
 [Covenant contracts](contracts.md) enforce the shared SDK boundary. See [the full SDK API](static_sdk.md) for provider callbacks and examples.
 
+## Alignment definition
+
+An adapter is aligned when all these statements are true:
+
+1. **Contract alignment:** The adapter implements `channel_type/0`, `capabilities/0`,
+   `invoke/3`, and `normalize/3`.
+2. **Capability alignment:** Each core operation has the status `:native` or
+   `:unsupported`. Each native status has an implementation.
+3. **Failure alignment:** Each unsupported operation returns a typed failure with
+   code `unsupported` and outcome `not_attempted`. It does not make a provider call.
+4. **Result alignment:** Each native operation returns a valid canonical Jido Chat
+   completion or failure Signal through the public API.
+5. **Input alignment:** Provider fixtures normalize to a valid ordered `Delivery`.
+   Repeated normalization of the same provider input has the same delivery and item
+   identities.
+6. **Source alignment:** An adapter with inbound polling or push traffic uses the
+   shared `Jido.Chat.Sensor.Source` contract. A host-owned webhook can call
+   `Jido.Chat.normalize/2` directly.
+7. **Live alignment:** An excluded, opt-in live test uses the public Jido Chat API.
+   Its environment variables are in `.env.example`. A normal test run must not make
+   an external provider call.
+
+Contract, capability, and failure alignment are automatic when a test module uses
+`Jido.Chat.AdapterTestKit`. Native result and input alignment need provider fixture
+tests because the test kit does not know the provider wire format. Source and live
+alignment need adapter-specific tests.
+
 ```elixir
 defmodule MyAdapterTest do
   use Jido.Chat.AdapterTestKit, adapter: MyAdapter

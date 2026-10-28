@@ -220,11 +220,9 @@ end
 
 defmodule Jido.Chat.PluginFixture.Agent do
   @moduledoc "One V3 Agent. State and pending updates exist only in memory."
-  use Jido.Agent, name: "telegram_spike"
+  use Jido.Agent, name: "telegram_spike", extensions: [Jido.Chat.Plugin]
 
   agent do
-    plugin Jido.Chat.Plugin
-
     schema Zoi.object(%{
              pending: Zoi.map() |> Zoi.default(%{}),
              messages: Zoi.map() |> Zoi.default(%{}),
@@ -282,11 +280,9 @@ end
 
 defmodule Jido.Chat.PluginFixture.SensorAgent do
   @moduledoc false
-  use Jido.Agent, name: "sensor_agent"
+  use Jido.Agent, name: "sensor_agent", extensions: [Jido.Chat.Plugin]
 
   agent do
-    plugin Jido.Chat.Plugin
-
     schema Zoi.object(%{
              last_delivery: Zoi.string() |> Zoi.default(""),
              last_request: Zoi.string() |> Zoi.default(""),

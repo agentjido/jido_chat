@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.0.0-dev
+
+### Features
+
+- Adds portable Actor, Content, FileSource, Media, Message, Post, ResourceRef,
+  and AI conversion values.
+- Adds optional `Jido.Chat.Runtime` rooms, participants, provider accounts,
+  bridges, provider work, and storage capability contracts.
+- Keeps `Jido.Chat.Plugin` and `Jido.Chat.Sensor` as the Integration API.
+- Adds a host-owned Memory storage adapter and pending-work recovery.
+- Adds Boundary checks for Core, Integration, and Runtime dependencies.
+
+### Deferred
+
+- Defers the optional Ecto adapter and migrations until after the 3.0 merge.
+
 ## 1.0.0
 
 Initial Hex release of `jido_chat`.

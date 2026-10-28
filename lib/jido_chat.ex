@@ -1,11 +1,18 @@
 defmodule Jido.Chat do
-  @moduledoc """
-  Stateless chat SDK with immutable clients, native Signals, and Jido Actions.
+  use Boundary,
+    deps: [],
+    exports: {:all, except: [Schema, Value, Wire, Plugin.Runtime]}
 
-  `jido_chat` owns canonical chat types, adapter contracts, portable references, and
-  synchronous provider calls. It does not define the supervised runtime or
-  process tree for production messaging systems; that responsibility belongs in
-  `jido_messaging`.
+  @moduledoc """
+  Chat SDK and optional Runtime for the Jido ecosystem.
+
+  Core owns canonical chat types, adapter contracts, portable references, and
+  synchronous provider calls. `Jido.Chat.Plugin` and `Jido.Chat.Sensor` connect
+  provider clients to one Jido Agent activation. `Jido.Chat.Runtime` owns the
+  optional room, participant, bridge, provider-work, and storage contracts.
+
+  Starting the `:jido_chat` application starts no Chat process or storage
+  resource.
   """
 
   @doc "Returns the explicit public Signal definition list for this domain."

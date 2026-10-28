@@ -3,7 +3,7 @@ defmodule Jido.Chat.MixProject do
 
   @version "3.0.0-dev"
   @source_url "https://github.com/agentjido/jido_chat"
-  @description "Core chat SDK types and adapter contracts for the Jido ecosystem"
+  @description "Chat SDK, Agent integration, and optional messaging Runtime for Jido"
 
   def project do
     [
@@ -11,6 +11,7 @@ defmodule Jido.Chat.MixProject do
       version: @version,
       elixir: "~> 1.18",
       elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:boundary] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
@@ -60,18 +61,19 @@ defmodule Jido.Chat.MixProject do
   defp deps do
     [
       # SDK: execution, Signals, Markdown, JSON, schemas, and errors.
-      {:jido_action, github: "agentjido/jido_action", ref: "63268a6f40e16969baa6836f91a4f80f45fa34e0", override: true},
+      {:jido_action, "~> 3.0.0-beta.22"},
       {:jido_signal, "~> 3.0.0-beta.5"},
-      # Keep Jido V3's local development overrides on public Hex packages.
-      {:runic, "~> 0.1.0-alpha.12", override: true},
       {:mdex, "~> 0.14.2"},
       {:jason, "~> 1.4"},
       {:zoi, "~> 0.18.11"},
       {:splode, "~> 0.3.0"},
 
       # Agent Plugin and DSL. The host starts Jido when it activates the Plugin.
-      {:jido, github: "agentjido/jido", ref: "5ab36fd9dce864012782ee5d7003ff26e23e50d9", runtime: false},
+      {:jido, "~> 3.0.0-beta.2", runtime: false},
       {:spark, "~> 2.7", runtime: false},
+
+      # Compile-time checks for Core, Integration, and Runtime dependencies.
+      {:boundary, "~> 0.11", runtime: false},
 
       # Tests and coverage.
       {:covenant, "~> 0.2.0", only: [:dev, :test], runtime: false},
@@ -142,6 +144,7 @@ defmodule Jido.Chat.MixProject do
         "guides/contracts.md",
         "guides/static_sdk.md",
         "guides/agent_plugin.md",
+        "guides/runtime.md",
         "guides/public_api.md",
         "guides/source_layout.md"
       ]

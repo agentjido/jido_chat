@@ -83,7 +83,7 @@ defmodule Jido.Chat.APIHardeningTest do
   end
 
   test "Action schemas expose the data accepted by native execution" do
-    schema = Chat.SendMessage.to_json()["input_schema"]
+    schema = Chat.SendMessage.authoring_contract()["input_schema"]
     assert schema["additionalProperties"] == false
     assert schema["properties"]["room_id"]["type"] == "string"
     assert "text" in schema["required"]
@@ -102,7 +102,7 @@ defmodule Jido.Chat.APIHardeningTest do
 
     refute_receive {:invoked, _, _}
     assert {:error, _} = Chat.SendMessage.validate_params(nil)
-    output = Chat.SendMessage.to_json()["output_schema"]
+    output = Chat.SendMessage.authoring_contract()["output_schema"]
     assert output["properties"]["result"]["properties"]["id"]["type"] == "string"
   end
 

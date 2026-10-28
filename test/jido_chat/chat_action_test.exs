@@ -120,7 +120,7 @@ defmodule Jido.Chat.ChatActionTest do
     assert {:ok, encoded} = Serialization.serialize(completed)
     assert {:ok, ^completed} = Catalog.decode(catalog, encoded)
     assert SendAsset.description() == "Sends an asset through an external adapter"
-    assert {:ok, _} = Jason.encode(SendAsset.to_json())
+    assert {:ok, _} = Jason.encode(SendAsset.authoring_contract())
     assert {:error, _} = SendAsset.validate_output(%{signal: signal})
     assert {:error, _} = SendAsset.validate_params(%{signal: Map.from_struct(signal)})
   end
