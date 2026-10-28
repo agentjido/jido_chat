@@ -51,18 +51,12 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
 
   @impl true
   def prepare(input, _opts) do
-    definition =
-      case input.signal.type do
-        "jido.chat.room.join" -> Signals.Join
-        "jido.chat.room.leave" -> Signals.Leave
-        "jido.chat.room.post" -> Signals.Post
-        "jido.chat.room.check_member" -> Signals.CheckMember
-        _ -> nil
-      end
-
-    case definition do
-      nil -> {:ok, nil}
-      module -> module.validate_data(input.signal.data)
+    case input.signal.type do
+      "jido.chat.room.join" -> Signals.Join.validate_data(input.signal.data)
+      "jido.chat.room.leave" -> Signals.Leave.validate_data(input.signal.data)
+      "jido.chat.room.post" -> Signals.Post.validate_data(input.signal.data)
+      "jido.chat.room.check_member" -> Signals.CheckMember.validate_data(input.signal.data)
+      _ -> {:ok, nil}
     end
   end
 
