@@ -130,6 +130,11 @@ defmodule Jido.Chat.Adapter do
   @callback post_message(external_room_id(), payload :: PostPayload.t(), opts :: keyword()) ::
               send_result() | {:ok, map()} | {:error, term()}
 
+  @doc """
+  Updates an existing message. Adapters declaring `edit_attachments: :native`
+  also accept normalized `FileUpload` values in `opts[:files]`. Attachment limits
+  and upload delivery belong to the adapter; this capability is opt-in.
+  """
   @callback edit_message(
               external_room_id(),
               external_message_id(),
@@ -1193,6 +1198,9 @@ defmodule Jido.Chat.Adapter do
                     [{capability, :missing_fallback} | acc]
                   end
 
+                {:unsupported, true} when capability == :edit_attachments ->
+                  acc
+
                 {:unsupported, true} ->
                   [{capability, :unsupported_callback} | acc]
 
@@ -1793,6 +1801,7 @@ defmodule Jido.Chat.Adapter do
       send_file: inferred_capability_status(adapter_module, :send_file),
       post_message: inferred_capability_status(adapter_module, :post_message),
       edit_message: inferred_capability_status(adapter_module, :edit_message),
+      edit_attachments: :unsupported,
       delete_message: inferred_capability_status(adapter_module, :delete_message),
       start_typing: inferred_capability_status(adapter_module, :start_typing),
       fetch_metadata: inferred_capability_status(adapter_module, :fetch_metadata),
@@ -1943,6 +1952,7 @@ defmodule Jido.Chat.Adapter do
   defp capability_callback(:send_file), do: {:send_file, 3}
   defp capability_callback(:post_message), do: {:post_message, 3}
   defp capability_callback(:edit_message), do: {:edit_message, 4}
+  defp capability_callback(:edit_attachments), do: {:edit_message, 4}
   defp capability_callback(:delete_message), do: {:delete_message, 3}
   defp capability_callback(:start_typing), do: {:start_typing, 2}
   defp capability_callback(:fetch_metadata), do: {:fetch_metadata, 2}

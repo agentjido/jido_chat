@@ -3,7 +3,7 @@ defmodule Jido.Chat.SentMessage do
   Canonical sent-message handle with follow-up lifecycle operations.
   """
 
-  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, Postable, PostPayload, Response, Wire}
+  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, FileUpload, Postable, PostPayload, Response, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -43,7 +43,13 @@ defmodule Jido.Chat.SentMessage do
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 
-  @doc "Edits the message using the canonical outbound payload contract."
+  @doc """
+  Edits the existing message using the canonical outbound payload contract.
+
+  Attachment edits require the adapter to declare `edit_attachments: :native`.
+  Upload candidates are normalized into `FileUpload` values and passed in `:files`;
+  the adapter owns upload limits and delivery. Text-only edits retain attachments.
+  """
   @spec edit(t(), String.t() | Postable.t() | map(), keyword()) :: {:ok, t()} | {:error, term()}
   def edit(message, input, opts \\ [])
 
@@ -229,7 +235,8 @@ defmodule Jido.Chat.SentMessage do
       payload.kind == :stream ->
         {:error, :edit_stream_unsupported}
 
-      upload_candidates != [] ->
+      upload_candidates != [] and
+          Map.get(Adapter.capabilities(sent.adapter), :edit_attachments) != :native ->
         {:error, :edit_attachments_unsupported}
 
       true ->
@@ -239,7 +246,7 @@ defmodule Jido.Chat.SentMessage do
                  sent.external_room_id,
                  sent.id,
                  text || "",
-                 merge_opts(sent, opts)
+                 edit_opts(sent, opts, upload_candidates)
                ) do
           {:ok,
            %{
@@ -250,9 +257,18 @@ defmodule Jido.Chat.SentMessage do
                text: text,
                formatted: payload.formatted || text,
                raw: payload.raw || response.raw,
-               metadata: Map.merge(sent.metadata, payload.metadata)
+               metadata: sent.metadata |> Map.merge(payload.metadata) |> Map.merge(response.metadata),
+               attachments: edited_attachments(sent, payload, upload_candidates)
            }}
         end
     end
   end
+
+  defp edit_opts(sent, opts, []), do: merge_opts(sent, opts)
+
+  defp edit_opts(sent, opts, uploads),
+    do: Keyword.put(merge_opts(sent, opts), :files, FileUpload.normalize_many(uploads))
+
+  defp edited_attachments(sent, _payload, []), do: sent.attachments
+  defp edited_attachments(_sent, payload, _uploads), do: PostPayload.outbound_attachments(payload)
 end
