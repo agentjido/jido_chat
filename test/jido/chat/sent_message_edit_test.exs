@@ -59,6 +59,40 @@ defmodule Jido.Chat.SentMessageEditTest do
     end
   end
 
+  test "attachment edits on restored handles serialize the latest delivery metadata" do
+    original = %{sent() | default_opts: []}
+    restored = original |> SentMessage.to_map() |> SentMessage.from_map()
+    assert restored.metadata["media"] == [%{"file_id" => "old"}]
+
+    payload = Postable.text("updated", files: [%{data: "bytes", filename: "report.txt"}])
+    assert {:ok, edited} = SentMessage.edit(restored, payload, token: "override")
+    assert edited.id == original.id
+    assert edited.metadata.media == [%{file_id: "uploaded"}]
+    assert_received {:edit, "room", "post", "updated", _}
+
+    serialized = edited |> SentMessage.to_map() |> Jason.encode!() |> Jason.decode!()
+    assert serialized["metadata"]["media"] == [%{"file_id" => "uploaded"}]
+    assert serialized["metadata"]["retained"] == true
+  end
+
+  test "string-keyed delivery metadata replaces atom-keyed and payload metadata" do
+    Process.put(
+      :edit_result,
+      {:ok,
+       Response.new(%{
+         external_message_id: "post",
+         metadata: %{"media" => [%{"file_id" => "latest"}]}
+       })}
+    )
+
+    payload = Postable.text("updated", metadata: %{media: [%{file_id: "payload"}]})
+    assert {:ok, edited} = SentMessage.edit(sent(), payload)
+    refute Map.has_key?(edited.metadata, :media)
+    assert edited.metadata["media"] == [%{"file_id" => "latest"}]
+    assert edited.metadata.retained == true
+    assert SentMessage.to_map(edited)["metadata"]["media"] == [%{"file_id" => "latest"}]
+  end
+
   test "text-only edits preserve attachments and metadata absent from the response" do
     Process.put(:edit_result, {:ok, Response.new(%{external_message_id: "post"})})
     original = sent()

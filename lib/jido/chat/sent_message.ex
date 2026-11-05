@@ -257,12 +257,23 @@ defmodule Jido.Chat.SentMessage do
                text: text,
                formatted: payload.formatted || text,
                raw: payload.raw || response.raw,
-               metadata: sent.metadata |> Map.merge(payload.metadata) |> Map.merge(response.metadata),
+               metadata: sent.metadata |> merge_metadata(payload.metadata) |> merge_metadata(response.metadata),
                attachments: edited_attachments(sent, payload, upload_candidates)
            }}
         end
     end
   end
+
+  defp merge_metadata(metadata, updates) do
+    updated_keys = MapSet.new(Map.keys(updates), &metadata_key/1)
+
+    metadata
+    |> Map.reject(fn {key, _value} -> MapSet.member?(updated_keys, metadata_key(key)) end)
+    |> Map.merge(updates)
+  end
+
+  defp metadata_key(key) when is_atom(key), do: Atom.to_string(key)
+  defp metadata_key(key), do: key
 
   defp edit_opts(sent, opts, []), do: merge_opts(sent, opts)
 
