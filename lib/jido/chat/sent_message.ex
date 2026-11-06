@@ -49,7 +49,8 @@ defmodule Jido.Chat.SentMessage do
   Attachment edits require the adapter to declare `edit_attachments: :native`.
   Upload candidates are normalized into `FileUpload` values and passed in `:files`;
   the adapter owns upload limits and delivery. Adapters receive `:previous_metadata`
-  from the handle for identity-aware reconciliation of incomplete responses.
+  from the handle and its latest response for identity-aware reconciliation of
+  incomplete responses. Delivery response values take precedence over handle metadata.
   Response metadata may include `:attachments` (or `"attachments"`) as an
   authoritative list, including an empty list to confirm removal. When absent,
   text-only edits retain attachments and upload edits use the outbound payload.
@@ -261,7 +262,8 @@ defmodule Jido.Chat.SentMessage do
                text: text,
                formatted: payload.formatted || text,
                raw: payload.raw || response.raw,
-               metadata: sent.metadata |> merge_metadata(payload.metadata) |> merge_metadata(response.metadata),
+               metadata:
+                 sent |> previous_metadata() |> merge_metadata(payload.metadata) |> merge_metadata(response.metadata),
                attachments: edited_attachments(sent, payload, upload_candidates, response.metadata)
            }}
         end
@@ -279,8 +281,10 @@ defmodule Jido.Chat.SentMessage do
   defp metadata_key(key) when is_atom(key), do: Atom.to_string(key)
   defp metadata_key(key), do: key
 
+  defp previous_metadata(sent), do: merge_metadata(sent.metadata, sent.response.metadata)
+
   defp edit_opts(sent, opts, []),
-    do: Keyword.put(merge_opts(sent, opts), :previous_metadata, sent.metadata)
+    do: Keyword.put(merge_opts(sent, opts), :previous_metadata, previous_metadata(sent))
 
   defp edit_opts(sent, opts, uploads),
     do: Keyword.put(edit_opts(sent, opts, []), :files, FileUpload.normalize_many(uploads))

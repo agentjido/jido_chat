@@ -96,11 +96,24 @@ defmodule Jido.Chat.SentMessageEditTest do
   test "text-only edits preserve attachments and metadata absent from the response" do
     Process.put(:edit_result, {:ok, Response.new(%{external_message_id: "post"})})
     original = sent()
+
+    original = %{
+      original
+      | response: %{
+          original.response
+          | metadata: %{"media" => [%{"file_id" => "delivered"}], "filename" => "report.txt"}
+        }
+    }
+
     assert {:ok, edited} = SentMessage.edit(original, "updated")
     assert edited.attachments == original.attachments
-    assert edited.metadata == original.metadata
+    assert edited.metadata["filename"] == "report.txt"
+    assert edited.metadata["media"] == [%{"file_id" => "delivered"}]
+    assert edited.metadata.retained
+    refute Map.has_key?(edited.metadata, :media)
     assert_received {:edit, "room", "post", "updated", opts}
     refute Keyword.has_key?(opts, :files)
+    assert opts[:previous_metadata] == edited.metadata
   end
 
   test "explicit response attachments replace or clear the handle independently of media metadata" do
