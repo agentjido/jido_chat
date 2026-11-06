@@ -3,7 +3,7 @@ defmodule Jido.Chat.SentMessage do
   Canonical sent-message handle with follow-up lifecycle operations.
   """
 
-  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, Postable, PostPayload, Response, Wire}
+  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, FileUpload, Postable, PostPayload, Response, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -43,7 +43,18 @@ defmodule Jido.Chat.SentMessage do
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 
-  @doc "Edits the message using the canonical outbound payload contract."
+  @doc """
+  Edits the existing message using the canonical outbound payload contract.
+
+  Attachment edits require the adapter to declare `edit_attachments: :native`.
+  Upload candidates are normalized into `FileUpload` values and passed in `:files`;
+  the adapter owns upload limits and delivery. Adapters receive `:previous_metadata`
+  from the handle and its latest response for identity-aware reconciliation of
+  incomplete responses. Delivery response values take precedence over handle metadata.
+  Response metadata may include `:attachments` (or `"attachments"`) as an
+  authoritative list, including an empty list to confirm removal. When absent,
+  text-only edits retain attachments and upload edits use the outbound payload.
+  """
   @spec edit(t(), String.t() | Postable.t() | map(), keyword()) :: {:ok, t()} | {:error, term()}
   def edit(message, input, opts \\ [])
 
@@ -229,7 +240,8 @@ defmodule Jido.Chat.SentMessage do
       payload.kind == :stream ->
         {:error, :edit_stream_unsupported}
 
-      upload_candidates != [] ->
+      upload_candidates != [] and
+          Map.get(Adapter.capabilities(sent.adapter), :edit_attachments) != :native ->
         {:error, :edit_attachments_unsupported}
 
       true ->
@@ -239,7 +251,7 @@ defmodule Jido.Chat.SentMessage do
                  sent.external_room_id,
                  sent.id,
                  text || "",
-                 merge_opts(sent, opts)
+                 edit_opts(sent, opts, upload_candidates)
                ) do
           {:ok,
            %{
@@ -250,9 +262,38 @@ defmodule Jido.Chat.SentMessage do
                text: text,
                formatted: payload.formatted || text,
                raw: payload.raw || response.raw,
-               metadata: Map.merge(sent.metadata, payload.metadata)
+               metadata:
+                 sent |> previous_metadata() |> merge_metadata(payload.metadata) |> merge_metadata(response.metadata),
+               attachments: edited_attachments(sent, payload, upload_candidates, response.metadata)
            }}
         end
+    end
+  end
+
+  defp merge_metadata(metadata, updates) do
+    updated_keys = MapSet.new(Map.keys(updates), &metadata_key/1)
+
+    metadata
+    |> Map.reject(fn {key, _value} -> MapSet.member?(updated_keys, metadata_key(key)) end)
+    |> Map.merge(updates)
+  end
+
+  defp metadata_key(key) when is_atom(key), do: Atom.to_string(key)
+  defp metadata_key(key), do: key
+
+  defp previous_metadata(sent), do: merge_metadata(sent.metadata, sent.response.metadata)
+
+  defp edit_opts(sent, opts, []),
+    do: Keyword.put(merge_opts(sent, opts), :previous_metadata, previous_metadata(sent))
+
+  defp edit_opts(sent, opts, uploads),
+    do: Keyword.put(edit_opts(sent, opts, []), :files, FileUpload.normalize_many(uploads))
+
+  defp edited_attachments(sent, payload, uploads, metadata) do
+    case Map.get(metadata, :attachments, Map.get(metadata, "attachments")) do
+      attachments when is_list(attachments) -> Attachment.normalize_many(attachments)
+      _ when uploads == [] -> sent.attachments
+      _ -> PostPayload.outbound_attachments(payload)
     end
   end
 end
