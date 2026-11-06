@@ -48,7 +48,11 @@ defmodule Jido.Chat.SentMessage do
 
   Attachment edits require the adapter to declare `edit_attachments: :native`.
   Upload candidates are normalized into `FileUpload` values and passed in `:files`;
-  the adapter owns upload limits and delivery. Text-only edits retain attachments.
+  the adapter owns upload limits and delivery. Adapters receive `:previous_metadata`
+  from the handle for identity-aware reconciliation of incomplete responses.
+  Response metadata may include `:attachments` (or `"attachments"`) as an
+  authoritative list, including an empty list to confirm removal. When absent,
+  text-only edits retain attachments and upload edits use the outbound payload.
   """
   @spec edit(t(), String.t() | Postable.t() | map(), keyword()) :: {:ok, t()} | {:error, term()}
   def edit(message, input, opts \\ [])
@@ -258,7 +262,7 @@ defmodule Jido.Chat.SentMessage do
                formatted: payload.formatted || text,
                raw: payload.raw || response.raw,
                metadata: sent.metadata |> merge_metadata(payload.metadata) |> merge_metadata(response.metadata),
-               attachments: edited_attachments(sent, payload, upload_candidates)
+               attachments: edited_attachments(sent, payload, upload_candidates, response.metadata)
            }}
         end
     end
@@ -275,11 +279,17 @@ defmodule Jido.Chat.SentMessage do
   defp metadata_key(key) when is_atom(key), do: Atom.to_string(key)
   defp metadata_key(key), do: key
 
-  defp edit_opts(sent, opts, []), do: merge_opts(sent, opts)
+  defp edit_opts(sent, opts, []),
+    do: Keyword.put(merge_opts(sent, opts), :previous_metadata, sent.metadata)
 
   defp edit_opts(sent, opts, uploads),
-    do: Keyword.put(merge_opts(sent, opts), :files, FileUpload.normalize_many(uploads))
+    do: Keyword.put(edit_opts(sent, opts, []), :files, FileUpload.normalize_many(uploads))
 
-  defp edited_attachments(sent, _payload, []), do: sent.attachments
-  defp edited_attachments(_sent, payload, _uploads), do: PostPayload.outbound_attachments(payload)
+  defp edited_attachments(sent, payload, uploads, metadata) do
+    case Map.get(metadata, :attachments, Map.get(metadata, "attachments")) do
+      attachments when is_list(attachments) -> Attachment.normalize_many(attachments)
+      _ when uploads == [] -> sent.attachments
+      _ -> PostPayload.outbound_attachments(payload)
+    end
+  end
 end

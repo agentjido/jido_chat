@@ -103,6 +103,18 @@ defmodule Jido.Chat.SentMessageEditTest do
     refute Keyword.has_key?(opts, :files)
   end
 
+  test "explicit response attachments replace or clear the handle independently of media metadata" do
+    for attachments <- [[], [%{url: "provider://new", filename: "new.txt"}]],
+        key <- [:attachments, "attachments"] do
+      Process.put(:edit_result, {:ok, Response.new(%{external_message_id: "post", metadata: %{key => attachments}})})
+      original = sent()
+      assert {:ok, edited} = SentMessage.edit(original, "updated")
+      assert edited.attachments == Attachment.normalize_many(attachments)
+      assert_received {:edit, "room", "post", "updated", opts}
+      assert opts[:previous_metadata] == original.metadata
+    end
+  end
+
   test "unsupported adapters reject attachments before dispatch" do
     original = %{sent() | adapter: UnsupportedAdapter}
 
