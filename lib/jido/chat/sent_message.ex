@@ -61,6 +61,8 @@ defmodule Jido.Chat.SentMessage do
   Response metadata may include `:attachments` (or `"attachments"`) as an
   authoritative list, including an empty list to confirm removal. When absent,
   text-only edits retain attachments and upload edits use the outbound payload.
+  Upload edits discard inherited attachment snapshots from metadata; only a fresh
+  response snapshot is retained as confirmation.
   """
   @spec edit(t(), String.t() | Postable.t() | map(), keyword()) :: {:ok, t()} | {:error, term()}
   def edit(message, input, opts \\ [])
@@ -165,17 +167,43 @@ defmodule Jido.Chat.SentMessage do
     |> Map.put("__type__", "sent_message")
   end
 
-  @doc "Builds a sent message from serialized map data."
+  @doc """
+  Builds a sent message from serialized map data, including JSON-decoded maps.
+
+  Restores default options from key/value pairs. Option keys must already exist
+  as atoms; values pass through unchanged for the adapter to interpret.
+  Arbitrary nested atoms and tuples cannot be recovered from JSON and must be
+  supplied again if needed.
+  """
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
-    adapter = map[:adapter] || map["adapter"]
+    adapter = Wire.decode_module(map[:adapter] || map["adapter"])
+    defaults = decode_options(map[:default_opts] || map["default_opts"] || [])
 
     map
     |> Map.drop(["__type__", :__type__])
     |> Map.delete("adapter")
-    |> Map.put(:adapter, Wire.decode_module(adapter))
+    |> Map.put(:adapter, adapter)
+    |> Map.delete("default_opts")
+    |> Map.put(:default_opts, defaults)
     |> new()
   end
+
+  defp decode_options(options) when is_list(options) do
+    Enum.map(options, fn
+      [key, value] -> normalize_option(key, value)
+      {key, value} -> normalize_option(key, value)
+      _ -> raise ArgumentError, "invalid serialized default options"
+    end)
+  end
+
+  defp decode_options(_), do: raise(ArgumentError, "invalid serialized default options")
+
+  defp normalize_option(key, value) when is_binary(key),
+    do: normalize_option(String.to_existing_atom(key), value)
+
+  defp normalize_option(key, value) when is_atom(key), do: {key, value}
+  defp normalize_option(_, _), do: raise(ArgumentError, "invalid serialized default options")
 
   defp maybe_normalize_response(%{response: %Response{}} = attrs), do: attrs
 
@@ -272,12 +300,17 @@ defmodule Jido.Chat.SentMessage do
                text: text,
                formatted: payload.formatted || text,
                raw: payload.raw || response.raw,
-               metadata:
-                 sent |> previous_metadata() |> merge_metadata(payload.metadata) |> merge_metadata(response.metadata),
+               metadata: edited_metadata(sent, payload, upload_candidates, response.metadata),
                attachments: edited_attachments(sent, payload, upload_candidates, response.metadata)
            }}
         end
     end
+  end
+
+  defp edited_metadata(sent, payload, uploads, response_metadata) do
+    metadata = sent |> previous_metadata() |> merge_metadata(payload.metadata)
+    metadata = if uploads == [], do: metadata, else: Map.drop(metadata, [:attachments, "attachments"])
+    merge_metadata(metadata, response_metadata)
   end
 
   defp merge_metadata(metadata, updates) do

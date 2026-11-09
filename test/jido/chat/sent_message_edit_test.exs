@@ -128,6 +128,59 @@ defmodule Jido.Chat.SentMessageEditTest do
     end
   end
 
+  test "sparse replacement invalidates old snapshots through persistence and subsequent edits" do
+    for key <- [:attachments, "attachments"] do
+      original = sent()
+      old = [%{filename: "old.txt", url: "provider://old"}]
+
+      original = %{
+        original
+        | metadata: Map.put(original.metadata, key, old),
+          response: %{original.response | metadata: %{key => old}}
+      }
+
+      Process.put(:edit_result, {:ok, Response.new(%{external_message_id: "post", external_room_id: "room"})})
+      payload = Postable.text("replacement", files: [%{data: "new", filename: "new.txt"}])
+
+      assert {:ok, edited} = SentMessage.edit(original, payload)
+      assert_received {:edit, "room", "post", "replacement", initial_opts}
+      assert initial_opts[:previous_metadata][key] == old
+      assert [%Attachment{filename: "new.txt"}] = edited.attachments
+      refute Map.has_key?(edited.metadata, :attachments)
+      refute Map.has_key?(edited.metadata, "attachments")
+      assert edited.metadata.retained
+
+      restored = edited |> SentMessage.to_map() |> Jason.encode!() |> Jason.decode!() |> SentMessage.from_map()
+      assert {:ok, next} = SentMessage.edit(restored, "text only")
+      assert_received {:edit, "room", "post", "text only", next_opts}
+      refute Map.has_key?(next_opts[:previous_metadata], :attachments)
+      refute Map.has_key?(next_opts[:previous_metadata], "attachments")
+      assert next_opts[:previous_metadata]["retained"]
+      assert [%Attachment{filename: "new.txt"}] = next.attachments
+    end
+  end
+
+  test "replacement keeps fresh response snapshots and sparse text edits retain them" do
+    for key <- [:attachments, "attachments"],
+        snapshot <- [[], [%{filename: "confirmed.txt", url: "provider://confirmed"}]] do
+      original = sent()
+      original = %{original | response: %{original.response | metadata: %{attachments: original.attachments}}}
+      Process.put(:edit_result, {:ok, Response.new(%{external_message_id: "post", metadata: %{key => snapshot}})})
+      payload = Postable.text("replacement", files: [%{data: "new", filename: "new.txt"}])
+      assert {:ok, edited} = SentMessage.edit(original, payload)
+      assert_received {:edit, "room", "post", "replacement", _}
+      assert edited.metadata[key] == snapshot
+      assert edited.attachments == Attachment.normalize_many(snapshot)
+
+      Process.put(:edit_result, {:ok, Response.new(%{external_message_id: "post"})})
+      assert {:ok, next} = SentMessage.edit(edited, "text only")
+      assert_received {:edit, "room", "post", "text only", opts}
+      assert opts[:previous_metadata][key] == snapshot
+      assert next.metadata[key] == snapshot
+      assert next.attachments == edited.attachments
+    end
+  end
+
   test "unsupported adapters reject attachments before dispatch" do
     original = %{sent() | adapter: UnsupportedAdapter}
 

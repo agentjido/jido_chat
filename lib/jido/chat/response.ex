@@ -29,7 +29,12 @@ defmodule Jido.Chat.Response do
   @doc "Returns the Zoi schema for Response."
   def schema, do: @schema
 
-  @doc "Creates a canonical response struct from adapter data."
+  @doc """
+  Creates a canonical response struct from adapter data.
+
+  JSON string statuses and channel types are normalized to existing atoms before
+  validation. Unknown values are rejected without creating new atoms.
+  """
   def new(attrs) when is_map(attrs) do
     fetch = fn key ->
       Map.get(attrs, key) || Map.get(attrs, Atom.to_string(key))
@@ -46,7 +51,7 @@ defmodule Jido.Chat.Response do
         fetch.(:chat_id) ||
         fetch.(:channel_id)
 
-    channel_type = fetch.(:channel_type)
+    channel_type = normalize_atom(fetch.(:channel_type))
 
     normalized_timestamp =
       case normalize_timestamp(raw_timestamp) do
@@ -59,7 +64,7 @@ defmodule Jido.Chat.Response do
       external_room_id: external_room_id,
       timestamp: normalized_timestamp,
       channel_type: channel_type,
-      status: fetch.(:status) || :sent,
+      status: normalize_atom(fetch.(:status) || :sent),
       raw: fetch.(:raw),
       metadata: fetch.(:metadata) || %{},
       message_id: stringify(external_message_id),
@@ -69,6 +74,14 @@ defmodule Jido.Chat.Response do
     }
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
+
+  defp normalize_atom(value) when is_binary(value) do
+    String.to_existing_atom(value)
+  rescue
+    ArgumentError -> value
+  end
+
+  defp normalize_atom(value), do: value
 
   defp maybe_chat_id(:telegram, external_room_id), do: external_room_id
   defp maybe_chat_id(_, _), do: nil
