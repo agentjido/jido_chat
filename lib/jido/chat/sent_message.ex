@@ -33,7 +33,14 @@ defmodule Jido.Chat.SentMessage do
   @doc "Returns the Zoi schema for SentMessage."
   def schema, do: @schema
 
-  @doc "Creates a sent-message handle from normalized adapter response data."
+  @doc """
+  Creates a sent-message handle from normalized adapter response data.
+
+  A response metadata attachment snapshot (`:attachments` or `"attachments"`)
+  takes precedence over supplied attachments, including an explicit empty list.
+  Without a snapshot, supplied attachments are preserved. The snapshot describes
+  this handle's message; attachments on other posts belong in delivery metadata.
+  """
   def new(attrs) when is_map(attrs) do
     attrs
     |> maybe_normalize_response()
@@ -191,7 +198,10 @@ defmodule Jido.Chat.SentMessage do
   defp normalize_author(attrs), do: attrs
 
   defp normalize_attachments(attrs) do
-    attachments = attrs[:attachments] || attrs["attachments"] || []
+    fallback = attrs[:attachments] || attrs["attachments"] || []
+    response = attrs[:response] || attrs["response"]
+    metadata = if match?(%Response{}, response), do: response.metadata, else: %{}
+    attachments = response_attachments(metadata, fallback)
 
     normalized =
       Enum.map(attachments, fn
@@ -290,10 +300,14 @@ defmodule Jido.Chat.SentMessage do
     do: Keyword.put(edit_opts(sent, opts, []), :files, FileUpload.normalize_many(uploads))
 
   defp edited_attachments(sent, payload, uploads, metadata) do
+    fallback = if uploads == [], do: sent.attachments, else: PostPayload.outbound_attachments(payload)
+    metadata |> response_attachments(fallback) |> Attachment.normalize_many()
+  end
+
+  defp response_attachments(metadata, fallback) do
     case Map.get(metadata, :attachments, Map.get(metadata, "attachments")) do
-      attachments when is_list(attachments) -> Attachment.normalize_many(attachments)
-      _ when uploads == [] -> sent.attachments
-      _ -> PostPayload.outbound_attachments(payload)
+      attachments when is_list(attachments) -> attachments
+      _ -> fallback
     end
   end
 end
