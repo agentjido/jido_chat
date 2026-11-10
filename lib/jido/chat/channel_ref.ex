@@ -346,7 +346,7 @@ defmodule Jido.Chat.ChannelRef do
     upload_candidates = PostPayload.upload_candidates(payload)
 
     cond do
-      function_exported?(adapter, :post_message, 3) ->
+      Code.ensure_loaded?(adapter) and function_exported?(adapter, :post_message, 3) ->
         {:ok, opts}
 
       upload_candidates in [nil, []] ->

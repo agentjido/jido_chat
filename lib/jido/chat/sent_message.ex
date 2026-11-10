@@ -3,7 +3,7 @@ defmodule Jido.Chat.SentMessage do
   Canonical sent-message handle with follow-up lifecycle operations.
   """
 
-  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, Postable, PostPayload, Response, Wire}
+  alias Jido.Chat.{Adapter, Attachment, Author, Emoji, FileUpload, Postable, PostPayload, Response, Wire}
 
   @schema Zoi.struct(
             __MODULE__,
@@ -33,7 +33,14 @@ defmodule Jido.Chat.SentMessage do
   @doc "Returns the Zoi schema for SentMessage."
   def schema, do: @schema
 
-  @doc "Creates a sent-message handle from normalized adapter response data."
+  @doc """
+  Creates a sent-message handle from normalized adapter response data.
+
+  A response metadata attachment snapshot (`:attachments` or `"attachments"`)
+  takes precedence over supplied attachments, including an explicit empty list.
+  Without a snapshot, supplied attachments are preserved. The snapshot describes
+  this handle's message; attachments on other posts belong in delivery metadata.
+  """
   def new(attrs) when is_map(attrs) do
     attrs
     |> maybe_normalize_response()
@@ -43,7 +50,20 @@ defmodule Jido.Chat.SentMessage do
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 
-  @doc "Edits the message using the canonical outbound payload contract."
+  @doc """
+  Edits the existing message using the canonical outbound payload contract.
+
+  Attachment edits require the adapter to declare `edit_attachments: :native`.
+  Upload candidates are normalized into `FileUpload` values and passed in `:files`;
+  the adapter owns upload limits and delivery. Adapters receive `:previous_metadata`
+  from the handle and its latest response for identity-aware reconciliation of
+  incomplete responses. Delivery response values take precedence over handle metadata.
+  Response metadata may include `:attachments` (or `"attachments"`) as an
+  authoritative list, including an empty list to confirm removal. When absent,
+  text-only edits retain attachments and upload edits use the outbound payload.
+  Upload edits discard inherited attachment snapshots from metadata; only a fresh
+  response snapshot is retained as confirmation.
+  """
   @spec edit(t(), String.t() | Postable.t() | map(), keyword()) :: {:ok, t()} | {:error, term()}
   def edit(message, input, opts \\ [])
 
@@ -147,17 +167,43 @@ defmodule Jido.Chat.SentMessage do
     |> Map.put("__type__", "sent_message")
   end
 
-  @doc "Builds a sent message from serialized map data."
+  @doc """
+  Builds a sent message from serialized map data, including JSON-decoded maps.
+
+  Restores default options from key/value pairs. Option keys must already exist
+  as atoms; values pass through unchanged for the adapter to interpret.
+  Arbitrary nested atoms and tuples cannot be recovered from JSON and must be
+  supplied again if needed.
+  """
   @spec from_map(map()) :: t()
   def from_map(map) when is_map(map) do
-    adapter = map[:adapter] || map["adapter"]
+    adapter = Wire.decode_module(map[:adapter] || map["adapter"])
+    defaults = decode_options(map[:default_opts] || map["default_opts"] || [])
 
     map
     |> Map.drop(["__type__", :__type__])
     |> Map.delete("adapter")
-    |> Map.put(:adapter, Wire.decode_module(adapter))
+    |> Map.put(:adapter, adapter)
+    |> Map.delete("default_opts")
+    |> Map.put(:default_opts, defaults)
     |> new()
   end
+
+  defp decode_options(options) when is_list(options) do
+    Enum.map(options, fn
+      [key, value] -> normalize_option(key, value)
+      {key, value} -> normalize_option(key, value)
+      _ -> raise ArgumentError, "invalid serialized default options"
+    end)
+  end
+
+  defp decode_options(_), do: raise(ArgumentError, "invalid serialized default options")
+
+  defp normalize_option(key, value) when is_binary(key),
+    do: normalize_option(String.to_existing_atom(key), value)
+
+  defp normalize_option(key, value) when is_atom(key), do: {key, value}
+  defp normalize_option(_, _), do: raise(ArgumentError, "invalid serialized default options")
 
   defp maybe_normalize_response(%{response: %Response{}} = attrs), do: attrs
 
@@ -180,7 +226,10 @@ defmodule Jido.Chat.SentMessage do
   defp normalize_author(attrs), do: attrs
 
   defp normalize_attachments(attrs) do
-    attachments = attrs[:attachments] || attrs["attachments"] || []
+    fallback = attrs[:attachments] || attrs["attachments"] || []
+    response = attrs[:response] || attrs["response"]
+    metadata = if match?(%Response{}, response), do: response.metadata, else: %{}
+    attachments = response_attachments(metadata, fallback)
 
     normalized =
       Enum.map(attachments, fn
@@ -229,7 +278,8 @@ defmodule Jido.Chat.SentMessage do
       payload.kind == :stream ->
         {:error, :edit_stream_unsupported}
 
-      upload_candidates != [] ->
+      upload_candidates != [] and
+          Map.get(Adapter.capabilities(sent.adapter), :edit_attachments) != :native ->
         {:error, :edit_attachments_unsupported}
 
       true ->
@@ -239,7 +289,7 @@ defmodule Jido.Chat.SentMessage do
                  sent.external_room_id,
                  sent.id,
                  text || "",
-                 merge_opts(sent, opts)
+                 edit_opts(sent, opts, upload_candidates)
                ) do
           {:ok,
            %{
@@ -250,9 +300,47 @@ defmodule Jido.Chat.SentMessage do
                text: text,
                formatted: payload.formatted || text,
                raw: payload.raw || response.raw,
-               metadata: Map.merge(sent.metadata, payload.metadata)
+               metadata: edited_metadata(sent, payload, upload_candidates, response.metadata),
+               attachments: edited_attachments(sent, payload, upload_candidates, response.metadata)
            }}
         end
+    end
+  end
+
+  defp edited_metadata(sent, payload, uploads, response_metadata) do
+    metadata = sent |> previous_metadata() |> merge_metadata(payload.metadata)
+    metadata = if uploads == [], do: metadata, else: Map.drop(metadata, [:attachments, "attachments"])
+    merge_metadata(metadata, response_metadata)
+  end
+
+  defp merge_metadata(metadata, updates) do
+    updated_keys = MapSet.new(Map.keys(updates), &metadata_key/1)
+
+    metadata
+    |> Map.reject(fn {key, _value} -> MapSet.member?(updated_keys, metadata_key(key)) end)
+    |> Map.merge(updates)
+  end
+
+  defp metadata_key(key) when is_atom(key), do: Atom.to_string(key)
+  defp metadata_key(key), do: key
+
+  defp previous_metadata(sent), do: merge_metadata(sent.metadata, sent.response.metadata)
+
+  defp edit_opts(sent, opts, []),
+    do: Keyword.put(merge_opts(sent, opts), :previous_metadata, previous_metadata(sent))
+
+  defp edit_opts(sent, opts, uploads),
+    do: Keyword.put(edit_opts(sent, opts, []), :files, FileUpload.normalize_many(uploads))
+
+  defp edited_attachments(sent, payload, uploads, metadata) do
+    fallback = if uploads == [], do: sent.attachments, else: PostPayload.outbound_attachments(payload)
+    metadata |> response_attachments(fallback) |> Attachment.normalize_many()
+  end
+
+  defp response_attachments(metadata, fallback) do
+    case Map.get(metadata, :attachments, Map.get(metadata, "attachments")) do
+      attachments when is_list(attachments) -> attachments
+      _ -> fallback
     end
   end
 end
