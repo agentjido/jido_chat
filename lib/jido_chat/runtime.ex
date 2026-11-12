@@ -9,7 +9,15 @@ defmodule Jido.Chat.Runtime do
 
   use Boundary,
     deps: [Jido.Chat],
-    exports: [Room, Participant, Connection, Bridge, {Actions, []}, {Signal, []}, {Storage, []}]
+    exports: [
+      {Room, []},
+      Participant,
+      Connection,
+      Bridge,
+      {Actions, []},
+      {Signal, []},
+      {Storage, []}
+    ]
 
   @doc "Defines one process-free Runtime facade over a host-owned Jido instance."
   defmacro __using__(opts) do

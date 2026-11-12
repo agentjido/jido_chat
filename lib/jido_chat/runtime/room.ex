@@ -10,7 +10,7 @@ defmodule Jido.Chat.Runtime.Room do
     quote do
       use Jido.Agent,
         name: unquote(Keyword.fetch!(opts, :name)),
-        extensions: [Jido.Chat.Runtime.Room.Plugin]
+        plugins: [Jido.Chat.Runtime.Room.Plugin]
 
       routes do
         route("jido.chat.room.join", Jido.Chat.Runtime.Actions.RoomCommand)

@@ -15,6 +15,7 @@ defmodule Jido.Chat.Runtime.Actions.RoomCommand do
       post = Post.from_map(input.prepared["post"])
       mentions = input.prepared["mentions"]
       state = context.agent_state
+      actor = message_actor(post, input.runtime.actor)
 
       case Enum.find(state.room.messages, &(&1.id == context.signal.id)) do
         nil ->
@@ -24,7 +25,8 @@ defmodule Jido.Chat.Runtime.Actions.RoomCommand do
               room_id: input.runtime.room.id,
               thread_id: post.thread_id,
               reply_to_id: post.reply_to_id,
-              actor: message_actor(post, input.runtime.actor),
+              actor: actor,
+              role: message_role(actor),
               content: post.content,
               metadata: post.metadata
             })
@@ -54,7 +56,8 @@ defmodule Jido.Chat.Runtime.Actions.RoomCommand do
                   room_id: input.runtime.room.id,
                   thread_id: post.thread_id,
                   reply_to_id: post.reply_to_id,
-                  actor: message_actor(post, input.runtime.actor),
+                  actor: actor,
+                  role: message_role(actor),
                   content: post.content,
                   metadata: post.metadata
                 })
@@ -77,4 +80,8 @@ defmodule Jido.Chat.Runtime.Actions.RoomCommand do
       _ -> Room.actor(local_actor)
     end
   end
+
+  defp message_role(%Actor{kind: kind}) when kind in [:agent, :bot], do: :assistant
+  defp message_role(%Actor{kind: :system}), do: :system
+  defp message_role(%Actor{}), do: :user
 end

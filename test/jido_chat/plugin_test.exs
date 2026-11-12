@@ -19,7 +19,7 @@ defmodule Jido.Chat.PluginTest do
       )
 
     original = Jido.Chat.PluginFixture.Agent.definition()
-    [entry] = original.extensions
+    [entry] = original.plugins
     [connection] = entry.data.connections
 
     connection = %{
@@ -34,7 +34,7 @@ defmodule Jido.Chat.PluginTest do
 
     definition = %{
       original
-      | extensions: [%{entry | data: %{entry.data | connections: [connection]}}],
+      | plugins: [%{entry | data: %{entry.data | connections: [connection]}}],
         routes: routes
     }
 
@@ -114,8 +114,7 @@ defmodule Jido.Chat.PluginTest do
     custom = %{
       hd(routes)
       | path: "test.chat.room.changed",
-        handler: %{kind: :action, target: Jido.Chat.PluginFixture.Accept},
-        emits: []
+        handler: %{kind: :action, target: Jido.Chat.PluginFixture.Accept}
     }
 
     ctx = start(adapter: Jido.Chat.PluginFixture.ProviderAdapter, rooms: ["ROOM-1"], routes: [custom | routes])

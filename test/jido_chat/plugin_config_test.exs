@@ -9,7 +9,7 @@ defmodule Jido.Chat.PluginConfigTest do
   end
 
   defp connection do
-    [entry] = Jido.Chat.PluginFixture.SensorAgent.definition().extensions
+    [entry] = Jido.Chat.PluginFixture.SensorAgent.definition().plugins
     hd(entry.data.connections)
   end
 

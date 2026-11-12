@@ -97,7 +97,7 @@ Add `Jido.Chat.Runtime.Participant` to an Agent that observes a room:
 defmodule MyApp.Observer do
   use Jido.Agent,
     name: "support_observer",
-    extensions: [Jido.Chat.Runtime.Participant]
+    plugins: [Jido.Chat.Runtime.Participant]
 
   participant do
     room("support")
@@ -123,7 +123,7 @@ One provider account is one Agent activation with exactly one
 defmodule MyApp.SupportAccount do
   use Jido.Agent,
     name: "support_account",
-    extensions: [Jido.Chat.Plugin, Jido.Chat.Runtime.Bridge]
+    plugins: [Jido.Chat.Plugin, Jido.Chat.Runtime.Bridge]
 
   chat do
     connection :provider do

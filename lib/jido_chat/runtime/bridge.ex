@@ -114,7 +114,7 @@ defmodule Jido.Chat.Runtime.Bridge do
 
   @impl Jido.Agent.Extension
   def verify(data, definition) do
-    providers = Enum.map(definition.extensions, & &1.provider)
+    providers = Enum.map(definition.plugins, & &1.provider)
 
     cond do
       Jido.Chat.Plugin not in providers -> {:error, :bridge_requires_chat_plugin}

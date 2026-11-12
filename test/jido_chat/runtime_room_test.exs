@@ -19,7 +19,7 @@ defmodule Jido.Chat.RuntimeRoomTest do
   defmodule Participant do
     use Jido.Agent,
       name: "participant",
-      extensions: [Jido.Chat.Runtime.Participant]
+      plugins: [Jido.Chat.Runtime.Participant]
 
     participant do
       room("team")
@@ -35,7 +35,7 @@ defmodule Jido.Chat.RuntimeRoomTest do
   defmodule Observer do
     use Jido.Agent,
       name: "observer",
-      extensions: [Jido.Chat.Runtime.Participant]
+      plugins: [Jido.Chat.Runtime.Participant]
 
     participant do
       room("team")
@@ -85,6 +85,8 @@ defmodule Jido.Chat.RuntimeRoomTest do
 
     [first | replies] = Enum.map(messages, &Message.from_map(&1.data["message"]))
     assert Message.fallback_text(first) == "Ready?\n**Now**"
+    assert first.role == :user
+    assert Enum.all?(replies, &(&1.role == :assistant))
     assert Enum.all?(replies, &(&1.reply_to_id == request.id and Message.fallback_text(&1) == "Ready."))
 
     assert {:ok, _, []} = Jido.call(context.jido, context.room, request, context: %{actor: "operator"})

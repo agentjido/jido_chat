@@ -74,14 +74,14 @@ defmodule Jido.Chat.Runtime.Connection do
   end
 
   defp one_connection(agent) do
-    case Enum.filter(agent.extensions, &(&1.provider == Jido.Chat.Plugin)) do
+    case Enum.filter(agent.plugins, &(&1.provider == Jido.Chat.Plugin)) do
       [%{data: %{connections: [_connection]}}] -> :ok
       _ -> {:error, :one_chat_connection_required}
     end
   end
 
   defp bind_bridge(agent, instance, account_id, ref) do
-    bridge? = Enum.any?(agent.extensions, &(&1.provider == Bridge))
+    bridge? = Enum.any?(agent.plugins, &(&1.provider == Bridge))
 
     if bridge? and is_nil(instance.storage()) do
       {:error, :bridge_storage_required}
@@ -91,18 +91,18 @@ defmodule Jido.Chat.Runtime.Connection do
   end
 
   defp recover_bridge(agent, instance, account_id) do
-    if Enum.any?(agent.extensions, &(&1.provider == Bridge)),
+    if Enum.any?(agent.plugins, &(&1.provider == Bridge)),
       do: Bridge.recover(instance, account_id),
       else: :ok
   end
 
   defp bind_bridge_options(agent, instance, account_id, ref) do
-    [connection] = Enum.filter(agent.extensions, &(&1.provider == Jido.Chat.Plugin))
+    [connection] = Enum.filter(agent.plugins, &(&1.provider == Jido.Chat.Plugin))
     [chat] = connection.data.connections
     {work_limit, queue_limit} = instance.provider_work_limits()
 
-    extensions =
-      Enum.map(agent.extensions, fn
+    plugins =
+      Enum.map(agent.plugins, fn
         %{provider: Bridge} = extension ->
           data =
             Map.merge(extension.data, %{
@@ -122,7 +122,7 @@ defmodule Jido.Chat.Runtime.Connection do
           extension
       end)
 
-    {:ok, %{agent | extensions: extensions}}
+    {:ok, %{agent | plugins: plugins}}
   end
 
   defp available(instance) when is_atom(instance) do

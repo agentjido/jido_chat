@@ -220,9 +220,9 @@ end
 
 defmodule Jido.Chat.PluginFixture.Agent do
   @moduledoc "One V3 Agent. State and pending updates exist only in memory."
-  use Jido.Agent, name: "telegram_spike", extensions: [Jido.Chat.Plugin]
+  use Jido.Agent, name: "telegram_spike", plugins: [Jido.Chat.Plugin]
 
-  agent do
+  state do
     schema Zoi.object(%{
              pending: Zoi.map() |> Zoi.default(%{}),
              messages: Zoi.map() |> Zoi.default(%{}),
@@ -242,20 +242,20 @@ defmodule Jido.Chat.PluginFixture.Agent do
   end
 
   routes do
-    route "jido.chat.message.received", Jido.Chat.PluginFixture.Reply, emits: ["jido.chat.command.send_message"]
+    route "jido.chat.message.received", Jido.Chat.PluginFixture.Reply
 
-    route "jido.chat.message.updated", Jido.Chat.PluginFixture.EditReply, emits: ["jido.chat.command.edit_message"]
+    route "jido.chat.message.updated", Jido.Chat.PluginFixture.EditReply
 
-    route "jido.chat.reaction.added", Jido.Chat.PluginFixture.React, emits: ["jido.chat.command.add_reaction"]
+    route "jido.chat.reaction.added", Jido.Chat.PluginFixture.React
 
-    route "jido.chat.reaction.removed", Jido.Chat.PluginFixture.React, emits: ["jido.chat.command.remove_reaction"]
+    route "jido.chat.reaction.removed", Jido.Chat.PluginFixture.React
 
-    route "jido.chat.command.*", Jido.Chat.Plugin.Execute, emits: []
-    route "jido.chat.telegram.command.*", Jido.Chat.Plugin.Execute, emits: []
-    route "jido.chat.command.*.completed", Jido.Chat.PluginFixture.RecordDelivery, emits: []
-    route "jido.chat.command.*.failed", Jido.Chat.PluginFixture.RecordDelivery, emits: []
-    route "jido.chat.telegram.command.*.completed", Jido.Chat.PluginFixture.RecordDelivery, emits: []
-    route "jido.chat.telegram.command.*.failed", Jido.Chat.PluginFixture.RecordDelivery, emits: []
+    route "jido.chat.command.*", Jido.Chat.Plugin.Execute
+    route "jido.chat.telegram.command.*", Jido.Chat.Plugin.Execute
+    route "jido.chat.command.*.completed", Jido.Chat.PluginFixture.RecordDelivery
+    route "jido.chat.command.*.failed", Jido.Chat.PluginFixture.RecordDelivery
+    route "jido.chat.telegram.command.*.completed", Jido.Chat.PluginFixture.RecordDelivery
+    route "jido.chat.telegram.command.*.failed", Jido.Chat.PluginFixture.RecordDelivery
   end
 end
 
@@ -280,9 +280,9 @@ end
 
 defmodule Jido.Chat.PluginFixture.SensorAgent do
   @moduledoc false
-  use Jido.Agent, name: "sensor_agent", extensions: [Jido.Chat.Plugin]
+  use Jido.Agent, name: "sensor_agent", plugins: [Jido.Chat.Plugin]
 
-  agent do
+  state do
     schema Zoi.object(%{
              last_delivery: Zoi.string() |> Zoi.default(""),
              last_request: Zoi.string() |> Zoi.default(""),
@@ -302,7 +302,7 @@ defmodule Jido.Chat.PluginFixture.SensorAgent do
   end
 
   routes do
-    route "jido.chat.message.received", Jido.Chat.PluginFixture.Accept, emits: []
+    route "jido.chat.message.received", Jido.Chat.PluginFixture.Accept
   end
 end
 

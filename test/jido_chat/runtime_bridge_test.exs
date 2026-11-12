@@ -56,7 +56,7 @@ defmodule Jido.Chat.RuntimeBridgeTest do
   defmodule Account do
     use Jido.Agent,
       name: "bridge_account",
-      extensions: [Jido.Chat.Plugin, Jido.Chat.Runtime.Bridge]
+      plugins: [Jido.Chat.Plugin, Jido.Chat.Runtime.Bridge]
 
     chat do
       connection :provider do

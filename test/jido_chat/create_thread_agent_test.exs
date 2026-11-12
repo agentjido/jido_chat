@@ -38,9 +38,9 @@ defmodule Jido.Chat.CreateThreadAgentTest do
   end
 
   defmodule Agent do
-    use Jido.Agent, name: "thread_agent", extensions: [Jido.Chat.Plugin]
+    use Jido.Agent, name: "thread_agent", plugins: [Jido.Chat.Plugin]
 
-    agent do
+    state do
       schema Zoi.object(%{count: Zoi.integer() |> Zoi.default(0)})
     end
 
@@ -53,7 +53,7 @@ defmodule Jido.Chat.CreateThreadAgentTest do
     end
 
     routes do
-      route Jido.Chat.CreateThread, via: Jido.Chat.Plugin.Execute
+      route "jido.chat.command.create_thread", Jido.Chat.Plugin.Execute
       route "jido.chat.command.create_thread.completed", Jido.Chat.CreateThreadAgentTest.Record
       route "jido.chat.command.create_thread.failed", Jido.Chat.CreateThreadAgentTest.Record
     end
@@ -77,10 +77,10 @@ defmodule Jido.Chat.CreateThreadAgentTest do
 
   defp start(opts \\ []) do
     definition = Agent.definition()
-    [extension] = definition.extensions
-    [connection] = extension.data.connections
+    [plugin] = definition.plugins
+    [connection] = plugin.data.connections
     connection = put_in(connection.client.config, result: opts[:result])
-    definition = put_in(definition.extensions, [%{extension | data: %{extension.data | connections: [connection]}}])
+    definition = put_in(definition.plugins, [%{plugin | data: %{plugin.data | connections: [connection]}}])
 
     definition =
       if opts[:reject] do
@@ -97,7 +97,7 @@ defmodule Jido.Chat.CreateThreadAgentTest do
 
   test "CreateThread uses one schema for Signal data and Action parameters" do
     request = request()
-    assert Jido.SignalAction.defined?(CreateThread)
+    assert function_exported?(CreateThread, :__signal_action__, 0)
     assert CreateThread.schema() == Jido.Chat.Signal.CreateThread.schema()
     assert CreateThread.output_schema() == CreateThread.Completed.schema()
     assert CreateThread.__signal_action__().output.type == "jido.chat.command.create_thread.completed"
