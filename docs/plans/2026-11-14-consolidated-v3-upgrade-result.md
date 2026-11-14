@@ -14,7 +14,8 @@ later in this chat.
 - Branch: `release/v3`.
 - Initial HEAD: `1cae095d67c5e0e0592ec801c1714fbdcac9fa57`.
 - The tree was clean before planning. The existing untracked plan was preserved.
-- Core source and lock: exact Git revision `05723b96c6ead47dec04fe69b1c34ad62f999c54`.
+- Initial core source and lock: exact Git revision `05723b96c6ead47dec04fe69b1c34ad62f999c54`.
+- Current core source and lock: `047bf746330a2fbe7c3b25c045552e0303c97eaf`.
 - Resolved registry packages: Zoi 0.19.0, ReqLLM 1.30.0, Runic 0.1.0-alpha.13,
   Nimble Options 1.2.0. Required transitive packages were added by Mix.
 - No sibling dependency path or core fork is present in the Chat manifest.
@@ -133,3 +134,37 @@ compatibility claim is made. The public adapter operation contract was preserved
 
 The parent coordinator owns the combined graph, Jidoka caller changes, database
 codec proof, and final application compile and behavior gates.
+
+## Clean rebuild follow-up and cleanup
+
+The manifest and lock now use published core commit
+`047bf746330a2fbe7c3b25c045552e0303c97eaf`. The core fix puts Joi fields in a
+deterministic order for checkpoint compatibility after a clean rebuild. Strict
+fingerprint checks remain in place. This Chat change only updates the core pin
+and lock; it changes no Chat API or stored data.
+
+The earlier published Chat migration was
+`7652b6d74c4fc8170149ae1cfd08f981cfb1ea27`. Its CI run
+[43609891616](https://github.com/agentjido/jido_chat/actions/runs/43609891616)
+passed compile, all four test matrix jobs, quality checks, docs, audit, and unused
+dependency checks. Only Hex Package Dry Run failed: Hex does not permit the
+required Git core dependency. The gate and exact Git source remain unchanged.
+
+Cleanup inventory found only the primary Chat worktree and local `release/v3`
+branch. Both are retained. No task branch or secondary worktree exists. Both plan
+documents are committed. Task files under `/private/tmp/u2-*` contain source
+inspection copies, an archive, temporary edit scripts, schemas, and check logs.
+They can be removed after successful validation and push. No repository build
+output, dependency directory, or other ignored data is included in cleanup.
+
+Follow-up checks against the current core: `mix deps.get`, `mix quality`, and
+`mix test.contracts` passed. All 358 tests passed with 90.2 percent coverage under
+`mix coveralls --seed 401649 --max-cases 4`. Two earlier runs at the default
+36-case concurrency each failed a different 100 ms timing check: the blocked
+provider deadline test, then the Plugin mock-send message wait. The first failed
+test passed in the repeat. Lower concurrency passed the full suite without a
+code change or relaxed assertion. These short timing checks remain a test limit.
+
+After the successful push, cleanup removes only the inventoried
+`/private/tmp/u2-*` temporary files and core source inspection copy. This document
+retains the commands, outcomes, source commits, CI evidence, and cleanup scope.

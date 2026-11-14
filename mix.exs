@@ -67,7 +67,7 @@ defmodule Jido.Chat.MixProject do
       {:splode, "~> 0.3.0"},
 
       # Core execution runtime and Agent Plugin DSL. The host starts each Jido instance.
-      {:jido, github: "agentjido/jido", ref: "05723b96c6ead47dec04fe69b1c34ad62f999c54", override: true},
+      {:jido, github: "agentjido/jido", ref: "047bf746330a2fbe7c3b25c045552e0303c97eaf", override: true},
       {:spark, "~> 2.7", runtime: false},
 
       # Compile-time checks for Core, Integration, and Runtime dependencies.
