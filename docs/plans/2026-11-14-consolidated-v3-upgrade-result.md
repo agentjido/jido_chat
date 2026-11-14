@@ -168,3 +168,25 @@ code change or relaxed assertion. These short timing checks remain a test limit.
 After the successful push, cleanup removes only the inventoried
 `/private/tmp/u2-*` temporary files and core source inspection copy. This document
 retains the commands, outcomes, source commits, CI evidence, and cleanup scope.
+
+## Bridge restart test synchronization
+
+Final-head CI run
+[43613055695](https://github.com/agentjido/jido_chat/actions/runs/43613055695)
+at Chat `941769ff5b6b865d660f2092d8704dbb25e2bf36` found a separate test race on
+OTP 28 / Elixir 1.19, seed 917166. The pending-work recovery test called
+`start_connection` immediately after `stop_connection`. Core activation cleanup
+had not finished, so start returned `{:error, :recovering}`. The other three test
+matrix jobs passed. Quality passed except for the known Git dependency Hex gate.
+
+The test now waits for the public `connection_status` result `{:error, :not_found}`
+before starting the replacement. It uses the existing bounded condition helper;
+there is no fixed sleep increase, removed assertion, or runtime source change.
+The manifest, lock, core pin, Chat API, and stored data remain unchanged by this
+follow-up. The same condition is already used by the explicit connection-stop
+test. The test still verifies recovery work is sent and its link is completed.
+
+Validation passed: all 7 bridge tests with seed 917166, all 358 tests with that
+seed at default concurrency, `mix quality`, and all 25 contract obligations.
+The follow-up diff contains only this result document and one test synchronization
+line. Task temporary CI and check logs are removed after the successful push.

@@ -182,6 +182,7 @@ defmodule Jido.Chat.RuntimeBridgeTest do
 
   test "pending work resumes when the account Agent starts again", context do
     assert :ok = Runtime.stop_connection("support")
+    await(fn -> Runtime.connection_status("support") == {:error, :not_found} end)
 
     request =
       Jido.Chat.Signal.SendMessage.new!(%{
