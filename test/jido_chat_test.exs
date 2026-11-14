@@ -10,8 +10,8 @@ defmodule Jido.ChatTest do
     end
   end
 
-  test "SDK startup metadata does not start Jido or register Chat processes" do
-    refute :jido in Application.spec(:jido_chat, :applications)
+  test "SDK startup starts core execution without registering Chat processes" do
+    assert :jido in Application.spec(:jido_chat, :applications)
     assert Application.spec(:jido_chat, :registered) == []
     assert Application.spec(:jido_chat, :mod) == []
   end

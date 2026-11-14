@@ -47,7 +47,7 @@ defmodule Jido.Chat.PluginFixture.RoomChanged do
           "item_id" => Zoi.string(),
           "delivery_id" => Zoi.string(),
           "room_id" => Zoi.string() |> Zoi.to_upcase(),
-          "metadata" => Zoi.map() |> Zoi.optional()
+          "metadata" => Jido.Joi.map() |> Zoi.optional()
         },
         unrecognized_keys: :error
       )
@@ -67,7 +67,7 @@ defmodule Jido.Chat.PluginFixture.Reply do
   @moduledoc "Builds a fixed reply. Replace this Action with a Flow later."
   use Jido.Action,
     name: "spike_reply",
-    schema: Zoi.map()
+    schema: Jido.Joi.map()
 
   def run(params, context) do
     sender = params["sender"] || %{}
@@ -127,7 +127,7 @@ end
 
 defmodule Jido.Chat.PluginFixture.EditReply do
   @moduledoc "Edits the bot reply when the human edits its source message."
-  use Jido.Action, name: "spike_edit_reply", schema: Zoi.map()
+  use Jido.Action, name: "spike_edit_reply", schema: Jido.Joi.map()
 
   def run(params, context) do
     key = context.chat.client_id <> ":" <> params["room_id"] <> ":" <> params["message_id"]
@@ -154,7 +154,7 @@ end
 
 defmodule Jido.Chat.PluginFixture.React do
   @moduledoc "Mirrors a human thumbs-up with eyes on a known bot reply."
-  use Jido.Action, name: "spike_react", schema: Zoi.map()
+  use Jido.Action, name: "spike_react", schema: Jido.Joi.map()
 
   def run(params, context) do
     known =
@@ -189,7 +189,7 @@ defmodule Jido.Chat.PluginFixture.RecordDelivery do
   @moduledoc false
   use Jido.Action,
     name: "spike_record_delivery",
-    schema: Zoi.map()
+    schema: Jido.Joi.map()
 
   def run(_params, context) do
     state = context.agent_state
@@ -223,10 +223,10 @@ defmodule Jido.Chat.PluginFixture.Agent do
   use Jido.Agent, name: "telegram_spike", plugins: [Jido.Chat.Plugin]
 
   state do
-    schema Zoi.object(%{
-             pending: Zoi.map() |> Zoi.default(%{}),
-             messages: Zoi.map() |> Zoi.default(%{}),
-             deliveries: Zoi.map() |> Zoi.default(%{}),
+    schema Jido.Joi.object(%{
+             pending: Jido.Joi.map() |> Zoi.default(%{}),
+             messages: Jido.Joi.map() |> Zoi.default(%{}),
+             deliveries: Jido.Joi.map() |> Zoi.default(%{}),
              replies: Zoi.integer() |> Zoi.default(0),
              last_delivery: Zoi.string() |> Zoi.default(""),
              last_request: Zoi.string() |> Zoi.default("")
@@ -274,7 +274,7 @@ end
 
 defmodule Jido.Chat.PluginFixture.Accept do
   @moduledoc false
-  use Jido.Action, name: "accept_chat_fact", schema: Zoi.map()
+  use Jido.Action, name: "accept_chat_fact", schema: Jido.Joi.map()
   def run(_params, context), do: {:ok, context.agent_state}
 end
 
@@ -283,10 +283,10 @@ defmodule Jido.Chat.PluginFixture.SensorAgent do
   use Jido.Agent, name: "sensor_agent", plugins: [Jido.Chat.Plugin]
 
   state do
-    schema Zoi.object(%{
+    schema Jido.Joi.object(%{
              last_delivery: Zoi.string() |> Zoi.default(""),
              last_request: Zoi.string() |> Zoi.default(""),
-             deliveries: Zoi.map() |> Zoi.default(%{})
+             deliveries: Jido.Joi.map() |> Zoi.default(%{})
            })
   end
 

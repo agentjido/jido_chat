@@ -3,7 +3,7 @@ defmodule Jido.Chat.ChatActionTest do
   @moduletag capture_log: true
   alias Jido.Chat.Client
   alias Jido.Chat.ContractFixtures, as: F
-  alias Jido.Signal.{Catalog, Serialization, Trace}
+  alias Jido.Signal.{Catalog, Codec}
 
   defmodule AssetRequest do
     use Jido.Signal,
@@ -93,7 +93,7 @@ defmodule Jido.Chat.ChatActionTest do
         "attachments" => [%{"client_id" => "example", "id" => "file-1", "kind" => "file"}]
       })
 
-    {:ok, signal, _} = Trace.ensure(signal)
+    {:ok, signal, _} = Jido.Signal.Context.ensure_trace(signal)
     %{signal | extensions: Map.put(signal.extensions, "tracestate", "example=state")}
   end
 
@@ -117,7 +117,7 @@ defmodule Jido.Chat.ChatActionTest do
     assert completed.extensions["tracestate"] == signal.extensions["tracestate"]
 
     catalog = Catalog.new!(Jido.Chat.signal_definitions() ++ SendAsset.signal_definitions())
-    assert {:ok, encoded} = Serialization.serialize(completed)
+    assert {:ok, encoded} = Codec.serialize(completed)
     assert {:ok, ^completed} = Catalog.decode(catalog, encoded)
     assert SendAsset.description() == "Sends an asset through an external adapter"
     assert {:ok, _} = Jason.encode(SendAsset.authoring_contract())

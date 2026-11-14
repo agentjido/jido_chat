@@ -38,9 +38,9 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
   @impl true
   def state_spec(_opts) do
     {:room,
-     Zoi.object(%{
+     Jido.Joi.object(%{
        members: Zoi.list(Room.member_schema()),
-       messages: Zoi.list(Zoi.struct(Jido.Signal)),
+       messages: Zoi.list(Jido.Joi.struct(Jido.Signal)),
        sequence: Zoi.integer()
      })
      |> Zoi.default(%{members: [], messages: [], sequence: 0})}
@@ -105,7 +105,7 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
 
   @impl true
   def child_spec(init) do
-    {:ok, room} = Jido.agent_ref(init.jido, init.agent_id, partition: init.partition)
+    {:ok, room} = Jido.agent_address(init.jido, init.agent_id, partition: init.partition)
     options = [name: Room.bus_name(room), jido: init.jido, max_log_size: init.options[:history_limit]]
     resource = Jido.Plugin.Bus.Manager.child_spec(%{init | options: options})
     Resources.child_spec(init, resource, room)

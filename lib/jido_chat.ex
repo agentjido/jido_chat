@@ -129,7 +129,7 @@ defmodule Jido.Chat do
                  ),
                do: Jido.Chat.Signal.Policy.prepare(signal)
 
-        {:error, %Jido.Action.Error.TimeoutError{}} ->
+        {:error, %Jido.Error.TimeoutError{}} ->
           Jido.ChatAction.Execution.timeout(action, client, request)
 
         {:error, _} = error ->
@@ -385,7 +385,7 @@ defmodule Jido.Chat do
            |> Map.new(fn {key, value} -> {Atom.to_string(key), request_value(key, value)} end)
            |> Map.merge(data)
            |> Map.put("client_id", client.id)
-           |> Map.put("request_id", Keyword.get_lazy(opts, :request_id, &Jido.Signal.ID.generate!/0)),
+           |> Map.put("request_id", Keyword.get_lazy(opts, :request_id, &Jido.Id.uuid7/0)),
          {:ok, request} <-
            Jido.Chat.Signal.Policy.new(
              definition,

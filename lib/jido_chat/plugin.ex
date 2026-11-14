@@ -76,7 +76,7 @@ defmodule Jido.Chat.Plugin do
           %{module: source, emit: emit} -> Enum.filter(source.signal_types(), &Patterns.selected?(&1, emit))
         end
 
-      case Enum.find(types, fn type -> not Enum.any?(routes, &Jido.Agent.Data.matches?(type, &1.path)) end) do
+      case Enum.find(types, fn type -> not Enum.any?(routes, &Jido.Signal.Router.matches?(type, &1.path)) end) do
         nil -> {:cont, :ok}
         type -> {:halt, {:error, {:unhandled_sensor_signal, connection.name, type}}}
       end
@@ -220,6 +220,8 @@ defmodule Jido.Chat.Plugin do
 
   @impl Jido.Plugin
   def child_spec(init) do
+    init = %{init | agent_server: GenServer.whereis(init.agent_server)}
+
     connections =
       Enum.map(init.options[:connections], fn connection ->
         spec = resolve!(connection.name, :client, connection.client)
@@ -403,7 +405,7 @@ defmodule Jido.Chat.Plugin do
   end
 
   defp resolve!(name, field, value) do
-    case Jido.Config.resolve(value) do
+    case Jido.Plugin.Config.resolve(value) do
       {:ok, resolved} ->
         resolved
 

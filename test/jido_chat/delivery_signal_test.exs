@@ -125,5 +125,6 @@ defmodule Jido.Chat.DeliverySignalTest do
   end
 
   defp delivery_size(signals),
-    do: Jason.encode!(%{"id" => "delivery-1", "signals" => Enum.map(signals, &Jido.Signal.to_map/1)}) |> byte_size()
+    do:
+      Jason.encode!(%{"id" => "delivery-1", "signals" => Enum.map(signals, &Jido.Signal.Codec.to_map/1)}) |> byte_size()
 end

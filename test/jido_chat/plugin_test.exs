@@ -73,7 +73,7 @@ defmodule Jido.Chat.PluginTest do
   defp delivery(_server, _type, 0), do: flunk("result did not reach the Agent")
 
   defp delivery(server, type, tries) do
-    agent = Jido.AgentServer.agent(server)
+    agent = Jido.AgentServer.snapshot(server).agent
 
     if agent.state.last_delivery == type do
       agent
@@ -87,10 +87,12 @@ defmodule Jido.Chat.PluginTest do
     default = start()
     tenant = start(partition: "tenant")
 
-    assert {:ok, _, _} = Jido.Chat.Plugin.ingest(tenant.server, tenant.connection.name, fact(tenant.client))
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.Chat.Plugin.ingest(tenant.server, tenant.connection.name, fact(tenant.client))
+
     assert_receive {:mock_send, "mock/support", _command}, 2_000
     assert delivery(tenant.server, "jido.chat.command.send_message.completed").state.last_request == "mock:item:1:reply"
-    assert Jido.AgentServer.agent(default.server).state.last_delivery == ""
+    assert Jido.AgentServer.snapshot(default.server).agent.state.last_delivery == ""
   end
 
   test "incoming facts reject invalid Chat context and size before an Agent turn" do
@@ -104,7 +106,7 @@ defmodule Jido.Chat.PluginTest do
       assert {:error, _} = Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, invalid)
     end
 
-    assert Jido.AgentServer.agent(ctx.server).state.replies == 0
+    assert Jido.AgentServer.snapshot(ctx.server).agent.state.replies == 0
     refute_receive {:mock_send, _, _}
   end
 
@@ -125,7 +127,8 @@ defmodule Jido.Chat.PluginTest do
         source: ctx.client.source
       )
 
-    assert {:ok, _, []} = Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, signal)
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, signal)
 
     unsafe = %{signal | data: Map.put(signal.data, "metadata", %{"token" => "private"})}
     assert {:error, _} = Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, unsafe)
@@ -149,12 +152,12 @@ defmodule Jido.Chat.PluginTest do
     ctx = start()
     incoming = fact(ctx.client, %{"thread_id" => "topic-1"})
 
-    assert {:ok, committed, [%Jido.Agent.Directive.Emit{dispatch: nil, signal: emitted}]} =
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
              Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, incoming)
 
-    assert committed.state.replies == 1
+    assert Jido.AgentServer.snapshot(ctx.server).agent.state.replies == 1
     assert_receive {:mock_send, "mock/support", command}, 2_000
-    assert command.id == emitted.id
+    refute Map.has_key?(command.extensions, "jidoselfemithops")
     assert command.data["reply_to_id"] == "human-message"
     assert command.data["thread_id"] == "topic-1"
     assert command.data["text"] == "Spike received your message."
@@ -168,7 +171,10 @@ defmodule Jido.Chat.PluginTest do
 
   test "edits and reactions use the same Plugin and core SDK Actions with a mock adapter" do
     ctx = start()
-    assert {:ok, _, _} = Jido.Chat.Plugin.ingest(ctx.server, :telegram, fact(ctx.client))
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.Chat.Plugin.ingest(ctx.server, :telegram, fact(ctx.client))
+
     assert_receive {:mock_send, _, _}
     delivery(ctx.server, "jido.chat.command.send_message.completed")
     original = fact(ctx.client)
@@ -178,7 +184,9 @@ defmodule Jido.Chat.PluginTest do
         source: ctx.client.source
       )
 
-    assert {:ok, _, _} = Jido.Chat.Plugin.ingest(ctx.server, :telegram, edit)
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.Chat.Plugin.ingest(ctx.server, :telegram, edit)
+
     assert_receive {:mock_send, _, %{type: "jido.chat.command.edit_message"} = command}, 2_000
     assert command.data["message_id"] == "mock-reply"
     assert command.extensions["jidocausationid"] == edit.id
@@ -201,7 +209,9 @@ defmodule Jido.Chat.PluginTest do
           source: ctx.client.source
         )
 
-      assert {:ok, _, _} = Jido.Chat.Plugin.ingest(ctx.server, :telegram, signal)
+      assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+               Jido.Chat.Plugin.ingest(ctx.server, :telegram, signal)
+
       type = "jido.chat.command." <> operation
       assert_receive {:mock_send, _, %{type: ^type} = reaction}, 2_000
       assert reaction.data["reaction"] == "👀"
@@ -214,27 +224,27 @@ defmodule Jido.Chat.PluginTest do
   test "removing the input route blocks input before the Action runs" do
     ctx = start(remove_routes: ["jido.chat.message.received"])
 
-    assert {:error, _} =
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :failed}} =
              Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, fact(ctx.client))
 
-    assert Jido.AgentServer.agent(ctx.server).state.replies == 0
+    assert Jido.AgentServer.snapshot(ctx.server).agent.state.replies == 0
     refute_receive {:mock_send, _, _}
   end
 
   test "removing the command route leaves the reply Action usable but prevents Chat I/O" do
     ctx = start(remove_routes: ["jido.chat.command.*"])
 
-    assert {:ok, %{state: %{replies: 1}}, [%Jido.Agent.Directive.Emit{dispatch: nil}]} =
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
              Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, fact(ctx.client))
 
     refute_receive {:mock_send, _, _}, 200
-    assert Jido.AgentServer.agent(ctx.server).state.last_delivery == ""
+    assert Jido.AgentServer.snapshot(ctx.server).agent.state.last_delivery == ""
   end
 
   test "a mock failure returns through its Plugin as a failure Signal" do
     ctx = start(result: {:error, :test_send_failure})
 
-    assert {:ok, _, _} =
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
              Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, fact(ctx.client))
 
     assert_receive {:mock_send, _, _}, 2_000
@@ -245,12 +255,12 @@ defmodule Jido.Chat.PluginTest do
   test "a result cannot bypass a removed result route" do
     ctx = start(remove_routes: ["jido.chat.command.*.completed"])
 
-    assert {:ok, _, _} =
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
              Jido.Chat.Plugin.ingest(ctx.server, ctx.connection.name, fact(ctx.client))
 
     assert_receive {:mock_send, _, _}, 2_000
     refute_receive {:mock_send, _, _}, 200
-    assert Jido.AgentServer.agent(ctx.server).state.last_delivery == ""
+    assert Jido.AgentServer.snapshot(ctx.server).agent.state.last_delivery == ""
   end
 
   test "the mock boundary rejects another source and a room outside its declared scope" do
@@ -270,7 +280,7 @@ defmodule Jido.Chat.PluginTest do
              })
 
     refute_receive {:mock_send, _, _}
-    assert Jido.AgentServer.agent(ctx.server).state.replies == 0
+    assert Jido.AgentServer.snapshot(ctx.server).agent.state.replies == 0
   end
 
   test "an undeclared connection is rejected without I/O" do
@@ -288,17 +298,15 @@ defmodule Jido.Chat.PluginTest do
     malformed = %{message | data: Map.put(message.data, "text", 123)}
     assert {:error, _} = Jido.Chat.Plugin.ingest(ctx.server, :telegram, malformed)
     refute_receive {:mock_send, _, _}
-    assert Jido.AgentServer.agent(ctx.server).state.replies == 0
+    assert Jido.AgentServer.snapshot(ctx.server).agent.state.replies == 0
   end
 
   test "output rejects an unknown Client or an out-of-scope room without I/O" do
     ctx = start()
 
-    [{_, root, _, _}] =
-      Supervisor.which_children(Jido.agent_supervisor_name(Jido.Chat.PluginTest.Jido))
-
-    {{:plugin, Jido.Chat.Plugin}, runtime, _, _} =
-      Enum.find(Supervisor.which_children(root), &(elem(&1, 0) == {:plugin, Jido.Chat.Plugin}))
+    store = :global.whereis_name({Jido.Chat.Plugin.Runtime, ctx.server})
+    {:dictionary, dictionary} = Process.info(store, :dictionary)
+    [runtime | _] = dictionary[:"$ancestors"]
 
     context = %{jido: Jido.Chat.PluginTest.Jido, agent_id: "mock-test"}
 
@@ -332,10 +340,10 @@ defmodule Jido.Chat.PluginTest do
   test "the Agent runs against the unmodified V3 runtime with no topology edges" do
     ctx = start()
     assert ctx.definition.topology == %{agents: [], connections: []}
-    source = Jido.AgentServer.TopologyRuntime.module_info(:compile)[:source] |> to_string()
+    source = Jido.AgentServer.module_info(:compile)[:source] |> to_string()
 
     expected =
-      Path.join(Mix.Project.deps_paths()[:jido], "lib/jido/agent_server/topology_runtime.ex")
+      Path.join(Mix.Project.deps_paths()[:jido], "lib/jido/agent_server.ex")
 
     assert Path.expand(source) == Path.expand(expected)
     refute source =~ "/_core/"

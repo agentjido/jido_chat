@@ -12,7 +12,8 @@ defmodule Jido.Chat.Plugin.Ingress do
   @impl true
   def deliver(signal, opts) do
     case Jido.Chat.Plugin.ingest(opts[:server], opts[:connection], signal) do
-      {:ok, _agent, _directives} -> :ok
+      {:ok, %Jido.AgentServer.TurnResult{status: :committed}} -> :ok
+      {:ok, result} -> {:error, result.error || result.status}
       {:error, _} = error -> error
     end
   end

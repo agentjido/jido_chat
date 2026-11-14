@@ -69,8 +69,8 @@ The host starts the room through its Jido instance. Join and post operations
 must include the trusted caller in Jido context:
 
 ```elixir
-{:ok, room} = Jido.agent_ref(MyApp.Jido, "support")
-{:ok, room_server} = Jido.start_agent_ref(MyApp.Jido, room, MyApp.SupportRoom)
+{:ok, room} = Jido.agent_address(MyApp.Jido, "support")
+{:ok, room_server} = Jido.Chat.Runtime.Room.start_agent(MyApp.Jido, room, MyApp.SupportRoom)
 :ok = Jido.AgentServer.await_ready(room_server)
 
 join = Jido.Chat.Runtime.Signal.Room.Join.new!(%{"member" => "operator"})
@@ -111,7 +111,7 @@ defmodule MyApp.Observer do
 end
 ```
 
-The host must join the participant Agent Ref before it starts the participant.
+The host must join the participant Agent Address before it starts the participant.
 The participant rejects forged room facts and facts received after it leaves.
 
 ## Provider account and Bridge
@@ -202,3 +202,21 @@ again automatically.
 The storage selection must implement the capabilities required by the selected
 Runtime feature. The built-in Memory adapter implements History, Links,
 Outbox, Rooms, and Commit. `Commit` applies one storage batch atomically.
+
+## Correlated room results
+
+Core Agent calls return `{:ok, %Jido.AgentServer.TurnResult{}}`. Check the turn
+status before you use its result. A committed turn can still have pending
+post-commit effects.
+
+A Post turn returns a reply with type `jido.chat.room.posted`. Its data is
+`%{"message" => %Jido.Signal{}}`. This is the exact room message fact from that
+turn. The reply's `jidocausationid` is the Post request ID. A repeated Post with
+the same ID and data returns the original fact without another publication.
+
+`Jido.Chat.Runtime.Room.check_member/4` checks membership and an optional retained
+message in one room turn. Its typed `jido.chat.room.member_checked` reply contains
+`%{"member" => boolean, "retained" => boolean}` and the request causation ID.
+The helper returns `:ok` only for a committed, correlated positive reply.
+Agent identities use `Jido.Agent.Address`. Version-1 stored identity maps keep
+`version`, `namespace`, `partition`, and `id` keys.

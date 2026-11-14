@@ -481,8 +481,28 @@
       "function"
     ],
     [
+      "check_member",
+      3,
+      "function"
+    ],
+    [
+      "check_member",
+      4,
+      "function"
+    ],
+    [
       "member_schema",
       0,
+      "function"
+    ],
+    [
+      "start_agent",
+      3,
+      "function"
+    ],
+    [
+      "stop_agent",
+      2,
       "function"
     ]
   ],

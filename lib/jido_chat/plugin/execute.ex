@@ -8,6 +8,8 @@ defmodule Jido.Chat.Plugin.Execute do
   use Jido.Action, name: "chat_plugin_execute", schema: Zoi.map()
 
   def run(_params, context) do
-    {:ok, context.agent_state, [%Jido.Chat.Plugin.Deliver{signal: context.signal}]}
+    # Core uses this attribute only to bound local self-emission chains.
+    signal = Jido.Signal.delete_context(context.signal, "jidoselfemithops")
+    {:ok, context.agent_state, [%Jido.Chat.Plugin.Deliver{signal: signal}]}
   end
 end

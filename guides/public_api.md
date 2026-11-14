@@ -223,7 +223,7 @@ Jido.Chat.signal_definitions(client) # 128 definitions for Telegram
 Jido.Chat.event_definitions(client)  # 10 admitted incoming facts for Telegram
 Jido.Chat.catalog(client)            # configured native catalog
 
-{:ok, json} = Jido.Signal.Serialization.serialize(completed)
+{:ok, json} = Jido.Signal.Codec.serialize(completed)
 {:ok, decoded} = Jido.Signal.Catalog.decode(Jido.Chat.catalog(), json)
 ```
 
@@ -583,7 +583,7 @@ Use `SendMessage`, `FetchMessages`, pure `StreamRenderer`, `CreateThread`,
 `name`, not `topic_name`. Downloads use `resource_ref`, not `media_ref`.
 Trimmed request schemas have new schema versions. Removed fields fail validation.
 `Telegram.command_routes/0` is replaced by `operations/0`. Use native
-`Jido.Signal.ID` for new Signal IDs. The test kit's old `assert_operation_result/1` is replaced by separate success
+`Jido.Id.uuid7/0` for new Signal IDs. The test kit's old `assert_operation_result/1` is replaced by separate success
 and failure assertions with optional catalogs.
 
 Earlier removals include Binding, Resources, RequestStore, Handlers, duplicate

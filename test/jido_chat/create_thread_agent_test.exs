@@ -13,7 +13,7 @@ defmodule Jido.Chat.CreateThreadAgentTest do
     def invoke(client, request, _opts) do
       server = Jido.whereis_agent(Jido.Chat.CreateThreadAgentTest.Jido, "thread-agent")
       snapshot = Jido.AgentServer.snapshot(server)
-      send(Jido.Chat.CreateThreadAgentTest, {:provider, snapshot.state_version, request})
+      send(Jido.Chat.CreateThreadAgentTest, {:provider, snapshot.agent_revision, request})
 
       client.config[:result] ||
         {:ok, %{"id" => "thread-1", "room_id" => request.data["room_id"], "name" => request.data["name"]}}
@@ -41,7 +41,7 @@ defmodule Jido.Chat.CreateThreadAgentTest do
     use Jido.Agent, name: "thread_agent", plugins: [Jido.Chat.Plugin]
 
     state do
-      schema Zoi.object(%{count: Zoi.integer() |> Zoi.default(0)})
+      schema Jido.Joi.object(%{count: Zoi.integer() |> Zoi.default(0)})
     end
 
     chat do
@@ -125,7 +125,10 @@ defmodule Jido.Chat.CreateThreadAgentTest do
   test "the provider sees the committed revision and its completion returns to the Agent" do
     server = start()
     request = request()
-    assert {:ok, _, [%Deliver{}]} = Jido.AgentServer.call(server, request)
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed, effects: :pending}} =
+             Jido.AgentServer.call(server, request)
+
     assert_receive {:provider, 1, invoked}, 2_000
     assert invoked.id == request.id
     assert_receive {:thread_result, reply}, 2_000
@@ -138,7 +141,7 @@ defmodule Jido.Chat.CreateThreadAgentTest do
   test "provider failure returns a safe failure Signal after commit" do
     server = start(result: {:error, {:rejected, :forbidden}})
     request = request()
-    assert {:ok, _, _} = Jido.AgentServer.call(server, request)
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} = Jido.AgentServer.call(server, request)
     assert_receive {:provider, 1, _}, 2_000
     assert_receive {:thread_result, reply}, 2_000
     assert reply.type == CreateThread.Failed.type()
@@ -149,8 +152,8 @@ defmodule Jido.Chat.CreateThreadAgentTest do
 
   test "a failed state commit prevents provider execution" do
     server = start(reject: true)
-    assert {:error, _} = Jido.AgentServer.call(server, request())
-    assert Jido.AgentServer.snapshot(server).state_version == 0
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :failed}} = Jido.AgentServer.call(server, request())
+    assert Jido.AgentServer.snapshot(server).agent_revision == 0
     refute_received {:provider, _, _}
     refute_received {:thread_result, _}
   end

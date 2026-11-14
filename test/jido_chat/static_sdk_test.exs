@@ -98,7 +98,7 @@ defmodule Jido.Chat.StaticSDKTest do
              Jido.Chat.execute(client(), command(client()), options: [observer: self(), response: {:ok, response}])
 
     assert completed.data["result"]["media"] == [media]
-    assert {:ok, json} = Jido.Signal.Serialization.serialize(completed)
+    assert {:ok, json} = Jido.Signal.Codec.serialize(completed)
     assert {:ok, ^completed} = Jido.Signal.Catalog.decode(Jido.Chat.catalog(), json)
 
     unsafe = put_in(response, ["media"], [Map.put(media, "metadata", %{"token" => "private"})])

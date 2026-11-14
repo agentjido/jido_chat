@@ -125,7 +125,7 @@ defmodule Jido.Chat.ContractFixtures do
 
   def round_trip(signal, catalog \\ Chat.catalog()) do
     assert {:ok, ^signal} = Jido.Signal.Catalog.validate(catalog, signal)
-    assert {:ok, encoded} = Jido.Signal.Serialization.serialize(signal)
+    assert {:ok, encoded} = Jido.Signal.Codec.serialize(signal)
     assert {:ok, ^signal} = Jido.Signal.Catalog.decode(catalog, encoded)
     refute encoded =~ "private-token"
     refute encoded =~ "private-config"

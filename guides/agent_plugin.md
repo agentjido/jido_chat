@@ -186,15 +186,14 @@ queues, retries across restart, and message history remain host or Messaging wor
 
 ## Current V3 dependency gate
 
-Jido uses a pinned GitHub commit from the `release/v3` branch. The other
-dependencies use public Hex packages. Explicit Hex overrides for Action and
-Runic replace the local development paths in Jido's Mix file.
+Jido uses exact consolidated revision
+`05723b96c6ead47dec04fe69b1c34ad62f999c54` from `release/v3`.
+The other dependencies use public Hex packages. Separate Action, Signal, and AI
+applications must not be present in the dependency graph.
 
-The Jido dependency has `runtime: false`: normal SDK application startup does
-not start Jido. A Plugin host must start Jido itself.
-
-The published Jido `3.0.0-beta.1` package lacks the `Jido.Config` API used by
-this Plugin. Use the pinned GitHub source until a compatible release is available.
+Normal SDK application startup starts the core execution application. It does
+not start a Jido instance, Chat process, Sensor, room, or storage resource.
+The host starts its Jido instance before it activates an Agent Plugin.
 
 ## Input selection and definition checks
 

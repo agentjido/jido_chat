@@ -192,11 +192,12 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
 
   defp execute(%{kind: :inbound} = work, state) do
     with {:ok, _} <- update(state.storage, work.id, :claimed, %{status: :submitted}),
-         {:ok, _, _} <-
+         {:ok, %Jido.AgentServer.TurnResult{status: :committed}} <-
            Jido.call(state.jido, work.room, work.signal, context: %{actor: state.account_ref}) do
       {:completed, work.link}
     else
       {:error, reason} -> {:unknown, safe_reason(reason)}
+      {:ok, result} -> {:unknown, safe_reason(result.error || result.status)}
     end
   catch
     :exit, reason -> {:unknown, safe_reason(reason)}
@@ -206,10 +207,11 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
     case Jido.resolve_agent(state.jido, state.account_ref) do
       {:ok, server} ->
         with {:ok, _} <- update(state.storage, work.id, :claimed, %{status: :submitted}),
-             {:ok, _, _} <- Jido.AgentServer.call(server, work.signal) do
+             {:ok, %Jido.AgentServer.TurnResult{status: :committed}} <- Jido.AgentServer.call(server, work.signal) do
           :submitted
         else
           {:error, reason} -> {:unknown, safe_reason(reason)}
+          {:ok, result} -> {:unknown, safe_reason(result.error || result.status)}
         end
 
       _ ->

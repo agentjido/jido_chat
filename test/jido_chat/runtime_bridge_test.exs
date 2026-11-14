@@ -89,13 +89,13 @@ defmodule Jido.Chat.RuntimeBridgeTest do
     start_supervised!({Jido, name: __MODULE__.Jido, namespace: "chat-runtime-bridge-test"})
     start_supervised!({Memory, name: __MODULE__.Storage})
 
-    {:ok, room} = Jido.agent_ref(Runtime.jido(), "team")
-    {:ok, room_server} = Jido.start_agent_ref(Runtime.jido(), room, Team)
+    {:ok, room} = Jido.agent_address(Runtime.jido(), "team")
+    {:ok, room_server} = Jido.Chat.Runtime.Room.start_agent(Runtime.jido(), room, Team)
     :ok = Jido.AgentServer.await_ready(room_server)
     {:ok, account_ref} = Runtime.connection_ref("support")
 
     for member <- ["operator", account_ref] do
-      assert {:ok, _, _} =
+      assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
                Jido.call(
                  Runtime.jido(),
                  room,
@@ -117,7 +117,9 @@ defmodule Jido.Chat.RuntimeBridgeTest do
 
   test "inbound rich content enters the local room once and does not echo", context do
     inbound = incoming("provider-1", "From provider", media: true)
-    assert {:ok, _, _} = Jido.Chat.Plugin.ingest(context.account, :provider, inbound)
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.Chat.Plugin.ingest(context.account, :provider, inbound)
 
     message = await_room_message(context.room_server, &(Message.fallback_text(&1) =~ "From provider"))
     assert message.actor.id == "user-1"
@@ -125,7 +127,9 @@ defmodule Jido.Chat.RuntimeBridgeTest do
     assert get_in(message.metadata, ["jido_chat_origin", "account_id"]) == "support"
     refute_receive {:provider_send, _, _}, 200
 
-    assert {:ok, _, _} = Jido.Chat.Plugin.ingest(context.account, :provider, inbound)
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.Chat.Plugin.ingest(context.account, :provider, inbound)
+
     Process.sleep(100)
     assert Enum.count(room_messages(context.room_server), &(&1.id == message.id)) == 1
 
@@ -135,7 +139,7 @@ defmodule Jido.Chat.RuntimeBridgeTest do
   end
 
   test "outbound messages and replies keep provider links", context do
-    assert {:ok, _, _} = post(context, Post.text("To provider"))
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} = post(context, Post.text("To provider"))
 
     assert_receive {:provider_send, "bridge/client", first_request}, 2_000
     assert first_request.data["room_id"] == "provider-room"
@@ -146,12 +150,17 @@ defmodule Jido.Chat.RuntimeBridgeTest do
     first_link = await_link(first.id)
 
     inbound = incoming("provider-reply", "Provider reply", reply_to_id: first_link.external_message_id)
-    assert {:ok, _, _} = Jido.Chat.Plugin.ingest(context.account, :provider, inbound)
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.Chat.Plugin.ingest(context.account, :provider, inbound)
+
     provider_reply = await_room_message(context.room_server, &(Message.fallback_text(&1) == "Provider reply"))
     assert provider_reply.reply_to_id == first.id
     refute_receive {:provider_send, _, _}, 200
 
-    assert {:ok, _, _} = post(context, Post.text("Local reply", reply_to_id: provider_reply.id))
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             post(context, Post.text("Local reply", reply_to_id: provider_reply.id))
+
     assert_receive {:provider_send, "bridge/client", reply_request}, 2_000
     assert reply_request.data["reply_to_id"] == "provider-reply"
     local_reply = await_room_message(context.room_server, &(Message.fallback_text(&1) == "Local reply"))
@@ -159,7 +168,7 @@ defmodule Jido.Chat.RuntimeBridgeTest do
   end
 
   test "unknown provider outcomes are retained and are not sent again", context do
-    assert {:ok, _, _} = post(context, Post.text("Unknown outcome"))
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} = post(context, Post.text("Unknown outcome"))
     assert_receive {:provider_send, "bridge/client", request}, 2_000
     await(fn -> match?({:ok, %{unknown: 1}}, Runtime.bridge_status("support")) end)
     assert :ok = Runtime.recover_bridge("support")
@@ -206,6 +215,32 @@ defmodule Jido.Chat.RuntimeBridgeTest do
     assert {:ok, %{completed: 1, pending: 0}} = Runtime.bridge_status("support")
   end
 
+  test "failed room and account turns retain unknown work without provider I/O", context do
+    worker = Jido.Chat.Runtime.Bridge.Worker.server(Runtime, "support")
+    signal = Jido.Signal.new!("test.chat.unhandled", %{}, source: "urn:test:chat")
+
+    for kind <- [:inbound, :outbound] do
+      id = "failed-turn-" <> Atom.to_string(kind)
+
+      work = %{
+        id: id,
+        kind: kind,
+        account_id: "support",
+        room: context.room,
+        signal: signal,
+        link: %{},
+        status: :pending
+      }
+
+      assert :ok = Jido.Chat.Runtime.Bridge.Worker.enqueue(worker, work)
+      await(fn -> match?({:ok, %{status: :unknown}}, Memory.get_work(__MODULE__.Storage, id)) end)
+      assert {:ok, %{status: :unknown, last_error: :operation_failed}} = Memory.get_work(__MODULE__.Storage, id)
+    end
+
+    assert :ok = Runtime.recover_bridge("support")
+    refute_receive {:provider_send, _, _}, 100
+  end
+
   test "provider work rejects invalid input and uncorrelated completion" do
     worker = Jido.Chat.Runtime.Bridge.Worker.server(Runtime, "support")
 
@@ -237,6 +272,7 @@ defmodule Jido.Chat.RuntimeBridgeTest do
     assert {:error, {:already_started, ^account}} = Runtime.start_connection("support", Account)
     assert {:ok, %{account_id: "support", ref: ^account_ref}} = Runtime.connection_status("support")
     assert :ok = Runtime.stop_connection("support")
+    await(fn -> Runtime.connection_status("support") == {:error, :not_found} end)
     assert {:error, :not_found} = Runtime.connection_status("support")
     assert {:error, :connection_not_started} = Runtime.recover_bridge("support")
   end
@@ -286,7 +322,8 @@ defmodule Jido.Chat.RuntimeBridgeTest do
 
   defp room_messages(server) do
     server
-    |> Jido.AgentServer.agent()
+    |> Jido.AgentServer.snapshot()
+    |> Map.fetch!(:agent)
     |> get_in([Access.key!(:state), Access.key!(:room), Access.key!(:messages)])
     |> Enum.map(&Message.from_map(&1.data["message"]))
   end

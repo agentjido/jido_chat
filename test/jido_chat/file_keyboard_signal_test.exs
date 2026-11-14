@@ -12,7 +12,7 @@ defmodule Jido.Chat.FileKeyboardSignalTest do
     }
 
     signal = SendMessage.new!(Map.merge(base(), %{"text" => "Choose", "keyboard" => keyboard}))
-    assert {:ok, json} = Jido.Signal.Serialization.serialize(signal)
+    assert {:ok, json} = Jido.Signal.Codec.serialize(signal)
     assert {:ok, ^signal} = Jido.Signal.Catalog.decode(Jido.Chat.catalog(), json)
     assert EditMessage.new!(Map.merge(base(), %{"message_id" => "1", "text" => "Done", "keyboard" => %{"rows" => []}}))
 
@@ -35,7 +35,7 @@ defmodule Jido.Chat.FileKeyboardSignalTest do
           %{"content_base64" => Base.encode64("bytes"), "filename" => "test.txt"}
         ] do
       signal = SendFile.new!(Map.put(base(), "source", source))
-      assert {:ok, json} = Jido.Signal.Serialization.serialize(signal)
+      assert {:ok, json} = Jido.Signal.Codec.serialize(signal)
       assert {:ok, ^signal} = Jido.Signal.Catalog.decode(Jido.Chat.catalog(), json)
     end
 

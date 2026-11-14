@@ -2,7 +2,7 @@ defmodule Jido.Chat.V3BaselineTest do
   use ExUnit.Case, async: true
 
   alias Jido.Signal
-  alias Jido.Signal.{Bus, Catalog, Serialization}
+  alias Jido.Signal.{Bus, Catalog, Codec}
 
   defmodule MessageReceived do
     use Jido.Signal,
@@ -18,7 +18,7 @@ defmodule Jido.Chat.V3BaselineTest do
     assert {:ok, signal} =
              MessageReceived.new(%{"text" => "hello"}, subject: "room:fixture")
 
-    assert {:ok, encoded} = Serialization.serialize(signal)
+    assert {:ok, encoded} = Codec.serialize(signal)
     assert {:ok, ^signal} = Catalog.decode(catalog, encoded)
     assert {:ok, ^signal} = Catalog.validate(catalog, signal)
     assert signal.type == MessageReceived.type()

@@ -163,7 +163,7 @@ defmodule Jido.ChatAction.Execution do
          :ok <- validate_context(client, request),
          true <- is_list(opts) and Keyword.keyword?(opts) do
       if is_nil(contract.capability) or client.adapter.capabilities()[contract.capability] == :native do
-        Jido.Tracing.Context.with_context(Jido.Tracing.Trace.get(request), fn ->
+        Jido.Trace.Context.with_context(Jido.Signal.Context.get_trace(request), fn ->
           invoke(action, contract, client, request, opts)
         end)
       else

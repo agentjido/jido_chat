@@ -14,7 +14,7 @@ defmodule Jido.Chat.PartialUpdateSignalTest do
           "text" => text
         })
 
-      assert {:ok, json} = Jido.Signal.Serialization.serialize(signal)
+      assert {:ok, json} = Jido.Signal.Codec.serialize(signal)
       assert {:ok, ^signal} = Jido.Signal.Catalog.decode(catalog, json)
       assert signal.data["text"] == text
     end
@@ -32,7 +32,7 @@ defmodule Jido.Chat.PartialUpdateSignalTest do
 
     for reaction <- [nil, "👍"] do
       signal = Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.ReactionRemoved, Map.put(data, "reaction", reaction))
-      assert {:ok, json} = Jido.Signal.Serialization.serialize(signal)
+      assert {:ok, json} = Jido.Signal.Codec.serialize(signal)
       assert {:ok, ^signal} = Jido.Signal.Catalog.decode(Jido.Signal.Catalog.new!(Jido.Chat.signal_definitions()), json)
       assert signal.data["reaction"] == reaction
     end

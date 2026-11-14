@@ -97,8 +97,8 @@ defmodule Jido.Chat.PublicAPIContractTest do
     for _ <- 1..2, do: assert({:ok, _} = Chat.send_text(client, "room/1", "Hello"))
     assert_receive {:contract_invoke, _, _, first, _, _}
     assert_receive {:contract_invoke, _, _, second, _, _}
-    assert Jido.Signal.ID.valid?(first.data["request_id"])
-    assert Jido.Signal.ID.valid?(second.data["request_id"])
+    assert Jido.Id.uuid7?(first.data["request_id"])
+    assert Jido.Id.uuid7?(second.data["request_id"])
     refute first.data["request_id"] == second.data["request_id"]
 
     for _ <- 1..2 do

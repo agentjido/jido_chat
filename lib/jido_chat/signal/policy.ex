@@ -6,15 +6,16 @@ defmodule Jido.Chat.Signal.Policy do
   enforce Chat data, context, and size rules. Native definition constructors
   retain their native behavior. Every Chat admission boundary uses `validate/2`.
 
-  Traces use `Jido.Signal.Trace` and the current Jido tracing context. Replies
+  Traces use `Jido.Trace` and the current Jido tracing context. Replies
   retain the parent trace and use Jido's `jidocausationid` context attribute.
   The host owns span lifetime, sampling, and export.
   """
 
   alias Jido.Chat.Errors.Contract
-  alias Jido.Signal.{Catalog, Context, Trace}
-  alias Jido.Tracing.Context, as: TraceContext
-  alias Jido.Tracing.Trace, as: JidoTrace
+  alias Jido.Signal.{Catalog, Context}
+  alias Jido.Signal.Context, as: JidoTrace
+  alias Jido.Trace
+  alias Jido.Trace.Context, as: TraceContext
 
   @context_fields ~w(traceparent tracestate jidocausationid)
   @signal_bytes 262_144
@@ -141,7 +142,7 @@ defmodule Jido.Chat.Signal.Policy do
   defp valid_causation?(id), do: is_binary(id) and byte_size(id) in 1..128
 
   defp encoded_size(signal) do
-    wire = Jido.Signal.to_map(signal)
+    wire = Jido.Signal.Codec.to_map(signal)
 
     with true <- json_value?(Map.delete(wire, "data"), 0),
          {:ok, encoded} <- Jason.encode_to_iodata(wire) do
@@ -175,7 +176,7 @@ defmodule Jido.Chat.Signal.Policy do
     construct(data, opts, fn ->
       with {:ok, parent} <- prepare(parent),
            {:ok, signal} <- definition.new(data, opts) do
-        JidoTrace.put(signal, Map.put(JidoTrace.get(parent), :causation_id, parent.id))
+        JidoTrace.put_trace(signal, Map.put(JidoTrace.get_trace(parent), :causation_id, parent.id))
       end
     end)
   end
@@ -218,13 +219,13 @@ defmodule Jido.Chat.Signal.Policy do
   end
 
   defp ensure_trace(signal) do
-    case {Trace.get(signal), TraceContext.get()} do
+    case {Jido.Signal.Context.get_trace(signal), TraceContext.get()} do
       {nil, context} when is_map(context) ->
         cause = Jido.Signal.get_context(signal, "jidocausationid")
-        JidoTrace.put(signal, Map.put(context, :causation_id, cause))
+        JidoTrace.put_trace(signal, Map.put(context, :causation_id, cause))
 
       _ ->
-        with {:ok, traced, _trace} <- Trace.ensure(signal), do: {:ok, traced}
+        with {:ok, traced, _trace} <- Jido.Signal.Context.ensure_trace(signal), do: {:ok, traced}
     end
   end
 end

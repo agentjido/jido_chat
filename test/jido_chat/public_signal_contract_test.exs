@@ -2,7 +2,7 @@ defmodule Jido.Chat.PublicSignalContractTest do
   use ExUnit.Case, async: true
 
   alias Jido.Chat.Errors.Contract
-  alias Jido.Signal.{Catalog, Serialization}
+  alias Jido.Signal.{Catalog, Codec}
 
   @catalog_file Path.expand("../contracts/fixtures/core_signals.json", __DIR__)
   @entries @catalog_file
@@ -17,10 +17,10 @@ defmodule Jido.Chat.PublicSignalContractTest do
       assert {:ok, signal} = Jido.Chat.Signal.Policy.new(module, entry["fixture"], entry["fixture_options"])
       assert signal.type == entry["type"]
       assert signal.dataschema == entry["dataschema"]
-      assert %Jido.Signal.Trace{} = Jido.Signal.Trace.get(signal)
+      assert %Jido.Trace{} = Jido.Signal.Context.get_trace(signal)
       catalog = Catalog.new!(Jido.Chat.signal_definitions())
       assert {:ok, ^signal} = Catalog.validate(catalog, signal)
-      assert {:ok, wire} = Serialization.serialize(signal)
+      assert {:ok, wire} = Codec.serialize(signal)
       assert {:ok, ^signal} = Catalog.decode(catalog, wire)
     end
   end
@@ -59,7 +59,7 @@ defmodule Jido.Chat.PublicSignalContractTest do
     data = %{"client_id" => "binding/alpha", "request_id" => "request-1", "room_id" => "room-1", "text" => text}
     opts = [id: "fixture-size", time: "2026-10-12T12:00:00Z"]
     assert {:ok, base} = Jido.Chat.Signal.Policy.new(Jido.Chat.Signal.SendMessage, data, opts)
-    assert {:ok, encoded} = Serialization.serialize(base)
+    assert {:ok, encoded} = Codec.serialize(base)
     fill = 262_144 - byte_size(encoded)
 
     assert {:ok, signal} =
@@ -69,7 +69,7 @@ defmodule Jido.Chat.PublicSignalContractTest do
                opts
              )
 
-    assert {:ok, encoded} = Serialization.serialize(signal)
+    assert {:ok, encoded} = Codec.serialize(signal)
     assert byte_size(encoded) == 262_144
 
     assert {:error, %Contract{code: :signal_too_large}} =

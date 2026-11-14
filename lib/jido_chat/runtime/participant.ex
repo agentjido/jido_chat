@@ -7,7 +7,7 @@ defmodule Jido.Chat.Runtime.Participant do
 
   alias Jido.Chat.Runtime.Directives.Receive
   alias Jido.Chat.Runtime.{Resources, Room}
-  alias Jido.Chat.Runtime.Signal.Room.{CheckMember, Message}
+  alias Jido.Chat.Runtime.Signal.Room.Message
   alias Spark.Dsl.Extension, as: DSL
 
   @section %Spark.Dsl.Section{
@@ -34,7 +34,7 @@ defmodule Jido.Chat.Runtime.Participant do
   @impl true
   def validate_options(opts) do
     room = opts[:room]
-    valid_room = (is_binary(room) and room != "") or match?({:ok, _}, Jido.Agent.Ref.validate(room))
+    valid_room = (is_binary(room) and room != "") or match?({:ok, _}, Jido.Agent.Address.validate(room))
 
     if valid_room and opts[:respond] in [:mentioned, :never] and
          is_binary(opts[:reply_text]) and opts[:reply_text] != "" and
@@ -46,7 +46,7 @@ defmodule Jido.Chat.Runtime.Participant do
   @impl true
   def state_spec(_opts) do
     {:participation,
-     Zoi.object(%{received: Zoi.list(Zoi.struct(Jido.Signal))})
+     Jido.Joi.object(%{received: Zoi.list(Jido.Joi.struct(Jido.Signal))})
      |> Zoi.default(%{received: []})}
   end
 
@@ -64,16 +64,9 @@ defmodule Jido.Chat.Runtime.Participant do
     {jido, member, room, _} = Resources.identity(runtime)
 
     if input.prepared_input["room"] == room do
-      with {:ok, agent, _} <-
-             Jido.call(jido, room, CheckMember.new!(%{"member" => member}), context: %{actor: member}),
-           true <- member in agent.state.room.members,
-           true <-
-             Enum.any?(agent.state.room.messages, fn message ->
-               message.id == input.signal.id and message.data == input.prepared_input
-             end) do
+      with :ok <- Room.check_member(jido, room, member, input.signal) do
         {:ok, %{member: member, room: room, respond: opts[:respond], reply_text: opts[:reply_text]}}
       else
-        false -> {:error, :not_member_or_retained_message}
         error -> error
       end
     else
@@ -110,7 +103,8 @@ defmodule Jido.Chat.Runtime.Participant do
     {_, member, room, _} = Resources.identity(runtime)
 
     case Jido.call(context.jido, room, reply, context: %{actor: member}) do
-      {:ok, _, _} -> :ok
+      {:ok, %Jido.AgentServer.TurnResult{status: :committed}} -> :ok
+      {:ok, result} -> {:error, result.error || result.status}
       error -> error
     end
   end

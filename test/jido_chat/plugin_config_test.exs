@@ -63,13 +63,14 @@ defmodule Jido.Chat.PluginConfigTest do
     assert {:error, :undeclared_sensor_signal} =
              Plugin.ingest(server, :mock, %{signal | type: "jido.chat.message.updated"})
 
-    [{_, root, _, _}] = Supervisor.which_children(Jido.agent_supervisor_name(__MODULE__.Jido))
-    {_, plugin, _, _} = Enum.find(Supervisor.which_children(root), &(elem(&1, 0) == {:plugin, Plugin}))
+    store = :global.whereis_name({Plugin.Runtime, server})
+    {:dictionary, dictionary} = Process.info(store, :dictionary)
+    [plugin | _] = dictionary[:"$ancestors"]
     {:mock, sensor, _, _} = Enum.find(Supervisor.which_children(plugin), &(elem(&1, 0) == :mock))
     assert Process.alive?(sensor)
     send(sensor, :poll)
     assert :sys.get_state(sensor).cursor == nil
-    GenServer.stop(server)
+    Jido.stop_agent(__MODULE__.Jido, server)
     ref = Process.monitor(sensor)
     assert_receive {:DOWN, ^ref, :process, ^sensor, _}, 2_000
   end
@@ -94,7 +95,7 @@ defmodule Jido.Chat.PluginConfigTest do
     end
 
     assert {:error, _} = Plugin.normalize(%{connections: [c, c]})
-    assert {:ok, _} = Plugin.normalize(%{connections: [%{c | rooms: [Jido.Config.env("ROOM")]}]})
+    assert {:ok, _} = Plugin.normalize(%{connections: [%{c | rooms: [Jido.Plugin.Config.env("ROOM")]}]})
   end
 
   test "verification requires a route for each advertised fact" do
@@ -144,7 +145,7 @@ defmodule Jido.Chat.PluginConfigTest do
       Plugin.child_spec(init)
     end
 
-    c = put_in(c.client[:credentials], %{token: Jido.Config.env("JIDO_CHAT_TEST_MISSING_92EC")})
+    c = put_in(c.client[:credentials], %{token: Jido.Plugin.Config.env("JIDO_CHAT_TEST_MISSING_92EC")})
 
     assert_raise ArgumentError, ~r/connection mock: cannot resolve client.credentials.token/, fn ->
       Plugin.child_spec(%{init | options: [connections: [c]]})

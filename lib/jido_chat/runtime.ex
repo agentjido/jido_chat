@@ -67,7 +67,7 @@ defmodule Jido.Chat.Runtime do
         {@chat_runtime_provider_work_limit, @chat_runtime_provider_queue_limit}
       end
 
-      @doc "Returns the stable Agent Ref for one provider account."
+      @doc "Returns the stable Agent Address for one provider account."
       def connection_ref(account_id),
         do: Jido.Chat.Runtime.Connection.ref(__MODULE__, account_id)
 

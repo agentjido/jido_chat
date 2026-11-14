@@ -58,7 +58,7 @@ defmodule Jido.Chat.AdapterTestKit.Assertions do
   @doc "Asserts a lossless native Signal JSON/Catalog round trip."
   @spec assert_json_round_trip(Jido.Signal.t(), Jido.Signal.Catalog.t()) :: :ok
   def assert_json_round_trip(signal, catalog \\ Jido.Chat.catalog()) do
-    assert {:ok, json} = Jido.Signal.Serialization.serialize(signal)
+    assert {:ok, json} = Jido.Signal.Codec.serialize(signal)
     assert {:ok, ^signal} = Jido.Signal.Catalog.decode(catalog, json)
     :ok
   end

@@ -294,10 +294,10 @@ Host application
 ```
 
 Jido owns account activation and lifetime. The Runtime facade delegates to
-`Jido.activate_agent/4`, `Jido.start_agent_ref/4`, and related Jido functions.
+`Jido.activate_agent/3`, `Jido.start_agent/3`, and related Jido functions.
 Integration owns the Client and optional Sensor inside one account activation.
 
-Each provider account has a stable Agent Ref. Two provider accounts use two
+Each provider account has a stable Agent Address. Two provider accounts use two
 Agent activations. They are not interchangeable provider workers.
 
 ## Rooms and participants
@@ -320,7 +320,7 @@ Participants compose `Jido.Chat.Runtime.Participant` into their Agent
 definitions. They subscribe through managed Jido Bus resources. Their Actions
 decide when to observe or reply.
 
-Use full Jido Agent Refs for local member identity. The room must verify caller
+Use full Jido Agent Addresses for local member identity. The room must verify caller
 authority for joins, leaves, reads, and posts.
 
 A room-only use starts no provider account service or provider work process.
@@ -558,7 +558,7 @@ The first implementation must test these Jido v3 seams:
    crash between the two operations.
 5. An outbound provider intent survives account restart without replaying a
    completed or unknown provider call.
-6. Cross-Agent bridge work uses stable Agent Refs and Signals without a custom
+6. Cross-Agent bridge work uses stable Agent Addresses and Signals without a custom
    router or registry.
 7. Burst input has bounded admission and visible backpressure. No hidden or
    unbounded queue is added in Chat.

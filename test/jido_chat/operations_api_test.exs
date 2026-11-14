@@ -114,7 +114,7 @@ defmodule Jido.Chat.OperationsAPITest do
       assert request.data["room_id"] == "room"
       assert request.data["message_id"] == "message"
       if function != :delete_message, do: assert(request.data["reaction"] == "👍")
-      assert Jido.Signal.ID.valid?(request.data["request_id"])
+      assert Jido.Id.uuid7?(request.data["request_id"])
       assert completed.data["request_id"] == request.data["request_id"]
       assert completed.data["result"] == %{"acknowledged" => true}
       assert_completed(completed, definition)
@@ -164,7 +164,7 @@ defmodule Jido.Chat.OperationsAPITest do
     assert_receive {:request, request, _}
     assert request.type == Signal.CreateThread.type()
     assert request.data["name"] == "Release"
-    assert Jido.Signal.ID.valid?(request.data["request_id"])
+    assert Jido.Id.uuid7?(request.data["request_id"])
     assert created.data["request_id"] == request.data["request_id"]
     assert created.data["result"] == %{"id" => "topic-1", "room_id" => "room", "name" => "Release"}
     assert_completed(created, Signal.CreateThread)
@@ -195,7 +195,7 @@ defmodule Jido.Chat.OperationsAPITest do
     assert {:ok, completed} = Jido.Chat.start_typing(client(), "room", options: [observer: self()])
     assert_receive {:request, request, _}
     refute Map.has_key?(request.data, "thread_id")
-    assert Jido.Signal.ID.valid?(request.data["request_id"])
+    assert Jido.Id.uuid7?(request.data["request_id"])
     assert_completed(completed, Signal.StartTyping)
     refute_receive {:request, _, _}
   end
@@ -232,7 +232,7 @@ defmodule Jido.Chat.OperationsAPITest do
 
       assert failed.type == definition.type() <> ".failed"
       assert failed.data["outcome"] == "not_attempted"
-      assert {:ok, json} = Jido.Signal.Serialization.serialize(failed)
+      assert {:ok, json} = Jido.Signal.Codec.serialize(failed)
       assert {:ok, ^failed} = Jido.Signal.Catalog.decode(Jido.Chat.catalog(), json)
     end
   end
@@ -262,7 +262,7 @@ defmodule Jido.Chat.OperationsAPITest do
     assert signal.type == definition.type() <> ".completed"
     assert signal.data["operation"] == definition.type()
     assert signal.data["client_id"] == "test"
-    assert {:ok, json} = Jido.Signal.Serialization.serialize(signal)
+    assert {:ok, json} = Jido.Signal.Codec.serialize(signal)
     assert {:ok, ^signal} = Jido.Signal.Catalog.decode(Jido.Chat.catalog(), json)
     refute json =~ "private-token"
     refute json =~ "private_setting"

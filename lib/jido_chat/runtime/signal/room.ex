@@ -69,7 +69,7 @@ defmodule Jido.Chat.Runtime.Signal.Room.Message do
     schema:
       Zoi.map(
         %{
-          "room" => Jido.Agent.Ref.schema(),
+          "room" => Jido.Agent.Address.schema(),
           "sequence" => Zoi.integer() |> Zoi.min(1),
           "author" => Jido.Chat.Runtime.Room.member_schema(),
           "message" => Jido.Chat.Runtime.Signal.Room.message_schema(),
@@ -80,9 +80,33 @@ defmodule Jido.Chat.Runtime.Signal.Room.Message do
 end
 
 defmodule Jido.Chat.Runtime.Signal.Room.CheckMember do
-  @moduledoc "Reads room membership through the member's trusted caller context."
+  @moduledoc "Checks membership and optional retained message through trusted caller context."
   use Jido.Signal,
     type: "jido.chat.room.check_member",
     default_source: "urn:jido:chat:runtime:local",
-    schema: Zoi.map(%{"member" => Jido.Chat.Runtime.Room.member_schema()}, unrecognized_keys: :error)
+    schema:
+      Zoi.map(
+        %{
+          "member" => Jido.Chat.Runtime.Room.member_schema(),
+          "message_id" => Zoi.string() |> Zoi.optional(),
+          "message_data" => Zoi.map() |> Zoi.optional()
+        },
+        unrecognized_keys: :error
+      )
+end
+
+defmodule Jido.Chat.Runtime.Signal.Room.MemberChecked do
+  @moduledoc "Returns membership and retained-message evidence for one room turn."
+  use Jido.Signal,
+    type: "jido.chat.room.member_checked",
+    default_source: "urn:jido:chat:runtime:room",
+    schema: Zoi.map(%{"member" => Zoi.boolean(), "retained" => Zoi.boolean()}, unrecognized_keys: :error)
+end
+
+defmodule Jido.Chat.Runtime.Signal.Room.Posted do
+  @moduledoc "Returns the exact committed message fact for one Post request."
+  use Jido.Signal,
+    type: "jido.chat.room.posted",
+    default_source: "urn:jido:chat:runtime:room",
+    schema: Zoi.map(%{"message" => Zoi.struct(Jido.Signal)}, unrecognized_keys: :error)
 end

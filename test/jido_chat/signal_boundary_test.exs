@@ -6,9 +6,9 @@ defmodule Jido.Chat.SignalBoundaryTest do
   alias Jido.Chat.{Client, Delivery}
   alias Jido.Chat.Errors.Contract
   alias Jido.Chat.Signal.Policy
-  alias Jido.Signal.Trace
-  alias Jido.Tracing.Context, as: TraceContext
-  alias Jido.Tracing.Trace, as: JidoTrace
+  alias Jido.Signal.Context, as: JidoTrace
+  alias Jido.Trace
+  alias Jido.Trace.Context, as: TraceContext
 
   defmodule Fact do
     use Jido.Signal,
@@ -123,7 +123,7 @@ defmodule Jido.Chat.SignalBoundaryTest do
         dataschema: TransformingFact.dataschema()
       )
 
-    fill = 262_144 - byte_size(Jason.encode!(Jido.Signal.to_map(base)))
+    fill = 262_144 - byte_size(Jason.encode!(Jido.Signal.Codec.to_map(base)))
     signal = %{base | data: Map.put(base.data, "padding", String.duplicate("x", fill))}
     assert {:ok, ^signal} = Policy.validate(signal)
     assert {:error, %Contract{code: :signal_too_large}} = Policy.validate(catalog, signal)
@@ -131,15 +131,15 @@ defmodule Jido.Chat.SignalBoundaryTest do
 
   test "serialized Action input is checked before the data schema can strip private fields" do
     request = Policy.new!(Chat.Signal.SendMessage, data())
-    wire = request |> Jido.Signal.to_map() |> Map.update!("data", &Map.put(&1, "token", "private"))
+    wire = request |> Jido.Signal.Codec.to_map() |> Map.update!("data", &Map.put(&1, "token", "private"))
     assert {:error, _} = Jido.Exec.run(Chat.SendMessage, %{"signal" => wire}, %{client: client()})
     refute_receive {:invoked, _, _}
   end
 
   test "SDK execution carries Jido context into the execution task and native result context" do
     parent = Policy.new!(Chat.Signal.SendMessage, data())
-    {:ok, parent} = Trace.put(parent, Trace.new(trace_flags: "01", tracestate: "vendor=example"))
-    context = JidoTrace.get(parent)
+    {:ok, parent} = Jido.Signal.Context.put_trace(parent, Trace.new(trace_flags: "01", tracestate: "vendor=example"))
+    context = JidoTrace.get_trace(parent)
     previous = TraceContext.get()
 
     completed =
@@ -150,26 +150,26 @@ defmodule Jido.Chat.SignalBoundaryTest do
 
     assert TraceContext.get() == previous
     assert_receive {:invoked, request, execution_context}
-    assert execution_context.traceparent == context.traceparent
-    assert Trace.get(request) == Trace.get(parent)
-    assert Trace.get(completed) == Trace.get(parent)
-    assert JidoTrace.get(completed).causation_id == request.id
+    assert Jido.Trace.to_traceparent(execution_context) == Jido.Trace.to_traceparent(context)
+    assert Jido.Signal.Context.get_trace(request) == Jido.Signal.Context.get_trace(parent)
+    assert Jido.Trace.to_traceparent(Jido.Signal.Context.get_trace(completed)) == parent.extensions["traceparent"]
+    assert JidoTrace.get_trace(completed).causation_id == request.id
     refute Map.has_key?(completed.extensions, "causationid")
   end
 
   test "explicit request context overrides ambient context and direct Actions receive it" do
     request = Policy.new!(Chat.Signal.SendMessage, data())
-    ambient = JidoTrace.new_root()
+    ambient = Jido.Trace.new()
 
     TraceContext.with_context(ambient, fn ->
       assert {:ok, data} = Jido.Exec.run(Chat.SendMessage, request.data, %{client: client(), signal: request})
       assert {:ok, completed} = Chat.SendMessage.reply(request, data, source: client().source)
-      assert Trace.get(completed) == Trace.get(request)
+      assert Jido.Trace.to_traceparent(Jido.Signal.Context.get_trace(completed)) == request.extensions["traceparent"]
       assert TraceContext.get() == ambient
     end)
 
     assert_receive {:invoked, ^request, execution_context}
-    assert execution_context.traceparent == request.extensions["traceparent"]
+    assert Jido.Trace.to_traceparent(execution_context) == request.extensions["traceparent"]
     refute execution_context.trace_id == ambient.trace_id
   end
 

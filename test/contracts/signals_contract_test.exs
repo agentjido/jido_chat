@@ -117,9 +117,9 @@ defmodule Jido.Chat.SignalsContractTest do
     for entry <- F.entries() do
       definition = F.module(entry["module"])
       assert {:ok, signal} = Jido.Chat.Signal.Policy.new(definition, entry["fixture"], entry["fixture_options"])
-      assert %Jido.Signal.Trace{} = Jido.Signal.Trace.get(signal)
+      assert %Jido.Trace{} = Jido.Signal.Context.get_trace(signal)
       assert F.round_trip(signal) == signal
-      wire = Jido.Signal.to_map(signal)
+      wire = Jido.Signal.Codec.to_map(signal)
       assert {:error, _} = Jido.Signal.Catalog.decode(Chat.catalog(), Map.put(wire, "type", "unknown.chat.type"))
       assert {:error, _} = Jido.Signal.Catalog.decode(Chat.catalog(), Map.put(wire, "dataschema", "urn:unknown:1"))
     end
@@ -210,13 +210,13 @@ defmodule Jido.Chat.SignalsContractTest do
     data = %{"client_id" => "alpha", "request_id" => "size", "room_id" => "room/1", "text" => ""}
     opts = [id: "fixed-size", time: "2026-10-17T12:00:00Z", extensions: %{"traceparent" => F.trace()}]
     assert {:ok, base} = Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, data, opts)
-    assert {:ok, encoded} = Jido.Signal.Serialization.serialize(base)
+    assert {:ok, encoded} = Jido.Signal.Codec.serialize(base)
     fill = 262_144 - byte_size(encoded)
 
     assert {:ok, maximum} =
              Jido.Chat.Signal.Policy.new(Chat.Signal.SendMessage, %{data | "text" => String.duplicate("x", fill)}, opts)
 
-    assert {:ok, encoded} = Jido.Signal.Serialization.serialize(maximum)
+    assert {:ok, encoded} = Jido.Signal.Codec.serialize(maximum)
     assert byte_size(encoded) == 262_144
 
     assert {:error, %Chat.Errors.Contract{code: :signal_too_large}} =
@@ -261,7 +261,10 @@ defmodule Jido.Chat.SignalsContractTest do
 
     base_size =
       byte_size(
-        Jason.encode!(%{"id" => "delivery-1", "signals" => Enum.map(List.duplicate(empty, 5), &Jido.Signal.to_map/1)})
+        Jason.encode!(%{
+          "id" => "delivery-1",
+          "signals" => Enum.map(List.duplicate(empty, 5), &Jido.Signal.Codec.to_map/1)
+        })
       )
 
     fill = 1_048_576 - base_size
@@ -276,7 +279,9 @@ defmodule Jido.Chat.SignalsContractTest do
         )
       end)
 
-    assert byte_size(Jason.encode!(%{"id" => "delivery-1", "signals" => Enum.map(signals, &Jido.Signal.to_map/1)})) ==
+    assert byte_size(
+             Jason.encode!(%{"id" => "delivery-1", "signals" => Enum.map(signals, &Jido.Signal.Codec.to_map/1)})
+           ) ==
              1_048_576
 
     assert {:ok, delivery} = Chat.Delivery.new(client, "delivery-1", signals)

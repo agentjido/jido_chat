@@ -28,7 +28,8 @@ resource_ref. Telegram GetFile returns metadata through the same file resolver.
 `start_typing` sends one notice, with an optional thread ID. The host owns any
 timer that repeats it. `fetch_metadata` reads room data once without a cache.
 
-Construction and discovery start no process. The host owns listeners, polling,
+Normal SDK application startup starts the core execution application. It starts
+no Jido instance or Chat resource. Construction and discovery start no process. The host owns listeners, polling,
 offsets, background scheduling, queues, storage, duplicate checks, Signal publication,
 and Bus supervision. Those services belong in Jido Messaging or the hosted app.
 
@@ -46,7 +47,7 @@ Use `Jido.Chat.Signal.Policy.new/3` to apply Chat data and context rules at
 construction. Native constructors keep their native errors. Chat validates every
 request and incoming fact before it calls a provider or an Agent.
 
-Tracing uses `Jido.Signal.Trace` and the Jido tracing context. SDK execution carries
+Tracing uses `Jido.Trace`, `Jido.Signal.Context`, and `Jido.Trace.Context`. SDK execution carries
 the current Jido trace into the Action task. An explicit request trace takes
 precedence. Results retain that trace and set `jidocausationid` to the request ID.
 The host owns span lifetime, sampling, and export.

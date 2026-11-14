@@ -261,19 +261,7 @@ defmodule Jido.Chat.Runtime.Bridge do
   end
 
   defp admit_outbound(input, data, mappings) do
-    with {:ok, agent, _directives} <-
-           Jido.call(
-             data.jido,
-             input.signal.data["room"],
-             RoomSignal.CheckMember.new!(%{"member" => data.account_ref}),
-             context: %{actor: data.account_ref}
-           ),
-         true <- data.account_ref in agent.state.room.members,
-         true <-
-           Enum.any?(
-             agent.state.room.messages,
-             &(&1.id == input.signal.id and &1.data == input.signal.data)
-           ),
+    with :ok <- Room.check_member(data.jido, input.signal.data["room"], data.account_ref, input.signal),
          {:ok, reply_links} <-
            outbound_replies(data, mappings, get_in(input.signal.data, ["message", "reply_to_id"])) do
       {:ok, Map.merge(data, %{mappings: mappings, reply_links: reply_links})}
@@ -283,17 +271,9 @@ defmodule Jido.Chat.Runtime.Bridge do
   end
 
   defp member?(data, room) do
-    case Jido.call(
-           data.jido,
-           room,
-           RoomSignal.CheckMember.new!(%{"member" => data.account_ref}),
-           context: %{actor: data.account_ref}
-         ) do
-      {:ok, agent, _directives} ->
-        if data.account_ref in agent.state.room.members, do: :ok, else: {:error, :not_member}
-
-      _error ->
-        {:error, :not_member}
+    case Room.check_member(data.jido, room, data.account_ref) do
+      :ok -> :ok
+      _ -> {:error, :not_member}
     end
   end
 
@@ -354,14 +334,14 @@ defmodule Jido.Chat.Runtime.Bridge do
 
   defp runtime_mapping(data, mapping), do: Enum.find(data.mappings, &(&1.name == mapping.name))
 
-  defp room_ref(init, %Jido.Agent.Ref{namespace: namespace} = room) do
-    if namespace == Jido.namespace(init.jido),
+  defp room_ref(init, %Jido.Agent.Address{namespace: namespace} = room) do
+    if match?({:ok, %{namespace: ^namespace}}, Jido.agent_address(init.jido, "namespace-check")),
       do: room,
       else: raise(ArgumentError, "bridge room must use the account Jido namespace")
   end
 
   defp room_ref(init, id) do
-    {:ok, room} = Jido.agent_ref(init.jido, id, partition: init.partition)
+    {:ok, room} = Jido.agent_address(init.jido, id, partition: init.partition)
     room
   end
 
@@ -380,8 +360,8 @@ defmodule Jido.Chat.Runtime.Bridge do
     end)
   end
 
-  defp same_room?(%Jido.Agent.Ref{} = left, %Jido.Agent.Ref{} = right), do: left == right
-  defp same_room?(id, %Jido.Agent.Ref{id: id}) when is_binary(id), do: true
+  defp same_room?(%Jido.Agent.Address{} = left, %Jido.Agent.Address{} = right), do: left == right
+  defp same_room?(id, %Jido.Agent.Address{id: id}) when is_binary(id), do: true
   defp same_room?(_left, _right), do: false
 
   defp inbound?(mapping), do: mapping.direction in [:inbound, :both]
@@ -394,14 +374,14 @@ defmodule Jido.Chat.Runtime.Bridge do
   end
 
   defp valid_room?(room) when is_binary(room), do: room != ""
-  defp valid_room?(%Jido.Agent.Ref{} = room), do: valid_ref?(room)
+  defp valid_room?(%Jido.Agent.Address{} = room), do: valid_ref?(room)
   defp valid_room?(_room), do: false
 
   defp valid_module?(value), do: is_atom(value) and value not in [nil, true, false]
   defp valid_storage?({adapter, _resource}), do: valid_module?(adapter)
   defp valid_storage?(_value), do: false
   defp valid_id?(value), do: is_binary(value) and value != ""
-  defp valid_ref?(value), do: match?({:ok, _}, Jido.Agent.Ref.validate(value))
+  defp valid_ref?(value), do: match?({:ok, _}, Jido.Agent.Address.validate(value))
   defp positive_integer?(value), do: is_integer(value) and value > 0
 
   defp unique?(items, fun) do
@@ -409,7 +389,7 @@ defmodule Jido.Chat.Runtime.Bridge do
     length(values) == length(Enum.uniq(values))
   end
 
-  defp room_key(%Jido.Agent.Ref{} = room), do: {room.namespace, room.partition, room.id}
+  defp room_key(%Jido.Agent.Address{} = room), do: {room.namespace, room.partition, room.id}
   defp room_key(room), do: room
 
   defp required_routes?(mappings, routes) do

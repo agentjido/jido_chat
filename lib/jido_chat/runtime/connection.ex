@@ -12,7 +12,7 @@ defmodule Jido.Chat.Runtime.Connection do
 
   @doc "Starts one account Agent and returns its stable Ref and AgentServer PID."
   @spec start(module(), String.t(), module() | Jido.Agent.t()) ::
-          {:ok, Jido.Agent.Ref.t(), pid()} | {:error, term()}
+          {:ok, Jido.Agent.Address.t(), pid()} | {:error, term()}
   def start(instance, account_id, definition) do
     with :ok <- available(instance),
          :ok <- valid_account_id(account_id),
@@ -21,7 +21,7 @@ defmodule Jido.Chat.Runtime.Connection do
          :ok <- one_connection(agent),
          {:ok, agent} <- bind_bridge(agent, instance, account_id, ref),
          {:error, :not_found} <- Jido.resolve_agent(instance.jido(), ref),
-         {:ok, server} <- Jido.start_agent_ref(instance.jido(), ref, agent),
+         {:ok, server} <- Jido.start_agent(instance.jido(), agent, partition: ref.partition),
          :ok <- Jido.AgentServer.await_ready(server),
          :ok <- recover_bridge(agent, instance, account_id) do
       {:ok, ref, server}
@@ -40,7 +40,7 @@ defmodule Jido.Chat.Runtime.Connection do
     with :ok <- available(instance),
          {:ok, ref} <- ref(instance, account_id),
          {:ok, _server} <- Jido.resolve_agent(instance.jido(), ref) do
-      Jido.stop_agent_ref(instance.jido(), ref)
+      Jido.Chat.Runtime.Room.stop_agent(instance.jido(), ref)
     else
       {:error, :not_found} -> {:error, :not_found}
       {:error, _} = error -> error
@@ -61,13 +61,13 @@ defmodule Jido.Chat.Runtime.Connection do
     :exit, _ -> {:error, :jido_unavailable}
   end
 
-  @doc "Returns the stable Agent Ref selected for one account."
-  @spec ref(module(), String.t()) :: {:ok, Jido.Agent.Ref.t()} | {:error, term()}
+  @doc "Returns the stable Agent Address selected for one account."
+  @spec ref(module(), String.t()) :: {:ok, Jido.Agent.Address.t()} | {:error, term()}
   def ref(instance, account_id) do
     with :ok <- available(instance),
          :ok <- valid_account_id(account_id) do
       id = "jido.chat/account/" <> Base.url_encode64(account_id, padding: false)
-      Jido.agent_ref(instance.jido(), id)
+      Jido.agent_address(instance.jido(), id)
     end
   catch
     :exit, _ -> {:error, :jido_unavailable}

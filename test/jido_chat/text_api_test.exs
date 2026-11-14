@@ -69,7 +69,7 @@ defmodule Jido.Chat.TextAPITest do
     assert completed.type == Jido.Chat.SendMessage.Completed.type()
     assert completed.extensions["traceparent"] == trace
     assert completed.extensions["jidocausationid"] == request.id
-    assert {:ok, json} = Jido.Signal.Serialization.serialize(completed)
+    assert {:ok, json} = Jido.Signal.Codec.serialize(completed)
     refute json =~ "private-token"
   end
 
@@ -80,7 +80,7 @@ defmodule Jido.Chat.TextAPITest do
 
     assert_receive {:request, first, _, _}
     assert_receive {:request, second, _, _}
-    assert Jido.Signal.ID.valid?(first.data["request_id"])
+    assert Jido.Id.uuid7?(first.data["request_id"])
     assert first.data["request_id"] != second.data["request_id"]
   end
 
@@ -120,7 +120,7 @@ defmodule Jido.Chat.TextAPITest do
     refute Process.alive?(execution_pid)
     assert request.data["update_interval_ms"] == 50
     refute Map.has_key?(request.data, "stream")
-    assert {:ok, json} = Jido.Signal.Serialization.serialize(request)
+    assert {:ok, json} = Jido.Signal.Codec.serialize(request)
     assert {:ok, ^request} = Jido.Signal.Catalog.decode(Jido.Chat.catalog(), json)
     assert_receive {:pulled, "one", ^execution_pid}
     assert_receive {:pulled, " two", ^execution_pid}

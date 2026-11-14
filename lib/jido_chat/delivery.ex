@@ -103,7 +103,7 @@ defmodule Jido.Chat.Delivery do
   end
 
   defp size_limit(id, signals) do
-    maps = Enum.map(signals, &Jido.Signal.to_map/1)
+    maps = Enum.map(signals, &Jido.Signal.Codec.to_map/1)
     encoded = Jason.encode_to_iodata!(%{"id" => id, "signals" => maps})
     if IO.iodata_length(encoded) <= 1_048_576, do: :ok, else: Policy.error(:delivery_too_large)
   end

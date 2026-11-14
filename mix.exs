@@ -61,16 +61,13 @@ defmodule Jido.Chat.MixProject do
   defp deps do
     [
       # SDK: execution, Signals, Markdown, JSON, schemas, and errors.
-      {:jido_action, github: "agentjido/jido_action", branch: "release/v3", override: true},
-      {:jido_signal, "~> 3.0.0-beta.5"},
       {:mdex, "~> 0.14.2"},
       {:jason, "~> 1.4"},
-      {:zoi, "~> 0.18.11"},
+      {:zoi, "~> 0.19.0"},
       {:splode, "~> 0.3.0"},
-      {:runic, github: "zblanco/runic", branch: "main", override: true},
 
-      # Agent Plugin and DSL. The host starts Jido when it activates the Plugin.
-      {:jido, github: "agentjido/jido", branch: "release/v3", runtime: false, override: true},
+      # Core execution runtime and Agent Plugin DSL. The host starts each Jido instance.
+      {:jido, github: "agentjido/jido", ref: "05723b96c6ead47dec04fe69b1c34ad62f999c54", override: true},
       {:spark, "~> 2.7", runtime: false},
 
       # Compile-time checks for Core, Integration, and Runtime dependencies.
