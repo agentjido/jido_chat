@@ -6,8 +6,8 @@ modules: [Jido.Chat]
 ## Purpose
 
 Jido Chat supplies libraries that a host application calls to read and write
-chat systems. The host application owns its runtime. Jido Messaging supplies
-the full messaging system. This obligation checks application startup
+chat systems. The host application owns its runtime. Optional `Jido.Chat.Runtime`
+supplies local messaging services. This obligation checks application startup
 metadata. The public_api, actions, signals, and adapter components define the callable boundary.
 
 ### jido_chat.sdk.I1 — Chat declares no application runtime

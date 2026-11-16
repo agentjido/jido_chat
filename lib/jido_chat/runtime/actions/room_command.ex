@@ -88,7 +88,7 @@ defmodule Jido.Chat.Runtime.Actions.RoomCommand do
             }
 
             if Map.take(previous.data, Map.keys(expected)) == expected,
-              do: {:ok, state, [post_reply(context.signal, previous)]},
+              do: {:ok, state, [%Publish{message: previous, retain: false}, post_reply(context.signal, previous)]},
               else: {:error, :message_id_conflict}
         end
 

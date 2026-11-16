@@ -1,7 +1,18 @@
 defmodule Jido.Chat do
   use Boundary,
     deps: [],
-    exports: {:all, except: [Schema, Value, Wire, Plugin.Runtime]}
+    exports:
+      {:all,
+       except: [
+         Schema,
+         Value,
+         Wire,
+         Plugin.ClientSpec,
+         Plugin.Connection,
+         Plugin.Patterns,
+         Plugin.Runtime,
+         Plugin.SourceSpec
+       ]}
 
   @moduledoc """
   Chat SDK and optional Runtime for the Jido ecosystem.

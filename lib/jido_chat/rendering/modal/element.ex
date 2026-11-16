@@ -48,6 +48,7 @@ defmodule Jido.Chat.Modal.Element do
             coerce: true
           )
           |> Zoi.refine({__MODULE__, :validate, []})
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @type input :: t() | map()
@@ -64,6 +65,7 @@ defmodule Jido.Chat.Modal.Element do
 
   def new(attrs) when is_map(attrs) do
     attrs
+    |> Jido.Chat.Value.validate_portable!()
     |> normalize_kind()
     |> normalize_options_source()
     |> normalize_temporal_values()
@@ -95,7 +97,7 @@ defmodule Jido.Chat.Modal.Element do
 
   @doc "Builds a modal element from serialized data."
   @spec from_map(map()) :: t()
-  def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+  def from_map(map) when is_map(map), do: map |> Jido.Chat.Value.without_marker() |> new()
 
   defp normalize_options(attrs) do
     options = attrs[:options] || attrs["options"] || []

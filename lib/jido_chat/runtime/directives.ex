@@ -2,10 +2,13 @@ defmodule Jido.Chat.Runtime.Directives.Publish do
   @moduledoc false
   use Jido.Agent.Directive
 
-  @schema Zoi.struct(__MODULE__, %{message: Zoi.struct(Jido.Signal)})
+  @schema Zoi.struct(__MODULE__, %{
+            message: Zoi.struct(Jido.Signal),
+            retain: Zoi.boolean() |> Zoi.default(true)
+          })
   @enforce_keys [:message]
-  @type t :: %__MODULE__{message: Jido.Signal.t()}
-  defstruct [:message]
+  @type t :: %__MODULE__{message: Jido.Signal.t(), retain: boolean()}
+  defstruct message: nil, retain: true
 
   @impl true
   def validate(value), do: Zoi.parse(@schema, value)

@@ -1,28 +1,19 @@
 defmodule Jido.Chat.Runtime.Storage.Engine do
   @moduledoc false
 
-  alias Jido.Chat.Message
   alias Jido.Chat.Runtime.Storage.Outbox
 
   @statuses [:pending, :claimed, :submitted, :completed, :failed, :unknown]
 
   @type t :: %__MODULE__{
-          messages: map(),
-          next_sequence: non_neg_integer(),
           links_local: map(),
           links_external: map(),
-          work: map(),
-          rooms: map(),
-          members: map()
+          work: map()
         }
 
-  defstruct messages: %{},
-            next_sequence: 0,
-            links_local: %{},
+  defstruct links_local: %{},
             links_external: %{},
-            work: %{},
-            rooms: %{},
-            members: %{}
+            work: %{}
 
   @doc false
   @spec new() :: t()
@@ -32,9 +23,7 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
   @spec restore(term()) :: {:ok, t()} | {:error, :invalid_storage_snapshot}
   def restore(%__MODULE__{} = state) do
     valid =
-      is_map(state.messages) and is_integer(state.next_sequence) and state.next_sequence >= 0 and
-        is_map(state.links_local) and is_map(state.links_external) and is_map(state.work) and
-        is_map(state.rooms) and is_map(state.members)
+      is_map(state.links_local) and is_map(state.links_external) and is_map(state.work)
 
     if valid, do: {:ok, state}, else: {:error, :invalid_storage_snapshot}
   end
@@ -43,24 +32,6 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
 
   @doc false
   @spec command(t(), term()) :: {:ok, term(), t()} | {:error, term()}
-  def command(state, {:append_message, %Message{} = message}) do
-    room_messages = Map.get(state.messages, message.room_id, %{})
-
-    case Map.get(room_messages, message.id) do
-      nil ->
-        sequence = state.next_sequence + 1
-        entry = %{sequence: sequence, message: message}
-        messages = Map.put(state.messages, message.room_id, Map.put(room_messages, message.id, entry))
-        {:ok, message, %{state | messages: messages, next_sequence: sequence}}
-
-      %{message: ^message} ->
-        {:ok, message, state}
-
-      _other ->
-        {:error, :message_conflict}
-    end
-  end
-
   def command(state, {:put_link, link}) when is_map(link) do
     with :ok <- valid_link(link),
          local_key = {link.account_id, link.local_message_id},
@@ -101,27 +72,6 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
     end
   end
 
-  def command(state, {:put_room, room}) when is_map(room) do
-    with id when not is_nil(id) <- Map.get(room, :id),
-         :ok <- valid_id(id),
-         :ok <- compatible(state.rooms, id, room) do
-      {:ok, room, %{state | rooms: Map.put(state.rooms, id, room)}}
-    else
-      _other -> {:error, :invalid_room}
-    end
-  end
-
-  def command(state, {:put_members, id, members}) when is_list(members) do
-    with :ok <- valid_id(id),
-         true <- Map.has_key?(state.rooms, id),
-         true <- length(members) == length(Enum.uniq(members)) do
-      {:ok, members, %{state | members: Map.put(state.members, id, members)}}
-    else
-      false -> {:error, :invalid_members}
-      {:error, _reason} = error -> error
-    end
-  end
-
   def command(_state, _command), do: {:error, :invalid_storage_command}
 
   @doc false
@@ -142,21 +92,6 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
 
   @doc false
   @spec query(t(), term()) :: {:ok, term()} | {:error, term()}
-  def query(state, {:list_messages, room_id, opts}) do
-    with :ok <- valid_id(room_id),
-         {:ok, limit} <- limit(opts) do
-      messages =
-        state.messages
-        |> Map.get(room_id, %{})
-        |> Map.values()
-        |> Enum.sort_by(& &1.sequence)
-        |> Enum.map(& &1.message)
-        |> take_limit(limit)
-
-      {:ok, messages}
-    end
-  end
-
   def query(state, {:link_for_local, account_id, local_message_id}) do
     with :ok <- valid_id(account_id),
          :ok <- valid_id(local_message_id) do
@@ -192,18 +127,6 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
     end
   end
 
-  def query(state, {:get_room, id}) do
-    if valid_id(id) == :ok,
-      do: {:ok, Map.get(state.rooms, id)},
-      else: {:error, :invalid_room_id}
-  end
-
-  def query(state, {:get_members, id}) do
-    if valid_id(id) == :ok,
-      do: {:ok, Map.get(state.members, id, [])},
-      else: {:error, :invalid_room_id}
-  end
-
   def query(_state, _query), do: {:error, :invalid_storage_query}
 
   defp compatible(values, key, value) do
@@ -232,16 +155,6 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
   defp valid_id(value) when is_binary(value) and value != "", do: :ok
   defp valid_id(_value), do: {:error, :invalid_id}
 
-  defp limit(opts) when is_list(opts) do
-    case Keyword.get(opts, :limit) do
-      nil -> {:ok, nil}
-      value when is_integer(value) and value > 0 -> {:ok, value}
-      _other -> {:error, :invalid_limit}
-    end
-  end
-
-  defp limit(_opts), do: {:error, :invalid_options}
-
   defp status_filter(opts) when is_list(opts) do
     case Keyword.get(opts, :status) do
       nil -> {:ok, nil}
@@ -251,7 +164,4 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
   end
 
   defp status_filter(_opts), do: {:error, :invalid_options}
-
-  defp take_limit(values, nil), do: values
-  defp take_limit(values, limit), do: Enum.take(values, limit)
 end

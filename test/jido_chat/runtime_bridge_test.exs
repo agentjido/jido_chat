@@ -3,11 +3,15 @@ defmodule Jido.Chat.RuntimeBridgeTest do
   @moduletag capture_log: true
 
   alias Jido.Chat.{Content, Message, Post}
+  alias Jido.Chat.Runtime.Bridge.Worker
   alias Jido.Chat.Runtime.Signal.Room.Join
   alias Jido.Chat.Runtime.Storage.Memory
 
   defmodule Adapter do
     use Jido.Chat.Adapter
+
+    @impl true
+    def channel_type, do: :test
 
     @impl true
     def capabilities, do: %{send_message: :native}
@@ -41,6 +45,87 @@ defmodule Jido.Chat.RuntimeBridgeTest do
       storage: {Memory, Jido.Chat.RuntimeBridgeTest.Storage},
       provider_work_limit: 2,
       provider_queue_limit: 20
+  end
+
+  defmodule FailingStorage do
+    use Jido.Chat.Runtime.Storage.Adapter,
+      capabilities: [
+        Jido.Chat.Runtime.Storage.Links,
+        Jido.Chat.Runtime.Storage.Outbox,
+        Jido.Chat.Runtime.Storage.Commit
+      ]
+
+    def put_link(_resource, _link), do: {:error, :storage_unavailable}
+    def link_for_local(_resource, _account_id, _local_id), do: {:ok, nil}
+    def link_for_external(_resource, _account_id, _room_id, _message_id), do: {:ok, nil}
+    def put_work(_resource, _work), do: {:error, :storage_unavailable}
+    def get_work(_resource, _id), do: {:ok, nil}
+    def list_work(:admission, _account_id, _opts), do: {:ok, []}
+    def list_work(:recovery, _account_id, _opts), do: {:error, :storage_unavailable}
+    def update_work(_resource, _id, _status, _changes), do: {:error, :storage_unavailable}
+    def commit(_resource, []), do: {:ok, []}
+    def commit(_resource, _commands), do: {:error, :storage_unavailable}
+  end
+
+  defmodule FailingRuntime do
+    use Jido.Chat.Runtime,
+      jido: Jido.Chat.RuntimeBridgeTest.Jido,
+      storage: {Jido.Chat.RuntimeBridgeTest.FailingStorage, :admission}
+  end
+
+  defmodule RecoveryFailRuntime do
+    use Jido.Chat.Runtime,
+      jido: Jido.Chat.RuntimeBridgeTest.Jido,
+      storage: {Jido.Chat.RuntimeBridgeTest.FailingStorage, :recovery}
+  end
+
+  defmodule FlakyStorage do
+    use Jido.Chat.Runtime.Storage.Adapter,
+      capabilities: [
+        Jido.Chat.Runtime.Storage.Links,
+        Jido.Chat.Runtime.Storage.Outbox,
+        Jido.Chat.Runtime.Storage.Commit
+      ]
+
+    def put_link(resource, link), do: Memory.put_link(resource.storage, link)
+
+    def link_for_local(resource, account_id, local_id),
+      do: Memory.link_for_local(resource.storage, account_id, local_id)
+
+    def link_for_external(resource, account_id, room_id, message_id),
+      do: Memory.link_for_external(resource.storage, account_id, room_id, message_id)
+
+    def put_work(resource, work), do: Memory.put_work(resource.storage, work)
+    def get_work(resource, id), do: Memory.get_work(resource.storage, id)
+    def list_work(resource, account_id, opts), do: Memory.list_work(resource.storage, account_id, opts)
+
+    def update_work(resource, id, status, changes),
+      do: Memory.update_work(resource.storage, id, status, changes)
+
+    def commit(resource, commands) do
+      completion? =
+        Enum.any?(commands, fn
+          {:update_work, _id, :submitted, %{status: :completed}} -> true
+          _command -> false
+        end)
+
+      if completion? and fail_once?(resource.failures),
+        do: {:error, :temporary_storage_failure},
+        else: Memory.commit(resource.storage, commands)
+    end
+
+    defp fail_once?(failures) do
+      Agent.get_and_update(failures, fn
+        [true | rest] -> {true, rest}
+        state -> {false, state}
+      end)
+    end
+  end
+
+  defmodule QueueRuntime do
+  end
+
+  defmodule SettlementRuntime do
   end
 
   defmodule Team do
@@ -178,6 +263,121 @@ defmodule Jido.Chat.RuntimeBridgeTest do
                    300
 
     assert {:ok, %{unknown: 1, pending: 0, submitted: 0}} = Runtime.bridge_status("support")
+  end
+
+  test "Bridge admission fails the turn before an unavailable Outbox can lose work", context do
+    {:ok, account_ref} = FailingRuntime.connection_ref("failing-admission")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.call(
+               context.jido,
+               context.room,
+               Join.new!(%{"member" => account_ref}),
+               context: %{actor: "operator"}
+             )
+
+    assert {:ok, ^account_ref, account} =
+             FailingRuntime.start_connection("failing-admission", Account)
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :failed}} =
+             Jido.Chat.Plugin.ingest(account, :provider, incoming("not-stored", "Not stored", []))
+
+    assert {:ok, %{total: 0}} = FailingRuntime.bridge_status("failing-admission")
+    refute Enum.any?(room_messages(context.room_server), &(Message.fallback_text(&1) == "Not stored"))
+  end
+
+  test "Worker startup and restart drain a backlog beyond the memory queue limit", context do
+    account_id = "queue-recovery"
+
+    for index <- 1..5 do
+      assert {:ok, _work} =
+               Memory.put_work(
+                 __MODULE__.Storage,
+                 inbound_work(context, account_id, "queued-#{index}", :pending)
+               )
+    end
+
+    data = %{
+      runtime: QueueRuntime,
+      storage: {Memory, __MODULE__.Storage},
+      account_id: account_id,
+      account_ref: "operator",
+      client_id: "queue/client",
+      client_source: "urn:jido:chat:client:queue",
+      jido: context.jido,
+      mappings: [],
+      limit: 1,
+      queue_limit: 2,
+      lease_ms: 200
+    }
+
+    worker =
+      start_supervised!(Supervisor.child_spec({Worker, data}, id: :queue_recovery_worker))
+
+    await(fn ->
+      match?(
+        {:ok, work} when length(work) == 5,
+        Memory.list_work(__MODULE__.Storage, account_id, status: :completed)
+      )
+    end)
+
+    expiring = inbound_work(context, account_id, "after-restart", :claimed)
+    expiring = Map.merge(expiring, %{lease_owner: "dead", lease_expires_at: System.system_time(:millisecond) + 200})
+    assert {:ok, ^expiring} = Memory.put_work(__MODULE__.Storage, expiring)
+
+    monitor = Process.monitor(worker)
+    Process.exit(worker, :kill)
+    assert_receive {:DOWN, ^monitor, :process, ^worker, :killed}
+
+    await(fn ->
+      case :global.whereis_name({Worker, QueueRuntime, account_id}) do
+        pid when is_pid(pid) -> pid != worker
+        :undefined -> false
+      end
+    end)
+
+    await(fn ->
+      match?({:ok, %{status: :completed}}, Memory.get_work(__MODULE__.Storage, "after-restart"))
+    end)
+  end
+
+  test "Worker retries a transient post-task storage result", context do
+    failures = start_supervised!({Agent, fn -> [true] end}, id: :settlement_failures)
+    account_id = "settlement-retry"
+    resource = %{storage: __MODULE__.Storage, failures: failures}
+
+    data = %{
+      runtime: SettlementRuntime,
+      storage: {FlakyStorage, resource},
+      account_id: account_id,
+      account_ref: "operator",
+      client_id: "settlement/client",
+      client_source: "urn:jido:chat:client:settlement",
+      jido: context.jido,
+      mappings: [],
+      limit: 1,
+      queue_limit: 1,
+      lease_ms: 200
+    }
+
+    worker =
+      start_supervised!(Supervisor.child_spec({Worker, data}, id: :settlement_retry_worker))
+
+    assert :ok = Worker.enqueue(worker, inbound_work(context, account_id, "settlement-work", :pending))
+
+    await(fn ->
+      match?({:ok, %{status: :completed}}, Memory.get_work(__MODULE__.Storage, "settlement-work"))
+    end)
+
+    assert [] = Agent.get(failures, & &1)
+  end
+
+  test "a failed recovery removes the account Agent created by start", context do
+    assert {:error, :storage_unavailable} =
+             RecoveryFailRuntime.start_connection("failed-start", Account)
+
+    {:ok, ref} = RecoveryFailRuntime.connection_ref("failed-start")
+    assert {:error, :not_found} = Jido.resolve_agent(context.jido, ref)
   end
 
   test "pending work resumes when the account Agent starts again", context do
@@ -351,7 +551,7 @@ defmodule Jido.Chat.RuntimeBridgeTest do
                %{"code" => "timeout", "outcome" => "unknown"}
              )
 
-    assert {:ok, %{total: 0, pending: 0}} = Jido.Chat.Runtime.Bridge.Worker.status(worker)
+    assert {:ok, %{total: 0, pending: 0}} = Runtime.bridge_status("support")
   end
 
   test "connection lifetime is owned by the host Jido instance", context do
@@ -406,6 +606,33 @@ defmodule Jido.Chat.RuntimeBridgeTest do
   defp post(context, value) do
     signal = Jido.Chat.Runtime.Signal.Room.Post.new!(%{"post" => Post.to_map(value), "mentions" => []})
     Jido.call(context.jido, context.room, signal, context: %{actor: "operator"})
+  end
+
+  defp inbound_work(context, account_id, id, status) do
+    post = Post.text(id, metadata: %{"jido_chat_origin" => %{"account_id" => "support"}})
+
+    signal =
+      Jido.Chat.Runtime.Signal.Room.Post.new!(
+        %{"post" => Post.to_map(post), "mentions" => []},
+        id: id
+      )
+
+    %{
+      id: id,
+      kind: :inbound,
+      account_id: account_id,
+      room: context.room,
+      signal: signal,
+      link: %{
+        account_id: account_id,
+        mapping: :queue,
+        local_message_id: id,
+        external_room_id: "queue-room",
+        external_message_id: "external-#{id}",
+        direction: :inbound
+      },
+      status: status
+    }
   end
 
   defp room_messages(server) do

@@ -38,6 +38,7 @@ defmodule Jido.Chat.APIHardeningTest do
 
   defmodule Adapter do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
 
     def capabilities,
       do: %{send_message: :native, download_file: :native, fetch_metadata: :native, create_thread: :native}
@@ -55,6 +56,7 @@ defmodule Jido.Chat.APIHardeningTest do
 
   defmodule Unsupported do
     use Jido.Chat.Adapter
+    def channel_type, do: :unsupported
     def capabilities, do: %{}
     def normalize(_, _, _), do: {:error, :unused}
 
@@ -66,6 +68,7 @@ defmodule Jido.Chat.APIHardeningTest do
 
   defmodule InvalidAdapter do
     use Jido.Chat.Adapter
+    def channel_type, do: :invalid
     def capabilities, do: %{bad_key: :invalid}
     def normalize(_, _, _), do: {:error, :unused}
     def invoke(_, _, _), do: {:error, :unused}

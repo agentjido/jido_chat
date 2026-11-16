@@ -6,6 +6,7 @@ defmodule Jido.Chat.AdapterContractTest do
 
   defmodule BadStatus do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{send_message: :fallback}
     def invoke(_, _, _), do: raise("must not run")
     def normalize(_, _, _), do: raise("must not run")
@@ -13,6 +14,7 @@ defmodule Jido.Chat.AdapterContractTest do
 
   defmodule DuplicateOperation do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{}
     def operations, do: [{Jido.Chat.Signal.SendMessage, Jido.Chat.SendMessage}]
     def invoke(_, _, _), do: raise("must not run")
@@ -21,6 +23,7 @@ defmodule Jido.Chat.AdapterContractTest do
 
   defmodule WrongPair do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{}
     def operations, do: [{Jido.Chat.Signal.SendMessage, Jido.Chat.ContractFixtures.ProviderAction}]
     def invoke(_, _, _), do: raise("must not run")
@@ -29,8 +32,23 @@ defmodule Jido.Chat.AdapterContractTest do
 
   defmodule WrongEvent do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{}
     def event_definitions, do: [Jido.Chat.Signal.SendMessage]
+    def invoke(_, _, _), do: raise("must not run")
+    def normalize(_, _, _), do: raise("must not run")
+  end
+
+  defmodule MissingChannel do
+    def capabilities, do: %{}
+    def invoke(_, _, _), do: raise("must not run")
+    def normalize(_, _, _), do: raise("must not run")
+  end
+
+  defmodule InvalidChannel do
+    use Jido.Chat.Adapter
+    def channel_type, do: "test"
+    def capabilities, do: %{}
     def invoke(_, _, _), do: raise("must not run")
     def normalize(_, _, _), do: raise("must not run")
   end
@@ -51,6 +69,8 @@ defmodule Jido.Chat.AdapterContractTest do
     assert Enum.sort(Chat.Adapter.behaviour_info(:optional_callbacks)) ==
              Enum.sort(default_transport: 0, operations: 0, event_definitions: 0)
 
+    refute function_exported?(Chat.Client, :options, 1)
+
     assert Chat.Adapter.operations(F.FirstAdapter) == []
     assert Chat.Adapter.event_definitions(F.FirstAdapter) == Chat.event_definitions()
 
@@ -60,8 +80,24 @@ defmodule Jido.Chat.AdapterContractTest do
     assert map_size(matrix) == 23
     assert Enum.all?(Map.delete(matrix, :send_message), fn {_, status} -> status == :unsupported end)
 
-    for adapter <- [BadStatus, DuplicateOperation, WrongPair, WrongEvent, UnknownContractAdapter] do
+    for adapter <- [
+          BadStatus,
+          DuplicateOperation,
+          WrongPair,
+          WrongEvent,
+          MissingChannel,
+          InvalidChannel,
+          UnknownContractAdapter
+        ] do
       assert {:error, %Chat.Errors.Contract{}} = Chat.Client.new(adapter, id: "invalid")
+    end
+
+    assert_raise ExUnit.AssertionError, fn ->
+      Chat.AdapterTestKit.Assertions.assert_capability_coherence(MissingChannel)
+    end
+
+    assert_raise ExUnit.AssertionError, fn ->
+      Chat.AdapterTestKit.Assertions.assert_capability_coherence(InvalidChannel)
     end
 
     assert {:error, %Chat.Errors.Contract{}} = Chat.Client.new(F.FirstAdapter, id: "")
@@ -77,11 +113,9 @@ defmodule Jido.Chat.AdapterContractTest do
       before = client
       assert client.credentials == %{token: "private-token:" <> id}
       assert client.config[:private_setting] == "private-config:" <> id
+      assert client.transport == F
       assert client.source == "urn:jido:chat:client:" <> Base.url_encode64(id, padding: false)
       refute inspect(client) =~ "private"
-      options = Chat.Client.options(client)
-      assert options[:token] == "private-token:" <> id
-      assert options[:transport] == F
       refute_receive {:contract_invoke, _, _, _, _, _}
 
       request = F.request(Chat.SendMessage, client)

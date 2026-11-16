@@ -2,6 +2,9 @@ defmodule Jido.Chat.Runtime.Signal.Room do
   @moduledoc false
 
   @doc false
+  def member_schema, do: Zoi.union([Jido.Agent.Address.schema(), Zoi.string() |> Zoi.min(1)])
+
+  @doc false
   def post_schema do
     Zoi.map()
     |> Zoi.refine({__MODULE__, :valid_post, []})
@@ -35,7 +38,7 @@ defmodule Jido.Chat.Runtime.Signal.Room.Join do
   use Jido.Signal,
     type: "jido.chat.room.join",
     default_source: "urn:jido:chat:runtime:local",
-    schema: Zoi.map(%{"member" => Jido.Chat.Runtime.Room.member_schema()}, unrecognized_keys: :error)
+    schema: Zoi.map(%{"member" => Jido.Chat.Runtime.Signal.Room.member_schema()}, unrecognized_keys: :error)
 end
 
 defmodule Jido.Chat.Runtime.Signal.Room.Leave do
@@ -43,7 +46,7 @@ defmodule Jido.Chat.Runtime.Signal.Room.Leave do
   use Jido.Signal,
     type: "jido.chat.room.leave",
     default_source: "urn:jido:chat:runtime:local",
-    schema: Zoi.map(%{"member" => Jido.Chat.Runtime.Room.member_schema()}, unrecognized_keys: :error)
+    schema: Zoi.map(%{"member" => Jido.Chat.Runtime.Signal.Room.member_schema()}, unrecognized_keys: :error)
 end
 
 defmodule Jido.Chat.Runtime.Signal.Room.Post do
@@ -55,7 +58,7 @@ defmodule Jido.Chat.Runtime.Signal.Room.Post do
       Zoi.map(
         %{
           "post" => Jido.Chat.Runtime.Signal.Room.post_schema(),
-          "mentions" => Zoi.list(Jido.Chat.Runtime.Room.member_schema()) |> Zoi.default([])
+          "mentions" => Zoi.list(Jido.Chat.Runtime.Signal.Room.member_schema()) |> Zoi.default([])
         },
         unrecognized_keys: :error
       )
@@ -71,9 +74,9 @@ defmodule Jido.Chat.Runtime.Signal.Room.Message do
         %{
           "room" => Jido.Agent.Address.schema(),
           "sequence" => Zoi.integer() |> Zoi.min(1),
-          "author" => Jido.Chat.Runtime.Room.member_schema(),
+          "author" => Jido.Chat.Runtime.Signal.Room.member_schema(),
           "message" => Jido.Chat.Runtime.Signal.Room.message_schema(),
-          "mentions" => Zoi.list(Jido.Chat.Runtime.Room.member_schema())
+          "mentions" => Zoi.list(Jido.Chat.Runtime.Signal.Room.member_schema())
         },
         unrecognized_keys: :error
       )
@@ -87,7 +90,7 @@ defmodule Jido.Chat.Runtime.Signal.Room.CheckMember do
     schema:
       Zoi.map(
         %{
-          "member" => Jido.Chat.Runtime.Room.member_schema(),
+          "member" => Jido.Chat.Runtime.Signal.Room.member_schema(),
           "message_id" => Zoi.string() |> Zoi.optional(),
           "message_data" => Zoi.map() |> Zoi.optional()
         },

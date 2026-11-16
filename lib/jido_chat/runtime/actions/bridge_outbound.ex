@@ -5,6 +5,7 @@ defmodule Jido.Chat.Runtime.Actions.BridgeOutbound do
 
   alias Jido.Chat.Message
   alias Jido.Chat.Runtime.Bridge
+  alias Jido.Chat.Runtime.Bridge.Worker
   alias Jido.Chat.Runtime.Directives.RelayOutbound
 
   @impl true
@@ -12,7 +13,7 @@ defmodule Jido.Chat.Runtime.Actions.BridgeOutbound do
     runtime = context.plugin_inputs[Bridge].runtime
     message = Message.from_map(context.signal.data["message"])
 
-    directives =
+    work =
       if same_origin?(runtime, context.signal, message) do
         []
       else
@@ -44,11 +45,14 @@ defmodule Jido.Chat.Runtime.Actions.BridgeOutbound do
             signal: command
           }
 
-          %RelayOutbound{work: work}
+          work
         end)
       end
 
-    {:ok, context.agent_state, directives}
+    case Worker.admit_many(runtime.worker, work) do
+      :ok -> {:ok, context.agent_state, Enum.map(work, &%RelayOutbound{work: &1})}
+      {:error, reason} -> {:error, reason}
+    end
   end
 
   defp same_origin?(runtime, signal, message) do

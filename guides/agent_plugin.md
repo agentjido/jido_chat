@@ -135,7 +135,7 @@ permission.
 
 ## Create a thread after commit
 
-`CreateThread` defines its request and completion data with `Jido.ChatAction`.
+`CreateThread` uses `Jido.ChatAction` with typed request and completion Signals.
 The Agent route selects a handler that returns a Deliver directive. The Plugin
 calls the provider after the turn commits.
 
@@ -256,14 +256,15 @@ It never sends replies, adds reactions, or answers callbacks. Domain Actions do
 that work through SDK command Signals.
 
 There is no topology wiring or Core overlay patch. Persistent cursors, delivery
-queues, retries across restart, and message history remain host or Messaging work.
+queues, retries across restart, and message history remain host or optional
+`Jido.Chat.Runtime` work.
 
 ## Current V3 dependency gate
 
-Jido uses exact consolidated revision
-`05723b96c6ead47dec04fe69b1c34ad62f999c54` from `release/v3`.
-The other dependencies use public Hex packages. Separate Action, Signal, and AI
-applications must not be present in the dependency graph.
+The locked Jido revision in `mix.exs` and `mix.lock` is the source of truth for
+the consolidated V3 dependency. The other dependencies use public Hex packages.
+Separate Action, Signal, and AI applications must not be present in the
+dependency graph.
 
 Normal SDK application startup starts the core execution application. It does
 not start a Jido instance, Chat process, Sensor, room, or storage resource.

@@ -48,6 +48,7 @@ defmodule Jido.Chat.PushSensorTest do
 
   defmodule CountingAdapter do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{}
     def invoke(_, _, _), do: {:error, :unsupported}
     def normalize(_, _, _), do: {:error, :unused}

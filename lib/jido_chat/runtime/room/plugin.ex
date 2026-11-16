@@ -121,7 +121,7 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
         {:ok, %{state | members: List.delete(state.members, input.prepared_input["member"])}}
 
       _ ->
-        messages = for %Publish{message: message} <- input.directives, do: message
+        messages = for %Publish{message: message, retain: true} <- input.directives, do: message
         history = Enum.take(state.messages ++ messages, -opts[:history_limit])
         {:ok, %{state | messages: history, sequence: state.sequence + length(messages)}}
     end

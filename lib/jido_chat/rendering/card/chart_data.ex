@@ -15,6 +15,7 @@ defmodule Jido.Chat.Card.ChartData do
             },
             coerce: true
           )
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @type input :: t() | map() | {String.t(), number()}
@@ -31,7 +32,9 @@ defmodule Jido.Chat.Card.ChartData do
   def new({label, value}), do: new(%{label: label, value: value})
 
   def new(attrs) when is_map(attrs) do
-    Jido.Chat.Schema.parse!(__MODULE__, @schema, attrs)
+    attrs
+    |> Jido.Chat.Value.validate_portable!()
+    |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 
   @doc "Serializes the chart data point."
@@ -45,5 +48,5 @@ defmodule Jido.Chat.Card.ChartData do
 
   @doc "Builds chart data from serialized data."
   @spec from_map(map()) :: t()
-  def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+  def from_map(map) when is_map(map), do: map |> Jido.Chat.Value.without_marker() |> new()
 end

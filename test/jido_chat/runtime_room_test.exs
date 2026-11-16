@@ -225,6 +225,8 @@ defmodule Jido.Chat.RuntimeRoomTest do
 
   test "Post replies correlate the exact fact and repeated Posts keep its identity", context do
     join(context, "operator")
+    {:ok, bus} = Jido.Signal.Bus.whereis(Jido.Chat.Runtime.Room.bus_name(context.room), jido: context.jido)
+    assert {:ok, _subscription} = Jido.Signal.Bus.subscribe(bus, "jido.chat.room.message")
     request = post_signal(Post.text("Correlated"), [])
     assert {:ok, first} = Jido.call(context.jido, context.room, request, context: %{actor: "operator"})
     assert first.status == :committed
@@ -232,9 +234,11 @@ defmodule Jido.Chat.RuntimeRoomTest do
     assert Jido.Signal.get_context(first.reply, "jidocausationid") == request.id
     assert %Jido.Signal{id: id} = first.reply.data["message"]
     assert id == request.id
+    assert_receive {:signal, %Jido.Signal{id: ^id}}
     assert {:ok, repeated} = Jido.call(context.jido, context.room, request, context: %{actor: "operator"})
     assert repeated.status == :committed
     assert repeated.reply.data["message"] == first.reply.data["message"]
+    assert_receive {:signal, %Jido.Signal{id: ^id}}
     assert state(context.pid).room.messages == [first.reply.data["message"]]
     assert state(context.pid).room.sequence == 1
   end

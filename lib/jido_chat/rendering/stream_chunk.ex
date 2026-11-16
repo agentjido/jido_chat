@@ -19,6 +19,7 @@ defmodule Jido.Chat.StreamChunk do
             },
             coerce: true
           )
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @type input :: t() | String.t() | map()
@@ -31,7 +32,12 @@ defmodule Jido.Chat.StreamChunk do
 
   @doc "Creates a stream chunk from normalized map input."
   def new(%__MODULE__{} = chunk), do: chunk |> Map.from_struct() |> new()
-  def new(attrs) when is_map(attrs), do: Jido.Chat.Schema.parse!(__MODULE__, @schema, attrs)
+
+  def new(attrs) when is_map(attrs) do
+    attrs
+    |> Jido.Chat.Value.validate_portable!()
+    |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
+  end
 
   @doc "Builds a text chunk."
   @spec text(String.t(), keyword() | map()) :: t()
@@ -171,7 +177,7 @@ defmodule Jido.Chat.StreamChunk do
 
   @doc "Builds a stream chunk from serialized map data."
   @spec from_map(map()) :: t()
-  def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+  def from_map(map) when is_map(map), do: map |> Jido.Chat.Value.without_marker() |> new()
 
   defp payload_label(%{label: label}) when is_binary(label), do: label
   defp payload_label(%{"label" => label}) when is_binary(label), do: label
@@ -232,5 +238,5 @@ defmodule Jido.Chat.StreamChunk do
   end
 
   defp normalize_opts(opts) when is_list(opts), do: Map.new(opts)
-  defp normalize_opts(opts) when is_map(opts), do: opts
+  defp normalize_opts(opts) when is_map(opts), do: Jido.Chat.Value.validate_portable!(opts)
 end

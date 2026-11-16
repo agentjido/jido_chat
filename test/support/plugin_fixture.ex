@@ -56,6 +56,7 @@ end
 defmodule Jido.Chat.PluginFixture.ProviderAdapter do
   @moduledoc false
   use Jido.Chat.Adapter
+  def channel_type, do: :mock
   defdelegate capabilities(), to: Jido.Chat.PluginFixture.Adapter
   defdelegate invoke(client, request, opts), to: Jido.Chat.PluginFixture.Adapter
   defdelegate normalize(client, input, opts), to: Jido.Chat.PluginFixture.Adapter

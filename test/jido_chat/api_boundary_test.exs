@@ -6,6 +6,7 @@ defmodule Jido.Chat.APIBoundaryTest do
 
   defmodule Adapter do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{send_message: :native, create_thread: :native}
     def normalize(_, _, _), do: {:error, :unused}
 

@@ -1,6 +1,8 @@
 defmodule Jido.Chat.Value do
   @moduledoc false
 
+  alias Jido.Chat.Errors.Validation
+
   @doc false
   @spec normalize_keys(map(), [atom()]) :: map()
   def normalize_keys(attrs, keys) when is_map(attrs) do
@@ -41,6 +43,19 @@ defmodule Jido.Chat.Value do
   end
 
   @doc false
+  @spec validate_portable!(map()) :: map()
+  def validate_portable!(map) do
+    case Jido.Chat.Wire.portable(map, []) do
+      :ok -> map
+      {:error, message} -> raise Validation, subject: "data", errors: [%{message: message}]
+    end
+  end
+
+  @doc false
   @spec without_marker(map()) :: map()
-  def without_marker(map), do: Map.drop(map, ["__type__", :__type__])
+  def without_marker(map) do
+    map
+    |> validate_portable!()
+    |> Map.drop(["__type__", :__type__])
+  end
 end

@@ -1,27 +1,30 @@
 defmodule Jido.Chat.RuntimeStorageTest do
   use ExUnit.Case, async: true
 
-  alias Jido.Chat.{Actor, Content, Message}
   alias Jido.Chat.Runtime.Storage
-  alias Jido.Chat.Runtime.Storage.{Adapter, Commit, History, Links, Memory, Outbox, Rooms}
+  alias Jido.Chat.Runtime.Storage.{Adapter, Commit, Links, Memory, Outbox}
 
-  defmodule HistoryOnly do
-    use Adapter, capabilities: [History]
+  defmodule LinksOnly do
+    use Adapter, capabilities: [Links]
 
-    @impl History
-    def append_message(_resource, message), do: {:ok, message}
+    @impl Links
+    def put_link(_resource, link), do: {:ok, link}
 
-    @impl History
-    def list_messages(_resource, _room_id, _opts), do: {:ok, []}
+    @impl Links
+    def link_for_local(_resource, _account_id, _local_id), do: {:ok, nil}
+
+    @impl Links
+    def link_for_external(_resource, _account_id, _room_id, _message_id), do: {:ok, nil}
   end
 
   defmodule CallbackOnly do
-    def append_message(_resource, message), do: {:ok, message}
-    def list_messages(_resource, _room_id, _opts), do: {:ok, []}
+    def put_link(_resource, link), do: {:ok, link}
+    def link_for_local(_resource, _account_id, _local_id), do: {:ok, nil}
+    def link_for_external(_resource, _account_id, _room_id, _message_id), do: {:ok, nil}
   end
 
   defmodule FalseDeclaration do
-    def __storage_capabilities__, do: [History]
+    def __storage_capabilities__, do: [Links]
   end
 
   setup do
@@ -30,34 +33,20 @@ defmodule Jido.Chat.RuntimeStorageTest do
   end
 
   test "Memory implements every merge-scope capability", %{storage: storage} do
-    assert :ok == Storage.validate({Memory, storage}, [History, Links, Outbox, Rooms, Commit])
-    assert Storage.capabilities(Memory) == [History, Links, Outbox, Rooms, Commit]
+    assert :ok == Storage.validate({Memory, storage}, [Links, Outbox, Commit])
+    assert Storage.capabilities(Memory) == [Links, Outbox, Commit]
   end
 
   test "adapter declarations are additive and checked against callbacks" do
-    assert :ok = Storage.validate({HistoryOnly, :resource}, [History])
+    assert :ok = Storage.validate({LinksOnly, :resource}, [Links])
 
     assert {:error, :unsupported_storage_capability} =
-             Storage.validate({HistoryOnly, :resource}, [Links])
+             Storage.validate({LinksOnly, :resource}, [Outbox])
 
-    assert :ok = Storage.validate({CallbackOnly, :resource}, [History])
+    assert :ok = Storage.validate({CallbackOnly, :resource}, [Links])
 
     assert {:error, :unsupported_storage_capability} =
-             Storage.validate({FalseDeclaration, :resource}, [History])
-  end
-
-  test "history is ordered and append is idempotent", %{storage: storage} do
-    first = message("message-1", "First")
-    second = message("message-2", "Second")
-
-    assert {:ok, ^first} = Memory.append_message(storage, first)
-    assert {:ok, ^first} = Memory.append_message(storage, first)
-    assert {:ok, ^second} = Memory.append_message(storage, second)
-    assert {:ok, [^first, ^second]} = Memory.list_messages(storage, "room-1")
-    assert {:ok, [^first]} = Memory.list_messages(storage, "room-1", limit: 1)
-
-    changed = %{first | content: [Content.text("Changed")]}
-    assert {:error, :message_conflict} = Memory.append_message(storage, changed)
+             Storage.validate({FalseDeclaration, :resource}, [Links])
   end
 
   test "links are available by local and provider identity", %{storage: storage} do
@@ -99,31 +88,30 @@ defmodule Jido.Chat.RuntimeStorageTest do
   end
 
   test "commit applies all commands or none", %{storage: storage} do
-    room = %{id: "room-1", title: "Support"}
+    link = %{
+      account_id: "support",
+      local_message_id: "local-atomic",
+      external_room_id: "provider-room",
+      external_message_id: "provider-atomic"
+    }
 
     assert {:error, :invalid_work} =
              Memory.commit(storage, [
-               {:put_room, room},
+               {:put_link, link},
                {:put_work, %{id: "bad", account_id: "support", status: :invalid}}
              ])
 
-    assert {:ok, nil} = Memory.get_room(storage, "room-1")
+    assert {:ok, nil} = Memory.link_for_local(storage, "support", "local-atomic")
 
-    assert {:ok, [^room, ["operator"]]} =
+    work = %{id: "work-atomic", account_id: "support", status: :pending}
+
+    assert {:ok, [^link, ^work]} =
              Memory.commit(storage, [
-               {:put_room, room},
-               {:put_members, "room-1", ["operator"]}
+               {:put_link, link},
+               {:put_work, work}
              ])
 
-    assert {:ok, ["operator"]} = Memory.get_members(storage, "room-1")
-  end
-
-  defp message(id, text) do
-    Message.new(%{
-      id: id,
-      room_id: "room-1",
-      actor: Actor.new(%{id: "operator", kind: :human}),
-      content: [Content.text(text)]
-    })
+    assert {:ok, ^link} = Memory.link_for_local(storage, "support", "local-atomic")
+    assert {:ok, ^work} = Memory.get_work(storage, "work-atomic")
   end
 end

@@ -6,6 +6,8 @@ defmodule Jido.Chat.AdapterTestKit.Assertions do
   @spec assert_capability_coherence(module()) :: :ok
   def assert_capability_coherence(adapter) do
     assert Code.ensure_loaded?(adapter)
+    assert function_exported?(adapter, :channel_type, 0)
+    assert is_atom(adapter.channel_type()) and not is_nil(adapter.channel_type())
     assert function_exported?(adapter, :invoke, 3)
     assert function_exported?(adapter, :normalize, 3)
     assert is_map(adapter.capabilities())

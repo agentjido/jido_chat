@@ -17,6 +17,7 @@ defmodule Jido.Chat.ResourceRef do
             },
             coerce: true
           )
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @enforce_keys Zoi.Struct.enforce_keys(@schema)

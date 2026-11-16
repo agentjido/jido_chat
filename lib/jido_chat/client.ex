@@ -35,6 +35,7 @@ defmodule Jido.Chat.Client do
            Enum.all?([channel_type: 0, capabilities: 0, invoke: 3, normalize: 3], fn {name, arity} ->
              function_exported?(adapter, name, arity)
            end),
+         channel_type when is_atom(channel_type) and not is_nil(channel_type) <- adapter.channel_type(),
          :ok <- Jido.Chat.Adapter.validate_capabilities(adapter),
          attrs = opts |> Map.new() |> Map.put(:adapter, adapter) |> Map.put(:source, Identity.client_source(opts[:id])),
          attrs = Map.put_new_lazy(attrs, :transport, fn -> default_transport(adapter) end),
@@ -69,14 +70,6 @@ defmodule Jido.Chat.Client do
       {:ok, client} -> client
       {:error, error} -> raise error
     end
-  end
-
-  @doc "Returns explicit private options for a provider helper. Do not place them in a Signal."
-  @spec options(t()) :: keyword()
-  def options(%__MODULE__{} = client) do
-    client.config
-    |> Keyword.merge(Enum.filter(client.credentials, fn {key, _} -> is_atom(key) end))
-    |> Keyword.put(:transport, client.transport)
   end
 
   defp default_transport(adapter) do

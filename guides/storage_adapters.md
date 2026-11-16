@@ -19,19 +19,17 @@ An adapter implements only the capabilities its Runtime use needs:
 
 | Capability | Stored responsibility |
 | --- | --- |
-| `Jido.Chat.Runtime.Storage.History` | Ordered, idempotent room messages |
 | `Jido.Chat.Runtime.Storage.Links` | Local-to-provider message identity |
 | `Jido.Chat.Runtime.Storage.Outbox` | Provider work and compare-and-set transitions |
-| `Jido.Chat.Runtime.Storage.Rooms` | Room definitions and membership |
 | `Jido.Chat.Runtime.Storage.Commit` | One atomic batch across supported capabilities |
 
 Declare the capabilities on an adapter:
 
 ```elixir
 defmodule MyApp.ChatStorage do
-  alias Jido.Chat.Runtime.Storage.{Adapter, Commit, History, Rooms}
+  alias Jido.Chat.Runtime.Storage.{Adapter, Commit, Links, Outbox}
 
-  use Adapter, capabilities: [History, Rooms, Commit]
+  use Adapter, capabilities: [Links, Outbox, Commit]
 
   # Implement the callbacks from the three declared behaviours.
 end
@@ -43,9 +41,9 @@ remain valid.
 
 ## Local durable storage
 
-`Jido.Chat.Runtime.Storage.Dets` implements all capabilities without another
-package dependency. It stores one versioned snapshot and is intended for local
-or single-node use.
+`Jido.Chat.Runtime.Storage.Dets` implements all current capabilities without
+another package dependency. It stores one versioned snapshot and is intended
+for local or single-node use.
 
 ```elixir
 children = [
@@ -82,10 +80,8 @@ The normal mapping is:
 
 | Chat capability | Ecto implementation shape |
 | --- | --- |
-| History | Message schema with unique room and message identity plus ordered sequence |
 | Links | Link schema with unique local and provider identities |
 | Outbox | Work schema with status, lease owner, lease expiry, and compare-and-set update |
-| Rooms | Room and membership schemas |
 | Commit | `Ecto.Multi` or a function passed to `Repo.transact/2` |
 
 Jido Chat does not require `ecto`, `ecto_sql`, or a specific database adapter.
@@ -101,10 +97,8 @@ The normal mapping is:
 
 | Chat capability | Ash implementation shape |
 | --- | --- |
-| History | Message resource with create and ordered read actions |
 | Links | Link resource with identities for local and provider keys |
 | Outbox | Work resource with atomic status and lease actions |
-| Rooms | Room and membership resources |
 | Commit | One transaction across the affected resource list |
 
 Jido Chat does not require `ash` or one Ash data layer. The host owns resources,
@@ -119,8 +113,6 @@ Official transaction references:
 
 Every adapter must preserve these rules:
 
-- Repeating the same message ID and value is idempotent. A different value for
-  the same ID returns a conflict.
 - Link identities are unique in both directions.
 - Outbox updates compare the expected status and allow only declared state
   transitions.

@@ -4,6 +4,7 @@ defmodule Jido.Chat.OperationAdapterTest do
 
   defmodule WireAdapter do
     use Jido.Chat.Adapter
+    def channel_type, do: :wire
     def capabilities, do: Map.new(Jido.Chat.Operations.Definitions.all(), fn {_, {_, op, _, _, _}} -> {op, :native} end)
     def default_transport, do: __MODULE__
 

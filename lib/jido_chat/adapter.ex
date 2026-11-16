@@ -28,9 +28,6 @@ defmodule Jido.Chat.Adapter do
   defmacro __using__(_opts) do
     quote do
       @behaviour Jido.Chat.Adapter
-      @impl true
-      def channel_type, do: __MODULE__ |> Module.split() |> Enum.at(-2) |> Macro.underscore() |> String.to_atom()
-      defoverridable channel_type: 0
     end
   end
 

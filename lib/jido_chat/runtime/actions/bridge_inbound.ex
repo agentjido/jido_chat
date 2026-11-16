@@ -5,6 +5,7 @@ defmodule Jido.Chat.Runtime.Actions.BridgeInbound do
 
   alias Jido.Chat.{Actor, Content, FileSource, Media, Post, ResourceRef}
   alias Jido.Chat.Runtime.Bridge
+  alias Jido.Chat.Runtime.Bridge.Worker
   alias Jido.Chat.Runtime.Directives.RelayInbound
   alias Jido.Chat.Runtime.Signal.Room.Post, as: PostSignal
 
@@ -65,7 +66,10 @@ defmodule Jido.Chat.Runtime.Actions.BridgeInbound do
         link: link
       }
 
-      {:ok, context.agent_state, [%RelayInbound{work: work}]}
+      case Worker.admit(runtime.worker, work) do
+        :ok -> {:ok, context.agent_state, [%RelayInbound{work: work}]}
+        {:error, reason} -> {:error, reason}
+      end
     end
   end
 

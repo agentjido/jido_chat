@@ -42,6 +42,7 @@ defmodule Jido.Chat.Content do
             coerce: true
           )
           |> Zoi.refine({__MODULE__, :validate, []})
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @enforce_keys Zoi.Struct.enforce_keys(@schema)
@@ -128,15 +129,43 @@ defmodule Jido.Chat.Content do
 
   @doc false
   def validate(_schema, %__MODULE__{} = value) do
-    case value.kind do
-      :text -> required(value.text, "text")
-      :markdown -> required(value.markdown, "markdown")
-      :card -> required(value.card, "card")
-      :media -> required(value.media, "media")
-      :file -> required(value.file, "file")
-      :tool_use -> required_all([value.tool_call_id, value.tool_name, value.tool_input], "tool use")
-      :tool_result -> required_all([value.tool_call_id, value.tool_result], "tool result")
+    with :ok <- required_variant(value),
+         :ok <- only_selected_variant(value) do
+      :ok
     end
+  end
+
+  defp required_variant(%__MODULE__{kind: :text, text: value}), do: required(value, "text")
+  defp required_variant(%__MODULE__{kind: :markdown, markdown: value}), do: required(value, "markdown")
+  defp required_variant(%__MODULE__{kind: :card, card: value}), do: required(value, "card")
+  defp required_variant(%__MODULE__{kind: :media, media: value}), do: required(value, "media")
+  defp required_variant(%__MODULE__{kind: :file, file: value}), do: required(value, "file")
+
+  defp required_variant(%__MODULE__{kind: :tool_use} = value),
+    do: required_all([value.tool_call_id, value.tool_name, value.tool_input], "tool use")
+
+  defp required_variant(%__MODULE__{kind: :tool_result} = value),
+    do: required_all([value.tool_call_id, value.tool_result], "tool result")
+
+  defp only_selected_variant(%__MODULE__{} = value) do
+    allowed =
+      case value.kind do
+        :text -> [:text]
+        :markdown -> [:markdown]
+        :card -> [:card]
+        :media -> [:media]
+        :file -> [:file]
+        :tool_use -> [:tool_call_id, :tool_name, :tool_input]
+        :tool_result -> [:tool_call_id, :tool_result]
+      end
+
+    variant_fields = [:text, :markdown, :card, :media, :file, :tool_call_id, :tool_name, :tool_input, :tool_result]
+    foreign_value? = Enum.any?(variant_fields -- allowed, &(not is_nil(Map.fetch!(value, &1))))
+    foreign_error_flag? = value.kind != :tool_result and value.tool_error
+
+    if foreign_value? or foreign_error_flag?,
+      do: {:error, "content contains fields for another kind"},
+      else: :ok
   end
 
   defp normalize_nested(attrs) do

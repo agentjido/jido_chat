@@ -8,26 +8,17 @@ defmodule Jido.Chat.Runtime.Storage.Memory do
 
   use GenServer
 
-  alias Jido.Chat.Message
   alias Jido.Chat.Runtime.Storage
-  alias Jido.Chat.Runtime.Storage.{Commit, Engine, History, Links, Outbox, Rooms}
+  alias Jido.Chat.Runtime.Storage.{Commit, Engine, Links, Outbox}
 
   use Storage.Adapter,
-    capabilities: [History, Links, Outbox, Rooms, Commit]
+    capabilities: [Links, Outbox, Commit]
 
   @doc "Starts an empty memory storage resource."
   @spec start_link(keyword()) :: GenServer.on_start()
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, :ok, Keyword.take(opts, [:name]))
   end
-
-  @impl History
-  def append_message(server, %Message{} = message),
-    do: GenServer.call(server, {:command, {:append_message, message}})
-
-  @impl History
-  def list_messages(server, room_id, opts \\ []),
-    do: GenServer.call(server, {:query, {:list_messages, room_id, opts}})
 
   @impl Links
   def put_link(server, link), do: GenServer.call(server, {:command, {:put_link, link}})
@@ -53,19 +44,6 @@ defmodule Jido.Chat.Runtime.Storage.Memory do
   @impl Outbox
   def update_work(server, id, expected_status, changes),
     do: GenServer.call(server, {:command, {:update_work, id, expected_status, changes}})
-
-  @impl Rooms
-  def put_room(server, room), do: GenServer.call(server, {:command, {:put_room, room}})
-
-  @impl Rooms
-  def get_room(server, id), do: GenServer.call(server, {:query, {:get_room, id}})
-
-  @impl Rooms
-  def put_members(server, id, members),
-    do: GenServer.call(server, {:command, {:put_members, id, members}})
-
-  @impl Rooms
-  def get_members(server, id), do: GenServer.call(server, {:query, {:get_members, id}})
 
   @impl Commit
   def commit(server, commands) when is_list(commands),

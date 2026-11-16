@@ -65,7 +65,7 @@ defmodule Jido.Chat.Runtime.Room do
 
   @doc "Returns the schema for a host principal ID or full Agent Address."
   @spec member_schema() :: Zoi.schema()
-  def member_schema, do: Zoi.union([Jido.Agent.Address.schema(), Zoi.string() |> Zoi.min(1)])
+  defdelegate member_schema(), to: Jido.Chat.Runtime.Signal.Room
 
   @doc "Returns a Bus name that includes the complete room identity."
   @spec bus_name(Jido.Agent.Address.t()) :: String.t()

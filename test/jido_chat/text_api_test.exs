@@ -5,6 +5,7 @@ defmodule Jido.Chat.TextAPITest do
 
   defmodule Adapter do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{send_message: :native, send_file: :native, stream_text: :native}
     def normalize(_, _, _), do: {:error, :unused}
 
@@ -27,6 +28,7 @@ defmodule Jido.Chat.TextAPITest do
 
   defmodule Unsupported do
     use Jido.Chat.Adapter
+    def channel_type, do: :unsupported
     def capabilities, do: %{}
     def normalize(_, _, _), do: {:error, :unused}
     def invoke(_, _, _), do: raise("must not call provider")

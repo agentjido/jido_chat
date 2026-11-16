@@ -125,8 +125,8 @@ provider write. `request_id` provides correlation, not deduplication.
 `Client.new/2` returns `{:ok, client} | {:error, error}`. `new!/2` raises on invalid
 configuration. The Client captures `id`, `credentials`, optional private keyword
 `config`, and optional `transport`. Its `source` is derived from its ID. Construction
-performs no I/O and starts no process. `Client.options/1` returns private options.
-Never put a Client or credentials in a Signal.
+performs no I/O and starts no process. Keep the Client and its private fields in
+execution context. Never put a Client or credentials in a Signal.
 
 `Jido.ChatAction` defines one Action with typed request and completion Signal
 contracts. Native Actions accept request data maps and return
@@ -511,7 +511,7 @@ Use the same Action and context in a Flow step or Router-selected Instruction.
 ```elixir
 use Jido.Chat.Adapter
 # Required:
-channel_type()
+def channel_type, do: :my_provider
 capabilities() # %{operation => :native | :unsupported}
 invoke(client, request_signal, opts) # canonical result map or error
 normalize(client, provider_input, opts) # Delivery or error
@@ -589,7 +589,7 @@ schema and declared capabilities determine which operations are available.
 | `Jido.Chat.Card.ChartData` | `from_map/1`, `new/1`, `schema/0`, `to_map/1` |
 | `Jido.Chat.Card.ChartSeries` | `from_map/1`, `new/1`, `schema/0`, `to_map/1` |
 | `Jido.Chat.Card.Component` | `from_map/1`, `new/1`, `normalize/1`, `schema/0`, `to_map/1` |
-| `Jido.Chat.Client` | `new/2`, `new!/2`, `options/1` |
+| `Jido.Chat.Client` | `new/2`, `new!/2` |
 | `Jido.Chat.Principal` | `from_map/1`, `new/1`, `schema/0`, `to_map/1` |
 | `Jido.Chat.IdentitySource` | `from_map/1`, `key/1`, `new/1`, `schema/0`, `to_map/1` |
 | `Jido.Chat.IdentityProvider` | `resolve/3`, `valid?/1` |

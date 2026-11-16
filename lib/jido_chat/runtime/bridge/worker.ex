@@ -5,7 +5,8 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   alias Jido.Chat.Runtime.Storage
   alias Jido.Chat.Runtime.Storage.{Commit, Links, Outbox}
 
-  @terminal [:completed, :failed, :unknown]
+  @work_state_fields [:status, :last_error, :result, :lease_owner, :lease_expires_at]
+  @recovery_retry_ms 1_000
 
   @doc false
   @spec start_link(map()) :: GenServer.on_start()
@@ -26,6 +27,14 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   def get_work(server, id), do: GenServer.call(server, {:get_work, id})
 
   @doc false
+  @spec admit(GenServer.server(), map()) :: :ok | {:error, term()}
+  def admit(server, work), do: GenServer.call(server, {:admit, [work]})
+
+  @doc false
+  @spec admit_many(GenServer.server(), [map()]) :: :ok | {:error, term()}
+  def admit_many(server, work), do: GenServer.call(server, {:admit, work})
+
+  @doc false
   @spec enqueue(GenServer.server(), map()) :: :ok | {:error, term()}
   def enqueue(server, work), do: GenServer.call(server, {:enqueue, work})
 
@@ -38,10 +47,6 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
           :ok | {:error, term()}
   def finish(server, request_id, outcome, result), do: GenServer.call(server, {:finish, request_id, outcome, result})
 
-  @doc false
-  @spec status(GenServer.server()) :: {:ok, map()} | {:error, term()}
-  def status(server), do: GenServer.call(server, :status)
-
   @impl true
   def init(data) do
     with :ok <- Storage.validate(data.storage, [Outbox, Links, Commit]) do
@@ -52,11 +57,12 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
           queue: :queue.new(),
           queued: MapSet.new(),
           active: %{},
+          settlements: %{},
           lease_owner: lease_owner(),
           recovery_timer: nil
         })
 
-      {:ok, state}
+      {:ok, state, {:continue, :recover}}
     else
       {:error, reason} -> {:stop, reason}
     end
@@ -68,26 +74,27 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   def handle_call({:get_work, id}, _from, state),
     do: {:reply, fetch_work(state, id), state}
 
+  def handle_call({:admit, work}, _from, state) do
+    case admit_work(state, work) do
+      {:ok, _stored} -> {:reply, :ok, state}
+      {:error, reason} -> {:reply, {:error, reason}, state}
+    end
+  end
+
   def handle_call({:enqueue, work}, _from, state) do
-    with :ok <- validate_work(work, state.account_id),
-         work = Map.put_new(work, :status, :pending),
-         {:ok, stored} <- outbox(state, :put_work, [work]),
+    with {:ok, [stored]} <- admit_work(state, [work]),
          {:ok, state} <- schedule(stored, state) do
-      {:reply, :ok, dispatch(state)}
+      {:reply, :ok, drive(state)}
     else
+      {:error, :provider_work_queue_full} -> {:reply, :ok, drive(state)}
       {:error, reason} -> {:reply, {:error, reason}, state}
     end
   end
 
   def handle_call(:recover, _from, state) do
-    case reclaim_expired(state) do
-      {:ok, next_expiry} ->
-        state = schedule_recovery(state, next_expiry)
-        next = schedule_pending(state)
-        {:reply, :ok, dispatch(next)}
-
-      {:error, reason} ->
-        {:reply, {:error, reason}, state}
+    case recover_now(state) do
+      {:ok, next} -> {:reply, :ok, next}
+      {:error, reason, next} -> {:reply, {:error, reason}, next}
     end
   end
 
@@ -95,25 +102,12 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
     {:reply, finish_work(state, request_id, outcome, result), state}
   end
 
-  def handle_call(:status, _from, state) do
-    reply =
-      with {:ok, work} <- outbox(state, :list_work, [state.account_id, []]) do
-        counts = Enum.frequencies_by(work, & &1.status)
-
-        {:ok,
-         %{
-           account_id: state.account_id,
-           total: length(work),
-           pending: Map.get(counts, :pending, 0),
-           claimed: Map.get(counts, :claimed, 0),
-           submitted: Map.get(counts, :submitted, 0),
-           completed: Map.get(counts, :completed, 0),
-           failed: Map.get(counts, :failed, 0),
-           unknown: Map.get(counts, :unknown, 0)
-         }}
-      end
-
-    {:reply, reply, state}
+  @impl true
+  def handle_continue(:recover, state) do
+    case recover_now(state) do
+      {:ok, next} -> {:noreply, next}
+      {:error, _reason, next} -> {:noreply, next}
+    end
   end
 
   @impl true
@@ -125,8 +119,8 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
         {:noreply, state}
 
       {work_id, active} ->
-        record_execution(state, work_id, result)
-        {:noreply, dispatch(%{state | active: active})}
+        next = %{state | active: active}
+        {:noreply, settle(next, work_id, result)}
     end
   end
 
@@ -136,8 +130,8 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
         {:noreply, state}
 
       {work_id, active} ->
-        mark_interrupted(state, work_id)
-        {:noreply, dispatch(%{state | active: active})}
+        next = %{state | active: active}
+        {:noreply, settle(next, work_id, :interrupted)}
     end
   end
 
@@ -146,32 +140,50 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   def handle_info(:recover_expired_claims, state) do
     state = %{state | recovery_timer: nil}
 
-    case reclaim_expired(state) do
-      {:ok, next_expiry} ->
-        next = state |> schedule_recovery(next_expiry) |> schedule_pending() |> dispatch()
-        {:noreply, next}
-
-      {:error, _reason} ->
-        {:noreply, state}
+    case recover_now(state) do
+      {:ok, next} -> {:noreply, next}
+      {:error, _reason, next} -> {:noreply, next}
     end
   end
 
-  defp schedule_pending(state) do
+  defp recover_now(state) do
+    {state, settlement_error?} = retry_settlements(state)
+
+    case reclaim_expired(state) do
+      {:ok, next_expiry} ->
+        state = schedule_recovery(state, next_expiry)
+        state = drive(state)
+        state = if settlement_error?, do: schedule_recovery_retry(state), else: state
+        {:ok, state}
+
+      {:error, reason} ->
+        {:error, reason, schedule_recovery_retry(state)}
+    end
+  end
+
+  defp drive(state) do
+    case refill(state) do
+      {:ok, next} -> dispatch(next)
+      {:error, _reason} -> state |> dispatch() |> schedule_recovery_retry()
+    end
+  end
+
+  defp refill(state) do
     case outbox(state, :list_work, [state.account_id, [status: :pending]]) do
       {:ok, work} ->
-        Enum.reduce(work, state, fn item, current ->
+        Enum.reduce_while(work, {:ok, state}, fn item, {:ok, current} ->
           case schedule(item, current) do
-            {:ok, next} -> next
-            {:error, _} -> current
+            {:ok, next} -> {:cont, {:ok, next}}
+            {:error, :provider_work_queue_full} -> {:halt, {:ok, current}}
           end
         end)
 
-      {:error, _} ->
-        state
+      {:error, reason} ->
+        {:error, reason}
     end
   end
 
-  defp schedule(%{status: status}, state) when status in @terminal, do: {:ok, state}
+  defp schedule(%{status: status}, state) when status != :pending, do: {:ok, state}
 
   defp schedule(%{id: id}, state) do
     cond do
@@ -201,22 +213,37 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
       {{:value, id}, queue} ->
         state = %{state | queue: queue, queued: MapSet.delete(state.queued, id)}
 
-        with {:ok, %{status: :pending}} <- outbox(state, :get_work, [id]),
-             {:ok, claimed} <-
-               outbox(state, :update_work, [
-                 id,
-                 :pending,
-                 %{
-                   status: :claimed,
-                   lease_owner: state.lease_owner,
-                   lease_expires_at: now_ms() + state.lease_ms
-                 }
-               ]) do
-          task = Task.async(fn -> execute(claimed, state) end)
-          dispatch(%{state | active: Map.put(state.active, task.ref, id)})
-        else
-          _ -> dispatch(state)
-        end
+        dispatch_id(state, id)
+    end
+  end
+
+  defp dispatch_id(state, id) do
+    case outbox(state, :get_work, [id]) do
+      {:ok, %{status: :pending}} -> claim_and_start(state, id)
+      {:ok, _other} -> dispatch(state)
+      {:error, _reason} -> schedule_recovery_retry(state)
+    end
+  end
+
+  defp claim_and_start(state, id) do
+    case outbox(state, :update_work, [
+           id,
+           :pending,
+           %{
+             status: :claimed,
+             lease_owner: state.lease_owner,
+             lease_expires_at: now_ms() + state.lease_ms
+           }
+         ]) do
+      {:ok, claimed} ->
+        task = Task.async(fn -> execute(claimed, state) end)
+        dispatch(%{state | active: Map.put(state.active, task.ref, id)})
+
+      {:error, :work_conflict} ->
+        dispatch(state)
+
+      {:error, _reason} ->
+        schedule_recovery_retry(state)
     end
   end
 
@@ -260,6 +287,42 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   catch
     :exit, _reason -> {:pending, :account_unavailable}
   end
+
+  defp settle(state, work_id, result) do
+    case persist_settlement(state, work_id, result) do
+      value when value == :ok or (is_tuple(value) and elem(value, 0) == :ok) ->
+        next = %{state | settlements: Map.delete(state.settlements, work_id)}
+
+        if retryable_settlement?(result),
+          do: next |> dispatch() |> schedule_recovery_retry(),
+          else: drive(next)
+
+      _error ->
+        state
+        |> put_in([:settlements, work_id], result)
+        |> dispatch()
+        |> schedule_recovery_retry()
+    end
+  end
+
+  defp retry_settlements(state) do
+    Enum.reduce(state.settlements, {state, false}, fn {work_id, result}, {current, failed?} ->
+      case persist_settlement(current, work_id, result) do
+        value when value == :ok or (is_tuple(value) and elem(value, 0) == :ok) ->
+          {%{current | settlements: Map.delete(current.settlements, work_id)}, failed?}
+
+        _error ->
+          {current, true}
+      end
+    end)
+  end
+
+  defp persist_settlement(state, work_id, :interrupted), do: mark_interrupted(state, work_id)
+  defp persist_settlement(state, work_id, result), do: record_execution(state, work_id, result)
+
+  defp retryable_settlement?({:pending, _reason}), do: true
+  defp retryable_settlement?(:interrupted), do: true
+  defp retryable_settlement?(_result), do: false
 
   defp record_execution(state, work_id, {:completed, link}) do
     commit(state, [
@@ -360,6 +423,57 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
     end
   end
 
+  defp admit_work(_state, []), do: {:ok, []}
+
+  defp admit_work(state, work) when is_list(work) do
+    with {:ok, prepared} <- prepare_admission(state, work),
+         commands = for({:new, item} <- prepared, do: {:put_work, item}),
+         {:ok, _results} <- commit_admission(state, commands) do
+      {:ok, Enum.map(prepared, &elem(&1, 1))}
+    end
+  end
+
+  defp admit_work(_state, _work), do: {:error, :invalid_provider_work}
+
+  defp prepare_admission(state, work) do
+    Enum.reduce_while(work, {:ok, []}, fn item, {:ok, prepared} ->
+      with true <- is_map(item),
+           pending = Map.put(item, :status, :pending),
+           :ok <- validate_work(pending, state.account_id) do
+        admission_entry(state, pending, prepared)
+      else
+        false -> {:halt, {:error, :invalid_provider_work}}
+        {:error, reason} -> {:halt, {:error, reason}}
+      end
+    end)
+    |> case do
+      {:ok, prepared} -> {:ok, Enum.reverse(prepared)}
+      error -> error
+    end
+  end
+
+  defp admission_entry(state, pending, prepared) do
+    case fetch_work(state, pending.id) do
+      {:ok, nil} ->
+        {:cont, {:ok, [{:new, pending} | prepared]}}
+
+      {:ok, stored} ->
+        if same_work?(stored, pending),
+          do: {:cont, {:ok, [{:existing, stored} | prepared]}},
+          else: {:halt, {:error, :storage_conflict}}
+
+      {:error, reason} ->
+        {:halt, {:error, reason}}
+    end
+  end
+
+  defp commit_admission(_state, []), do: {:ok, []}
+  defp commit_admission(state, commands), do: commit(state, commands)
+
+  defp same_work?(stored, candidate) do
+    Map.drop(stored, @work_state_fields) == Map.drop(candidate, @work_state_fields)
+  end
+
   defp validate_work(%{id: id, account_id: account_id, kind: kind}, expected)
        when is_binary(id) and id != "" and account_id == expected and
               kind in [:inbound, :outbound],
@@ -436,6 +550,12 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   defp schedule_recovery(state, expires_at) do
     cancel_recovery_timer(state.recovery_timer)
     timer = Process.send_after(self(), :recover_expired_claims, max(expires_at - now_ms(), 0))
+    %{state | recovery_timer: timer}
+  end
+
+  defp schedule_recovery_retry(state) do
+    cancel_recovery_timer(state.recovery_timer)
+    timer = Process.send_after(self(), :recover_expired_claims, @recovery_retry_ms)
     %{state | recovery_timer: timer}
   end
 

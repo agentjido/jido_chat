@@ -14,6 +14,7 @@ defmodule Jido.Chat.Markdown do
             },
             coerce: true
           )
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @type markdown_node :: Node.t()
@@ -34,6 +35,7 @@ defmodule Jido.Chat.Markdown do
 
   def new(attrs) when is_map(attrs) do
     attrs
+    |> Jido.Chat.Value.validate_portable!()
     |> normalize_root()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
@@ -251,7 +253,7 @@ defmodule Jido.Chat.Markdown do
 
   @doc "Builds Markdown from serialized map data."
   @spec from_map(map()) :: t()
-  def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+  def from_map(map) when is_map(map), do: map |> Jido.Chat.Value.without_marker() |> new()
 
   defp normalize_root(attrs) do
     root =
@@ -589,5 +591,5 @@ defmodule Jido.Chat.Markdown do
   defp blank_to_nil(value), do: value
 
   defp normalize_opts(opts) when is_list(opts), do: Map.new(opts)
-  defp normalize_opts(opts) when is_map(opts), do: opts
+  defp normalize_opts(opts) when is_map(opts), do: Jido.Chat.Value.validate_portable!(opts)
 end

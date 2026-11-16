@@ -26,6 +26,7 @@ defmodule Jido.Chat.SignalBoundaryTest do
 
   defmodule Adapter do
     use Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{send_message: :native, open_modal: :native}
     def event_definitions, do: [Fact]
     def normalize(_, _, _), do: {:error, :unused}

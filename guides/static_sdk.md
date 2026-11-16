@@ -31,7 +31,7 @@ timer that repeats it. `fetch_metadata` reads room data once without a cache.
 Normal SDK application startup starts the core execution application. It starts
 no Jido instance or Chat resource. Construction and discovery start no process. The host owns listeners, polling,
 offsets, background scheduling, queues, storage, duplicate checks, Signal publication,
-and Bus supervision. Those services belong in Jido Messaging or the hosted app.
+and Bus supervision. Those services belong in `Jido.Chat.Runtime` or the hosted app.
 
 `execute(client, request, options: private_options, timeout: 30_000)` selects core
 or configured provider Actions. Main helpers use the same options. Deadlines do

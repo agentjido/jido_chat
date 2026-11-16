@@ -19,6 +19,7 @@ defmodule Jido.Chat.Card do
             },
             coerce: true
           )
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @type component :: Component.t()
@@ -35,6 +36,7 @@ defmodule Jido.Chat.Card do
 
   def new(attrs) when is_map(attrs) do
     attrs
+    |> Jido.Chat.Value.validate_portable!()
     |> normalize_markdown()
     |> normalize_components()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
@@ -366,7 +368,7 @@ defmodule Jido.Chat.Card do
 
   @doc "Builds a card from serialized map data."
   @spec from_map(map()) :: t()
-  def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+  def from_map(map) when is_map(map), do: map |> Jido.Chat.Value.without_marker() |> new()
 
   defp normalize_markdown(attrs) do
     case attrs[:markdown] || attrs["markdown"] do
@@ -538,7 +540,7 @@ defmodule Jido.Chat.Card do
   defp markdown_to_plain(other), do: Wire.to_plain(other)
 
   defp normalize_opts(opts) when is_list(opts), do: Map.new(opts)
-  defp normalize_opts(opts) when is_map(opts), do: opts
+  defp normalize_opts(opts) when is_map(opts), do: Jido.Chat.Value.validate_portable!(opts)
 
   defp build_chart(kind, data, opts) when is_list(data) do
     opts = normalize_opts(opts)

@@ -67,6 +67,7 @@ defmodule Jido.Chat.Card.Component do
             coerce: true
           )
           |> Zoi.refine({__MODULE__, :validate, []})
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @type input :: t() | map() | String.t()
@@ -83,6 +84,7 @@ defmodule Jido.Chat.Card.Component do
 
   def new(attrs) when is_map(attrs) do
     attrs
+    |> Jido.Chat.Value.validate_portable!()
     |> normalize_kind()
     |> normalize_options_source()
     |> normalize_markdown()
@@ -122,7 +124,7 @@ defmodule Jido.Chat.Card.Component do
 
   @doc "Builds a component from serialized data."
   @spec from_map(map()) :: t()
-  def from_map(map) when is_map(map), do: map |> Map.drop(["__type__", :__type__]) |> new()
+  def from_map(map) when is_map(map), do: map |> Jido.Chat.Value.without_marker() |> new()
 
   defp normalize_markdown(attrs) do
     case attrs[:markdown] || attrs["markdown"] do

@@ -10,15 +10,8 @@ defmodule Jido.Chat.Schema do
     opts = Keyword.put_new(opts, :coerce, true)
 
     case Zoi.parse(schema, attrs, opts) do
-      {:ok, value} ->
-        {:ok, value}
-
-      {:error, errors} ->
-        {:error,
-         Errors.to_error(%Validation{
-           subject: subject,
-           errors: errors
-         })}
+      {:ok, value} -> {:ok, value}
+      {:error, errors} -> validation_error(subject, errors)
     end
   end
 
@@ -28,5 +21,13 @@ defmodule Jido.Chat.Schema do
       {:ok, value} -> value
       {:error, error} -> raise error
     end
+  end
+
+  defp validation_error(subject, errors) do
+    {:error,
+     Errors.to_error(%Validation{
+       subject: subject,
+       errors: errors
+     })}
   end
 end

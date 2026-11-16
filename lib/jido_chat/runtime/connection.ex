@@ -20,18 +20,44 @@ defmodule Jido.Chat.Runtime.Connection do
          {:ok, agent} <- Jido.Agent.instantiate(definition, id: ref.id),
          :ok <- one_connection(agent),
          {:ok, agent} <- bind_bridge(agent, instance, account_id, ref),
-         {:error, :not_found} <- Jido.resolve_agent(instance.jido(), ref),
-         {:ok, server} <- Jido.start_agent(instance.jido(), agent, partition: ref.partition),
-         :ok <- Jido.AgentServer.await_ready(server),
-         :ok <- recover_bridge(agent, instance, account_id) do
-      {:ok, ref, server}
+         {:error, :not_found} <- Jido.resolve_agent(instance.jido(), ref) do
+      start_ready(instance, account_id, agent, ref)
     else
       {:ok, server} when is_pid(server) -> {:error, {:already_started, server}}
       {:error, _} = error -> error
-      other -> {:error, other}
     end
   catch
     :exit, _ -> {:error, :jido_unavailable}
+  end
+
+  defp start_ready(instance, account_id, agent, ref) do
+    case Jido.start_agent(instance.jido(), agent, partition: ref.partition) do
+      {:ok, server} ->
+        try do
+          with :ok <- Jido.AgentServer.await_ready(server),
+               :ok <- recover_bridge(agent, instance, account_id) do
+            {:ok, ref, server}
+          else
+            {:error, _reason} = error ->
+              stop_failed_start(instance, ref, server)
+              error
+          end
+        catch
+          :exit, _reason ->
+            stop_failed_start(instance, ref, server)
+            {:error, :jido_unavailable}
+        end
+
+      {:error, _reason} = error ->
+        error
+    end
+  end
+
+  defp stop_failed_start(instance, ref, server) do
+    _ = Jido.stop_agent(instance.jido(), server, partition: ref.partition)
+    :ok
+  catch
+    :exit, _ -> :ok
   end
 
   @doc "Stops one provider account through the host Jido instance."

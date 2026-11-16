@@ -67,6 +67,7 @@ defmodule Jido.Chat.ChatActionTest do
 
   defmodule Adapter do
     use Jido.Chat.Adapter
+    def channel_type, do: :test
     def capabilities, do: %{}
     def normalize(_, _, _), do: {:error, :unused}
 

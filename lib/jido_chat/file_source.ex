@@ -24,6 +24,7 @@ defmodule Jido.Chat.FileSource do
             coerce: true
           )
           |> Zoi.refine({__MODULE__, :validate, []})
+          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
 
   @type t :: unquote(Zoi.type_spec(@schema))
   @enforce_keys Zoi.Struct.enforce_keys(@schema)

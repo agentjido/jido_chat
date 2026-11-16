@@ -197,6 +197,8 @@ end
 defmodule Jido.Chat.ContractFixtures.UnsupportedAdapter do
   use Jido.Chat.Adapter
   @impl true
+  def channel_type, do: :unsupported
+  @impl true
   def capabilities, do: %{}
   @impl true
   def invoke(client, _, _) do
@@ -252,6 +254,8 @@ end
 defmodule Jido.Chat.ContractFixtures.ExtendedAdapter do
   use Jido.Chat.Adapter
   alias Jido.Chat.ContractFixtures, as: Fixtures
+  @impl true
+  def channel_type, do: :extended
   @impl true
   def capabilities, do: %{send_message: :native}
   @impl true
