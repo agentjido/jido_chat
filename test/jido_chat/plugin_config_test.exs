@@ -125,6 +125,46 @@ defmodule Jido.Chat.PluginConfigTest do
     assert :sys.get_state(runtime).interactions == %{}
   end
 
+  test "identity admissions are one-use, exact, and expire" do
+    access = %{
+      identity_provider: Jido.Chat.IdentityProvider.Static,
+      identity_options: %{},
+      authorizer: Jido.Chat.Authorizer.DenyAll,
+      authorization_options: %{}
+    }
+
+    {:ok, runtime} = Plugin.Runtime.start_link({self(), [], access})
+    on_exit(fn -> if Process.alive?(runtime), do: GenServer.stop(runtime) end)
+
+    signal =
+      Jido.Chat.Signal.Policy.new!(Jido.Chat.Signal.MessageReceived, %{
+        "item_id" => "identity-item",
+        "delivery_id" => "identity-delivery",
+        "room_id" => "room-1",
+        "message_id" => "identity-message",
+        "sender" => %{"id" => "external-user"},
+        "text" => "Hello"
+      })
+
+    principal = Jido.Chat.Principal.new(%{id: "host-user", kind: :human})
+    assert :ok = Plugin.Runtime.register_identity(self(), "client", signal, principal)
+    assert {:ok, ^principal} = GenServer.call(runtime, {:consume_identity, "client", signal})
+    assert {:error, :identity_admission_missing} = GenServer.call(runtime, {:consume_identity, "client", signal})
+
+    assert :ok = Plugin.Runtime.register_identity(self(), "client", signal, principal)
+
+    :sys.replace_state(runtime, fn state ->
+      identities =
+        Map.new(state.identities, fn {key, {stored_signal, stored_principal, _expires}} ->
+          {key, {stored_signal, stored_principal, System.monotonic_time(:second) - 1}}
+        end)
+
+      %{state | identities: identities}
+    end)
+
+    assert {:error, :identity_admission_missing} = GenServer.call(runtime, {:consume_identity, "client", signal})
+  end
+
   test "verification names both overlapping routes and the missing connection fact" do
     c = connection()
     definition = Jido.Chat.PluginFixture.SensorAgent.definition()

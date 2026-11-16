@@ -89,6 +89,51 @@ signal = Jido.Chat.Runtime.Signal.Room.Post.new!(%{
 The Room owns membership, a bounded working history, a local sequence, and one
 Jido Signal Bus. Its Signal types use the `jido.chat.room.*` prefix.
 
+### Room identity and authorization
+
+The default Room configuration preserves local behavior. It resolves the
+trusted `context.actor` and applies the administrator and membership rules
+through `Jido.Chat.Authorizer.Room`.
+
+A host can replace identity resolution without changing Room state:
+
+```elixir
+defmodule MyApp.SupportRoom do
+  use Jido.Chat.Runtime.Room, name: "support_room"
+
+  room do
+    admin("operator")
+    identity_provider(MyApp.ChatIdentity)
+    authorizer(MyApp.ChatAuthorizer)
+  end
+end
+```
+
+The host supplies a provider-scoped source in caller context:
+
+```elixir
+context = %{
+  identity_source: %{
+    provider: "web",
+    account_id: "my-app",
+    external_id: authenticated_user.id,
+    room_id: room.id
+  }
+}
+
+Jido.call(MyApp.Jido, room, signal, context: context)
+```
+
+The configured identity provider maps this source to a
+`Jido.Chat.Principal`. The authorizer receives the principal, the Room action,
+the exact Room Address, current membership, and private authorization options.
+The principal and decision are transient. Stored Room membership and message
+shapes do not contain credentials or external profiles.
+
+`Jido.Chat.Authorizer.RoomRoles` supplies an optional owner, admin, moderator,
+member, and guest policy for hosts that put these local role names on the
+principal. A host can replace it with its existing policy module.
+
 ## Participant
 
 Add `Jido.Chat.Runtime.Participant` to an Agent that observes a room:

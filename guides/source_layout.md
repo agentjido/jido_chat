@@ -14,6 +14,12 @@ lib/
     client.ex                Immutable credentials and transport configuration
     delivery.ex              Ordered native incoming Signals
     actor.ex                 Portable message actor
+    principal.ex             Credential-free host identity reference
+    identity_source.ex       Provider-scoped external identity assertion
+    identity_provider.ex     Host identity resolution behaviour
+    identity_provider/       Built-in local and test identity providers
+    authorizer.ex            Host Chat authorization behaviour
+    authorizer/              Built-in deny, Room, and Room-role policies
     content.ex               Portable text, Markdown, media, file, and tool content
     file_source.ex           Portable provider reference, URL, or base64 source
     media.ex                 Portable media attachment

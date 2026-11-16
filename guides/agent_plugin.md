@@ -59,6 +59,80 @@ another adapter and a distinct Client ID. Incoming context selects the reply
 Client; no Action needs to select a provider. The host supplies any AI Action or
 Flow later through the same routes.
 
+## Host identity and authorization
+
+Chat can use the host's existing identity and policy systems. No identity
+package or Chat credential store is required. Implement two small behaviours:
+
+```elixir
+defmodule MyApp.ChatIdentity do
+  @behaviour Jido.Chat.IdentityProvider
+
+  @impl true
+  def resolve(source, _context) do
+    case MyApp.Accounts.find_provider_user(
+           source.provider,
+           source.account_id,
+           source.external_id
+         ) do
+      nil -> {:error, :identity_not_found}
+      user -> {:ok, %{id: user.id, kind: :human, assurance: :verified}}
+    end
+  end
+end
+
+defmodule MyApp.ChatAuthorizer do
+  @behaviour Jido.Chat.Authorizer
+
+  @impl true
+  def authorize(principal, action, resource, _context) do
+    if MyApp.Policy.allowed?(principal.id, action, resource),
+      do: :ok,
+      else: {:error, :not_authorized}
+  end
+end
+```
+
+Configure both modules on an Agent:
+
+```elixir
+chat do
+  identity_provider(MyApp.ChatIdentity)
+  authorizer(MyApp.ChatAuthorizer)
+
+  connection :support do
+    client(MyApp.ChatAdapter, id: "support/account")
+    rooms(["support-room"])
+  end
+end
+```
+
+Application configuration is a fallback for Agents that do not set the DSL
+options:
+
+```elixir
+config :jido_chat,
+  identity_provider: MyApp.ChatIdentity,
+  authorizer: MyApp.ChatAuthorizer
+```
+
+The identity key includes provider, configured Client ID, and external actor ID.
+Equal external IDs from two Clients are separate sources. Incoming messages use
+`sender.id`; other actor events use `actor_id`. A configured integration denies
+an event that has no external actor. The provider returns a credential-free
+`Jido.Chat.Principal`.
+
+After admission, an Action reads the trusted principal from
+`context.chat.principal`. The authorizer receives a fixed Chat action, the exact
+Client and room resource, and the incoming Signal type. An identity or policy
+error denies the turn. The Plugin also uses a short, one-use admission record,
+so a direct AgentServer call cannot copy trusted context and bypass ingress.
+
+Do not put credentials, access tokens, session data, or proof material in an
+`IdentitySource`, `Principal`, Signal, or authorization error. The adapter or
+host authenticates its transport. Chat resolves the actor and checks Chat
+permission.
+
 ## Create a thread after commit
 
 `CreateThread` defines its request and completion data with `Jido.ChatAction`.

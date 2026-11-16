@@ -162,6 +162,40 @@ and credentials are not included. Convenience-call deadlines return a typed
 their own outer execution deadline. No call automatically retries. A stream
 failure has an `unknown` outcome because earlier chunks can already be visible.
 
+## Identity and authorization contracts
+
+`Jido.Chat.Principal` is a credential-free host identity reference.
+`Jido.Chat.IdentitySource` identifies one external actor with the complete
+`{provider, account_id, external_id}` key. It prevents two configured provider
+accounts from merging equal external IDs by accident.
+
+`Jido.Chat.IdentityProvider` has one callback:
+
+```elixir
+resolve(identity_source, context)
+# {:ok, Jido.Chat.Principal.t() | map()} | {:error, reason}
+```
+
+`Jido.Chat.Authorizer` has one callback:
+
+```elixir
+authorize(principal, action, resource, context)
+# :ok | {:error, reason}
+```
+
+The invocation wrappers validate callback modules and results. Exceptions,
+throws, invalid principals, and invalid decisions fail closed. Built-in modules
+support static and function-based local identity, trusted local callers, Jido
+Agent Addresses, deny-all policy, the current Room membership policy, and a
+small Room role policy.
+
+These contracts do not authenticate a provider connection. They connect an
+already authenticated adapter or host request to a Chat principal and a Chat
+resource decision. The host owns login, credential verification, account
+linking, global grants, and organization policy. See the
+[Agent Plugin guide](agent_plugin.md#host-identity-and-authorization) and
+[Runtime guide](runtime.md#room-identity-and-authorization).
+
 ## Core Actions
 
 Each row defines `Jido.Chat.<Name>`, `Jido.Chat.Signal.<Name>`,
@@ -555,6 +589,10 @@ schema and declared capabilities determine which operations are available.
 | `Jido.Chat.Card.ChartSeries` | `from_map/1`, `new/1`, `schema/0`, `to_map/1` |
 | `Jido.Chat.Card.Component` | `from_map/1`, `new/1`, `normalize/1`, `schema/0`, `to_map/1` |
 | `Jido.Chat.Client` | `new/2`, `new!/2`, `options/1` |
+| `Jido.Chat.Principal` | `from_map/1`, `new/1`, `schema/0`, `to_map/1` |
+| `Jido.Chat.IdentitySource` | `from_map/1`, `key/1`, `new/1`, `schema/0`, `to_map/1` |
+| `Jido.Chat.IdentityProvider` | `resolve/3`, `valid?/1` |
+| `Jido.Chat.Authorizer` | `authorize/5`, `valid?/1` |
 | `Jido.Chat.Delivery` | `new/3`, `validate/2` |
 | `Jido.Chat.Emoji` | `put_custom/3`, `registry/0`, `render/1,2` |
 | `Jido.Chat.Error` | `exception/0,1` |
@@ -601,6 +639,8 @@ See [the complete Agent integration](agent_plugin.md).
 
 Normal SDK startup starts no Chat process or Jido application. AgentServer owns
 Plugin and Sensor processes only when the host declares them. Persistent rooms,
-identity mapping, history, durable cursors, delivery queues, durable duplicate
-records, persistence, and Bus supervision remain host or Messaging work.
+global identity mapping, history, durable cursors, delivery queues, durable
+duplicate records, persistence, and Bus supervision remain host work. Chat
+defines the identity and authorization ports but does not become the identity
+system of record.
 Other provider packages need migration to this breaking core version.
