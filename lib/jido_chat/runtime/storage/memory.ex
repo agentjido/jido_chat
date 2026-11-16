@@ -9,10 +9,20 @@ defmodule Jido.Chat.Runtime.Storage.Memory do
   use GenServer
 
   alias Jido.Chat.Runtime.Storage
-  alias Jido.Chat.Runtime.Storage.{Commit, Engine, Links, Outbox, Rooms}
+
+  alias Jido.Chat.Runtime.Storage.{
+    Commit,
+    Engine,
+    History,
+    Links,
+    Memberships,
+    Outbox,
+    RoomDeclarations,
+    Rooms
+  }
 
   use Storage.Adapter,
-    capabilities: [Links, Outbox, Rooms, Commit]
+    capabilities: [Links, Outbox, Rooms, RoomDeclarations, Memberships, History, Commit]
 
   @doc "Starts an empty memory storage resource."
   @spec start_link(keyword()) :: GenServer.on_start()
@@ -63,6 +73,58 @@ defmodule Jido.Chat.Runtime.Storage.Memory do
   @impl Rooms
   def delete_room(server, id, expected_revision),
     do: GenServer.call(server, {:command, {:delete_room, id, expected_revision}})
+
+  @impl RoomDeclarations
+  def insert_room_declaration(server, value),
+    do: GenServer.call(server, {:command, {:insert_room_declaration, value}})
+
+  @impl RoomDeclarations
+  def get_room_declaration(server, id),
+    do: GenServer.call(server, {:query, {:get_room_declaration, id}})
+
+  @impl RoomDeclarations
+  def list_room_declarations(server),
+    do: GenServer.call(server, {:query, :list_room_declarations})
+
+  @impl RoomDeclarations
+  def update_room_declaration(server, id, revision, value),
+    do: GenServer.call(server, {:command, {:update_room_declaration, id, revision, value}})
+
+  @impl RoomDeclarations
+  def delete_room_declaration(server, id, revision),
+    do: GenServer.call(server, {:command, {:delete_room_declaration, id, revision}})
+
+  @impl Memberships
+  def insert_membership(server, value),
+    do: GenServer.call(server, {:command, {:insert_membership, value}})
+
+  @impl Memberships
+  def get_membership(server, room_id, member_key),
+    do: GenServer.call(server, {:query, {:get_membership, room_id, member_key}})
+
+  @impl Memberships
+  def list_memberships(server, room_id, opts \\ []),
+    do: GenServer.call(server, {:query, {:list_memberships, room_id, opts}})
+
+  @impl Memberships
+  def update_membership(server, room_id, member_key, revision, value),
+    do: GenServer.call(server, {:command, {:update_membership, room_id, member_key, revision, value}})
+
+  @impl History
+  def insert_history(server, value),
+    do: GenServer.call(server, {:command, {:insert_history, value}})
+
+  @impl History
+  def get_history(server, room_id, message_id),
+    do: GenServer.call(server, {:query, {:get_history, room_id, message_id}})
+
+  @impl History
+  def list_history(server, room_id, opts \\ []),
+    do: GenServer.call(server, {:query, {:list_history, room_id, opts}})
+
+  @impl History
+  def last_history_sequence(server, room_id),
+    do: GenServer.call(server, {:query, {:last_history_sequence, room_id}})
 
   @impl Commit
   def commit(server, commands) when is_list(commands),

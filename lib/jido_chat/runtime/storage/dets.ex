@@ -2,10 +2,11 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
   @moduledoc """
   Host-owned, local durable Runtime storage backed by Erlang DETS.
 
-  This adapter implements every Runtime storage capability and retains one
-  versioned snapshot. It is intended for local and single-node use. A host that
-  needs indexed queries, multi-node coordination, or database migrations can
-  implement the same capability behaviours with Ecto, Ash, or another store.
+  This adapter implements every Runtime storage capability. It retains one
+  history-free versioned snapshot and one separate DETS record for each Room history
+  fact. It is intended for local and single-node use. A host that needs indexed
+  queries, multi-node coordination, or database migrations can implement the
+  same capability behaviours with Ecto, Ash, or another store.
 
   The DETS file is trusted application data. Do not open a file supplied by an
   untrusted caller.
@@ -13,15 +14,27 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
 
   use GenServer
 
+  alias Jido.Chat.Runtime.Room.HistoryRecord
   alias Jido.Chat.Runtime.Storage
-  alias Jido.Chat.Runtime.Storage.{Commit, Engine, Links, Outbox, Rooms}
+
+  alias Jido.Chat.Runtime.Storage.{
+    Commit,
+    Engine,
+    History,
+    Links,
+    Memberships,
+    Outbox,
+    RoomDeclarations,
+    Rooms
+  }
 
   use Storage.Adapter,
-    capabilities: [Links, Outbox, Rooms, Commit]
+    capabilities: [Links, Outbox, Rooms, RoomDeclarations, Memberships, History, Commit]
 
-  @format_version 2
-  @readable_versions [1, @format_version]
+  @format_version 4
+  @readable_versions [1, 2, 3, @format_version]
   @snapshot_key :jido_chat_runtime_snapshot
+  @history_key :jido_chat_runtime_history
 
   @type option ::
           {:path, Path.t()}
@@ -99,6 +112,58 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
   def delete_room(server, id, expected_revision),
     do: GenServer.call(server, {:command, {:delete_room, id, expected_revision}})
 
+  @impl RoomDeclarations
+  def insert_room_declaration(server, value),
+    do: GenServer.call(server, {:command, {:insert_room_declaration, value}})
+
+  @impl RoomDeclarations
+  def get_room_declaration(server, id),
+    do: GenServer.call(server, {:query, {:get_room_declaration, id}})
+
+  @impl RoomDeclarations
+  def list_room_declarations(server),
+    do: GenServer.call(server, {:query, :list_room_declarations})
+
+  @impl RoomDeclarations
+  def update_room_declaration(server, id, revision, value),
+    do: GenServer.call(server, {:command, {:update_room_declaration, id, revision, value}})
+
+  @impl RoomDeclarations
+  def delete_room_declaration(server, id, revision),
+    do: GenServer.call(server, {:command, {:delete_room_declaration, id, revision}})
+
+  @impl Memberships
+  def insert_membership(server, value),
+    do: GenServer.call(server, {:command, {:insert_membership, value}})
+
+  @impl Memberships
+  def get_membership(server, room_id, member_key),
+    do: GenServer.call(server, {:query, {:get_membership, room_id, member_key}})
+
+  @impl Memberships
+  def list_memberships(server, room_id, opts \\ []),
+    do: GenServer.call(server, {:query, {:list_memberships, room_id, opts}})
+
+  @impl Memberships
+  def update_membership(server, room_id, member_key, revision, value),
+    do: GenServer.call(server, {:command, {:update_membership, room_id, member_key, revision, value}})
+
+  @impl History
+  def insert_history(server, value),
+    do: GenServer.call(server, {:command, {:insert_history, value}})
+
+  @impl History
+  def get_history(server, room_id, message_id),
+    do: GenServer.call(server, {:query, {:get_history, room_id, message_id}})
+
+  @impl History
+  def list_history(server, room_id, opts \\ []),
+    do: GenServer.call(server, {:query, {:list_history, room_id, opts}})
+
+  @impl History
+  def last_history_sequence(server, room_id),
+    do: GenServer.call(server, {:query, {:last_history_sequence, room_id}})
+
   @impl Commit
   def commit(server, commands) when is_list(commands),
     do: GenServer.call(server, {:commit, commands})
@@ -116,6 +181,13 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
   end
 
   @impl true
+  def handle_call({:command, {:insert_history, _record} = command}, _from, state) do
+    case Engine.command(state.engine, command) do
+      {:ok, %HistoryRecord{} = result, engine} -> persist_history_reply(state, engine, result, [result])
+      {:error, reason} -> {:reply, {:error, reason}, state}
+    end
+  end
+
   def handle_call({:command, command}, _from, state) do
     case Engine.command(state.engine, command) do
       {:ok, result, engine} -> persist_reply(state, engine, result)
@@ -125,8 +197,23 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
 
   def handle_call({:commit, commands}, _from, state) do
     case Engine.commit(state.engine, commands) do
-      {:ok, results, engine} -> persist_reply(state, engine, results)
-      {:error, reason} -> {:reply, {:error, reason}, state}
+      {:ok, results, engine} ->
+        history =
+          commands
+          |> Enum.zip(results)
+          |> Enum.flat_map(fn
+            {{:insert_history, _record}, %HistoryRecord{} = result} -> [result]
+            {_command, _result} -> []
+          end)
+
+        if commands != [] and Enum.all?(commands, &match?({:insert_history, _record}, &1)) do
+          persist_history_reply(state, engine, results, history)
+        else
+          persist_reply(state, engine, results, history)
+        end
+
+      {:error, reason} ->
+        {:reply, {:error, reason}, state}
     end
   end
 
@@ -140,8 +227,8 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
     :ok
   end
 
-  defp persist_reply(state, engine, result) do
-    case persist(state.table, engine) do
+  defp persist_reply(state, engine, result, history \\ []) do
+    case persist(state.table, engine, history) do
       :ok ->
         {:reply, {:ok, result}, %{state | engine: engine}}
 
@@ -154,8 +241,39 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
     end
   end
 
-  defp persist(table, engine) do
-    case :dets.insert(table, {@snapshot_key, @format_version, engine}) do
+  defp persist_history_reply(state, engine, result, history) do
+    case persist_history(state.table, history) do
+      :ok ->
+        {:reply, {:ok, result}, %{state | engine: engine}}
+
+      {:insert_error, reason} ->
+        {:reply, {:error, {:storage_write_failed, reason}}, state}
+
+      {:sync_error, reason} ->
+        error = {:storage_sync_failed, reason}
+        {:stop, error, {:error, error}, %{state | engine: engine}}
+    end
+  end
+
+  defp persist(table, engine, history) do
+    snapshot = %{engine | history: %{}}
+
+    objects = [{@snapshot_key, @format_version, snapshot} | history_objects(history)]
+
+    insert_and_sync(table, objects)
+  end
+
+  defp persist_history(table, history),
+    do: insert_and_sync(table, history_objects(history))
+
+  defp history_objects(history) do
+    Enum.map(history, fn record ->
+      {{@history_key, record.room_id, record.message_id}, record}
+    end)
+  end
+
+  defp insert_and_sync(table, objects) do
+    case :dets.insert(table, objects) do
       :ok -> sync(table)
       {:error, reason} -> {:insert_error, reason}
     end
@@ -177,8 +295,36 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
          ) do
       {:ok, ^table} ->
         case load(table) do
-          {:ok, engine} ->
+          {:ok, engine, :current} ->
             {:ok, engine}
+
+          {:ok, engine, :new} ->
+            case persist(table, engine, []) do
+              :ok ->
+                {:ok, engine}
+
+              {:insert_error, reason} ->
+                _ = :dets.close(table)
+                {:error, {:storage_initialize_failed, reason}}
+
+              {:sync_error, reason} ->
+                _ = :dets.close(table)
+                {:error, {:storage_initialize_failed, reason}}
+            end
+
+          {:ok, engine, :migrate} ->
+            case persist(table, engine, Map.values(engine.history)) do
+              :ok ->
+                {:ok, engine}
+
+              {:insert_error, reason} ->
+                _ = :dets.close(table)
+                {:error, {:storage_migration_failed, reason}}
+
+              {:sync_error, reason} ->
+                _ = :dets.close(table)
+                {:error, {:storage_migration_failed, reason}}
+            end
 
           {:error, _reason} = error ->
             _ = :dets.close(table)
@@ -196,10 +342,16 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
   defp load(table) do
     case :dets.lookup(table, @snapshot_key) do
       [] ->
-        {:ok, Engine.new()}
+        {:ok, Engine.new(), :new}
+
+      [{@snapshot_key, @format_version, engine}] ->
+        with {:ok, history} <- load_history(table),
+             {:ok, engine} <- Engine.restore(Map.put(engine, :history, history)) do
+          {:ok, engine, :current}
+        end
 
       [{@snapshot_key, version, engine}] when version in @readable_versions ->
-        Engine.restore(engine)
+        with {:ok, engine} <- Engine.restore(engine), do: {:ok, engine, :migrate}
 
       [{@snapshot_key, version, _engine}] when is_integer(version) ->
         {:error, {:unsupported_storage_version, version}}
@@ -207,6 +359,24 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
       _other ->
         {:error, :invalid_storage_snapshot}
     end
+  end
+
+  defp load_history(table) do
+    :dets.foldl(
+      fn
+        {{@history_key, room_id, message_id}, %HistoryRecord{room_id: room_id, message_id: message_id} = record},
+        {:ok, history} ->
+          {:ok, Map.put(history, {room_id, message_id}, record)}
+
+        {{@history_key, _room_id, _message_id}, _record}, _acc ->
+          {:error, :invalid_history_record}
+
+        _object, acc ->
+          acc
+      end,
+      {:ok, %{}},
+      table
+    )
   end
 
   defp table(opts) do

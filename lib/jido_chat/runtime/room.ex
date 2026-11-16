@@ -40,6 +40,28 @@ defmodule Jido.Chat.Runtime.Room do
     end
   end
 
+  @doc false
+  def stop_matching_agent(jido, ref, server, expected) do
+    case Jido.AgentServer.snapshot(server) do
+      %Jido.AgentServer.Snapshot{agent: actual, agent_address: ^ref} ->
+        if same_definition?(expected, actual) do
+          case Jido.stop_agent(jido, server, partition: ref.partition) do
+            :ok -> :ok
+            {:error, :not_found} -> :ok
+            {:error, reason} -> {:error, reason}
+          end
+        else
+          {:error, :address_in_use}
+        end
+
+      %Jido.AgentServer.Snapshot{} ->
+        {:error, :address_mismatch}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
+
   @doc "Checks membership and optional retained message in one correlated room turn."
   @spec check_member(atom(), Jido.Agent.Address.t(), term(), Jido.Signal.t() | nil) ::
           :ok | {:error, term()}
@@ -88,4 +110,23 @@ defmodule Jido.Chat.Runtime.Room do
   end
 
   def actor(id) when is_binary(id), do: Jido.Chat.Actor.new(%{id: id, kind: :human})
+
+  @doc false
+  def same_definition?(%{module: module, vsn: vsn}, %{module: module, vsn: vsn})
+      when module not in [nil, true, false],
+      do: true
+
+  def same_definition?(expected, actual),
+    do: definition_key(expected) == definition_key(actual)
+
+  defp definition_key(agent) do
+    {
+      agent.module,
+      agent.name,
+      agent.vsn,
+      agent.signal_source,
+      Enum.map(agent.plugins, & &1.provider),
+      Enum.map(agent.routes, &Map.take(&1, [:type, :target]))
+    }
+  end
 end

@@ -81,8 +81,10 @@ processes. Starting `:jido_chat` does not start the Runtime supervisor.
 
 One provider account is one Agent activation. The Bridge maps declared provider
 rooms to declared local Room addresses. It does not create rooms or accounts.
-Runtime declarations and manual desired state are in memory. A durable
-declaration catalog is a separate feature.
+Provider account declarations and startup Room declarations are in memory.
+Provisioned Room declarations and their desired state are durable. Stored
+declarations refer to a portable key that the host maps to trusted Room Agent
+code.
 
 Durable Room records are also separate from live Agents and managed Runtime
 declarations. They give the host a stable Room identity and descriptive
@@ -110,10 +112,15 @@ The current storage capabilities are:
 - `Outbox` for provider work and compare-and-set transitions.
 - `Rooms` for revision-checked durable Room records and bounded catalog
   queries.
+- `RoomDeclarations` for managed Room definition keys and desired state.
+- `Memberships` for revision-checked Room member lifecycle.
+- `History` for immutable Room message facts and bounded queries.
 - `Commit` for an atomic batch across one adapter resource.
 
 Memory and DETS implement these capabilities. An Ecto or Ash adapter can
 implement the same behaviours without adding either framework to Jido Chat.
+DETS stores non-history Runtime state in one snapshot and stores Room history as
+separate records. A new history fact does not rewrite prior history.
 
 There is no transaction between the Chat Outbox and the Jido checkpoint. If a
 checkpoint fails after Outbox admission, pending work can remain. Stable IDs
@@ -122,11 +129,16 @@ close this cross-store atomicity limit.
 
 ## Room publication
 
-A Room keeps bounded membership, sequence, and retained message state in its
-Plugin field. It publishes committed message Signals to its Jido Bus. Repeating
-the same Post ID and data republishes the retained Signal without adding another
-history entry. Applications that need Bus records across restarts must select a
-durable Jido Bus store.
+A Room without a Runtime keeps membership, sequence, and retained messages in
+its bounded Plugin state. A durable Room uses storage as the authority and its
+Plugin state as a bounded working cache. It writes membership and message facts
+before Agent commit and restores the cache before managed activation. Stable
+membership revisions and message IDs make retry safe if storage succeeds and a
+later Agent checkpoint fails.
+
+The Room publishes committed message Signals to its Jido Bus. Durable message
+history does not make the Bus log durable. Applications that need Bus records
+across restarts must also select a durable Jido Bus store.
 
 ## Delivery limits
 

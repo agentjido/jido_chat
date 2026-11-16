@@ -146,6 +146,21 @@ defmodule Jido.Chat.AccessContractTest do
                member: nil
              })
 
+    assert :ok =
+             Authorizer.authorize(Jido.Chat.Authorizer.Room, member, :message_post, resource, %{
+               admin: "operator",
+               actor_active?: true,
+               member: nil
+             })
+
+    assert {:error, :not_authorized} =
+             Authorizer.authorize(Jido.Chat.Authorizer.Room, member, :message_post, resource, %{
+               admin: "operator",
+               actor_active?: false,
+               working_members: ["member"],
+               member: nil
+             })
+
     assert {:error, :not_authorized} =
              Authorizer.authorize(Jido.Chat.Authorizer.Room, member, :room_join, resource, %{
                admin: "operator",

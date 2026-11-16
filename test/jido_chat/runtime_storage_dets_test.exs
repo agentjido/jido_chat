@@ -1,12 +1,13 @@
 defmodule Jido.Chat.RuntimeStorageDetsTest do
   use ExUnit.Case, async: false
 
-  alias Jido.Chat.Runtime.Room.Record
+  alias Jido.Chat.Runtime.Room.{Declaration, HistoryRecord, Membership, Record}
   alias Jido.Chat.Runtime.Storage
   alias Jido.Chat.Runtime.Storage.{Commit, Dets, Engine, Links, Outbox, Rooms}
 
   @table :jido_chat_runtime_storage_dets_test
   @snapshot_key :jido_chat_runtime_snapshot
+  @history_key :jido_chat_runtime_history
 
   setup do
     path =
@@ -26,7 +27,7 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
   test "Dets retains all Runtime storage capabilities across restart", %{path: path} do
     storage = start_storage(path)
     assert :ok = Storage.validate({Dets, storage}, [Links, Outbox, Rooms, Commit])
-    assert Dets.format_version() == 2
+    assert Dets.format_version() == 4
 
     link = %{
       account_id: "support",
@@ -49,7 +50,15 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
     assert {:ok, ^work} = Dets.put_work(storage, work)
     assert {:ok, ^room} = Dets.insert_room(storage, room)
 
+    declaration = Declaration.new!(%{room_id: room.id, definition_key: "support"})
+    membership = Membership.new!(%{room_id: room.id, member: "alice", issuer: "operator"})
+    history = history(room.id)
+    assert {:ok, ^declaration} = Dets.insert_room_declaration(storage, declaration)
+    assert {:ok, ^membership} = Dets.insert_membership(storage, membership)
+    assert {:ok, ^history} = Dets.insert_history(storage, history)
+
     stop_storage()
+    assert_split_history(path, history)
     restored = start_storage(path)
 
     assert {:ok, ^link} = Dets.link_for_local(restored, "support", "local-1")
@@ -60,6 +69,33 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
     assert {:ok, ^work} = Dets.get_work(restored, "work-1")
     assert {:ok, ^room} = Dets.get_room(restored, room.id)
     assert {:ok, [^room]} = Dets.list_rooms(restored, kind: :group)
+    assert {:ok, ^declaration} = Dets.get_room_declaration(restored, room.id)
+    assert {:ok, [^membership]} = Dets.list_memberships(restored, room.id)
+    assert {:ok, [^history]} = Dets.list_history(restored, room.id)
+  end
+
+  test "a version 3 snapshot moves history into separate records", %{path: path} do
+    history = history("room/v3")
+    assert {:ok, ^history, engine} = Engine.command(Engine.new(), {:insert_history, history})
+
+    assert {:ok, @table} =
+             :dets.open_file(@table,
+               file: String.to_charlist(path),
+               type: :set,
+               auto_save: :infinity
+             )
+
+    assert :ok = :dets.insert(@table, {@snapshot_key, 3, engine})
+    assert :ok = :dets.sync(@table)
+    assert :ok = :dets.close(@table)
+
+    storage = start_storage(path)
+    assert {:ok, [^history]} = Dets.list_history(storage, history.room_id)
+    stop_storage()
+    assert_split_history(path, history)
+
+    restored = start_storage(path)
+    assert {:ok, [^history]} = Dets.list_history(restored, history.room_id)
   end
 
   test "a failed durable Commit leaves no partial state", %{path: path} do
@@ -152,11 +188,91 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
     assert {:ok, ^room} = Dets.get_room(restored, room.id)
   end
 
+  test "a version 2 snapshot keeps Room records and gains empty runtime state", %{path: path} do
+    room =
+      Record.new!(%{
+        id: "room/v2",
+        kind: :group,
+        inserted_at: ~U[2026-11-16 10:00:00Z],
+        updated_at: ~U[2026-11-16 10:00:00Z]
+      })
+
+    assert {:ok, ^room, engine} = Engine.command(Engine.new(), {:insert_room, room})
+    version_2_engine = Map.drop(engine, [:room_declarations, :memberships, :history])
+
+    assert {:ok, @table} =
+             :dets.open_file(@table,
+               file: String.to_charlist(path),
+               type: :set,
+               auto_save: :infinity
+             )
+
+    assert :ok = :dets.insert(@table, {@snapshot_key, 2, version_2_engine})
+    assert :ok = :dets.sync(@table)
+    assert :ok = :dets.close(@table)
+
+    storage = start_storage(path)
+    assert {:ok, ^room} = Dets.get_room(storage, room.id)
+    assert {:ok, []} = Dets.list_room_declarations(storage)
+    assert {:ok, []} = Dets.list_memberships(storage, room.id)
+    assert {:ok, []} = Dets.list_history(storage, room.id)
+  end
+
   defp start_storage(path) do
     start_supervised!({Dets, table: @table, path: path})
   end
 
   defp stop_storage do
     assert :ok = stop_supervised({Dets, @table})
+  end
+
+  defp assert_split_history(path, history) do
+    room_id = history.room_id
+    message_id = history.message_id
+
+    assert {:ok, @table} =
+             :dets.open_file(@table,
+               file: String.to_charlist(path),
+               type: :set,
+               auto_save: :infinity
+             )
+
+    assert [{@snapshot_key, 4, engine}] = :dets.lookup(@table, @snapshot_key)
+    assert engine.history == %{}
+
+    assert [{{@history_key, ^room_id, ^message_id}, ^history}] =
+             :dets.lookup(@table, {@history_key, room_id, message_id})
+
+    assert :ok = :dets.close(@table)
+  end
+
+  defp history(room_id) do
+    signal =
+      Jido.Chat.Runtime.Signal.Room.Message.new!(
+        %{
+          "room" => Jido.Agent.Address.new!(%{namespace: "test", id: room_id}),
+          "sequence" => 1,
+          "author" => "alice",
+          "message" =>
+            Jido.Chat.Message.to_map(
+              Jido.Chat.Message.new(%{
+                id: "message-1",
+                room_id: room_id,
+                actor: Jido.Chat.Runtime.Room.actor("alice"),
+                content: [Jido.Chat.Content.text("hello")]
+              })
+            ),
+          "mentions" => []
+        },
+        id: "message-1"
+      )
+
+    HistoryRecord.new!(%{
+      room_id: room_id,
+      message_id: signal.id,
+      sequence: 1,
+      thread_id: nil,
+      signal: signal
+    })
   end
 end

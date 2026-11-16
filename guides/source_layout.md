@@ -76,8 +76,9 @@ request cache, or listener. The host can explicitly start a Sensor, start its
 Runtime facade as a managed process tree, or declare
 `Jido.Chat.Plugin` on an Agent. AgentServer then owns the Plugin and input
 processes. These optional processes hold only activation state and bounded input
-identities. `Jido.Chat.Runtime` adds explicit durable Room record, local Room
-Agent, Participant, account, Bridge, and storage contracts. Its optional
+identities. `Jido.Chat.Runtime` adds explicit durable Room records,
+declarations, membership, history, local Room Agents, Participants, accounts,
+Bridges, and storage contracts. Its optional
 manager reconciles declared Agent activations, but Jido owns those Agent
 processes. The host starts its Jido instance and selected storage resource. A
 resource can use Memory, DETS, Ecto, Ash, or another adapter. Runtime starts

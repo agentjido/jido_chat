@@ -12,6 +12,7 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
       admin: [type: :any, default: "operator"],
       history_limit: [type: :pos_integer, default: 100],
       member_limit: [type: :pos_integer, default: 20],
+      runtime: [type: :any, default: nil],
       identity_provider: [type: :atom, default: Jido.Chat.IdentityProvider.TrustedCaller],
       identity_options: [type: :map, default: %{}],
       authorizer: [type: :atom, default: Jido.Chat.Authorizer.Room],
@@ -35,6 +36,7 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
     if match?({:ok, _}, Zoi.parse(Room.member_schema(), opts[:admin])) and
          is_integer(opts[:history_limit]) and opts[:history_limit] > 0 and
          is_integer(opts[:member_limit]) and opts[:member_limit] > 0 and
+         valid_runtime?(opts[:runtime]) and
          Jido.Chat.IdentityProvider.valid?(opts[:identity_provider]) and
          is_map(opts[:identity_options]) and
          Jido.Chat.Authorizer.valid?(opts[:authorizer]) and
@@ -85,6 +87,17 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
                  room: room,
                  options: opts[:identity_options]
                }),
+             actor = principal.agent_address || principal.id,
+             {:ok, membership} <-
+               authorization_membership(
+                 opts[:runtime],
+                 room.id,
+                 input.plugin_state.members,
+                 action,
+                 actor,
+                 member(input.prepared_input),
+                 opts[:member_limit]
+               ),
              :ok <-
                Jido.Chat.Authorizer.authorize(
                  opts[:authorizer],
@@ -93,14 +106,26 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
                  %{type: :room, id: room},
                  %{
                    admin: opts[:admin],
-                   members: input.plugin_state.members,
+                   actor_active?: membership.actor_active?,
                    member: member(input.prepared_input),
+                   member_active?: membership.member_active?,
+                   members: input.plugin_state.members,
+                   room_full?: membership.room_full?,
+                   working_members: input.plugin_state.members,
                    signal: input.signal,
                    options: opts[:authorization_options]
                  }
-               ) do
-          actor = principal.agent_address || principal.id
-          {:ok, %{actor: actor, principal: principal, room: room}}
+               ),
+             :ok <- room_capacity(action, membership, opts[:member_limit]) do
+          {:ok,
+           %{
+             actor: actor,
+             principal: principal,
+             room: room,
+             durable_runtime: opts[:runtime],
+             member_active?: membership.member_active?,
+             room_full?: membership.room_full?
+           }}
         end
     end
   end
@@ -111,19 +136,21 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
 
     case input.signal.type do
       "jido.chat.room.join" ->
-        members = Enum.uniq(state.members ++ [input.prepared_input["member"]])
+        member = input.prepared_input["member"]
+        members = Enum.uniq(state.members ++ [member])
 
         if length(members) <= opts[:member_limit],
           do: {:ok, %{state | members: members}},
-          else: {:error, :room_full}
+          else: {:ok, state}
 
       "jido.chat.room.leave" ->
         {:ok, %{state | members: List.delete(state.members, input.prepared_input["member"])}}
 
       _ ->
         messages = for %Publish{message: message, retain: true} <- input.directives, do: message
-        history = Enum.take(state.messages ++ messages, -opts[:history_limit])
-        {:ok, %{state | messages: history, sequence: state.sequence + length(messages)}}
+        history = Enum.uniq_by(state.messages ++ messages, & &1.id) |> Enum.take(-opts[:history_limit])
+        sequence = Enum.reduce(messages, state.sequence, &max(&1.data["sequence"] || 0, &2))
+        {:ok, %{state | messages: history, sequence: sequence}}
     end
   end
 
@@ -145,6 +172,46 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
     end
   end
 
+  @doc false
+  def hydrate_state(definition, runtime, room_id) do
+    definition = Jido.Agent.definition(definition)
+    plugin = Enum.find(definition.plugins, &(&1.provider == __MODULE__))
+    opts = plugin && plugin.data
+
+    case opts && opts[:runtime] do
+      nil ->
+        {:ok, %{}}
+
+      ^runtime ->
+        with {:ok, room} <-
+               Jido.Chat.Runtime.Room.Durable.hydrate(
+                 runtime,
+                 room_id,
+                 opts[:member_limit],
+                 opts[:history_limit]
+               ),
+             do: {:ok, %{room: room}}
+
+      _other ->
+        {:error, :room_runtime_mismatch}
+    end
+  rescue
+    _ -> {:error, :invalid_room_definition}
+  end
+
+  @doc false
+  def validate_durable_definition(definition, runtime) do
+    definition = Jido.Agent.definition(definition)
+
+    case Enum.filter(definition.plugins, &(&1.provider == __MODULE__)) do
+      [%{data: %{runtime: ^runtime}}] -> :ok
+      [_plugin] -> {:error, :room_runtime_mismatch}
+      _plugins -> {:error, :one_room_plugin_required}
+    end
+  rescue
+    _ -> {:error, :invalid_room_definition}
+  end
+
   defp room_action("jido.chat.room.join"), do: :room_join
   defp room_action("jido.chat.room.leave"), do: :room_leave
   defp room_action("jido.chat.room.post"), do: :message_post
@@ -153,6 +220,55 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
 
   defp member(input) when is_map(input), do: input["member"]
   defp member(_input), do: nil
+
+  defp valid_runtime?(nil), do: true
+
+  defp valid_runtime?(runtime),
+    do: is_atom(runtime) and runtime not in [nil, true, false]
+
+  defp authorization_membership(nil, _room_id, members, _action, actor, member, limit) do
+    {:ok,
+     %{
+       actor_active?: actor in members,
+       member_active?: member in members,
+       room_full?: length(members) >= limit
+     }}
+  end
+
+  defp authorization_membership(runtime, room_id, _members, action, actor, member, limit) do
+    with {:ok, actor_active?} <- Jido.Chat.Runtime.Room.Durable.active_member?(runtime, room_id, actor),
+         {:ok, member_active?} <- target_active?(runtime, room_id, actor, actor_active?, member),
+         {:ok, room_full?} <- room_full?(runtime, room_id, action, limit) do
+      {:ok,
+       %{
+         actor_active?: actor_active?,
+         member_active?: member_active?,
+         room_full?: room_full?
+       }}
+    end
+  end
+
+  defp target_active?(_runtime, _room_id, actor, actor_active?, actor), do: {:ok, actor_active?}
+  defp target_active?(_runtime, _room_id, _actor, _actor_active?, nil), do: {:ok, false}
+
+  defp target_active?(runtime, room_id, _actor, _actor_active?, member),
+    do: Jido.Chat.Runtime.Room.Durable.active_member?(runtime, room_id, member)
+
+  defp room_full?(runtime, room_id, :room_join, limit) do
+    with {:ok, count} <- Jido.Chat.Runtime.Room.Durable.active_member_count(runtime, room_id, limit) do
+      {:ok, count >= limit}
+    end
+  end
+
+  defp room_full?(_runtime, _room_id, _action, _limit), do: {:ok, false}
+
+  defp room_capacity(:room_join, membership, _limit) do
+    if membership.member_active? or not membership.room_full?,
+      do: :ok,
+      else: {:error, :room_full}
+  end
+
+  defp room_capacity(_action, _membership, _limit), do: :ok
 
   defp identity_source(caller_context, room) do
     case Map.get(caller_context, :identity_source) do

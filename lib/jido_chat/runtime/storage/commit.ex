@@ -8,6 +8,12 @@ defmodule Jido.Chat.Runtime.Storage.Commit do
           | {:insert_room, Jido.Chat.Runtime.Room.Record.t()}
           | {:update_room, String.t(), pos_integer(), Jido.Chat.Runtime.Room.Record.t()}
           | {:delete_room, String.t(), pos_integer()}
+          | {:insert_room_declaration, Jido.Chat.Runtime.Room.Declaration.t()}
+          | {:update_room_declaration, String.t(), pos_integer(), Jido.Chat.Runtime.Room.Declaration.t()}
+          | {:delete_room_declaration, String.t(), pos_integer()}
+          | {:insert_membership, Jido.Chat.Runtime.Room.Membership.t()}
+          | {:update_membership, String.t(), String.t(), pos_integer(), Jido.Chat.Runtime.Room.Membership.t()}
+          | {:insert_history, Jido.Chat.Runtime.Room.HistoryRecord.t()}
 
   @callback commit(resource :: term(), [command()]) :: {:ok, [term()]} | {:error, term()}
 end

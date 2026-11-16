@@ -17,6 +17,7 @@ defmodule MyApp.Chat do
   use Jido.Chat.Runtime,
     jido: MyApp.Jido,
     storage: {Jido.Chat.Runtime.Storage.Dets, MyApp.ChatStorage},
+    room_definitions: %{"support" => MyApp.SupportRoom},
     provider_work_limit: 4,
     provider_queue_limit: 1_000,
     provider_work_lease_ms: 60_000
@@ -67,11 +68,12 @@ Use the managed lifecycle through the facade:
 {:ok, status} = MyApp.Chat.reconcile_runtime()
 ```
 
-Managed declarations and manual desired state are in memory. A Runtime manager
-restart restores the startup declarations and their initial running state. It
-adopts matching Agent activations that remain under Jido. A normal Runtime
-shutdown stops its managed Agent activations. A durable declaration catalog is
-not part of this contract.
+Startup declarations and provider account declarations are in memory. Room
+declarations created by `provision_room/2` are durable. Their running or stopped
+desired state survives a Runtime restart. The manager resolves each stored
+definition key through the static `room_definitions` map. Stored data cannot
+name an Elixir module or create an atom. A normal Runtime shutdown stops its
+managed Agent activations.
 
 The managed functions are separate from `start_connection/2`,
 `stop_connection/1`, and `connection_status/1`. Those functions keep the direct
@@ -119,6 +121,57 @@ membership, message history, Bus data, or provider data. Use
 `list_managed_rooms/0` to inspect live managed Room declarations. Use
 `list_rooms/1` to query durable Room records.
 
+## Durable Room provisioning
+
+Define a trusted Room registry and opt the Room Agent into its Runtime:
+
+```elixir
+defmodule MyApp.Chat do
+  use Jido.Chat.Runtime,
+    jido: MyApp.Jido,
+    storage: {MyApp.ChatStorage, MyApp.ChatStorageResource},
+    room_definitions: %{"support" => MyApp.SupportRoom}
+end
+
+defmodule MyApp.SupportRoom do
+  use Jido.Chat.Runtime.Room, name: "support_room"
+
+  room do
+    admin("operator")
+    runtime(MyApp.Chat)
+    history_limit(100)
+    member_limit(20)
+  end
+end
+```
+
+Provisioning commits the Room record and managed declaration together:
+
+```elixir
+{:ok, result} =
+  MyApp.Chat.provision_room("support", %{
+    id: "support",
+    kind: :group,
+    name: "Support"
+  })
+
+result.room
+result.declaration
+result.activation
+```
+
+`activation` is `:not_started` when the managed Runtime is not running. When it
+is running, activation contains the managed Room status. Storage acceptance and
+live activation are separate. A later reconcile retries a failed activation.
+
+`start_managed_room/1` and `stop_managed_room/1` store desired state for a
+durable declaration before they change its Agent activation. `deprovision_room/1`
+stops the Room and removes only the declaration. It preserves the Room record,
+membership, and history.
+
+Durable provider account declarations are not supported. Provider definitions
+can contain credentials and need a separate secret-reference contract.
+
 ## Portable values
 
 Runtime room messages use the same portable Core values as provider bridges:
@@ -145,6 +198,7 @@ defmodule MyApp.SupportRoom do
 
   room do
     admin("operator")
+    runtime(MyApp.Chat)
     history_limit(100)
     member_limit(20)
   end
@@ -173,8 +227,28 @@ signal = Jido.Chat.Runtime.Signal.Room.Post.new!(%{
   context: %{actor: "operator"})
 ```
 
-The Room owns membership, a bounded working history, a local sequence, and one
-Jido Signal Bus. Its Signal types use the `jido.chat.room.*` prefix.
+With no `runtime` setting, the Room owns in-memory membership, a bounded working
+history, a local sequence, and one Jido Signal Bus. With a Runtime setting,
+storage is authoritative for membership and immutable message history. The
+Room state keeps a bounded working cache. A managed activation restores active
+members, recent messages, and the last sequence from storage.
+
+Query durable data through the Runtime facade:
+
+```elixir
+{:ok, members} = MyApp.Chat.list_room_memberships("support", status: :active)
+{:ok, membership} = MyApp.Chat.get_room_membership("support", "alice")
+
+{:ok, history} = MyApp.Chat.list_room_history("support", limit: 100)
+{:ok, older} = MyApp.Chat.list_room_history("support", before: hd(history).message_id)
+{:ok, message} = MyApp.Chat.get_room_history("support", "message-id")
+```
+
+Membership status is `:active`, `:suspended`, or `:revoked`. History order is
+oldest first. `before` and `after` are exclusive message-ID cursors and cannot
+be used together. `thread_id` filters one thread. `latest: true` returns the
+most recent bounded page in oldest-first order. Limits are from 1 through
+1,000.
 
 ### Room identity and authorization
 
@@ -213,7 +287,11 @@ Jido.call(MyApp.Jido, room, signal, context: context)
 
 The configured identity provider maps this source to a
 `Jido.Chat.Principal`. The authorizer receives the principal, the Room action,
-the exact Room Address, current membership, and private authorization options.
+the exact Room Address, authoritative `actor_active?` and `member_active?`
+values, the `room_full?` capacity result for a join, the bounded `working_members`
+cache, and private authorization options. `members` remains as an alias for the
+bounded cache. A durable Room reads the actor and target membership directly.
+It does not load all members for each command.
 The principal and decision are transient. Stored Room membership and message
 shapes do not contain credentials or external profiles.
 

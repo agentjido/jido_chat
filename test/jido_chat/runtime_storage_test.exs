@@ -1,7 +1,7 @@
 defmodule Jido.Chat.RuntimeStorageTest do
   use ExUnit.Case, async: true
 
-  alias Jido.Chat.Runtime.Room.Record
+  alias Jido.Chat.Runtime.Room.{Declaration, HistoryRecord, Membership, Record}
   alias Jido.Chat.Runtime.Storage
   alias Jido.Chat.Runtime.Storage.{Adapter, Commit, Links, Memory, Outbox, Rooms}
 
@@ -35,7 +35,16 @@ defmodule Jido.Chat.RuntimeStorageTest do
 
   test "Memory implements every merge-scope capability", %{storage: storage} do
     assert :ok == Storage.validate({Memory, storage}, [Links, Outbox, Rooms, Commit])
-    assert Storage.capabilities(Memory) == [Links, Outbox, Rooms, Commit]
+
+    assert Storage.capabilities(Memory) == [
+             Links,
+             Outbox,
+             Rooms,
+             Jido.Chat.Runtime.Storage.RoomDeclarations,
+             Jido.Chat.Runtime.Storage.Memberships,
+             Jido.Chat.Runtime.Storage.History,
+             Commit
+           ]
   end
 
   test "adapter declarations are additive and checked against callbacks" do
@@ -167,6 +176,87 @@ defmodule Jido.Chat.RuntimeStorageTest do
     assert {:ok, [^record]} = Memory.commit(storage, [{:insert_room, record}])
   end
 
+  test "declarations and memberships use revision checks", %{storage: storage} do
+    declaration = Declaration.new!(%{room_id: "room/state", definition_key: "team"})
+    assert {:ok, ^declaration} = Memory.insert_room_declaration(storage, declaration)
+    assert {:ok, [^declaration]} = Memory.list_room_declarations(storage)
+    assert {:ok, stopped} = Declaration.set_desired(declaration, :stopped)
+
+    assert {:error, :room_declaration_conflict} =
+             Memory.update_room_declaration(storage, declaration.room_id, 2, stopped)
+
+    assert {:ok, ^stopped} =
+             Memory.update_room_declaration(storage, declaration.room_id, 1, stopped)
+
+    membership = Membership.new!(%{room_id: declaration.room_id, member: "alice", issuer: "operator"})
+    assert {:ok, ^membership} = Memory.insert_membership(storage, membership)
+    assert {:ok, active} = Memory.list_memberships(storage, declaration.room_id, status: :active)
+    assert active == [membership]
+    assert {:ok, revoked} = Membership.transition(membership, :revoked, "alice")
+
+    assert {:ok, ^revoked} =
+             Memory.update_membership(
+               storage,
+               declaration.room_id,
+               membership.member_key,
+               1,
+               revoked
+             )
+
+    assert {:error, :membership_conflict} =
+             Memory.update_membership(
+               storage,
+               declaration.room_id,
+               membership.member_key,
+               1,
+               revoked
+             )
+
+    assert {:ok, :ok} = Memory.delete_room_declaration(storage, declaration.room_id, 2)
+  end
+
+  test "membership keys normalize Agent Addresses before hashing" do
+    address = Jido.Agent.Address.new!(%{namespace: "test", partition: "workers", id: "member"})
+    membership = Membership.new!(%{room_id: "room/address", member: address})
+
+    assert Membership.key(address) == membership.member_key
+    assert Membership.key(Jido.Agent.Address.to_map!(address)) == membership.member_key
+  end
+
+  test "history is immutable, ordered, and bounded", %{storage: storage} do
+    records =
+      for sequence <- 1..3 do
+        signal = history_signal("message-#{sequence}", sequence, if(sequence == 2, do: "thread", else: nil))
+
+        HistoryRecord.new!(%{
+          room_id: "room/history",
+          message_id: signal.id,
+          sequence: sequence,
+          thread_id: get_in(signal.data, ["message", "thread_id"]),
+          signal: signal
+        })
+      end
+
+    for record <- Enum.reverse(records), do: assert({:ok, ^record} = Memory.insert_history(storage, record))
+
+    assert {:ok, ^records} = Memory.list_history(storage, "room/history")
+    assert {:ok, [first, second]} = Memory.list_history(storage, "room/history", limit: 2)
+    assert [first.sequence, second.sequence] == [1, 2]
+    assert {:ok, [second, third]} = Memory.list_history(storage, "room/history", latest: true, limit: 2)
+    assert [second.sequence, third.sequence] == [2, 3]
+    assert {:ok, [thread]} = Memory.list_history(storage, "room/history", thread_id: "thread")
+    assert thread.sequence == 2
+    assert {:ok, [^first]} = Memory.list_history(storage, "room/history", before: "message-2")
+    assert {:ok, [^third]} = Memory.list_history(storage, "room/history", after: "message-2")
+
+    assert {:error, :invalid_options} =
+             Memory.list_history(storage, "room/history", before: "message-2", after: "message-1")
+
+    changed = %{hd(records) | signal: history_signal("message-1", 1, nil, "different")}
+    assert {:error, :message_id_conflict} = Memory.insert_history(storage, changed)
+    assert {:ok, 3} = Memory.last_history_sequence(storage, "room/history")
+  end
+
   defp room(id, kind, inserted_at) do
     Record.new!(%{
       id: id,
@@ -175,5 +265,27 @@ defmodule Jido.Chat.RuntimeStorageTest do
       inserted_at: inserted_at,
       updated_at: inserted_at
     })
+  end
+
+  defp history_signal(id, sequence, thread_id, text \\ nil) do
+    Jido.Chat.Runtime.Signal.Room.Message.new!(
+      %{
+        "room" => Jido.Agent.Address.new!(%{namespace: "test", id: "room/history"}),
+        "sequence" => sequence,
+        "author" => "alice",
+        "message" =>
+          Jido.Chat.Message.to_map(
+            Jido.Chat.Message.new(%{
+              id: id,
+              room_id: "room/history",
+              thread_id: thread_id,
+              actor: Jido.Chat.Runtime.Room.actor("alice"),
+              content: [Jido.Chat.Content.text(text || id)]
+            })
+          ),
+        "mentions" => []
+      },
+      id: id
+    )
   end
 end

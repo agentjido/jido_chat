@@ -5,6 +5,7 @@ defmodule Jido.Chat.Runtime.Manager do
 
   alias Jido.AgentServer.Snapshot
   alias Jido.Chat.Runtime.{Connection, Room}
+  alias Jido.Chat.Runtime.Room.{Declaration, Durable}
 
   @max_id_bytes 256
   @entry_kinds [:room, :connection]
@@ -26,15 +27,21 @@ defmodule Jido.Chat.Runtime.Manager do
 
   @impl true
   def init(opts) do
-    with {:ok, rooms} <- declarations(Keyword.get(opts, :rooms, []), :room),
+    Process.flag(:trap_exit, true)
+    runtime = Keyword.fetch!(opts, :runtime)
+
+    with {:ok, startup_rooms} <- declarations(Keyword.get(opts, :rooms, []), :room),
+         {:ok, durable_rooms} <- durable_declarations(runtime),
+         {:ok, rooms} <- merge_rooms(startup_rooms, durable_rooms),
          {:ok, connections} <- declarations(Keyword.get(opts, :connections, []), :connection),
          {:ok, interval} <- reconcile_interval(Keyword.get(opts, :reconcile_interval, 5_000)) do
       state = %{
-        runtime: Keyword.fetch!(opts, :runtime),
+        runtime: runtime,
         rooms: rooms,
         connections: connections,
         reconcile_interval: interval,
         reconcile_timer: nil,
+        declaration_error: nil,
         ready: false
       }
 
@@ -74,7 +81,7 @@ defmodule Jido.Chat.Runtime.Manager do
 
   def handle_call({:set_desired, kind, id, desired}, _from, state)
       when kind in @entry_kinds and desired in [:running, :stopped] do
-    case update_entry(state, kind, id, &Map.put(&1, :desired, desired)) do
+    case set_desired(state, kind, id, desired) do
       {:ok, state} ->
         state = reconcile_one(state, kind, id)
         {:reply, lifecycle_result(state, kind, id, desired), state}
@@ -85,13 +92,13 @@ defmodule Jido.Chat.Runtime.Manager do
   end
 
   def handle_call({:restart, kind, id}, _from, state) when kind in @entry_kinds do
-    case update_entry(state, kind, id, &Map.put(&1, :desired, :stopped)) do
+    case set_desired(state, kind, id, :stopped) do
       {:ok, state} ->
         state = reconcile_one(state, kind, id)
 
         case lifecycle_result(state, kind, id, :stopped) do
           {:ok, _entry} ->
-            {:ok, state} = update_entry(state, kind, id, &Map.put(&1, :desired, :running))
+            {:ok, state} = set_desired(state, kind, id, :running)
             state = reconcile_one(state, kind, id)
             {:reply, lifecycle_result(state, kind, id, :running), state}
 
@@ -139,7 +146,7 @@ defmodule Jido.Chat.Runtime.Manager do
             {:halt, {:error, {:duplicate_declaration, kind, id}}}
 
           true ->
-            {:cont, {:ok, Map.put(declarations, id, new_entry(id, definition))}}
+            {:cont, {:ok, Map.put(declarations, id, new_entry(id, definition, :startup))}}
         end
 
       value, _acc ->
@@ -149,10 +156,14 @@ defmodule Jido.Chat.Runtime.Manager do
 
   defp declarations(value, kind), do: {:error, {:invalid_declarations, kind, value}}
 
-  defp new_entry(id, definition) do
+  defp new_entry(id, definition, source) do
     %{
       id: id,
       definition: definition,
+      definition_key: nil,
+      source: source,
+      revision: nil,
+      resolution_error: nil,
       desired: :running,
       state: :pending,
       ref: nil,
@@ -170,6 +181,7 @@ defmodule Jido.Chat.Runtime.Manager do
 
   defp reconcile_all(state) do
     state
+    |> refresh_durable_rooms()
     |> reconcile_group(:room)
     |> reconcile_group(:connection)
   end
@@ -188,7 +200,9 @@ defmodule Jido.Chat.Runtime.Manager do
   end
 
   defp safe_reconcile(entry, kind, runtime) do
-    reconcile_entry(entry, kind, runtime)
+    if entry.resolution_error,
+      do: mark_error(entry, entry.resolution_error),
+      else: reconcile_entry(entry, kind, runtime)
   rescue
     error -> mark_error(entry, {:exception, error.__struct__})
   catch
@@ -211,7 +225,7 @@ defmodule Jido.Chat.Runtime.Manager do
          :ok <- require_plugin(expected, Jido.Chat.Runtime.Room.Plugin, :one_room_plugin_required) do
       case Jido.resolve_agent(runtime.jido(), ref) do
         {:ok, server} -> adopt(entry, ref, server, expected)
-        {:error, :not_found} -> start_room(entry, runtime, ref, expected)
+        {:error, :not_found} -> start_room(entry, runtime, ref)
         {:error, reason} -> mark_error(entry, reason, ref)
       end
     else
@@ -219,10 +233,16 @@ defmodule Jido.Chat.Runtime.Manager do
     end
   end
 
-  defp start_room(entry, runtime, ref, expected) do
-    case Room.start_agent(runtime.jido(), ref, expected) do
-      {:ok, server} -> adopt(entry, ref, server, expected)
-      {:error, {:already_started, server}} -> adopt(entry, ref, server, expected)
+  defp start_room(entry, runtime, ref) do
+    with {:ok, initial_state} <- Room.Plugin.hydrate_state(entry.definition, runtime, ref.id),
+         {:ok, expected} <- Jido.Agent.instantiate(entry.definition, id: ref.id, state: initial_state),
+         :ok <- require_plugin(expected, Jido.Chat.Runtime.Room.Plugin, :one_room_plugin_required) do
+      case Room.start_agent(runtime.jido(), ref, expected) do
+        {:ok, server} -> adopt(entry, ref, server, expected)
+        {:error, {:already_started, server}} -> adopt(entry, ref, server, expected)
+        {:error, reason} -> mark_error(entry, reason, ref)
+      end
+    else
       {:error, reason} -> mark_error(entry, reason, ref)
     end
   end
@@ -259,7 +279,7 @@ defmodule Jido.Chat.Runtime.Manager do
   defp adopt(entry, ref, server, expected) do
     with :ok <- Jido.AgentServer.await_ready(server),
          %Snapshot{agent: actual, agent_address: ^ref} <- Jido.AgentServer.snapshot(server),
-         true <- same_definition?(expected, actual) do
+         true <- Room.same_definition?(expected, actual) do
       mark_running(entry, ref, server)
     else
       false -> mark_error(entry, :address_in_use, ref)
@@ -270,7 +290,7 @@ defmodule Jido.Chat.Runtime.Manager do
 
   defp ensure_stopped(entry, kind, runtime) do
     with {:ok, ref} <- entry_ref(entry, kind, runtime),
-         {:ok, expected} <- Jido.Agent.instantiate(entry.definition, id: ref.id) do
+         {:ok, expected} <- expected_agent(entry, kind, runtime, ref) do
       case Jido.resolve_agent(runtime.jido(), ref) do
         {:error, :not_found} -> mark_stopped(entry, ref)
         {:ok, server} -> stop_matching(entry, runtime, ref, server, expected)
@@ -281,24 +301,16 @@ defmodule Jido.Chat.Runtime.Manager do
     end
   end
 
+  defp expected_agent(entry, :room, _runtime, ref),
+    do: Jido.Agent.instantiate(entry.definition, id: ref.id)
+
+  defp expected_agent(entry, :connection, _runtime, ref),
+    do: Jido.Agent.instantiate(entry.definition, id: ref.id)
+
   defp stop_matching(entry, runtime, ref, server, expected) do
-    case Jido.AgentServer.snapshot(server) do
-      %Snapshot{agent: actual, agent_address: ^ref} ->
-        if same_definition?(expected, actual) do
-          case Jido.stop_agent(runtime.jido(), server, partition: ref.partition) do
-            :ok -> mark_stopped(entry, ref)
-            {:error, :not_found} -> mark_stopped(entry, ref)
-            {:error, reason} -> mark_error(entry, reason, ref)
-          end
-        else
-          mark_error(entry, :address_in_use, ref)
-        end
-
-      {:error, reason} ->
-        mark_error(entry, reason, ref)
-
-      _value ->
-        mark_error(entry, :address_mismatch, ref)
+    case Room.stop_matching_agent(runtime.jido(), ref, server, expected) do
+      :ok -> mark_stopped(entry, ref)
+      {:error, reason} -> mark_error(entry, reason, ref)
     end
   end
 
@@ -321,23 +333,6 @@ defmodule Jido.Chat.Runtime.Manager do
     end
   end
 
-  defp same_definition?(%{module: module, vsn: vsn}, %{module: module, vsn: vsn})
-       when module not in [nil, true, false],
-       do: true
-
-  defp same_definition?(expected, actual), do: definition_key(expected) == definition_key(actual)
-
-  defp definition_key(agent) do
-    {
-      agent.module,
-      agent.name,
-      agent.vsn,
-      agent.signal_source,
-      Enum.map(agent.plugins, & &1.provider),
-      Enum.map(agent.routes, &Map.take(&1, [:type, :target]))
-    }
-  end
-
   defp mark_running(entry, ref, server),
     do: %{entry | state: :running, ref: ref, pid: server, error: nil}
 
@@ -354,6 +349,9 @@ defmodule Jido.Chat.Runtime.Manager do
 
   defp public_error({tag, value}) when is_atom(tag) and is_integer(value),
     do: {tag, value}
+
+  defp public_error({tag, kind, id}) when is_atom(tag) and is_atom(kind) and is_binary(id),
+    do: {tag, kind, id}
 
   defp public_error(%{__struct__: module}) when is_atom(module),
     do: {:runtime_error, module}
@@ -373,6 +371,29 @@ defmodule Jido.Chat.Runtime.Manager do
     end
   end
 
+  defp set_desired(state, :room, id, desired) do
+    case Map.fetch(state.rooms, id) do
+      {:ok, %{source: :durable} = entry} ->
+        with {:ok, declaration} <- Durable.set_desired(state.runtime, id, desired) do
+          {:ok,
+           put_entry(state, :room, %{
+             entry
+             | desired: declaration.desired,
+               revision: declaration.revision
+           })}
+        end
+
+      {:ok, _entry} ->
+        update_entry(state, :room, id, &Map.put(&1, :desired, desired))
+
+      :error ->
+        {:error, :not_managed}
+    end
+  end
+
+  defp set_desired(state, kind, id, desired),
+    do: update_entry(state, kind, id, &Map.put(&1, :desired, desired))
+
   defp lifecycle_result(state, kind, id, desired) do
     entry = Map.fetch!(group(state, kind), id)
     target = if desired == :running, do: :running, else: :stopped
@@ -386,12 +407,16 @@ defmodule Jido.Chat.Runtime.Manager do
   defp status(state) do
     rooms = entry_views(state.rooms)
     connections = entry_views(state.connections)
-    errors = Enum.count(rooms ++ connections, &(&1.state == :error))
+
+    errors =
+      Enum.count(rooms ++ connections, &(&1.state == :error)) +
+        if(state.declaration_error, do: 1, else: 0)
 
     %{
       ready: state.ready,
       healthy: state.ready and errors == 0,
       error_count: errors,
+      declaration_error: state.declaration_error,
       rooms: rooms,
       connections: connections
     }
@@ -408,6 +433,9 @@ defmodule Jido.Chat.Runtime.Manager do
     %{
       id: entry.id,
       definition: definition_name(entry.definition),
+      definition_key: entry.definition_key,
+      source: entry.source,
+      revision: entry.revision,
       desired: entry.desired,
       state: entry.state,
       ref: entry.ref,
@@ -452,5 +480,98 @@ defmodule Jido.Chat.Runtime.Manager do
     end
 
     :ok
+  end
+
+  defp durable_declarations(runtime) do
+    if is_nil(runtime.storage()) do
+      {:ok, %{}}
+    else
+      case Durable.list_declarations(runtime) do
+        {:ok, declarations} ->
+          declarations
+          |> Enum.reduce_while({:ok, %{}}, fn declaration, {:ok, entries} ->
+            case durable_entry(runtime, declaration) do
+              {:ok, entry} -> {:cont, {:ok, Map.put(entries, entry.id, entry)}}
+              {:error, reason} -> {:halt, {:error, reason}}
+            end
+          end)
+
+        {:error, :unsupported_storage_capability} ->
+          {:ok, %{}}
+
+        {:error, reason} ->
+          {:error, reason}
+      end
+    end
+  end
+
+  defp durable_entry(runtime, %Declaration{} = declaration) do
+    {definition, error} =
+      case runtime.room_definition(declaration.definition_key) do
+        {:ok, definition} -> {definition, nil}
+        {:error, reason} -> {nil, reason}
+      end
+
+    {:ok,
+     %{
+       id: declaration.room_id,
+       definition: definition,
+       definition_key: declaration.definition_key,
+       source: :durable,
+       revision: declaration.revision,
+       resolution_error: error,
+       desired: declaration.desired,
+       state: :pending,
+       ref: nil,
+       pid: nil,
+       error: nil
+     }}
+  end
+
+  defp durable_entry(_runtime, _declaration), do: {:error, :invalid_room_declaration}
+
+  defp merge_rooms(startup, durable) do
+    case Map.keys(startup) |> Enum.find(&Map.has_key?(durable, &1)) do
+      nil -> {:ok, Map.merge(startup, durable)}
+      id -> {:error, {:duplicate_declaration, :room, id}}
+    end
+  end
+
+  defp refresh_durable_rooms(state) do
+    case durable_declarations(state.runtime) do
+      {:ok, durable} ->
+        startup = Map.reject(state.rooms, fn {_id, entry} -> entry.source == :durable end)
+
+        removed =
+          state.rooms
+          |> Map.filter(fn {id, entry} -> entry.source == :durable and not Map.has_key?(durable, id) end)
+          |> Map.new(fn {id, entry} ->
+            entry = safe_reconcile(%{entry | desired: :stopped}, :room, state.runtime)
+            {id, entry}
+          end)
+          |> Map.reject(fn {_id, entry} -> entry.state == :stopped end)
+
+        durable =
+          Map.new(durable, fn {id, entry} ->
+            previous = Map.get(state.rooms, id)
+
+            entry =
+              if previous && previous.source == :durable do
+                %{entry | state: previous.state, ref: previous.ref, pid: previous.pid, error: previous.error}
+              else
+                entry
+              end
+
+            {id, entry}
+          end)
+
+        case merge_rooms(startup, Map.merge(durable, removed)) do
+          {:ok, rooms} -> %{state | rooms: rooms, declaration_error: nil}
+          {:error, reason} -> %{state | declaration_error: public_error(reason)}
+        end
+
+      {:error, reason} ->
+        %{state | declaration_error: public_error(reason)}
+    end
   end
 end

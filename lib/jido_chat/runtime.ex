@@ -27,6 +27,7 @@ defmodule Jido.Chat.Runtime do
         Keyword.validate!(opts, [
           :jido,
           :storage,
+          :room_definitions,
           :provider_work_limit,
           :provider_queue_limit,
           :provider_work_lease_ms
@@ -34,6 +35,13 @@ defmodule Jido.Chat.Runtime do
 
       @chat_runtime_jido Keyword.fetch!(opts, :jido)
       @chat_runtime_storage Keyword.get(opts, :storage)
+      room_definitions = Keyword.get(opts, :room_definitions, %{})
+
+      unless is_map(room_definitions) do
+        raise ArgumentError, "room_definitions must be a map"
+      end
+
+      @chat_runtime_room_definitions room_definitions
       @chat_runtime_provider_work_limit Keyword.get(opts, :provider_work_limit, 4)
       @chat_runtime_provider_queue_limit Keyword.get(opts, :provider_queue_limit, 1_000)
       @chat_runtime_provider_work_lease_ms Keyword.get(opts, :provider_work_lease_ms, 60_000)
@@ -45,6 +53,13 @@ defmodule Jido.Chat.Runtime do
       unless is_nil(@chat_runtime_storage) or
                match?({adapter, _resource} when is_atom(adapter), @chat_runtime_storage) do
         raise ArgumentError, "storage must be {adapter, resource}"
+      end
+
+      unless Enum.all?(@chat_runtime_room_definitions, fn {key, definition} ->
+               is_binary(key) and byte_size(key) in 1..256 and is_atom(definition) and
+                 definition not in [nil, true, false]
+             end) do
+        raise ArgumentError, "room_definitions must map nonempty string keys to Room Agent modules"
       end
 
       unless is_integer(@chat_runtime_provider_work_limit) and
@@ -69,6 +84,20 @@ defmodule Jido.Chat.Runtime do
       @doc "Returns the selected Runtime storage resource, when configured."
       @spec storage() :: Jido.Chat.Runtime.Storage.selection() | nil
       def storage, do: @chat_runtime_storage
+
+      @doc "Resolves one durable Room definition key through trusted host code."
+      @spec room_definition(String.t()) :: {:ok, module()} | {:error, :unknown_room_definition}
+      def room_definition(key) when is_binary(key) do
+        case Enum.find(@chat_runtime_room_definitions, fn {known, _definition} -> known == key end) do
+          {_known, definition} -> {:ok, definition}
+          nil -> {:error, :unknown_room_definition}
+        end
+      end
+
+      def room_definition(_key), do: {:error, :unknown_room_definition}
+
+      @doc false
+      def room_definitions, do: @chat_runtime_room_definitions
 
       @doc false
       def provider_work_limits do
@@ -155,6 +184,30 @@ defmodule Jido.Chat.Runtime do
       @spec delete_room(String.t(), pos_integer()) :: :ok | {:error, term()}
       def delete_room(id, expected_revision),
         do: Jido.Chat.Runtime.Room.Records.delete(__MODULE__, id, expected_revision)
+
+      @doc "Atomically creates one Room record and durable managed declaration."
+      def provision_room(definition_key, attrs),
+        do: Jido.Chat.Runtime.Room.Provisioning.provision(__MODULE__, definition_key, attrs)
+
+      @doc "Stops and removes one durable managed declaration without deleting Room data."
+      def deprovision_room(id),
+        do: Jido.Chat.Runtime.Room.Provisioning.deprovision(__MODULE__, id)
+
+      @doc "Lists durable memberships for one Room."
+      def list_room_memberships(id, opts \\ []),
+        do: Jido.Chat.Runtime.Room.Durable.list_memberships(__MODULE__, id, opts)
+
+      @doc "Returns one durable membership for a Room member."
+      def get_room_membership(id, member),
+        do: Jido.Chat.Runtime.Room.Durable.get_membership(__MODULE__, id, member)
+
+      @doc "Lists immutable durable Room message history."
+      def list_room_history(id, opts \\ []),
+        do: Jido.Chat.Runtime.Room.Durable.list_history(__MODULE__, id, opts)
+
+      @doc "Returns one durable Room message history record."
+      def get_room_history(id, message_id),
+        do: Jido.Chat.Runtime.Room.Durable.get_message(__MODULE__, id, message_id)
 
       @doc "Lists all managed provider account declarations."
       def list_managed_connections,
