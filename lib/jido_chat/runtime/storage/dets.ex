@@ -14,12 +14,13 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
   use GenServer
 
   alias Jido.Chat.Runtime.Storage
-  alias Jido.Chat.Runtime.Storage.{Commit, Engine, Links, Outbox}
+  alias Jido.Chat.Runtime.Storage.{Commit, Engine, Links, Outbox, Rooms}
 
   use Storage.Adapter,
-    capabilities: [Links, Outbox, Commit]
+    capabilities: [Links, Outbox, Rooms, Commit]
 
-  @format_version 1
+  @format_version 2
+  @readable_versions [1, @format_version]
   @snapshot_key :jido_chat_runtime_snapshot
 
   @type option ::
@@ -78,6 +79,25 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
   @impl Outbox
   def update_work(server, id, expected_status, changes),
     do: GenServer.call(server, {:command, {:update_work, id, expected_status, changes}})
+
+  @impl Rooms
+  def insert_room(server, record),
+    do: GenServer.call(server, {:command, {:insert_room, record}})
+
+  @impl Rooms
+  def get_room(server, id), do: GenServer.call(server, {:query, {:get_room, id}})
+
+  @impl Rooms
+  def list_rooms(server, opts \\ []),
+    do: GenServer.call(server, {:query, {:list_rooms, opts}})
+
+  @impl Rooms
+  def update_room(server, id, expected_revision, record),
+    do: GenServer.call(server, {:command, {:update_room, id, expected_revision, record}})
+
+  @impl Rooms
+  def delete_room(server, id, expected_revision),
+    do: GenServer.call(server, {:command, {:delete_room, id, expected_revision}})
 
   @impl Commit
   def commit(server, commands) when is_list(commands),
@@ -178,7 +198,7 @@ defmodule Jido.Chat.Runtime.Storage.Dets do
       [] ->
         {:ok, Engine.new()}
 
-      [{@snapshot_key, @format_version, engine}] ->
+      [{@snapshot_key, version, engine}] when version in @readable_versions ->
         Engine.restore(engine)
 
       [{@snapshot_key, version, _engine}] when is_integer(version) ->

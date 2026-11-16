@@ -7,7 +7,7 @@ higher layers.
 | --- | --- | --- |
 | Core | `Jido.Chat.*` | Portable values, typed Signals, Actions, rendering, Clients, and provider adapter contracts |
 | Integration | `Jido.Chat.Plugin.*`, `Jido.Chat.Sensor.*` | Connect provider Clients and Sources to one Jido Agent activation |
-| Runtime | `Jido.Chat.Runtime.*` | Local rooms, participants, provider accounts, bridges, durable provider work, and storage contracts |
+| Runtime | `Jido.Chat.Runtime.*` | Durable Room records, local Room Agents, participants, provider accounts, bridges, durable provider work, and storage contracts |
 
 The dependency direction is:
 
@@ -28,8 +28,9 @@ starts no room, Sensor, provider connection, queue, or storage process.
 
 Jido owns Agent activation, supervision, routing, checkpoints, Plugin runtime
 lifetime, Directives, and Signal Bus processes. Jido Chat owns Chat values,
-provider contracts, Room and bridge policy, provider-work IDs, links, leases,
-status transitions, and the storage contract for durable provider work.
+provider contracts, Room and bridge policy, durable Room record values,
+provider-work IDs, links, leases, status transitions, and Runtime storage
+contracts.
 
 Provider packages own transport details, provider cursors, acknowledgements,
 and reconnect policy.
@@ -61,6 +62,8 @@ local rooms, or durable provider retries.
 
 ```text
 Host application
+|- optional Jido Chat Runtime supervisor
+|  `- Runtime manager (desired state and reconciliation)
 |- host-owned Jido instance
 |  |- Room Agent
 |  |  `- room Signal Bus
@@ -71,8 +74,19 @@ Host application
 `- host-owned Chat storage resource
 ```
 
+The optional Runtime manager starts, stops, and reconciles declared Agent
+activations through the host Jido instance. It is not an Agent supervisor. Jido
+remains the only owner of Room, participant, and provider account Agent
+processes. Starting `:jido_chat` does not start the Runtime supervisor.
+
 One provider account is one Agent activation. The Bridge maps declared provider
 rooms to declared local Room addresses. It does not create rooms or accounts.
+Runtime declarations and manual desired state are in memory. A durable
+declaration catalog is a separate feature.
+
+Durable Room records are also separate from live Agents and managed Runtime
+declarations. They give the host a stable Room identity and descriptive
+metadata. Creating or deleting a record does not start or stop an Agent.
 
 ## Durable provider work
 
@@ -94,6 +108,8 @@ The current storage capabilities are:
 
 - `Links` for local and provider message identity.
 - `Outbox` for provider work and compare-and-set transitions.
+- `Rooms` for revision-checked durable Room records and bounded catalog
+  queries.
 - `Commit` for an atomic batch across one adapter resource.
 
 Memory and DETS implement these capabilities. An Ecto or Ash adapter can

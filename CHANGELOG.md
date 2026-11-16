@@ -8,8 +8,12 @@
   and AI conversion values.
 - Adds optional `Jido.Chat.Runtime` rooms, participants, provider accounts,
   bridges, provider work, and storage capability contracts.
+- Adds an optional managed Runtime supervisor for declared Room and provider
+  account Agent activations. Jido remains the Agent process owner.
 - Keeps `Jido.Chat.Plugin` and `Jido.Chat.Sensor` as the Integration API.
 - Adds a host-owned Memory storage adapter and pending-work recovery.
+- Adds adapter-neutral durable Room records, bounded catalog queries, revision
+  checks, and versioned local DETS storage.
 - Adds Boundary checks for Core, Integration, and Runtime dependencies.
 
 ### Deferred

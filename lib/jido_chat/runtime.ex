@@ -10,6 +10,7 @@ defmodule Jido.Chat.Runtime do
   use Boundary,
     deps: [Jido.Chat],
     exports: [
+      Supervisor,
       {Room, []},
       Participant,
       Connection,
@@ -76,6 +77,104 @@ defmodule Jido.Chat.Runtime do
 
       @doc false
       def provider_work_lease_ms, do: @chat_runtime_provider_work_lease_ms
+
+      @doc "Returns a child specification for the optional managed Runtime tree."
+      @spec child_spec(keyword()) :: Supervisor.child_spec()
+      def child_spec(opts \\ []) do
+        Jido.Chat.Runtime.Supervisor.child_spec({__MODULE__, opts})
+      end
+
+      @doc "Starts the optional managed Runtime tree."
+      @spec start_link(keyword()) :: Supervisor.on_start()
+      def start_link(opts \\ []) do
+        Jido.Chat.Runtime.Supervisor.start_link(__MODULE__, opts)
+      end
+
+      @doc "Returns status for the managed Runtime tree."
+      def runtime_status, do: Jido.Chat.Runtime.Supervisor.status(__MODULE__)
+
+      @doc "Reconciles all managed Runtime declarations now."
+      def reconcile_runtime, do: Jido.Chat.Runtime.Supervisor.reconcile(__MODULE__)
+
+      @doc "Lists all managed Room Agent declarations."
+      def list_managed_rooms,
+        do: Jido.Chat.Runtime.Supervisor.list_rooms(__MODULE__)
+
+      @doc "Returns status for one managed Room declaration."
+      def room_runtime_status(id),
+        do: Jido.Chat.Runtime.Supervisor.room_status(__MODULE__, id)
+
+      @doc "Starts one managed Room declaration."
+      def start_managed_room(id),
+        do: Jido.Chat.Runtime.Supervisor.start_room(__MODULE__, id)
+
+      @doc "Stops one managed Room declaration."
+      def stop_managed_room(id),
+        do: Jido.Chat.Runtime.Supervisor.stop_room(__MODULE__, id)
+
+      @doc "Restarts one managed Room declaration."
+      def restart_managed_room(id),
+        do: Jido.Chat.Runtime.Supervisor.restart_room(__MODULE__, id)
+
+      @doc "Creates one durable Room record."
+      @spec create_room(map()) ::
+              {:ok, Jido.Chat.Runtime.Room.Record.t()} | {:error, term()}
+      def create_room(attrs),
+        do: Jido.Chat.Runtime.Room.Records.create(__MODULE__, attrs)
+
+      @doc "Returns one durable Room record."
+      @spec get_room(String.t()) ::
+              {:ok, Jido.Chat.Runtime.Room.Record.t()} | {:error, term()}
+      def get_room(id),
+        do: Jido.Chat.Runtime.Room.Records.get(__MODULE__, id)
+
+      @doc "Lists durable Room records with bounded query options."
+      @spec list_rooms(keyword()) ::
+              {:ok, [Jido.Chat.Runtime.Room.Record.t()]} | {:error, term()}
+      def list_rooms(opts \\ []),
+        do: Jido.Chat.Runtime.Room.Records.list(__MODULE__, opts)
+
+      @doc "Updates the name or metadata of one durable Room record."
+      @spec update_room(String.t(), map()) ::
+              {:ok, Jido.Chat.Runtime.Room.Record.t()} | {:error, term()}
+      def update_room(id, attrs),
+        do: Jido.Chat.Runtime.Room.Records.update(__MODULE__, id, attrs)
+
+      @doc "Updates one durable Room record at the expected revision."
+      @spec update_room(String.t(), pos_integer(), map()) ::
+              {:ok, Jido.Chat.Runtime.Room.Record.t()} | {:error, term()}
+      def update_room(id, expected_revision, attrs),
+        do: Jido.Chat.Runtime.Room.Records.update(__MODULE__, id, expected_revision, attrs)
+
+      @doc "Deletes one durable Room record at its current revision."
+      @spec delete_room(String.t()) :: :ok | {:error, term()}
+      def delete_room(id),
+        do: Jido.Chat.Runtime.Room.Records.delete(__MODULE__, id)
+
+      @doc "Deletes one durable Room record at the expected revision."
+      @spec delete_room(String.t(), pos_integer()) :: :ok | {:error, term()}
+      def delete_room(id, expected_revision),
+        do: Jido.Chat.Runtime.Room.Records.delete(__MODULE__, id, expected_revision)
+
+      @doc "Lists all managed provider account declarations."
+      def list_managed_connections,
+        do: Jido.Chat.Runtime.Supervisor.list_connections(__MODULE__)
+
+      @doc "Returns status for one managed provider account declaration."
+      def managed_connection_status(id),
+        do: Jido.Chat.Runtime.Supervisor.connection_status(__MODULE__, id)
+
+      @doc "Starts one managed provider account declaration."
+      def start_managed_connection(id),
+        do: Jido.Chat.Runtime.Supervisor.start_connection(__MODULE__, id)
+
+      @doc "Stops one managed provider account declaration."
+      def stop_managed_connection(id),
+        do: Jido.Chat.Runtime.Supervisor.stop_connection(__MODULE__, id)
+
+      @doc "Restarts one managed provider account declaration."
+      def restart_managed_connection(id),
+        do: Jido.Chat.Runtime.Supervisor.restart_connection(__MODULE__, id)
 
       @doc "Returns the stable Agent Address for one provider account."
       def connection_ref(account_id),

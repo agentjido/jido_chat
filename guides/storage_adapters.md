@@ -21,17 +21,18 @@ An adapter implements only the capabilities its Runtime use needs:
 | --- | --- |
 | `Jido.Chat.Runtime.Storage.Links` | Local-to-provider message identity |
 | `Jido.Chat.Runtime.Storage.Outbox` | Provider work and compare-and-set transitions |
+| `Jido.Chat.Runtime.Storage.Rooms` | Durable Room records, revision checks, and bounded queries |
 | `Jido.Chat.Runtime.Storage.Commit` | One atomic batch across supported capabilities |
 
 Declare the capabilities on an adapter:
 
 ```elixir
 defmodule MyApp.ChatStorage do
-  alias Jido.Chat.Runtime.Storage.{Adapter, Commit, Links, Outbox}
+  alias Jido.Chat.Runtime.Storage.{Adapter, Commit, Links, Outbox, Rooms}
 
-  use Adapter, capabilities: [Links, Outbox, Commit]
+  use Adapter, capabilities: [Links, Outbox, Rooms, Commit]
 
-  # Implement the callbacks from the three declared behaviours.
+  # Implement the callbacks from the four declared behaviours.
 end
 ```
 
@@ -82,6 +83,7 @@ The normal mapping is:
 | --- | --- |
 | Links | Link schema with unique local and provider identities |
 | Outbox | Work schema with status, lease owner, lease expiry, and compare-and-set update |
+| Rooms | Room schema with unique ID, indexed insertion time and kind, and revision-checked update and delete queries |
 | Commit | `Ecto.Multi` or a function passed to `Repo.transact/2` |
 
 Jido Chat does not require `ecto`, `ecto_sql`, or a specific database adapter.
@@ -99,6 +101,7 @@ The normal mapping is:
 | --- | --- |
 | Links | Link resource with identities for local and provider keys |
 | Outbox | Work resource with atomic status and lease actions |
+| Rooms | Room resource with indexed read actions and atomic revision conditions on update and delete |
 | Commit | One transaction across the affected resource list |
 
 Jido Chat does not require `ash` or one Ash data layer. The host owns resources,
@@ -116,6 +119,12 @@ Every adapter must preserve these rules:
 - Link identities are unique in both directions.
 - Outbox updates compare the expected status and allow only declared state
   transitions.
+- Room IDs are unique. Insert is idempotent only when the complete stored record
+  is equal.
+- Room updates and deletes compare the expected revision in the same atomic
+  operation. An update can change only `name` and `metadata`.
+- Room lists use ascending insertion time and ID order. `:after` is an exclusive
+  stored Room-ID cursor. `:limit` is from 1 through 1,000.
 - Commit returns no partial success. Do not declare Commit if the backing data
   layer cannot make the complete batch atomic.
 - Stored work keeps `lease_owner` and `lease_expires_at` while it is claimed.

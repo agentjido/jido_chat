@@ -16,14 +16,14 @@ product_contract_source: direct-request
 This plan is a historical record. Do not use it for implementation.
 
 The design review removed the unused History and Rooms storage capabilities.
-Runtime did not own a process that used these contracts. The current storage
-boundary has three capabilities:
+Runtime did not own a process that used these contracts. At that checkpoint,
+the storage boundary had three capabilities:
 
 - `Jido.Chat.Runtime.Storage.Links`
 - `Jido.Chat.Runtime.Storage.Outbox`
 - `Jido.Chat.Runtime.Storage.Commit`
 
-Memory and DETS implement these capabilities. A host can implement the same
+Memory and DETS implemented these capabilities. A host can implement the same
 contracts with Ecto, Ash, or another storage system. Jido Chat does not require
 these packages.
 
@@ -36,5 +36,7 @@ The current design and its limits are in:
 - `guides/runtime.md`
 - `guides/storage_adapters.md`
 
-History or Rooms storage can return only when Runtime has a process that owns
-and uses the contract.
+History storage can return only when Runtime has a process that owns and uses
+the contract. Durable Room catalog storage returned under the narrower contract
+in `2026-11-16-1010-durable-room-records-plan.md`; Room membership remains Agent
+state.

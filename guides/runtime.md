@@ -5,23 +5,12 @@ activation, room bridges, provider work, and small storage contracts.
 
 Runtime is optional. Starting `:jido_chat` starts no process, table, room,
 queue, or storage resource. The host starts one Jido instance and each selected
-storage resource.
+storage resource. The host can also start the Runtime facade to manage declared
+Room and provider account Agent activations.
 
 ## Runtime facade
 
-Start the host resources in the application supervision tree:
-
-```elixir
-children = [
-  {Jido, name: MyApp.Jido, namespace: "my-app/chat"},
-  {Jido.Chat.Runtime.Storage.Dets,
-   name: MyApp.ChatStorage,
-   table: :my_app_chat_storage,
-   path: "data/chat-runtime.dets"}
-]
-```
-
-Define a process-free facade:
+Define a Runtime facade:
 
 ```elixir
 defmodule MyApp.Chat do
@@ -34,11 +23,101 @@ defmodule MyApp.Chat do
 end
 ```
 
+Start the host resources in the application supervision tree. Start Jido and
+storage before the optional managed Runtime:
+
+```elixir
+children = [
+  {Jido, name: MyApp.Jido, namespace: "my-app/chat"},
+  {Jido.Chat.Runtime.Storage.Dets,
+   name: MyApp.ChatStorage,
+   table: :my_app_chat_storage,
+   path: "data/chat-runtime.dets"},
+  {MyApp.Chat,
+   rooms: [{"support", MyApp.SupportRoom}],
+   connections: [{"support", MyApp.SupportAccount}],
+   reconcile_interval: 5_000}
+]
+```
+
+The Runtime supervisor owns one manager. The manager declares the required
+state. It starts, resolves, and stops Agents only through `MyApp.Jido`. The Room
+and provider account Agent processes remain below the Jido process tree.
+
+The initial reconcile starts rooms before provider accounts. One failed entry
+does not stop another entry. The manager retries failed entries at the selected
+positive `:reconcile_interval`. Use `:infinity` only when the host will call
+`reconcile_runtime/0` itself.
+
+Use the managed lifecycle through the facade:
+
+```elixir
+{:ok, status} = MyApp.Chat.runtime_status()
+{:ok, rooms} = MyApp.Chat.list_managed_rooms()
+{:ok, connections} = MyApp.Chat.list_managed_connections()
+
+{:ok, room} = MyApp.Chat.stop_managed_room("support")
+{:ok, room} = MyApp.Chat.start_managed_room("support")
+{:ok, room} = MyApp.Chat.restart_managed_room("support")
+
+{:ok, account} = MyApp.Chat.stop_managed_connection("support")
+{:ok, account} = MyApp.Chat.start_managed_connection("support")
+{:ok, account} = MyApp.Chat.restart_managed_connection("support")
+
+{:ok, status} = MyApp.Chat.reconcile_runtime()
+```
+
+Managed declarations and manual desired state are in memory. A Runtime manager
+restart restores the startup declarations and their initial running state. It
+adopts matching Agent activations that remain under Jido. A normal Runtime
+shutdown stops its managed Agent activations. A durable declaration catalog is
+not part of this contract.
+
+The managed functions are separate from `start_connection/2`,
+`stop_connection/1`, and `connection_status/1`. Those functions keep the direct
+process-free contract. Do not use a direct stop for a managed account because
+the next reconcile will start the declared account again.
+
 The host owns the storage process and lifetime. The DETS adapter is durable
 local, single-node storage. Memory remains available for tests and ephemeral
 use. An application can implement the same capability behaviours with Ecto,
 Ash resources, an event store, or another persistence system. See the
 [storage adapter guide](storage_adapters.md).
+
+## Durable Room records
+
+A Runtime with a Rooms-capable storage adapter has a durable Room catalog:
+
+```elixir
+{:ok, room} =
+  MyApp.Chat.create_room(%{
+    kind: :group,
+    name: "Support",
+    metadata: %{visibility: "private"}
+  })
+
+{:ok, ^room} = MyApp.Chat.get_room(room.id)
+{:ok, rooms} = MyApp.Chat.list_rooms(kind: :group, limit: 50)
+{:ok, next_page} = MyApp.Chat.list_rooms(after: List.last(rooms).id, limit: 50)
+
+{:ok, room} =
+  MyApp.Chat.update_room(room.id, room.revision, %{name: "Customer Support"})
+
+:ok = MyApp.Chat.delete_room(room.id, room.revision)
+```
+
+Room kinds are `:direct`, `:group`, `:channel`, and `:thread`. List order is
+oldest first by insertion time and Room ID. The `:after` cursor is exclusive
+and must name a stored Room. The default limit is 100 and the maximum is 1,000.
+
+An update can change only the name and metadata. Update and delete operations
+compare the record revision. A stale revision returns `:room_conflict`.
+
+A durable Room record is not a live Room Agent or a managed Runtime
+declaration. Record deletion does not stop an Agent. It also does not delete
+membership, message history, Bus data, or provider data. Use
+`list_managed_rooms/0` to inspect live managed Room declarations. Use
+`list_rooms/1` to query durable Room records.
 
 ## Portable values
 
@@ -72,8 +151,9 @@ defmodule MyApp.SupportRoom do
 end
 ```
 
-The host starts the room through its Jido instance. Join and post operations
-must include the trusted caller in Jido context:
+The managed Runtime can start a declared room. A host that does not start the
+managed Runtime can start the room directly through its Jido instance. Join and
+post operations must include the trusted caller in Jido context:
 
 ```elixir
 {:ok, room} = Jido.agent_address(MyApp.Jido, "support")
@@ -254,7 +334,7 @@ again automatically.
 
 The storage selection must implement the capabilities required by the selected
 Runtime feature. The built-in Memory and DETS adapters implement Links, Outbox,
-and Commit. `Commit` applies one storage batch atomically.
+Rooms, and Commit. `Commit` applies one storage batch atomically.
 
 ## Correlated room results
 

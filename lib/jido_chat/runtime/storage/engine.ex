@@ -1,6 +1,7 @@
 defmodule Jido.Chat.Runtime.Storage.Engine do
   @moduledoc false
 
+  alias Jido.Chat.Runtime.Room.Record
   alias Jido.Chat.Runtime.Storage.Outbox
 
   @statuses [:pending, :claimed, :submitted, :completed, :failed, :unknown]
@@ -8,12 +9,14 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
   @type t :: %__MODULE__{
           links_local: map(),
           links_external: map(),
-          work: map()
+          work: map(),
+          rooms: map()
         }
 
   defstruct links_local: %{},
             links_external: %{},
-            work: %{}
+            work: %{},
+            rooms: %{}
 
   @doc false
   @spec new() :: t()
@@ -21,11 +24,24 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
 
   @doc false
   @spec restore(term()) :: {:ok, t()} | {:error, :invalid_storage_snapshot}
-  def restore(%__MODULE__{} = state) do
-    valid =
-      is_map(state.links_local) and is_map(state.links_external) and is_map(state.work)
+  def restore(%{__struct__: __MODULE__} = state) do
+    rooms = Map.get(state, :rooms, %{})
 
-    if valid, do: {:ok, state}, else: {:error, :invalid_storage_snapshot}
+    valid =
+      is_map(Map.get(state, :links_local)) and is_map(Map.get(state, :links_external)) and
+        is_map(Map.get(state, :work)) and is_map(rooms) and valid_rooms?(rooms)
+
+    if valid do
+      {:ok,
+       %__MODULE__{
+         links_local: state.links_local,
+         links_external: state.links_external,
+         work: state.work,
+         rooms: rooms
+       }}
+    else
+      {:error, :invalid_storage_snapshot}
+    end
   end
 
   def restore(_state), do: {:error, :invalid_storage_snapshot}
@@ -69,6 +85,39 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
       false -> {:error, :invalid_work_transition}
       {:error, _reason} = error -> error
       _other -> {:error, :invalid_work_update}
+    end
+  end
+
+  def command(state, {:insert_room, %Record{} = record}) do
+    with {:ok, record} <- Record.new(record),
+         :ok <- compatible_room(state.rooms, record.id, record) do
+      {:ok, record, %{state | rooms: Map.put(state.rooms, record.id, record)}}
+    end
+  end
+
+  def command(state, {:update_room, id, expected_revision, %Record{} = record}) do
+    with :ok <- valid_room_id(id),
+         %Record{revision: ^expected_revision} = current <- Map.get(state.rooms, id),
+         {:ok, record} <- Record.new(record),
+         :ok <- valid_room_update(id, expected_revision, current, record) do
+      {:ok, record, %{state | rooms: Map.put(state.rooms, id, record)}}
+    else
+      nil -> {:error, :room_not_found}
+      %Record{} -> {:error, :room_conflict}
+      {:error, _reason} = error -> error
+      _other -> {:error, :invalid_room}
+    end
+  end
+
+  def command(state, {:delete_room, id, expected_revision}) do
+    with :ok <- valid_room_id(id),
+         %Record{revision: ^expected_revision} <- Map.get(state.rooms, id) do
+      {:ok, :ok, %{state | rooms: Map.delete(state.rooms, id)}}
+    else
+      nil -> {:error, :room_not_found}
+      %Record{} -> {:error, :room_conflict}
+      {:error, _reason} = error -> error
+      _other -> {:error, :invalid_room}
     end
   end
 
@@ -127,6 +176,27 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
     end
   end
 
+  def query(state, {:get_room, id}) do
+    if valid_room_id(id) == :ok,
+      do: {:ok, Map.get(state.rooms, id)},
+      else: {:error, :invalid_room_id}
+  end
+
+  def query(state, {:list_rooms, opts}) do
+    with {:ok, query} <- room_query(opts),
+         {:ok, cursor} <- room_cursor(state.rooms, query.after) do
+      rooms =
+        state.rooms
+        |> Map.values()
+        |> Enum.sort_by(&room_sort_key/1)
+        |> after_cursor(cursor)
+        |> filter_room_kind(query.kind)
+        |> Enum.take(query.limit)
+
+      {:ok, rooms}
+    end
+  end
+
   def query(_state, _query), do: {:error, :invalid_storage_query}
 
   defp compatible(values, key, value) do
@@ -134,6 +204,13 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
       nil -> :ok
       ^value -> :ok
       _other -> {:error, :storage_conflict}
+    end
+  end
+
+  defp compatible_room(values, key, value) do
+    case compatible(values, key, value) do
+      {:error, :storage_conflict} -> {:error, :room_conflict}
+      result -> result
     end
   end
 
@@ -152,8 +229,78 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
        else: {:error, :invalid_work}
   end
 
+  defp valid_rooms?(rooms) do
+    Enum.all?(rooms, fn
+      {id, %Record{id: id} = record} -> match?({:ok, %Record{}}, Record.new(record))
+      _entry -> false
+    end)
+  end
+
+  defp valid_room_update(id, expected_revision, current, record) do
+    valid =
+      record.id == id and record.schema_version == current.schema_version and
+        record.kind == current.kind and record.inserted_at == current.inserted_at and
+        record.revision == expected_revision + 1 and
+        DateTime.compare(record.updated_at, current.updated_at) in [:eq, :gt]
+
+    if valid, do: :ok, else: {:error, :invalid_room_update}
+  end
+
+  defp room_query(opts) when is_list(opts) do
+    with true <- Keyword.keyword?(opts),
+         keys = Keyword.keys(opts),
+         true <- keys == Enum.uniq(keys),
+         [] <- keys -- [:kind, :after, :limit],
+         {:ok, kind} <- room_kind(Keyword.get(opts, :kind)),
+         {:ok, after_id} <- room_after(Keyword.get(opts, :after)),
+         {:ok, limit} <- room_limit(Keyword.get(opts, :limit, 100)) do
+      {:ok, %{kind: kind, after: after_id, limit: limit}}
+    else
+      {:error, _reason} = error -> error
+      _other -> {:error, :invalid_options}
+    end
+  end
+
+  defp room_query(_opts), do: {:error, :invalid_options}
+
+  defp room_kind(nil), do: {:ok, nil}
+  defp room_kind(kind) when kind in [:direct, :group, :channel, :thread], do: {:ok, kind}
+  defp room_kind(_kind), do: {:error, :invalid_room_kind}
+
+  defp room_after(nil), do: {:ok, nil}
+
+  defp room_after(id) do
+    case valid_room_id(id) do
+      :ok -> {:ok, id}
+      {:error, _reason} -> {:error, :invalid_room_cursor}
+    end
+  end
+
+  defp room_limit(limit) when is_integer(limit) and limit in 1..1_000, do: {:ok, limit}
+  defp room_limit(_limit), do: {:error, :invalid_limit}
+
+  defp room_cursor(_rooms, nil), do: {:ok, nil}
+
+  defp room_cursor(rooms, id) do
+    case Map.get(rooms, id) do
+      %Record{} = record -> {:ok, room_sort_key(record)}
+      nil -> {:error, :invalid_room_cursor}
+    end
+  end
+
+  defp room_sort_key(record),
+    do: {DateTime.to_unix(record.inserted_at, :microsecond), record.id}
+
+  defp after_cursor(rooms, nil), do: rooms
+  defp after_cursor(rooms, cursor), do: Enum.drop_while(rooms, &(room_sort_key(&1) <= cursor))
+
+  defp filter_room_kind(rooms, nil), do: rooms
+  defp filter_room_kind(rooms, kind), do: Enum.filter(rooms, &(&1.kind == kind))
+
   defp valid_id(value) when is_binary(value) and value != "", do: :ok
   defp valid_id(_value), do: {:error, :invalid_id}
+
+  defp valid_room_id(value), do: Record.valid_id(value, [])
 
   defp status_filter(opts) when is_list(opts) do
     case Keyword.get(opts, :status) do
