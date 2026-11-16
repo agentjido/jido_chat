@@ -487,8 +487,9 @@ write or replay the source.
 Empty or whitespace streams fail before a provider write. Write failures stop
 source consumption and return a typed failure. An unknown outcome can leave a
 partial message. The host owns recovery and retries. Resource Enumerables are
-closed when a failed write stops consumption. Live subscriptions, durable streams,
-and conversation storage belong in Jido Messaging.
+closed when a failed write stops consumption. Live provider subscriptions and
+durable stream resumption belong to the provider adapter or host. Runtime
+conversation storage uses the `Jido.Chat.Runtime.Storage` capabilities.
 
 The native Action also works in Flow:
 

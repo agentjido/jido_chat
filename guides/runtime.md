@@ -14,7 +14,10 @@ Start the host resources in the application supervision tree:
 ```elixir
 children = [
   {Jido, name: MyApp.Jido, namespace: "my-app/chat"},
-  {Jido.Chat.Runtime.Storage.Memory, name: MyApp.ChatStorage}
+  {Jido.Chat.Runtime.Storage.Dets,
+   name: MyApp.ChatStorage,
+   table: :my_app_chat_storage,
+   path: "data/chat-runtime.dets"}
 ]
 ```
 
@@ -24,14 +27,18 @@ Define a process-free facade:
 defmodule MyApp.Chat do
   use Jido.Chat.Runtime,
     jido: MyApp.Jido,
-    storage: {Jido.Chat.Runtime.Storage.Memory, MyApp.ChatStorage},
+    storage: {Jido.Chat.Runtime.Storage.Dets, MyApp.ChatStorage},
     provider_work_limit: 4,
-    provider_queue_limit: 1_000
+    provider_queue_limit: 1_000,
+    provider_work_lease_ms: 60_000
 end
 ```
 
-The Memory adapter is for local and test use. The host owns its process and
-lifetime. An Ecto adapter and migrations are deferred.
+The host owns the storage process and lifetime. The DETS adapter is durable
+local, single-node storage. Memory remains available for tests and ephemeral
+use. An application can implement the same capability behaviours with Ecto,
+Ash resources, an event store, or another persistence system. See the
+[storage adapter guide](storage_adapters.md).
 
 ## Portable values
 
@@ -233,7 +240,8 @@ pending -> claimed -> submitted -> completed | failed | unknown
 ```
 
 Only pending work is recovered when an account starts or when the host calls
-`recover_bridge/1`. Submitted, completed, failed, and unknown work is not sent
+`recover_bridge/1`. An expired claimed item first returns to pending. A live
+claim stays claimed. Submitted, completed, failed, and unknown work is not sent
 again automatically.
 
 ```elixir
@@ -245,8 +253,8 @@ again automatically.
 ```
 
 The storage selection must implement the capabilities required by the selected
-Runtime feature. The built-in Memory adapter implements History, Links,
-Outbox, Rooms, and Commit. `Commit` applies one storage batch atomically.
+Runtime feature. The built-in Memory and DETS adapters implement History,
+Links, Outbox, Rooms, and Commit. `Commit` applies one storage batch atomically.
 
 ## Correlated room results
 

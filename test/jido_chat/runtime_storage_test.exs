@@ -3,7 +3,26 @@ defmodule Jido.Chat.RuntimeStorageTest do
 
   alias Jido.Chat.{Actor, Content, Message}
   alias Jido.Chat.Runtime.Storage
-  alias Jido.Chat.Runtime.Storage.{Commit, History, Links, Memory, Outbox, Rooms}
+  alias Jido.Chat.Runtime.Storage.{Adapter, Commit, History, Links, Memory, Outbox, Rooms}
+
+  defmodule HistoryOnly do
+    use Adapter, capabilities: [History]
+
+    @impl History
+    def append_message(_resource, message), do: {:ok, message}
+
+    @impl History
+    def list_messages(_resource, _room_id, _opts), do: {:ok, []}
+  end
+
+  defmodule CallbackOnly do
+    def append_message(_resource, message), do: {:ok, message}
+    def list_messages(_resource, _room_id, _opts), do: {:ok, []}
+  end
+
+  defmodule FalseDeclaration do
+    def __storage_capabilities__, do: [History]
+  end
 
   setup do
     start_supervised!(Memory)
@@ -12,6 +31,19 @@ defmodule Jido.Chat.RuntimeStorageTest do
 
   test "Memory implements every merge-scope capability", %{storage: storage} do
     assert :ok == Storage.validate({Memory, storage}, [History, Links, Outbox, Rooms, Commit])
+    assert Storage.capabilities(Memory) == [History, Links, Outbox, Rooms, Commit]
+  end
+
+  test "adapter declarations are additive and checked against callbacks" do
+    assert :ok = Storage.validate({HistoryOnly, :resource}, [History])
+
+    assert {:error, :unsupported_storage_capability} =
+             Storage.validate({HistoryOnly, :resource}, [Links])
+
+    assert :ok = Storage.validate({CallbackOnly, :resource}, [History])
+
+    assert {:error, :unsupported_storage_capability} =
+             Storage.validate({FalseDeclaration, :resource}, [History])
   end
 
   test "history is ordered and append is idempotent", %{storage: storage} do

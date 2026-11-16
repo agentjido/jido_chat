@@ -694,6 +694,8 @@ Dialyzer, and documentation checks.
 | Chat storage | Accepted | It is separate from Jido persistence and the Signal Bus store. It owns queryable Chat records and delivery intent. |
 | Capability storage API | Accepted | Use small History, Links, Outbox, Rooms, and Commit behaviors. Do not restore the old large persistence behavior. |
 | Memory adapter | Accepted | It supplies fast tests and local ephemeral use. It must pass the same capability conformance suites. |
+| DETS adapter | Accepted | It supplies dependency-free durable local storage and a restart test. It is not the distributed or scale target. |
+| Host framework adapters | Accepted | Ecto Repos, Ash resources, and other stores implement the same capability behaviours without a Chat dependency on their framework. |
 | Optional Ecto adapter | Deferred | Do not add Ecto to the Messaging merge or the Jido Chat 3.0 acceptance gate. Plan it after the merge. |
 | Ecto migrations | Deferred | Add no migration helper or database schema during this merge. |
 | Old stored data | Rejected | There is no compatibility or data migration from `jido_messaging`. |
@@ -713,8 +715,8 @@ tests remain follow-up work:
 1. Finalize the Core portable maps used by Runtime Signals and storage values.
 2. Prove the Room post protocol across Jido commit, Chat Commit, and Bus publish
    crashes. Record which component owns replay at each boundary.
-3. Prove Outbox claim, lease, submission, and unknown-outcome transitions with
-   the storage conformance suite.
+3. Prove Outbox claim, lease, submission, and unknown-outcome transitions on a
+   custom database adapter in addition to the built-in Memory and DETS tests.
 4. Define hard admission and queue bounds for provider bursts and room fan-out.
    If Jido cannot expose the required pressure, change Jido rather than adding
    a hidden Chat queue.

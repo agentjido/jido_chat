@@ -15,6 +15,9 @@ See the [Agent Plugin and shared Sensor](guides/agent_plugin.md) for explicit Ag
 See the [Runtime guide](guides/runtime.md) for rooms, participants, provider
 accounts, bridge mappings, storage, and recovery.
 
+See the [storage adapter guide](guides/storage_adapters.md) for durable DETS
+storage and framework-neutral Ecto or Ash resource adapters.
+
 See the [source layout](guides/source_layout.md) for module groups and removed APIs.
 
 ```elixir

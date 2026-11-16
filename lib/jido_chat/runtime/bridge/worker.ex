@@ -51,7 +51,9 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
         Map.merge(data, %{
           queue: :queue.new(),
           queued: MapSet.new(),
-          active: %{}
+          active: %{},
+          lease_owner: lease_owner(),
+          recovery_timer: nil
         })
 
       {:ok, state}
@@ -78,8 +80,15 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   end
 
   def handle_call(:recover, _from, state) do
-    next = schedule_pending(state)
-    {:reply, :ok, dispatch(next)}
+    case reclaim_expired(state) do
+      {:ok, next_expiry} ->
+        state = schedule_recovery(state, next_expiry)
+        next = schedule_pending(state)
+        {:reply, :ok, dispatch(next)}
+
+      {:error, reason} ->
+        {:reply, {:error, reason}, state}
+    end
   end
 
   def handle_call({:finish, request_id, outcome, result}, _from, state) do
@@ -134,6 +143,19 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
 
   def handle_info({:EXIT, _pid, _reason}, state), do: {:noreply, state}
 
+  def handle_info(:recover_expired_claims, state) do
+    state = %{state | recovery_timer: nil}
+
+    case reclaim_expired(state) do
+      {:ok, next_expiry} ->
+        next = state |> schedule_recovery(next_expiry) |> schedule_pending() |> dispatch()
+        {:noreply, next}
+
+      {:error, _reason} ->
+        {:noreply, state}
+    end
+  end
+
   defp schedule_pending(state) do
     case outbox(state, :list_work, [state.account_id, [status: :pending]]) do
       {:ok, work} ->
@@ -181,7 +203,15 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
 
         with {:ok, %{status: :pending}} <- outbox(state, :get_work, [id]),
              {:ok, claimed} <-
-               outbox(state, :update_work, [id, :pending, %{status: :claimed}]) do
+               outbox(state, :update_work, [
+                 id,
+                 :pending,
+                 %{
+                   status: :claimed,
+                   lease_owner: state.lease_owner,
+                   lease_expires_at: now_ms() + state.lease_ms
+                 }
+               ]) do
           task = Task.async(fn -> execute(claimed, state) end)
           dispatch(%{state | active: Map.put(state.active, task.ref, id)})
         else
@@ -191,7 +221,12 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   end
 
   defp execute(%{kind: :inbound} = work, state) do
-    with {:ok, _} <- update(state.storage, work.id, :claimed, %{status: :submitted}),
+    with {:ok, _} <-
+           update(state.storage, work.id, :claimed, %{
+             status: :submitted,
+             lease_owner: nil,
+             lease_expires_at: nil
+           }),
          {:ok, %Jido.AgentServer.TurnResult{status: :committed}} <-
            Jido.call(state.jido, work.room, work.signal, context: %{actor: state.account_ref}) do
       {:completed, work.link}
@@ -206,7 +241,12 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   defp execute(%{kind: :outbound} = work, state) do
     case Jido.resolve_agent(state.jido, state.account_ref) do
       {:ok, server} ->
-        with {:ok, _} <- update(state.storage, work.id, :claimed, %{status: :submitted}),
+        with {:ok, _} <-
+               update(state.storage, work.id, :claimed, %{
+                 status: :submitted,
+                 lease_owner: nil,
+                 lease_expires_at: nil
+               }),
              {:ok, %Jido.AgentServer.TurnResult{status: :committed}} <- Jido.AgentServer.call(server, work.signal) do
           :submitted
         else
@@ -231,7 +271,12 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   defp record_execution(state, work_id, :submitted), do: fetch_work(state, work_id)
 
   defp record_execution(state, work_id, {:pending, reason}) do
-    update(state.storage, work_id, :claimed, %{status: :pending, last_error: reason})
+    update(state.storage, work_id, :claimed, %{
+      status: :pending,
+      last_error: reason,
+      lease_owner: nil,
+      lease_expires_at: nil
+    })
   end
 
   defp record_execution(state, work_id, {:unknown, reason}) do
@@ -280,10 +325,20 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
   defp mark_interrupted(state, work_id) do
     case fetch_work(state, work_id) do
       {:ok, %{status: :claimed}} ->
-        update(state.storage, work_id, :claimed, %{status: :pending, last_error: :worker_exit})
+        update(state.storage, work_id, :claimed, %{
+          status: :pending,
+          last_error: :worker_exit,
+          lease_owner: nil,
+          lease_expires_at: nil
+        })
 
       {:ok, %{status: :submitted}} ->
-        update(state.storage, work_id, :submitted, %{status: :unknown, last_error: :worker_exit})
+        update(state.storage, work_id, :submitted, %{
+          status: :unknown,
+          last_error: :worker_exit,
+          lease_owner: nil,
+          lease_expires_at: nil
+        })
 
       _ ->
         :ok
@@ -295,7 +350,9 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
       {:ok, %{status: status}} when status in [:claimed, :submitted] ->
         update(state.storage, work_id, status, %{
           status: if(status == :claimed, do: :pending, else: :unknown),
-          last_error: reason
+          last_error: reason,
+          lease_owner: nil,
+          lease_expires_at: nil
         })
 
       _ ->
@@ -332,6 +389,65 @@ defmodule Jido.Chat.Runtime.Bridge.Worker do
 
   defp update({adapter, resource}, id, expected, changes),
     do: apply(adapter, :update_work, [resource, id, expected, changes])
+
+  defp reclaim_expired(state) do
+    with {:ok, claimed} <- outbox(state, :list_work, [state.account_id, [status: :claimed]]) do
+      Enum.reduce_while(claimed, {:ok, nil}, fn work, {:ok, next_expiry} ->
+        if expired_claim?(work, state) do
+          case update(state.storage, work.id, :claimed, %{
+                 status: :pending,
+                 last_error: :claim_expired,
+                 lease_owner: nil,
+                 lease_expires_at: nil
+               }) do
+            {:ok, _work} -> {:cont, {:ok, next_expiry}}
+            {:error, :work_conflict} -> {:cont, {:ok, next_expiry}}
+            {:error, reason} -> {:halt, {:error, reason}}
+          end
+        else
+          {:cont, {:ok, next_expiry(next_expiry, work, state)}}
+        end
+      end)
+    end
+  end
+
+  defp expired_claim?(work, state) do
+    inactive = work.id not in Map.values(state.active)
+    expires_at = Map.get(work, :lease_expires_at)
+    inactive and (not is_integer(expires_at) or expires_at <= now_ms())
+  end
+
+  defp next_expiry(current, work, state) do
+    expires_at = Map.get(work, :lease_expires_at)
+
+    if work.id not in Map.values(state.active) and is_integer(expires_at),
+      do: min_expiry(current, expires_at),
+      else: current
+  end
+
+  defp min_expiry(nil, expires_at), do: expires_at
+  defp min_expiry(current, expires_at), do: min(current, expires_at)
+
+  defp schedule_recovery(state, nil) do
+    cancel_recovery_timer(state.recovery_timer)
+    %{state | recovery_timer: nil}
+  end
+
+  defp schedule_recovery(state, expires_at) do
+    cancel_recovery_timer(state.recovery_timer)
+    timer = Process.send_after(self(), :recover_expired_claims, max(expires_at - now_ms(), 0))
+    %{state | recovery_timer: timer}
+  end
+
+  defp cancel_recovery_timer(nil), do: :ok
+  defp cancel_recovery_timer(timer), do: Process.cancel_timer(timer, async: false, info: false)
+
+  defp lease_owner do
+    [Atom.to_string(node()), Integer.to_string(System.unique_integer([:positive, :monotonic]))]
+    |> Enum.join(":")
+  end
+
+  defp now_ms, do: System.system_time(:millisecond)
 
   defp commit(state, commands) do
     {adapter, resource} = state.storage

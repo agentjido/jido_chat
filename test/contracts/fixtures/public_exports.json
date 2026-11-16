@@ -508,6 +508,11 @@
   ],
   "Jido.Chat.Runtime.Storage": [
     [
+      "capabilities",
+      1,
+      "function"
+    ],
+    [
       "supports?",
       2,
       "function"

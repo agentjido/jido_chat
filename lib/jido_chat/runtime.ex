@@ -27,13 +27,15 @@ defmodule Jido.Chat.Runtime do
           :jido,
           :storage,
           :provider_work_limit,
-          :provider_queue_limit
+          :provider_queue_limit,
+          :provider_work_lease_ms
         ])
 
       @chat_runtime_jido Keyword.fetch!(opts, :jido)
       @chat_runtime_storage Keyword.get(opts, :storage)
       @chat_runtime_provider_work_limit Keyword.get(opts, :provider_work_limit, 4)
       @chat_runtime_provider_queue_limit Keyword.get(opts, :provider_queue_limit, 1_000)
+      @chat_runtime_provider_work_lease_ms Keyword.get(opts, :provider_work_lease_ms, 60_000)
 
       unless is_atom(@chat_runtime_jido) and @chat_runtime_jido not in [nil, true, false] do
         raise ArgumentError, "jido must be a named host Jido instance"
@@ -54,6 +56,11 @@ defmodule Jido.Chat.Runtime do
         raise ArgumentError, "provider_queue_limit must be a positive integer"
       end
 
+      unless is_integer(@chat_runtime_provider_work_lease_ms) and
+               @chat_runtime_provider_work_lease_ms > 0 do
+        raise ArgumentError, "provider_work_lease_ms must be a positive integer"
+      end
+
       @doc "Returns the required host-owned Jido instance."
       @spec jido() :: atom()
       def jido, do: @chat_runtime_jido
@@ -66,6 +73,9 @@ defmodule Jido.Chat.Runtime do
       def provider_work_limits do
         {@chat_runtime_provider_work_limit, @chat_runtime_provider_queue_limit}
       end
+
+      @doc false
+      def provider_work_lease_ms, do: @chat_runtime_provider_work_lease_ms
 
       @doc "Returns the stable Agent Address for one provider account."
       def connection_ref(account_id),

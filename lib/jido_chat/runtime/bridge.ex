@@ -104,7 +104,8 @@ defmodule Jido.Chat.Runtime.Bridge do
           {:client_id, &valid_id?/1},
           {:client_source, &valid_id?/1},
           {:provider_work_limit, &positive_integer?/1},
-          {:provider_queue_limit, &positive_integer?/1}
+          {:provider_queue_limit, &positive_integer?/1},
+          {:provider_work_lease_ms, &positive_integer?/1}
         ],
         fn {key, validator} -> not Map.has_key?(data, key) or validator.(data[key]) end
       )
@@ -316,7 +317,8 @@ defmodule Jido.Chat.Runtime.Bridge do
       jido: init.jido,
       mappings: mappings,
       limit: init.options[:provider_work_limit],
-      queue_limit: init.options[:provider_queue_limit]
+      queue_limit: init.options[:provider_queue_limit],
+      lease_ms: init.options[:provider_work_lease_ms]
     }
   end
 

@@ -53,7 +53,7 @@ lib/
       actions/               Room, participant, and Bridge Actions
       signal/room.ex         jido.chat.room.* Signals
       storage.ex             Storage selection and capability validation
-      storage/               History, Links, Outbox, Rooms, Commit, and Memory
+      storage/               Capability contracts, adapter declaration, Memory, and DETS
 ```
 
 Telegram has flat provider Actions, native request Signals, one internal operation
@@ -72,7 +72,8 @@ request cache, or listener. The host can explicitly start a Sensor or declare
 processes. These optional processes hold only activation state and bounded input
 identities. `Jido.Chat.Runtime` adds explicit local Room, Participant, account,
 Bridge, and storage contracts. The host starts its Jido instance and selected
-storage resource. Runtime starts only under host-requested Agent activations.
+storage resource. A resource can use Memory, DETS, Ecto, Ash, or another
+adapter. Runtime starts only under host-requested Agent activations.
 
 See [Agent connections and sources](agent_plugin.md) for Integration. See the
 [Runtime guide](runtime.md) for rooms and bridges. A stream renderer still

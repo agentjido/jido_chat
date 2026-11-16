@@ -143,6 +143,7 @@ defmodule Jido.Chat.MixProject do
         "guides/static_sdk.md",
         "guides/agent_plugin.md",
         "guides/runtime.md",
+        "guides/storage_adapters.md",
         "guides/public_api.md",
         "guides/source_layout.md"
       ]

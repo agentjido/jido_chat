@@ -113,7 +113,8 @@ defmodule Jido.Chat.Runtime.Connection do
               client_id: chat.client.id,
               client_source: Jido.Chat.Signal.Identity.client_source(chat.client.id),
               provider_work_limit: work_limit,
-              provider_queue_limit: queue_limit
+              provider_queue_limit: queue_limit,
+              provider_work_lease_ms: instance.provider_work_lease_ms()
             })
 
           %{extension | data: data}

@@ -216,6 +216,93 @@ defmodule Jido.Chat.RuntimeBridgeTest do
     assert {:ok, %{completed: 1, pending: 0}} = Runtime.bridge_status("support")
   end
 
+  test "recovery reclaims expired and legacy claims but protects a live lease" do
+    now = System.system_time(:millisecond)
+
+    for {id, lease} <- [
+          {"expired-claim", %{lease_owner: "old-worker", lease_expires_at: now - 1}},
+          {"legacy-claim", %{}},
+          {"live-claim", %{lease_owner: "live-worker", lease_expires_at: now + 60_000}}
+        ] do
+      request =
+        Jido.Chat.Signal.SendMessage.new!(%{
+          "client_id" => "bridge/client",
+          "request_id" => id,
+          "room_id" => "provider-room",
+          "text" => id
+        })
+
+      work =
+        Map.merge(
+          %{
+            id: id,
+            kind: :outbound,
+            account_id: "support",
+            mapping: :team,
+            local_message_id: "local-" <> id,
+            external_room_id: "provider-room",
+            signal: request,
+            status: :claimed
+          },
+          lease
+        )
+
+      assert {:ok, ^work} = Memory.put_work(__MODULE__.Storage, work)
+    end
+
+    assert :ok = Runtime.recover_bridge("support")
+
+    assert_receive {:provider_send, "bridge/client", %{data: %{"request_id" => "expired-claim"}}},
+                   2_000
+
+    assert_receive {:provider_send, "bridge/client", %{data: %{"request_id" => "legacy-claim"}}},
+                   2_000
+
+    refute_receive {:provider_send, "bridge/client", %{data: %{"request_id" => "live-claim"}}},
+                   300
+
+    assert await_link("local-expired-claim").external_room_id == "provider-room"
+    assert await_link("local-legacy-claim").external_room_id == "provider-room"
+    assert {:ok, %{claimed: 1, completed: 2, pending: 0}} = Runtime.bridge_status("support")
+
+    assert {:ok, %{status: :claimed, lease_owner: "live-worker"}} =
+             Memory.get_work(__MODULE__.Storage, "live-claim")
+  end
+
+  test "recovery retries an inactive claim when its lease expires" do
+    request =
+      Jido.Chat.Signal.SendMessage.new!(%{
+        "client_id" => "bridge/client",
+        "request_id" => "expiring-claim",
+        "room_id" => "provider-room",
+        "text" => "retry after lease"
+      })
+
+    work = %{
+      id: "expiring-claim",
+      kind: :outbound,
+      account_id: "support",
+      mapping: :team,
+      local_message_id: "local-expiring-claim",
+      external_room_id: "provider-room",
+      signal: request,
+      status: :claimed,
+      lease_owner: "old-worker",
+      lease_expires_at: System.system_time(:millisecond) + 500
+    }
+
+    assert {:ok, ^work} = Memory.put_work(__MODULE__.Storage, work)
+    assert :ok = Runtime.recover_bridge("support")
+
+    refute_receive {:provider_send, "bridge/client", %{data: %{"request_id" => "expiring-claim"}}},
+                   100
+
+    assert_receive {:provider_send, "bridge/client", %{data: %{"request_id" => "expiring-claim"}}},
+                   2_000
+
+    assert await_link("local-expiring-claim").external_room_id == "provider-room"
+  end
+
   test "failed room and account turns retain unknown work without provider I/O", context do
     worker = Jido.Chat.Runtime.Bridge.Worker.server(Runtime, "support")
     signal = Jido.Signal.new!("test.chat.unhandled", %{}, source: "urn:test:chat")
