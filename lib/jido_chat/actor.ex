@@ -3,27 +3,27 @@ defmodule Jido.Chat.Actor do
 
   @kinds [:human, :agent, :bot, :system, :unknown]
   @fields [:id, :kind, :username, :display_name, :avatar_url, :is_self, :metadata]
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              id: Zoi.string() |> Zoi.min(1),
-              kind: Zoi.enum(@kinds) |> Zoi.default(:unknown),
-              username: Zoi.string() |> Zoi.nullish(),
-              display_name: Zoi.string() |> Zoi.nullish(),
-              avatar_url: Zoi.string() |> Zoi.nullish(),
-              is_self: Zoi.boolean() |> Zoi.default(false),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              id: Jido.Joi.string() |> Jido.Joi.min(1),
+              kind: Jido.Joi.enum(@kinds) |> Jido.Joi.default(:unknown),
+              username: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              display_name: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              avatar_url: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              is_self: Jido.Joi.boolean() |> Jido.Joi.default(false),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the portable actor schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates a portable actor."

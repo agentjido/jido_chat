@@ -3,8 +3,9 @@
 A chat SDK and optional Jido Runtime for Elixir. Use immutable clients, native
 Jido Signals, and Jido Actions to call chat providers. Use
 `Jido.Chat.Runtime` for durable Room records, declarations, membership, message
-history, local Room Agents, participants, provider accounts, and bridges. The
-host owns the Jido instance and storage processes.
+history, reactions, local Room Agents, participants, provider account
+declarations, bridge bindings, and one application-wide Signal Bus. The host
+owns the Jido instance, secret resolver, storage processes, and presence system.
 
 See the [full static SDK API](guides/static_sdk.md) for all 23 Actions, 86 Signals, provider contracts, Flow and Router examples, and the breaking migration.
 
@@ -15,6 +16,8 @@ See the [Agent Plugin and shared Sensor](guides/agent_plugin.md) for explicit Ag
 
 See the [Runtime guide](guides/runtime.md) for the optional managed process tree,
 rooms, participants, provider accounts, bridge mappings, storage, and recovery.
+It also describes Runtime-wide realtime subscriptions and the host presence
+boundary.
 
 See the [storage adapter guide](guides/storage_adapters.md) for durable Room
 records and runtime state, DETS storage, and framework-neutral Ecto or Ash

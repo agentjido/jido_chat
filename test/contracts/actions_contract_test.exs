@@ -224,11 +224,6 @@ defmodule Jido.Chat.ActionsContractTest do
       request = F.request(action, client)
       json = action.authoring_contract()
       expected_input = F.entry(definition)["data_schema"]
-      # The consolidated Action contract omits defaulted fields from required input.
-      expected_input =
-        if action == Chat.OpenModal,
-          do: put_in(expected_input, ["properties", "modal", "required"], ["title"]),
-          else: expected_input
 
       assert json["input_schema"] == expected_input
       assert json["output_schema"] == F.entry(Module.concat(action, Completed))["data_schema"]

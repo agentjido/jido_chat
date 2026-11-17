@@ -10,27 +10,27 @@ defmodule Jido.Chat.Signal.OptionsRequested do
     dataschema: "urn:jido:chat:schema:options_requested:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "interaction_id" => Zoi.string() |> Zoi.min(1),
-          "action_id" => Zoi.string() |> Zoi.min(1),
-          "query" => Zoi.string(),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "interaction_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "action_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "query" => Jido.Joi.string(),
           "actor_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "view_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
-          "limit" => Zoi.integer() |> Zoi.gte(1) |> Zoi.optional()
+            |> Jido.Joi.optional(),
+          "limit" => Jido.Joi.integer() |> Jido.Joi.min(1) |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

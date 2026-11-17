@@ -6,30 +6,35 @@ defmodule Jido.Chat.Modal do
   alias Jido.Chat.Modal.Element
   alias Jido.Chat.Wire
 
-  @schema Zoi.struct(
-            __MODULE__,
-            %{
-              id: Zoi.string() |> Zoi.nullish(),
-              callback_id: Zoi.string() |> Zoi.nullish(),
-              title: Zoi.string(),
-              submit_label: Zoi.string() |> Zoi.default("Submit"),
-              close_label: Zoi.string() |> Zoi.default("Cancel"),
-              notify_on_close: Zoi.boolean() |> Zoi.default(false),
-              private_metadata: Zoi.string() |> Zoi.nullish(),
-              elements: Zoi.list(Zoi.struct(Element)) |> Zoi.default([]),
-              metadata: Zoi.map() |> Zoi.default(%{})
-            },
-            coerce: true
-          )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+  @fields %{
+    id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+    callback_id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+    title: Jido.Joi.string(),
+    submit_label: Jido.Joi.string() |> Jido.Joi.default("Submit"),
+    close_label: Jido.Joi.string() |> Jido.Joi.default("Cancel"),
+    notify_on_close: Jido.Joi.boolean() |> Jido.Joi.default(false),
+    private_metadata: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+    elements: Jido.Joi.list(Jido.Joi.struct(Element)) |> Jido.Joi.default([]),
+    metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
+  }
 
-  @type t :: unquote(Zoi.type_spec(@schema))
+  @schema Jido.Joi.struct(__MODULE__, @fields, coerce: true)
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the schema for modals."
   def schema, do: @schema
+
+  @doc false
+  def signal_fields do
+    @fields
+    |> Map.put(:elements, Jido.Joi.array(Jido.Joi.map()) |> Jido.Joi.default([]))
+    |> Map.new(fn {key, schema} -> {Atom.to_string(key), schema} end)
+  end
 
   @doc "Creates a canonical modal."
   @spec new(t() | map()) :: t()
@@ -37,7 +42,7 @@ defmodule Jido.Chat.Modal do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Jido.Chat.Value.validate_portable!()
+    |> Jido.Chat.Value.without_marker()
     |> Map.put_new(
       :callback_id,
       attrs[:id] || attrs["id"] || attrs[:callback_id] || attrs["callback_id"]

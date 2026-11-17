@@ -79,12 +79,12 @@ defmodule Jido.ChatAction do
       def dataschema, do: @chat_contract.input[:dataschema]
 
       @doc "Validates request Signal data."
-      @spec validate_data(term()) :: Zoi.result()
-      def validate_data(data), do: Zoi.parse(schema(), data)
+      @spec validate_data(term()) :: Jido.Joi.result()
+      def validate_data(data), do: Jido.Joi.parse(schema(), data)
 
       @doc "Builds a validated request Signal."
       @spec new(term(), keyword() | map()) ::
-              {:ok, Jido.Signal.t()} | {:error, [Zoi.Error.t()] | String.t()}
+              {:ok, Jido.Signal.t()} | {:error, [Jido.Joi.error()] | String.t()}
       def new(data \\ %{}, opts \\ []),
         do: Jido.ChatAction.Execution.new(__MODULE__, data, opts)
 
@@ -93,7 +93,7 @@ defmodule Jido.ChatAction do
       def new!(data \\ %{}, opts \\ []) do
         case new(data, opts) do
           {:ok, signal} -> signal
-          {:error, errors} when is_list(errors) -> raise Zoi.ParseError, errors: errors
+          {:error, errors} when is_list(errors) -> raise Jido.Joi.ParseError, errors: errors
           {:error, reason} -> raise ArgumentError, "invalid signal: #{inspect(reason)}"
         end
       end
@@ -112,8 +112,8 @@ defmodule Jido.ChatAction do
       @spec signal_definitions() :: [module()]
       def signal_definitions, do: [@chat_contract.signal, @chat_contract.completed, @chat_contract.failed]
 
-      @doc "Returns the Zoi schema for the canonical provider result map."
-      @spec result_schema() :: Zoi.schema()
+      @doc "Returns the Joi schema for the canonical provider result map."
+      @spec result_schema() :: Jido.Joi.schema()
       def result_schema, do: @chat_contract.result_schema
 
       @impl Jido.Action

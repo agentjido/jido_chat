@@ -1,9 +1,9 @@
 defmodule Jido.Chat.Runtime.Room.Durable do
   @moduledoc false
 
-  alias Jido.Chat.Runtime.Room.{Declaration, HistoryRecord, Membership, Record}
+  alias Jido.Chat.Runtime.Room.{Declaration, HistoryRecord, Membership, Reaction, Record}
   alias Jido.Chat.Runtime.Storage
-  alias Jido.Chat.Runtime.Storage.{Commit, History, Memberships, RoomDeclarations, Rooms}
+  alias Jido.Chat.Runtime.Storage.{Commit, History, Memberships, Reactions, RoomDeclarations, Rooms}
 
   @doc false
   def provision(runtime, definition_key, attrs) do
@@ -135,6 +135,54 @@ defmodule Jido.Chat.Runtime.Room.Durable do
   end
 
   @doc false
+  def change_reaction(runtime, room_id, message_id, reaction, actor, status)
+      when status in [:active, :removed] do
+    with {:ok, storage} <- storage(runtime, [History, Reactions]),
+         {:ok, %HistoryRecord{} = message} <- required_message(storage, room_id, message_id),
+         {:ok, candidate} <-
+           Reaction.new(%{
+             room_id: room_id,
+             message_id: message_id,
+             reaction: reaction,
+             actor: actor,
+             status: status
+           }),
+         {:ok, current} <-
+           call(storage, :get_reaction, [
+             room_id,
+             message_id,
+             reaction,
+             candidate.actor_key
+           ]),
+         {:ok, stored, changed?} <- store_reaction(storage, current, candidate, status) do
+      {:ok, %{reaction: stored, message: message, changed: changed?}}
+    end
+  end
+
+  def change_reaction(_runtime, _room_id, _message_id, _reaction, _actor, _status),
+    do: {:error, :invalid_reaction}
+
+  @doc false
+  def get_reaction(runtime, room_id, message_id, reaction, actor) do
+    with {:ok, storage} <- storage(runtime, [Reactions]),
+         {:ok, {_room_id, _message_id, _reaction, actor_key}} <-
+           Reaction.key(room_id, message_id, reaction, actor),
+         do: call(storage, :get_reaction, [room_id, message_id, reaction, actor_key])
+  end
+
+  @doc false
+  def list_reactions(runtime, room_id, opts) when is_list(opts) do
+    with {:ok, storage} <- storage(runtime, [Reactions]),
+         true <- Keyword.keyword?(opts) do
+      call(storage, :list_reactions, [room_id, Keyword.put_new(opts, :status, :active)])
+    else
+      false -> {:error, :invalid_options}
+    end
+  end
+
+  def list_reactions(_runtime, _room_id, _opts), do: {:error, :invalid_options}
+
+  @doc false
   def hydrate(runtime, room_id, member_limit, history_limit) do
     with {:ok, members} <- active_members(runtime, room_id, member_limit),
          {:ok, storage} <- storage(runtime, [History]),
@@ -183,6 +231,37 @@ defmodule Jido.Chat.Runtime.Room.Durable do
              signal: signal
            }),
          do: call(storage, :insert_history, [record])
+  end
+
+  defp required_message(storage, room_id, message_id) do
+    case call(storage, :get_history, [room_id, message_id]) do
+      {:ok, nil} -> {:error, :message_not_found}
+      result -> result
+    end
+  end
+
+  defp store_reaction(storage, nil, candidate, status) do
+    with {:ok, stored} <- call(storage, :insert_reaction, [candidate]) do
+      {:ok, stored, status == :active}
+    end
+  end
+
+  defp store_reaction(_storage, %Reaction{status: status} = current, _candidate, status),
+    do: {:ok, current, false}
+
+  defp store_reaction(storage, %Reaction{} = current, _candidate, status) do
+    with {:ok, next} <- Reaction.transition(current, status),
+         {:ok, stored} <-
+           call(storage, :update_reaction, [
+             current.room_id,
+             current.message_id,
+             current.reaction,
+             current.actor_key,
+             current.revision,
+             next
+           ]) do
+      {:ok, stored, true}
+    end
   end
 
   defp collect_members(_storage, _room_id, remaining, _after_key, values)

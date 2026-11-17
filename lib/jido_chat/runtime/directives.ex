@@ -2,32 +2,32 @@ defmodule Jido.Chat.Runtime.Directives.Publish do
   @moduledoc false
   use Jido.Agent.Directive
 
-  @schema Zoi.struct(__MODULE__, %{
-            message: Zoi.struct(Jido.Signal),
-            retain: Zoi.boolean() |> Zoi.default(true)
+  @schema Jido.Joi.struct(__MODULE__, %{
+            message: Jido.Joi.struct(Jido.Signal),
+            retain: Jido.Joi.boolean() |> Jido.Joi.default(true)
           })
   @enforce_keys [:message]
   @type t :: %__MODULE__{message: Jido.Signal.t(), retain: boolean()}
   defstruct message: nil, retain: true
 
   @impl true
-  def validate(value), do: Zoi.parse(@schema, value)
+  def validate(value), do: Jido.Joi.parse(@schema, value)
 end
 
 defmodule Jido.Chat.Runtime.Directives.Receive do
   @moduledoc false
   use Jido.Agent.Directive
 
-  @schema Zoi.struct(__MODULE__, %{
-            message: Zoi.struct(Jido.Signal),
-            reply: Zoi.struct(Jido.Signal) |> Zoi.nullable() |> Zoi.default(nil)
+  @schema Jido.Joi.struct(__MODULE__, %{
+            message: Jido.Joi.struct(Jido.Signal),
+            reply: Jido.Joi.struct(Jido.Signal) |> Jido.Joi.nullable() |> Jido.Joi.default(nil)
           })
   @enforce_keys [:message]
   @type t :: %__MODULE__{message: Jido.Signal.t(), reply: Jido.Signal.t() | nil}
   defstruct [:message, :reply]
 
   @impl true
-  def validate(value), do: Zoi.parse(@schema, value)
+  def validate(value), do: Jido.Joi.parse(@schema, value)
 end
 
 defmodule Jido.Chat.Runtime.Directives.RelayInbound do

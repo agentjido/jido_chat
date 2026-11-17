@@ -216,7 +216,8 @@ defmodule Jido.Chat.ContractFixtures.ProviderRequest do
     dataschema: "urn:contract:chat:status:1",
     default_source: "urn:contract:provider",
     schema:
-      Zoi.map(%{"client_id" => Zoi.string() |> Zoi.min(1), "request_id" => Zoi.string() |> Zoi.min(1)},
+      Jido.Joi.map(
+        %{"client_id" => Jido.Joi.string() |> Jido.Joi.min(1), "request_id" => Jido.Joi.string() |> Jido.Joi.min(1)},
         unrecognized_keys: :error
       )
 end
@@ -225,7 +226,7 @@ defmodule Jido.Chat.ContractFixtures.ProviderAction do
   use Jido.ChatAction,
     name: "contract_provider_status",
     signal: Jido.Chat.ContractFixtures.ProviderRequest,
-    result_schema: Zoi.map(%{"status" => Zoi.enum(["ready"])}, unrecognized_keys: :error)
+    result_schema: Jido.Joi.map(%{"status" => Jido.Joi.enum(["ready"])}, unrecognized_keys: :error)
 
   @impl true
   def invoke(client, request, opts) do
@@ -240,12 +241,12 @@ defmodule Jido.Chat.ContractFixtures.ProviderFact do
     dataschema: "urn:contract:chat:presence:1",
     default_source: "urn:contract:provider",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "online" => Zoi.boolean()
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "online" => Jido.Joi.boolean()
         },
         unrecognized_keys: :error
       )

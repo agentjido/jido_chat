@@ -42,7 +42,7 @@ defmodule Jido.Chat.CreateThreadAgentTest do
     use Jido.Agent, name: "thread_agent", plugins: [Jido.Chat.Plugin]
 
     state do
-      schema Jido.Joi.object(%{count: Zoi.integer() |> Zoi.default(0)})
+      schema Jido.Joi.object(%{count: Jido.Joi.integer() |> Jido.Joi.default(0)})
     end
 
     chat do

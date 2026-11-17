@@ -46,8 +46,8 @@ defmodule Jido.Chat.Runtime.Participant do
   @impl true
   def state_spec(_opts) do
     {:participation,
-     Jido.Joi.object(%{received: Zoi.list(Jido.Joi.struct(Jido.Signal))})
-     |> Zoi.default(%{received: []})}
+     Jido.Joi.object(%{received: Jido.Joi.list(Jido.Joi.struct(Jido.Signal))})
+     |> Jido.Joi.default(%{received: []})}
   end
 
   @impl true

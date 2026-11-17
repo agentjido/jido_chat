@@ -10,28 +10,28 @@ defmodule Jido.Chat.FileSource do
 
   @kinds [:reference, :url, :base64]
   @fields [:kind, :reference, :url, :content_base64, :filename, :media_type, :metadata]
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              kind: Zoi.enum(@kinds),
-              reference: Zoi.struct(ResourceRef) |> Zoi.nullish(),
-              url: Zoi.string() |> Zoi.nullish(),
-              content_base64: Zoi.string() |> Zoi.nullish(),
-              filename: Zoi.string() |> Zoi.nullish(),
-              media_type: Zoi.string() |> Zoi.nullish(),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              kind: Jido.Joi.enum(@kinds),
+              reference: Jido.Joi.struct(ResourceRef) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              url: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              content_base64: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              filename: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              media_type: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({__MODULE__, :validate, []})
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({__MODULE__, :validate, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the portable file-source schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates a portable file source."

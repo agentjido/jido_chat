@@ -16,30 +16,30 @@ defmodule Jido.Chat.Media do
     :duration,
     :metadata
   ]
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              kind: Zoi.enum(@kinds),
-              source: Zoi.struct(FileSource),
-              name: Zoi.string() |> Zoi.nullish(),
-              media_type: Zoi.string() |> Zoi.nullish(),
-              caption: Zoi.string() |> Zoi.nullish(),
-              alt_text: Zoi.string() |> Zoi.nullish(),
-              width: Zoi.integer() |> Zoi.min(0) |> Zoi.nullish(),
-              height: Zoi.integer() |> Zoi.min(0) |> Zoi.nullish(),
-              duration: Zoi.number() |> Zoi.min(0) |> Zoi.nullish(),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              kind: Jido.Joi.enum(@kinds),
+              source: Jido.Joi.struct(FileSource),
+              name: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              media_type: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              caption: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              alt_text: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              width: Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              height: Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              duration: Jido.Joi.number() |> Jido.Joi.min(0) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the portable media schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates portable media."

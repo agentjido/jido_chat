@@ -1,7 +1,8 @@
 # Jido Chat Runtime
 
 `Jido.Chat.Runtime` supplies local rooms, participants, provider account
-activation, room bridges, provider work, and small storage contracts.
+activation, room bridges, provider work, one observation Bus, and small storage
+contracts.
 
 Runtime is optional. Starting `:jido_chat` starts no process, table, room,
 queue, or storage resource. The host starts one Jido instance and each selected
@@ -18,6 +19,8 @@ defmodule MyApp.Chat do
     jido: MyApp.Jido,
     storage: {Jido.Chat.Runtime.Storage.Dets, MyApp.ChatStorage},
     room_definitions: %{"support" => MyApp.SupportRoom},
+    connection_definitions: %{"provider" => MyApp.SupportAccount},
+    secret_resolver: MyApp.ChatSecrets,
     provider_work_limit: 4,
     provider_queue_limit: 1_000,
     provider_work_lease_ms: 60_000
@@ -41,9 +44,11 @@ children = [
 ]
 ```
 
-The Runtime supervisor owns one manager. The manager declares the required
-state. It starts, resolves, and stops Agents only through `MyApp.Jido`. The Room
-and provider account Agent processes remain below the Jido process tree.
+The Runtime supervisor starts one bounded `Jido.Signal.Bus` and then one
+manager. The manager declares the required state. It starts, resolves, and
+stops Agents only through `MyApp.Jido`. The Room and provider account Agent
+processes remain below the Jido process tree. Set `:bus_max_log_size` on the
+Runtime child to change the default 10,000-record memory bound.
 
 The initial reconcile starts rooms before provider accounts. One failed entry
 does not stop another entry. The manager retries failed entries at the selected
@@ -68,12 +73,13 @@ Use the managed lifecycle through the facade:
 {:ok, status} = MyApp.Chat.reconcile_runtime()
 ```
 
-Startup declarations and provider account declarations are in memory. Room
-declarations created by `provision_room/2` are durable. Their running or stopped
-desired state survives a Runtime restart. The manager resolves each stored
-definition key through the static `room_definitions` map. Stored data cannot
-name an Elixir module or create an atom. A normal Runtime shutdown stops its
-managed Agent activations.
+Startup declarations are in memory. Room declarations created by
+`provision_room/2` and provider declarations created by
+`provision_connection/2` are durable. Their running or stopped desired state
+survives a Runtime restart. The manager resolves each stored definition key
+through the applicable static definition map. Stored data cannot name an
+Elixir module or create an atom. A normal Runtime shutdown stops its managed
+Agent activations.
 
 The managed functions are separate from `start_connection/2`,
 `stop_connection/1`, and `connection_status/1`. Those functions keep the direct
@@ -167,10 +173,12 @@ live activation are separate. A later reconcile retries a failed activation.
 `start_managed_room/1` and `stop_managed_room/1` store desired state for a
 durable declaration before they change its Agent activation. `deprovision_room/1`
 stops the Room and removes only the declaration. It preserves the Room record,
-membership, and history.
+membership, history, and reactions.
 
-Durable provider account declarations are not supported. Provider definitions
-can contain credentials and need a separate secret-reference contract.
+Durable provider account declarations store a trusted definition key, secret
+references, portable settings, desired state, and revision. The host resolves
+each secret reference when it starts the provider Agent. Jido Chat does not
+store the resolved credential.
 
 ## Portable values
 
@@ -242,6 +250,15 @@ Query durable data through the Runtime facade:
 {:ok, history} = MyApp.Chat.list_room_history("support", limit: 100)
 {:ok, older} = MyApp.Chat.list_room_history("support", before: hd(history).message_id)
 {:ok, message} = MyApp.Chat.get_room_history("support", "message-id")
+
+{:ok, reactions} =
+  MyApp.Chat.list_room_reactions("support",
+    message_id: "message-id",
+    status: :active
+  )
+
+{:ok, reaction} =
+  MyApp.Chat.get_room_reaction("support", "message-id", "eyes", "alice")
 ```
 
 Membership status is `:active`, `:suspended`, or `:revoked`. History order is
@@ -249,6 +266,66 @@ oldest first. `before` and `after` are exclusive message-ID cursors and cannot
 be used together. `thread_id` filters one thread. `latest: true` returns the
 most recent bounded page in oldest-first order. Limits are from 1 through
 1,000.
+
+Reaction state is a separate durable projection. A reaction identity is the
+Room ID, message ID, reaction value, and complete actor identity. Add and remove
+operations update a revision-checked current-state record. Removed records stay
+as tombstones. They are not deleted.
+
+An active Room member can add or remove only that member's reaction on a
+message that exists in the same durable Room history. Use
+`Jido.Chat.Runtime.Signal.Room.AddReaction` and `RemoveReaction` with the
+trusted caller in `context.actor`. A real state change publishes the canonical
+`jido.chat.reaction.added` or `jido.chat.reaction.removed` fact after storage
+succeeds. A repeated request returns `changed: false` and does not publish a
+second fact.
+
+Reaction list options are `:message_id` or up to 100 unique `:message_ids`,
+`:status`, `:after`, and `:limit`. The cursor is the stable reaction record ID.
+The maximum result limit is 1,000. The default facade query returns only active
+reactions. Set `status: :removed` to read tombstones.
+
+Threads are a projection of immutable Room history. A message keeps its
+`thread_id`, and `list_room_history/2` can filter that value. Jido Chat does not
+store a separate thread record.
+
+### Runtime-wide realtime
+
+Each Room keeps its isolated Bus for Agent interaction. A durable Room also
+publishes each committed `jido.chat.room.message` and changed canonical
+reaction fact to the managed Runtime Bus. The exact Signal is reused. Jido Chat
+does not add another event wrapper.
+
+Subscribe through the Runtime facade:
+
+```elixir
+{:ok, bus} = MyApp.Chat.runtime_bus()
+
+{:ok, subscription_id} =
+  MyApp.Chat.subscribe_runtime("jido.chat.room.message")
+
+receive do
+  {:signal, %Jido.Signal{} = fact} ->
+    room_id = fact.data["room"].id
+    {:ok, history} = MyApp.Chat.list_room_history(room_id, latest: true, limit: 100)
+end
+
+:ok = MyApp.Chat.unsubscribe_runtime(subscription_id)
+```
+
+`subscribe_runtime/2` passes native Jido Bus options through unchanged. A host
+can set `:target` or a Signal selector. `runtime_bus/0` returns the native Bus
+PID when the host needs another supported Jido Bus operation.
+
+Storage is authoritative. Runtime Bus delivery is a notification to read the
+durable projection again. A missing or restarting Runtime Bus does not roll
+back a stored message or reaction. The built-in Runtime Bus uses bounded memory,
+so a host reattaches its subscriptions after a Runtime restart.
+
+Presence stays in the host. Assembly can update Phoenix Presence or another
+session system when a client connects, disconnects, or sends a heartbeat. It
+can use committed Chat facts to refresh views, but it must not turn presence
+changes into durable Room membership or add Phoenix to Jido Chat.
 
 ### Room identity and authorization
 
@@ -389,6 +466,74 @@ The Bridge preserves provider actor, media, reply, thread, and origin data. It
 does not create rooms. It ignores provider self-messages and blocks an inbound
 message from returning to the same provider account.
 
+### Durable provider provisioning
+
+A durable provider Agent can keep an empty trusted Room list and an empty
+compiled Bridge mapping list. Runtime replaces both lists with enabled durable
+bindings when it starts the Agent. The trusted Agent must still declare the
+Chat and Bridge Plugins and all required routes.
+
+Define a host resolver. It returns credentials for one activation and does not
+store them in Jido Chat:
+
+```elixir
+defmodule MyApp.ChatSecrets do
+  @behaviour Jido.Chat.Runtime.SecretResolver
+
+  @impl true
+  def resolve(%{"token" => reference}, context) do
+    MyApp.Secrets.credentials(reference, account_id: context.account_id)
+  end
+end
+```
+
+Provision the account with an opaque reference. Stored settings can replace
+only keys that already exist in the trusted Chat client configuration.
+
+```elixir
+{:ok, %{declaration: declaration, activation: activation}} =
+  MyApp.Chat.provision_connection("provider", %{
+    account_id: "support",
+    secret_refs: %{"token" => "vault://chat/support"},
+    settings: %{"poll_interval" => 5_000},
+    metadata: %{"owner" => "support"}
+  })
+
+{:ok, %{binding: binding}} =
+  MyApp.Chat.create_bridge_binding(%{
+    account_id: "support",
+    room_id: "support",
+    external_room_id: "external-support",
+    direction: :both
+  })
+```
+
+Connection identity is the account ID. Binding identity is the account ID and
+external Room ID. One local Room can have many outbound bindings. Runtime
+sorts those bindings by external Room ID and creates one provider work item for
+each binding.
+
+Update calls require the current revision. A changed connection or binding
+revision replaces the live Agent configuration on the next reconcile.
+
+```elixir
+{:ok, %{declaration: declaration}} =
+  MyApp.Chat.update_connection_declaration(
+    "support",
+    declaration.revision,
+    %{settings: %{"poll_interval" => 10_000}}
+  )
+
+{:ok, bindings} = MyApp.Chat.list_bridge_bindings("support", enabled: true)
+{:ok, %{binding: disabled, activation: activation}} =
+  MyApp.Chat.deprovision_bridge_binding("support", binding.external_room_id)
+:ok = MyApp.Chat.deprovision_connection("support")
+```
+
+Deprovisioning stores stopped or disabled state. It does not delete Room
+history, provider work, links, declarations, or bindings. Resolved credentials
+do not appear in declarations, status maps, or Runtime storage.
+
 ## Provider work and recovery
 
 Provider work uses explicit states:
@@ -406,13 +551,15 @@ again automatically.
 {:ok, status} = MyApp.Chat.bridge_status("support")
 :ok = MyApp.Chat.recover_bridge("support")
 {:ok, link} = MyApp.Chat.bridge_link("support", local_message_id)
+{:ok, links} = MyApp.Chat.bridge_links("support", local_message_id)
 {:ok, connection} = MyApp.Chat.connection_status("support")
 :ok = MyApp.Chat.stop_connection("support")
 ```
 
 The storage selection must implement the capabilities required by the selected
-Runtime feature. The built-in Memory and DETS adapters implement Links, Outbox,
-Rooms, and Commit. `Commit` applies one storage batch atomically.
+Runtime feature. The built-in Memory and DETS adapters implement all Runtime
+capabilities, including Connections and Bindings. `Commit` applies one storage
+batch atomically.
 
 ## Correlated room results
 

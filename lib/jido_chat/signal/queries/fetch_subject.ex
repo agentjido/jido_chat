@@ -5,12 +5,12 @@ defmodule Jido.Chat.Signal.FetchSubject do
     dataschema: "urn:jido:chat:schema:query_fetch_subject:3",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
           "client_id" => Jido.Chat.Signal.Schemas.id(),
           "request_id" => Jido.Chat.Signal.Schemas.id(),
           "room_id" => Jido.Chat.Signal.Schemas.id(),
-          "thread_id" => Jido.Chat.Signal.Schemas.id() |> Zoi.optional()
+          "thread_id" => Jido.Chat.Signal.Schemas.id() |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

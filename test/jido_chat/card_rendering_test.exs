@@ -59,6 +59,11 @@ defmodule Jido.Chat.CardRenderingTest do
              "#### Pick\n\n- One\n- Two\n\n#### Radio\n\n- One\n- Two\n\n#### Group\n\n- One\n- Two\n\n#### external\n\nInitial options: One, Two, One, Two.\n\n#### dynamic\n\nSearch\n\n#### empty\n\nOptions load as you type."
 
     assert Enum.at(components, 4).options_source == :dynamic
+    assert Card.radio_select("default-radio", options).kind == :radio_select
+
+    for source <- ["external", "dynamic", :external] do
+      assert Card.external_select("source", options_source: source).options_source in [:external, :dynamic]
+    end
 
     assert Card.to_adapter_payload(card)["components"]
            |> Enum.at(3)
@@ -143,8 +148,31 @@ defmodule Jido.Chat.CardRenderingTest do
     assert ChartSeries.new(series) == series
     assert ChartData.from_map(ChartData.to_map(point)) == point
     assert ChartSeries.from_map(ChartSeries.to_map(series)) == series
-    assert Zoi.parse(ChartData.schema(), %{label: "A", value: "invalid"}) |> elem(0) == :error
-    assert Zoi.parse(ChartSeries.schema(), %{name: "S", values: ["invalid"]}) |> elem(0) == :error
-    assert Zoi.parse(Card.schema(), %{components: :invalid}) |> elem(0) == :error
+    assert Jido.Joi.parse(ChartData.schema(), %{label: "A", value: "invalid"}) |> elem(0) == :error
+    assert Jido.Joi.parse(ChartSeries.schema(), %{name: "S", values: ["invalid"]}) |> elem(0) == :error
+    assert Jido.Joi.parse(Card.schema(), %{components: :invalid}) |> elem(0) == :error
+    assert Jido.Joi.parse(Card.schema(), %{markdown: %{bad: true}}) |> elem(0) == :error
+    assert Jido.Joi.parse(Component.schema(), %{kind: :text, markdown: %{bad: true}}) |> elem(0) == :error
+    assert Jido.Joi.parse(Component.schema(), %{kind: :section, items: [%{bad: true}]}) |> elem(0) == :error
+    assert Jido.Joi.parse(Component.schema(), %{kind: :line_chart, data: [%{bad: true}]}) |> elem(0) == :error
+    assert Jido.Joi.parse(Component.schema(), %{kind: :line_chart, series: [%{bad: true}]}) |> elem(0) == :error
+  end
+
+  test "component validation rejects invalid normalized and chart values" do
+    assert_raise Jido.Chat.Errors.Validation, fn ->
+      Component.new(%{kind: "unknown-component-kind"})
+    end
+
+    assert_raise Jido.Chat.Errors.Validation, fn ->
+      Component.new(%{kind: :option_group})
+    end
+
+    assert_raise Jido.Chat.Errors.Validation, fn ->
+      Component.new(%{
+        kind: :line_chart,
+        categories: ["Valid", 2],
+        series: [%{name: "Total", values: [1, 2]}]
+      })
+    end
   end
 end

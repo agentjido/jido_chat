@@ -9,13 +9,13 @@ defmodule Jido.Chat.Delivery do
   alias Jido.Chat.Client
   alias Jido.Chat.Signal.{Identity, Policy}
 
-  @schema Zoi.struct(__MODULE__, %{
-            id: Zoi.string() |> Zoi.min(1) |> Zoi.refine({Jido.Signal, :validate_utf8_string, []}),
-            signals: Zoi.list(Zoi.struct(Jido.Signal))
+  @schema Jido.Joi.struct(__MODULE__, %{
+            id: Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.refine({Jido.Signal, :validate_utf8_string, []}),
+            signals: Jido.Joi.list(Jido.Joi.struct(Jido.Signal))
           })
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Builds a completely validated, ordered provider delivery."
   @spec new(Client.t(), String.t(), [Jido.Signal.t()]) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
@@ -24,7 +24,7 @@ defmodule Jido.Chat.Delivery do
   @doc "Revalidates a delivery before direct sink acceptance."
   @spec validate(Client.t(), t()) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
   def validate(%Client{} = client, %__MODULE__{id: id, signals: signals} = delivery) do
-    with {:ok, _} <- Zoi.parse(@schema, delivery),
+    with {:ok, _} <- Jido.Joi.parse(@schema, delivery),
          :ok <- count_limit(signals),
          {:ok, validated} <- validate_signals(client, id, signals),
          :ok <- failure_limit(validated),
@@ -45,7 +45,7 @@ defmodule Jido.Chat.Delivery do
   @doc false
   @spec validate_empty(t()) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
   def validate_empty(%__MODULE__{id: id, signals: []} = delivery) do
-    with {:ok, _} <- Zoi.parse(@schema, delivery),
+    with {:ok, _} <- Jido.Joi.parse(@schema, delivery),
          :ok <- size_limit(id, []) do
       {:ok, delivery}
     else

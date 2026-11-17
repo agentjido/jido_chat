@@ -10,24 +10,24 @@ defmodule Jido.Chat.Signal.AssistantContextChanged do
     dataschema: "urn:jido:chat:schema:assistant_context_changed:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "thread_id" => Zoi.string() |> Zoi.min(1),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "thread_id" => Jido.Joi.string() |> Jido.Joi.min(1),
           "actor_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "context" =>
-            Zoi.map(
+            Jido.Joi.map(
               %{
-                "channel_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
-                "team_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
-                "enterprise_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional()
+                "channel_id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional(),
+                "team_id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional(),
+                "enterprise_id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional()
               },
               unrecognized_keys: :error
             )

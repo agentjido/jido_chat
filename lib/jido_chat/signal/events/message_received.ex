@@ -10,77 +10,78 @@ defmodule Jido.Chat.Signal.MessageReceived do
     dataschema: "urn:jido:chat:schema:message_received:2",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "message_id" => Zoi.string() |> Zoi.min(1),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "message_id" => Jido.Joi.string() |> Jido.Joi.min(1),
           "sender" =>
-            Zoi.map(
+            Jido.Joi.map(
               %{
-                "id" => Zoi.string() |> Zoi.min(1),
-                "username" => Zoi.string() |> Zoi.optional(),
-                "display_name" => Zoi.string() |> Zoi.optional(),
-                "is_bot" => Zoi.boolean() |> Zoi.optional(),
-                "is_self" => Zoi.boolean() |> Zoi.optional()
+                "id" => Jido.Joi.string() |> Jido.Joi.min(1),
+                "username" => Jido.Joi.string() |> Jido.Joi.optional(),
+                "display_name" => Jido.Joi.string() |> Jido.Joi.optional(),
+                "is_bot" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                "is_self" => Jido.Joi.boolean() |> Jido.Joi.optional()
               },
               unrecognized_keys: :error
             ),
-          "text" => Zoi.string(),
+          "text" => Jido.Joi.string(),
           "thread_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "reply_to_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
-          "media" => Zoi.array(Jido.Chat.Signal.Schemas.media()) |> Zoi.optional(),
-          "mentions" => Zoi.array(Zoi.string() |> Zoi.min(1)) |> Zoi.optional(),
-          "mentioned" => Zoi.boolean() |> Zoi.optional(),
-          "timestamp" => Zoi.string() |> Zoi.optional(),
-          "conversation_kind" => Zoi.enum(["direct", "group", "channel", "thread", "unknown"]) |> Zoi.optional(),
-          "conversation_name" => Zoi.string() |> Zoi.optional(),
+            |> Jido.Joi.optional(),
+          "media" => Jido.Joi.array(Jido.Chat.Signal.Schemas.media()) |> Jido.Joi.optional(),
+          "mentions" => Jido.Joi.array(Jido.Joi.string() |> Jido.Joi.min(1)) |> Jido.Joi.optional(),
+          "mentioned" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+          "timestamp" => Jido.Joi.string() |> Jido.Joi.optional(),
+          "conversation_kind" =>
+            Jido.Joi.enum(["direct", "group", "channel", "thread", "unknown"]) |> Jido.Joi.optional(),
+          "conversation_name" => Jido.Joi.string() |> Jido.Joi.optional(),
           "mention_details" =>
-            Zoi.array(
-              Zoi.map(
+            Jido.Joi.array(
+              Jido.Joi.map(
                 %{
-                  "id" => Zoi.string() |> Zoi.min(1),
-                  "username" => Zoi.string() |> Zoi.optional(),
-                  "offset" => Zoi.integer() |> Zoi.gte(0) |> Zoi.optional(),
-                  "length" => Zoi.integer() |> Zoi.gte(0) |> Zoi.optional()
+                  "id" => Jido.Joi.string() |> Jido.Joi.min(1),
+                  "username" => Jido.Joi.string() |> Jido.Joi.optional(),
+                  "offset" => Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.optional(),
+                  "length" => Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.optional()
                 },
                 unrecognized_keys: :error
               )
             )
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "reply_context" =>
-            Zoi.map(
+            Jido.Joi.map(
               %{
-                "id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
-                "message_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
-                "text" => Zoi.string() |> Zoi.optional(),
+                "id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional(),
+                "message_id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional(),
+                "text" => Jido.Joi.string() |> Jido.Joi.optional(),
                 "sender" =>
-                  Zoi.map(
+                  Jido.Joi.map(
                     %{
-                      "id" => Zoi.string() |> Zoi.min(1),
-                      "username" => Zoi.string() |> Zoi.optional(),
-                      "display_name" => Zoi.string() |> Zoi.optional(),
-                      "is_bot" => Zoi.boolean() |> Zoi.optional(),
-                      "is_self" => Zoi.boolean() |> Zoi.optional()
+                      "id" => Jido.Joi.string() |> Jido.Joi.min(1),
+                      "username" => Jido.Joi.string() |> Jido.Joi.optional(),
+                      "display_name" => Jido.Joi.string() |> Jido.Joi.optional(),
+                      "is_bot" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "is_self" => Jido.Joi.boolean() |> Jido.Joi.optional()
                     },
                     unrecognized_keys: :error
                   )
-                  |> Zoi.optional()
+                  |> Jido.Joi.optional()
               },
               unrecognized_keys: :error
             )
-            |> Zoi.optional()
+            |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

@@ -5,7 +5,7 @@ defmodule Jido.Chat.Signal.GetUser do
     dataschema: "urn:jido:chat:schema:query_get_user:3",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
           "client_id" => Jido.Chat.Signal.Schemas.id(),
           "request_id" => Jido.Chat.Signal.Schemas.id(),

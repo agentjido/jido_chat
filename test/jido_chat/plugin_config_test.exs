@@ -79,7 +79,6 @@ defmodule Jido.Chat.PluginConfigTest do
     c = connection()
 
     for changes <- [
-          %{rooms: []},
           %{rooms: [42]},
           %{rooms: :all},
           %{client: %{adapter: String, id: "bad"}},
@@ -95,6 +94,10 @@ defmodule Jido.Chat.PluginConfigTest do
     end
 
     assert {:error, _} = Plugin.normalize(%{connections: [c, c]})
+
+    assert {:ok, %{connections: [%{rooms: []}]}} =
+             Plugin.normalize(%{connections: [%{c | rooms: []}]})
+
     assert {:ok, _} = Plugin.normalize(%{connections: [%{c | rooms: [Jido.Plugin.Config.env("ROOM")]}]})
   end
 

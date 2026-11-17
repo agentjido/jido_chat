@@ -26,7 +26,7 @@ defmodule Jido.Chat.SignalsContractTest do
       definition = F.module(entry["module"])
       assert definition.type() == entry["type"]
       assert definition.dataschema() == entry["dataschema"]
-      actual_schema = definition.schema() |> Zoi.to_json_schema() |> Jason.encode!() |> Jason.decode!()
+      actual_schema = definition.schema() |> Jido.Joi.to_json_schema() |> Jason.encode!() |> Jason.decode!()
       assert actual_schema == entry["data_schema"], "data schema changed for #{entry["module"]}"
       assert {:ok, signal} = Jido.Chat.Signal.Policy.new(definition, entry["fixture"], entry["fixture_options"])
       assert signal.type == entry["type"]

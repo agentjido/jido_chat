@@ -131,7 +131,7 @@ defmodule Jido.Chat.MarkdownTest do
     assert Markdown.plain_text(nil) == ""
     assert Markdown.stringify("raw") == "raw"
     assert Markdown.plain_text("raw") == "raw"
-    assert Zoi.parse(Markdown.schema(), %{}) |> elem(0) == :error
-    assert Zoi.parse(Node.schema(), %{type: :unsupported}) |> elem(0) == :error
+    assert Jido.Joi.parse(Markdown.schema(), %{}) |> elem(0) == :error
+    assert Jido.Joi.parse(Node.schema(), %{type: :unsupported}) |> elem(0) == :error
   end
 end

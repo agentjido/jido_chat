@@ -10,26 +10,26 @@ defmodule Jido.Chat.Signal.SlashCommandReceived do
     dataschema: "urn:jido:chat:schema:slash_command_received:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "interaction_id" => Zoi.string() |> Zoi.min(1),
-          "command" => Zoi.string() |> Zoi.min(1),
-          "text" => Zoi.string(),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "interaction_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "command" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "text" => Jido.Joi.string(),
           "actor_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "thread_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional()
+            |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

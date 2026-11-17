@@ -10,12 +10,12 @@ defmodule Jido.Chat.APIHardeningTest do
       dataschema: "urn:test:presence:1",
       default_source: "urn:test:producer",
       schema:
-        Zoi.map(
+        Jido.Joi.map(
           %{
-            "item_id" => Zoi.string(),
-            "delivery_id" => Zoi.string(),
-            "room_id" => Zoi.string(),
-            "online" => Zoi.boolean()
+            "item_id" => Jido.Joi.string(),
+            "delivery_id" => Jido.Joi.string(),
+            "room_id" => Jido.Joi.string(),
+            "online" => Jido.Joi.boolean()
           },
           unrecognized_keys: :error
         )
@@ -26,14 +26,15 @@ defmodule Jido.Chat.APIHardeningTest do
       type: "test.chat.query.status",
       dataschema: "urn:test:status:1",
       default_source: "urn:test:producer",
-      schema: Zoi.map(%{"client_id" => Zoi.string(), "request_id" => Zoi.string()}, unrecognized_keys: :error)
+      schema:
+        Jido.Joi.map(%{"client_id" => Jido.Joi.string(), "request_id" => Jido.Joi.string()}, unrecognized_keys: :error)
   end
 
   defmodule ProviderAction do
     use Jido.ChatAction,
       name: "test_status",
       signal: ProviderRequest,
-      result_schema: Zoi.map(%{"online" => Zoi.boolean()}, unrecognized_keys: :error)
+      result_schema: Jido.Joi.map(%{"online" => Jido.Joi.boolean()}, unrecognized_keys: :error)
   end
 
   defmodule Adapter do

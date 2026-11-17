@@ -23,6 +23,9 @@ defmodule Jido.Chat.RuntimeRoomRecordsTest do
     def link_for_local(_resource, _account_id, _local_id), do: {:ok, nil}
 
     @impl Links
+    def links_for_local(_resource, _account_id, _local_id), do: {:ok, []}
+
+    @impl Links
     def link_for_external(_resource, _account_id, _room_id, _message_id), do: {:ok, nil}
   end
 

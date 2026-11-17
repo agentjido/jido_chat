@@ -5,7 +5,7 @@ defmodule Jido.Chat.Signal.DeleteMessage do
     dataschema: "urn:jido:chat:schema:command_delete_message:3",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
           "client_id" => Jido.Chat.Signal.Schemas.id(),
           "request_id" => Jido.Chat.Signal.Schemas.id(),

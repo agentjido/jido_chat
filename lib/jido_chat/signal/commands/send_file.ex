@@ -10,18 +10,18 @@ defmodule Jido.Chat.Signal.SendFile do
     dataschema: "urn:jido:chat:schema:command_send_file:3",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "client_id" => Zoi.string() |> Zoi.min(1),
-          "request_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
+          "client_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "request_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
           "source" => Jido.Chat.Signal.Schemas.file_source(),
-          "caption" => Zoi.string() |> Zoi.optional(),
-          "media_kind" => Zoi.enum(["file", "image"]) |> Zoi.optional(),
-          "thread_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
-          "reply_to_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
-          "format" => Zoi.enum(["plain", "markdown", "html"]) |> Zoi.optional(),
-          "keyboard" => Jido.Chat.Signal.Schemas.keyboard() |> Zoi.optional()
+          "caption" => Jido.Joi.string() |> Jido.Joi.optional(),
+          "media_kind" => Jido.Joi.enum(["file", "image"]) |> Jido.Joi.optional(),
+          "thread_id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional(),
+          "reply_to_id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional(),
+          "format" => Jido.Joi.enum(["plain", "markdown", "html"]) |> Jido.Joi.optional(),
+          "keyboard" => Jido.Chat.Signal.Schemas.keyboard() |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

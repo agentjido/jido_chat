@@ -1,11 +1,11 @@
 defmodule Jido.Chat.Signal.Schemas do
   @moduledoc false
   @doc false
-  def id, do: Zoi.string() |> Zoi.min(1)
+  def id, do: Jido.Joi.string() |> Jido.Joi.min(1)
   @doc false
-  def optional_id, do: id() |> Zoi.nullish()
+  def optional_id, do: id() |> Jido.Joi.nullable() |> Jido.Joi.optional()
   @doc false
-  def object(fields), do: Zoi.map(fields, unrecognized_keys: :error)
+  def object(fields), do: Jido.Joi.map(fields, unrecognized_keys: :error)
 
   @doc false
   def modal, do: rendering_schema(Jido.Chat.Modal, "modal")
@@ -14,40 +14,44 @@ defmodule Jido.Chat.Signal.Schemas do
   def card, do: rendering_schema(Jido.Chat.Card, "card")
 
   defp rendering_schema(module, marker) do
-    fields =
-      Map.new(module.schema().fields, fn
-        {key, %Zoi.Types.Array{inner: %Zoi.Types.Struct{}} = schema} ->
-          {Atom.to_string(key), %{schema | inner: Zoi.map()}}
-
-        {key, schema} ->
-          {Atom.to_string(key), schema}
-      end)
-
-    fields
-    |> Map.put("__type__", Zoi.literal(marker) |> Zoi.optional())
+    module.signal_fields()
+    |> Map.put("__type__", Jido.Joi.literal(marker) |> Jido.Joi.optional())
     |> object()
-    |> Zoi.refine({__MODULE__, :valid_rendering, [module]})
+    |> Jido.Joi.refine({__MODULE__, :valid_rendering, [module, marker]})
   end
 
   @doc false
-  def valid_rendering(value, module, _opts) do
-    module.new(value)
-    :ok
+  def valid_rendering(value, module, marker, _opts) do
+    with :ok <- valid_rendering_marker(value, marker) do
+      value
+      |> Map.delete("__type__")
+      |> module.new()
+
+      :ok
+    end
   rescue
     _ -> {:error, "expected a valid #{inspect(module)} value"}
   end
 
+  defp valid_rendering_marker(value, marker) do
+    case Map.get(value, "__type__") do
+      value when value in [nil, marker] -> :ok
+      _value -> {:error, "expected rendering type #{inspect(marker)}"}
+    end
+  end
+
   @doc false
   def reference do
-    object(%{"id" => id(), "client_id" => id(), "kind" => Zoi.enum(["file", "media", "url"])})
+    object(%{"id" => id(), "client_id" => id(), "kind" => Jido.Joi.enum(["file", "media", "url"])})
   end
 
   @doc false
   def file_source do
-    Zoi.union([
+    Jido.Joi.union([
       reference(),
       object(%{
-        "content_base64" => Zoi.string() |> Zoi.max(240_000) |> Zoi.refine({__MODULE__, :valid_base64, []}),
+        "content_base64" =>
+          Jido.Joi.string() |> Jido.Joi.max(240_000) |> Jido.Joi.refine({__MODULE__, :valid_base64, []}),
         "filename" => id()
       })
     ])
@@ -64,13 +68,15 @@ defmodule Jido.Chat.Signal.Schemas do
   @doc false
   def keyboard do
     button =
-      Zoi.union([
-        object(%{"text" => id(), "value" => id() |> Zoi.refine({__MODULE__, :callback_value, []})}),
+      Jido.Joi.union([
+        object(%{"text" => id(), "value" => id() |> Jido.Joi.refine({__MODULE__, :callback_value, []})}),
         object(%{"text" => id(), "url" => id()})
       ])
 
-    object(%{"rows" => Zoi.array(Zoi.array(button) |> Zoi.min(1) |> Zoi.max(8)) |> Zoi.max(100)})
-    |> Zoi.refine({__MODULE__, :keyboard_size, []})
+    object(%{
+      "rows" => Jido.Joi.array(Jido.Joi.array(button) |> Jido.Joi.min(1) |> Jido.Joi.max(8)) |> Jido.Joi.max(100)
+    })
+    |> Jido.Joi.refine({__MODULE__, :keyboard_size, []})
   end
 
   @doc false
@@ -87,25 +93,25 @@ defmodule Jido.Chat.Signal.Schemas do
   def actor do
     object(%{
       "id" => id(),
-      "username" => Zoi.string() |> Zoi.optional(),
-      "display_name" => Zoi.string() |> Zoi.optional(),
-      "is_bot" => Zoi.boolean() |> Zoi.optional(),
-      "is_self" => Zoi.boolean() |> Zoi.optional()
+      "username" => Jido.Joi.string() |> Jido.Joi.optional(),
+      "display_name" => Jido.Joi.string() |> Jido.Joi.optional(),
+      "is_bot" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+      "is_self" => Jido.Joi.boolean() |> Jido.Joi.optional()
     })
   end
 
   @doc false
   def media do
     object(%{
-      "kind" => Zoi.enum(["image", "audio", "video", "file"]),
+      "kind" => Jido.Joi.enum(["image", "audio", "video", "file"]),
       "resource_ref" => reference(),
-      "name" => Zoi.string() |> Zoi.optional(),
-      "media_type" => Zoi.string() |> Zoi.optional(),
-      "caption" => Zoi.string() |> Zoi.optional(),
-      "width" => Zoi.integer() |> Zoi.min(0) |> Zoi.optional(),
-      "height" => Zoi.integer() |> Zoi.min(0) |> Zoi.optional(),
-      "duration" => Zoi.number() |> Zoi.min(0) |> Zoi.optional(),
-      "metadata" => Zoi.map() |> Zoi.optional()
+      "name" => Jido.Joi.string() |> Jido.Joi.optional(),
+      "media_type" => Jido.Joi.string() |> Jido.Joi.optional(),
+      "caption" => Jido.Joi.string() |> Jido.Joi.optional(),
+      "width" => Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.optional(),
+      "height" => Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.optional(),
+      "duration" => Jido.Joi.number() |> Jido.Joi.min(0) |> Jido.Joi.optional(),
+      "metadata" => Jido.Joi.map() |> Jido.Joi.optional()
     })
   end
 
@@ -114,7 +120,7 @@ defmodule Jido.Chat.Signal.Schemas do
     object(%{
       "client_id" => id(),
       "request_id" => id(),
-      "operation" => Zoi.literal(operation),
+      "operation" => Jido.Joi.literal(operation),
       "result" => result
     })
   end
@@ -124,28 +130,28 @@ defmodule Jido.Chat.Signal.Schemas do
     object(%{
       "id" => id(),
       "room_id" => id(),
-      "text" => Zoi.string() |> Zoi.optional(),
-      "sender" => actor() |> Zoi.optional(),
+      "text" => Jido.Joi.string() |> Jido.Joi.optional(),
+      "sender" => actor() |> Jido.Joi.optional(),
       "thread_id" => optional_id(),
       "reply_to_id" => optional_id(),
-      "media" => Zoi.array(media()) |> Zoi.optional(),
-      "timestamp" => Zoi.string() |> Zoi.optional(),
-      "status" => Zoi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Zoi.optional(),
-      "role" => Zoi.enum(["user", "assistant", "system", "tool"]) |> Zoi.optional()
+      "media" => Jido.Joi.array(media()) |> Jido.Joi.optional(),
+      "timestamp" => Jido.Joi.string() |> Jido.Joi.optional(),
+      "status" => Jido.Joi.enum(["sent", "received", "updated", "deleted", "pending", "failed"]) |> Jido.Joi.optional(),
+      "role" => Jido.Joi.enum(["user", "assistant", "system", "tool"]) |> Jido.Joi.optional()
     })
   end
 
   @doc false
-  def result(:acknowledgement), do: object(%{"acknowledged" => Zoi.boolean()})
+  def result(:acknowledgement), do: object(%{"acknowledged" => Jido.Joi.boolean()})
 
   @doc false
   def result(:conversation),
     do:
       object(%{
         "id" => id(),
-        "name" => Zoi.string() |> Zoi.optional(),
-        "kind" => Zoi.enum(["direct", "group", "channel", "thread", "unknown"]),
-        "topic" => Zoi.string() |> Zoi.optional()
+        "name" => Jido.Joi.string() |> Jido.Joi.optional(),
+        "kind" => Jido.Joi.enum(["direct", "group", "channel", "thread", "unknown"]),
+        "topic" => Jido.Joi.string() |> Jido.Joi.optional()
       })
 
   @doc false
@@ -155,7 +161,7 @@ defmodule Jido.Chat.Signal.Schemas do
         "id" => id(),
         "room_id" => id(),
         "parent_message_id" => optional_id(),
-        "name" => Zoi.string() |> Zoi.optional(),
+        "name" => Jido.Joi.string() |> Jido.Joi.optional(),
         "delivery_room_ref" => optional_id()
       })
 
@@ -179,35 +185,36 @@ defmodule Jido.Chat.Signal.Schemas do
       object(%{
         "id" => id(),
         "room_id" => id(),
-        "kind" => Zoi.enum(["conversation", "thread", "message"]),
-        "title" => Zoi.string() |> Zoi.optional()
+        "kind" => Jido.Joi.enum(["conversation", "thread", "message"]),
+        "title" => Jido.Joi.string() |> Jido.Joi.optional()
       })
 
   @doc false
   def result(:participants),
     do:
       object(%{
-        "participants" => Zoi.array(actor()),
-        "complete" => Zoi.boolean(),
-        "scope" => Zoi.enum(["observed", "all"]),
+        "participants" => Jido.Joi.array(actor()),
+        "complete" => Jido.Joi.boolean(),
+        "scope" => Jido.Joi.enum(["observed", "all"]),
         "next_cursor" => optional_id()
       })
 
   @doc false
   def result(:resource),
-    do: object(%{"content_base64" => Zoi.string() |> Zoi.refine({__MODULE__, :download_base64, []})})
+    do: object(%{"content_base64" => Jido.Joi.string() |> Jido.Joi.refine({__MODULE__, :download_base64, []})})
 
   @doc false
-  def result(:modal), do: object(%{"opened" => Zoi.boolean(), "id" => id() |> Zoi.optional()})
+  def result(:modal), do: object(%{"opened" => Jido.Joi.boolean(), "id" => id() |> Jido.Joi.optional()})
 
   @doc false
   def result(:options),
     do:
       object(%{
-        "options" => Zoi.array(option()),
+        "options" => Jido.Joi.array(option()),
         "option_groups" =>
-          Zoi.array(object(%{"label" => Zoi.string(), "options" => Zoi.array(option())})) |> Zoi.optional(),
-        "complete" => Zoi.boolean()
+          Jido.Joi.array(object(%{"label" => Jido.Joi.string(), "options" => Jido.Joi.array(option())}))
+          |> Jido.Joi.optional(),
+        "complete" => Jido.Joi.boolean()
       })
 
   @doc false
@@ -224,14 +231,14 @@ defmodule Jido.Chat.Signal.Schemas do
   end
 
   defp page(key, item),
-    do: object(%{key => Zoi.array(item), "next_cursor" => optional_id(), "complete" => Zoi.boolean()})
+    do: object(%{key => Jido.Joi.array(item), "next_cursor" => optional_id(), "complete" => Jido.Joi.boolean()})
 
   defp option,
     do:
       object(%{
-        "label" => Zoi.string(),
-        "value" => Zoi.string(),
-        "description" => Zoi.string() |> Zoi.optional(),
-        "url" => Zoi.string() |> Zoi.optional()
+        "label" => Jido.Joi.string(),
+        "value" => Jido.Joi.string(),
+        "description" => Jido.Joi.string() |> Jido.Joi.optional(),
+        "url" => Jido.Joi.string() |> Jido.Joi.optional()
       })
 end

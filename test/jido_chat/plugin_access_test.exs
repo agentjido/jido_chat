@@ -37,7 +37,7 @@ defmodule Jido.Chat.PluginAccessTest do
     use Jido.Agent, name: "secured_chat_agent", plugins: [Jido.Chat.Plugin]
 
     state do
-      schema Jido.Joi.object(%{principal_id: Jido.Joi.string() |> Zoi.default("")})
+      schema Jido.Joi.object(%{principal_id: Jido.Joi.string() |> Jido.Joi.default("")})
     end
 
     chat do

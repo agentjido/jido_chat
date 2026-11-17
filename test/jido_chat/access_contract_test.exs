@@ -33,6 +33,30 @@ defmodule Jido.Chat.AccessContractTest do
     def authorize(_principal, _action, _resource, _context), do: {:error, %{proof: "must-not-escape"}}
   end
 
+  defmodule ThrowingAuthorizer do
+    @behaviour Authorizer
+    @impl true
+    def authorize(_principal, _action, _resource, _context), do: throw(:authorization_failure)
+  end
+
+  defmodule DirectPrincipalProvider do
+    @behaviour IdentityProvider
+    @impl true
+    def resolve(_source, _context), do: {:ok, Principal.new(%{id: "direct", kind: :human})}
+  end
+
+  defmodule InvalidResultProvider do
+    @behaviour IdentityProvider
+    @impl true
+    def resolve(_source, _context), do: :invalid
+  end
+
+  defmodule ThrowingIdentityProvider do
+    @behaviour IdentityProvider
+    @impl true
+    def resolve(_source, _context), do: throw(:identity_failure)
+  end
+
   test "a Principal contains only bounded Chat identity fields" do
     principal =
       Principal.new(%{
@@ -48,6 +72,24 @@ defmodule Jido.Chat.AccessContractTest do
     assert principal.roles == ["member"]
     assert principal.assurance == :verified
     assert Principal.from_map(Principal.to_map(principal)) == principal
+  end
+
+  test "Principal schema rejects unsafe attribute depth, keys, and values" do
+    deep = Enum.reduce(1..18, "value", fn level, value -> %{"level_#{level}" => value} end)
+
+    assert is_map(Principal.schema())
+    assert :ok = Principal.safe_attributes(%{"items" => [1, true, nil]}, [])
+    assert {:error, _reason} = Principal.safe_attributes(deep, [])
+    assert {:error, _reason} = Principal.safe_attributes(%{"owner" => self()}, [])
+    assert {:error, _reason} = Principal.safe_attributes(%{1 => "value"}, [])
+
+    assert_raise Jido.Chat.Errors.Validation, fn ->
+      Principal.new(%{id: "agent", kind: :agent, agent_address: %{"version" => 1}})
+    end
+
+    assert_raise Jido.Chat.Errors.Validation, fn ->
+      Principal.new(%{id: "agent", kind: :agent, agent_address: %{namespace: "missing-id"}})
+    end
   end
 
   test "provider account scope is part of an external identity key" do
@@ -99,6 +141,18 @@ defmodule Jido.Chat.AccessContractTest do
 
     assert {:error, :invalid_identity_provider} =
              IdentityProvider.resolve(String, source("account-a"), %{})
+
+    assert {:ok, %Principal{id: "direct"}} =
+             IdentityProvider.resolve(DirectPrincipalProvider, source("account-a"), %{})
+
+    assert {:error, :invalid_identity_provider_result} =
+             IdentityProvider.resolve(InvalidResultProvider, source("account-a"), %{})
+
+    assert {:error, :identity_provider_failed} =
+             IdentityProvider.resolve(ThrowingIdentityProvider, source("account-a"), %{})
+
+    refute IdentityProvider.valid?(123)
+    assert {:error, :invalid_identity_request} = IdentityProvider.resolve(DirectPrincipalProvider, :invalid, %{})
   end
 
   test "the trusted Agent provider binds the complete caller Address" do
@@ -125,6 +179,14 @@ defmodule Jido.Chat.AccessContractTest do
 
     assert {:error, :authorization_denied} =
              Authorizer.authorize(UnsafeAuthorizationError, principal, :room_read, resource, %{})
+
+    assert {:error, :authorizer_failed} =
+             Authorizer.authorize(ThrowingAuthorizer, principal, :room_read, resource, %{})
+
+    refute Authorizer.valid?(123)
+
+    assert {:error, :invalid_authorization_request} =
+             Authorizer.authorize(Jido.Chat.Authorizer.DenyAll, :invalid, :room_read, resource, %{})
   end
 
   test "the Room authorizer preserves administrator and membership rules" do

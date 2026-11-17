@@ -12,10 +12,10 @@ defmodule Jido.Chat.Signal.StreamText do
         "client_id" => Jido.Chat.Signal.Schemas.id(),
         "request_id" => Jido.Chat.Signal.Schemas.id(),
         "room_id" => Jido.Chat.Signal.Schemas.id(),
-        "thread_id" => Jido.Chat.Signal.Schemas.id() |> Zoi.optional(),
-        "reply_to_id" => Jido.Chat.Signal.Schemas.id() |> Zoi.optional(),
-        "format" => Zoi.enum(["plain", "markdown", "html"]) |> Zoi.optional(),
-        "keyboard" => Jido.Chat.Signal.Schemas.keyboard() |> Zoi.optional(),
-        "update_interval_ms" => Zoi.integer() |> Zoi.min(0) |> Zoi.optional()
+        "thread_id" => Jido.Chat.Signal.Schemas.id() |> Jido.Joi.optional(),
+        "reply_to_id" => Jido.Chat.Signal.Schemas.id() |> Jido.Joi.optional(),
+        "format" => Jido.Joi.enum(["plain", "markdown", "html"]) |> Jido.Joi.optional(),
+        "keyboard" => Jido.Chat.Signal.Schemas.keyboard() |> Jido.Joi.optional(),
+        "update_interval_ms" => Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.optional()
       })
 end

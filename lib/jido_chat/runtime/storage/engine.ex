@@ -1,7 +1,9 @@
 defmodule Jido.Chat.Runtime.Storage.Engine do
   @moduledoc false
 
-  alias Jido.Chat.Runtime.Room.{Declaration, HistoryRecord, Membership, Record}
+  alias Jido.Chat.Runtime.Bridge.Binding
+  alias Jido.Chat.Runtime.Connection.Declaration, as: ConnectionDeclaration
+  alias Jido.Chat.Runtime.Room.{Declaration, HistoryRecord, Membership, Reaction, Record}
   alias Jido.Chat.Runtime.Storage.Outbox
 
   @statuses [:pending, :claimed, :submitted, :completed, :failed, :unknown]
@@ -13,7 +15,10 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
           rooms: map(),
           room_declarations: map(),
           memberships: map(),
-          history: map()
+          history: map(),
+          reactions: map(),
+          connections: map(),
+          bindings: map()
         }
 
   defstruct links_local: %{},
@@ -22,7 +27,10 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
             rooms: %{},
             room_declarations: %{},
             memberships: %{},
-            history: %{}
+            history: %{},
+            reactions: %{},
+            connections: %{},
+            bindings: %{}
 
   @doc false
   @spec new() :: t()
@@ -31,31 +39,42 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
   @doc false
   @spec restore(term()) :: {:ok, t()} | {:error, :invalid_storage_snapshot}
   def restore(%{__struct__: __MODULE__} = state) do
-    rooms = Map.get(state, :rooms, %{})
-    declarations = Map.get(state, :room_declarations, %{})
-    memberships = Map.get(state, :memberships, %{})
-    history = Map.get(state, :history, %{})
+    with {:ok, links_local} <- normalize_local_links(Map.get(state, :links_local)),
+         {:ok, links_external} <- restore_external_links(links_local, Map.get(state, :links_external)) do
+      rooms = Map.get(state, :rooms, %{})
+      declarations = Map.get(state, :room_declarations, %{})
+      memberships = Map.get(state, :memberships, %{})
+      history = Map.get(state, :history, %{})
+      reactions = Map.get(state, :reactions, %{})
+      connections = Map.get(state, :connections, %{})
+      bindings = Map.get(state, :bindings, %{})
 
-    valid =
-      is_map(Map.get(state, :links_local)) and is_map(Map.get(state, :links_external)) and
+      valid =
         is_map(Map.get(state, :work)) and is_map(rooms) and valid_rooms?(rooms) and
-        is_map(declarations) and valid_declarations?(declarations) and
-        is_map(memberships) and valid_memberships?(memberships) and
-        is_map(history) and valid_history?(history) and unique_history_sequences?(history)
+          is_map(declarations) and valid_declarations?(declarations) and
+          is_map(memberships) and valid_memberships?(memberships) and
+          is_map(history) and valid_history?(history) and unique_history_sequences?(history) and
+          is_map(reactions) and valid_reactions?(reactions) and
+          is_map(connections) and valid_connections?(connections) and
+          is_map(bindings) and valid_bindings?(bindings)
 
-    if valid do
-      {:ok,
-       %__MODULE__{
-         links_local: state.links_local,
-         links_external: state.links_external,
-         work: state.work,
-         rooms: rooms,
-         room_declarations: declarations,
-         memberships: memberships,
-         history: history
-       }}
-    else
-      {:error, :invalid_storage_snapshot}
+      if valid do
+        {:ok,
+         %__MODULE__{
+           links_local: links_local,
+           links_external: links_external,
+           work: Map.fetch!(state, :work),
+           rooms: rooms,
+           room_declarations: declarations,
+           memberships: memberships,
+           history: history,
+           reactions: reactions,
+           connections: connections,
+           bindings: bindings
+         }}
+      else
+        {:error, :invalid_storage_snapshot}
+      end
     end
   end
 
@@ -65,7 +84,7 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
   @spec command(t(), term()) :: {:ok, term(), t()} | {:error, term()}
   def command(state, {:put_link, link}) when is_map(link) do
     with :ok <- valid_link(link),
-         local_key = {link.account_id, link.local_message_id},
+         local_key = {link.account_id, link.local_message_id, link.external_room_id},
          external_key = {link.account_id, link.external_room_id, link.external_message_id},
          :ok <- compatible(state.links_local, local_key, link),
          :ok <- compatible(state.links_external, external_key, link) do
@@ -219,6 +238,105 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
     end
   end
 
+  def command(state, {:insert_reaction, %Reaction{} = reaction}) do
+    key = reaction_key(reaction)
+
+    with {:ok, reaction} <- Reaction.new(reaction),
+         :ok <- compatible_domain(state.reactions, key, reaction, :reaction_conflict) do
+      {:ok, reaction, %{state | reactions: Map.put(state.reactions, key, reaction)}}
+    end
+  end
+
+  def command(
+        state,
+        {:update_reaction, room_id, message_id, value, actor_key, expected_revision, %Reaction{} = reaction}
+      ) do
+    key = {room_id, message_id, value, actor_key}
+
+    with %Reaction{revision: ^expected_revision} = current <- Map.get(state.reactions, key),
+         {:ok, reaction} <- Reaction.new(reaction),
+         true <- reaction_key(reaction) == key,
+         true <- reaction.schema_version == current.schema_version,
+         true <- reaction.actor == current.actor and reaction.inserted_at == current.inserted_at,
+         true <- reaction.revision == expected_revision + 1,
+         true <- DateTime.compare(reaction.updated_at, current.updated_at) in [:eq, :gt] do
+      {:ok, reaction, %{state | reactions: Map.put(state.reactions, key, reaction)}}
+    else
+      nil -> {:error, :reaction_not_found}
+      %Reaction{} -> {:error, :reaction_conflict}
+      false -> {:error, :invalid_reaction_update}
+      {:error, _reason} = error -> error
+    end
+  end
+
+  def command(state, {:insert_connection, %ConnectionDeclaration{} = declaration}) do
+    with {:ok, declaration} <- ConnectionDeclaration.new(declaration),
+         :ok <-
+           compatible_domain(
+             state.connections,
+             declaration.account_id,
+             declaration,
+             :connection_conflict
+           ) do
+      {:ok, declaration, %{state | connections: Map.put(state.connections, declaration.account_id, declaration)}}
+    end
+  end
+
+  def command(
+        state,
+        {:update_connection, account_id, expected_revision, %ConnectionDeclaration{} = declaration}
+      ) do
+    with %ConnectionDeclaration{revision: ^expected_revision} = current <-
+           Map.get(state.connections, account_id),
+         {:ok, declaration} <- ConnectionDeclaration.new(declaration),
+         true <-
+           declaration.account_id == account_id and
+             declaration.schema_version == current.schema_version and
+             declaration.definition_key == current.definition_key and
+             declaration.inserted_at == current.inserted_at and
+             declaration.revision == expected_revision + 1 and
+             DateTime.compare(declaration.updated_at, current.updated_at) in [:eq, :gt] do
+      {:ok, declaration, %{state | connections: Map.put(state.connections, account_id, declaration)}}
+    else
+      nil -> {:error, :connection_not_found}
+      %ConnectionDeclaration{} -> {:error, :connection_conflict}
+      false -> {:error, :invalid_connection_update}
+      {:error, _reason} = error -> error
+    end
+  end
+
+  def command(state, {:insert_binding, %Binding{} = binding}) do
+    key = {binding.account_id, binding.external_room_id}
+
+    with {:ok, binding} <- Binding.new(binding),
+         :ok <- compatible_domain(state.bindings, key, binding, :binding_conflict) do
+      {:ok, binding, %{state | bindings: Map.put(state.bindings, key, binding)}}
+    end
+  end
+
+  def command(
+        state,
+        {:update_binding, account_id, external_room_id, expected_revision, %Binding{} = binding}
+      ) do
+    key = {account_id, external_room_id}
+
+    with %Binding{revision: ^expected_revision} = current <- Map.get(state.bindings, key),
+         {:ok, binding} <- Binding.new(binding),
+         true <-
+           binding.account_id == account_id and binding.external_room_id == external_room_id and
+             binding.schema_version == current.schema_version and
+             binding.inserted_at == current.inserted_at and
+             binding.revision == expected_revision + 1 and
+             DateTime.compare(binding.updated_at, current.updated_at) in [:eq, :gt] do
+      {:ok, binding, %{state | bindings: Map.put(state.bindings, key, binding)}}
+    else
+      nil -> {:error, :binding_not_found}
+      %Binding{} -> {:error, :binding_conflict}
+      false -> {:error, :invalid_binding_update}
+      {:error, _reason} = error -> error
+    end
+  end
+
   def command(_state, _command), do: {:error, :invalid_storage_command}
 
   @doc false
@@ -242,7 +360,14 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
   def query(state, {:link_for_local, account_id, local_message_id}) do
     with :ok <- valid_id(account_id),
          :ok <- valid_id(local_message_id) do
-      {:ok, Map.get(state.links_local, {account_id, local_message_id})}
+      {:ok, state |> local_links(account_id, local_message_id) |> List.first()}
+    end
+  end
+
+  def query(state, {:links_for_local, account_id, local_message_id}) do
+    with :ok <- valid_id(account_id),
+         :ok <- valid_id(local_message_id) do
+      {:ok, local_links(state, account_id, local_message_id)}
     end
   end
 
@@ -354,6 +479,51 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
     end
   end
 
+  def query(state, {:get_reaction, room_id, message_id, reaction, actor_key}) do
+    with :ok <- valid_id(room_id),
+         :ok <- valid_id(message_id),
+         :ok <- valid_id(reaction),
+         :ok <- valid_id(actor_key) do
+      {:ok, Map.get(state.reactions, {room_id, message_id, reaction, actor_key})}
+    end
+  end
+
+  def query(state, {:list_reactions, room_id, opts}) do
+    with :ok <- valid_id(room_id),
+         {:ok, query} <- reaction_query(opts),
+         values <- reaction_values(state.reactions, room_id, query),
+         {:ok, values} <- after_reaction(values, query.after) do
+      {:ok, Enum.take(values, query.limit)}
+    end
+  end
+
+  def query(state, {:get_connection, account_id}),
+    do: {:ok, Map.get(state.connections, account_id)}
+
+  def query(state, :list_connections) do
+    {:ok, state.connections |> Map.values() |> Enum.sort_by(& &1.account_id)}
+  end
+
+  def query(state, {:get_binding, account_id, external_room_id}),
+    do: {:ok, Map.get(state.bindings, {account_id, external_room_id})}
+
+  def query(state, {:list_bindings, account_id, opts}) do
+    with :ok <- valid_id(account_id),
+         {:ok, query} <- binding_query(opts) do
+      bindings =
+        state.bindings
+        |> Map.values()
+        |> Enum.filter(&(&1.account_id == account_id))
+        |> Enum.filter(&(is_nil(query.enabled) or &1.enabled == query.enabled))
+        |> Enum.filter(&(is_nil(query.direction) or &1.direction == query.direction))
+        |> Enum.sort_by(& &1.external_room_id)
+        |> Enum.drop_while(&(not is_nil(query.after) and &1.external_room_id <= query.after))
+        |> Enum.take(query.limit)
+
+      {:ok, bindings}
+    end
+  end
+
   def query(_state, _query), do: {:error, :invalid_storage_query}
 
   defp compatible(values, key, value) do
@@ -363,6 +533,93 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
       _other -> {:error, :storage_conflict}
     end
   end
+
+  defp local_links(state, account_id, local_message_id) do
+    state.links_local
+    |> Enum.flat_map(fn
+      {{^account_id, ^local_message_id, _external_room_id}, link} -> [link]
+      _entry -> []
+    end)
+    |> Enum.sort_by(& &1.external_room_id)
+  end
+
+  defp reaction_key(reaction),
+    do: {reaction.room_id, reaction.message_id, reaction.reaction, reaction.actor_key}
+
+  defp reaction_values(reactions, room_id, query) do
+    reactions
+    |> Map.values()
+    |> Enum.filter(&(&1.room_id == room_id))
+    |> Enum.filter(&(is_nil(query.status) or &1.status == query.status))
+    |> Enum.filter(fn value ->
+      is_nil(query.message_ids) or value.message_id in query.message_ids
+    end)
+    |> Enum.sort_by(&{&1.message_id, &1.reaction, &1.actor_key})
+  end
+
+  defp after_reaction(values, nil), do: {:ok, values}
+
+  defp after_reaction(values, cursor) do
+    case Enum.split_while(values, &(&1.id != cursor)) do
+      {_before, [_cursor | rest]} -> {:ok, rest}
+      {_before, []} -> {:error, :invalid_reaction_cursor}
+    end
+  end
+
+  defp normalize_local_links(values) when is_map(values) do
+    Enum.reduce_while(values, {:ok, %{}}, fn
+      {{account_id, local_message_id, external_room_id}, link}, {:ok, links} ->
+        put_restored_link(links, account_id, local_message_id, external_room_id, link)
+
+      {{account_id, local_message_id}, link}, {:ok, links} ->
+        put_restored_link(
+          links,
+          account_id,
+          local_message_id,
+          Map.get(link, :external_room_id),
+          link
+        )
+
+      _entry, _result ->
+        {:halt, {:error, :invalid_storage_snapshot}}
+    end)
+  end
+
+  defp normalize_local_links(_values), do: {:error, :invalid_storage_snapshot}
+
+  defp put_restored_link(links, account_id, local_message_id, external_room_id, link) do
+    valid =
+      is_map(link) and Map.get(link, :account_id) == account_id and
+        Map.get(link, :local_message_id) == local_message_id and
+        Map.get(link, :external_room_id) == external_room_id and
+        valid_link(link) == :ok
+
+    key = {account_id, local_message_id, external_room_id}
+
+    cond do
+      not valid -> {:halt, {:error, :invalid_storage_snapshot}}
+      Map.has_key?(links, key) -> {:halt, {:error, :invalid_storage_snapshot}}
+      true -> {:cont, {:ok, Map.put(links, key, link)}}
+    end
+  end
+
+  defp restore_external_links(links_local, stored) when is_map(stored) do
+    Enum.reduce_while(links_local, {:ok, %{}}, fn {_local_key, link}, {:ok, links} ->
+      key = {link.account_id, link.external_room_id, link.external_message_id}
+
+      case Map.get(links, key) do
+        nil -> {:cont, {:ok, Map.put(links, key, link)}}
+        ^link -> {:cont, {:ok, links}}
+        _other -> {:halt, {:error, :invalid_storage_snapshot}}
+      end
+    end)
+    |> case do
+      {:ok, ^stored} -> {:ok, stored}
+      _other -> {:error, :invalid_storage_snapshot}
+    end
+  end
+
+  defp restore_external_links(_links_local, _stored), do: {:error, :invalid_storage_snapshot}
 
   defp compatible_room(values, key, value) do
     case compatible(values, key, value) do
@@ -437,6 +694,42 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
     end)
   end
 
+  defp valid_reactions?(values) do
+    Enum.all?(values, fn
+      {{room_id, message_id, reaction, actor_key},
+       %Reaction{
+         room_id: room_id,
+         message_id: message_id,
+         reaction: reaction,
+         actor_key: actor_key
+       } = value} ->
+        match?({:ok, _}, Reaction.new(value))
+
+      _entry ->
+        false
+    end)
+  end
+
+  defp valid_connections?(values) do
+    Enum.all?(values, fn
+      {account_id, %ConnectionDeclaration{account_id: account_id} = value} ->
+        match?({:ok, _}, ConnectionDeclaration.new(value))
+
+      _entry ->
+        false
+    end)
+  end
+
+  defp valid_bindings?(values) do
+    Enum.all?(values, fn
+      {{account_id, external_room_id}, %Binding{account_id: account_id, external_room_id: external_room_id} = value} ->
+        match?({:ok, _}, Binding.new(value))
+
+      _entry ->
+        false
+    end)
+  end
+
   defp unique_history_sequences?(values) do
     keys = Enum.map(values, fn {_key, value} -> {value.room_id, value.sequence} end)
     length(keys) == length(Enum.uniq(keys))
@@ -457,6 +750,54 @@ defmodule Jido.Chat.Runtime.Storage.Engine do
   end
 
   defp membership_query(_opts), do: {:error, :invalid_options}
+
+  defp binding_query(opts) when is_list(opts) do
+    with true <- Keyword.keyword?(opts),
+         keys = Keyword.keys(opts),
+         true <- keys == Enum.uniq(keys),
+         [] <- keys -- [:enabled, :direction, :after, :limit],
+         enabled when is_nil(enabled) or is_boolean(enabled) <- Keyword.get(opts, :enabled),
+         direction when is_nil(direction) or direction in [:inbound, :outbound, :both] <-
+           Keyword.get(opts, :direction),
+         after_id when is_nil(after_id) or is_binary(after_id) <- Keyword.get(opts, :after),
+         limit when is_integer(limit) and limit in 1..1_000 <- Keyword.get(opts, :limit, 100) do
+      {:ok, %{enabled: enabled, direction: direction, after: after_id, limit: limit}}
+    else
+      _reason -> {:error, :invalid_options}
+    end
+  end
+
+  defp binding_query(_opts), do: {:error, :invalid_options}
+
+  defp reaction_query(opts) when is_list(opts) do
+    with true <- Keyword.keyword?(opts),
+         keys = Keyword.keys(opts),
+         true <- keys == Enum.uniq(keys),
+         [] <- keys -- [:message_id, :message_ids, :status, :after, :limit],
+         message_id when is_nil(message_id) or is_binary(message_id) <- Keyword.get(opts, :message_id),
+         message_ids when is_nil(message_ids) or is_list(message_ids) <- Keyword.get(opts, :message_ids),
+         true <- is_nil(message_id) or is_nil(message_ids),
+         {:ok, message_ids} <- reaction_message_ids(message_id, message_ids),
+         status when is_nil(status) or status in [:active, :removed] <- Keyword.get(opts, :status),
+         after_id when is_nil(after_id) or is_binary(after_id) <- Keyword.get(opts, :after),
+         limit when is_integer(limit) and limit in 1..1_000 <- Keyword.get(opts, :limit, 100) do
+      {:ok, %{message_ids: message_ids, status: status, after: after_id, limit: limit}}
+    else
+      _reason -> {:error, :invalid_options}
+    end
+  end
+
+  defp reaction_query(_opts), do: {:error, :invalid_options}
+
+  defp reaction_message_ids(nil, nil), do: {:ok, nil}
+  defp reaction_message_ids(message_id, nil), do: reaction_message_ids(nil, [message_id])
+
+  defp reaction_message_ids(nil, values) do
+    if values != [] and length(values) <= 100 and values == Enum.uniq(values) and
+         Enum.all?(values, &(valid_id(&1) == :ok)),
+       do: {:ok, values},
+       else: {:error, :invalid_options}
+  end
 
   defp history_query(opts) when is_list(opts) do
     with true <- Keyword.keyword?(opts),

@@ -12,6 +12,8 @@ defmodule Jido.Chat.Runtime.Storage.Links do
   @callback put_link(resource :: term(), link()) :: {:ok, link()} | {:error, term()}
   @callback link_for_local(resource :: term(), account_id :: String.t(), local_message_id :: String.t()) ::
               {:ok, link() | nil} | {:error, term()}
+  @callback links_for_local(resource :: term(), account_id :: String.t(), local_message_id :: String.t()) ::
+              {:ok, [link()]} | {:error, term()}
   @callback link_for_external(
               resource :: term(),
               account_id :: String.t(),

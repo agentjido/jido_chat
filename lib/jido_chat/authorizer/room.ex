@@ -15,6 +15,8 @@ defmodule Jido.Chat.Authorizer.Room do
         :room_join -> actor == admin
         :room_leave -> actor == admin or actor == member
         :message_post -> actor_active?
+        :reaction_add -> actor_active?
+        :reaction_remove -> actor_active?
         :member_check -> actor == member
         _other -> false
       end

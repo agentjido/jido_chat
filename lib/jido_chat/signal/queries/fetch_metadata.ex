@@ -5,7 +5,7 @@ defmodule Jido.Chat.Signal.FetchMetadata do
     dataschema: "urn:jido:chat:schema:query_fetch_metadata:3",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
           "client_id" => Jido.Chat.Signal.Schemas.id(),
           "request_id" => Jido.Chat.Signal.Schemas.id(),

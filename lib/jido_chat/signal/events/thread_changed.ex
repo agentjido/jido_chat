@@ -10,26 +10,26 @@ defmodule Jido.Chat.Signal.ThreadChanged do
     dataschema: "urn:jido:chat:schema:thread_changed:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "thread_id" => Zoi.string() |> Zoi.min(1),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "thread_id" => Jido.Joi.string() |> Jido.Joi.min(1),
           "parent_message_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "actor_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
-          "name" => Zoi.string() |> Zoi.optional(),
-          "change" => Zoi.enum(["updated", "reopened", "closed"])
+            |> Jido.Joi.optional(),
+          "name" => Jido.Joi.string() |> Jido.Joi.optional(),
+          "change" => Jido.Joi.enum(["updated", "reopened", "closed"])
         },
         unrecognized_keys: :error
       )

@@ -10,20 +10,20 @@ defmodule Jido.Chat.Signal.ReactionAdded do
     dataschema: "urn:jido:chat:schema:reaction_added:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "message_id" => Zoi.string() |> Zoi.min(1),
-          "actor_id" => Zoi.string() |> Zoi.min(1),
-          "reaction" => Zoi.string() |> Zoi.min(1),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "message_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "actor_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "reaction" => Jido.Joi.string() |> Jido.Joi.min(1),
           "thread_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional()
+            |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

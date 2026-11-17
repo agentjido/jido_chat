@@ -7,6 +7,7 @@ defmodule Jido.Chat.ModalRenderingTest do
   test "modal controls retain accessible labels, options and nested groups" do
     option = Modal.select_option("One", "1", %{"help_text" => "Help"})
     group = Modal.select_option_group("Group", [option], %{"id" => "group"})
+    assert Modal.select_option_group("Default Group", [option]).kind == :option_group
 
     elements = [
       Modal.text_input("text", "Notes", multiline: true, required: true, help_text: "Add notes."),
@@ -47,6 +48,23 @@ defmodule Jido.Chat.ModalRenderingTest do
     end
 
     assert Modal.fallback_text(Modal.new(%{title: "Empty"})) == "Empty"
-    assert Zoi.parse(Modal.schema(), %{}) |> elem(0) == :error
+    assert Jido.Joi.parse(Modal.schema(), %{}) |> elem(0) == :error
+
+    assert Jido.Joi.parse(Element.schema(), %{kind: :select, id: "select", options: [%{bad: true}]}) |> elem(0) ==
+             :error
+  end
+
+  test "modal value validation handles open bounds and malformed values" do
+    element = Element.new(%{kind: :number_input, id: "count", min_value: 1})
+    assert element.min_value == 1
+    assert element.max_value == nil
+
+    assert_raise Jido.Chat.Errors.Validation, fn ->
+      Element.new(%{kind: :date_input, id: "date", min_date: "not-a-date"})
+    end
+
+    assert_raise Jido.Chat.Errors.Validation, fn ->
+      Element.new(%{kind: :number_input, id: "count", value: "1 item"})
+    end
   end
 end

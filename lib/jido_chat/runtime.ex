@@ -11,10 +11,12 @@ defmodule Jido.Chat.Runtime do
     deps: [Jido.Chat],
     exports: [
       Supervisor,
+      Bus,
       {Room, []},
       Participant,
       Connection,
       Bridge,
+      {SecretResolver, []},
       {Actions, []},
       {Signal, []},
       {Storage, []}
@@ -28,6 +30,8 @@ defmodule Jido.Chat.Runtime do
           :jido,
           :storage,
           :room_definitions,
+          :connection_definitions,
+          :secret_resolver,
           :provider_work_limit,
           :provider_queue_limit,
           :provider_work_lease_ms
@@ -36,12 +40,19 @@ defmodule Jido.Chat.Runtime do
       @chat_runtime_jido Keyword.fetch!(opts, :jido)
       @chat_runtime_storage Keyword.get(opts, :storage)
       room_definitions = Keyword.get(opts, :room_definitions, %{})
+      connection_definitions = Keyword.get(opts, :connection_definitions, %{})
 
       unless is_map(room_definitions) do
         raise ArgumentError, "room_definitions must be a map"
       end
 
+      unless is_map(connection_definitions) do
+        raise ArgumentError, "connection_definitions must be a map"
+      end
+
       @chat_runtime_room_definitions room_definitions
+      @chat_runtime_connection_definitions connection_definitions
+      @chat_runtime_secret_resolver Keyword.get(opts, :secret_resolver)
       @chat_runtime_provider_work_limit Keyword.get(opts, :provider_work_limit, 4)
       @chat_runtime_provider_queue_limit Keyword.get(opts, :provider_queue_limit, 1_000)
       @chat_runtime_provider_work_lease_ms Keyword.get(opts, :provider_work_lease_ms, 60_000)
@@ -60,6 +71,20 @@ defmodule Jido.Chat.Runtime do
                  definition not in [nil, true, false]
              end) do
         raise ArgumentError, "room_definitions must map nonempty string keys to Room Agent modules"
+      end
+
+      unless Enum.all?(@chat_runtime_connection_definitions, fn {key, definition} ->
+               is_binary(key) and byte_size(key) in 1..256 and is_atom(definition) and
+                 definition not in [nil, true, false]
+             end) do
+        raise ArgumentError,
+              "connection_definitions must map nonempty string keys to provider Agent modules"
+      end
+
+      unless is_nil(@chat_runtime_secret_resolver) or
+               (is_atom(@chat_runtime_secret_resolver) and
+                  @chat_runtime_secret_resolver not in [nil, true, false]) do
+        raise ArgumentError, "secret_resolver must be a module"
       end
 
       unless is_integer(@chat_runtime_provider_work_limit) and
@@ -99,6 +124,24 @@ defmodule Jido.Chat.Runtime do
       @doc false
       def room_definitions, do: @chat_runtime_room_definitions
 
+      @doc "Resolves one durable provider definition key through trusted host code."
+      @spec connection_definition(String.t()) ::
+              {:ok, module()} | {:error, :unknown_connection_definition}
+      def connection_definition(key) when is_binary(key) do
+        case Enum.find(@chat_runtime_connection_definitions, fn {known, _definition} -> known == key end) do
+          {_known, definition} -> {:ok, definition}
+          nil -> {:error, :unknown_connection_definition}
+        end
+      end
+
+      def connection_definition(_key), do: {:error, :unknown_connection_definition}
+
+      @doc false
+      def connection_definitions, do: @chat_runtime_connection_definitions
+
+      @doc false
+      def secret_resolver, do: @chat_runtime_secret_resolver
+
       @doc false
       def provider_work_limits do
         {@chat_runtime_provider_work_limit, @chat_runtime_provider_queue_limit}
@@ -121,6 +164,17 @@ defmodule Jido.Chat.Runtime do
 
       @doc "Returns status for the managed Runtime tree."
       def runtime_status, do: Jido.Chat.Runtime.Supervisor.status(__MODULE__)
+
+      @doc "Returns the application-wide observation Bus for the managed Runtime."
+      def runtime_bus, do: Jido.Chat.Runtime.Bus.whereis(__MODULE__)
+
+      @doc "Subscribes to native Jido Signal paths on the Runtime Bus."
+      def subscribe_runtime(path, opts \\ []),
+        do: Jido.Chat.Runtime.Bus.subscribe(__MODULE__, path, opts)
+
+      @doc "Unsubscribes one native Runtime Bus subscription."
+      def unsubscribe_runtime(subscription_id, opts \\ []),
+        do: Jido.Chat.Runtime.Bus.unsubscribe(__MODULE__, subscription_id, opts)
 
       @doc "Reconciles all managed Runtime declarations now."
       def reconcile_runtime, do: Jido.Chat.Runtime.Supervisor.reconcile(__MODULE__)
@@ -209,6 +263,21 @@ defmodule Jido.Chat.Runtime do
       def get_room_history(id, message_id),
         do: Jido.Chat.Runtime.Room.Durable.get_message(__MODULE__, id, message_id)
 
+      @doc "Returns current reaction state for one Room message and actor."
+      def get_room_reaction(id, message_id, reaction, actor),
+        do:
+          Jido.Chat.Runtime.Room.Durable.get_reaction(
+            __MODULE__,
+            id,
+            message_id,
+            reaction,
+            actor
+          )
+
+      @doc "Lists current durable Room reactions with bounded query options."
+      def list_room_reactions(id, opts \\ []),
+        do: Jido.Chat.Runtime.Room.Durable.list_reactions(__MODULE__, id, opts)
+
       @doc "Lists all managed provider account declarations."
       def list_managed_connections,
         do: Jido.Chat.Runtime.Supervisor.list_connections(__MODULE__)
@@ -228,6 +297,59 @@ defmodule Jido.Chat.Runtime do
       @doc "Restarts one managed provider account declaration."
       def restart_managed_connection(id),
         do: Jido.Chat.Runtime.Supervisor.restart_connection(__MODULE__, id)
+
+      @doc "Creates one durable provider account declaration and requests activation."
+      def provision_connection(definition_key, attrs),
+        do: Jido.Chat.Runtime.Connection.Provisioning.provision(__MODULE__, definition_key, attrs)
+
+      @doc "Returns one durable provider account declaration."
+      def get_connection_declaration(account_id),
+        do: Jido.Chat.Runtime.Connection.Durable.get(__MODULE__, account_id)
+
+      @doc "Lists durable provider account declarations."
+      def list_connection_declarations,
+        do: Jido.Chat.Runtime.Connection.Durable.list(__MODULE__)
+
+      @doc "Updates the credential references, settings, or metadata of one durable provider account."
+      def update_connection_declaration(account_id, expected_revision, attrs),
+        do:
+          Jido.Chat.Runtime.Connection.Provisioning.update(
+            __MODULE__,
+            account_id,
+            expected_revision,
+            attrs
+          )
+
+      @doc "Persists a stopped provider account state and stops its matching Agent."
+      def deprovision_connection(account_id),
+        do: Jido.Chat.Runtime.Connection.Provisioning.deprovision(__MODULE__, account_id)
+
+      @doc "Creates one durable bridge binding."
+      def create_bridge_binding(attrs),
+        do: Jido.Chat.Runtime.Bridge.Bindings.create(__MODULE__, attrs)
+
+      @doc "Returns one durable bridge binding by account and external Room."
+      def get_bridge_binding(account_id, external_room_id),
+        do: Jido.Chat.Runtime.Bridge.Bindings.get(__MODULE__, account_id, external_room_id)
+
+      @doc "Lists durable bridge bindings for one provider account."
+      def list_bridge_bindings(account_id, opts \\ []),
+        do: Jido.Chat.Runtime.Bridge.Bindings.list(__MODULE__, account_id, opts)
+
+      @doc "Updates one durable bridge binding at the expected revision."
+      def update_bridge_binding(account_id, external_room_id, expected_revision, attrs),
+        do:
+          Jido.Chat.Runtime.Bridge.Bindings.update(
+            __MODULE__,
+            account_id,
+            external_room_id,
+            expected_revision,
+            attrs
+          )
+
+      @doc "Disables one durable bridge binding and returns account reconciliation evidence."
+      def deprovision_bridge_binding(account_id, external_room_id),
+        do: Jido.Chat.Runtime.Bridge.Bindings.disable(__MODULE__, account_id, external_room_id)
 
       @doc "Returns the stable Agent Address for one provider account."
       def connection_ref(account_id),
@@ -256,6 +378,10 @@ defmodule Jido.Chat.Runtime do
       @doc "Returns the Bridge link for one local message."
       def bridge_link(account_id, local_message_id),
         do: Jido.Chat.Runtime.Bridge.link(__MODULE__, account_id, local_message_id)
+
+      @doc "Returns all Bridge links for one local message."
+      def bridge_links(account_id, local_message_id),
+        do: Jido.Chat.Runtime.Bridge.links(__MODULE__, account_id, local_message_id)
     end
   end
 end

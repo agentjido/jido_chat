@@ -1,7 +1,7 @@
 defmodule Jido.Chat.Runtime.Actions.BridgeResult do
   @moduledoc "Records one correlated provider result in Runtime storage."
 
-  use Jido.Action, name: "chat_bridge_result", schema: Zoi.map()
+  use Jido.Action, name: "chat_bridge_result", schema: Jido.Joi.map()
 
   alias Jido.Chat.Runtime.Bridge
   alias Jido.Chat.Runtime.Directives.CompleteOutbound

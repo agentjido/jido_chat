@@ -6,6 +6,9 @@ defmodule Jido.Chat.Runtime.Room do
   starts no room or Bus process.
   """
 
+  @stop_timeout 5_000
+  @stop_poll_interval 5
+
   defmacro __using__(opts) do
     quote do
       use Jido.Agent,
@@ -16,6 +19,8 @@ defmodule Jido.Chat.Runtime.Room do
         route("jido.chat.room.join", Jido.Chat.Runtime.Actions.RoomCommand)
         route("jido.chat.room.leave", Jido.Chat.Runtime.Actions.RoomCommand)
         route("jido.chat.room.post", Jido.Chat.Runtime.Actions.RoomCommand)
+        route("jido.chat.room.reaction.add", Jido.Chat.Runtime.Actions.RoomCommand)
+        route("jido.chat.room.reaction.remove", Jido.Chat.Runtime.Actions.RoomCommand)
         route("jido.chat.room.check_member", Jido.Chat.Runtime.Actions.RoomCommand)
       end
     end
@@ -36,7 +41,7 @@ defmodule Jido.Chat.Runtime.Room do
   @spec stop_agent(atom(), Jido.Agent.Address.t()) :: :ok | {:error, term()}
   def stop_agent(jido, address) do
     with {:ok, server} <- Jido.resolve_agent(jido, address) do
-      Jido.stop_agent(jido, server, partition: address.partition)
+      stop_resolved_agent(jido, address, server)
     end
   end
 
@@ -45,11 +50,7 @@ defmodule Jido.Chat.Runtime.Room do
     case Jido.AgentServer.snapshot(server) do
       %Jido.AgentServer.Snapshot{agent: actual, agent_address: ^ref} ->
         if same_definition?(expected, actual) do
-          case Jido.stop_agent(jido, server, partition: ref.partition) do
-            :ok -> :ok
-            {:error, :not_found} -> :ok
-            {:error, reason} -> {:error, reason}
-          end
+          stop_resolved_agent(jido, ref, server)
         else
           {:error, :address_in_use}
         end
@@ -86,7 +87,7 @@ defmodule Jido.Chat.Runtime.Room do
   end
 
   @doc "Returns the schema for a host principal ID or full Agent Address."
-  @spec member_schema() :: Zoi.schema()
+  @spec member_schema() :: Jido.Joi.schema()
   defdelegate member_schema(), to: Jido.Chat.Runtime.Signal.Room
 
   @doc "Returns a Bus name that includes the complete room identity."
@@ -118,6 +119,35 @@ defmodule Jido.Chat.Runtime.Room do
 
   def same_definition?(expected, actual),
     do: definition_key(expected) == definition_key(actual)
+
+  defp stop_resolved_agent(jido, address, server) do
+    case Jido.stop_agent(jido, server, partition: address.partition) do
+      :ok -> await_stopped(jido, address, System.monotonic_time(:millisecond) + @stop_timeout)
+      {:error, :not_found} -> :ok
+      {:error, reason} -> {:error, reason}
+    end
+  end
+
+  defp await_stopped(jido, address, deadline) do
+    case Jido.resolve_agent(jido, address) do
+      {:error, :not_found} ->
+        :ok
+
+      result when result in [{:error, :recovering}, {:error, :passivating}] ->
+        if System.monotonic_time(:millisecond) < deadline do
+          Process.sleep(@stop_poll_interval)
+          await_stopped(jido, address, deadline)
+        else
+          {:error, :agent_stop_timeout}
+        end
+
+      {:ok, _server} ->
+        {:error, :agent_still_running}
+
+      {:error, reason} ->
+        {:error, reason}
+    end
+  end
 
   defp definition_key(agent) do
     {

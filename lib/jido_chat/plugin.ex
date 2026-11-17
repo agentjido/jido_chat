@@ -143,30 +143,31 @@ defmodule Jido.Chat.Plugin do
   @impl Jido.Agent.Extension
   def normalize(data) do
     with {:ok, value} <-
-           Zoi.parse(
-             Zoi.object(
+           Jido.Joi.parse(
+             Jido.Joi.object(
                %{
-                 identity_provider: Zoi.any() |> Zoi.default(nil),
-                 identity_options: Zoi.map() |> Zoi.default(%{}),
-                 authorizer: Zoi.any() |> Zoi.default(nil),
-                 authorization_options: Zoi.map() |> Zoi.default(%{}),
+                 identity_provider: Jido.Joi.any() |> Jido.Joi.default(nil),
+                 identity_options: Jido.Joi.map() |> Jido.Joi.default(%{}),
+                 authorizer: Jido.Joi.any() |> Jido.Joi.default(nil),
+                 authorization_options: Jido.Joi.map() |> Jido.Joi.default(%{}),
+                 runtime_configuration: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
                  connections:
-                   Zoi.array(
-                     Zoi.object(
+                   Jido.Joi.array(
+                     Jido.Joi.object(
                        %{
-                         name: Zoi.atom(),
-                         client: Zoi.map(),
+                         name: Jido.Joi.atom(),
+                         client: Jido.Joi.map(),
                          commands:
-                           Zoi.array(Zoi.atom())
-                           |> Zoi.min(1)
-                           |> Zoi.default([Jido.Chat.SendMessage]),
-                         rooms: Zoi.any(),
-                         source: Zoi.any() |> Zoi.default(nil)
+                           Jido.Joi.array(Jido.Joi.atom())
+                           |> Jido.Joi.min(1)
+                           |> Jido.Joi.default([Jido.Chat.SendMessage]),
+                         rooms: Jido.Joi.any(),
+                         source: Jido.Joi.any() |> Jido.Joi.default(nil)
                        },
                        unrecognized_keys: :error
                      )
                    )
-                   |> Zoi.min(1)
+                   |> Jido.Joi.min(1)
                },
                unrecognized_keys: :error
              ),
@@ -187,7 +188,7 @@ defmodule Jido.Chat.Plugin do
     rooms? =
       case connection.rooms do
         rooms when is_list(rooms) ->
-          rooms != [] and Enum.all?(rooms, &valid_room?/1)
+          Enum.all?(rooms, &valid_room?/1)
 
         _ ->
           false

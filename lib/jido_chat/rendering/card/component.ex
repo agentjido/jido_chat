@@ -33,47 +33,48 @@ defmodule Jido.Chat.Card.Component do
     :divider
   ]
 
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              kind: Zoi.enum(@kinds),
-              id: Zoi.string() |> Zoi.nullish(),
-              title: Zoi.string() |> Zoi.nullish(),
-              label: Zoi.string() |> Zoi.nullish(),
-              text: Zoi.string() |> Zoi.nullish(),
-              url: Zoi.string() |> Zoi.nullish(),
-              value: Zoi.string() |> Zoi.nullish(),
-              image_url: Zoi.string() |> Zoi.nullish(),
-              alt_text: Zoi.string() |> Zoi.nullish(),
-              fallback_text: Zoi.string() |> Zoi.nullish(),
-              caption: Zoi.string() |> Zoi.nullish(),
-              style: Zoi.string() |> Zoi.nullish(),
-              disabled: Zoi.boolean() |> Zoi.default(false),
-              markdown: Zoi.any() |> Zoi.nullish(),
-              items: Zoi.list() |> Zoi.default([]),
-              options: Zoi.list() |> Zoi.default([]),
-              option_groups: Zoi.list() |> Zoi.default([]),
-              options_source: Zoi.enum([:static, :external, :dynamic]) |> Zoi.nullish(),
-              min_query_length: Zoi.integer() |> Zoi.nullish(),
-              timeout_ms: Zoi.integer() |> Zoi.nullish(),
-              columns: Zoi.list() |> Zoi.default([]),
-              rows: Zoi.list() |> Zoi.default([]),
-              page_size: Zoi.integer() |> Zoi.nullish(),
-              data: Zoi.list() |> Zoi.default([]),
-              categories: Zoi.list() |> Zoi.default([]),
-              series: Zoi.list() |> Zoi.default([]),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              kind: Jido.Joi.enum(@kinds),
+              id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              title: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              label: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              text: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              url: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              value: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              image_url: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              alt_text: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              fallback_text: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              caption: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              style: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              disabled: Jido.Joi.boolean() |> Jido.Joi.default(false),
+              markdown: Jido.Joi.struct(Markdown) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              items: Jido.Joi.list(Jido.Joi.struct(__MODULE__)) |> Jido.Joi.default([]),
+              options: Jido.Joi.list(Jido.Joi.struct(__MODULE__)) |> Jido.Joi.default([]),
+              option_groups: Jido.Joi.list(Jido.Joi.struct(__MODULE__)) |> Jido.Joi.default([]),
+              options_source:
+                Jido.Joi.enum([:static, :external, :dynamic]) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              min_query_length: Jido.Joi.integer() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              timeout_ms: Jido.Joi.integer() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              columns: Jido.Joi.list() |> Jido.Joi.default([]),
+              rows: Jido.Joi.list() |> Jido.Joi.default([]),
+              page_size: Jido.Joi.integer() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              data: Jido.Joi.list(Jido.Joi.struct(ChartData)) |> Jido.Joi.default([]),
+              categories: Jido.Joi.list() |> Jido.Joi.default([]),
+              series: Jido.Joi.list(Jido.Joi.struct(ChartSeries)) |> Jido.Joi.default([]),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({__MODULE__, :validate, []})
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({__MODULE__, :validate, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
   @type input :: t() | map() | String.t()
 
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the schema for a card component."
   def schema, do: @schema
@@ -84,7 +85,7 @@ defmodule Jido.Chat.Card.Component do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Jido.Chat.Value.validate_portable!()
+    |> Jido.Chat.Value.without_marker()
     |> normalize_kind()
     |> normalize_options_source()
     |> normalize_markdown()

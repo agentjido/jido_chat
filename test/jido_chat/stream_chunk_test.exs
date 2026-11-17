@@ -19,7 +19,7 @@ defmodule Jido.Chat.StreamChunkTest do
     assert StreamChunk.markdown_fallback(12) == "12"
     map = StreamChunk.to_map(chunk)
     assert StreamChunk.to_map(StreamChunk.from_map(map)) == map
-    assert Zoi.parse(StreamChunk.schema(), %{kind: :unsupported}) |> elem(0) == :error
+    assert Jido.Joi.parse(StreamChunk.schema(), %{kind: :unsupported}) |> elem(0) == :error
   end
 
   test "status and step chunks use safe plain and escaped Markdown labels" do

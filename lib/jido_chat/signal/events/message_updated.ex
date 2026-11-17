@@ -10,37 +10,37 @@ defmodule Jido.Chat.Signal.MessageUpdated do
     dataschema: "urn:jido:chat:schema:message_updated:2",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "message_id" => Zoi.string() |> Zoi.min(1),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "message_id" => Jido.Joi.string() |> Jido.Joi.min(1),
           "sender" =>
-            Zoi.map(
+            Jido.Joi.map(
               %{
-                "id" => Zoi.string() |> Zoi.min(1),
-                "username" => Zoi.string() |> Zoi.optional(),
-                "display_name" => Zoi.string() |> Zoi.optional(),
-                "is_bot" => Zoi.boolean() |> Zoi.optional(),
-                "is_self" => Zoi.boolean() |> Zoi.optional()
+                "id" => Jido.Joi.string() |> Jido.Joi.min(1),
+                "username" => Jido.Joi.string() |> Jido.Joi.optional(),
+                "display_name" => Jido.Joi.string() |> Jido.Joi.optional(),
+                "is_bot" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                "is_self" => Jido.Joi.boolean() |> Jido.Joi.optional()
               },
               unrecognized_keys: :error
             )
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "text" =>
-            Zoi.union([
-              Zoi.string(),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string(),
+              Jido.Joi.literal(nil)
             ]),
           "thread_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
-          "media" => Zoi.array(Jido.Chat.Signal.Schemas.media()) |> Zoi.optional(),
-          "timestamp" => Zoi.string() |> Zoi.optional()
+            |> Jido.Joi.optional(),
+          "media" => Jido.Joi.array(Jido.Chat.Signal.Schemas.media()) |> Jido.Joi.optional(),
+          "timestamp" => Jido.Joi.string() |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

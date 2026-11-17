@@ -1,7 +1,7 @@
 defmodule Jido.Chat.Runtime.Bridge.Mapping do
   @moduledoc false
   @type t :: %__MODULE__{
-          name: atom() | nil,
+          name: atom() | String.t() | nil,
           external_room: String.t() | nil,
           room: String.t() | Jido.Agent.Address.t() | nil,
           direction: :inbound | :outbound | :both | nil,

@@ -117,9 +117,9 @@ defmodule Jido.ChatAction.Execution do
     Schemas.object(%{
       "client_id" => Schemas.id(),
       "request_id" => Schemas.id(),
-      "operation" => Zoi.literal(operation),
+      "operation" => Jido.Joi.literal(operation),
       "code" =>
-        Zoi.enum([
+        Jido.Joi.enum([
           "unsupported",
           "provider_failure",
           "invalid_provider_result",
@@ -129,8 +129,8 @@ defmodule Jido.ChatAction.Execution do
           "rate_limited",
           "timeout"
         ]),
-      "retry_after_ms" => Zoi.integer() |> Zoi.min(0) |> Zoi.optional(),
-      "outcome" => Zoi.enum(["not_attempted", "rejected", "unknown"])
+      "retry_after_ms" => Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.optional(),
+      "outcome" => Jido.Joi.enum(["not_attempted", "rejected", "unknown"])
     })
   end
 
@@ -247,7 +247,7 @@ defmodule Jido.ChatAction.Execution do
   end
 
   defp complete(contract, client, request, value) do
-    with {:ok, result} when is_map(result) <- Zoi.parse(contract.result_schema, value),
+    with {:ok, result} when is_map(result) <- Jido.Joi.parse(contract.result_schema, value),
          :ok <- Policy.validate_json(result, []),
          true <- references_match?(result, client.id),
          true <-

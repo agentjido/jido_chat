@@ -7,27 +7,27 @@ defmodule Jido.Chat.StreamChunk do
 
   @kinds [:text, :markdown, :status, :plan, :data, :step_start, :step_finish, :timeline]
 
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
               kind:
-                Zoi.enum(Enum.map(@kinds, &{&1, Atom.to_string(&1)}), coerce: true)
-                |> Zoi.default(:text),
-              text: Zoi.string() |> Zoi.nullish(),
-              payload: Zoi.any() |> Zoi.nullish(),
-              metadata: Zoi.map() |> Zoi.default(%{})
+                Jido.Joi.enum(Enum.map(@kinds, &{&1, Atom.to_string(&1)}), coerce: true)
+                |> Jido.Joi.default(:text),
+              text: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              payload: Jido.Joi.any() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
   @type input :: t() | String.t() | map()
 
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
-  @doc "Returns the Zoi schema for StreamChunk."
+  @doc "Returns the Joi schema for StreamChunk."
   def schema, do: @schema
 
   @doc "Creates a stream chunk from normalized map input."
@@ -35,7 +35,7 @@ defmodule Jido.Chat.StreamChunk do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Jido.Chat.Value.validate_portable!()
+    |> Jido.Chat.Value.without_marker()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 

@@ -38,6 +38,34 @@ defmodule Jido.Chat.MediaTypeTest do
     assert MediaType.sniff("unknown") == nil
   end
 
+  test "recognizes the supported common file signatures" do
+    signatures = [
+      {<<"GIF87a", 0>>, "image/gif"},
+      {<<"GIF89a", 0>>, "image/gif"},
+      {<<"RIFF", 0, 0, 0, 0, "WEBP", 0>>, "image/webp"},
+      {<<"BM", 0>>, "image/bmp"},
+      {<<"%PDF-1.7">>, "application/pdf"},
+      {<<0x1F, 0x8B, 0>>, "application/gzip"},
+      {<<"PK", 3, 4, 0>>, "application/zip"},
+      {<<"PK", 5, 6, 0>>, "application/zip"},
+      {<<"PK", 7, 8, 0>>, "application/zip"}
+    ]
+
+    Enum.each(signatures, fn {data, media_type} ->
+      assert MediaType.sniff(data) == media_type
+    end)
+  end
+
+  test "classifies canonical media kinds and defaults unknown values to files" do
+    assert MediaType.kind("image/png") == :image
+    assert MediaType.kind(nil, "voice.ogg") == :audio
+    assert MediaType.kind("video/mp4") == :video
+    assert MediaType.kind("application/pdf") == :file
+    assert MediaType.kind(nil, "README") == :file
+    assert MediaType.from_filename(123) == nil
+    assert MediaType.from_filename("http://") == nil
+  end
+
   test "uses filename and URL extensions only as last-choice hints" do
     assert MediaType.from_filename("photo.JPEG") == "image/jpeg"
 

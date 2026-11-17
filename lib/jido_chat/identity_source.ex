@@ -8,28 +8,33 @@ defmodule Jido.Chat.IdentitySource do
   """
 
   @fields [:provider, :account_id, :external_id, :room_id, :metadata]
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              provider: Zoi.string() |> Zoi.min(1) |> Zoi.max(128),
-              account_id: Zoi.string() |> Zoi.min(1) |> Zoi.max(256),
-              external_id: Zoi.string() |> Zoi.min(1) |> Zoi.max(512),
-              room_id: Zoi.string() |> Zoi.min(1) |> Zoi.max(2_048) |> Zoi.nullish(),
+              provider: Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.max(128),
+              account_id: Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.max(256),
+              external_id: Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.max(512),
+              room_id:
+                Jido.Joi.string()
+                |> Jido.Joi.min(1)
+                |> Jido.Joi.max(2_048)
+                |> Jido.Joi.nullable()
+                |> Jido.Joi.optional(),
               metadata:
-                Zoi.map()
-                |> Zoi.refine({Jido.Chat.Principal, :safe_attributes, []})
-                |> Zoi.default(%{})
+                Jido.Joi.map()
+                |> Jido.Joi.refine({Jido.Chat.Principal, :safe_attributes, []})
+                |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the IdentitySource schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates a validated provider-scoped identity source."

@@ -10,37 +10,37 @@ defmodule Jido.Chat.Signal.ModalSubmitted do
     dataschema: "urn:jido:chat:schema:modal_submitted:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "interaction_id" => Zoi.string() |> Zoi.min(1),
-          "view_id" => Zoi.string() |> Zoi.min(1),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "interaction_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "view_id" => Jido.Joi.string() |> Jido.Joi.min(1),
           "callback_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "actor_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
+            |> Jido.Joi.optional(),
           "values" =>
-            Zoi.map(
+            Jido.Joi.map(
               %{},
               unrecognized_keys:
                 {:preserve,
-                 {Zoi.string(),
-                  Zoi.union([
-                    Zoi.string(),
-                    Zoi.array(Zoi.string()),
-                    Zoi.boolean(),
-                    Zoi.number(),
-                    Zoi.null()
+                 {Jido.Joi.string(),
+                  Jido.Joi.union([
+                    Jido.Joi.string(),
+                    Jido.Joi.array(Jido.Joi.string()),
+                    Jido.Joi.boolean(),
+                    Jido.Joi.number(),
+                    Jido.Joi.literal(nil)
                   ])}}
             )
         },

@@ -23,33 +23,33 @@ defmodule Jido.Chat.Content do
     :tool_error,
     :metadata
   ]
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              kind: Zoi.enum(@kinds),
-              text: Zoi.string() |> Zoi.nullish(),
-              markdown: Zoi.any() |> Zoi.nullish(),
-              card: Zoi.any() |> Zoi.nullish(),
-              media: Zoi.struct(Media) |> Zoi.nullish(),
-              file: Zoi.struct(FileSource) |> Zoi.nullish(),
-              tool_call_id: Zoi.string() |> Zoi.nullish(),
-              tool_name: Zoi.string() |> Zoi.nullish(),
-              tool_input: Zoi.map() |> Zoi.nullish(),
-              tool_result: Zoi.any() |> Zoi.nullish(),
-              tool_error: Zoi.boolean() |> Zoi.default(false),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              kind: Jido.Joi.enum(@kinds),
+              text: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              markdown: Jido.Joi.struct(Markdown) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              card: Jido.Joi.struct(Card) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              media: Jido.Joi.struct(Media) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              file: Jido.Joi.struct(FileSource) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              tool_call_id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              tool_name: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              tool_input: Jido.Joi.map() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              tool_result: Jido.Joi.any() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              tool_error: Jido.Joi.boolean() |> Jido.Joi.default(false),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({__MODULE__, :validate, []})
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({__MODULE__, :validate, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the portable content schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates one portable content part."

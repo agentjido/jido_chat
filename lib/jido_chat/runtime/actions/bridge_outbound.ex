@@ -1,7 +1,7 @@
 defmodule Jido.Chat.Runtime.Actions.BridgeOutbound do
   @moduledoc "Translates one admitted local room message into provider work."
 
-  use Jido.Action, name: "chat_bridge_outbound", schema: Zoi.map()
+  use Jido.Action, name: "chat_bridge_outbound", schema: Jido.Joi.map()
 
   alias Jido.Chat.Message
   alias Jido.Chat.Runtime.Bridge

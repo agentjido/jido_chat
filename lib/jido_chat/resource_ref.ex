@@ -7,24 +7,24 @@ defmodule Jido.Chat.ResourceRef do
 
   @kinds [:file, :media, :url]
   @fields [:id, :client_id, :kind, :metadata]
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              id: Zoi.string() |> Zoi.min(1),
-              client_id: Zoi.string() |> Zoi.min(1),
-              kind: Zoi.enum(@kinds),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              id: Jido.Joi.string() |> Jido.Joi.min(1),
+              client_id: Jido.Joi.string() |> Jido.Joi.min(1),
+              kind: Jido.Joi.enum(@kinds),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the portable resource-reference schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates a portable resource reference."

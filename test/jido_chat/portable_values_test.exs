@@ -34,6 +34,9 @@ defmodule Jido.Chat.PortableValuesTest do
 
     reference = ResourceRef.new(%{"id" => "file-1", "client_id" => "support", "kind" => "file"})
     assert ResourceRef.from_map(ResourceRef.to_map(reference)) == reference
+    assert is_map(Actor.schema())
+    assert Actor.new(%{id: "bot-1", kind: :unknown, is_bot: true}).kind == :bot
+    assert Actor.new(%{id: "human-1", kind: :human, is_bot: true}).kind == :human
   end
 
   test "file sources require exactly one portable source" do
@@ -44,6 +47,50 @@ defmodule Jido.Chat.PortableValuesTest do
 
     assert_raise Jido.Chat.Errors.Validation, fn ->
       FileSource.new(%{kind: :url, url: "https://example.test/file", content_base64: "YQ=="})
+    end
+
+    assert is_map(FileSource.schema())
+    assert FileSource.base64("YQ==", "a.txt").content_base64 == "YQ=="
+
+    assert_raise Jido.Chat.Errors.Validation, fn ->
+      FileSource.base64("not-base64", "a.txt")
+    end
+  end
+
+  test "all content variants keep portable values and accessible fallbacks" do
+    reference = ResourceRef.new(%{id: "file-1", client_id: "support", kind: :file})
+    source = FileSource.reference(reference, filename: "report.txt")
+    media = Media.new(%{kind: :file, source: source, name: "Report"})
+
+    values = [
+      {Content.new("Plain"), "Plain"},
+      {Content.markdown("**Ready**"), "**Ready**"},
+      {Content.card(Card.new(%{title: "Status"})), "Status"},
+      {Content.media(media), "Report"},
+      {Content.file(source), "report.txt"},
+      {Content.tool_use("call-1", "lookup", %{"id" => 1}), "lookup"},
+      {Content.tool_result("call-1", "Done"), "Done"},
+      {Content.tool_result("call-2", %{"count" => 1}), ~s(%{"count" => 1})}
+    ]
+
+    assert is_map(Content.schema())
+
+    Enum.each(values, fn {content, fallback} ->
+      assert Content.fallback_text(content) == fallback
+      assert Content.from_map(Content.to_map(content)) == content
+    end)
+
+    assert {:error, _errors} = Jido.Joi.parse(Content.schema(), %{kind: :card, card: %{bad: true}})
+    assert {:error, _errors} = Jido.Joi.parse(Content.schema(), %{kind: :markdown, markdown: %{bad: true}})
+
+    for attrs <- [
+          %{kind: :text, text: ""},
+          %{kind: :card},
+          %{kind: :file},
+          %{kind: :tool_use, tool_call_id: "call-1", tool_name: "lookup"},
+          %{kind: :tool_result, tool_call_id: "call-1"}
+        ] do
+      assert_raise Validation, fn -> Content.new(attrs) end
     end
   end
 
@@ -241,9 +288,23 @@ defmodule Jido.Chat.PortableValuesTest do
 
     unsafe_message = put_in(safe_message["metadata"]["owner"], self())
 
-    assert {:ok, _post} = Zoi.parse(Jido.Chat.Runtime.Signal.Room.post_schema(), safe_post)
-    assert {:error, _errors} = Zoi.parse(Jido.Chat.Runtime.Signal.Room.post_schema(), unsafe_post)
-    assert {:ok, _message} = Zoi.parse(Jido.Chat.Runtime.Signal.Room.message_schema(), safe_message)
-    assert {:error, _errors} = Zoi.parse(Jido.Chat.Runtime.Signal.Room.message_schema(), unsafe_message)
+    assert {:ok, _post} = Jido.Joi.parse(Jido.Chat.Runtime.Signal.Room.post_schema(), safe_post)
+    assert {:error, _errors} = Jido.Joi.parse(Jido.Chat.Runtime.Signal.Room.post_schema(), unsafe_post)
+    assert {:ok, _message} = Jido.Joi.parse(Jido.Chat.Runtime.Signal.Room.message_schema(), safe_message)
+    assert {:error, _errors} = Jido.Joi.parse(Jido.Chat.Runtime.Signal.Room.message_schema(), unsafe_message)
+  end
+
+  test "portable public values expose Joi schemas" do
+    for module <- [
+          IdentitySource,
+          Media,
+          Message,
+          Post,
+          ResourceRef,
+          Card.Component,
+          Modal.Element
+        ] do
+      assert is_map(module.schema())
+    end
   end
 end

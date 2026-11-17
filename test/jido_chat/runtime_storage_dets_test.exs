@@ -1,9 +1,22 @@
 defmodule Jido.Chat.RuntimeStorageDetsTest do
   use ExUnit.Case, async: false
 
-  alias Jido.Chat.Runtime.Room.{Declaration, HistoryRecord, Membership, Record}
+  alias Jido.Chat.Runtime.Bridge.Binding
+  alias Jido.Chat.Runtime.Connection.Declaration, as: ConnectionDeclaration
+  alias Jido.Chat.Runtime.Room.{Declaration, HistoryRecord, Membership, Reaction, Record}
   alias Jido.Chat.Runtime.Storage
-  alias Jido.Chat.Runtime.Storage.{Commit, Dets, Engine, Links, Outbox, Rooms}
+
+  alias Jido.Chat.Runtime.Storage.{
+    Bindings,
+    Commit,
+    Connections,
+    Dets,
+    Engine,
+    Links,
+    Outbox,
+    Reactions,
+    Rooms
+  }
 
   @table :jido_chat_runtime_storage_dets_test
   @snapshot_key :jido_chat_runtime_snapshot
@@ -26,8 +39,14 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
 
   test "Dets retains all Runtime storage capabilities across restart", %{path: path} do
     storage = start_storage(path)
-    assert :ok = Storage.validate({Dets, storage}, [Links, Outbox, Rooms, Commit])
-    assert Dets.format_version() == 4
+
+    assert :ok =
+             Storage.validate(
+               {Dets, storage},
+               [Links, Outbox, Reactions, Rooms, Connections, Bindings, Commit]
+             )
+
+    assert Dets.format_version() == 6
 
     link = %{
       account_id: "support",
@@ -53,9 +72,35 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
     declaration = Declaration.new!(%{room_id: room.id, definition_key: "support"})
     membership = Membership.new!(%{room_id: room.id, member: "alice", issuer: "operator"})
     history = history(room.id)
+
+    reaction =
+      Reaction.new!(%{
+        room_id: room.id,
+        message_id: history.message_id,
+        reaction: "eyes",
+        actor: "alice"
+      })
+
+    connection =
+      ConnectionDeclaration.new!(%{
+        account_id: "support",
+        definition_key: "provider",
+        secret_refs: %{"token" => "vault://support"}
+      })
+
+    binding =
+      Binding.new!(%{
+        account_id: "support",
+        room_id: room.id,
+        external_room_id: "provider-room"
+      })
+
     assert {:ok, ^declaration} = Dets.insert_room_declaration(storage, declaration)
     assert {:ok, ^membership} = Dets.insert_membership(storage, membership)
     assert {:ok, ^history} = Dets.insert_history(storage, history)
+    assert {:ok, ^reaction} = Dets.insert_reaction(storage, reaction)
+    assert {:ok, ^connection} = Dets.insert_connection(storage, connection)
+    assert {:ok, ^binding} = Dets.insert_binding(storage, binding)
 
     stop_storage()
     assert_split_history(path, history)
@@ -72,6 +117,9 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
     assert {:ok, ^declaration} = Dets.get_room_declaration(restored, room.id)
     assert {:ok, [^membership]} = Dets.list_memberships(restored, room.id)
     assert {:ok, [^history]} = Dets.list_history(restored, room.id)
+    assert {:ok, [^reaction]} = Dets.list_reactions(restored, room.id)
+    assert {:ok, ^connection} = Dets.get_connection(restored, connection.account_id)
+    assert {:ok, [^binding]} = Dets.list_bindings(restored, connection.account_id)
   end
 
   test "a version 3 snapshot moves history into separate records", %{path: path} do
@@ -168,8 +216,12 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
 
     storage = start_storage(path)
     assert {:ok, ^link} = Dets.link_for_local(storage, "support", "local-v1")
+    assert {:ok, [^link]} = Dets.links_for_local(storage, "support", "local-v1")
     assert {:ok, ^work} = Dets.get_work(storage, "work-v1")
     assert {:ok, []} = Dets.list_rooms(storage)
+    assert {:ok, []} = Dets.list_connections(storage)
+    assert {:ok, []} = Dets.list_bindings(storage, "support")
+    assert {:ok, []} = Dets.list_reactions(storage, "room/none")
 
     room =
       Record.new!(%{
@@ -216,6 +268,28 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
     assert {:ok, []} = Dets.list_room_declarations(storage)
     assert {:ok, []} = Dets.list_memberships(storage, room.id)
     assert {:ok, []} = Dets.list_history(storage, room.id)
+    assert {:ok, []} = Dets.list_reactions(storage, room.id)
+  end
+
+  test "a version 5 snapshot gains an empty reaction projection", %{path: path} do
+    history = history("room/v5")
+    assert {:ok, ^history, engine} = Engine.command(Engine.new(), {:insert_history, history})
+    version_5_engine = Map.delete(engine, :reactions)
+
+    assert {:ok, @table} =
+             :dets.open_file(@table,
+               file: String.to_charlist(path),
+               type: :set,
+               auto_save: :infinity
+             )
+
+    assert :ok = :dets.insert(@table, {@snapshot_key, 5, version_5_engine})
+    assert :ok = :dets.sync(@table)
+    assert :ok = :dets.close(@table)
+
+    storage = start_storage(path)
+    assert {:ok, [^history]} = Dets.list_history(storage, history.room_id)
+    assert {:ok, []} = Dets.list_reactions(storage, history.room_id)
   end
 
   defp start_storage(path) do
@@ -237,7 +311,7 @@ defmodule Jido.Chat.RuntimeStorageDetsTest do
                auto_save: :infinity
              )
 
-    assert [{@snapshot_key, 4, engine}] = :dets.lookup(@table, @snapshot_key)
+    assert [{@snapshot_key, 6, engine}] = :dets.lookup(@table, @snapshot_key)
     assert engine.history == %{}
 
     assert [{{@history_key, ^room_id, ^message_id}, ^history}] =

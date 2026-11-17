@@ -11,18 +11,32 @@ defmodule Jido.Chat.Runtime.Storage.Memory do
   alias Jido.Chat.Runtime.Storage
 
   alias Jido.Chat.Runtime.Storage.{
+    Bindings,
     Commit,
+    Connections,
     Engine,
     History,
     Links,
     Memberships,
     Outbox,
+    Reactions,
     RoomDeclarations,
     Rooms
   }
 
   use Storage.Adapter,
-    capabilities: [Links, Outbox, Rooms, RoomDeclarations, Memberships, History, Commit]
+    capabilities: [
+      Links,
+      Outbox,
+      Reactions,
+      Rooms,
+      RoomDeclarations,
+      Memberships,
+      History,
+      Connections,
+      Bindings,
+      Commit
+    ]
 
   @doc "Starts an empty memory storage resource."
   @spec start_link(keyword()) :: GenServer.on_start()
@@ -36,6 +50,10 @@ defmodule Jido.Chat.Runtime.Storage.Memory do
   @impl Links
   def link_for_local(server, account_id, local_message_id),
     do: GenServer.call(server, {:query, {:link_for_local, account_id, local_message_id}})
+
+  @impl Links
+  def links_for_local(server, account_id, local_message_id),
+    do: GenServer.call(server, {:query, {:links_for_local, account_id, local_message_id}})
 
   @impl Links
   def link_for_external(server, account_id, external_room_id, external_message_id),
@@ -125,6 +143,65 @@ defmodule Jido.Chat.Runtime.Storage.Memory do
   @impl History
   def last_history_sequence(server, room_id),
     do: GenServer.call(server, {:query, {:last_history_sequence, room_id}})
+
+  @impl Reactions
+  def insert_reaction(server, reaction),
+    do: GenServer.call(server, {:command, {:insert_reaction, reaction}})
+
+  @impl Reactions
+  def get_reaction(server, room_id, message_id, reaction, actor_key),
+    do: GenServer.call(server, {:query, {:get_reaction, room_id, message_id, reaction, actor_key}})
+
+  @impl Reactions
+  def list_reactions(server, room_id, opts \\ []),
+    do: GenServer.call(server, {:query, {:list_reactions, room_id, opts}})
+
+  @impl Reactions
+  def update_reaction(server, room_id, message_id, reaction, actor_key, revision, value),
+    do:
+      GenServer.call(
+        server,
+        {:command, {:update_reaction, room_id, message_id, reaction, actor_key, revision, value}}
+      )
+
+  @impl Connections
+  def insert_connection(server, declaration),
+    do: GenServer.call(server, {:command, {:insert_connection, declaration}})
+
+  @impl Connections
+  def get_connection(server, account_id),
+    do: GenServer.call(server, {:query, {:get_connection, account_id}})
+
+  @impl Connections
+  def list_connections(server), do: GenServer.call(server, {:query, :list_connections})
+
+  @impl Connections
+  def update_connection(server, account_id, revision, declaration),
+    do:
+      GenServer.call(
+        server,
+        {:command, {:update_connection, account_id, revision, declaration}}
+      )
+
+  @impl Bindings
+  def insert_binding(server, binding),
+    do: GenServer.call(server, {:command, {:insert_binding, binding}})
+
+  @impl Bindings
+  def get_binding(server, account_id, external_room_id),
+    do: GenServer.call(server, {:query, {:get_binding, account_id, external_room_id}})
+
+  @impl Bindings
+  def list_bindings(server, account_id, opts \\ []),
+    do: GenServer.call(server, {:query, {:list_bindings, account_id, opts}})
+
+  @impl Bindings
+  def update_binding(server, account_id, external_room_id, revision, binding),
+    do:
+      GenServer.call(
+        server,
+        {:command, {:update_binding, account_id, external_room_id, revision, binding}}
+      )
 
   @impl Commit
   def commit(server, commands) when is_list(commands),

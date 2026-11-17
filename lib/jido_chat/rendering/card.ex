@@ -7,28 +7,34 @@ defmodule Jido.Chat.Card do
   alias Jido.Chat.Markdown
   alias Jido.Chat.Wire
 
-  @schema Zoi.struct(
-            __MODULE__,
-            %{
-              id: Zoi.string() |> Zoi.nullish(),
-              title: Zoi.string() |> Zoi.nullish(),
-              summary: Zoi.string() |> Zoi.nullish(),
-              markdown: Zoi.any() |> Zoi.nullish(),
-              components: Zoi.list(Zoi.struct(Component)) |> Zoi.default([]),
-              metadata: Zoi.map() |> Zoi.default(%{})
-            },
-            coerce: true
-          )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+  @fields %{
+    id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+    title: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+    summary: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+    markdown: Jido.Joi.struct(Markdown) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+    components: Jido.Joi.list(Jido.Joi.struct(Component)) |> Jido.Joi.default([]),
+    metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
+  }
 
-  @type t :: unquote(Zoi.type_spec(@schema))
+  @schema Jido.Joi.struct(__MODULE__, @fields, coerce: true)
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
+
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
   @type component :: Component.t()
 
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the schema for cards."
   def schema, do: @schema
+
+  @doc false
+  def signal_fields do
+    @fields
+    |> Map.put(:markdown, Jido.Joi.map() |> Jido.Joi.nullable() |> Jido.Joi.optional())
+    |> Map.put(:components, Jido.Joi.array(Jido.Joi.map()) |> Jido.Joi.default([]))
+    |> Map.new(fn {key, schema} -> {Atom.to_string(key), schema} end)
+  end
 
   @doc "Creates a canonical card."
   @spec new(t() | map()) :: t()
@@ -36,7 +42,7 @@ defmodule Jido.Chat.Card do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Jido.Chat.Value.validate_portable!()
+    |> Jido.Chat.Value.without_marker()
     |> normalize_markdown()
     |> normalize_components()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))

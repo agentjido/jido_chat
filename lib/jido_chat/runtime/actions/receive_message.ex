@@ -1,7 +1,7 @@
 defmodule Jido.Chat.Runtime.Actions.ReceiveMessage do
   @moduledoc "Records one admitted room fact and builds an optional reply."
 
-  use Jido.Action, name: "receive_chat_room_message", schema: Zoi.map()
+  use Jido.Action, name: "receive_chat_room_message", schema: Jido.Joi.map()
 
   alias Jido.Chat.{Message, Post}
   alias Jido.Chat.Runtime.Directives.Receive

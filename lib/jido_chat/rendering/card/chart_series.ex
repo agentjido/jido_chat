@@ -5,22 +5,22 @@ defmodule Jido.Chat.Card.ChartSeries do
 
   alias Jido.Chat.Wire
 
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              name: Zoi.string() |> Zoi.min(1),
-              values: Zoi.list() |> Zoi.min(1),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              name: Jido.Joi.string() |> Jido.Joi.min(1),
+              values: Jido.Joi.list() |> Jido.Joi.min(1),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({__MODULE__, :validate, []})
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({__MODULE__, :validate, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
 
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the schema for a chart series."
   def schema, do: @schema
@@ -32,7 +32,7 @@ defmodule Jido.Chat.Card.ChartSeries do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Jido.Chat.Value.validate_portable!()
+    |> Jido.Chat.Value.without_marker()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 

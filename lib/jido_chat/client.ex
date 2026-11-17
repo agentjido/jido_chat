@@ -7,21 +7,21 @@ defmodule Jido.Chat.Client do
   """
   alias Jido.Chat.Signal.{Identity, Policy}
 
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              id: Zoi.string() |> Zoi.refine({__MODULE__, :client_id, []}),
-              adapter: Zoi.atom(),
-              source: Zoi.string() |> Zoi.min(1),
-              credentials: Zoi.map() |> Zoi.default(%{}),
-              config: Zoi.any() |> Zoi.refine({__MODULE__, :keyword_config, []}) |> Zoi.default([]),
-              transport: Zoi.atom() |> Zoi.nullable() |> Zoi.default(nil)
+              id: Jido.Joi.string() |> Jido.Joi.refine({__MODULE__, :client_id, []}),
+              adapter: Jido.Joi.atom(),
+              source: Jido.Joi.string() |> Jido.Joi.min(1),
+              credentials: Jido.Joi.map() |> Jido.Joi.default(%{}),
+              config: Jido.Joi.any() |> Jido.Joi.refine({__MODULE__, :keyword_config, []}) |> Jido.Joi.default([]),
+              transport: Jido.Joi.atom() |> Jido.Joi.nullable() |> Jido.Joi.default(nil)
             },
             coerce: true
           )
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Builds an immutable client from explicit configuration."
   @spec new(module(), keyword()) :: {:ok, t()} | {:error, Jido.Chat.Errors.Contract.t()}
@@ -39,7 +39,7 @@ defmodule Jido.Chat.Client do
          :ok <- Jido.Chat.Adapter.validate_capabilities(adapter),
          attrs = opts |> Map.new() |> Map.put(:adapter, adapter) |> Map.put(:source, Identity.client_source(opts[:id])),
          attrs = Map.put_new_lazy(attrs, :transport, fn -> default_transport(adapter) end),
-         {:ok, client} <- Zoi.parse(@schema, attrs) do
+         {:ok, client} <- Jido.Joi.parse(@schema, attrs) do
       {:ok, client}
     else
       _ -> Policy.error(:invalid_client)

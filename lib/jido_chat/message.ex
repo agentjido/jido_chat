@@ -23,32 +23,32 @@ defmodule Jido.Chat.Message do
     :edited_at,
     :metadata
   ]
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              id: Zoi.string() |> Zoi.min(1),
-              room_id: Zoi.string() |> Zoi.min(1),
-              thread_id: Zoi.string() |> Zoi.nullish(),
-              reply_to_id: Zoi.string() |> Zoi.nullish(),
-              actor: Zoi.struct(Actor),
-              role: Zoi.enum(@roles) |> Zoi.default(:user),
-              content: Zoi.list(Zoi.struct(Content)) |> Zoi.min(1),
-              client_id: Zoi.string() |> Zoi.nullish(),
-              provider_message_id: Zoi.string() |> Zoi.nullish(),
-              timestamp: Zoi.string() |> Zoi.nullish(),
-              edited_at: Zoi.string() |> Zoi.nullish(),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              id: Jido.Joi.string() |> Jido.Joi.min(1),
+              room_id: Jido.Joi.string() |> Jido.Joi.min(1),
+              thread_id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              reply_to_id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              actor: Jido.Joi.struct(Actor),
+              role: Jido.Joi.enum(@roles) |> Jido.Joi.default(:user),
+              content: Jido.Joi.list(Jido.Joi.struct(Content)) |> Jido.Joi.min(1),
+              client_id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              provider_message_id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              timestamp: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              edited_at: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the portable message schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates a portable normalized message."

@@ -10,16 +10,16 @@ defmodule Jido.Chat.Signal.SendMessage do
     dataschema: "urn:jido:chat:schema:command_send_message:2",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "client_id" => Zoi.string() |> Zoi.min(1),
-          "request_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "text" => Zoi.string(),
-          "thread_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
-          "reply_to_id" => Zoi.string() |> Zoi.min(1) |> Zoi.optional(),
-          "format" => Zoi.enum(["plain", "markdown", "html"]) |> Zoi.optional(),
-          "keyboard" => Jido.Chat.Signal.Schemas.keyboard() |> Zoi.optional()
+          "client_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "request_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "text" => Jido.Joi.string(),
+          "thread_id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional(),
+          "reply_to_id" => Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.optional(),
+          "format" => Jido.Joi.enum(["plain", "markdown", "html"]) |> Jido.Joi.optional(),
+          "keyboard" => Jido.Chat.Signal.Schemas.keyboard() |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

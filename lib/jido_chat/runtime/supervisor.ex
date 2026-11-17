@@ -1,6 +1,7 @@
 defmodule Jido.Chat.Runtime.Supervisor do
   @moduledoc """
-  Starts one optional manager for a `Jido.Chat.Runtime` facade.
+  Starts one optional observation Bus and manager for a `Jido.Chat.Runtime`
+  facade.
 
   The supervisor does not own Room or provider account Agents. The configured
   host Jido instance owns those processes.
@@ -8,7 +9,7 @@ defmodule Jido.Chat.Runtime.Supervisor do
 
   use Supervisor
 
-  alias Jido.Chat.Runtime.Manager
+  alias Jido.Chat.Runtime.{Bus, Manager}
 
   @doc false
   @spec child_spec({module(), keyword()}) :: Supervisor.child_spec()
@@ -86,17 +87,18 @@ defmodule Jido.Chat.Runtime.Supervisor do
 
   @impl true
   def init({runtime, opts}) do
-    children = [
-      {Manager,
-       runtime: runtime,
-       name: manager_name(runtime),
-       rooms: Keyword.get(opts, :rooms, []),
-       connections: Keyword.get(opts, :connections, []),
-       reconcile_interval: Keyword.get(opts, :reconcile_interval, 5_000)}
-    ]
-
     with :ok <- validate_runtime(runtime),
          :ok <- validate_options(opts) do
+      children = [
+        Bus.child_spec(runtime, Keyword.get(opts, :bus_max_log_size, 10_000)),
+        {Manager,
+         runtime: runtime,
+         name: manager_name(runtime),
+         rooms: Keyword.get(opts, :rooms, []),
+         connections: Keyword.get(opts, :connections, []),
+         reconcile_interval: Keyword.get(opts, :reconcile_interval, 5_000)}
+      ]
+
       Supervisor.init(children, strategy: :one_for_one)
     else
       {:error, reason} -> {:stop, reason}
@@ -119,9 +121,15 @@ defmodule Jido.Chat.Runtime.Supervisor do
   end
 
   defp validate_options(opts) do
-    case Keyword.validate(opts, [:rooms, :connections, :reconcile_interval]) do
-      {:ok, _opts} -> :ok
-      {:error, keys} -> {:error, {:invalid_runtime_options, keys}}
+    case Keyword.validate(opts, [:rooms, :connections, :reconcile_interval, :bus_max_log_size]) do
+      {:ok, valid} ->
+        case Keyword.get(valid, :bus_max_log_size, 10_000) do
+          limit when is_integer(limit) and limit > 0 -> :ok
+          _limit -> {:error, {:invalid_runtime_option, :bus_max_log_size}}
+        end
+
+      {:error, keys} ->
+        {:error, {:invalid_runtime_options, keys}}
     end
   end
 end

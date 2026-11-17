@@ -16,12 +16,15 @@ defmodule Jido.Chat.SignalBoundaryTest do
       dataschema: "urn:test:native:presence:1",
       default_source: "urn:test:provider",
       schema:
-        Zoi.map(%{
-          "item_id" => Zoi.string(),
-          "delivery_id" => Zoi.string(),
-          "room_id" => Zoi.string(),
-          "metadata" => Zoi.map()
-        })
+        Jido.Joi.map(
+          %{
+            "item_id" => Jido.Joi.string(),
+            "delivery_id" => Jido.Joi.string(),
+            "room_id" => Jido.Joi.string(),
+            "metadata" => Jido.Joi.map()
+          },
+          unrecognized_keys: :error
+        )
   end
 
   defmodule Adapter do
@@ -46,12 +49,15 @@ defmodule Jido.Chat.SignalBoundaryTest do
       type: "test.native.transform",
       dataschema: "urn:test:native:transform:1",
       schema:
-        Zoi.map(%{
-          "mode" => Zoi.string(),
-          "number" => Zoi.number() |> Zoi.optional(),
-          "padding" => Zoi.string() |> Zoi.optional()
-        })
-        |> Zoi.transform({__MODULE__, :transform_data, []})
+        Jido.Joi.map(
+          %{
+            "mode" => Jido.Joi.string(),
+            "number" => Jido.Joi.number() |> Jido.Joi.optional(),
+            "padding" => Jido.Joi.string() |> Jido.Joi.optional()
+          },
+          unrecognized_keys: :error
+        )
+        |> Jido.Joi.transform({__MODULE__, :transform_data, []})
 
     def transform_data(%{"mode" => "private"} = data, _opts), do: Map.put(data, "token", "private")
     def transform_data(%{"mode" => "large"} = data, _opts), do: Map.put(data, "text", String.duplicate("x", 262_144))
@@ -77,8 +83,10 @@ defmodule Jido.Chat.SignalBoundaryTest do
     assert {:ok, %Delivery{signals: [^fact]}} = Delivery.new(client, "delivery", [fact])
 
     unsafe = %{fact | data: Map.put(fact.data, "token", "private")}
-    assert {:ok, stripped} = Jido.Signal.Catalog.validate(Chat.catalog(client), unsafe)
-    refute Map.has_key?(stripped.data, "token")
+
+    assert {:error, %{details: %{code: :invalid_data}}} =
+             Jido.Signal.Catalog.validate(Chat.catalog(client), unsafe)
+
     assert {:error, %Contract{code: :unsafe_data}} = Delivery.new(client, "delivery", [unsafe])
     assert {:error, %Contract{code: :unsafe_data}} = Policy.new(Fact, unsafe.data, opts)
 

@@ -10,19 +10,19 @@ defmodule Jido.Chat.Signal.NormalizationFailed do
     dataschema: "urn:jido:chat:schema:normalization_failed:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
           "room_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
-          "code" => Zoi.enum(["invalid_item", "unsupported_item", "invalid_context", "unsafe_data"]),
-          "item_index" => Zoi.integer() |> Zoi.gte(0),
-          "provider_kind" => Zoi.string() |> Zoi.optional()
+            |> Jido.Joi.optional(),
+          "code" => Jido.Joi.enum(["invalid_item", "unsupported_item", "invalid_context", "unsafe_data"]),
+          "item_index" => Jido.Joi.integer() |> Jido.Joi.min(0),
+          "provider_kind" => Jido.Joi.string() |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

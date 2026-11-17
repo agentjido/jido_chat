@@ -9,7 +9,7 @@ defmodule SupportAgent do
   use Jido.Agent, name: "support", plugins: [Jido.Chat.Plugin]
 
   state do
-    schema Zoi.object(%{})
+    schema Jido.Joi.object(%{})
   end
 
   chat do
@@ -33,7 +33,7 @@ defmodule SupportAgent do
 end
 
 defmodule SupportReply do
-  use Jido.Action, name: "support_reply", schema: Zoi.map()
+  use Jido.Action, name: "support_reply", schema: Jido.Joi.map()
 
   def run(params, context) do
     command = Jido.Chat.Signal.SendMessage.new!(%{
@@ -144,7 +144,7 @@ defmodule SupportThreads do
   use Jido.Agent, name: "support_threads", plugins: [Jido.Chat.Plugin]
 
   state do
-    schema Zoi.object(%{})
+    schema Jido.Joi.object(%{})
   end
 
   chat do

@@ -34,8 +34,8 @@ defmodule Jido.Chat.ValueBoundariesTest do
       Validation.exception(
         subject: Jido.Chat.Card,
         errors: [
-          %Zoi.Error{message: "is invalid", path: [:items, 0, :name]},
-          %Zoi.Error{message: "is missing", path: []},
+          %{message: "is invalid", path: [:items, 0, :name]},
+          %{message: "is missing", path: []},
           %{message: "provider message"},
           :unknown
         ]

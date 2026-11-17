@@ -57,6 +57,7 @@ defmodule Jido.Chat.RuntimeBridgeTest do
 
     def put_link(_resource, _link), do: {:error, :storage_unavailable}
     def link_for_local(_resource, _account_id, _local_id), do: {:ok, nil}
+    def links_for_local(_resource, _account_id, _local_id), do: {:ok, []}
     def link_for_external(_resource, _account_id, _room_id, _message_id), do: {:ok, nil}
     def put_work(_resource, _work), do: {:error, :storage_unavailable}
     def get_work(_resource, _id), do: {:ok, nil}
@@ -91,6 +92,9 @@ defmodule Jido.Chat.RuntimeBridgeTest do
 
     def link_for_local(resource, account_id, local_id),
       do: Memory.link_for_local(resource.storage, account_id, local_id)
+
+    def links_for_local(resource, account_id, local_id),
+      do: Memory.links_for_local(resource.storage, account_id, local_id)
 
     def link_for_external(resource, account_id, room_id, message_id),
       do: Memory.link_for_external(resource.storage, account_id, room_id, message_id)
@@ -156,6 +160,42 @@ defmodule Jido.Chat.RuntimeBridgeTest do
         external_room("provider-room")
         room("team")
         direction(:both)
+      end
+    end
+
+    routes do
+      route("jido.chat.message.received", Jido.Chat.Runtime.Actions.BridgeInbound)
+      route("jido.chat.room.message", Jido.Chat.Runtime.Actions.BridgeOutbound)
+      route("jido.chat.command.send_message", Jido.Chat.Plugin.Execute)
+      route("jido.chat.command.send_message.completed", Jido.Chat.Runtime.Actions.BridgeResult)
+      route("jido.chat.command.send_message.failed", Jido.Chat.Runtime.Actions.BridgeResult)
+    end
+  end
+
+  defmodule BroadcastAccount do
+    use Jido.Agent,
+      name: "bridge_broadcast_account",
+      plugins: [Jido.Chat.Plugin, Jido.Chat.Runtime.Bridge]
+
+    chat do
+      connection :provider do
+        client(Adapter, id: "bridge/broadcast", credentials: %{})
+        rooms(["provider-a", "provider-b"])
+        commands([Jido.Chat.SendMessage])
+      end
+    end
+
+    bridge do
+      mapping :provider_a do
+        external_room("provider-a")
+        room("team")
+        direction(:outbound)
+      end
+
+      mapping :provider_b do
+        external_room("provider-b")
+        room("team")
+        direction(:outbound)
       end
     end
 
@@ -250,6 +290,39 @@ defmodule Jido.Chat.RuntimeBridgeTest do
     assert reply_request.data["reply_to_id"] == "provider-reply"
     local_reply = await_room_message(context.room_server, &(Message.fallback_text(&1) == "Local reply"))
     assert await_link(local_reply.id).direction == :outbound
+  end
+
+  test "one local message broadcasts to every outbound binding", context do
+    {:ok, account_ref} = Runtime.connection_ref("broadcast")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             Jido.call(
+               context.jido,
+               context.room,
+               Join.new!(%{"member" => account_ref}),
+               context: %{actor: "operator"}
+             )
+
+    assert {:ok, ^account_ref, _account} =
+             Runtime.start_connection("broadcast", BroadcastAccount)
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} =
+             post(context, Post.text("Broadcast"))
+
+    assert_receive {:provider_send, "bridge/broadcast", request_a}, 2_000
+    assert_receive {:provider_send, "bridge/broadcast", request_b}, 2_000
+
+    assert Enum.sort([request_a.data["room_id"], request_b.data["room_id"]]) == [
+             "provider-a",
+             "provider-b"
+           ]
+
+    Process.sleep(300)
+    assert {:ok, %{total: 2, completed: 2}} = Runtime.bridge_status("broadcast")
+
+    local = await_room_message(context.room_server, &(Message.fallback_text(&1) == "Broadcast"))
+    assert {:ok, links} = Runtime.bridge_links("broadcast", local.id)
+    assert Enum.map(links, & &1.external_room_id) == ["provider-a", "provider-b"]
   end
 
   test "unknown provider outcomes are retained and are not sent again", context do

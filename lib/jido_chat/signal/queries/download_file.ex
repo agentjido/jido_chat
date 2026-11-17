@@ -5,7 +5,7 @@ defmodule Jido.Chat.Signal.DownloadFile do
     dataschema: "urn:jido:chat:schema:query_download_file:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
           "client_id" => Jido.Chat.Signal.Schemas.id(),
           "request_id" => Jido.Chat.Signal.Schemas.id(),

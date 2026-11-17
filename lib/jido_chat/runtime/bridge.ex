@@ -1,9 +1,10 @@
 defmodule Jido.Chat.Runtime.Bridge do
   @moduledoc """
-  Maps provider rooms on one account Agent to local Runtime rooms.
+  Maps provider Rooms on one account Agent to local Runtime Rooms.
 
-  The host creates each room and joins the account Ref before account
-  activation. The Bridge does not create rooms or provider accounts.
+  Trusted Agent code can define static mappings. Durable Runtime accounts can
+  replace them with enabled stored bindings during activation. The host creates
+  each local Room and joins the account Ref before it sends bridged messages.
   """
 
   alias Jido.Chat.Runtime.Bridge.{Mapping, Worker}
@@ -69,6 +70,14 @@ defmodule Jido.Chat.Runtime.Bridge do
     end
   end
 
+  @doc "Returns every provider message link for one local message."
+  @spec links(module(), String.t(), String.t()) :: {:ok, [map()]} | {:error, term()}
+  def links(runtime, account_id, local_message_id) do
+    with {:ok, storage} <- storage(runtime) do
+      storage_call(storage, Links, :links_for_local, [account_id, local_message_id])
+    end
+  end
+
   @impl Jido.Agent.Extension
   def lower(dsl, config) do
     mappings = DSL.get_entities(dsl, [:bridge])
@@ -90,9 +99,8 @@ defmodule Jido.Chat.Runtime.Bridge do
     mappings = Map.get(data, :mappings, [])
 
     valid =
-      is_list(mappings) and mappings != [] and Enum.all?(mappings, &valid_mapping?/1) and
-        unique?(mappings, & &1.name) and unique?(mappings, & &1.external_room) and
-        mappings |> Enum.filter(&outbound?/1) |> unique?(&room_key(&1.room))
+      is_list(mappings) and Enum.all?(mappings, &valid_mapping?/1) and
+        unique?(mappings, & &1.name) and unique?(mappings, & &1.external_room)
 
     runtime =
       Enum.all?(
@@ -282,23 +290,27 @@ defmodule Jido.Chat.Runtime.Bridge do
     do: {:ok, nil}
 
   defp local_link(data, mapping, external_id) do
-    links(data, :link_for_external, [data.account_id, mapping.external_room, external_id])
+    link_storage(data, :link_for_external, [data.account_id, mapping.external_room, external_id])
   end
 
   defp outbound_replies(_data, mappings, local_id) when local_id in [nil, ""],
     do: {:ok, Map.new(mappings, &{&1.name, nil})}
 
   defp outbound_replies(data, mappings, local_id) do
-    with {:ok, link} <- links(data, :link_for_local, [data.account_id, local_id]) do
+    with {:ok, stored_links} <-
+           link_storage(data, :links_for_local, [data.account_id, local_id]) do
       {:ok,
        Map.new(mappings, fn mapping ->
-         external =
-           if link && link.external_room_id == mapping.external_room,
-             do: link.external_message_id
+         external = Enum.find_value(stored_links, &reply_for_mapping(&1, mapping))
 
          {mapping.name, external}
        end)}
     end
+  end
+
+  defp reply_for_mapping(link, mapping) do
+    if link.external_room_id == mapping.external_room,
+      do: link.external_message_id
   end
 
   defp runtime_options(init) do
@@ -370,10 +382,14 @@ defmodule Jido.Chat.Runtime.Bridge do
   defp outbound?(mapping), do: mapping.direction in [:outbound, :both]
 
   defp valid_mapping?(mapping) do
-    is_map(mapping) and is_atom(mapping.name) and not is_nil(mapping.name) and
+    is_map(mapping) and valid_name?(mapping.name) and
       valid_id?(mapping.external_room) and valid_room?(mapping.room) and
       mapping.direction in [:inbound, :outbound, :both]
   end
+
+  defp valid_name?(name) when is_atom(name), do: name not in [nil, true, false]
+  defp valid_name?(name) when is_binary(name), do: name != ""
+  defp valid_name?(_name), do: false
 
   defp valid_room?(room) when is_binary(room), do: room != ""
   defp valid_room?(%Jido.Agent.Address{} = room), do: valid_ref?(room)
@@ -390,9 +406,6 @@ defmodule Jido.Chat.Runtime.Bridge do
     values = Enum.map(items, fun)
     length(values) == length(Enum.uniq(values))
   end
-
-  defp room_key(%Jido.Agent.Address{} = room), do: {room.namespace, room.partition, room.id}
-  defp room_key(room), do: room
 
   defp required_routes?(mappings, routes) do
     paths = MapSet.new(routes, & &1.path)
@@ -412,7 +425,7 @@ defmodule Jido.Chat.Runtime.Bridge do
          ))
   end
 
-  defp links(data, function, args) do
+  defp link_storage(data, function, args) do
     storage_call(data.storage, Links, function, args)
   end
 

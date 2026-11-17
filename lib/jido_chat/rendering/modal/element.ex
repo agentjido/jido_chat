@@ -19,42 +19,43 @@ defmodule Jido.Chat.Modal.Element do
     :option_group
   ]
 
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              kind: Zoi.enum(@kinds),
-              id: Zoi.string(),
-              label: Zoi.string() |> Zoi.nullish(),
-              value: Zoi.string() |> Zoi.nullish(),
-              placeholder: Zoi.string() |> Zoi.nullish(),
-              help_text: Zoi.string() |> Zoi.nullish(),
-              fallback_text: Zoi.string() |> Zoi.nullish(),
-              required: Zoi.boolean() |> Zoi.default(false),
-              multiline: Zoi.boolean() |> Zoi.default(false),
-              min_length: Zoi.integer() |> Zoi.nullish(),
-              max_length: Zoi.integer() |> Zoi.nullish(),
-              min_date: Zoi.string() |> Zoi.nullish(),
-              max_date: Zoi.string() |> Zoi.nullish(),
-              min_value: Zoi.number() |> Zoi.nullish(),
-              max_value: Zoi.number() |> Zoi.nullish(),
-              step: Zoi.number() |> Zoi.nullish(),
-              options: Zoi.list() |> Zoi.default([]),
-              option_groups: Zoi.list() |> Zoi.default([]),
-              options_source: Zoi.enum([:static, :external, :dynamic]) |> Zoi.nullish(),
-              min_query_length: Zoi.integer() |> Zoi.nullish(),
-              timeout_ms: Zoi.integer() |> Zoi.nullish(),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              kind: Jido.Joi.enum(@kinds),
+              id: Jido.Joi.string(),
+              label: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              value: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              placeholder: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              help_text: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              fallback_text: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              required: Jido.Joi.boolean() |> Jido.Joi.default(false),
+              multiline: Jido.Joi.boolean() |> Jido.Joi.default(false),
+              min_length: Jido.Joi.integer() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              max_length: Jido.Joi.integer() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              min_date: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              max_date: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              min_value: Jido.Joi.number() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              max_value: Jido.Joi.number() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              step: Jido.Joi.number() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              options: Jido.Joi.list(Jido.Joi.struct(__MODULE__)) |> Jido.Joi.default([]),
+              option_groups: Jido.Joi.list(Jido.Joi.struct(__MODULE__)) |> Jido.Joi.default([]),
+              options_source:
+                Jido.Joi.enum([:static, :external, :dynamic]) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              min_query_length: Jido.Joi.integer() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              timeout_ms: Jido.Joi.integer() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({__MODULE__, :validate, []})
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({__MODULE__, :validate, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
   @type input :: t() | map()
 
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the schema for modal elements."
   def schema, do: @schema
@@ -65,7 +66,7 @@ defmodule Jido.Chat.Modal.Element do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Jido.Chat.Value.validate_portable!()
+    |> Jido.Chat.Value.without_marker()
     |> normalize_kind()
     |> normalize_options_source()
     |> normalize_temporal_values()

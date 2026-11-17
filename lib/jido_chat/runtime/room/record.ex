@@ -11,33 +11,33 @@ defmodule Jido.Chat.Runtime.Room.Record do
   @update_fields [:name, :metadata]
   @max_id_bytes 256
 
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              schema_version: Zoi.integer() |> Zoi.min(1) |> Zoi.max(1) |> Zoi.default(1),
+              schema_version: Jido.Joi.integer() |> Jido.Joi.min(1) |> Jido.Joi.max(1) |> Jido.Joi.default(1),
               id:
-                Zoi.string()
-                |> Zoi.min(1)
-                |> Zoi.refine({__MODULE__, :valid_id, []}),
-              kind: Zoi.enum(@kinds),
-              name: Zoi.string() |> Zoi.max(256) |> Zoi.nullish(),
-              metadata: Zoi.map() |> Zoi.default(%{}),
-              revision: Zoi.integer() |> Zoi.min(1) |> Zoi.default(1),
-              inserted_at: Zoi.struct(DateTime),
-              updated_at: Zoi.struct(DateTime)
+                Jido.Joi.string()
+                |> Jido.Joi.min(1)
+                |> Jido.Joi.refine({__MODULE__, :valid_id, []}),
+              kind: Jido.Joi.enum(@kinds),
+              name: Jido.Joi.string() |> Jido.Joi.max(256) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{}),
+              revision: Jido.Joi.integer() |> Jido.Joi.min(1) |> Jido.Joi.default(1),
+              inserted_at: Jido.Joi.struct(DateTime),
+              updated_at: Jido.Joi.struct(DateTime)
             },
             coerce: true
           )
-          |> Zoi.refine({__MODULE__, :valid_record, []})
+          |> Jido.Joi.refine({__MODULE__, :valid_record, []})
 
   @type kind :: :direct | :group | :channel | :thread
-  @type t :: unquote(Zoi.type_spec(@schema))
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
 
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the durable Room record schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Returns the supported Room kinds."
@@ -149,7 +149,7 @@ defmodule Jido.Chat.Runtime.Room.Record do
   end
 
   defp parse(attrs) do
-    case Zoi.parse(@schema, attrs, coerce: true) do
+    case Jido.Joi.parse(@schema, attrs, coerce: true) do
       {:ok, record} ->
         {:ok, record}
 

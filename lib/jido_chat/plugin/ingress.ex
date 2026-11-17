@@ -4,7 +4,8 @@ defmodule Jido.Chat.Plugin.Ingress do
 
   @impl true
   def options_schema do
-    Zoi.keyword([server: Zoi.pid() |> Zoi.required(), connection: Zoi.atom() |> Zoi.required()],
+    Jido.Joi.keyword(
+      [server: Jido.Joi.pid() |> Jido.Joi.required(), connection: Jido.Joi.atom() |> Jido.Joi.required()],
       unrecognized_keys: :error
     )
   end

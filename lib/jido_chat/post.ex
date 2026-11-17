@@ -9,25 +9,25 @@ defmodule Jido.Chat.Post do
   alias Jido.Chat.Content
 
   @fields [:content, :thread_id, :reply_to_id, :mentions, :metadata]
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              content: Zoi.list(Zoi.struct(Content)) |> Zoi.min(1),
-              thread_id: Zoi.string() |> Zoi.nullish(),
-              reply_to_id: Zoi.string() |> Zoi.nullish(),
-              mentions: Zoi.list(Zoi.string() |> Zoi.min(1)) |> Zoi.default([]),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              content: Jido.Joi.list(Jido.Joi.struct(Content)) |> Jido.Joi.min(1),
+              thread_id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              reply_to_id: Jido.Joi.string() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              mentions: Jido.Joi.list(Jido.Joi.string() |> Jido.Joi.min(1)) |> Jido.Joi.default([]),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the portable post schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates a portable post."

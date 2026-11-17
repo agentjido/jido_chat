@@ -10,20 +10,20 @@ defmodule Jido.Chat.Signal.ReceiptReceived do
     dataschema: "urn:jido:chat:schema:receipt_received:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "message_ids" => Zoi.array(Zoi.string() |> Zoi.min(1)),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "message_ids" => Jido.Joi.array(Jido.Joi.string() |> Jido.Joi.min(1)),
           "actor_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
-          "receipt" => Zoi.enum(["delivered", "read"]),
-          "timestamp" => Zoi.string() |> Zoi.optional()
+            |> Jido.Joi.optional(),
+          "receipt" => Jido.Joi.enum(["delivered", "read"]),
+          "timestamp" => Jido.Joi.string() |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

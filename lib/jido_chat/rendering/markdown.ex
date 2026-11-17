@@ -6,22 +6,22 @@ defmodule Jido.Chat.Markdown do
   alias Jido.Chat.Markdown.Node
   alias Jido.Chat.Wire
 
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              root: Zoi.struct(Node),
-              metadata: Zoi.map() |> Zoi.default(%{})
+              root: Jido.Joi.struct(Node),
+              metadata: Jido.Joi.map() |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
   @type markdown_node :: Node.t()
   @type node_input :: markdown_node() | map() | String.t()
 
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the schema for Markdown documents."
   def schema, do: @schema
@@ -35,7 +35,7 @@ defmodule Jido.Chat.Markdown do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Jido.Chat.Value.validate_portable!()
+    |> Jido.Chat.Value.without_marker()
     |> normalize_root()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
@@ -271,6 +271,8 @@ defmodule Jido.Chat.Markdown do
 
     attrs
     |> Map.delete("root")
+    |> Map.delete("nodes")
+    |> Map.delete(:nodes)
     |> Map.put(:root, root)
   end
 

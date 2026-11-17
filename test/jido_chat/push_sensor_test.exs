@@ -20,7 +20,7 @@ defmodule Jido.Chat.PushSensorTest do
 
   defmodule Dispatch do
     @behaviour Jido.Signal.Dispatch.Adapter
-    def options_schema, do: Zoi.keyword(store: Zoi.pid(), observer: Zoi.pid())
+    def options_schema, do: Jido.Joi.keyword(store: Jido.Joi.pid(), observer: Jido.Joi.pid())
 
     def deliver(signal, opts) do
       Agent.get_and_update(opts[:store], fn

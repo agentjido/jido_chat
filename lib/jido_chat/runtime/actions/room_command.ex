@@ -1,13 +1,14 @@
 defmodule Jido.Chat.Runtime.Actions.RoomCommand do
   @moduledoc "Builds portable room messages after Room Plugin admission."
 
-  use Jido.Action, name: "chat_room_command", schema: Zoi.map()
+  use Jido.Action, name: "chat_room_command", schema: Jido.Joi.map()
 
   alias Jido.Chat.{Actor, Message, Post}
   alias Jido.Chat.Runtime.Directives.Publish
   alias Jido.Chat.Runtime.Room
-  alias Jido.Chat.Runtime.Room.{Durable, Membership}
+  alias Jido.Chat.Runtime.Room.{Durable, Membership, Reaction}
   alias Jido.Chat.Runtime.Signal.Room.Message, as: MessageSignal
+  alias Jido.Chat.Signal.{ReactionAdded, ReactionRemoved}
 
   @impl true
   def run(_params, context) do
@@ -106,6 +107,28 @@ defmodule Jido.Chat.Runtime.Actions.RoomCommand do
             error
         end
 
+      context.signal.type in ["jido.chat.room.reaction.add", "jido.chat.room.reaction.remove"] ->
+        input = context.plugin_inputs[Room.Plugin]
+        status = if context.signal.type == "jido.chat.room.reaction.add", do: :active, else: :removed
+
+        with runtime when not is_nil(runtime) <- input.runtime.durable_runtime,
+             {:ok, result} <-
+               Durable.change_reaction(
+                 runtime,
+                 input.runtime.room.id,
+                 input.prepared["message_id"],
+                 input.prepared["reaction"],
+                 input.runtime.actor,
+                 status
+               ) do
+          fact = reaction_fact(result, input.runtime.room.id)
+          directives = reaction_directives(context.signal, result, fact)
+          {:ok, context.agent_state, directives}
+        else
+          nil -> {:error, :reaction_storage_required}
+          {:error, _reason} = error -> error
+        end
+
       true ->
         {:ok, context.agent_state, []}
     end
@@ -116,6 +139,51 @@ defmodule Jido.Chat.Runtime.Actions.RoomCommand do
     {:ok, reply} = Jido.Signal.put_context(reply, "jidocausationid", request.id)
     Jido.Agent.Directive.reply(reply)
   end
+
+  defp reaction_fact(%{changed: false}, _room_id), do: nil
+
+  defp reaction_fact(%{reaction: reaction, message: message}, room_id) do
+    module = if reaction.status == :active, do: ReactionAdded, else: ReactionRemoved
+    event = if reaction.status == :active, do: "added", else: "removed"
+    id = "#{reaction.id}/#{event}/#{reaction.revision}"
+    actor = Reaction.actor(reaction)
+
+    module.new!(
+      %{
+        "item_id" => reaction.id,
+        "delivery_id" => id,
+        "room_id" => room_id,
+        "message_id" => reaction.message_id,
+        "actor_id" => actor_id(actor),
+        "reaction" => reaction.reaction,
+        "thread_id" => message.thread_id
+      },
+      id: id,
+      source: "urn:jido:chat:runtime:room"
+    )
+  end
+
+  defp reaction_directives(request, result, fact) do
+    reply =
+      Jido.Chat.Runtime.Signal.Room.ReactionChanged.new!(%{
+        "record_id" => result.reaction.id,
+        "message_id" => result.reaction.message_id,
+        "reaction" => result.reaction.reaction,
+        "actor" => Reaction.actor(result.reaction),
+        "status" => Atom.to_string(result.reaction.status),
+        "revision" => result.reaction.revision,
+        "changed" => result.changed,
+        "fact" => fact
+      })
+
+    {:ok, reply} = Jido.Signal.put_context(reply, "jidocausationid", request.id)
+    reply = Jido.Agent.Directive.reply(reply)
+
+    if fact, do: [%Publish{message: fact, retain: false}, reply], else: [reply]
+  end
+
+  defp actor_id(%Jido.Agent.Address{id: id}), do: id
+  defp actor_id(id) when is_binary(id), do: id
 
   defp message_actor(post, local_actor) do
     case get_in(post.metadata, ["jido_chat_origin", "actor"]) do

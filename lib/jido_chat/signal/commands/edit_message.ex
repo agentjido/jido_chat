@@ -5,15 +5,15 @@ defmodule Jido.Chat.Signal.EditMessage do
     dataschema: "urn:jido:chat:schema:command_edit_message:3",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
           "client_id" => Jido.Chat.Signal.Schemas.id(),
           "request_id" => Jido.Chat.Signal.Schemas.id(),
           "room_id" => Jido.Chat.Signal.Schemas.id(),
           "message_id" => Jido.Chat.Signal.Schemas.id(),
           "text" => Jido.Chat.Signal.Schemas.id(),
-          "format" => Zoi.enum(["plain", "markdown", "html"]) |> Zoi.optional(),
-          "keyboard" => Jido.Chat.Signal.Schemas.keyboard() |> Zoi.optional()
+          "format" => Jido.Joi.enum(["plain", "markdown", "html"]) |> Jido.Joi.optional(),
+          "keyboard" => Jido.Chat.Signal.Schemas.keyboard() |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )

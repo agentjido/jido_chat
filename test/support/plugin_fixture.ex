@@ -42,15 +42,18 @@ defmodule Jido.Chat.PluginFixture.RoomChanged do
     dataschema: "urn:test:chat:room:1",
     default_source: "urn:test:chat:fixture",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string(),
-          "delivery_id" => Zoi.string(),
-          "room_id" => Zoi.string() |> Zoi.to_upcase(),
-          "metadata" => Jido.Joi.map() |> Zoi.optional()
+          "item_id" => Jido.Joi.string(),
+          "delivery_id" => Jido.Joi.string(),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.transform({__MODULE__, :upcase, []}),
+          "metadata" => Jido.Joi.map() |> Jido.Joi.optional()
         },
         unrecognized_keys: :error
       )
+
+  @doc false
+  def upcase(value, _opts), do: String.upcase(value)
 end
 
 defmodule Jido.Chat.PluginFixture.ProviderAdapter do
@@ -225,12 +228,12 @@ defmodule Jido.Chat.PluginFixture.Agent do
 
   state do
     schema Jido.Joi.object(%{
-             pending: Jido.Joi.map() |> Zoi.default(%{}),
-             messages: Jido.Joi.map() |> Zoi.default(%{}),
-             deliveries: Jido.Joi.map() |> Zoi.default(%{}),
-             replies: Zoi.integer() |> Zoi.default(0),
-             last_delivery: Zoi.string() |> Zoi.default(""),
-             last_request: Zoi.string() |> Zoi.default("")
+             pending: Jido.Joi.map() |> Jido.Joi.default(%{}),
+             messages: Jido.Joi.map() |> Jido.Joi.default(%{}),
+             deliveries: Jido.Joi.map() |> Jido.Joi.default(%{}),
+             replies: Jido.Joi.integer() |> Jido.Joi.default(0),
+             last_delivery: Jido.Joi.string() |> Jido.Joi.default(""),
+             last_request: Jido.Joi.string() |> Jido.Joi.default("")
            })
   end
 
@@ -285,9 +288,9 @@ defmodule Jido.Chat.PluginFixture.SensorAgent do
 
   state do
     schema Jido.Joi.object(%{
-             last_delivery: Zoi.string() |> Zoi.default(""),
-             last_request: Zoi.string() |> Zoi.default(""),
-             deliveries: Jido.Joi.map() |> Zoi.default(%{})
+             last_delivery: Jido.Joi.string() |> Jido.Joi.default(""),
+             last_request: Jido.Joi.string() |> Jido.Joi.default(""),
+             deliveries: Jido.Joi.map() |> Jido.Joi.default(%{})
            })
   end
 

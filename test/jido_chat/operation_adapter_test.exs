@@ -22,6 +22,14 @@ defmodule Jido.Chat.OperationAdapterTest do
     def normalize(_client, input, _opts), do: input
   end
 
+  defmodule InvalidCapabilitiesAdapter do
+    use Jido.Chat.Adapter
+    def channel_type, do: :invalid
+    def capabilities, do: %{send_message: :fallback}
+    def invoke(_client, _request, _opts), do: {:error, :unused}
+    def normalize(_client, _input, _opts), do: {:error, :unused}
+  end
+
   use Jido.Chat.AdapterTestKit, adapter: WireAdapter
   @moduletag capture_log: true
 
@@ -89,7 +97,7 @@ defmodule Jido.Chat.OperationAdapterTest do
       assert result.data["request_id"] == request.data["request_id"]
       assert_receive {:provider, unquote(operation), ^request, ^client}
       Assertions.assert_json_round_trip(result)
-      assert is_map(Zoi.to_json_schema(unquote(definition).schema()))
+      assert is_map(Jido.Joi.to_json_schema(unquote(definition).schema()))
     end
   end
 
@@ -169,6 +177,18 @@ defmodule Jido.Chat.OperationAdapterTest do
 
     assert {:error, _} = Jido.Chat.execute(client(), request, options: [observer: self()])
     refute_receive {:provider, _, _, _}
+  end
+
+  test "adapter and delivery boundaries fail closed without provider work" do
+    assert_raise Jido.Chat.Errors.Contract, fn ->
+      Jido.Chat.Adapter.capabilities(InvalidCapabilitiesAdapter)
+    end
+
+    assert {:error, _error} = Client.new(InvalidCapabilitiesAdapter, id: "invalid")
+    assert {:error, _error} = Client.new("not-a-module", %{})
+    assert {:error, _errors} = Client.client_id(<<255>>, [])
+    assert Jido.Chat.Adapter.render_stream(["one", " two"]) == "one two"
+    assert {:error, _error} = Jido.Chat.Delivery.validate(:invalid, :invalid)
   end
 
   test "the test kit builds only values and validates complete deliveries" do

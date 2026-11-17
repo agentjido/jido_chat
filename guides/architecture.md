@@ -63,6 +63,7 @@ local rooms, or durable provider retries.
 ```text
 Host application
 |- optional Jido Chat Runtime supervisor
+|  |- Runtime Signal Bus (application-wide committed facts)
 |  `- Runtime manager (desired state and reconciliation)
 |- host-owned Jido instance
 |  |- Room Agent
@@ -74,17 +75,19 @@ Host application
 `- host-owned Chat storage resource
 ```
 
-The optional Runtime manager starts, stops, and reconciles declared Agent
-activations through the host Jido instance. It is not an Agent supervisor. Jido
-remains the only owner of Room, participant, and provider account Agent
-processes. Starting `:jido_chat` does not start the Runtime supervisor.
+The optional Runtime supervisor starts the bounded observation Bus before the
+manager. The manager starts, stops, and reconciles declared Agent activations
+through the host Jido instance. It is not an Agent supervisor. Jido remains the
+only owner of Room, participant, and provider account Agent processes. Starting
+`:jido_chat` does not start the Runtime supervisor.
 
-One provider account is one Agent activation. The Bridge maps declared provider
-rooms to declared local Room addresses. It does not create rooms or accounts.
-Provider account declarations and startup Room declarations are in memory.
-Provisioned Room declarations and their desired state are durable. Stored
-declarations refer to a portable key that the host maps to trusted Room Agent
-code.
+One provider account is one Agent activation. The Bridge maps provider Rooms
+to local Room addresses. It does not create Rooms or accounts. Startup
+declarations are in memory. Provisioned Room and provider account declarations
+and their desired state are durable. Stored declarations refer to portable
+keys that the host maps to trusted Agent code. Provider declarations store
+opaque secret references, not credentials. Enabled durable bindings replace
+the trusted Agent's Room list and Bridge mappings during activation.
 
 Durable Room records are also separate from live Agents and managed Runtime
 declarations. They give the host a stable Room identity and descriptive
@@ -115,6 +118,10 @@ The current storage capabilities are:
 - `RoomDeclarations` for managed Room definition keys and desired state.
 - `Memberships` for revision-checked Room member lifecycle.
 - `History` for immutable Room message facts and bounded queries.
+- `Reactions` for revision-checked current reaction state and tombstones.
+- `Connections` for provider definition keys, desired state, safe settings,
+  and opaque secret references.
+- `Bindings` for provider-to-Room direction and enabled state.
 - `Commit` for an atomic batch across one adapter resource.
 
 Memory and DETS implement these capabilities. An Ecto or Ash adapter can
@@ -131,14 +138,28 @@ close this cross-store atomicity limit.
 
 A Room without a Runtime keeps membership, sequence, and retained messages in
 its bounded Plugin state. A durable Room uses storage as the authority and its
-Plugin state as a bounded working cache. It writes membership and message facts
-before Agent commit and restores the cache before managed activation. Stable
-membership revisions and message IDs make retry safe if storage succeeds and a
+Plugin state as a bounded working cache. It writes membership, message facts,
+and reaction state before Agent commit and restores the cache before managed
+activation. Stable membership and reaction revisions and stable message IDs
+make retry safe if storage succeeds and a
 later Agent checkpoint fails.
 
-The Room publishes committed message Signals to its Jido Bus. Durable message
-history does not make the Bus log durable. Applications that need Bus records
-across restarts must also select a durable Jido Bus store.
+The Room publishes committed message Signals to its isolated Jido Bus. A
+durable Room also publishes committed message and changed reaction facts to the
+Runtime observation Bus. Runtime notification is best effort after storage and
+the required Room publication. A notification failure cannot undo durable
+state. The built-in Bus log is bounded memory and does not survive a Runtime
+restart.
+
+Reaction commands use the retained durable message as their subject. A real
+state change publishes the canonical reaction fact after the reaction record
+is stored. A repeated command does not publish a duplicate fact. Thread reads
+use the `thread_id` index on immutable history. There is no separate thread
+record.
+
+The Runtime Bus is the host integration point for application-wide updates.
+Web presence stays outside Jido Chat. The host owns sessions, heartbeat, TTL,
+and client transport state.
 
 ## Delivery limits
 

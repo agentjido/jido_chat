@@ -9,7 +9,7 @@ defmodule Jido.Chat.V3BaselineTest do
       type: "jido.chat.baseline.message_received",
       default_source: "urn:jido:chat:binding:fixture",
       dataschema: "urn:jido:chat:schema:baseline:1",
-      schema: Zoi.object(%{"text" => Zoi.string()}, unrecognized_keys: :error)
+      schema: Jido.Joi.object(%{"text" => Jido.Joi.string()}, unrecognized_keys: :error)
   end
 
   test "catalog JSON decoding preserves the complete typed fact" do
@@ -34,6 +34,51 @@ defmodule Jido.Chat.V3BaselineTest do
 
     assert {:error, %{details: %{code: :unknown_dataschema}}} =
              Catalog.validate(catalog, %{signal | dataschema: "urn:jido:unknown:2"})
+  end
+
+  test "Joi keeps nullable, optional, range, and default semantics explicit" do
+    schema =
+      Jido.Joi.map(
+        %{
+          "optional_nullable" =>
+            Jido.Joi.string()
+            |> Jido.Joi.nullable()
+            |> Jido.Joi.optional(),
+          "required_nullable" => Jido.Joi.nullable(Jido.Joi.string()),
+          "count" => Jido.Joi.integer() |> Jido.Joi.min(1) |> Jido.Joi.default(1)
+        },
+        unrecognized_keys: :error
+      )
+
+    assert {:ok, %{"required_nullable" => nil, "count" => 1}} =
+             Jido.Joi.parse(schema, %{"required_nullable" => nil})
+
+    assert {:ok, %{"optional_nullable" => nil, "required_nullable" => "value", "count" => 2}} =
+             Jido.Joi.parse(schema, %{
+               "optional_nullable" => nil,
+               "required_nullable" => "value",
+               "count" => 2
+             })
+
+    assert {:error, _errors} = Jido.Joi.parse(schema, %{})
+    assert {:error, _errors} = Jido.Joi.parse(schema, %{"required_nullable" => nil, "count" => 0})
+
+    assert {:error, _errors} =
+             Jido.Joi.parse(schema, %{"required_nullable" => nil, "undeclared" => true})
+  end
+
+  test "Joi stored-value validation adds defaults only during initialization" do
+    schema =
+      Jido.Joi.map(
+        %{"count" => Jido.Joi.integer() |> Jido.Joi.default(0)},
+        unrecognized_keys: :error
+      )
+
+    assert {:ok, %{"count" => 0}} = Jido.Joi.initialize(schema, %{})
+    assert :ok = Jido.Joi.validate(schema, %{"count" => 0})
+    assert {:error, _errors} = Jido.Joi.validate(schema, %{})
+    assert {:error, _errors} = Jido.Joi.validate(schema, %{"count" => "0"})
+    assert {:error, _errors} = Jido.Joi.validate(schema, %{"count" => 0, "extra" => true})
   end
 
   test "Bus uses type, source, and subject conjunction and keeps selected order" do

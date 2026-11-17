@@ -47,18 +47,22 @@ lib/
     runtime.ex               Host-owned Runtime facade
     runtime/
       supervisor.ex         Optional managed Runtime process-tree boundary
+      bus.ex                Application-wide committed Signal observation Bus
       manager.ex            Internal desired-state and Agent reconciliation loop
       room.ex                Local Room Agent and Bus identity
       room/
         record.ex            Durable Room catalog value
+        reaction.ex          Durable current reaction state
         records.ex           Runtime facade Room storage operations
       participant.ex         Room observation and reply Plugin
       connection.ex          Provider account activation through host Jido
-      bridge.ex              Provider-room to local-room Bridge Plugin
+      connection/            Durable provider declarations and provisioning
+      bridge.ex              Provider-Room to local-Room Bridge Plugin
+      bridge/                Durable bindings and provider work
       actions/               Room, participant, and Bridge Actions
       signal/room.ex         jido.chat.room.* Signals
       storage.ex             Storage selection and capability validation
-      storage/               Links, Outbox, Rooms, Commit, Memory, and DETS
+      storage/               Domain capabilities, Memory, and DETS
 ```
 
 Telegram has flat provider Actions, native request Signals, one internal operation
@@ -77,13 +81,13 @@ Runtime facade as a managed process tree, or declare
 `Jido.Chat.Plugin` on an Agent. AgentServer then owns the Plugin and input
 processes. These optional processes hold only activation state and bounded input
 identities. `Jido.Chat.Runtime` adds explicit durable Room records,
-declarations, membership, history, local Room Agents, Participants, accounts,
-Bridges, and storage contracts. Its optional
-manager reconciles declared Agent activations, but Jido owns those Agent
-processes. The host starts its Jido instance and selected storage resource. A
-resource can use Memory, DETS, Ecto, Ash, or another adapter. Runtime starts
-only when the host selects the managed tree or requests an Agent activation
-directly.
+declarations, membership, history, reactions, local Room Agents, Participants,
+durable provider accounts, bridge bindings, a Runtime observation Bus, and
+storage contracts. Its optional manager reconciles declared Agent activations,
+but Jido owns those Agent processes. The host starts its Jido instance and
+selected storage resource. A resource can use Memory, DETS, Ecto, Ash, or
+another adapter. Runtime starts only when the host selects the managed tree or
+requests an Agent activation directly.
 
 See [Agent connections and sources](agent_plugin.md) for Integration. See the
 [Runtime guide](runtime.md) for rooms and bridges. A stream renderer still

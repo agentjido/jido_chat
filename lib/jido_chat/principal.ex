@@ -11,30 +11,33 @@ defmodule Jido.Chat.Principal do
   @fields [:id, :kind, :display_name, :roles, :assurance, :agent_address, :attributes]
   @private_keys ~w(raw credentials credential token access_token refresh_token password secret key proof)
 
-  @schema Zoi.struct(
+  @schema Jido.Joi.struct(
             __MODULE__,
             %{
-              id: Zoi.string() |> Zoi.min(1) |> Zoi.max(256),
-              kind: Zoi.enum(@kinds),
-              display_name: Zoi.string() |> Zoi.max(256) |> Zoi.nullish(),
-              roles: Zoi.list(Zoi.string() |> Zoi.min(1) |> Zoi.max(128)) |> Zoi.max(64) |> Zoi.default([]),
-              assurance: Zoi.enum(@assurance_levels) |> Zoi.default(:asserted),
-              agent_address: Jido.Agent.Address.schema() |> Zoi.nullish(),
+              id: Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.max(256),
+              kind: Jido.Joi.enum(@kinds),
+              display_name: Jido.Joi.string() |> Jido.Joi.max(256) |> Jido.Joi.nullable() |> Jido.Joi.optional(),
+              roles:
+                Jido.Joi.list(Jido.Joi.string() |> Jido.Joi.min(1) |> Jido.Joi.max(128))
+                |> Jido.Joi.max(64)
+                |> Jido.Joi.default([]),
+              assurance: Jido.Joi.enum(@assurance_levels) |> Jido.Joi.default(:asserted),
+              agent_address: Jido.Agent.Address.schema() |> Jido.Joi.nullable() |> Jido.Joi.optional(),
               attributes:
-                Zoi.map()
-                |> Zoi.refine({__MODULE__, :safe_attributes, []})
-                |> Zoi.default(%{})
+                Jido.Joi.map()
+                |> Jido.Joi.refine({__MODULE__, :safe_attributes, []})
+                |> Jido.Joi.default(%{})
             },
             coerce: true
           )
-          |> Zoi.refine({Jido.Chat.Wire, :portable, []})
+          |> Jido.Joi.refine({Jido.Chat.Wire, :portable, []})
 
-  @type t :: unquote(Zoi.type_spec(@schema))
-  @enforce_keys Zoi.Struct.enforce_keys(@schema)
-  defstruct Zoi.Struct.struct_fields(@schema)
+  @type t :: unquote(Jido.Joi.type_spec(@schema))
+  @enforce_keys Jido.Joi.enforce_keys(@schema)
+  defstruct Jido.Joi.struct_fields(@schema)
 
   @doc "Returns the Principal schema."
-  @spec schema() :: Zoi.schema()
+  @spec schema() :: Jido.Joi.schema()
   def schema, do: @schema
 
   @doc "Creates a validated Principal."

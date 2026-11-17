@@ -10,109 +10,115 @@ defmodule Jido.Chat.Signal.MembershipChanged do
     dataschema: "urn:jido:chat:schema:membership_changed:1",
     default_source: "urn:jido:chat:producer:local",
     schema:
-      Zoi.map(
+      Jido.Joi.map(
         %{
-          "item_id" => Zoi.string() |> Zoi.min(1),
-          "delivery_id" => Zoi.string() |> Zoi.min(1),
-          "room_id" => Zoi.string() |> Zoi.min(1),
-          "participant_id" => Zoi.string() |> Zoi.min(1),
+          "item_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "delivery_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+          "participant_id" => Jido.Joi.string() |> Jido.Joi.min(1),
           "actor_id" =>
-            Zoi.union([
-              Zoi.string() |> Zoi.min(1),
-              Zoi.null()
+            Jido.Joi.union([
+              Jido.Joi.string() |> Jido.Joi.min(1),
+              Jido.Joi.literal(nil)
             ])
-            |> Zoi.optional(),
-          "bot_self" => Zoi.boolean(),
+            |> Jido.Joi.optional(),
+          "bot_self" => Jido.Joi.boolean(),
           "transition" =>
-            Zoi.enum(["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]),
+            Jido.Joi.enum(["joined", "left", "removed", "role_changed", "restriction_changed", "unchanged", "unknown"]),
           "evidence" =>
-            Zoi.enum(["explicit_join", "explicit_leave", "explicit_remove", "state_transition", "partial_transition"]),
+            Jido.Joi.enum([
+              "explicit_join",
+              "explicit_leave",
+              "explicit_remove",
+              "state_transition",
+              "partial_transition"
+            ]),
           "previous" =>
-            Zoi.union([
-              Zoi.map(
+            Jido.Joi.union([
+              Jido.Joi.map(
                 %{
                   "status" =>
-                    Zoi.enum(["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]),
+                    Jido.Joi.enum(["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]),
                   "is_member" =>
-                    Zoi.union([
-                      Zoi.boolean(),
-                      Zoi.null()
+                    Jido.Joi.union([
+                      Jido.Joi.boolean(),
+                      Jido.Joi.literal(nil)
                     ]),
                   "role" =>
-                    Zoi.union([
-                      Zoi.string(),
-                      Zoi.null()
+                    Jido.Joi.union([
+                      Jido.Joi.string(),
+                      Jido.Joi.literal(nil)
                     ])
-                    |> Zoi.optional(),
+                    |> Jido.Joi.optional(),
                   "restrictions" =>
-                    Zoi.map(
+                    Jido.Joi.map(
                       %{
-                        "can_send_messages" => Zoi.boolean() |> Zoi.optional(),
-                        "can_send_audios" => Zoi.boolean() |> Zoi.optional(),
-                        "can_send_documents" => Zoi.boolean() |> Zoi.optional(),
-                        "can_send_photos" => Zoi.boolean() |> Zoi.optional(),
-                        "can_send_videos" => Zoi.boolean() |> Zoi.optional(),
-                        "can_send_video_notes" => Zoi.boolean() |> Zoi.optional(),
-                        "can_send_voice_notes" => Zoi.boolean() |> Zoi.optional(),
-                        "can_send_polls" => Zoi.boolean() |> Zoi.optional(),
-                        "can_send_other_messages" => Zoi.boolean() |> Zoi.optional(),
-                        "can_add_web_page_previews" => Zoi.boolean() |> Zoi.optional(),
-                        "can_change_info" => Zoi.boolean() |> Zoi.optional(),
-                        "can_invite_users" => Zoi.boolean() |> Zoi.optional(),
-                        "can_pin_messages" => Zoi.boolean() |> Zoi.optional(),
-                        "can_manage_topics" => Zoi.boolean() |> Zoi.optional(),
-                        "can_react_to_messages" => Zoi.boolean() |> Zoi.optional(),
-                        "can_edit_tag" => Zoi.boolean() |> Zoi.optional(),
-                        "until_date" => Zoi.integer() |> Zoi.gte(0) |> Zoi.optional()
+                        "can_send_messages" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_send_audios" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_send_documents" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_send_photos" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_send_videos" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_send_video_notes" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_send_voice_notes" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_send_polls" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_send_other_messages" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_add_web_page_previews" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_change_info" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_invite_users" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_pin_messages" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_manage_topics" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_react_to_messages" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "can_edit_tag" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                        "until_date" => Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.optional()
                       },
                       unrecognized_keys: :error
                     )
-                    |> Zoi.optional()
+                    |> Jido.Joi.optional()
                 },
                 unrecognized_keys: :error
               ),
-              Zoi.null()
+              Jido.Joi.literal(nil)
             ]),
           "current" =>
-            Zoi.map(
+            Jido.Joi.map(
               %{
                 "status" =>
-                  Zoi.enum(["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]),
+                  Jido.Joi.enum(["creator", "administrator", "member", "restricted", "left", "removed", "unknown"]),
                 "is_member" =>
-                  Zoi.union([
-                    Zoi.boolean(),
-                    Zoi.null()
+                  Jido.Joi.union([
+                    Jido.Joi.boolean(),
+                    Jido.Joi.literal(nil)
                   ]),
                 "role" =>
-                  Zoi.union([
-                    Zoi.string(),
-                    Zoi.null()
+                  Jido.Joi.union([
+                    Jido.Joi.string(),
+                    Jido.Joi.literal(nil)
                   ])
-                  |> Zoi.optional(),
+                  |> Jido.Joi.optional(),
                 "restrictions" =>
-                  Zoi.map(
+                  Jido.Joi.map(
                     %{
-                      "can_send_messages" => Zoi.boolean() |> Zoi.optional(),
-                      "can_send_audios" => Zoi.boolean() |> Zoi.optional(),
-                      "can_send_documents" => Zoi.boolean() |> Zoi.optional(),
-                      "can_send_photos" => Zoi.boolean() |> Zoi.optional(),
-                      "can_send_videos" => Zoi.boolean() |> Zoi.optional(),
-                      "can_send_video_notes" => Zoi.boolean() |> Zoi.optional(),
-                      "can_send_voice_notes" => Zoi.boolean() |> Zoi.optional(),
-                      "can_send_polls" => Zoi.boolean() |> Zoi.optional(),
-                      "can_send_other_messages" => Zoi.boolean() |> Zoi.optional(),
-                      "can_add_web_page_previews" => Zoi.boolean() |> Zoi.optional(),
-                      "can_change_info" => Zoi.boolean() |> Zoi.optional(),
-                      "can_invite_users" => Zoi.boolean() |> Zoi.optional(),
-                      "can_pin_messages" => Zoi.boolean() |> Zoi.optional(),
-                      "can_manage_topics" => Zoi.boolean() |> Zoi.optional(),
-                      "can_react_to_messages" => Zoi.boolean() |> Zoi.optional(),
-                      "can_edit_tag" => Zoi.boolean() |> Zoi.optional(),
-                      "until_date" => Zoi.integer() |> Zoi.gte(0) |> Zoi.optional()
+                      "can_send_messages" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_send_audios" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_send_documents" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_send_photos" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_send_videos" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_send_video_notes" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_send_voice_notes" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_send_polls" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_send_other_messages" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_add_web_page_previews" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_change_info" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_invite_users" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_pin_messages" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_manage_topics" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_react_to_messages" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "can_edit_tag" => Jido.Joi.boolean() |> Jido.Joi.optional(),
+                      "until_date" => Jido.Joi.integer() |> Jido.Joi.min(0) |> Jido.Joi.optional()
                     },
                     unrecognized_keys: :error
                   )
-                  |> Zoi.optional()
+                  |> Jido.Joi.optional()
               },
               unrecognized_keys: :error
             )

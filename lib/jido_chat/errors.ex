@@ -53,10 +53,10 @@ defmodule Jido.Chat.Errors do
 
     defp format_errors(_), do: ""
 
-    defp format_error(%Zoi.Error{message: message, path: path}) do
-      case format_path(path) do
-        "" -> message
-        path -> "#{path} #{message}"
+    defp format_error(%{message: message, path: path} = error) when is_binary(message) and is_list(path) do
+      case format_path(Jido.Joi.error_path(error)) do
+        "" -> Jido.Joi.error_message(error)
+        path -> "#{path} #{Jido.Joi.error_message(error)}"
       end
     end
 

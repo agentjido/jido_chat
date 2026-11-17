@@ -1,8 +1,8 @@
 defmodule Jido.Chat.Runtime.Room.Plugin do
   @moduledoc "Owns room membership, bounded working history, and one Jido Bus."
 
+  alias Jido.Chat.Runtime.{Bus, Resources, Room}
   alias Jido.Chat.Runtime.Directives.Publish
-  alias Jido.Chat.Runtime.{Resources, Room}
   alias Jido.Chat.Runtime.Signal.Room, as: Signals
   alias Spark.Dsl.Extension, as: DSL
 
@@ -33,7 +33,7 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
 
   @impl true
   def validate_options(opts) do
-    if match?({:ok, _}, Zoi.parse(Room.member_schema(), opts[:admin])) and
+    if match?({:ok, _}, Jido.Joi.parse(Room.member_schema(), opts[:admin])) and
          is_integer(opts[:history_limit]) and opts[:history_limit] > 0 and
          is_integer(opts[:member_limit]) and opts[:member_limit] > 0 and
          valid_runtime?(opts[:runtime]) and
@@ -49,11 +49,11 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
   def state_spec(_opts) do
     {:room,
      Jido.Joi.object(%{
-       members: Zoi.list(Room.member_schema()),
-       messages: Zoi.list(Jido.Joi.struct(Jido.Signal)),
-       sequence: Zoi.integer()
+       members: Jido.Joi.list(Room.member_schema()),
+       messages: Jido.Joi.list(Jido.Joi.struct(Jido.Signal)),
+       sequence: Jido.Joi.integer()
      })
-     |> Zoi.default(%{members: [], messages: [], sequence: 0})}
+     |> Jido.Joi.default(%{members: [], messages: [], sequence: 0})}
   end
 
   @impl true
@@ -65,6 +65,8 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
       "jido.chat.room.join" -> Signals.Join.validate_data(input.signal.data)
       "jido.chat.room.leave" -> Signals.Leave.validate_data(input.signal.data)
       "jido.chat.room.post" -> Signals.Post.validate_data(input.signal.data)
+      "jido.chat.room.reaction.add" -> Signals.AddReaction.validate_data(input.signal.data)
+      "jido.chat.room.reaction.remove" -> Signals.RemoveReaction.validate_data(input.signal.data)
       "jido.chat.room.check_member" -> Signals.CheckMember.validate_data(input.signal.data)
       _ -> {:ok, nil}
     end
@@ -163,11 +165,11 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
   end
 
   @impl true
-  def dispatch(runtime, %Publish{message: message}, _context, _opts) do
+  def dispatch(runtime, %Publish{message: message}, _context, opts) do
     {_, _, _, bus} = Resources.identity(runtime)
 
     case Jido.Signal.Bus.publish(bus, [message]) do
-      {:ok, _} -> :ok
+      {:ok, _} -> Bus.notify(opts[:runtime], message)
       error -> error
     end
   end
@@ -215,6 +217,8 @@ defmodule Jido.Chat.Runtime.Room.Plugin do
   defp room_action("jido.chat.room.join"), do: :room_join
   defp room_action("jido.chat.room.leave"), do: :room_leave
   defp room_action("jido.chat.room.post"), do: :message_post
+  defp room_action("jido.chat.room.reaction.add"), do: :reaction_add
+  defp room_action("jido.chat.room.reaction.remove"), do: :reaction_remove
   defp room_action("jido.chat.room.check_member"), do: :member_check
   defp room_action(_type), do: nil
 

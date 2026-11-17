@@ -13,4 +13,13 @@ defmodule Jido.Chat.EmojiTest do
 
     assert Emoji.render(":custom-emoji:", custom: registry) == "🎯"
   end
+
+  test "registry, literal emoji, atoms, and empty names have deterministic fallbacks" do
+    assert Emoji.registry()[:rocket] == "🚀"
+    assert Emoji.render("🚀") == "🚀"
+    assert Emoji.render(:rocket) == "🚀"
+    assert Emoji.render(:unknown_emoji) == ":unknown_emoji:"
+    assert Emoji.render("") == ""
+    assert Emoji.put_custom(nil, :rocket, "ship")[:rocket] == "ship"
+  end
 end

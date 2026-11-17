@@ -19,12 +19,15 @@ An adapter implements only the capabilities its Runtime use needs:
 
 | Capability | Stored responsibility |
 | --- | --- |
-| `Jido.Chat.Runtime.Storage.Links` | Local-to-provider message identity |
+| `Jido.Chat.Runtime.Storage.Links` | One-to-many local-to-provider message identity |
 | `Jido.Chat.Runtime.Storage.Outbox` | Provider work and compare-and-set transitions |
 | `Jido.Chat.Runtime.Storage.Rooms` | Durable Room records, revision checks, and bounded queries |
 | `Jido.Chat.Runtime.Storage.RoomDeclarations` | Managed Room definition keys and desired state |
 | `Jido.Chat.Runtime.Storage.Memberships` | Room member lifecycle and revision checks |
 | `Jido.Chat.Runtime.Storage.History` | Immutable Room message facts and bounded queries |
+| `Jido.Chat.Runtime.Storage.Reactions` | Revision-checked current reaction state and bounded queries |
+| `Jido.Chat.Runtime.Storage.Connections` | Provider definition keys, secret references, settings, desired state, and revisions |
+| `Jido.Chat.Runtime.Storage.Bindings` | Provider-to-Room mappings, direction, enabled state, and revisions |
 | `Jido.Chat.Runtime.Storage.Commit` | One atomic batch across supported capabilities |
 
 Declare the capabilities on an adapter:
@@ -33,19 +36,33 @@ Declare the capabilities on an adapter:
 defmodule MyApp.ChatStorage do
   alias Jido.Chat.Runtime.Storage.{
     Adapter,
+    Bindings,
     Commit,
+    Connections,
     History,
     Links,
     Memberships,
     Outbox,
+    Reactions,
     RoomDeclarations,
     Rooms
   }
 
   use Adapter,
-    capabilities: [Links, Outbox, Rooms, RoomDeclarations, Memberships, History, Commit]
+    capabilities: [
+      Links,
+      Outbox,
+      Reactions,
+      Rooms,
+      RoomDeclarations,
+      Memberships,
+      History,
+      Connections,
+      Bindings,
+      Commit
+    ]
 
-  # Implement the callbacks from the four declared behaviours.
+  # Implement the callbacks from the declared behaviours.
 end
 ```
 
@@ -80,9 +97,11 @@ The host owns the file path, backup, process, and supervision. Treat the DETS
 file as trusted application data. An unsupported stored format stops the
 adapter without resetting or overwriting the file.
 
-Format 4 keeps history outside the snapshot, so a new message does not rewrite
-all prior Room history. The adapter reads formats 1 through 3 and moves their
-history into separate records when it opens the file.
+Format 6 adds the durable reaction projection. Format 5 added provider
+connection declarations, bridge bindings, and one-to-many local message links.
+History stays outside the snapshot, so a new message does not rewrite prior
+Room history. The adapter reads formats 1 through 6. It adds missing maps and
+moves old inline history into separate records when it opens the file.
 
 DETS is not the scale or distributed-storage target. Use an indexed host
 adapter when the application needs database queries, multi-node coordination,
@@ -99,12 +118,15 @@ The normal mapping is:
 
 | Chat capability | Ecto implementation shape |
 | --- | --- |
-| Links | Link schema with unique local and provider identities |
+| Links | Link schema with unique account, local message, and external Room identity plus unique provider identity |
 | Outbox | Work schema with status, lease owner, lease expiry, and compare-and-set update |
 | Rooms | Room schema with unique ID, indexed insertion time and kind, and revision-checked update and delete queries |
 | RoomDeclarations | Declaration schema with unique Room ID, definition key, desired state, and revision-checked changes |
 | Memberships | Membership schema with unique Room and member key, status index, and revision-checked transitions |
 | History | Immutable message schema with unique Room and message ID, unique Room sequence, and thread index |
+| Reactions | Current-state schema with unique Room, message, reaction, and actor identity plus status, revision, and cursor indexes |
+| Connections | Declaration schema with unique account ID, trusted definition key, opaque secret references, desired state, and revision checks |
+| Bindings | Binding schema with unique account and external Room, local Room index, direction, enabled state, and revision checks |
 | Commit | `Ecto.Multi` or a function passed to `Repo.transact/2` |
 
 Jido Chat does not require `ecto`, `ecto_sql`, or a specific database adapter.
@@ -126,6 +148,7 @@ The normal mapping is:
 | RoomDeclarations | Declaration resource with atomic desired-state and revision actions |
 | Memberships | Membership resource with atomic status and revision actions |
 | History | Immutable message resource with Room sequence and thread read actions |
+| Reactions | Current-state resource with one Room, message, reaction, and actor identity plus atomic revision actions |
 | Commit | One transaction across the affected resource list |
 
 Jido Chat does not require `ash` or one Ash data layer. The host owns resources,
@@ -157,6 +180,12 @@ Every adapter must preserve these rules:
   host principal ID. Active, suspended, and revoked are valid statuses.
 - History is immutable. Room and message ID and Room sequence are unique. Query
   order is ascending sequence. `before` and `after` cursors are exclusive.
+- Reaction identity is the Room ID, message ID, reaction value, and actor key.
+  Add and remove operations change `:active` and `:removed` state with one
+  atomic revision check. Removed records stay as tombstones.
+- Reaction query order is message ID, reaction value, and actor key. The
+  exclusive cursor is the stable reaction record ID. One query can select one
+  message or up to 100 unique message IDs. The limit is from 1 through 1,000.
 - Commit returns no partial success. Do not declare Commit if the backing data
   layer cannot make the complete batch atomic.
 - Stored work keeps `lease_owner` and `lease_expires_at` while it is claimed.

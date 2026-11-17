@@ -7,9 +7,31 @@ defmodule Jido.Chat.Runtime.Storage.Adapter do
   Ecto Repo configuration, Ash resources, or another host-owned value.
   """
 
-  alias Jido.Chat.Runtime.Storage.{Commit, History, Links, Memberships, Outbox, RoomDeclarations, Rooms}
+  alias Jido.Chat.Runtime.Storage.{
+    Bindings,
+    Commit,
+    Connections,
+    History,
+    Links,
+    Memberships,
+    Outbox,
+    Reactions,
+    RoomDeclarations,
+    Rooms
+  }
 
-  @capabilities [Links, Outbox, Rooms, RoomDeclarations, Memberships, History, Commit]
+  @capabilities [
+    Links,
+    Outbox,
+    Reactions,
+    Rooms,
+    RoomDeclarations,
+    Memberships,
+    History,
+    Connections,
+    Bindings,
+    Commit
+  ]
 
   @doc "Declares storage capability behaviours on the calling module."
   @spec __using__(keyword()) :: Macro.t()

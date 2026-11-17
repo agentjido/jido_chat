@@ -63,11 +63,10 @@ defmodule Jido.Chat.MixProject do
       # SDK: execution, Signals, Markdown, JSON, schemas, and errors.
       {:mdex, "~> 0.14.2"},
       {:jason, "~> 1.4"},
-      {:zoi, "~> 0.19.0"},
       {:splode, "~> 0.3.0"},
 
       # Core execution runtime and Agent Plugin DSL. The host starts each Jido instance.
-      {:jido, github: "agentjido/jido", ref: "047bf746330a2fbe7c3b25c045552e0303c97eaf", override: true},
+      {:jido, github: "agentjido/jido", ref: "ec96da6015b4b1e5a1642d50651235d9d52808ec", override: true},
       {:spark, "~> 2.7", runtime: false},
 
       # Compile-time checks for Core, Integration, and Runtime dependencies.

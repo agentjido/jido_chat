@@ -4,7 +4,7 @@ defmodule Jido.Chat.RuntimeDurableRoomTest do
   alias Jido.Chat.{Content, Post}
   alias Jido.Chat.Runtime.Room
   alias Jido.Chat.Runtime.Room.Declaration
-  alias Jido.Chat.Runtime.Signal.Room.Join
+  alias Jido.Chat.Runtime.Signal.Room.{AddReaction, Join, RemoveReaction}
   alias Jido.Chat.Runtime.Storage.Memory
 
   defmodule Runtime do
@@ -187,6 +187,140 @@ defmodule Jido.Chat.RuntimeDurableRoomTest do
              Jido.call(Runtime.jido(), room(), request, context: %{actor: "alice"})
   end
 
+  test "stores reaction state before it publishes canonical facts" do
+    assert {:ok, _result} = Runtime.provision_room("team", %{id: "team", kind: :group})
+    join("operator", "operator")
+    join("alice", "operator")
+    message = post("react here", "alice")
+
+    {:ok, bus} = Jido.Signal.Bus.whereis(Room.bus_name(room()), jido: Runtime.jido())
+    assert {:ok, _subscription} = Jido.Signal.Bus.subscribe(bus, "jido.chat.reaction.*")
+
+    add = reaction_request(AddReaction, message.id, "eyes")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed, reply: added}} =
+             Jido.call(Runtime.jido(), room(), add, context: %{actor: "alice"})
+
+    assert added.type == "jido.chat.room.reaction.changed"
+    assert added.data["status"] == "active"
+    assert added.data["revision"] == 1
+    assert added.data["changed"] == true
+    assert %Jido.Signal{type: "jido.chat.reaction.added"} = added.data["fact"]
+    assert Jido.Signal.get_context(added, "jidocausationid") == add.id
+
+    assert {:ok, stored} = Runtime.get_room_reaction("team", message.id, "eyes", "alice")
+    assert stored.status == :active
+    assert stored.id == added.data["record_id"]
+    assert_receive {:signal, %Jido.Signal{type: "jido.chat.reaction.added", id: added_fact_id}}
+    assert added_fact_id == added.data["fact"].id
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed, reply: repeated}} =
+             Jido.call(Runtime.jido(), room(), add, context: %{actor: "alice"})
+
+    assert repeated.data["changed"] == false
+    assert repeated.data["revision"] == 1
+    assert repeated.data["fact"] == nil
+    refute_receive {:signal, %Jido.Signal{type: "jido.chat.reaction.added"}}, 50
+
+    remove = reaction_request(RemoveReaction, message.id, "eyes")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed, reply: removed}} =
+             Jido.call(Runtime.jido(), room(), remove, context: %{actor: "alice"})
+
+    assert removed.data["status"] == "removed"
+    assert removed.data["revision"] == 2
+    assert removed.data["changed"] == true
+    assert %Jido.Signal{type: "jido.chat.reaction.removed"} = removed.data["fact"]
+    assert_receive {:signal, %Jido.Signal{type: "jido.chat.reaction.removed"}}
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed, reply: repeated_remove}} =
+             Jido.call(Runtime.jido(), room(), remove, context: %{actor: "alice"})
+
+    assert repeated_remove.data["changed"] == false
+    assert repeated_remove.data["revision"] == 2
+    assert repeated_remove.data["fact"] == nil
+    refute_receive {:signal, %Jido.Signal{type: "jido.chat.reaction.removed"}}, 50
+    assert {:ok, []} = Runtime.list_room_reactions("team", message_id: message.id)
+    assert {:ok, [stored_removed]} = Runtime.list_room_reactions("team", message_id: message.id, status: :removed)
+    assert stored_removed.revision == 2
+
+    assert :ok = stop_supervised(Runtime)
+    assert :ok = stop_supervised(__MODULE__.Jido)
+    start_supervised!({Jido, name: __MODULE__.Jido, namespace: "durable-room-test"})
+    start_runtime()
+
+    assert {:ok, %{state: :running}} = Runtime.room_runtime_status("team")
+    assert {:ok, restored} = Runtime.get_room_reaction("team", message.id, "eyes", "alice")
+    assert restored.status == :removed
+    assert restored.revision == 2
+
+    add_after_restart = reaction_request(AddReaction, message.id, "eyes")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed, reply: readded}} =
+             Jido.call(Runtime.jido(), room(), add_after_restart, context: %{actor: "alice"})
+
+    assert readded.data["status"] == "active"
+    assert readded.data["revision"] == 3
+    assert readded.data["changed"] == true
+  end
+
+  test "requires an active member and a retained message for reactions" do
+    assert {:ok, _result} = Runtime.provision_room("team", %{id: "team", kind: :group})
+    join("operator", "operator")
+    join("alice", "operator")
+    message = post("react here", "alice")
+
+    missing = reaction_request(AddReaction, "missing", "eyes")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :failed}} =
+             Jido.call(Runtime.jido(), room(), missing, context: %{actor: "alice"})
+
+    other = history_record("other", "other-message")
+    assert {:ok, ^other} = Memory.insert_history(__MODULE__.Storage, other)
+    wrong_room = reaction_request(AddReaction, other.message_id, "eyes")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :failed}} =
+             Jido.call(Runtime.jido(), room(), wrong_room, context: %{actor: "alice"})
+
+    request = reaction_request(AddReaction, message.id, "eyes")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :failed}} =
+             Jido.call(Runtime.jido(), room(), request, context: %{actor: "outsider"})
+
+    assert {:ok, []} = Runtime.list_room_reactions("team", status: :active)
+    assert {:error, :invalid_options} = Runtime.list_room_reactions("team", :invalid)
+    assert {:error, :invalid_options} = Runtime.list_room_reactions("team", [1])
+  end
+
+  test "does not publish a reaction fact when durable storage is unavailable" do
+    assert {:ok, _result} = Runtime.provision_room("team", %{id: "team", kind: :group})
+    join("operator", "operator")
+    join("alice", "operator")
+    message = post("react here", "alice")
+    {:ok, bus} = Jido.Signal.Bus.whereis(Room.bus_name(room()), jido: Runtime.jido())
+    assert {:ok, _subscription} = Jido.Signal.Bus.subscribe(bus, "jido.chat.reaction.*")
+    assert :ok = stop_supervised(Memory)
+
+    request = reaction_request(AddReaction, message.id, "eyes")
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :failed}} =
+             Jido.call(Runtime.jido(), room(), request, context: %{actor: "alice"})
+
+    refute_receive {:signal, %Jido.Signal{type: "jido.chat.reaction.added"}}, 50
+  end
+
+  test "uses retained history as the minimum thread projection" do
+    assert {:ok, _result} = Runtime.provision_room("team", %{id: "team", kind: :group})
+    join("operator", "operator")
+    join("alice", "operator")
+    root = post("root", "alice")
+    reply = post_in_thread("reply", "alice", root.id)
+
+    assert {:ok, [thread_reply]} = Runtime.list_room_history("team", thread_id: root.id)
+    assert thread_reply.message_id == reply.id
+    assert thread_reply.thread_id == root.id
+  end
+
   defp start_runtime do
     start_supervised!({Runtime, reconcile_interval: :infinity})
   end
@@ -215,6 +349,49 @@ defmodule Jido.Chat.RuntimeDurableRoomTest do
   defp post_signal(text, opts \\ []) do
     post = Post.new(%{content: [Content.text(text)]})
     Jido.Chat.Runtime.Signal.Room.Post.new!(%{"post" => Post.to_map(post), "mentions" => []}, opts)
+  end
+
+  defp post_in_thread(text, actor, thread_id) do
+    post = Post.new(%{content: [Content.text(text)], thread_id: thread_id, reply_to_id: thread_id})
+    request = Jido.Chat.Runtime.Signal.Room.Post.new!(%{"post" => Post.to_map(post), "mentions" => []})
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed, reply: reply}} =
+             Jido.call(Runtime.jido(), room(), request, context: %{actor: actor})
+
+    reply.data["message"]
+  end
+
+  defp reaction_request(module, message_id, reaction) do
+    module.new!(%{"message_id" => message_id, "reaction" => reaction})
+  end
+
+  defp history_record(room_id, message_id) do
+    signal =
+      Jido.Chat.Runtime.Signal.Room.Message.new!(
+        %{
+          "room" => Jido.Agent.Address.new!(%{namespace: "durable-room-test", id: room_id}),
+          "sequence" => 1,
+          "author" => "alice",
+          "message" =>
+            Jido.Chat.Message.to_map(
+              Jido.Chat.Message.new(%{
+                id: message_id,
+                room_id: room_id,
+                actor: Room.actor("alice"),
+                content: [Content.text("other")]
+              })
+            ),
+          "mentions" => []
+        },
+        id: message_id
+      )
+
+    Jido.Chat.Runtime.Room.HistoryRecord.new!(%{
+      room_id: room_id,
+      message_id: message_id,
+      sequence: 1,
+      signal: signal
+    })
   end
 
   defp snapshot(pid), do: Jido.AgentServer.snapshot(pid).agent.state

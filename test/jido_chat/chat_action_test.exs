@@ -11,13 +11,13 @@ defmodule Jido.Chat.ChatActionTest do
       dataschema: "urn:example:chat:send_asset:1",
       default_source: "urn:example:producer",
       schema:
-        Zoi.map(
+        Jido.Joi.map(
           %{
-            "client_id" => Zoi.string() |> Zoi.min(1),
-            "request_id" => Zoi.string() |> Zoi.min(1),
-            "room_id" => Zoi.string() |> Zoi.min(1),
-            "attachments" => Zoi.array(Jido.Chat.Signal.Schemas.reference()),
-            "metadata" => Zoi.any() |> Zoi.optional()
+            "client_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+            "request_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+            "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+            "attachments" => Jido.Joi.array(Jido.Chat.Signal.Schemas.reference()),
+            "metadata" => Jido.Joi.any() |> Jido.Joi.optional()
           },
           unrecognized_keys: :error
         )
@@ -29,11 +29,11 @@ defmodule Jido.Chat.ChatActionTest do
       description: "Sends an asset through an external adapter",
       signal: AssetRequest,
       result_schema:
-        Zoi.map(
+        Jido.Joi.map(
           %{
-            "asset_id" => Zoi.string() |> Zoi.min(1),
-            "room_id" => Zoi.string() |> Zoi.min(1),
-            "reference" => Jido.Chat.Signal.Schemas.reference() |> Zoi.optional()
+            "asset_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+            "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+            "reference" => Jido.Chat.Signal.Schemas.reference() |> Jido.Joi.optional()
           },
           unrecognized_keys: :error
         )
@@ -59,10 +59,10 @@ defmodule Jido.Chat.ChatActionTest do
         schema:
           Jido.Chat.Signal.Schemas.completion(
             "example.asset.create",
-            Zoi.map(%{"asset_id" => Zoi.string(), "room_id" => Zoi.string()})
+            Jido.Joi.map(%{"asset_id" => Jido.Joi.string(), "room_id" => Jido.Joi.string()})
           )
       ],
-      result_schema: Zoi.map(%{"asset_id" => Zoi.string(), "room_id" => Zoi.string()})
+      result_schema: Jido.Joi.map(%{"asset_id" => Jido.Joi.string(), "room_id" => Jido.Joi.string()})
   end
 
   defmodule Adapter do

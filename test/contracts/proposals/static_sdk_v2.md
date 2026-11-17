@@ -157,16 +157,13 @@ Each provider must keep its own active Covenant files. Keep tags and tests
 literal so Covenant's static check can read them without macro expansion.
 The future assertion helper needs its own tests; it does not exist today.
 
-## Messaging contracts
+## Managed Runtime contracts
 
-Activate these in `jido_messaging`, with its own test fixtures and Covenant gate.
-
-| Future ID | Requirement | Required tests |
-| --- | --- | --- |
-| `jido_messaging.chat.I1` | Messaging owns supervision, provider polling, offsets, leases, session state, subscriptions, queues, rate limits, and durable execution. | Restart each worker and prove state recovery through the configured persistence backend. No Chat private module is used. |
-| `jido_messaging.chat.I2` | Acceptance validates and deduplicates a whole Delivery, persists authoritative records and an outbox, then publishes facts. | Reject an invalid candidate with no partial commit. Duplicate provider deliveries create one logical record. Crash between commit and publication; recover the outbox. |
-| `jido_messaging.chat.I3` | Provider execution requires an authorized command, a request claim, and an explicit retry policy. Unknown writes must not be repeated automatically. | Reject unauthorized work before provider access. Race two workers for one claim. Simulate a crash after the provider write. Recover as uncertain until reconciliation or explicit operator action. |
-| `jido_messaging.chat.I4` | Bus durability depends on its configured store. Bus delivery does not replace application acceptance, an outbox, or provider idempotency. | Memory-store restart loses records as documented. A durable store retains them. A redelivered Bus record does not repeat an already accepted provider write. |
+The optional managed process tree is part of Jido Chat V3. Its tests must prove
+Room and provider Agent recovery, atomic storage commits, bounded Signal Bus
+delivery, durable outbox behavior, and safe retry boundaries. Provider session
+details remain in each adapter. Host presence and identity systems remain in
+the host application.
 
 ## Change order
 
@@ -174,5 +171,6 @@ Activate these in `jido_messaging`, with its own test fixtures and Covenant gate
 2. Pure normalization, verified ingestion, and portable Signal tests: I7–I9.
 3. Adapter-agnostic Action, Flow, and Router tests: I10 and I15. Foundation applications can start as normal dependencies.
 4. Telegram extension and conformance tests: I11. Then bounded streams: I12.
-5. Messaging acceptance, outbox, retry, and recovery contracts in its package.
-6. Migrate callers, remove the old stateful API, and release a breaking version.
+5. Managed Runtime acceptance, outbox, retry, and recovery contracts in Jido
+   Chat.
+6. Migrate callers to the V3 Runtime and remove the old stateful API.
