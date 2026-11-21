@@ -1,0 +1,97 @@
+name: Chat ecosystem tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - release/v3
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  packages:
+    name: ${{ matrix.package }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # These standalone versions own the same modules as the consolidated
+          # adapters. Test them beside the last core commit before the move.
+          - package: jido_chat_discord
+            revision: dad8f63dd93fc5e702f78c2e06796928487361ef
+            core: legacy
+            contracts: true
+          - package: jido_chat_telegram
+            revision: 2c1f08e15828fc32a85f06a0ff8eacc0993674e3
+            core: legacy
+            contracts: true
+          - package: jido_chat_slack
+            revision: 6a4927e205fa4fdcae3f4d62bc3970cc102c1364
+            core: legacy
+          - package: jido_chat_signal
+            revision: e003b88bfb5e08fff1c0fbcb859d0e4e9dc73d43
+            core: legacy
+          - package: jido_chat_x
+            revision: 1f998d8f57e6ef63b149a54a0f97357b681c65a5
+            core: legacy
+          # These V3 adapters still depend on core through the sibling path.
+          - package: jido_chat_github
+            revision: 4c24632dc66aadb96b74acff6ab10efe0d3ef40f
+            core: current
+          - package: jido_chat_teams
+            revision: 4124103426cfadbef9eb7c3d86eb4e1e533a7520
+            core: current
+          - package: jido_chat_whatsapp
+            revision: 3533622a7556b74d0ea7e1fecd0ad06ca796963e
+            core: current
+          # These packages resolve their own published Jido Chat versions.
+          - package: jido_messaging
+            revision: 9a31231de5d5dba4abc9ea0bfee12ed2e1405413
+          - package: jido_chat_mattermost
+            repository: www-zaq-ai/jido_chat_mattermost
+            revision: 93025d5205e070eebbecf89e539d32bdf1fde3ff
+    env:
+      MIX_ENV: test
+    steps:
+      - name: Check out package
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ matrix.repository || format('agentjido/{0}', matrix.package) }}
+          ref: ${{ matrix.revision }}
+          path: ${{ matrix.package }}
+          persist-credentials: false
+
+      - name: Check out core dependency
+        if: matrix.core
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ matrix.core == 'legacy' && 'c0e1cf36e3ae3ca205427f8aa992951458915425' || github.sha }}
+          path: jido_chat
+          persist-credentials: false
+
+      - name: Set up Erlang and Elixir
+        uses: erlef/setup-beam@fc68ffb90438ef2936bbb3251622353b3dcb2f93 # v1.24.0
+        with:
+          otp-version: "28.3"
+          elixir-version: "1.19.5"
+
+      - name: Install dependencies
+        working-directory: ${{ matrix.package }}
+        run: mix deps.get --only test
+
+      - name: Run offline tests
+        working-directory: ${{ matrix.package }}
+        run: mix test
+
+      - name: Run adapter contracts
+        if: matrix.contracts
+        working-directory: ${{ matrix.package }}
+        run: mix test.contracts
