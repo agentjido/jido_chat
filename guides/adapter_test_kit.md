@@ -55,7 +55,7 @@ request and checks `unsupported` with outcome `not_attempted`. The default kit
 includes this behavior check. Provider I/O must not occur.
 
 The core suite checks the native adapter contract with a provider-free fixture.
-Each provider package must test its adapter with a test transport.
+Test each adapter with a test transport.
 
 Use `assert_operation_failure(result, catalog)` for the public Chat error return.
 Success accepts both `{:ok, signal}` and `{:ok, %{signal: signal}}`. All three

@@ -1,0 +1,139 @@
+{
+  "respond_interaction": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "client_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "request_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "room_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "interaction_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "response_type": {
+        "anyOf": [
+          {
+            "const": 4
+          },
+          {
+            "const": 5
+          },
+          {
+            "const": 6
+          },
+          {
+            "const": 7
+          },
+          {
+            "const": 9
+          }
+        ]
+      },
+      "data": {
+        "type": "object"
+      }
+    },
+    "required": [
+      "client_id",
+      "interaction_id",
+      "request_id",
+      "response_type",
+      "room_id"
+    ]
+  },
+  "send_rich_message": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "client_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "request_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "room_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "text": {
+        "type": "string"
+      },
+      "thread_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "reply_to_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "embeds": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        },
+        "maxItems": 10
+      },
+      "components": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "tts": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "client_id",
+      "request_id",
+      "room_id"
+    ]
+  },
+  "start_message_thread": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "client_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "request_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "room_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "message_id": {
+        "type": "string",
+        "minLength": 1
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required": [
+      "client_id",
+      "message_id",
+      "name",
+      "request_id",
+      "room_id"
+    ]
+  }
+}

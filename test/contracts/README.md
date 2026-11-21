@@ -20,6 +20,10 @@ uses independent adapters and a provider extension. Tests cover valid and invali
 input, two client identities, safe failures, private options, stream consumption,
 deadlines, and complete delivery validation.
 
+The [Telegram](jido_chat_telegram/) and [Discord](jido_chat_discord/) directories
+define provider contracts. Their tests are in `providers/` and their fixed
+fixtures are in `fixtures/`. The component IDs remain stable after the move.
+
 ## Run the gate
 
 ```sh
@@ -58,7 +62,7 @@ for the tests. It uses public APIs and makes no network call.
 The contract set checks observable behavior. Its startup metadata check does not
 prove every possible absence of hidden runtime state. Rendering helper exports
 are fixed here; their detailed rendering behavior remains in regular unit tests.
-Telegram network behavior remains in the provider's excluded-by-default live suites.
+Provider live suites are excluded by default.
 
 The [old proposal](proposals/static_sdk_v2.md) is historical. Its proposed IDs and
 code examples are not active requirements. Use the obligations listed above.

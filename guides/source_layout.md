@@ -36,6 +36,7 @@ lib/
     plugin/                  DSL entities, post-commit delivery, and activation state
     sensor.ex                Host-owned poll or push input and Signal Dispatch
     sensor/source.ex         Provider input behaviour
+    providers/               Telegram, Discord, Slack, Signal Messenger, and X
     rendering/               Markdown, cards, modals, emoji, MIME, stream chunks
     signal/
       commands/              13 command definitions
@@ -64,6 +65,11 @@ lib/
       storage.ex             Storage selection and capability validation
       storage/               Domain capabilities, Memory, and DETS
 ```
+
+Adapters live in `providers/<provider>/` and keep their V3 public module names.
+`Jido.Chat.Signal` is the Signal Messenger facade. Its provider files live in
+`providers/signal/`. Core request and event definitions live in `signal/`.
+See [provider setup and migration](providers.md).
 
 Telegram has flat provider Actions, native request Signals, one internal operation
 implementation, a normalizer, pure membership/webhook helpers, and an injected

@@ -25,6 +25,8 @@ resource adapters.
 
 See the [source layout](guides/source_layout.md) for module groups and removed APIs.
 
+The example uses the default Telegram transport. Add `:ex_gram` and `:req` to the host app.
+
 ```elixir
 client = Jido.Chat.Client.new!(Jido.Chat.Telegram.Adapter,
   id: "support",
@@ -45,7 +47,9 @@ The main functions are `send_text`, `stream_text`, `send_file`, `edit_message`,
 an existing Action with a request Signal and returns a completion Signal.
 Capability discovery reads local adapter declarations without I/O.
 
-Provider packages are separate dependencies. Each adapter must implement the native Signal contract. This cleanup verifies the Telegram adapter. Other adapters need migration before they can use this breaking version.
+Telegram, Discord, Slack, Signal Messenger, and X are part of `jido_chat`.
+Add the optional transport dependencies for the features you use. See
+[provider setup and migration](guides/providers.md).
 
 Starting `:jido_chat` starts no process, table, room, queue, or storage resource.
 Core and `Jido.Chat.Plugin` continue to work without Runtime.

@@ -4,6 +4,16 @@
       "active": 25,
       "coverage": 1.0,
       "covered": 25
+    },
+    "jido_chat_discord": {
+      "active": 20,
+      "coverage": 1.0,
+      "covered": 20
+    },
+    "jido_chat_telegram": {
+      "active": 18,
+      "coverage": 1.0,
+      "covered": 18
     }
   },
   "components": {
@@ -320,12 +330,472 @@
           ]
         }
       }
+    },
+    "jido_chat_discord.actions": {
+      "active": 6,
+      "app": "jido_chat_discord",
+      "coverage": 1.0,
+      "covered": 6,
+      "form": "light",
+      "obligations": {
+        "jido_chat_discord.actions.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test facade helpers execute their core Actions with explicit request identity"
+          ]
+        },
+        "jido_chat_discord.actions.I2": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test a real Flow composes core and native Signal Actions in order"
+          ]
+        },
+        "jido_chat_discord.actions.I3": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test stream and binary uploads cross the private boundary exactly once"
+          ]
+        },
+        "jido_chat_discord.actions.I4": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test confirmed rate rejection is typed and does not cause an automatic second write"
+          ]
+        },
+        "jido_chat_discord.actions.I5": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test altered Signals are rejected before transport through both execution boundaries"
+          ]
+        },
+        "jido_chat_discord.actions.I6": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test native Action completions use provider identity and causal context"
+          ]
+        }
+      }
+    },
+    "jido_chat_discord.adapter": {
+      "active": 4,
+      "app": "jido_chat_discord",
+      "coverage": 1.0,
+      "covered": 4,
+      "form": "light",
+      "obligations": {
+        "jido_chat_discord.adapter.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test public discovery and all 23 capabilities have fixed expectations"
+          ]
+        },
+        "jido_chat_discord.adapter.I2": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all seven unsupported core operations fail before any provider I/O"
+          ]
+        },
+        "jido_chat_discord.adapter.I3": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test same core Action keeps clients provider IDs and trace context separate"
+          ]
+        },
+        "jido_chat_discord.adapter.I4": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test fixed route fixtures verify requests and provider identities"
+          ]
+        }
+      }
+    },
+    "jido_chat_discord.normalization": {
+      "active": 4,
+      "app": "jido_chat_discord",
+      "coverage": 1.0,
+      "covered": 4,
+      "form": "light",
+      "obligations": {
+        "jido_chat_discord.normalization.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test fixed message reaction delete and thread events produce scoped catalog facts"
+          ]
+        },
+        "jido_chat_discord.normalization.I2": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test slash component and modal input drops private controls"
+          ]
+        },
+        "jido_chat_discord.normalization.I3": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test fixed media projection uses a stable scoped reference"
+          ]
+        },
+        "jido_chat_discord.normalization.I4": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test malformed siblings produce safe failures without dropping good input"
+          ]
+        }
+      }
+    },
+    "jido_chat_discord.signals": {
+      "active": 2,
+      "app": "jido_chat_discord",
+      "coverage": 1.0,
+      "covered": 2,
+      "form": "light",
+      "obligations": {
+        "jido_chat_discord.signals.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all nine native Signal identities are fixed and catalog roundtrip"
+          ]
+        },
+        "jido_chat_discord.signals.I2": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test constructors enforce shared JSON context options and encoded size policy"
+          ]
+        }
+      }
+    },
+    "jido_chat_discord.source": {
+      "active": 4,
+      "app": "jido_chat_discord",
+      "coverage": 1.0,
+      "covered": 4,
+      "form": "light",
+      "obligations": {
+        "jido_chat_discord.source.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test Source identity and fact declarations have no startup side effects"
+          ]
+        },
+        "jido_chat_discord.source.I2": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test actual Sensor dispatch preserves an accepted prefix and stops on the next rejected event",
+            "test private sink runs before Signal admission and failure prevents admission"
+          ]
+        },
+        "jido_chat_discord.source.I3": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test private controls bind identities expire and reject before transport"
+          ]
+        },
+        "jido_chat_discord.source.I4": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test controlled raw-input failure redacts OTP error report and closes socket"
+          ]
+        }
+      }
+    },
+    "jido_chat_telegram.actions": {
+      "active": 6,
+      "app": "jido_chat_telegram",
+      "coverage": 1.0,
+      "covered": 6,
+      "form": "light",
+      "obligations": {
+        "jido_chat_telegram.actions.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all fourteen Actions execute exact provider calls for two clients through Exec and Chat"
+          ]
+        },
+        "jido_chat_telegram.actions.I2": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test forged requests, foreign references, missing credentials, and legacy options make no provider call"
+          ]
+        },
+        "jido_chat_telegram.actions.I3": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test Telegram status failures expose safe categories and hints without raw details or retries",
+            "test every Action rejects malformed provider success and a deadline makes one attempt"
+          ]
+        },
+        "jido_chat_telegram.actions.I4": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test explicit draft Actions write once and webhook secrets stay in private context",
+            "test webhook verification is pure and requires the configured exact secret"
+          ]
+        },
+        "jido_chat_telegram.actions.I5": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test a failed mixed Flow dependency prevents the provider Action write",
+            "test mixed Flow and typed Router Instruction Dispatch compose with provider Signals"
+          ]
+        },
+        "jido_chat_telegram.actions.I6": {
+          "failing": 0,
+          "kind": "persisted_format",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test every Action schema matches its Signal data and validates serialized data"
+          ]
+        }
+      }
+    },
+    "jido_chat_telegram.adapter": {
+      "active": 6,
+      "app": "jido_chat_telegram",
+      "coverage": 1.0,
+      "covered": 6,
+      "form": "light",
+      "obligations": {
+        "jido_chat_telegram.adapter.I1": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test public exports, exact capabilities, configured discovery, and startup metadata stay fixed"
+          ]
+        },
+        "jido_chat_telegram.adapter.I2": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test core text, edits, acknowledgements, metadata, direct rooms, and topics use the declared wire fields"
+          ]
+        },
+        "jido_chat_telegram.adapter.I3": {
+          "failing": 0,
+          "kind": "persisted_format",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test GetFile and DownloadFile agree and unsafe metadata stops before any download",
+            "test core files and all provider media share portable source and canonical reference behavior"
+          ]
+        },
+        "jido_chat_telegram.adapter.I4": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all ten incoming event types retain order, item identity, safe projections, and client scope"
+          ]
+        },
+        "jido_chat_telegram.adapter.I5": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test pulling preserves normalized facts and only returns host-owned next offsets"
+          ]
+        },
+        "jido_chat_telegram.adapter.I6": {
+          "failing": 0,
+          "kind": "ordering",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test stream mode selection consumes one source, closes it, and flushes exact final text",
+            "test stream rejection stops reads and does not retry or change delivery mode"
+          ]
+        }
+      }
+    },
+    "jido_chat_telegram.signals": {
+      "active": 6,
+      "app": "jido_chat_telegram",
+      "coverage": 1.0,
+      "covered": 6,
+      "form": "light",
+      "obligations": {
+        "jido_chat_telegram.signals.I1": {
+          "failing": 0,
+          "kind": "persisted_format",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test all forty-two definition identities and JSON data schemas match the fixed manifest"
+          ]
+        },
+        "jido_chat_telegram.signals.I2": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test every typed constructor rejects missing required fields, unknown fields, and runtime values"
+          ]
+        },
+        "jido_chat_telegram.signals.I3": {
+          "failing": 0,
+          "kind": "persisted_format",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test every definition round trips with causal context through provider and configured catalogs"
+          ]
+        },
+        "jido_chat_telegram.signals.I4": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 1,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test the Action boundary rejects private context and produces only canonical public results"
+          ]
+        },
+        "jido_chat_telegram.signals.I5": {
+          "failing": 0,
+          "kind": "functional",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test media, keyboards, and file metadata keep the shared portable constraints",
+            "test poll, draft, callback, fetch, and webhook constraints preserve valid false and zero values"
+          ]
+        },
+        "jido_chat_telegram.signals.I6": {
+          "failing": 0,
+          "kind": "security",
+          "passing": 2,
+          "status": "active",
+          "testable": true,
+          "tests": [
+            "test incoming count, failure, Signal size, and Delivery size limits reject the complete batch",
+            "test the Action accepts the exact Signal byte limit and rejects one additional byte before I/O"
+          ]
+        }
+      }
     }
   },
   "covenant": "0.2.0",
   "totals": {
-    "active": 25,
+    "active": 63,
     "coverage": 1.0,
-    "covered": 25
+    "covered": 63
   }
 }

@@ -555,7 +555,7 @@ declarations, request/event fixtures, and delivery validation. Covenant contract
 The Telegram adapter implements `channel_type/0`, `capabilities/0`,
 `default_transport/0`, `operations/0`, `event_definitions/0`, `invoke/3`, and
 `normalize/3` from the core behaviour.
-Custom transports implement `Jido.Chat.Telegram.Transport.call/4`:
+Custom transports implement `c:Jido.Chat.Telegram.Transport.call/4`.
 
 ```elixir
 @behaviour Jido.Chat.Telegram.Transport
@@ -644,4 +644,4 @@ global identity mapping, history, durable cursors, delivery queues, durable
 duplicate records, persistence, and Bus supervision remain host work. Chat
 defines the identity and authorization ports but does not become the identity
 system of record.
-Other provider packages need migration to this breaking core version.
+See [provider setup and migration](providers.md) for adapter installation and 1.x migration.

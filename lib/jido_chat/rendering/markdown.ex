@@ -144,7 +144,7 @@ defmodule Jido.Chat.Markdown do
   end
 
   @doc "Builds a table row node."
-  @spec row([node_input()]) :: markdown_node()
+  @spec row([node_input() | number()]) :: markdown_node()
   def row(cells) when is_list(cells) do
     Node.new(%{type: :table_row, children: Enum.map(cells, &normalize_cell/1)})
   end
@@ -554,6 +554,7 @@ defmodule Jido.Chat.Markdown do
   defp normalize_row(value), do: row([value])
 
   defp normalize_cell(%Node{type: :table_cell} = cell), do: cell
+  defp normalize_cell(value) when is_number(value), do: cell(to_string(value))
   defp normalize_cell(value), do: cell(value)
 
   defp split_table_row(line) do

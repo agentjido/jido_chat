@@ -1,0 +1,615 @@
+[
+  {
+    "action": "Jido.Chat.Telegram.SendPoll",
+    "kind": "command",
+    "method": "sendPoll",
+    "fields": {
+      "room_id": "123",
+      "question": "Continue?",
+      "options": [
+        "Yes",
+        "No"
+      ],
+      "is_anonymous": false,
+      "thread_id": "7",
+      "reply_to_id": "9",
+      "keyboard": {
+        "rows": [
+          [
+            {
+              "text": "Confirm",
+              "value": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      }
+    },
+    "payload": {
+      "chat_id": "123",
+      "question": "Continue?",
+      "options": [
+        {
+          "text": "Yes"
+        },
+        {
+          "text": "No"
+        }
+      ],
+      "is_anonymous": false,
+      "message_thread_id": "7",
+      "reply_parameters": {
+        "message_id": "9"
+      },
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "Confirm",
+              "callback_data": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      }
+    },
+    "provider_reply": {
+      "message_id": 42,
+      "chat": {
+        "id": 123
+      },
+      "poll": {
+        "id": "poll-1"
+      }
+    },
+    "result": {
+      "id": "42",
+      "room_id": "123",
+      "poll_id": "poll-1"
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.SendPhoto",
+    "kind": "command",
+    "method": "sendPhoto",
+    "fields": {
+      "room_id": "123",
+      "source": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/input"
+      },
+      "thread_id": "7",
+      "reply_to_id": "9",
+      "keyboard": {
+        "rows": [
+          [
+            {
+              "text": "Confirm",
+              "value": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      },
+      "caption": "Report",
+      "format": "html"
+    },
+    "payload": {
+      "chat_id": "123",
+      "message_thread_id": "7",
+      "reply_parameters": {
+        "message_id": "9"
+      },
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "Confirm",
+              "callback_data": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      },
+      "photo": "input",
+      "caption": "Report",
+      "parse_mode": "HTML"
+    },
+    "provider_reply": {
+      "message_id": 42,
+      "chat": {
+        "id": 123
+      },
+      "photo": [
+        {
+          "file_id": "small"
+        },
+        {
+          "file_id": "file-1"
+        }
+      ]
+    },
+    "result": {
+      "id": "42",
+      "room_id": "123",
+      "resource_ref": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/file-1"
+      }
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.SendDocument",
+    "kind": "command",
+    "method": "sendDocument",
+    "fields": {
+      "room_id": "123",
+      "source": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/input"
+      },
+      "thread_id": "7",
+      "reply_to_id": "9",
+      "keyboard": {
+        "rows": [
+          [
+            {
+              "text": "Confirm",
+              "value": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      },
+      "caption": "Report",
+      "format": "html"
+    },
+    "payload": {
+      "chat_id": "123",
+      "message_thread_id": "7",
+      "reply_parameters": {
+        "message_id": "9"
+      },
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "Confirm",
+              "callback_data": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      },
+      "document": "input",
+      "caption": "Report",
+      "parse_mode": "HTML"
+    },
+    "provider_reply": {
+      "message_id": 42,
+      "chat": {
+        "id": 123
+      },
+      "document": {
+        "file_id": "file-1"
+      }
+    },
+    "result": {
+      "id": "42",
+      "room_id": "123",
+      "resource_ref": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/file-1"
+      }
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.SendSticker",
+    "kind": "command",
+    "method": "sendSticker",
+    "fields": {
+      "room_id": "123",
+      "source": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/input"
+      },
+      "thread_id": "7",
+      "reply_to_id": "9",
+      "keyboard": {
+        "rows": [
+          [
+            {
+              "text": "Confirm",
+              "value": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      }
+    },
+    "payload": {
+      "chat_id": "123",
+      "message_thread_id": "7",
+      "reply_parameters": {
+        "message_id": "9"
+      },
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "Confirm",
+              "callback_data": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      },
+      "sticker": "input"
+    },
+    "provider_reply": {
+      "message_id": 42,
+      "chat": {
+        "id": 123
+      },
+      "sticker": {
+        "file_id": "file-1"
+      }
+    },
+    "result": {
+      "id": "42",
+      "room_id": "123",
+      "resource_ref": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/file-1"
+      }
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.SendAnimation",
+    "kind": "command",
+    "method": "sendAnimation",
+    "fields": {
+      "room_id": "123",
+      "source": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/input"
+      },
+      "thread_id": "7",
+      "reply_to_id": "9",
+      "keyboard": {
+        "rows": [
+          [
+            {
+              "text": "Confirm",
+              "value": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      },
+      "caption": "Report",
+      "format": "html"
+    },
+    "payload": {
+      "chat_id": "123",
+      "message_thread_id": "7",
+      "reply_parameters": {
+        "message_id": "9"
+      },
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "Confirm",
+              "callback_data": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      },
+      "animation": "input",
+      "caption": "Report",
+      "parse_mode": "HTML"
+    },
+    "provider_reply": {
+      "message_id": 42,
+      "chat": {
+        "id": 123
+      },
+      "animation": {
+        "file_id": "file-1"
+      }
+    },
+    "result": {
+      "id": "42",
+      "room_id": "123",
+      "resource_ref": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/file-1"
+      }
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.SendVideoNote",
+    "kind": "command",
+    "method": "sendVideoNote",
+    "fields": {
+      "room_id": "123",
+      "source": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/input"
+      },
+      "thread_id": "7",
+      "reply_to_id": "9",
+      "keyboard": {
+        "rows": [
+          [
+            {
+              "text": "Confirm",
+              "value": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      }
+    },
+    "payload": {
+      "chat_id": "123",
+      "message_thread_id": "7",
+      "reply_parameters": {
+        "message_id": "9"
+      },
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "Confirm",
+              "callback_data": "confirm"
+            },
+            {
+              "text": "Help",
+              "url": "https://example.com"
+            }
+          ]
+        ]
+      },
+      "video_note": "input"
+    },
+    "provider_reply": {
+      "message_id": 42,
+      "chat": {
+        "id": 123
+      },
+      "video_note": {
+        "file_id": "file-1"
+      }
+    },
+    "result": {
+      "id": "42",
+      "room_id": "123",
+      "resource_ref": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/file-1"
+      }
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.GetFile",
+    "kind": "query",
+    "method": "getFile",
+    "fields": {
+      "resource_ref": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/file-1"
+      }
+    },
+    "payload": {
+      "file_id": "file-1"
+    },
+    "provider_reply": {
+      "file_id": "file-1",
+      "file_path": "documents/report.txt",
+      "file_size": 4
+    },
+    "result": {
+      "resource_ref": {
+        "client_id": "alpha",
+        "kind": "media",
+        "id": "telegram://file/file-1"
+      },
+      "file_path": "documents/report.txt",
+      "size": 4
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.GetMe",
+    "kind": "query",
+    "method": "getMe",
+    "fields": {},
+    "payload": {},
+    "provider_reply": {
+      "id": 99,
+      "is_bot": true,
+      "username": "contract_bot",
+      "first_name": "Contract Bot"
+    },
+    "result": {
+      "id": "99",
+      "is_bot": true,
+      "username": "contract_bot",
+      "display_name": "Contract Bot"
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.AnswerCallbackQuery",
+    "kind": "command",
+    "method": "answerCallbackQuery",
+    "fields": {
+      "interaction_id": "callback-1",
+      "text": "Done",
+      "show_alert": false
+    },
+    "payload": {
+      "callback_query_id": "callback-1",
+      "text": "Done",
+      "show_alert": false
+    },
+    "provider_reply": true,
+    "result": {
+      "answered": true,
+      "interaction_id": "callback-1"
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.SendDraft",
+    "kind": "command",
+    "method": "sendMessageDraft",
+    "fields": {
+      "room_id": "123",
+      "draft_id": 7,
+      "text": "Hello",
+      "format": "plain",
+      "thread_id": "7"
+    },
+    "payload": {
+      "chat_id": 123,
+      "draft_id": 7,
+      "text": "Hello",
+      "message_thread_id": "7"
+    },
+    "provider_reply": true,
+    "result": {
+      "acknowledged": true,
+      "draft_id": 7
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.FetchUpdates",
+    "kind": "query",
+    "method": "getUpdates",
+    "fields": {
+      "offset": 9,
+      "limit": 10,
+      "timeout": 0,
+      "allowed_updates": [
+        "message"
+      ]
+    },
+    "payload": {
+      "offset": 9,
+      "limit": 10,
+      "timeout": 0,
+      "allowed_updates": [
+        "message"
+      ]
+    },
+    "provider_reply": [],
+    "result": {
+      "delivery_id": "contract-batch",
+      "signals": [],
+      "next_offset": 9
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.SetWebhook",
+    "kind": "command",
+    "method": "setWebhook",
+    "fields": {
+      "url": "https://example.com/webhook",
+      "allowed_updates": [
+        "message"
+      ],
+      "max_connections": 1,
+      "drop_pending_updates": false
+    },
+    "payload": {
+      "url": "https://example.com/webhook",
+      "allowed_updates": [
+        "message"
+      ],
+      "max_connections": 1,
+      "drop_pending_updates": false,
+      "secret_token": "fixture-secret:alpha"
+    },
+    "provider_reply": true,
+    "result": {
+      "acknowledged": true
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.GetWebhookInfo",
+    "kind": "query",
+    "method": "getWebhookInfo",
+    "fields": {},
+    "payload": {},
+    "provider_reply": {
+      "url": "",
+      "pending_update_count": 0,
+      "has_custom_certificate": false
+    },
+    "result": {
+      "url": "",
+      "pending_update_count": 0,
+      "has_custom_certificate": false
+    }
+  },
+  {
+    "action": "Jido.Chat.Telegram.DeleteWebhook",
+    "kind": "command",
+    "method": "deleteWebhook",
+    "fields": {
+      "drop_pending_updates": false
+    },
+    "payload": {
+      "drop_pending_updates": false
+    },
+    "provider_reply": true,
+    "result": {
+      "acknowledged": true
+    }
+  }
+]

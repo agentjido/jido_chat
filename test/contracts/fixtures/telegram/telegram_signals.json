@@ -1,0 +1,3656 @@
+{
+  "definitions": [
+    {
+      "module": "Jido.Chat.Telegram.Signal.SendPoll",
+      "type": "jido.chat.telegram.command.send_poll",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:send_poll:1",
+      "fixture": {
+        "client_id": "alpha",
+        "is_anonymous": false,
+        "keyboard": {
+          "rows": [
+            [
+              {
+                "text": "Confirm",
+                "value": "confirm"
+              },
+              {
+                "text": "Help",
+                "url": "https://example.com"
+              }
+            ]
+          ]
+        },
+        "options": [
+          "Yes",
+          "No"
+        ],
+        "question": "Continue?",
+        "reply_to_id": "9",
+        "request_id": "fixture-request",
+        "room_id": "123",
+        "thread_id": "7"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "options",
+          "question",
+          "request_id",
+          "room_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "is_anonymous": {
+            "type": "boolean"
+          },
+          "keyboard": {
+            "type": "object",
+            "required": [
+              "rows"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "value"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "url"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "url": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "maxItems": 8,
+                  "minItems": 1
+                },
+                "maxItems": 100
+              }
+            }
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 100,
+              "minLength": 1
+            },
+            "maxItems": 12,
+            "minItems": 2
+          },
+          "question": {
+            "type": "string",
+            "maxLength": 300,
+            "minLength": 1
+          },
+          "reply_to_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "room_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "thread_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendPoll.Completed",
+      "type": "jido.chat.telegram.command.send_poll.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_poll:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.send_poll",
+        "request_id": "fixture-request",
+        "result": {
+          "id": "42",
+          "poll_id": "poll-1",
+          "room_id": "123"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_poll"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "id",
+              "poll_id",
+              "room_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "poll_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "room_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendPoll.Failed",
+      "type": "jido.chat.telegram.command.send_poll.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_poll:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.send_poll",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_poll"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.SendPhoto",
+      "type": "jido.chat.telegram.command.send_photo",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:send_photo:1",
+      "fixture": {
+        "caption": "Report",
+        "client_id": "alpha",
+        "format": "html",
+        "keyboard": {
+          "rows": [
+            [
+              {
+                "text": "Confirm",
+                "value": "confirm"
+              },
+              {
+                "text": "Help",
+                "url": "https://example.com"
+              }
+            ]
+          ]
+        },
+        "reply_to_id": "9",
+        "request_id": "fixture-request",
+        "room_id": "123",
+        "source": {
+          "client_id": "alpha",
+          "id": "telegram://file/input",
+          "kind": "media"
+        },
+        "thread_id": "7"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id",
+          "room_id",
+          "source"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "caption": {
+            "type": "string"
+          },
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "markdown",
+              "html"
+            ]
+          },
+          "keyboard": {
+            "type": "object",
+            "required": [
+              "rows"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "value"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "url"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "url": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "maxItems": 8,
+                  "minItems": 1
+                },
+                "maxItems": 100
+              }
+            }
+          },
+          "reply_to_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "room_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "content_base64",
+                  "filename"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "content_base64": {
+                    "type": "string",
+                    "maxLength": 240000
+                  },
+                  "filename": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          },
+          "thread_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendPhoto.Completed",
+      "type": "jido.chat.telegram.command.send_photo.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_photo:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.send_photo",
+        "request_id": "fixture-request",
+        "result": {
+          "id": "42",
+          "resource_ref": {
+            "client_id": "alpha",
+            "id": "telegram://file/file-1",
+            "kind": "media"
+          },
+          "room_id": "123"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_photo"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "id",
+              "resource_ref",
+              "room_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resource_ref": {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              "room_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendPhoto.Failed",
+      "type": "jido.chat.telegram.command.send_photo.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_photo:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.send_photo",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_photo"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.SendDocument",
+      "type": "jido.chat.telegram.command.send_document",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:send_document:1",
+      "fixture": {
+        "caption": "Report",
+        "client_id": "alpha",
+        "format": "html",
+        "keyboard": {
+          "rows": [
+            [
+              {
+                "text": "Confirm",
+                "value": "confirm"
+              },
+              {
+                "text": "Help",
+                "url": "https://example.com"
+              }
+            ]
+          ]
+        },
+        "reply_to_id": "9",
+        "request_id": "fixture-request",
+        "room_id": "123",
+        "source": {
+          "client_id": "alpha",
+          "id": "telegram://file/input",
+          "kind": "media"
+        },
+        "thread_id": "7"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id",
+          "room_id",
+          "source"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "caption": {
+            "type": "string"
+          },
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "markdown",
+              "html"
+            ]
+          },
+          "keyboard": {
+            "type": "object",
+            "required": [
+              "rows"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "value"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "url"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "url": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "maxItems": 8,
+                  "minItems": 1
+                },
+                "maxItems": 100
+              }
+            }
+          },
+          "reply_to_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "room_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "content_base64",
+                  "filename"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "content_base64": {
+                    "type": "string",
+                    "maxLength": 240000
+                  },
+                  "filename": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          },
+          "thread_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendDocument.Completed",
+      "type": "jido.chat.telegram.command.send_document.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_document:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.send_document",
+        "request_id": "fixture-request",
+        "result": {
+          "id": "42",
+          "resource_ref": {
+            "client_id": "alpha",
+            "id": "telegram://file/file-1",
+            "kind": "media"
+          },
+          "room_id": "123"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_document"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "id",
+              "resource_ref",
+              "room_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resource_ref": {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              "room_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendDocument.Failed",
+      "type": "jido.chat.telegram.command.send_document.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_document:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.send_document",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_document"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.SendSticker",
+      "type": "jido.chat.telegram.command.send_sticker",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:send_sticker:1",
+      "fixture": {
+        "client_id": "alpha",
+        "keyboard": {
+          "rows": [
+            [
+              {
+                "text": "Confirm",
+                "value": "confirm"
+              },
+              {
+                "text": "Help",
+                "url": "https://example.com"
+              }
+            ]
+          ]
+        },
+        "reply_to_id": "9",
+        "request_id": "fixture-request",
+        "room_id": "123",
+        "source": {
+          "client_id": "alpha",
+          "id": "telegram://file/input",
+          "kind": "media"
+        },
+        "thread_id": "7"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id",
+          "room_id",
+          "source"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "keyboard": {
+            "type": "object",
+            "required": [
+              "rows"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "value"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "url"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "url": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "maxItems": 8,
+                  "minItems": 1
+                },
+                "maxItems": 100
+              }
+            }
+          },
+          "reply_to_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "room_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "content_base64",
+                  "filename"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "content_base64": {
+                    "type": "string",
+                    "maxLength": 240000
+                  },
+                  "filename": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          },
+          "thread_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendSticker.Completed",
+      "type": "jido.chat.telegram.command.send_sticker.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_sticker:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.send_sticker",
+        "request_id": "fixture-request",
+        "result": {
+          "id": "42",
+          "resource_ref": {
+            "client_id": "alpha",
+            "id": "telegram://file/file-1",
+            "kind": "media"
+          },
+          "room_id": "123"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_sticker"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "id",
+              "resource_ref",
+              "room_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resource_ref": {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              "room_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendSticker.Failed",
+      "type": "jido.chat.telegram.command.send_sticker.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_sticker:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.send_sticker",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_sticker"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.SendAnimation",
+      "type": "jido.chat.telegram.command.send_animation",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:send_animation:1",
+      "fixture": {
+        "caption": "Report",
+        "client_id": "alpha",
+        "format": "html",
+        "keyboard": {
+          "rows": [
+            [
+              {
+                "text": "Confirm",
+                "value": "confirm"
+              },
+              {
+                "text": "Help",
+                "url": "https://example.com"
+              }
+            ]
+          ]
+        },
+        "reply_to_id": "9",
+        "request_id": "fixture-request",
+        "room_id": "123",
+        "source": {
+          "client_id": "alpha",
+          "id": "telegram://file/input",
+          "kind": "media"
+        },
+        "thread_id": "7"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id",
+          "room_id",
+          "source"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "caption": {
+            "type": "string"
+          },
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "markdown",
+              "html"
+            ]
+          },
+          "keyboard": {
+            "type": "object",
+            "required": [
+              "rows"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "value"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "url"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "url": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "maxItems": 8,
+                  "minItems": 1
+                },
+                "maxItems": 100
+              }
+            }
+          },
+          "reply_to_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "room_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "content_base64",
+                  "filename"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "content_base64": {
+                    "type": "string",
+                    "maxLength": 240000
+                  },
+                  "filename": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          },
+          "thread_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendAnimation.Completed",
+      "type": "jido.chat.telegram.command.send_animation.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_animation:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.send_animation",
+        "request_id": "fixture-request",
+        "result": {
+          "id": "42",
+          "resource_ref": {
+            "client_id": "alpha",
+            "id": "telegram://file/file-1",
+            "kind": "media"
+          },
+          "room_id": "123"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_animation"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "id",
+              "resource_ref",
+              "room_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resource_ref": {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              "room_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendAnimation.Failed",
+      "type": "jido.chat.telegram.command.send_animation.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_animation:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.send_animation",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_animation"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.SendVideoNote",
+      "type": "jido.chat.telegram.command.send_video_note",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:send_video_note:1",
+      "fixture": {
+        "client_id": "alpha",
+        "keyboard": {
+          "rows": [
+            [
+              {
+                "text": "Confirm",
+                "value": "confirm"
+              },
+              {
+                "text": "Help",
+                "url": "https://example.com"
+              }
+            ]
+          ]
+        },
+        "reply_to_id": "9",
+        "request_id": "fixture-request",
+        "room_id": "123",
+        "source": {
+          "client_id": "alpha",
+          "id": "telegram://file/input",
+          "kind": "media"
+        },
+        "thread_id": "7"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id",
+          "room_id",
+          "source"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "keyboard": {
+            "type": "object",
+            "required": [
+              "rows"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "value"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "value": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      },
+                      {
+                        "type": "object",
+                        "required": [
+                          "text",
+                          "url"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "text": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "url": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "maxItems": 8,
+                  "minItems": 1
+                },
+                "maxItems": 100
+              }
+            }
+          },
+          "reply_to_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "room_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "content_base64",
+                  "filename"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "content_base64": {
+                    "type": "string",
+                    "maxLength": 240000
+                  },
+                  "filename": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            ]
+          },
+          "thread_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendVideoNote.Completed",
+      "type": "jido.chat.telegram.command.send_video_note.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_video_note:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.send_video_note",
+        "request_id": "fixture-request",
+        "result": {
+          "id": "42",
+          "resource_ref": {
+            "client_id": "alpha",
+            "id": "telegram://file/file-1",
+            "kind": "media"
+          },
+          "room_id": "123"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_video_note"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "id",
+              "resource_ref",
+              "room_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resource_ref": {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              "room_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendVideoNote.Failed",
+      "type": "jido.chat.telegram.command.send_video_note.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_video_note:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.send_video_note",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_video_note"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.GetFile",
+      "type": "jido.chat.telegram.query.get_file",
+      "kind": "query",
+      "dataschema": "urn:jido:chat:telegram:get_file:1",
+      "fixture": {
+        "client_id": "alpha",
+        "request_id": "fixture-request",
+        "resource_ref": {
+          "client_id": "alpha",
+          "id": "telegram://file/file-1",
+          "kind": "media"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id",
+          "resource_ref"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "resource_ref": {
+            "type": "object",
+            "required": [
+              "client_id",
+              "id",
+              "kind"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "client_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "file",
+                  "media",
+                  "url"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.GetFile.Completed",
+      "type": "jido.chat.telegram.query.get_file.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:get_file:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.query.get_file",
+        "request_id": "fixture-request",
+        "result": {
+          "file_path": "documents/report.txt",
+          "resource_ref": {
+            "client_id": "alpha",
+            "id": "telegram://file/file-1",
+            "kind": "media"
+          },
+          "size": 4
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.query.get_file"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "file_path",
+              "resource_ref"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "file_path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "resource_ref": {
+                "type": "object",
+                "required": [
+                  "client_id",
+                  "id",
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "client_id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "file",
+                      "media",
+                      "url"
+                    ]
+                  }
+                }
+              },
+              "size": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.GetFile.Failed",
+      "type": "jido.chat.telegram.query.get_file.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:get_file:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.query.get_file",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.query.get_file"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.GetMe",
+      "type": "jido.chat.telegram.query.get_me",
+      "kind": "query",
+      "dataschema": "urn:jido:chat:telegram:get_me:1",
+      "fixture": {
+        "client_id": "alpha",
+        "request_id": "fixture-request"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.GetMe.Completed",
+      "type": "jido.chat.telegram.query.get_me.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:get_me:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.query.get_me",
+        "request_id": "fixture-request",
+        "result": {
+          "display_name": "Contract Bot",
+          "id": "99",
+          "is_bot": true,
+          "username": "contract_bot"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.query.get_me"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "id",
+              "is_bot"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "display_name": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "is_bot": {
+                "type": "boolean"
+              },
+              "username": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.GetMe.Failed",
+      "type": "jido.chat.telegram.query.get_me.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:get_me:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.query.get_me",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.query.get_me"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.AnswerCallbackQuery",
+      "type": "jido.chat.telegram.command.answer_callback_query",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:answer_callback_query:1",
+      "fixture": {
+        "client_id": "alpha",
+        "interaction_id": "callback-1",
+        "request_id": "fixture-request",
+        "show_alert": false,
+        "text": "Done"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "interaction_id",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "interaction_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "show_alert": {
+            "type": "boolean"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 200
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.AnswerCallbackQuery.Completed",
+      "type": "jido.chat.telegram.command.answer_callback_query.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:answer_callback_query:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.answer_callback_query",
+        "request_id": "fixture-request",
+        "result": {
+          "answered": true,
+          "interaction_id": "callback-1"
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.answer_callback_query"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "answered",
+              "interaction_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "answered": {
+                "type": "boolean"
+              },
+              "interaction_id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.AnswerCallbackQuery.Failed",
+      "type": "jido.chat.telegram.command.answer_callback_query.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:answer_callback_query:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.answer_callback_query",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.answer_callback_query"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.SendDraft",
+      "type": "jido.chat.telegram.command.send_draft",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:send_draft:1",
+      "fixture": {
+        "client_id": "alpha",
+        "draft_id": 7,
+        "format": "plain",
+        "request_id": "fixture-request",
+        "room_id": "123",
+        "text": "Hello",
+        "thread_id": "7"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "draft_id",
+          "request_id",
+          "room_id",
+          "text"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "draft_id": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "markdown",
+              "html"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "room_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "thread_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendDraft.Completed",
+      "type": "jido.chat.telegram.command.send_draft.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_draft:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.send_draft",
+        "request_id": "fixture-request",
+        "result": {
+          "acknowledged": true,
+          "draft_id": 7
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_draft"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "acknowledged",
+              "draft_id"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "acknowledged": {
+                "type": "boolean"
+              },
+              "draft_id": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SendDraft.Failed",
+      "type": "jido.chat.telegram.command.send_draft.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:send_draft:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.send_draft",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.send_draft"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.FetchUpdates",
+      "type": "jido.chat.telegram.query.fetch_updates",
+      "kind": "query",
+      "dataschema": "urn:jido:chat:telegram:fetch_updates:1",
+      "fixture": {
+        "allowed_updates": [
+          "message"
+        ],
+        "client_id": "alpha",
+        "limit": 10,
+        "offset": 9,
+        "request_id": "fixture-request",
+        "timeout": 0
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "allowed_updates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "limit": {
+            "maximum": 100,
+            "type": "integer",
+            "minimum": 1
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "timeout": {
+            "maximum": 50,
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.FetchUpdates.Completed",
+      "type": "jido.chat.telegram.query.fetch_updates.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:fetch_updates:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.query.fetch_updates",
+        "request_id": "fixture-request",
+        "result": {
+          "delivery_id": "contract-batch",
+          "next_offset": 9,
+          "signals": []
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.query.fetch_updates"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "delivery_id",
+              "signals"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "delivery_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "next_offset": {
+                "anyOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                ]
+              },
+              "signals": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.FetchUpdates.Failed",
+      "type": "jido.chat.telegram.query.fetch_updates.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:fetch_updates:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.query.fetch_updates",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.query.fetch_updates"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.SetWebhook",
+      "type": "jido.chat.telegram.command.set_webhook",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:set_webhook:1",
+      "fixture": {
+        "allowed_updates": [
+          "message"
+        ],
+        "client_id": "alpha",
+        "drop_pending_updates": false,
+        "max_connections": 1,
+        "request_id": "fixture-request",
+        "url": "https://example.com/webhook"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id",
+          "url"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "allowed_updates": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "drop_pending_updates": {
+            "type": "boolean"
+          },
+          "max_connections": {
+            "maximum": 100,
+            "type": "integer",
+            "minimum": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SetWebhook.Completed",
+      "type": "jido.chat.telegram.command.set_webhook.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:set_webhook:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.set_webhook",
+        "request_id": "fixture-request",
+        "result": {
+          "acknowledged": true
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.set_webhook"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "acknowledged"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "acknowledged": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.SetWebhook.Failed",
+      "type": "jido.chat.telegram.command.set_webhook.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:set_webhook:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.set_webhook",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.set_webhook"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.GetWebhookInfo",
+      "type": "jido.chat.telegram.query.get_webhook_info",
+      "kind": "query",
+      "dataschema": "urn:jido:chat:telegram:get_webhook_info:1",
+      "fixture": {
+        "client_id": "alpha",
+        "request_id": "fixture-request"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.GetWebhookInfo.Completed",
+      "type": "jido.chat.telegram.query.get_webhook_info.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:get_webhook_info:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.query.get_webhook_info",
+        "request_id": "fixture-request",
+        "result": {
+          "has_custom_certificate": false,
+          "pending_update_count": 0,
+          "url": ""
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.query.get_webhook_info"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "has_custom_certificate",
+              "pending_update_count",
+              "url"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "has_custom_certificate": {
+                "type": "boolean"
+              },
+              "pending_update_count": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "url": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.GetWebhookInfo.Failed",
+      "type": "jido.chat.telegram.query.get_webhook_info.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:get_webhook_info:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.query.get_webhook_info",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.query.get_webhook_info"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.Signal.DeleteWebhook",
+      "type": "jido.chat.telegram.command.delete_webhook",
+      "kind": "command",
+      "dataschema": "urn:jido:chat:telegram:delete_webhook:1",
+      "fixture": {
+        "client_id": "alpha",
+        "drop_pending_updates": false,
+        "request_id": "fixture-request"
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "drop_pending_updates": {
+            "type": "boolean"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.DeleteWebhook.Completed",
+      "type": "jido.chat.telegram.command.delete_webhook.completed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:delete_webhook:1:completed",
+      "fixture": {
+        "client_id": "alpha",
+        "operation": "jido.chat.telegram.command.delete_webhook",
+        "request_id": "fixture-request",
+        "result": {
+          "acknowledged": true
+        }
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "operation",
+          "request_id",
+          "result"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.delete_webhook"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "type": "object",
+            "required": [
+              "acknowledged"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "acknowledged": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "module": "Jido.Chat.Telegram.DeleteWebhook.Failed",
+      "type": "jido.chat.telegram.command.delete_webhook.failed",
+      "kind": "result",
+      "dataschema": "urn:jido:chat:telegram:delete_webhook:1:failed",
+      "fixture": {
+        "client_id": "alpha",
+        "code": "rate_limited",
+        "operation": "jido.chat.telegram.command.delete_webhook",
+        "outcome": "rejected",
+        "request_id": "fixture-request",
+        "retry_after_ms": 2000
+      },
+      "fixture_options": {
+        "extensions": {
+          "jidocausationid": "fixture-parent",
+          "traceparent": "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01",
+          "tracestate": "contract=telegram"
+        },
+        "source": "urn:contract:telegram:fixture"
+      },
+      "data_schema": {
+        "type": "object",
+        "required": [
+          "client_id",
+          "code",
+          "operation",
+          "outcome",
+          "request_id"
+        ],
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "client_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "unsupported",
+              "provider_failure",
+              "invalid_provider_result",
+              "unauthorized",
+              "forbidden",
+              "not_found",
+              "rate_limited",
+              "timeout"
+            ]
+          },
+          "operation": {
+            "const": "jido.chat.telegram.command.delete_webhook"
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "not_attempted",
+              "rejected",
+              "unknown"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "retry_after_ms": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    }
+  ]
+}

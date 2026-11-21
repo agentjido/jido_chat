@@ -72,6 +72,11 @@ defmodule Jido.Chat.MixProject do
       # Compile-time checks for Core, Integration, and Runtime dependencies.
       {:boundary, "~> 0.11", runtime: false},
 
+      # Provider-only SDKs. Req, Mint, and WebSockex are already in Jido's dependency graph.
+      {:ex_gram, "~> 0.71.0", optional: true},
+      {:mint_web_socket, "~> 1.0.6", optional: true},
+      {:xdk_elixir, "~> 1.0", optional: true},
+
       # Tests and coverage.
       {:covenant, "~> 0.2.0", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: :test},
@@ -111,6 +116,7 @@ defmodule Jido.Chat.MixProject do
       files: [
         "lib",
         "guides",
+        "examples",
         "mix.exs",
         "README.md",
         "LICENSE",
@@ -144,7 +150,15 @@ defmodule Jido.Chat.MixProject do
         "guides/runtime.md",
         "guides/storage_adapters.md",
         "guides/public_api.md",
-        "guides/source_layout.md"
+        "guides/source_layout.md",
+        "guides/providers.md",
+        "guides/providers/telegram.md",
+        "guides/providers/telegram-contracts.md",
+        "guides/providers/discord.md",
+        "guides/providers/discord-operation-matrix.md",
+        "guides/providers/slack.md",
+        "guides/providers/signal.md",
+        "guides/providers/x.md"
       ]
     ]
   end

@@ -20,13 +20,34 @@ defmodule Jido.Chat.ArchitectureTest do
     end
   end
 
+  test "Providers do not reference Runtime modules" do
+    for file <- provider_files(), module <- module_references(file) do
+      refute same_or_child?(module, Jido.Chat.Runtime),
+             "#{relative(file)} references #{inspect(module)}"
+    end
+  end
+
+  test "Core has no built-in provider dependency" do
+    # Core shares the Jido.Chat.Signal namespace with the Signal Messenger
+    # facade. Restrict the check to concrete provider module references.
+    provider_modules = for file <- provider_files(), module <- module_definitions(file), into: MapSet.new(), do: module
+    provider_modules = MapSet.delete(provider_modules, Jido.Chat.Signal)
+
+    for file <- [Path.join(@root, "../jido_chat.ex") | core_files()], module <- module_references(file) do
+      refute MapSet.member?(provider_modules, module),
+             "#{relative(file)} references #{inspect(module)}"
+    end
+  end
+
+  defp provider_files, do: Path.wildcard(Path.join(@root, "providers/**/*.ex"))
+
   defp core_files do
     @root
     |> Path.join("**/*.ex")
     |> Path.wildcard()
     |> Enum.reject(fn file ->
       relative = Path.relative_to(file, @root)
-      Enum.any?(@integration_roots ++ ["runtime"], &path_root?(relative, &1))
+      Enum.any?(@integration_roots ++ ["runtime", "providers"], &path_root?(relative, &1))
     end)
   end
 
@@ -37,16 +58,28 @@ defmodule Jido.Chat.ArchitectureTest do
   end
 
   defp module_references(file) do
+    modules_in(file, fn
+      {:__aliases__, _, parts} -> parts
+      _ -> nil
+    end)
+  end
+
+  defp module_definitions(file) do
+    modules_in(file, fn
+      {:defmodule, _, [{:__aliases__, _, parts}, _]} -> parts
+      _ -> nil
+    end)
+  end
+
+  defp modules_in(file, select_parts) do
     file
     |> File.read!()
     |> Code.string_to_quoted!()
-    |> Macro.prewalk([], fn
-      {:__aliases__, _meta, parts} = node, acc ->
-        module = Module.concat(parts)
-        {node, [module | acc]}
-
-      node, acc ->
-        {node, acc}
+    |> Macro.prewalk([], fn node, modules ->
+      case select_parts.(node) do
+        nil -> {node, modules}
+        parts -> {node, [Module.concat(parts) | modules]}
+      end
     end)
     |> elem(1)
     |> Enum.uniq()

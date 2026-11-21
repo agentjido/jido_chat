@@ -1,0 +1,346 @@
+[
+  {
+    "update": {
+      "update_id": 101,
+      "message": {
+        "message_id": 7,
+        "chat": {
+          "id": -123,
+          "type": "supergroup",
+          "title": "Test group"
+        },
+        "from": {
+          "id": 42,
+          "first_name": "Peer",
+          "is_bot": false
+        },
+        "text": "Hello",
+        "date": 100,
+        "message_thread_id": 8,
+        "reply_to_message": {
+          "message_id": 6,
+          "text": "Earlier",
+          "from": {
+            "id": 11
+          }
+        },
+        "document": {
+          "file_id": "document-1",
+          "file_name": "report.txt",
+          "file_size": 4,
+          "mime_type": "text/plain"
+        },
+        "token": "never-project-this"
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.message.received",
+        "item_suffix": "message",
+        "fields": {
+          "room_id": "-123",
+          "message_id": "7",
+          "text": "Hello",
+          "thread_id": "8",
+          "reply_to_id": "6",
+          "conversation_kind": "group",
+          "conversation_name": "Test group",
+          "timestamp": "1970-01-01T00:01:40Z"
+        }
+      }
+    ]
+  },
+  {
+    "update": {
+      "update_id": 102,
+      "edited_message": {
+        "message_id": 7,
+        "chat": {
+          "id": -123,
+          "type": "supergroup",
+          "title": "Test group"
+        },
+        "from": {
+          "id": 42,
+          "first_name": "Peer",
+          "is_bot": false
+        },
+        "text": "Hello",
+        "date": 100,
+        "edit_date": 200
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.message.updated",
+        "item_suffix": "edited_message",
+        "fields": {
+          "room_id": "-123",
+          "message_id": "7",
+          "text": "Hello",
+          "timestamp": "1970-01-01T00:03:20Z"
+        }
+      }
+    ]
+  },
+  {
+    "update": {
+      "update_id": 103,
+      "message_reaction": {
+        "chat": {
+          "id": -123
+        },
+        "message_id": 7,
+        "user": {
+          "id": 42
+        },
+        "old_reaction": [
+          {
+            "type": "emoji",
+            "emoji": "👍"
+          }
+        ],
+        "new_reaction": [
+          {
+            "type": "emoji",
+            "emoji": "❤️"
+          }
+        ]
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.reaction.removed",
+        "item_suffix": "reaction:0",
+        "fields": {
+          "room_id": "-123",
+          "message_id": "7",
+          "actor_id": "42",
+          "reaction": "👍"
+        }
+      },
+      {
+        "type": "jido.chat.reaction.added",
+        "item_suffix": "reaction:1",
+        "fields": {
+          "room_id": "-123",
+          "message_id": "7",
+          "actor_id": "42",
+          "reaction": "❤️"
+        }
+      }
+    ]
+  },
+  {
+    "update": {
+      "update_id": 104,
+      "callback_query": {
+        "id": "callback-1",
+        "data": "confirm",
+        "from": {
+          "id": 42
+        },
+        "message": {
+          "message_id": 7,
+          "chat": {
+            "id": -123,
+            "type": "supergroup",
+            "title": "Test group"
+          },
+          "from": {
+            "id": 42,
+            "first_name": "Peer",
+            "is_bot": false
+          },
+          "text": "Hello",
+          "date": 100,
+          "message_thread_id": 8
+        }
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.action.received",
+        "item_suffix": "callback_query",
+        "fields": {
+          "room_id": "-123",
+          "message_id": "7",
+          "interaction_id": "callback-1",
+          "action_id": "confirm",
+          "value": "confirm",
+          "actor_id": "42",
+          "thread_id": "8"
+        }
+      }
+    ]
+  },
+  {
+    "update": {
+      "update_id": 105,
+      "my_chat_member": {
+        "chat": {
+          "id": -123
+        },
+        "from": {
+          "id": 42
+        },
+        "old_chat_member": {
+          "status": "member",
+          "user": {
+            "id": 99
+          }
+        },
+        "new_chat_member": {
+          "status": "restricted",
+          "is_member": false,
+          "can_send_messages": false,
+          "user": {
+            "id": 99
+          }
+        }
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.membership.changed",
+        "item_suffix": "my_chat_member",
+        "fields": {
+          "room_id": "-123",
+          "participant_id": "99",
+          "actor_id": "42",
+          "bot_self": true,
+          "transition": "left",
+          "evidence": "explicit_leave"
+        }
+      }
+    ]
+  },
+  {
+    "update": {
+      "update_id": 106,
+      "message": {
+        "message_id": 7,
+        "chat": {
+          "id": -123,
+          "type": "supergroup",
+          "title": "Test group"
+        },
+        "from": {
+          "id": 42,
+          "first_name": "Peer",
+          "is_bot": false
+        },
+        "text": "/help@contract_bot all arguments",
+        "date": 100
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.message.received",
+        "item_suffix": "message",
+        "fields": {
+          "room_id": "-123",
+          "message_id": "7",
+          "text": "/help@contract_bot all arguments"
+        }
+      },
+      {
+        "type": "jido.chat.slash_command.received",
+        "item_suffix": "slash",
+        "fields": {
+          "room_id": "-123",
+          "command": "help",
+          "text": "all arguments"
+        }
+      }
+    ]
+  },
+  {
+    "update": {
+      "update_id": 107,
+      "message": {
+        "message_id": 7,
+        "chat": {
+          "id": -123,
+          "type": "supergroup",
+          "title": "Test group"
+        },
+        "from": {
+          "id": 42,
+          "first_name": "Peer",
+          "is_bot": false
+        },
+        "text": "Hello",
+        "date": 100,
+        "message_thread_id": 8,
+        "forum_topic_created": {
+          "name": "Support"
+        }
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.thread.started",
+        "item_suffix": "topic",
+        "fields": {
+          "room_id": "-123",
+          "thread_id": "8",
+          "name": "Support",
+          "actor_id": "42"
+        }
+      }
+    ]
+  },
+  {
+    "update": {
+      "update_id": 108,
+      "message": {
+        "message_id": 7,
+        "chat": {
+          "id": -123,
+          "type": "supergroup",
+          "title": "Test group"
+        },
+        "from": {
+          "id": 42,
+          "first_name": "Peer",
+          "is_bot": false
+        },
+        "text": "Hello",
+        "date": 100,
+        "message_thread_id": 8,
+        "forum_topic_closed": {}
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.thread.changed",
+        "item_suffix": "topic",
+        "fields": {
+          "room_id": "-123",
+          "thread_id": "8",
+          "change": "closed",
+          "actor_id": "42"
+        }
+      }
+    ]
+  },
+  {
+    "update": {
+      "update_id": 109,
+      "unknown_provider_kind": {
+        "private": "never-project-this"
+      }
+    },
+    "facts": [
+      {
+        "type": "jido.chat.normalization.failed",
+        "item_suffix": "failure:unsupported",
+        "fields": {
+          "code": "unsupported_item",
+          "provider_kind": "unsupported"
+        }
+      }
+    ]
+  }
+]
