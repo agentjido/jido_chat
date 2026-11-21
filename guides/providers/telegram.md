@@ -165,7 +165,25 @@ mix quality
 ```
 
 Live tests are excluded by default. Set `TELEGRAM_BOT_TOKEN` and
-`TELEGRAM_TEST_CHAT_ID` in the shell environment. Run the suite below.
+`TELEGRAM_TEST_CHAT_ID` in the shell environment. Use the shared Telegram suite
+to run the public API and native Action cases together.
+
+```sh
+JIDO_CHAT_LIVE_PROVIDERS=telegram mix test test/live --include live
+```
+
+Use the `test/live` path to select the shared suite. The summary shows the
+provider and case ID, with the reason for an inactive, unsupported, or blocked
+case. An applicable case with missing setup fails the command. For the manual
+callback, use the dedicated test bot and click **Verify Jido SDK** when prompted.
+
+```sh
+JIDO_CHAT_LIVE_PROVIDERS=telegram RUN_LIVE_TELEGRAM_UI_TESTS=true \
+  mix test test/live --only live_case:A17
+```
+
+The older entry points run the same cases in separate groups when the shared
+provider selector is empty.
 
 ```sh
 RUN_LIVE_TELEGRAM_TESTS=true \
@@ -199,13 +217,13 @@ RUN_LIVE_TELEGRAM_TESTS=true \
 This suite needs no manual click and does not change webhooks. It reads one
 update batch without an offset and compares its normalized facts with the shared
 normalizer. It does not advance the update queue. Its two
-draft tests need a positive private chat ID; they are skipped for other chat IDs.
+draft tests need a positive private chat ID. Other chat IDs block those tests.
 Messages are deleted after each test by default. Set
 `TELEGRAM_PUBLIC_API_KEEP_MESSAGES=true` to keep them for Desktop inspection.
 The output shows a run ID that also appears in the messages.
 
 Set `TELEGRAM_TEST_FORUM_CHAT_ID` to a forum supergroup for the public API suite's
-successful topic creation test. Without it, that test is skipped. A separate test
+successful topic creation test. Without it, the suite reports that case as blocked. A separate test
 checks rejection of an invalid destination. The bot needs topic rights. Created
 test topics remain in the forum; messages are deleted by default.
 The existing Action suite checks rejection in the default chat when no forum
