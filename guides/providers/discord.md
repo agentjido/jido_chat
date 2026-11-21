@@ -159,8 +159,8 @@ mix test
 mix coveralls.json
 mix test.contracts
 mix covenant.check --static
-RUN_LIVE_DISCORD_TESTS=true mix test test/jido_chat/providers/discord/live_api_test.exs test/jido_chat/providers/discord/live_integration_test.exs --include live
-RUN_LIVE_DISCORD_UI=true mix test test/jido_chat/providers/discord/live_ui_test.exs --include live
+JIDO_CHAT_LIVE_PROVIDERS=discord mix test test/live/discord_test.exs --include live
+JIDO_CHAT_LIVE_PROVIDERS=discord RUN_LIVE_DISCORD_UI=true mix test test/live/discord_test.exs --only live_case:A17-LIVE
 ```
 
 Default tests exclude `:live`. The coverage gate checks production files and
@@ -171,13 +171,27 @@ real Gateway → shared Sensor → V3 Agent → Chat reply path. The receive tes
 a bot-generated probe with a strict prefix so it cannot form a reply loop.
 
 
-The UI suite needs the signed-in Discord app on `agentjido-test / bridge`. It
-creates a disposable message with two buttons and a temporary guild slash command.
-Click the callback button, click the modal button, submit `jido-ui-proof`, then
-run the command printed by the test. It checks exact public input, successful
-responses within three seconds, and host-store cleanup. The extra DM delivery
-probe reports Discord permission rejection separately from successful OpenDm.
-`DISCORD_TEST_USER_ID` can override the verified signed-in test account ID.
+The suite reports all 38 baseline case IDs and the additional Discord cases for
+pagination, archived threads, and direct lookup and delivery. It reports `unsupported` for
+HTML (P03), draft and edit-stream behavior (P05–P07, A05–A06, A08), webhook
+status (A03), and the native poll Action (A15). Discord streams send the final
+rendered text in one message (P04 and A07).
+
+A17 sends a real message with two buttons and creates a temporary guild slash
+command. It replays the button, modal, and slash interactions through the
+Gateway worker and verifies each response with a local transport. It then
+edits the real message and checks that Discord removed the buttons.
+
+A17-LIVE checks real interaction delivery and responses. In the signed-in
+Discord app, open `agentjido-test / bridge`. Wait for `UI_READY`. Click the
+callback button, click the modal button, submit `jido-ui-proof`, and run the
+command printed by the test. It checks the received Signals, responses within
+three seconds, and cleanup of the host's interaction records.
+
+The extra DM delivery probe reports Discord permission rejection separately
+from successful OpenDm.
+Set `DISCORD_TEST_USER_ID` to an authorized test user for direct lookup (D03) and
+delivery (D04). The suite reports either case as blocked when its setup is missing.
 
 See [the operation matrix](discord-operation-matrix.md) for evidence and limits.
 Covenant checks 20 active obligations in five components. Production coverage

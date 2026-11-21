@@ -26,8 +26,21 @@ defmodule Jido.Chat.Telegram.LiveFixture do
   end
 
   def cases do
+    LiveCase.Baseline.register(baseline_cases()) ++
+      [
+        action("A17-LIVE", "real Telegram callback delivery and answer", :a17_live, [:send_message, :edit_message],
+          extensions: [Telegram.FetchUpdates, Telegram.AnswerCallbackQuery],
+          events: [Chat.Signal.ActionReceived],
+          features: [:keyboard],
+          manual: "RUN_LIVE_TELEGRAM_UI_TESTS",
+          timeout: 630_000
+        )
+      ]
+  end
+
+  defp baseline_cases do
     [
-      spec(:public_api, "P01", "portable text completion", {LiveCase.Probes, :send_text}, operations: [:send_message]),
+      LiveCase.Probes.text_case(:public_api),
       public("P02", "rich reply with keyboard", :p02, [:send_message], features: [:replies, :rich_text, :keyboard]),
       public("P03", "HTML text", :p03, [:send_message], features: [:rich_text]),
       public("P04", "lazy source and plain drafts", :p04, [:stream_text], features: [:draft_stream], target: :private),
@@ -97,12 +110,10 @@ defmodule Jido.Chat.Telegram.LiveFixture do
         features: [:forum],
         target: :forum_or_private
       ),
-      action("A17", "fresh desktop callback and answer", :a17, [:send_message, :edit_message],
+      action("A17", "live send and edit with a replayed callback", :a17, [:send_message, :edit_message],
         extensions: [Telegram.FetchUpdates, Telegram.AnswerCallbackQuery],
         events: [Chat.Signal.ActionReceived],
-        features: [:keyboard],
-        manual: "RUN_LIVE_TELEGRAM_UI_TESTS",
-        timeout: 630_000
+        features: [:keyboard]
       )
     ]
   end
@@ -222,6 +233,7 @@ defmodule Jido.Chat.Telegram.LiveFixture do
   def assert_send_evidence(ctx, signal, result, text) do
     {payload, raw} = LivePublicAPI.response("sendMessage")
     assert payload["text"] == text
+    assert result["text"] == text
     assert result["id"] =~ ~r/^\d+$/
     assert to_string(field(raw, "message_id")) == result["id"]
     refute Map.has_key?(payload, "rich_message")

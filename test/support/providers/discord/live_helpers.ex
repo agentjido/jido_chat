@@ -1,6 +1,7 @@
 defmodule Jido.Chat.Discord.LiveHelpers do
   @moduledoc false
   import ExUnit.Assertions
+  alias Jido.Chat.LiveCase
 
   @doc false
   def request(definition, client, data) do
@@ -15,7 +16,16 @@ defmodule Jido.Chat.Discord.LiveHelpers do
   @doc false
   def execute(client, definition, data, options \\ []) do
     signal = request(definition, client, data)
-    complete(retry(fn -> Jido.Chat.execute(client, signal, options) end), client, signal)
+    complete(Jido.Chat.execute(client, signal, options), client, signal)
+  end
+
+  def native(client, action, data) do
+    signal = request(action.signal_definition(), client, data)
+
+    assert {:ok, %{signal: completed}} =
+             Jido.Chat.Discord.ActionHelpers.execute(action, signal, %{client: client}, max_attempts: 1)
+
+    complete({:ok, completed}, client, signal)
   end
 
   @doc false
@@ -35,60 +45,44 @@ defmodule Jido.Chat.Discord.LiveHelpers do
     end
 
     assert {:ok, _} = Jido.Signal.Catalog.validate(Jido.Chat.catalog(client), signal)
+    assert :ok = Jido.Chat.AdapterTestKit.Assertions.assert_json_round_trip(signal, Jido.Chat.catalog(client))
     refute Jason.encode!(Jido.Signal.Codec.to_map(signal)) =~ client.credentials.token
     signal.data["result"]
   end
 
-  def complete({:error, error}, _client, _request), do: flunk("Chat request failed: #{inspect(error)}")
-
-  @doc false
-  def retry(call, attempts \\ 5) do
-    case call.() do
-      {:error, %Jido.Chat.Error{code: :rate_limited, signal: signal}} when attempts > 0 ->
-        Process.sleep(min(signal.data["retry_after_ms"] + 100, 10_000))
-        retry(call, attempts - 1)
-
-      result ->
-        result
-    end
+  def complete({:error, _} = error, client, _request) do
+    LiveCase.flag_result(client.config[:live_stop], error)
+    flunk("Chat request failed")
   end
 
   @doc false
-  def wire(client, method, path, body \\ nil, attempts \\ 5) do
-    case client.transport.call(client.credentials.token, method, path, body, []) do
-      {:error, {:rejected, :rate_limited, %{retry_after_ms: delay}}} when attempts > 0 ->
-        Process.sleep(min(delay + 100, 10_000))
-        wire(client, method, path, body, attempts - 1)
-
-      result ->
-        result
-    end
-  end
-
-  @doc false
-  def setup_target do
-    client =
-      Jido.Chat.Client.new!(Jido.Chat.Discord.Adapter,
-        id: "discord-live",
-        credentials: %{token: System.fetch_env!("DISCORD_BOT_TOKEN")}
-      )
-
-    room = System.fetch_env!("DISCORD_TEST_CHANNEL_ID")
-    {:ok, channel} = wire(client, :get, "/channels/" <> room)
-    {:ok, guild} = wire(client, :get, "/guilds/" <> channel["guild_id"])
-    assert guild["name"] == "agentjido-test"
-    assert channel["name"] == "bridge"
-    %{client: client, room: room, guild: guild["id"]}
+  def wire(client, method, path, body \\ nil, opts \\ []) do
+    opts = Keyword.merge(client.config, opts)
+    client.transport.call(client.credentials.token, method, path, body, opts)
   end
 
   @doc false
   def message(client, room, text) do
-    retry(fn -> Jido.Chat.send_text(client, room, text) end) |> complete(client)
+    text = "Jido live #{client.config[:live_run_id]}: " <> text
+    Jido.Chat.send_text(client, room, text) |> complete(client)
+  end
+
+  def track_message(client, room, %{"id" => id} = message) do
+    LiveCase.on_cleanup({:discord_message, room, id}, fn -> remove_message(client, room, id) end)
+    message
+  end
+
+  def forget_message(room, id), do: LiveCase.on_cleanup({:discord_message, room, id}, fn -> :ok end)
+
+  def raw_message(client, room, id) do
+    assert {:ok, raw} = wire(client, :get, "/channels/#{room}/messages/#{id}")
+    assert raw["id"] == id
+    raw
   end
 
   @doc false
   def remove_message(client, room, id) do
-    case retry(fn -> Jido.Chat.delete_message(client, room, id) end) do
+    case Jido.Chat.delete_message(client, room, id, options: [live_cleanup?: true]) do
       {:ok, _} -> :ok
       {:error, %Jido.Chat.Error{code: :not_found}} -> :ok
       error -> flunk("test message cleanup failed: #{inspect(error)}")
@@ -98,22 +92,31 @@ defmodule Jido.Chat.Discord.LiveHelpers do
   @doc false
   def remove_thread(client, id, room \\ nil) do
     parent =
-      case wire(client, :get, "/channels/" <> id) do
+      case wire(client, :get, "/channels/" <> id, nil, live_cleanup?: true) do
         {:ok, channel} -> channel["parent_id"] || room
         {:error, {:rejected, :not_found, _}} -> room
         error -> flunk("test thread lookup failed: #{inspect(error)}")
       end
 
-    case wire(client, :delete, "/channels/" <> id) do
-      {:ok, _} -> :ok
-      {:error, {:rejected, :not_found, _}} -> :ok
-      error -> flunk("test thread cleanup failed: #{inspect(error)}")
+    case wire(client, :delete, "/channels/" <> id, nil, live_cleanup?: true) do
+      {:ok, _} ->
+        :ok
+
+      {:error, {:rejected, :not_found, _}} ->
+        :ok
+
+      {:error, {:rejected, reason, _}} ->
+        IO.puts("LIVE Discord thread cleanup rejected (#{reason})")
+        flunk("test thread cleanup was rejected")
+
+      _ ->
+        flunk("test thread cleanup failed")
     end
 
     # Discord keeps the generated type-18 notice after it deletes a thread.
     # Its ID is the created thread ID. Do not delete a normal starter message.
     if parent do
-      case wire(client, :get, "/channels/#{parent}/messages/#{id}") do
+      case wire(client, :get, "/channels/#{parent}/messages/#{id}", nil, live_cleanup?: true) do
         {:ok, %{"type" => 18}} -> remove_message(client, parent, id)
         {:ok, _} -> :ok
         {:error, {:rejected, :not_found, _}} -> :ok

@@ -2,6 +2,7 @@ defmodule Jido.Chat.LiveCaseTest do
   use ExUnit.Case, async: false
 
   alias Jido.Chat.LiveCase
+  alias Jido.Chat.Discord.LiveFixture, as: DiscordFixture
   alias Jido.Chat.Telegram.LiveFixture
   alias LiveFixture.Tracker
 
@@ -68,30 +69,68 @@ defmodule Jido.Chat.LiveCaseTest do
   test "the selector rejects unavailable providers without echoing the value" do
     assert LiveCase.selected_providers("telegram, telegram") == ["telegram"]
 
-    assert_raise ArgumentError, "JIDO_CHAT_LIVE_PROVIDERS accepts telegram", fn ->
+    assert_raise ArgumentError, "JIDO_CHAT_LIVE_PROVIDERS accepts telegram, discord", fn ->
       LiveCase.selected_providers("unknown-secret-sentinel")
     end
   end
 
-  test "the manual callback requires a second opt-in" do
-    env(@selector, "telegram")
-    env(@manual, nil)
-    spec = case_spec("A17")
+  test "Discord resolves every Telegram baseline ID and runs each eligible body or reports a reason" do
+    baseline = LiveCase.Baseline.ids()
+    discord = DiscordFixture.cases()
+    by_id = Map.new(discord, &{&1.id, &1})
+    assert Enum.take(Enum.map(discord, & &1.id), length(baseline)) == baseline
+    assert map_size(by_id) == length(discord)
+    assert Enum.map(LiveFixture.cases(), & &1.id) == baseline ++ ["A17-LIVE"]
+    unsupported = ~w(P03 P05 P06 P07 A03 A05 A06 A08 A15)
 
-    assert {:inactive, "set RUN_LIVE_TELEGRAM_UI_TESTS=true"} = LiveCase.eligibility(LiveFixture, spec, :shared)
+    for id <- baseline do
+      spec = Map.fetch!(by_id, id)
 
-    assert_raise ExUnit.AssertionError, ~r/live check inactive: set RUN_LIVE_TELEGRAM_UI_TESTS=true/, fn ->
-      LiveCase.run(LiveFixture, spec, :atomics.new(1, []), :shared)
+      if id in unsupported do
+        assert {:unsupported, reason} = LiveCase.support(DiscordFixture, spec)
+        assert byte_size(reason) > 0
+      else
+        assert :ready = LiveCase.support(DiscordFixture, spec)
+        assert {module, function} = spec.body
+        assert Code.ensure_loaded?(module)
+        assert function_exported?(module, function, 1)
+      end
     end
 
-    System.put_env(@manual, "true")
-    assert :ready = LiveCase.eligibility(LiveFixture, spec, :shared)
+    env(@selector, "discord")
+    env("RUN_LIVE_DISCORD_TESTS", "true")
+    env("RUN_LIVE_DISCORD_UI", nil)
+    assert :ready = LiveCase.eligibility(DiscordFixture, by_id["P01"], :shared)
+    assert {:inactive, _} = LiveCase.eligibility(DiscordFixture, by_id["P01"], :legacy)
+    assert {:unsupported, _} = LiveCase.eligibility(DiscordFixture, by_id["P03"], :shared)
+    refute LiveCase.selected?(LiveFixture, :shared)
+  end
+
+  test "real interaction delivery requires a second opt-in for each provider" do
+    env(@selector, "telegram,discord")
+
+    for {profile, flag} <- [{LiveFixture, @manual}, {DiscordFixture, "RUN_LIVE_DISCORD_UI"}] do
+      env(flag, nil)
+      by_id = Map.new(profile.cases(), &{&1.id, &1})
+      manual = by_id["A17-LIVE"]
+      reason = "set #{flag}=true"
+
+      assert :ready = LiveCase.eligibility(profile, by_id["A17"], :shared)
+      assert {:inactive, ^reason} = LiveCase.eligibility(profile, manual, :shared)
+
+      assert_raise ExUnit.AssertionError, ~r/live check inactive: #{reason}/, fn ->
+        LiveCase.run(profile, manual, :atomics.new(1, []), :shared)
+      end
+
+      System.put_env(flag, "true")
+      assert :ready = LiveCase.eligibility(profile, manual, :shared)
+    end
   end
 
   test "all 38 Telegram slots have a callable body and their declared requirements are available" do
     cases = LiveFixture.cases()
     expected_ids = Enum.map(1..21, &case_id("P", &1)) ++ Enum.map(1..17, &case_id("A", &1))
-    assert Enum.map(cases, & &1.id) == expected_ids
+    assert Enum.map(cases, & &1.id) == expected_ids ++ ["A17-LIVE"]
 
     for %{body: {module, function}} = spec <- cases do
       assert Code.ensure_loaded?(module)

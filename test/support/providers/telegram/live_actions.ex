@@ -373,35 +373,47 @@ defmodule Jido.Chat.Telegram.LiveActions do
     assert to_string(field(raw_response("sendMessage"), "message_thread_id")) == topic["id"]
   end
 
-  def a17(ctx) do
-    value = "jido:verify:#{ctx.nonce}"
+  def a17(ctx), do: exercise_callback(ctx, :replay)
+  def a17_live(ctx), do: exercise_callback(ctx, :live)
 
-    keyboard = %{"rows" => [[%{"text" => "Verify Jido SDK", "value" => value}]]}
+  defp exercise_callback(ctx, mode) do
+    value = "jido:verify:#{ctx.nonce}"
+    label = if mode == :live, do: "Verify Jido SDK", else: "Automated check"
+    keyboard = %{"rows" => [[%{"text" => label, "value" => value}]]}
 
     sent =
       run(ctx, Jido.Chat.SendMessage, %{
         "room_id" => ctx.room_id,
-        "text" => "Jido Desktop live check #{ctx.nonce}",
+        "text" =>
+          if(mode == :live, do: "Jido Desktop live check #{ctx.nonce}", else: "Jido callback replay #{ctx.nonce}"),
         "keyboard" => keyboard
       })
 
     cleanup(ctx, sent["id"])
-    IO.puts("\nDESKTOP CALLBACK READY: Verify Jido SDK (#{ctx.nonce})\n")
-    fact = await_callback(ctx, value, nil, System.monotonic_time(:millisecond) + ctx.callback_timeout_ms)
+    raw = raw_response("sendMessage")
+    assert to_string(field(raw, "message_id")) == sent["id"]
+    assert [[button]] = raw |> field("reply_markup") |> field("inline_keyboard")
+    assert field(button, "callback_data") == value
+    assert field(button, "text") == label
+
+    {fact, answer_ctx} = callback(ctx, mode, raw, value)
     assert fact.type == Signal.ActionReceived.type()
     assert fact.data["room_id"] == ctx.room_id
     assert fact.data["message_id"] == sent["id"]
+    assert fact.data["value"] == value
 
     answer =
-      run(ctx, Telegram.AnswerCallbackQuery, %{
+      run(answer_ctx, Telegram.AnswerCallbackQuery, %{
         "interaction_id" => fact.data["interaction_id"],
         "text" => "Jido Action and Signal verified",
         "show_alert" => true
       })
 
     assert answer["answered"]
+    assert answer["interaction_id"] == fact.data["interaction_id"]
+    assert_answer(mode, answer["interaction_id"])
 
-    text = "Verified: Jido Action and Signal received your click (#{ctx.nonce})"
+    text = "Verified: Jido Action and Signal processed the callback (#{ctx.nonce})"
 
     edited =
       run(ctx, Jido.Chat.EditMessage, %{
@@ -413,6 +425,11 @@ defmodule Jido.Chat.Telegram.LiveActions do
 
     assert edited["id"] == sent["id"]
     assert edited["text"] == text
+    assert_receive {:telegram_live_wire, "editMessageText", payload, {:ok, stored}}, 2_000
+    assert payload["reply_markup"] == %{"inline_keyboard" => []}
+    assert to_string(field(stored, "message_id")) == sent["id"]
+    assert field(stored, "text") == text
+    assert field(stored, "reply_markup") in [nil, %{"inline_keyboard" => []}]
 
     assert :ok = Jido.Signal.Dispatch.dispatch(fact, {:pid, [target: self()]})
     assert_receive {:signal, ^fact}
@@ -421,11 +438,55 @@ defmodule Jido.Chat.Telegram.LiveActions do
     assert {:ok, [_]} = Jido.Signal.Bus.publish(bus, [fact])
   end
 
+  defp callback(ctx, :live, _message, value) do
+    IO.puts("\nDESKTOP CALLBACK READY: Verify Jido SDK (#{ctx.nonce})\n")
+    {await_callback(ctx, value, nil, System.monotonic_time(:millisecond) + ctx.callback_timeout_ms), ctx}
+  end
+
+  defp callback(ctx, :replay, message, value) do
+    callback = %{
+      "id" => "replay-#{ctx.nonce}",
+      "data" => value,
+      "from" => %{"id" => 1},
+      "message" => message
+    }
+
+    replay_client = %{
+      ctx.client
+      | transport: __MODULE__.ReplayTransport,
+        credentials: %{token: "telegram-replay-sentinel"},
+        config: [callback_replay: callback, live_observer: self()]
+    }
+
+    replay = %{ctx | client: replay_client}
+    assert {[fact], 2} = fetch_callbacks(replay, nil, 0)
+    {fact, replay}
+  end
+
+  defp assert_answer(:replay, id) do
+    assert_receive {:telegram_replay_answer,
+                    %{"callback_query_id" => ^id, "show_alert" => true, "text" => "Jido Action and Signal verified"}}
+
+    refute_received {:telegram_replay_answer, _}
+    refute_received {:telegram_live_wire, "answerCallbackQuery", _, _}
+  end
+
+  defp assert_answer(:live, id) do
+    assert_receive {:telegram_live_wire, "answerCallbackQuery", %{"callback_query_id" => ^id}, {:ok, true}}
+  end
+
   defp await_callback(ctx, value, offset, deadline) do
     assert System.monotonic_time(:millisecond) < deadline,
            "Click Verify Jido SDK in Telegram Desktop within #{div(ctx.callback_timeout_ms, 1000)} seconds"
 
-    data = %{"timeout" => 2, "limit" => 100, "allowed_updates" => []}
+    {facts, next_offset} = fetch_callbacks(ctx, offset, 2)
+
+    Enum.find(facts, &(&1.type == Signal.ActionReceived.type() and &1.data["value"] == value)) ||
+      await_callback(ctx, value, next_offset, deadline)
+  end
+
+  defp fetch_callbacks(ctx, offset, timeout) do
+    data = %{"timeout" => timeout, "limit" => 100, "allowed_updates" => []}
     data = if offset, do: Map.put(data, "offset", offset), else: data
     result = run(ctx, Telegram.FetchUpdates, data)
 
@@ -435,8 +496,28 @@ defmodule Jido.Chat.Telegram.LiveActions do
         fact
       end)
 
-    Enum.find(facts, &(&1.type == Signal.ActionReceived.type() and &1.data["value"] == value)) ||
-      await_callback(ctx, value, result["next_offset"], deadline)
+    {facts, result["next_offset"]}
+  end
+
+  defmodule ReplayTransport do
+    @moduledoc false
+    @behaviour Jido.Chat.Telegram.Transport
+
+    @impl true
+    def call("telegram-replay-sentinel", "getUpdates", %{"timeout" => 0}, opts) do
+      {:ok, [%{"update_id" => 1, "callback_query" => Keyword.fetch!(opts, :callback_replay)}]}
+    end
+
+    def call("telegram-replay-sentinel", "answerCallbackQuery", %{"callback_query_id" => id} = payload, opts) do
+      if id == Keyword.fetch!(opts, :callback_replay)["id"] do
+        send(Keyword.fetch!(opts, :live_observer), {:telegram_replay_answer, payload})
+        {:ok, true}
+      else
+        {:error, {:not_attempted, :invalid_replay}}
+      end
+    end
+
+    def call(_, _, _, _), do: {:error, {:not_attempted, :invalid_replay}}
   end
 
   defp command(ctx, action, data) do

@@ -4,7 +4,7 @@ defmodule Jido.Chat.LiveCase do
   alias Jido.Chat
   alias Jido.Chat.AdapterTestKit.Assertions
 
-  @providers ~w(telegram)
+  @providers ~w(telegram discord)
   @selector "JIDO_CHAT_LIVE_PROVIDERS"
   @enabled ~w(1 true TRUE yes on)
   @halts %{unauthorized: 1, rate_limited: 2, uncertain_write: 3}
@@ -92,6 +92,7 @@ defmodule Jido.Chat.LiveCase do
       features: Keyword.get(opts, :features, []),
       target: Keyword.get(opts, :target, :room),
       manual: Keyword.get(opts, :manual),
+      unsupported: Keyword.get(opts, :unsupported),
       timeout: Keyword.get(opts, :timeout, 60_000)
     }
   end
@@ -111,6 +112,7 @@ defmodule Jido.Chat.LiveCase do
 
   def selected?(profile, :shared), do: profile.provider() in selected_providers()
   def selected?(profile, :legacy), do: legacy_enabled?(profile.legacy_flag())
+  def selected?(_profile, {:legacy, flag}), do: legacy_enabled?(flag)
 
   def eligibility(profile, spec, mode) do
     cond do
@@ -119,6 +121,8 @@ defmodule Jido.Chat.LiveCase do
       true -> support(profile, spec)
     end
   end
+
+  def support(_profile, %{unsupported: reason}) when is_binary(reason), do: {:unsupported, reason}
 
   def support(profile, spec) do
     adapter = profile.adapter()
@@ -156,7 +160,10 @@ defmodule Jido.Chat.LiveCase do
          {:ok, ctx} <- protect(fn -> profile.prepare(spec, run_id, stop) end) do
       {module, function} = spec.body
 
-      protect(fn -> apply(module, function, [ctx]) end, stop)
+      case protect(fn -> apply(module, function, [ctx]) end, stop) do
+        {:blocked, reason} -> blocked(reason)
+        result -> result
+      end
     else
       false -> blocked(halt_reason(stop))
       {:blocked, reason} -> blocked(reason)
@@ -181,6 +188,33 @@ defmodule Jido.Chat.LiveCase do
 
   def blocked(reason), do: raise(ExUnit.AssertionError, message: "live setup blocked: #{reason}")
 
+  def on_cleanup(fun), do: ExUnit.Callbacks.on_exit(fn -> protect(fun) end)
+  def on_cleanup(id, fun), do: ExUnit.Callbacks.on_exit(id, fn -> protect(fun) end)
+
+  def required_env(name) do
+    case String.trim(System.get_env(name) || "") do
+      "" -> {:blocked, "set #{name}"}
+      value -> {:ok, value}
+    end
+  end
+
+  def dependency(:ok), do: :ok
+  def dependency({:error, {:not_attempted, {:missing_dependency, app}}}), do: {:blocked, "missing dependency #{app}"}
+
+  def provider_call(stop, kind, call) do
+    if halted?(stop) and (kind != :cleanup or not cleanup_allowed?(stop)) do
+      {:error, {:not_attempted, :live_run_stopped}}
+    else
+      result = call.()
+      flag_result(stop, result)
+      result
+    end
+  catch
+    class, reason ->
+      if kind != :read, do: halt(stop, :uncertain_write)
+      :erlang.raise(class, reason, __STACKTRACE__)
+  end
+
   def protect(fun, stop \\ nil) do
     {result, _captured_log} =
       ExUnit.CaptureLog.with_log(fn ->
@@ -188,8 +222,8 @@ defmodule Jido.Chat.LiveCase do
           fun.()
         rescue
           error in ExUnit.AssertionError ->
-            flag_unknown(stop, error.left)
-            flag_unknown(stop, error.right)
+            flag_result(stop, error.left)
+            flag_result(stop, error.right)
             safe_failure("ExUnit.AssertionError", __STACKTRACE__)
 
           error ->
@@ -202,11 +236,19 @@ defmodule Jido.Chat.LiveCase do
     result
   end
 
-  defp flag_unknown(stop, {:error, %Chat.Error{signal: %{data: %{"outcome" => "unknown"}}}})
-       when is_reference(stop),
-       do: halt(stop, :uncertain_write)
+  def flag_result(stop, {:error, %Chat.Error{code: code}})
+      when is_reference(stop) and code in [:unauthorized, :rate_limited],
+      do: halt(stop, code)
 
-  defp flag_unknown(_, _), do: :ok
+  def flag_result(stop, {:error, {:rejected, code, _}})
+      when is_reference(stop) and code in [:unauthorized, :rate_limited],
+      do: halt(stop, code)
+
+  def flag_result(stop, {:error, %Chat.Error{signal: %{data: %{"outcome" => "unknown"}}}})
+      when is_reference(stop),
+      do: halt(stop, :uncertain_write)
+
+  def flag_result(_, _), do: :ok
 
   defp safe_failure(kind, stack) do
     # Assertion values, transport errors and args may contain credentials or raw provider data.

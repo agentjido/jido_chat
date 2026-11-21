@@ -174,12 +174,16 @@ JIDO_CHAT_LIVE_PROVIDERS=telegram mix test test/live --include live
 
 Use the `test/live` path to select the shared suite. The summary shows the
 provider and case ID, with the reason for an inactive, unsupported, or blocked
-case. An applicable case with missing setup fails the command. For the manual
-callback, use the dedicated test bot and click **Verify Jido SDK** when prompted.
+case. An applicable case with missing setup fails the command. A17 sends a real
+message and edits it to remove the button. It replays a callback through
+`FetchUpdates` and checks `AnswerCallbackQuery` with a local transport.
+
+To check that Telegram delivers and accepts a real callback, run A17-LIVE with
+the dedicated test bot. Click **Verify Jido SDK** when prompted.
 
 ```sh
 JIDO_CHAT_LIVE_PROVIDERS=telegram RUN_LIVE_TELEGRAM_UI_TESTS=true \
-  mix test test/live --only live_case:A17
+  mix test test/live/telegram_test.exs --only live_case:A17-LIVE
 ```
 
 The older entry points run the same cases in separate groups when the shared
@@ -190,13 +194,12 @@ RUN_LIVE_TELEGRAM_TESTS=true \
   mix test test/jido_chat/providers/telegram/live_integration_test.exs --include live --trace
 ```
 
-The existing 17-test live suite uses core and Telegram Actions with real provider calls. It
-checks replies, reactions, rich messages, the three main functions, both stream delivery paths, draft Flow, file
-bytes, media dimensions, Router, Catalog, Dispatch, and Bus. The final test needs
-a fresh click on **Verify Jido SDK** in Telegram within three minutes. It answers
-that callback through `AnswerCallbackQuery`; an expired callback cannot pass.
-Use a test bot with no other polling consumer and no active webhook.
-Set `TELEGRAM_CALLBACK_TIMEOUT_MS` to allow more time for the manual button check.
+The 17 baseline Action cases use core and Telegram Actions with real provider
+calls. They check replies, reactions, rich messages, both stream delivery
+paths, draft Flow, file bytes, media dimensions, Router, Catalog, Dispatch, and
+Bus. A17-LIVE needs a fresh click within three minutes by default. Use a test
+bot with no other polling consumer and no active webhook. Set
+`TELEGRAM_CALLBACK_TIMEOUT_MS` to give the manual check more time.
 
 The separate 21-test public API suite calls all eleven operation functions and
 `Jido.Chat.capabilities` with the Telegram adapter. It checks request and trace context,
