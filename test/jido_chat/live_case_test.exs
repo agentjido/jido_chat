@@ -1,8 +1,8 @@
 defmodule Jido.Chat.LiveCaseTest do
   use ExUnit.Case, async: false
 
-  alias Jido.Chat.LiveCase
   alias Jido.Chat.Discord.LiveFixture, as: DiscordFixture
+  alias Jido.Chat.LiveCase
   alias Jido.Chat.Signal.LiveFixture, as: SignalFixture
   alias Jido.Chat.Slack.LiveFixture, as: SlackFixture
   alias Jido.Chat.Telegram.LiveFixture

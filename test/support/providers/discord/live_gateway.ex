@@ -37,6 +37,7 @@ defmodule Jido.Chat.Discord.LiveGateway do
       Chat.send_text(c, room, "jido-discord-source-probe:#{c.config[:live_run_id]}")
       |> L.complete(c)
       |> then(&L.track_message(c, room, &1))
+
     wait_until(fn -> Jido.AgentServer.snapshot(server).agent.state.reply_id != "" end, 20_000)
     state = Jido.AgentServer.snapshot(server).agent.state
     assert state.received_id == sent["id"]

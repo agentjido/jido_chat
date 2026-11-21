@@ -4,6 +4,7 @@ defmodule Jido.Chat.Discord.LiveAPI do
   import Jido.Chat.LiveCase, only: [on_cleanup: 1]
   alias Jido.Chat
   alias Jido.Chat.Discord.LiveHelpers, as: L
+  alias Jido.Chat.LiveCase
 
   def send_reply(%{client: c, room: room, run_id: run_id}) do
     text = "**Jido live #{run_id}: rich reply**"
@@ -243,8 +244,9 @@ defmodule Jido.Chat.Discord.LiveAPI do
         assert failed.data["outcome"] == "rejected"
         {:blocked, "Discord forbids delivery to the configured test recipient"}
 
-      other ->
-        L.complete(other, c)
+      {:error, _} = error ->
+        LiveCase.flag_result(c.config[:live_stop], error)
+        flunk("Discord direct message failed")
     end
   end
 end

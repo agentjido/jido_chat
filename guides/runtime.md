@@ -579,3 +579,22 @@ message in one room turn. Its typed `jido.chat.room.member_checked` reply contai
 The helper returns `:ok` only for a committed, correlated positive reply.
 Agent identities use `Jido.Agent.Address`. Version-1 stored identity maps keep
 `version`, `namespace`, `partition`, and `id` keys.
+
+## Move from Jido Messaging
+
+Jido Chat Runtime replaces the room and provider bridge roles of
+`jido_messaging`. Start a Jido instance and a Runtime under your application
+supervisor. Migrate the host in one change before you remove its
+`:jido_messaging` dependency.
+
+| Existing integration | Jido Chat V3 integration |
+| --- | --- |
+| Room server, membership, and message writes | Provision managed Rooms. Use Room commands for membership, messages, threads, and reactions. Check the committed turn result. |
+| Provider handlers and bridge configuration | Declare provider accounts and bind their external conversations to Rooms. Add each provider account Agent as a Room member before relay starts. Use a Sensor or host-owned webhook input. |
+| Messaging subscriptions | Use the Runtime Bus for committed Room facts. Update consumers to the `jido.chat.room.*` signal types. |
+| Messaging persistence | Choose a Runtime storage adapter for the required capabilities. Export and convert existing records before cutover. Runtime has no automatic import for the legacy tables. |
+| Presence and application-specific records | Keep presence, search projections, and application-specific identity, trust, and workflow records in the host. Use Runtime authorization and secret resolution at the Chat boundary. |
+
+Use the [provider migration guide](providers.md) for adapter dependencies and
+configuration. Test a Room write, a committed Signal subscription, and each
+configured provider relay against a copy of the host setup before cutover.

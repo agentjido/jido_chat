@@ -3,13 +3,13 @@ defmodule Jido.Chat.X.LiveFixture do
   import ExUnit.Assertions
   import ExUnit.Callbacks, only: [start_supervised!: 1]
 
+  alias __MODULE__.Transport
   alias Jido.Chat
   alias Jido.Chat.LiveCase
   alias Jido.Chat.LiveCase.Probes
   alias Jido.Chat.Providers.Dependencies
   alias Jido.Chat.Signal
   alias Jido.Chat.X.{Adapter, Transport.XdkClient}
-  alias __MODULE__.Transport
 
   @write_flag "RUN_LIVE_X_SEND_TESTS"
   @finch __MODULE__.Finch

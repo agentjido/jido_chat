@@ -2,10 +2,10 @@ defmodule Jido.Chat.Slack.LiveInput do
   @moduledoc false
   import ExUnit.Assertions
   import ExUnit.Callbacks, only: [start_supervised: 1]
+  alias __MODULE__.ReplaySocket
   alias Jido.Chat
   alias Jido.Chat.Signal
   alias Jido.Chat.Slack.{LiveAPI, LiveFixture, Source}
-  alias __MODULE__.ReplaySocket
 
   @replay_token "slack-replay-sentinel"
 

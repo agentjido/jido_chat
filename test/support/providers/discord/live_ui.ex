@@ -3,11 +3,11 @@ defmodule Jido.Chat.Discord.LiveUI do
   import ExUnit.Assertions
   import ExUnit.Callbacks, only: [start_supervised!: 1]
   import Jido.Chat.LiveCase, only: [on_cleanup: 1]
+  alias __MODULE__.ReplayTransport
   alias Jido.Chat
   alias Jido.Chat.Discord.LiveHelpers, as: L
   alias Jido.Chat.Discord.{LiveInteractionAgent, LiveInteractionHost, Source, TestGateway}
   alias Jido.Chat.Discord.Transport.REST
-  alias __MODULE__.ReplayTransport
 
   @callback_id "jido:callback"
   @modal_button_id "jido:modal"

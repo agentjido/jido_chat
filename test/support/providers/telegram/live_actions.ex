@@ -7,6 +7,7 @@ defmodule Jido.Chat.Telegram.LiveActions do
   alias Jido.Chat.Telegram
 
   defmodule DraftFlow do
+    @moduledoc false
     use Jido.Flow, name: "telegram_live_draft_flow"
 
     flow do

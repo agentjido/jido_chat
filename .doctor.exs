@@ -3,7 +3,8 @@
     Jido.Chat.Schema,
     Jido.Chat.Wire
   ],
-  ignore_paths: [],
+  # Check documentation for the package. ExUnit fixtures compile only in test.
+  ignore_paths: [~r{^test/support/}],
   min_module_doc_coverage: 40,
   min_module_spec_coverage: 0,
   min_overall_doc_coverage: 50,

@@ -1,13 +1,13 @@
 defmodule Jido.Chat.Slack.LiveFixture do
   @moduledoc false
   import ExUnit.Assertions
+  alias __MODULE__.Request
   alias Jido.Chat
   alias Jido.Chat.LiveCase
   alias Jido.Chat.LiveCase.Probes
   alias Jido.Chat.Providers.Dependencies
   alias Jido.Chat.Signal
   alias Jido.Chat.Slack.{LiveAPI, LiveFiles, LiveInput}
-  alias __MODULE__.Request
 
   def provider, do: "slack"
   def adapter, do: Chat.Slack.Adapter
@@ -248,13 +248,19 @@ defmodule Jido.Chat.Slack.LiveFixture do
 
       def unquote(name)(unquote_splicing([token | args])) do
         {opts, data} = List.pop_at([unquote_splicing(args)], -1)
-        kind = if unquote(name) == :delete_message and opts[:live_cleanup?] == true, do: :cleanup, else: unquote(kind)
+        kind = request_kind(unquote(name), unquote(kind), opts)
 
         observe(opts, unquote(name), data, kind, fn ->
           apply(ReqClient, unquote(name), [unquote(token) | data] ++ [opts])
         end)
       end
     end
+
+    defp request_kind(:delete_message, :write, opts) do
+      if opts[:live_cleanup?] == true, do: :cleanup, else: :write
+    end
+
+    defp request_kind(_operation, kind, _opts), do: kind
 
     defp observe(opts, operation, data, kind, call) do
       stop = Keyword.fetch!(opts, :live_stop)

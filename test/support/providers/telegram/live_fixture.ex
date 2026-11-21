@@ -3,11 +3,11 @@ defmodule Jido.Chat.Telegram.LiveFixture do
   import ExUnit.Assertions
   import ExUnit.Callbacks, only: [on_exit: 2]
   import Jido.Chat.LiveCase, only: [spec: 5]
+  alias __MODULE__.Tracker
   alias Jido.Chat
   alias Jido.Chat.LiveCase
   alias Jido.Chat.Telegram
   alias Jido.Chat.Telegram.{LiveActions, LivePublicAPI}
-  alias __MODULE__.Tracker
 
   @native ~w(send_message stream_text send_file edit_message delete_message start_typing
              fetch_metadata download_file add_reaction remove_reaction open_dm create_thread)a

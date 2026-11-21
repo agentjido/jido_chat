@@ -239,20 +239,22 @@ defmodule Jido.Chat.LiveCase do
     result
   end
 
+  @spec flag_result(:atomics.atomics_ref() | nil, term()) :: :ok | integer()
+  def flag_result(nil, _result), do: :ok
+
   def flag_result(stop, {:error, %Chat.Error{code: code}})
-      when is_reference(stop) and code in [:unauthorized, :rate_limited],
+      when code in [:unauthorized, :rate_limited],
       do: halt(stop, code)
 
   def flag_result(stop, {:error, {:rejected, code, _}})
-      when is_reference(stop) and code in [:unauthorized, :rate_limited],
+      when code in [:unauthorized, :rate_limited],
       do: halt(stop, code)
 
   def flag_result(_stop, {:error, %Chat.Error{signal: %{data: %{"operation" => "jido.chat.query." <> _}}}}),
     do: :ok
 
-  def flag_result(stop, {:error, %Chat.Error{signal: %{data: %{"outcome" => "unknown"}}}})
-      when is_reference(stop),
-      do: halt(stop, :uncertain_write)
+  def flag_result(stop, {:error, %Chat.Error{signal: %{data: %{"outcome" => "unknown"}}}}),
+    do: halt(stop, :uncertain_write)
 
   def flag_result(_, _), do: :ok
 
