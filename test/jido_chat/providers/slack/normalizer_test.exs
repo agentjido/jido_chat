@@ -83,7 +83,6 @@ defmodule Jido.Chat.Slack.NormalizerTest do
       "text" => "hello",
       "channel_id" => "C1",
       "user_id" => "U1",
-      "trigger_id" => "TR1",
       "response_url" => "https://hooks.slack.com/private"
     }
 
@@ -105,7 +104,10 @@ defmodule Jido.Chat.Slack.NormalizerTest do
     assert command.data["command"] == "/ask"
     assert first.data["values"] == %{"approve" => "yes"}
     assert second.data["values"] == %{"pick" => ["a", "b"]}
-    refute inspect(delivery) =~ "hooks.slack.com"
+    assert {:ok, encoded_command} = Jido.Signal.Codec.serialize(command)
+    assert {:ok, encoded_action} = Jido.Signal.Codec.serialize(first)
+    refute encoded_command =~ "hooks.slack.com"
+    refute encoded_action =~ "TR2"
   end
 
   test "modal submission, close, and option requests map through private metadata" do

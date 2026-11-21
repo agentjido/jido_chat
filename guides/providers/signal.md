@@ -61,12 +61,26 @@ payloads or logs.
 
 ## Checks
 
-Run `mix test`, `mix test.contracts`, and `mix quality`. Live tests stay tagged
-`:live` and excluded by default. They run only when `RUN_LIVE_SIGNAL_TESTS` and
-the required local signal-cli values are set.
-
-Run the live check with:
+Run `mix test`, `mix test.contracts`, and `mix quality`. The shared live suite
+registers all 38 baseline cases and reports unsupported cases. Set
+`SIGNAL_ACCOUNT` and `SIGNAL_TEST_RECIPIENT` to dedicated test identities.
+Set `SIGNAL_TRANSPORT=rpc` with `SIGNAL_RPC_ENDPOINT` for a running daemon, or
+set `SIGNAL_TRANSPORT=cli` with `SIGNAL_CLI_PATH` for the local executable.
+The send cases leave their messages in the test conversation. The attachment
+cases verify the bytes submitted to signal-cli and its send response.
+A14 uses a temporary local file and requires the CLI transport.
 
 ```sh
-RUN_LIVE_SIGNAL_TESTS=true mix test test/jido_chat/providers/signal/live_integration_test.exs --include live
+JIDO_CHAT_LIVE_PROVIDERS=signal mix test test/live/signal_test.exs --only live_baseline
+```
+
+P21 also requires `RUN_LIVE_SIGNAL_RECEIVE_TESTS=true` and
+`SIGNAL_TEST_SENDER`. Set the sender to the UUID reported by signal-cli, or to
+the phone number if the envelope contains no UUID. Use a dedicated receiving
+account with no other receiver. When the test prints `SIGNAL_INPUT_READY`,
+send the displayed text from the separate test account.
+
+```sh
+JIDO_CHAT_LIVE_PROVIDERS=signal RUN_LIVE_SIGNAL_RECEIVE_TESTS=true \
+  mix test test/live/signal_test.exs --only live_case:P21
 ```

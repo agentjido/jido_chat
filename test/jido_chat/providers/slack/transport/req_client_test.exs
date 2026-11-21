@@ -83,17 +83,21 @@ defmodule Jido.Chat.Slack.Transport.ReqClientTest do
   end
 
   test "external file upload uses the current three-step Slack API" do
-    upload = %{body: "bytes", filename: "test.txt", title: "Test", alt_text: "file"}
-    assert {:ok, %{"files" => [%{"id" => "F1"}]}} = ReqClient.send_file("token", "C1", upload, req: MockReq)
+    upload = %{body: "bytes", filename: "test.png", title: "Test", alt_text: "image description"}
+
+    assert {:ok, %{"files" => [%{"id" => "F1"}]}} =
+             ReqClient.send_file("token", "C1", upload, req: MockReq, caption: "file comment")
 
     assert_received {:request, first}
     assert first[:url] == "https://slack.com/api/files.getUploadURLExternal"
     assert first[:form]["length"] == "5"
+    assert first[:form]["alt_txt"] == "image description"
     assert_received {:request, upload_request}
     assert upload_request[:url] == "https://files.slack.com/upload"
     assert upload_request[:body] == "bytes"
     assert_received {:request, complete}
     assert complete[:url] == "https://slack.com/api/files.completeUploadExternal"
+    assert complete[:form]["initial_comment"] == "file comment"
   end
 
   test "downloads reject HTML and provider failures remain explicit" do
@@ -107,6 +111,11 @@ defmodule Jido.Chat.Slack.Transport.ReqClientTest do
 
     assert {:error, {:slack_api_error, "not_authed", _}} =
              ReqClient.send_message("token", "C1", "hello", req: ErrorReq)
+  end
+
+  test "history lookups reject a neighboring message when the exact ID is absent" do
+    assert {:ok, %{"ts" => "T1"}} = ReqClient.fetch_message("token", "C1", "T1", req: MockReq)
+    assert {:error, :not_found} = ReqClient.fetch_message("token", "C1", "deleted", req: MockReq)
   end
 
   test "thread reads retain pagination and select exact messages" do

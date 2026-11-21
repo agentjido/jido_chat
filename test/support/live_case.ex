@@ -4,7 +4,7 @@ defmodule Jido.Chat.LiveCase do
   alias Jido.Chat
   alias Jido.Chat.AdapterTestKit.Assertions
 
-  @providers ~w(telegram discord)
+  @providers ~w(telegram discord slack signal x)
   @selector "JIDO_CHAT_LIVE_PROVIDERS"
   @enabled ~w(1 true TRUE yes on)
   @halts %{unauthorized: 1, rate_limited: 2, uncertain_write: 3}
@@ -38,6 +38,7 @@ defmodule Jido.Chat.LiveCase do
           is_nil(@group) or spec.group == @group do
         status = LiveCase.eligibility(@profile, spec, @mode)
         @tag live_case: id
+        if id in LiveCase.Baseline.ids(), do: @tag(:live_baseline)
         if spec.manual, do: @tag(live_ui: true)
         @tag live_status: status
         @tag timeout: spec.timeout
@@ -92,6 +93,7 @@ defmodule Jido.Chat.LiveCase do
       features: Keyword.get(opts, :features, []),
       target: Keyword.get(opts, :target, :room),
       manual: Keyword.get(opts, :manual),
+      write: Keyword.get(opts, :write),
       unsupported: Keyword.get(opts, :unsupported),
       timeout: Keyword.get(opts, :timeout, 60_000)
     }
@@ -118,6 +120,7 @@ defmodule Jido.Chat.LiveCase do
     cond do
       not selected?(profile, mode) -> {:inactive, "provider or suite entry was not selected"}
       spec.manual && not enabled?(spec.manual) -> {:inactive, "set #{spec.manual}=true"}
+      spec.write && not enabled?(spec.write) -> {:inactive, "set #{spec.write}=true"}
       true -> support(profile, spec)
     end
   end
@@ -171,7 +174,7 @@ defmodule Jido.Chat.LiveCase do
   rescue
     error in ExUnit.AssertionError ->
       case {failure_reason(stop), error.message} do
-        {"provider rejected the test credentials" = reason, _} ->
+        {"provider rejected the test credentials" = reason, "live check failed" <> _} ->
           blocked(reason)
 
         {reason, "live check failed" <> _} when is_binary(reason) ->
@@ -243,6 +246,9 @@ defmodule Jido.Chat.LiveCase do
   def flag_result(stop, {:error, {:rejected, code, _}})
       when is_reference(stop) and code in [:unauthorized, :rate_limited],
       do: halt(stop, code)
+
+  def flag_result(_stop, {:error, %Chat.Error{signal: %{data: %{"operation" => "jido.chat.query." <> _}}}}),
+    do: :ok
 
   def flag_result(stop, {:error, %Chat.Error{signal: %{data: %{"outcome" => "unknown"}}}})
       when is_reference(stop),

@@ -117,11 +117,35 @@ mix quality
 mix coveralls
 ```
 
-The optional live test requires `SLACK_BOT_TOKEN` and `SLACK_TEST_CHANNEL_ID`:
+The live suite registers all 38 shared baseline cases. It reports the reason
+for each unsupported or blocked case. Use `SLACK_BOT_TOKEN` and
+`SLACK_TEST_CHANNEL_ID` for a dedicated test app and channel. The suite
+creates and removes temporary messages and files. File cases require the
+`files:read` and `files:write` scopes.
 
 ```sh
-mix test test/jido_chat/providers/slack/live_integration_test.exs --include live
+JIDO_CHAT_LIVE_PROVIDERS=slack mix test test/live/slack_test.exs --only live_baseline
 ```
+
+P21 uses `SLACK_APP_TOKEN` and Socket Mode to receive a test message from
+the configured channel. Enable the message event subscription for that
+channel and use a dedicated app with one active Socket Mode connection.
+
+A17 sends a real message with a Block Kit button. It replays button, modal
+submission, and slash command envelopes through the Slack Source and checks
+their acknowledgments locally. It then edits the message and verifies that
+Slack removed the button.
+
+To check real button delivery, enable Slack interactivity and run A17-LIVE.
+Wait for `SLACK_UI_READY` and click **Verify Jido SDK** in the test channel.
+
+```sh
+JIDO_CHAT_LIVE_PROVIDERS=slack RUN_LIVE_SLACK_UI=true \
+  mix test test/live/slack_test.exs --only live_case:A17-LIVE
+```
+
+For the separate direct-room lookup, set `SLACK_TEST_USER_ID` and select
+`--only live_case:S01`.
 
 `Jido.Chat.Slack.Renderer` converts cards, modals, and options to Slack Block
 Kit values. The adapter takes credentials from the Client. Tests cover Web API

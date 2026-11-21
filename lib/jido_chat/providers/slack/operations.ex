@@ -21,7 +21,7 @@ defmodule Jido.Chat.Slack.Operations do
     opts = Keyword.merge(client.config, opts)
 
     with :ok <- check_transport(client.transport, opts) do
-      call(operation, client, token, request.data, opts)
+      operation |> call(client, token, request.data, opts) |> classify()
     end
   end
 
@@ -29,6 +29,18 @@ defmodule Jido.Chat.Slack.Operations do
     do: {:error, {:not_attempted, :missing_bot_token}}
 
   def invoke(_, _, _, _), do: {:error, {:not_attempted, :unsupported}}
+
+  defp classify({:error, :not_found}), do: {:error, {:rejected, :not_found}}
+
+  defp classify({:error, {:slack_api_error, code, _}} = error) do
+    case code do
+      "message_not_found" -> {:error, {:rejected, :not_found}}
+      code when code in ["invalid_blocks", "invalid_blocks_format"] -> {:error, {:rejected, :provider_failure}}
+      _ -> error
+    end
+  end
+
+  defp classify(result), do: result
 
   defp check_transport(ReqClient, opts), do: Dependencies.req(Keyword.get(opts, :req, Req))
   defp check_transport(_custom, _opts), do: :ok
@@ -45,9 +57,9 @@ defmodule Jido.Chat.Slack.Operations do
 
   defp call(:send_file, client, token, data, opts) do
     room_id = data["room_id"]
-    opts = message_options(data, opts)
+    opts = data |> message_options(opts) |> optional_keyword(:caption, data["caption"])
 
-    with {:ok, upload} <- upload(client, data["source"], data),
+    with {:ok, upload} <- upload(client, data["source"]),
          {:ok, raw} <- client.transport.send_file(token, room_id, upload, opts) do
       file_message(raw, room_id, data["caption"] || "")
     end
@@ -272,23 +284,22 @@ defmodule Jido.Chat.Slack.Operations do
     end
   end
 
-  defp upload(_client, %{"content_base64" => encoded, "filename" => filename}, data) do
+  defp upload(_client, %{"content_base64" => encoded, "filename" => filename}) do
     with {:ok, bytes} <- Base.decode64(encoded) do
       {:ok,
        %{
          body: bytes,
          filename: filename,
-         title: filename,
-         alt_text: data["caption"]
+         title: filename
        }}
     end
   end
 
-  defp upload(client, %{"id" => id, "client_id" => client_id, "kind" => "url"}, _data)
+  defp upload(client, %{"id" => id, "client_id" => client_id, "kind" => "url"})
        when client_id == client.id,
        do: {:error, {:not_attempted, {:unsupported_file_reference, id}}}
 
-  defp upload(_, _, _), do: {:error, :invalid_resource_reference}
+  defp upload(_, _), do: {:error, :invalid_resource_reference}
 
   defp message(raw, room_id, status) when is_map(raw) do
     nested = if is_map(raw["message"]), do: raw["message"], else: %{}

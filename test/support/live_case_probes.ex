@@ -7,9 +7,13 @@ defmodule Jido.Chat.LiveCase.Probes do
 
   @trace "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
 
-  def text_case(group) do
-    LiveCase.spec(group, "P01", "portable text completion", {__MODULE__, :send_text},
-      operations: [:send_message]
+  def text_case(group, opts \\ []) do
+    LiveCase.spec(
+      group,
+      "P01",
+      "portable text completion",
+      {__MODULE__, :send_text},
+      Keyword.put(opts, :operations, [:send_message])
     )
   end
 
@@ -93,6 +97,29 @@ defmodule Jido.Chat.LiveCase.Probes do
 
   def request_options(request_id),
     do: [request_id: request_id, signal_options: [extensions: %{"traceparent" => @trace}]]
+
+  def request(ctx, definition, data) do
+    request_id = "live:#{ctx.run_id}:#{System.unique_integer([:positive])}"
+    opts = request_options(request_id)[:signal_options]
+    definition.new!(Map.merge(data, %{"client_id" => ctx.client.id, "request_id" => request_id}), opts)
+  end
+
+  def execute(ctx, request, mode) do
+    case mode do
+      :public ->
+        Chat.execute(ctx.client, request, options: ctx.opts)
+
+      :native ->
+        {_, action} =
+          Enum.find(Chat.operations(ctx.client), fn {definition, _} -> definition.type() == request.type end)
+
+        context = %{client: ctx.client, signal: request, options: ctx.opts}
+
+        with {:ok, data} <- Jido.Exec.run(action, request.data, context, max_attempts: 1) do
+          action.reply(request, data, source: ctx.client.source)
+        end
+    end
+  end
 
   def assert_sent(ctx, signal, definition, request_id) do
     if id = get_in(signal.data, ["result", "id"]), do: ctx.profile.cleanup(ctx, id)

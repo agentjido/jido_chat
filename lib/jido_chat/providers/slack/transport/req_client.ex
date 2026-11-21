@@ -105,7 +105,7 @@ defmodule Jido.Chat.Slack.Transport.ReqClient do
         }
 
         with {:ok, result} <- api_post(token, "conversations.history", payload, opts),
-             [message | _] <- result["messages"] || [] do
+             [%{"ts" => ^message_id} = message | _] <- result["messages"] || [] do
           {:ok, message}
         else
           {:error, _} = error -> error

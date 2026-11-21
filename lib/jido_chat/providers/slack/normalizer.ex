@@ -326,10 +326,7 @@ defmodule Jido.Chat.Slack.Normalizer do
   defp interaction_id(payload, fallback) do
     view = field(payload, "view") || %{}
 
-    identifier(
-      field(payload, "trigger_id") || field(payload, "action_ts") || field(payload, "response_url") ||
-        field(view, "id") || fallback
-    )
+    identifier(field(payload, "action_ts") || field(view, "id") || fallback)
   end
 
   defp action_value(action) do

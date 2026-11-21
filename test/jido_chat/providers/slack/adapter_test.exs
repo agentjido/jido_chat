@@ -44,7 +44,9 @@ defmodule Jido.Chat.Slack.AdapterTest do
 
     source = %{"content_base64" => Base.encode64("bytes"), "filename" => "test.txt"}
     assert {:ok, _} = Jido.Chat.send_file(value, "C1", source, caption: "file")
-    assert_receive {:send_file, "xoxb-test", "C1", %{body: "bytes", filename: "test.txt"}, _}
+    assert_receive {:send_file, "xoxb-test", "C1", %{body: "bytes", filename: "test.txt"} = upload, options}
+    assert options[:caption] == "file"
+    refute Map.has_key?(upload, :alt_text)
 
     assert {:ok, _} = Jido.Chat.edit_message(value, "C1", "M1", "new")
     assert_receive {:edit_message, "xoxb-test", "C1", "M1", "new", _}

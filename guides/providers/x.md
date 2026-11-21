@@ -90,14 +90,22 @@ and excluded by default.
 
 ## Live checks
 
-Set `RUN_LIVE_X_TESTS=true` with OAuth 1.0 credentials to run the read-only
-credential check. Set `RUN_LIVE_X_SEND_TESTS=true` and
-`X_TEST_RECIPIENT_ID` only when you also intend to create a real direct
-message.
+The shared live suite registers all 38 baseline cases and reports unsupported
+cases. Set the four OAuth 1.0 values in `.env.example` for A02, the read-only
+XDK identity check.
 
 ```bash
-mix test test/jido_chat/providers/x/live_integration_test.exs --include live
+JIDO_CHAT_LIVE_PROVIDERS=x mix test test/live/x_test.exs --only live_baseline
 ```
+
+To enable DM writes, set `RUN_LIVE_X_SEND_TESTS=true` and
+`X_TEST_RECIPIENT_ID` to a dedicated numeric test user ID. P01 and A07 leave
+their test DMs in the conversation. P13 and A01 send a test DM, read it back,
+and delete it only after checking the event ID, conversation ID, sender,
+and exact text. A failed ownership check leaves the DM in place.
+
+P21 requires a host-owned Account Activity webhook and a fresh test message
+from a separate sender. The shared suite has no live webhook fixture for X.
 
 ## Documentation
 

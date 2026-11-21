@@ -3,7 +3,10 @@ defmodule Jido.Chat.LiveCaseTest do
 
   alias Jido.Chat.LiveCase
   alias Jido.Chat.Discord.LiveFixture, as: DiscordFixture
+  alias Jido.Chat.Signal.LiveFixture, as: SignalFixture
+  alias Jido.Chat.Slack.LiveFixture, as: SlackFixture
   alias Jido.Chat.Telegram.LiveFixture
+  alias Jido.Chat.X.LiveFixture, as: XFixture
   alias LiveFixture.Tracker
 
   @selector "JIDO_CHAT_LIVE_PROVIDERS"
@@ -69,9 +72,94 @@ defmodule Jido.Chat.LiveCaseTest do
   test "the selector rejects unavailable providers without echoing the value" do
     assert LiveCase.selected_providers("telegram, telegram") == ["telegram"]
 
-    assert_raise ArgumentError, "JIDO_CHAT_LIVE_PROVIDERS accepts telegram, discord", fn ->
+    assert LiveCase.selected_providers(" x, signal ,x") == ["x", "signal"]
+
+    assert_raise ArgumentError, "JIDO_CHAT_LIVE_PROVIDERS accepts telegram, discord, slack, signal, x", fn ->
       LiveCase.selected_providers("unknown-secret-sentinel")
     end
+  end
+
+  test "Signal and X resolve each baseline ID and share the suite selector" do
+    env(@selector, "signal,x")
+
+    for {profile, ready} <- [
+          {SignalFixture, ~w(P01 P02 P08 P11 P19 P21 A04 A07 A10 A12 A14)},
+          {XFixture, ~w(P01 P11 P13 P19 A01 A02 A07)}
+        ] do
+      cases = profile.cases()
+      assert Enum.map(cases, & &1.id) == LiveCase.Baseline.ids()
+      env(profile.legacy_flag(), "true")
+      assert LiveCase.selected?(profile, :shared)
+      refute LiveCase.selected?(profile, :legacy)
+
+      for spec <- cases do
+        if spec.id in ready do
+          assert :ready = LiveCase.support(profile, spec)
+          assert {module, function} = spec.body
+          assert Code.ensure_loaded?(module)
+          assert function_exported?(module, function, 1)
+        else
+          assert {:unsupported, reason} = LiveCase.support(profile, spec)
+          assert byte_size(reason) > 0
+        end
+      end
+    end
+
+    refute LiveCase.provider_halt("signal") == LiveCase.provider_halt("x")
+  end
+
+  test "X writes are inactive while its OAuth identity check is ready" do
+    env(@selector, "signal,x")
+    env("RUN_LIVE_X_SEND_TESTS", nil)
+    env("X_TEST_RECIPIENT_ID", nil)
+    cases = Map.new(XFixture.cases(), &{&1.id, &1})
+    assert :ready = LiveCase.eligibility(XFixture, cases["A02"], :shared)
+    assert nil == cases["A02"].write
+
+    for id <- ~w(P01 P13 A01 A07) do
+      assert {:inactive, "set RUN_LIVE_X_SEND_TESTS=true"} = LiveCase.eligibility(XFixture, cases[id], :shared)
+      assert nil == cases[id].manual
+    end
+
+    assert_raise ExUnit.AssertionError, ~r/live check inactive: set RUN_LIVE_X_SEND_TESTS/, fn ->
+      LiveCase.run(XFixture, cases["P01"], :atomics.new(1, []), :shared)
+    end
+
+    System.put_env("RUN_LIVE_X_SEND_TESTS", "true")
+    assert :ready = LiveCase.eligibility(XFixture, cases["P13"], :shared)
+
+    assert {:blocked, "set X_TEST_RECIPIENT_ID"} =
+             XFixture.prepare(cases["P13"], "local", :atomics.new(1, []))
+  end
+
+  test "Signal polling is independently gated and requires a dedicated sender" do
+    env(@selector, "signal")
+    env("RUN_LIVE_SIGNAL_RECEIVE_TESTS", nil)
+    env("SIGNAL_TEST_SENDER", nil)
+    env("SIGNAL_ACCOUNT", "fallback-forbidden")
+    env("SIGNAL_TRANSPORT", "rpc")
+    env("SIGNAL_RPC_ENDPOINT", "http://127.0.0.1:9/api/v1/rpc")
+    cases = Map.new(SignalFixture.cases(), &{&1.id, &1})
+
+    assert :ready = LiveCase.eligibility(SignalFixture, cases["P01"], :shared)
+
+    assert {:inactive, "set RUN_LIVE_SIGNAL_RECEIVE_TESTS=true"} =
+             LiveCase.eligibility(SignalFixture, cases["P21"], :shared)
+
+    System.put_env("RUN_LIVE_SIGNAL_RECEIVE_TESTS", "true")
+    assert :ready = LiveCase.eligibility(SignalFixture, cases["P21"], :shared)
+
+    assert {:blocked, "set SIGNAL_TEST_SENDER"} =
+             SignalFixture.prepare(cases["P21"], "local", :atomics.new(1, []))
+  end
+
+  test "X deletion requires the exact event, owner, conversation and marker" do
+    message = %{"id" => "501", "sender" => %{"id" => "10"}, "thread_id" => "10-20", "text" => "fixture"}
+    assert XFixture.owned_message?(message, "501", "10-20", "10", "fixture")
+    refute XFixture.owned_message?(message, "502", "10-20", "10", "fixture")
+    refute XFixture.owned_message?(message, "501", "10-21", "10", "fixture")
+    refute XFixture.owned_message?(message, "501", "10-20", "20", "fixture")
+    refute XFixture.owned_message?(message, "501", "10-20", "10", "different message")
   end
 
   test "Discord resolves every Telegram baseline ID and runs each eligible body or reports a reason" do
@@ -106,10 +194,34 @@ defmodule Jido.Chat.LiveCaseTest do
     refute LiveCase.selected?(LiveFixture, :shared)
   end
 
-  test "real interaction delivery requires a second opt-in for each provider" do
-    env(@selector, "telegram,discord")
+  test "Slack resolves all baseline IDs with an eligible body or a supported reason" do
+    cases = SlackFixture.cases()
+    {baseline, extra} = Enum.split(cases, 38)
+    assert Enum.map(baseline, & &1.id) == LiveCase.Baseline.ids()
+    assert Enum.map(extra, & &1.id) == ["A17-LIVE", "S01"]
+    unsupported = ~w(P03 P05 P06 P07 P09 P16 P18 A03 A05 A06 A08 A14 A15)
 
-    for {profile, flag} <- [{LiveFixture, @manual}, {DiscordFixture, "RUN_LIVE_DISCORD_UI"}] do
+    for spec <- baseline do
+      if spec.id in unsupported do
+        assert {:unsupported, reason} = LiveCase.support(SlackFixture, spec)
+        assert byte_size(reason) > 0
+      else
+        assert :ready = LiveCase.support(SlackFixture, spec)
+        assert {module, function} = spec.body
+        assert Code.ensure_loaded?(module)
+        assert function_exported?(module, function, 1)
+      end
+    end
+  end
+
+  test "real interaction delivery requires a second opt-in for each provider" do
+    env(@selector, "telegram,discord,slack")
+
+    for {profile, flag} <- [
+          {LiveFixture, @manual},
+          {DiscordFixture, "RUN_LIVE_DISCORD_UI"},
+          {SlackFixture, "RUN_LIVE_SLACK_UI"}
+        ] do
       env(flag, nil)
       by_id = Map.new(profile.cases(), &{&1.id, &1})
       manual = by_id["A17-LIVE"]
@@ -203,6 +315,20 @@ defmodule Jido.Chat.LiveCaseTest do
     assert LiveCase.halted?(stop)
     assert LiveCase.failure_reason(stop) == "a provider write has an uncertain outcome"
     refute inspect(error) =~ "private-signal-sentinel"
+  end
+
+  test "an uncertain query leaves later writes eligible" do
+    stop = :atomics.new(1, [])
+
+    signal = %Jido.Signal{
+      type: "jido.chat.test.failed",
+      source: "jido:chat:test",
+      id: "local",
+      data: %{"operation" => Jido.Chat.Signal.DownloadFile.type(), "outcome" => "unknown"}
+    }
+
+    LiveCase.flag_result(stop, {:error, %Jido.Chat.Error{signal: signal}})
+    refute LiveCase.halted?(stop)
   end
 
   test "Telegram keeps known message IDs and pending writes when the caller is killed" do
