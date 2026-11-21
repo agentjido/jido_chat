@@ -18,6 +18,11 @@
 # Temporary files, for example, from tests.
 /tmp/
 
+# Local provider credentials.
+/.env
+/.env.*
+!/.env.example
+
 # Editor/IDE
 .elixir_ls/
 .vscode/
