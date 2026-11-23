@@ -195,7 +195,7 @@ defmodule Jido.Chat.Telegram.NativeActionsTest do
     catalog = Telegram.catalog()
 
     for action <- Telegram.actions() do
-      assert Jido.ChatAction in List.flatten(Keyword.get_values(action.__info__(:attributes), :behaviour))
+      assert Jido.Action in List.flatten(Keyword.get_values(action.__info__(:attributes), :behaviour))
       assert is_nil(Jido.Chat.Operations.Definitions.lookup(action.signal_definition().type()))
       assert action.signal_definition() in action.signal_definitions()
     end

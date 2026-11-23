@@ -26,10 +26,14 @@ defmodule Jido.Chat do
   resource.
   """
 
+  alias Jido.Chat.Operations.Definition, as: Operation
+  alias Jido.Chat.Operations.{Definitions, Execution}
+  alias Jido.Chat.Signal.Policy
+
   @doc "Returns the explicit public Signal definition list for this domain."
   @spec signal_definitions() :: [module()]
   def signal_definitions do
-    Enum.flat_map(actions(), & &1.signal_definitions()) ++ event_definitions()
+    Enum.flat_map(Definitions.definitions(), &Operation.signal_definitions/1) ++ event_definitions()
   end
 
   @doc "Returns the core incoming fact definitions."
@@ -63,8 +67,8 @@ defmodule Jido.Chat do
   @doc "Returns core and configured provider Signal definitions."
   @spec signal_definitions(Jido.Chat.Client.t()) :: [module()]
   def signal_definitions(%Jido.Chat.Client{} = client) do
-    (signal_definitions() ++ Enum.flat_map(actions(client), & &1.signal_definitions()) ++ event_definitions(client))
-    |> Enum.uniq()
+    definitions = Enum.flat_map(Definitions.for_client(client), &Operation.signal_definitions/1)
+    Enum.uniq(signal_definitions() ++ definitions ++ event_definitions(client))
   end
 
   @doc "Returns the configured core and provider Signal catalog without I/O."
@@ -77,19 +81,12 @@ defmodule Jido.Chat do
 
   @doc "Returns Signal definition and Action pairs for all operations."
   @spec operations() :: [{module(), module()}]
-  def operations do
-    Jido.Chat.Operations.Definitions.all()
-    |> Enum.map(fn {_, {definition, _, _, _, _}} ->
-      {definition, Module.concat(__MODULE__, definition |> Module.split() |> List.last())}
-    end)
-    |> Enum.sort()
-  end
+  def operations, do: Enum.map(Definitions.definitions(), &Operation.pair/1)
 
   @doc "Returns core and configured provider request/Action pairs."
   @spec operations(Jido.Chat.Client.t()) :: [{module(), module()}]
-  def operations(%Jido.Chat.Client{adapter: adapter}) do
-    (operations() ++ Jido.Chat.Adapter.operations(adapter)) |> Enum.sort()
-  end
+  def operations(%Jido.Chat.Client{} = client),
+    do: Enum.map(Definitions.for_client(client), &Operation.pair/1)
 
   @doc "Returns core and configured provider Action modules."
   @spec actions(Jido.Chat.Client.t()) :: [module()]
@@ -121,34 +118,24 @@ defmodule Jido.Chat do
 
   def execute(%Jido.Chat.Client{} = client, %Jido.Signal{} = request, opts) when is_list(opts) do
     with {:ok, private, timeout} <- execution_options(opts),
-         {:ok, request} <- Jido.Chat.Signal.Policy.prepare(request),
-         {_definition, action} <-
-           Enum.find(operations(client), fn {definition, _} -> definition.type() == request.type end) do
-      case Jido.Exec.run(action, request.data, %{client: client, signal: request, options: private},
+         {:ok, request} <- Policy.prepare(request),
+         %Operation{} = operation <- Enum.find(Definitions.for_client(client), &(&1.request.type() == request.type)) do
+      case Jido.Exec.run(operation.action, request.data, %{client: client, signal: request, options: private},
              max_attempts: 1,
              timeout: timeout
            ) do
         {:ok, data} ->
-          with {:ok, signal} <-
-                 action.reply(request, data,
-                   source: client.source,
-                   subject:
-                     request.subject ||
-                       if(request.data["room_id"],
-                         do: Jido.Chat.Signal.Identity.conversation_subject(client.id, request.data["room_id"])
-                       )
-                 ),
-               do: Jido.Chat.Signal.Policy.prepare(signal)
+          Execution.reply(operation, client, request, data)
 
         {:error, %Jido.Error.TimeoutError{}} ->
-          Jido.ChatAction.Execution.timeout(action, client, request)
+          Execution.failure(operation, client, request, :timeout, "unknown")
 
         {:error, _} = error ->
           error
       end
     else
       {:error, _} = error -> error
-      _ -> Jido.Chat.Signal.Policy.error(:invalid_request)
+      _ -> Policy.error(:invalid_request)
     end
   end
 

@@ -1641,11 +1641,36 @@
       "function"
     ]
   ],
-  "Jido.ChatAction": [
+  "Jido.Chat.Operations.Definition": [
     [
-      "__using__",
+      "completion_options",
+      2,
+      "function"
+    ],
+    [
+      "failure_options",
       1,
-      "macro"
+      "function"
+    ],
+    [
+      "reply",
+      3,
+      "function"
+    ],
+    [
+      "reply",
+      4,
+      "function"
+    ],
+    [
+      "run",
+      3,
+      "function"
+    ],
+    [
+      "signal_definitions",
+      1,
+      "function"
     ]
   ]
 }

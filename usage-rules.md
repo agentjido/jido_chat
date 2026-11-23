@@ -9,7 +9,7 @@ bridges, bounded provider work, and storage capabilities belong in `Jido.Chat.Ru
 - Preserve the adapter boundary. Provider listeners, protocol cursors, and transport reconnect loops stay
   in provider packages or the host. Runtime composes Chat domain work into a host-owned Jido instance.
 - Keep public APIs documented and typed.
-- Use `Jido.ChatAction` for core and provider Actions. Extensions declare a request Signal and result schema. Override `invoke/3` for provider-specific calls. Declare extension operation pairs and admitted facts through adapter callbacks. Use configured discovery and Jido.Chat.catalog(client); do not edit the core registry.
+- Use `Jido.Action` and `Jido.Chat.Operations.Definition` for provider extensions. Register the operation and admitted facts through adapter callbacks. Use configured discovery and `Jido.Chat.catalog(client)`.
 - Use Zoi schemas for Signal data and Splode errors for safe failures. Keep credentials and transport state out of Signals.
 - Use explicit native/unsupported operation capabilities. Do not infer a fallback.
 - Do not add a hidden global Binding, listener, mutable session, storage process, or private Jido instance.

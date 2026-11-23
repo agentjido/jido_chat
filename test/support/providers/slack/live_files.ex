@@ -6,7 +6,7 @@ defmodule Jido.Chat.Slack.LiveFiles do
   alias Jido.Chat.Signal
   alias Jido.Chat.Slack.{LiveAPI, LiveFixture}
 
-  @photo Path.expand("../../../../examples/providers/telegram/photo.png.b64", __DIR__)
+  @photo Path.expand("../../fixtures/photo.png.b64", __DIR__)
   @video Path.expand("../../../jido_chat/providers/telegram/fixtures/square-video.mp4.b64", __DIR__)
   @file_info_attempts 20
 

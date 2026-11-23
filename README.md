@@ -54,13 +54,13 @@ Add the optional transport dependencies for the features you use. See
 Starting `:jido_chat` starts no process, table, room, queue, or storage resource.
 Core and `Jido.Chat.Plugin` continue to work without Runtime.
 
-Build core or provider Actions with `use Jido.ChatAction`. Provider extensions supply
-their own Signal definition and result schema. They can override `invoke/3` without
-an edit to the core operation registry. Configure provider discovery with the
-adapter's `operations/0` and `event_definitions/0`. `Jido.Chat.execute/3` then runs
+Core and provider operations use native `Jido.Action` modules. Provider adapters
+register their Actions and typed Signals with `operation_definitions/0` and
+register incoming facts with `event_definitions/0`. `Jido.Chat.execute/3` runs
 core and provider requests. Main helpers accept `timeout:` in milliseconds and
-`options:` for private transport options. Action schemas match Signal data.
-Native Exec calls return data; `reply/3` builds the completion Signal. See the full API guide for `Telegram.SendPoll`.
+`options:` for private transport options. Native Exec calls return data, and
+the SDK builds the completion Signal. See the [public API guide](guides/public_api.md)
+for a provider extension example.
 
 This major release removes Binding, Resources, RequestStore, and Handlers. Covenant contracts now define the public API, Actions, Signals, and adapter boundary. Run `mix test.contracts`; see the [contract guide](guides/contracts.md).
 

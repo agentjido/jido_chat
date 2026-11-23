@@ -6,7 +6,7 @@ defmodule Jido.Chat.Discord.LiveFiles do
   alias Jido.Chat.Discord.LiveHelpers, as: L
   alias Jido.Chat.LiveCase.Probes
 
-  @photo Path.expand("../../../../examples/providers/telegram/photo.png.b64", __DIR__)
+  @photo Path.expand("../../fixtures/photo.png.b64", __DIR__)
   @video Path.expand("../../../jido_chat/providers/telegram/fixtures/square-video.mp4.b64", __DIR__)
 
   def inline(ctx) do

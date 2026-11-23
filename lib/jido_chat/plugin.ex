@@ -220,7 +220,7 @@ defmodule Jido.Chat.Plugin do
 
     commands? =
       Enum.all?(connection.commands, fn action ->
-        match?({:module, _}, Code.ensure_compiled(action)) and function_exported?(action, :signal_definition, 0)
+        match?({:module, _}, Code.ensure_compiled(action)) and function_exported?(action, :run, 2)
       end)
 
     rooms? and source? and client? and commands?
@@ -472,30 +472,20 @@ defmodule Jido.Chat.Plugin do
 
     connections = GenServer.call(store, :connections)
     connection = Enum.find(connections, &(&1.client.id == signal.data["client_id"]))
+    operation = if connection, do: find_operation([connection], signal.type)
 
     outcome =
       cond do
         is_nil(connection) ->
           {:error, :unknown_chat_client}
 
-        not Enum.any?(connection.commands, &(&1.signal_definition().type() == signal.type)) ->
+        is_nil(operation) or operation.action not in connection.commands ->
           {:error, :chat_command_denied}
 
         true ->
-          room =
-            signal.data["room_id"] ||
-              GenServer.call(
-                store,
-                {:interaction_room, connection.client.id, signal.data["interaction_id"]}
-              )
-
-          with true <- room in connection.rooms,
-               true <-
-                 Enum.any?(Jido.Chat.operations(connection.client), fn {definition, action} ->
-                   definition.type() == signal.type and action in connection.commands
-                 end),
-               {:ok, signal} <-
-                 Jido.Chat.Signal.Policy.validate(Jido.Chat.catalog(connection.client), signal) do
+          with {:ok, signal} <-
+                 Jido.Chat.Signal.Policy.validate(Jido.Chat.catalog(connection.client), signal),
+               true <- command_room(store, connection, signal) in connection.rooms do
             # SDK Actions run only here, after the command-handling Turn commits.
             case Jido.Chat.execute(connection.client, signal) do
               {:ok, result} -> return_result(context, result)
@@ -510,7 +500,8 @@ defmodule Jido.Chat.Plugin do
 
     case outcome do
       {:error, reason} = error when reason != :agent_unavailable ->
-        reject(context, connections, signal, reason)
+        operation = operation || find_operation(connections, signal.type)
+        reject(context, operation, signal, reason)
         error
 
       other ->
@@ -518,29 +509,33 @@ defmodule Jido.Chat.Plugin do
     end
   end
 
-  defp reject(context, connections, request, reason) do
-    operations = Enum.flat_map(connections, &Jido.Chat.operations(&1.client))
+  defp command_room(store, connection, signal) do
+    signal.data["room_id"] ||
+      GenServer.call(store, {:interaction_room, connection.client.id, signal.data["interaction_id"]})
+  end
 
-    case Enum.find(operations, fn {definition, _} -> definition.type() == request.type end) do
-      {_, action} ->
-        failed = Module.concat(action, Failed)
-        code = if reason == :chat_execution_failed, do: "provider_failure", else: "forbidden"
-        outcome = if reason == :chat_execution_failed, do: "unknown", else: "not_attempted"
+  defp find_operation(connections, type) do
+    Enum.find_value(connections, fn connection ->
+      Enum.find(Jido.Chat.Operations.Definitions.for_client(connection.client), &(&1.request.type() == type))
+    end)
+  end
 
-        data =
-          Map.take(request.data, ["client_id", "request_id"])
-          |> Map.merge(%{"operation" => request.type, "code" => code, "outcome" => outcome})
+  defp reject(_context, nil, _request, _reason), do: :ok
 
-        case Jido.Chat.Signal.Policy.reply(failed, data, request,
-               source: "urn:jido:chat:plugin",
-               subject: request.subject
-             ) do
-          {:ok, signal} -> return_result(context, signal)
-          {:error, _} -> :ok
-        end
+  defp reject(context, operation, request, reason) do
+    code = if reason == :chat_execution_failed, do: "provider_failure", else: "forbidden"
+    outcome = if reason == :chat_execution_failed, do: "unknown", else: "not_attempted"
 
-      nil ->
-        :ok
+    data =
+      Map.take(request.data, ["client_id", "request_id"])
+      |> Map.merge(%{"operation" => request.type, "code" => code, "outcome" => outcome})
+
+    case Jido.Chat.Signal.Policy.reply(operation.failed, data, request,
+           source: "urn:jido:chat:plugin",
+           subject: request.subject
+         ) do
+      {:ok, signal} -> return_result(context, signal)
+      {:error, _} -> :ok
     end
   end
 
@@ -556,21 +551,17 @@ defmodule Jido.Chat.Plugin do
   end
 
   defp validate_commands!(connection, client) do
-    for action <- connection.commands do
-      type = action.signal_definition().type()
+    operations = Jido.Chat.Operations.Definitions.for_client(client)
+    capabilities = client.adapter.capabilities()
 
+    for action <- connection.commands do
       supported? =
-        Enum.any?(Jido.Chat.operations(client), fn {definition, candidate} ->
-          candidate == action and definition.type() == type
+        Enum.any?(operations, fn operation ->
+          operation.action == action and
+            (is_nil(operation.capability) or capabilities[operation.capability] == :native)
         end)
 
-      capability =
-        case Jido.Chat.Operations.Definitions.lookup(type) do
-          nil -> true
-          {_, operation, _, _, _} -> client.adapter.capabilities()[operation] == :native
-        end
-
-      if not (supported? and capability),
+      unless supported?,
         do: raise(ArgumentError, "Chat connection #{connection.name}: unsupported Action #{inspect(action)}")
     end
   end

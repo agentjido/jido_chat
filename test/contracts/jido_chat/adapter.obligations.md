@@ -10,7 +10,7 @@ Tests use public functions and independent fixtures. The host owns the messaging
 
 ### jido_chat.adapter.I1 — Adapters declare explicit support and optional extensions
 - **scope:** Adapter callbacks, Client construction, and capability discovery.
-- **must:** Require channel_type/0, capabilities/0, invoke/3, and normalize/3. Allow default_transport/0, operations/0, and event_definitions/0. Fill missing core statuses with unsupported. Reject invalid statuses and conflicting extensions without provider I/O. Discovery performs no provider call.
+- **must:** Require channel_type/0, capabilities/0, invoke/3, and normalize/3. Allow default_transport/0, operation_definitions/0, and event_definitions/0. Fill missing core statuses with unsupported. Reject invalid statuses and conflicting extensions without provider I/O. Discovery performs no provider call.
 - **kind:** functional
 - **status:** active
 

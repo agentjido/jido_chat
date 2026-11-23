@@ -222,17 +222,44 @@ defmodule Jido.Chat.ContractFixtures.ProviderRequest do
       )
 end
 
-defmodule Jido.Chat.ContractFixtures.ProviderAction do
-  use Jido.ChatAction,
-    name: "contract_provider_status",
-    signal: Jido.Chat.ContractFixtures.ProviderRequest,
-    result_schema: Jido.Joi.map(%{"status" => Jido.Joi.enum(["ready"])}, unrecognized_keys: :error)
+defmodule Jido.Chat.ContractFixtures.ProviderCompleted do
+  alias Jido.Chat.ContractFixtures.ProviderRequest
+  alias Jido.Chat.Operations.Definition
 
-  @impl true
-  def invoke(client, request, opts) do
-    send(client.config[:observer], {:provider_extension, request, opts})
-    {:ok, %{"status" => "ready"}}
-  end
+  @result_schema Jido.Joi.map(%{"status" => Jido.Joi.enum(["ready"])}, unrecognized_keys: :error)
+  use Jido.Signal, Definition.completion_options(ProviderRequest, @result_schema)
+
+  def result_schema, do: @result_schema
+end
+
+defmodule Jido.Chat.ContractFixtures.ProviderFailed do
+  alias Jido.Chat.ContractFixtures.ProviderRequest
+  alias Jido.Chat.Operations.Definition
+
+  use Jido.Signal, Definition.failure_options(ProviderRequest)
+end
+
+defmodule Jido.Chat.ContractFixtures.ProviderAction do
+  alias Jido.Chat.ContractFixtures.{ProviderCompleted, ProviderFailed, ProviderRequest}
+  alias Jido.Chat.Operations.Definition
+
+  use Jido.Action,
+    name: "contract_provider_status",
+    schema: ProviderRequest.schema(),
+    output_schema: ProviderCompleted.schema()
+
+  @definition %Definition{
+    action: __MODULE__,
+    request: ProviderRequest,
+    completed: ProviderCompleted,
+    failed: ProviderFailed,
+    result_schema: ProviderCompleted.result_schema()
+  }
+
+  def definition, do: @definition
+
+  @impl Jido.Action
+  def run(params, context), do: Definition.run(@definition, params, context)
 end
 
 defmodule Jido.Chat.ContractFixtures.ProviderFact do
@@ -260,11 +287,19 @@ defmodule Jido.Chat.ContractFixtures.ExtendedAdapter do
   @impl true
   def capabilities, do: %{send_message: :native}
   @impl true
-  def operations, do: [{Fixtures.ProviderRequest, Fixtures.ProviderAction}]
+  def operation_definitions, do: [Fixtures.ProviderAction.definition()]
   @impl true
   def event_definitions, do: [Fixtures.ProviderFact, Jido.Chat.Signal.MessageReceived]
   @impl true
-  def invoke(client, request, opts), do: Fixtures.invoke(__MODULE__, client, request, opts)
+  def invoke(client, request, opts) do
+    if request.type == Fixtures.ProviderRequest.type() do
+      send(client.config[:observer], {:provider_extension, request, opts})
+      {:ok, %{"status" => "ready"}}
+    else
+      Fixtures.invoke(__MODULE__, client, request, opts)
+    end
+  end
+
   @impl true
   def normalize(client, input, opts), do: Fixtures.normalize(client, input, opts)
 end

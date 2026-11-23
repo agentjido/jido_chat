@@ -3,6 +3,7 @@ defmodule Jido.Chat.AdapterContractTest do
   @moduletag capture_log: true
   alias Jido.Chat
   alias Jido.Chat.ContractFixtures, as: F
+  alias Jido.Chat.Operations.{Definition, Definitions}
 
   defmodule BadStatus do
     use Jido.Chat.Adapter
@@ -16,16 +17,16 @@ defmodule Jido.Chat.AdapterContractTest do
     use Jido.Chat.Adapter
     def channel_type, do: :test
     def capabilities, do: %{}
-    def operations, do: [{Jido.Chat.Signal.SendMessage, Jido.Chat.SendMessage}]
+    def operation_definitions, do: Enum.filter(Definitions.definitions(), &(&1.action == Chat.SendMessage))
     def invoke(_, _, _), do: raise("must not run")
     def normalize(_, _, _), do: raise("must not run")
   end
 
-  defmodule WrongPair do
+  defmodule WrongActionSchema do
     use Jido.Chat.Adapter
     def channel_type, do: :test
     def capabilities, do: %{}
-    def operations, do: [{Jido.Chat.Signal.SendMessage, Jido.Chat.ContractFixtures.ProviderAction}]
+    def operation_definitions, do: [%{F.ProviderAction.definition() | action: Chat.SendMessage}]
     def invoke(_, _, _), do: raise("must not run")
     def normalize(_, _, _), do: raise("must not run")
   end
@@ -62,12 +63,12 @@ defmodule Jido.Chat.AdapterContractTest do
                default_transport: 0,
                invoke: 3,
                normalize: 3,
-               operations: 0,
+               operation_definitions: 0,
                event_definitions: 0
              )
 
     assert Enum.sort(Chat.Adapter.behaviour_info(:optional_callbacks)) ==
-             Enum.sort(default_transport: 0, operations: 0, event_definitions: 0)
+             Enum.sort(default_transport: 0, operation_definitions: 0, event_definitions: 0)
 
     refute function_exported?(Chat.Client, :options, 1)
 
@@ -83,7 +84,7 @@ defmodule Jido.Chat.AdapterContractTest do
     for adapter <- [
           BadStatus,
           DuplicateOperation,
-          WrongPair,
+          WrongActionSchema,
           WrongEvent,
           MissingChannel,
           InvalidChannel,
@@ -168,12 +169,13 @@ defmodule Jido.Chat.AdapterContractTest do
   @tag obligation: "jido_chat.adapter.I4"
   test "provider Actions and facts extend configured discovery and execution without core edits" do
     client = F.client(F.ExtendedAdapter)
+    operation = F.ProviderAction.definition()
     assert Chat.operations(client) == Enum.sort(F.pairs() ++ [{F.ProviderRequest, F.ProviderAction}])
     assert Enum.sort(Chat.actions(client)) == (Enum.map(F.pairs(), &elem(&1, 1)) ++ [F.ProviderAction]) |> Enum.sort()
     assert Chat.event_definitions(client) == [F.ProviderFact, Chat.Signal.MessageReceived]
 
     assert Enum.sort(Chat.signal_definitions(client)) ==
-             (Chat.signal_definitions() ++ F.ProviderAction.signal_definitions() ++ [F.ProviderFact])
+             (Chat.signal_definitions() ++ [F.ProviderRequest, F.ProviderCompleted, F.ProviderFailed, F.ProviderFact])
              |> Enum.uniq()
              |> Enum.sort()
 
@@ -190,14 +192,9 @@ defmodule Jido.Chat.AdapterContractTest do
             Chat.execute(client, request, options: [local_setting: "private-config"])
 
           :exec ->
-            case F.execute(
-                   F.ProviderAction,
-                   request,
-                   %{client: client, options: [local_setting: "private-config"]},
-                   max_attempts: 1
-                 ) do
-              {:ok, %{signal: signal}} -> {:ok, signal}
-            end
+            context = %{client: client, signal: request, options: [local_setting: "private-config"]}
+            assert {:ok, data} = Jido.Exec.run(F.ProviderAction, request.data, context, max_attempts: 1)
+            Definition.reply(operation, request, data, source: client.source)
         end
 
       assert {:ok, completed} = result

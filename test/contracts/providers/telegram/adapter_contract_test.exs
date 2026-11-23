@@ -42,7 +42,7 @@ defmodule Jido.Chat.Telegram.AdapterContractTest do
                  end)
                )
 
-      assert Telegram.Adapter.operations() == Telegram.operations()
+      assert Chat.Adapter.operations(Telegram.Adapter) == Telegram.operations()
       assert Telegram.Adapter.event_definitions() == Telegram.event_definitions()
       assert %Jido.Signal.Catalog{} = Chat.catalog(client)
     end

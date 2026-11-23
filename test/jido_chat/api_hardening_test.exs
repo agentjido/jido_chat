@@ -3,6 +3,7 @@ defmodule Jido.Chat.APIHardeningTest do
   @moduletag capture_log: true
   alias Jido.Chat
   alias Jido.Chat.{Client, Delivery}
+  alias Jido.Chat.Operations.Definition
 
   defmodule ProviderFact do
     use Jido.Signal,
@@ -24,17 +25,50 @@ defmodule Jido.Chat.APIHardeningTest do
   defmodule ProviderRequest do
     use Jido.Signal,
       type: "test.chat.query.status",
-      dataschema: "urn:test:status:1",
       default_source: "urn:test:producer",
       schema:
-        Jido.Joi.map(%{"client_id" => Jido.Joi.string(), "request_id" => Jido.Joi.string()}, unrecognized_keys: :error)
+        Jido.Joi.map(
+          %{
+            "client_id" => Jido.Joi.string(),
+            "request_id" => Jido.Joi.string() |> Jido.Joi.transform({__MODULE__, :normalize_id, []})
+          },
+          unrecognized_keys: :error
+        )
+
+    def normalize_id(value, _opts), do: String.trim(value)
+  end
+
+  defmodule ProviderAccepted do
+    use Jido.Signal,
+        Definition.completion_options(
+          ProviderRequest,
+          Jido.Joi.map(%{"online" => Jido.Joi.boolean()}, unrecognized_keys: :error)
+        )
+        |> Keyword.put(:type, "test.chat.status.ready")
+  end
+
+  defmodule ProviderDeclined do
+    use Jido.Signal, Definition.failure_options(ProviderRequest)
   end
 
   defmodule ProviderAction do
-    use Jido.ChatAction,
+    use Jido.Action,
       name: "test_status",
-      signal: ProviderRequest,
+      schema: ProviderRequest.schema(),
+      output_schema: ProviderAccepted.schema()
+
+    @definition %Definition{
+      action: __MODULE__,
+      request: ProviderRequest,
+      completed: ProviderAccepted,
+      failed: ProviderDeclined,
       result_schema: Jido.Joi.map(%{"online" => Jido.Joi.boolean()}, unrecognized_keys: :error)
+    }
+
+    def definition, do: @definition
+
+    @impl Jido.Action
+    def run(params, context), do: Definition.run(@definition, params, context)
   end
 
   defmodule Adapter do
@@ -44,7 +78,7 @@ defmodule Jido.Chat.APIHardeningTest do
     def capabilities,
       do: %{send_message: :native, download_file: :native, fetch_metadata: :native, create_thread: :native}
 
-    def operations, do: [{ProviderRequest, ProviderAction}]
+    def operation_definitions, do: [ProviderAction.definition()]
     def event_definitions, do: [ProviderFact]
     def normalize(_, input, _), do: {:ok, input}
 
@@ -53,6 +87,16 @@ defmodule Jido.Chat.APIHardeningTest do
       if opts[:wait], do: Process.sleep(opts[:wait])
       Keyword.get(opts, :response, {:ok, %{"id" => "message", "room_id" => "room"}})
     end
+  end
+
+  defmodule InvalidOperationAdapter do
+    use Jido.Chat.Adapter
+    defdelegate channel_type(), to: Adapter
+    defdelegate capabilities(), to: Adapter
+    defdelegate invoke(client, signal, opts), to: Adapter
+    defdelegate normalize(client, input, opts), to: Adapter
+
+    def operation_definitions, do: [%{ProviderAction.definition() | result_schema: nil}]
   end
 
   defmodule Unsupported do
@@ -155,6 +199,31 @@ defmodule Jido.Chat.APIHardeningTest do
     refute_receive {:invoked, _, _}
   end
 
+  test "an oversized completion returns a typed failure after one provider call" do
+    client = client()
+    request = request()
+    large_result = %{"id" => "message", "room_id" => "room", "text" => String.duplicate("x", 270_000)}
+
+    assert {:error, %Chat.Error{code: :invalid_provider_result, signal: failed}} =
+             Chat.execute(client, request, options: [response: {:ok, large_result}])
+
+    assert failed.type == Chat.SendMessage.Failed.type()
+    assert failed.data["outcome"] == "unknown"
+    assert failed.extensions["jidocausationid"] == request.id
+    assert_receive {:invoked, _, _}
+    refute_received {:invoked, _, _}
+  end
+
+  test "a completion cannot use a different request as its parent" do
+    client = client()
+    first = request()
+    second = Chat.Signal.SendMessage.new!(%{first.data | "request_id" => "second"})
+    assert {:ok, data} = Jido.Exec.run(Chat.SendMessage, first.data, %{client: client, signal: first})
+    assert {:error, %Chat.Errors.Contract{code: :context_mismatch}} = Chat.SendMessage.reply(second, data)
+    assert {:ok, completed} = Chat.SendMessage.reply(first, data)
+    assert completed.extensions["jidocausationid"] == first.id
+  end
+
   test "safe error categories preserve outcome and bounded retry hints without provider details" do
     for code <- [:unauthorized, :forbidden, :not_found, :rate_limited, :timeout] do
       assert {:error, %Chat.Error{code: ^code, signal: failed}} =
@@ -184,8 +253,19 @@ defmodule Jido.Chat.APIHardeningTest do
     assert ProviderFact in Chat.signal_definitions(client)
     assert Chat.event_definitions(client) == [ProviderFact]
     request = ProviderRequest.new!(%{"client_id" => client.id, "request_id" => "status"})
+    request = put_in(request.data["request_id"], " status ")
     assert {:ok, completed} = Chat.execute(client, request, options: [response: {:ok, %{"online" => true}}])
+    assert completed.type == "test.chat.status.ready"
+    assert is_nil(completed.dataschema)
+    assert completed.data["request_id"] == "status"
     assert {:ok, _} = Jido.Signal.Catalog.validate(Chat.catalog(client), completed)
+
+    assert {:error, %Chat.Error{signal: failed}} =
+             Chat.execute(client, request, options: [response: {:error, {:rejected, :forbidden}}])
+
+    assert failed.type == ProviderDeclined.type()
+    assert is_nil(failed.dataschema)
+    assert {:ok, _} = Jido.Signal.Catalog.validate(Chat.catalog(client), failed)
 
     fact =
       ProviderFact.new!(%{"delivery_id" => "delivery", "item_id" => "item", "room_id" => "room", "online" => true},
@@ -198,6 +278,13 @@ defmodule Jido.Chat.APIHardeningTest do
     assert {:error, _} = Delivery.new(client(Unsupported), "delivery", [fact])
     core_fact = Chat.AdapterTestKit.Factories.message_received(client, %{"delivery_id" => "delivery"})
     assert {:error, _} = Delivery.new(client, "delivery", [core_fact])
+  end
+
+  test "native operation registration rejects an invalid result schema" do
+    assert {:error, %Chat.Errors.Contract{code: :invalid_capabilities}} =
+             Chat.Adapter.validate_capabilities(InvalidOperationAdapter)
+
+    assert {:error, %Chat.Errors.Contract{code: :invalid_client}} = Client.new(InvalidOperationAdapter, id: "invalid")
   end
 
   test "the adapter kit executes unsupported requests without calling the provider" do

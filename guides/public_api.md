@@ -128,13 +128,15 @@ configuration. The Client captures `id`, `credentials`, optional private keyword
 performs no I/O and starts no process. Keep the Client and its private fields in
 execution context. Never put a Client or credentials in a Signal.
 
-`Jido.ChatAction` defines one Action with typed request and completion Signal
-contracts. Native Actions accept request data maps and return
+Each operation registers a native Action with typed request, completion, and
+failure Signals. Native Actions accept request data maps and return
 `{:ok, completion_data}`. Private context is
 `%{client: client, signal: request, options: keyword_options}`. The request Signal
 and options are optional. Supply the request to retain its envelope and trace
 when the adapter runs. Without it, the Action builds a request from the data.
-Use `Action.reply/3` to build a completion Signal. It does not dispatch the reply.
+Use `Action.reply/3` on a built-in Action to build its completion Signal, or
+use `Jido.Chat.Operations.Definition.reply/4` with an extension definition.
+These functions build Signals for the caller to dispatch.
 
 `Jido.Chat.execute/3` and the convenience functions still return
 `{:ok, completion_signal}`. `execute/3` accepts only `options: private_keyword_options`
@@ -142,7 +144,7 @@ and `timeout: milliseconds_or_infinity`. The lower-level `send_message/3` uses
 these same execution options and requires `request_id` in its data map. The eleven
 main helpers generate that ID when omitted.
 
-`Action.to_json/0` exposes the request and completion data schemas used by native
+`Action.authoring_contract/0` exposes the request and completion data schemas used by native
 execution. Signal envelopes are validated at the SDK and Plugin boundaries.
 Clients, transport options, and stream sources remain private context.
 
@@ -231,10 +233,11 @@ to the fields below. Unknown fields are rejected. Telegram supports 12 core Acti
 
 Use `Action.result_schema/0` for the exact result shape and
 `Action.signal_definition().schema/0` for the exact request schema.
-Every Action supplies native Jido Action functions (`run/2`, parameter and output
-validation, `schema/0`, `output_schema/0`, and `to_json/0`) plus
-`signal_definition/0`, `signal_definitions/0`, `result_schema/0`, and the provider
-callback `invoke/3`. Normal execution uses `Jido.Exec.run`.
+Built-in Actions supply native Jido Action functions, including `run/2`,
+`schema/0`, `output_schema/0`, and `authoring_contract/0`. Their
+`signal_definition/0`, `signal_definitions/0`, and `result_schema/0` functions
+give callers access to the registered definitions. Normal execution uses
+`Jido.Exec.run`.
 
 `CreateThread` creates a named thread or topic. It does not require a message ID.
 Use the returned thread ID in `SendMessage.thread_id` to send into that thread.
@@ -517,15 +520,44 @@ invoke(client, request_signal, opts) # canonical result map or error
 normalize(client, provider_input, opts) # Delivery or error
 # Optional:
 default_transport()
-operations() # [{provider_request_definition, provider_action}, ...]
+operation_definitions() # list of Jido.Chat.Operations.Definition values
 event_definitions() # admitted core or provider fact definitions
-
-use Jido.ChatAction,
-  name: "provider_operation",
-  signal: MyProvider.Signal.Request,
-  result_schema: my_result_schema
-# Override invoke/3 for provider-specific execution.
 ```
+
+Define the request with `use Jido.Signal`. To define the completion and failure
+Signals, pass `Definition.completion_options(Request, result_schema)` and
+`Definition.failure_options(Request)` to `use Jido.Signal` in their respective
+modules. The Action declares those schemas and delegates execution.
+
+```elixir
+defmodule MyProvider.GetStatus do
+  alias Jido.Chat.Operations.Definition
+  alias MyProvider.Signal.{StatusRequest, StatusCompleted, StatusFailed}
+
+  use Jido.Action,
+    name: "provider_get_status",
+    schema: StatusRequest.schema(),
+    output_schema: StatusCompleted.schema()
+
+  @definition %Definition{
+    request: StatusRequest,
+    action: __MODULE__,
+    completed: StatusCompleted,
+    failed: StatusFailed,
+    result_schema: MyProvider.Schemas.status()
+  }
+
+  def definition, do: @definition
+
+  @impl Jido.Action
+  def run(params, context), do: Definition.run(@definition, params, context)
+end
+```
+
+Return `[MyProvider.GetStatus.definition()]` from the adapter's
+`operation_definitions/0` callback. Handle `StatusRequest` in the adapter's
+`invoke/3` callback. Use the same result schema for the definition and the
+completion Signal.
 
 The shared Action boundary validates requests, client-scoped references, and
 results. Requests and results are JSON values. Private options configure transport;
@@ -553,8 +585,8 @@ declarations, request/event fixtures, and delivery validation. Covenant contract
 ## Telegram transport boundary
 
 The Telegram adapter implements `channel_type/0`, `capabilities/0`,
-`default_transport/0`, `operations/0`, `event_definitions/0`, `invoke/3`, and
-`normalize/3` from the core behaviour.
+`default_transport/0`, `operation_definitions/0`, `event_definitions/0`,
+`invoke/3`, and `normalize/3` from the core behaviour.
 Custom transports implement `c:Jido.Chat.Telegram.Transport.call/4`.
 
 ```elixir
@@ -609,7 +641,7 @@ schema and declared capabilities determine which operations are available.
 | `Jido.Chat.Signal.Policy` | `new/2,3`, `new!/2,3`, `reply/3,4`, `validate/2` for Chat validation of native Signals |
 | `Jido.Chat.Signal.Identity` | `client_source/1`, `conversation_subject/2` |
 | `Jido.Chat.StreamChunk` | `fallback_text/1`, `from_map/1`, `markdown_fallback/1`, `new/1`, `normalize/1`, `normalize_many/1`, `schema/0`, `text/1,2`, `to_map/1` |
-| `Jido.ChatAction` | `__using__/1` |
+| `Jido.Chat.Operations.Definition` | `run/3`, `reply/3,4`, `signal_definitions/1`, `completion_options/2`, `failure_options/1` |
 
 ## Removed API and host boundary
 

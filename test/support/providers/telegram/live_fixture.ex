@@ -302,7 +302,7 @@ defmodule Jido.Chat.Telegram.LiveFixture do
       Enum.find_value(Map.to_list(map), fn {k, v} -> if is_atom(k) and Atom.to_string(k) == key, do: v end)
   end
 
-  def fixture_path("photo.png.b64"), do: Path.expand("../../../../examples/providers/telegram/photo.png.b64", __DIR__)
+  def fixture_path("photo.png.b64"), do: Path.expand("../../fixtures/photo.png.b64", __DIR__)
 
   def fixture_path(filename),
     do: Path.expand("../../../jido_chat/providers/telegram/fixtures/#{filename}", __DIR__)

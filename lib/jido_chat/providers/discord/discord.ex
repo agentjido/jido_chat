@@ -1,20 +1,23 @@
 defmodule Jido.Chat.Discord do
   @moduledoc "Discord Client, native Actions, and a host-owned Gateway Source."
+
+  alias Jido.Chat.Discord.Adapter
+  alias Jido.Chat.Operations.Definition, as: Operation
+
   @doc "Return the Discord adapter module."
   @spec adapter() :: module()
   def adapter, do: Jido.Chat.Discord.Adapter
 
   @doc "Return the native Discord Actions."
   @spec actions() :: [module()]
-  def actions,
-    do: [Jido.Chat.Discord.RespondInteraction, Jido.Chat.Discord.SendRichMessage, Jido.Chat.Discord.StartMessageThread]
+  def actions, do: Enum.map(Adapter.operation_definitions(), & &1.action)
 
   @doc "Return native request and Action pairs."
   @spec operations() :: [{module(), module()}]
-  def operations, do: Enum.map(actions(), &{&1.signal_definition(), &1})
+  def operations, do: Enum.map(Adapter.operation_definitions(), &Operation.pair/1)
   @doc "Return native request, completion, and failure definitions."
   @spec signal_definitions() :: [module()]
-  def signal_definitions, do: Enum.flat_map(actions(), & &1.signal_definitions())
+  def signal_definitions, do: Enum.flat_map(Adapter.operation_definitions(), &Operation.signal_definitions/1)
 
   @doc "Return the incoming fact definitions."
   @spec event_definitions() :: [module()]

@@ -3,12 +3,57 @@ defmodule Jido.Chat.CreateThreadAgentTest do
   @moduletag capture_log: true
 
   alias Jido.Chat.CreateThread
+  alias Jido.Chat.Operations.Definition
   alias Jido.Chat.Plugin.{Deliver, Execute}
+  alias Jido.Chat.Signal.Schemas
+
+  defmodule ProviderRequest do
+    use Jido.Signal,
+      type: "test.chat.command.create_thread",
+      default_source: "urn:test:provider",
+      schema:
+        Schemas.object(%{
+          "client_id" => Schemas.id(),
+          "request_id" => Schemas.id(),
+          "room_id" => Schemas.id() |> Jido.Joi.transform({__MODULE__, :normalize_room, []}),
+          "name" => Jido.Joi.string()
+        })
+
+    def normalize_room(value, _opts), do: String.upcase(value)
+  end
+
+  defmodule ProviderCompleted do
+    use Jido.Signal, Definition.completion_options(ProviderRequest, Schemas.result(:created_thread))
+  end
+
+  defmodule ProviderFailed do
+    use Jido.Signal, Definition.failure_options(ProviderRequest)
+  end
+
+  defmodule ProviderAction do
+    use Jido.Action,
+      name: "provider_create_thread",
+      schema: ProviderRequest.schema(),
+      output_schema: ProviderCompleted.schema()
+
+    @definition %Definition{
+      action: __MODULE__,
+      request: ProviderRequest,
+      completed: ProviderCompleted,
+      failed: ProviderFailed,
+      result_schema: Schemas.result(:created_thread)
+    }
+
+    def definition, do: @definition
+    @impl Jido.Action
+    def run(params, context), do: Definition.run(@definition, params, context)
+  end
 
   defmodule Adapter do
     use Jido.Chat.Adapter
     def channel_type, do: :test
     def capabilities, do: %{create_thread: :native}
+    def operation_definitions, do: [ProviderAction.definition()]
     def normalize(_, _, _), do: {:error, :unused}
 
     def invoke(client, request, _opts) do
@@ -19,6 +64,23 @@ defmodule Jido.Chat.CreateThreadAgentTest do
       client.config[:result] ||
         {:ok, %{"id" => "thread-1", "room_id" => request.data["room_id"], "name" => request.data["name"]}}
     end
+  end
+
+  defmodule AlternateFailure do
+    use Jido.Signal,
+        ProviderRequest
+        |> Definition.failure_options()
+        |> Keyword.put(:type, "test.chat.command.create_thread.alternate_failure")
+  end
+
+  defmodule AlternateAdapter do
+    use Jido.Chat.Adapter
+    defdelegate channel_type(), to: Adapter
+    defdelegate capabilities(), to: Adapter
+    defdelegate invoke(client, signal, opts), to: Adapter
+    defdelegate normalize(client, input, opts), to: Adapter
+
+    def operation_definitions, do: [%{ProviderAction.definition() | failed: AlternateFailure}]
   end
 
   defmodule Record do
@@ -49,7 +111,7 @@ defmodule Jido.Chat.CreateThreadAgentTest do
       connection :support do
         client Jido.Chat.CreateThreadAgentTest.Adapter, id: "support"
         rooms ["room-1"]
-        commands [Jido.Chat.CreateThread]
+        commands [Jido.Chat.CreateThread, Jido.Chat.CreateThreadAgentTest.ProviderAction]
       end
     end
 
@@ -57,6 +119,8 @@ defmodule Jido.Chat.CreateThreadAgentTest do
       route "jido.chat.command.create_thread", Jido.Chat.Plugin.Execute
       route "jido.chat.command.create_thread.completed", Jido.Chat.CreateThreadAgentTest.Record
       route "jido.chat.command.create_thread.failed", Jido.Chat.CreateThreadAgentTest.Record
+      route "test.chat.command.create_thread", Jido.Chat.Plugin.Execute
+      route "test.chat.command.create_thread.failed", Jido.Chat.CreateThreadAgentTest.Record
     end
   end
 
@@ -81,7 +145,21 @@ defmodule Jido.Chat.CreateThreadAgentTest do
     [plugin] = definition.plugins
     [connection] = plugin.data.connections
     connection = put_in(connection.client.config, result: opts[:result])
-    definition = put_in(definition.plugins, [%{plugin | data: %{plugin.data | connections: [connection]}}])
+
+    connections =
+      if opts[:alternate] do
+        alternate = %{
+          connection
+          | name: :alternate,
+            client: %{connection.client | id: "alternate", adapter: AlternateAdapter}
+        }
+
+        [alternate, connection]
+      else
+        [connection]
+      end
+
+    definition = put_in(definition.plugins, [%{plugin | data: %{plugin.data | connections: connections}}])
 
     definition =
       if opts[:reject] do
@@ -98,17 +176,29 @@ defmodule Jido.Chat.CreateThreadAgentTest do
 
   test "CreateThread uses one schema for Signal data and Action parameters" do
     request = request()
-    assert function_exported?(CreateThread, :__signal_action__, 0)
     assert CreateThread.schema() == Jido.Chat.Signal.CreateThread.schema()
     assert CreateThread.output_schema() == CreateThread.Completed.schema()
-    assert CreateThread.__signal_action__().output.type == "jido.chat.command.create_thread.completed"
+    assert CreateThread.Completed.type() == "jido.chat.command.create_thread.completed"
 
-    assert CreateThread.__signal_action__().output.dataschema ==
+    assert CreateThread.Completed.dataschema() ==
              "urn:jido:chat:schema:command_create_thread:1:completed"
 
     assert {:ok, data} = CreateThread.validate_params(request.data)
     assert data == request.data
     assert {:error, _} = CreateThread.validate_params(Map.put(data, "name", 42))
+  end
+
+  test "a normalized room denial uses the configured client failure Signal" do
+    server = start(alternate: true)
+    normalized = ProviderRequest.new!(request().data)
+    assert normalized.data["room_id"] == "ROOM-1"
+    raw = %{normalized | data: %{normalized.data | "room_id" => "room-1"}}
+
+    assert {:ok, %Jido.AgentServer.TurnResult{status: :committed}} = Jido.AgentServer.call(server, raw)
+    assert_receive {:thread_result, %Jido.Signal{type: "test.chat.command.create_thread.failed", data: failed}}
+    assert failed["code"] == "forbidden"
+    assert failed["outcome"] == "not_attempted"
+    refute_received {:provider, _, _}
   end
 
   test "the module route returns a directive without provider execution" do

@@ -116,7 +116,6 @@ defmodule Jido.Chat.MixProject do
       files: [
         "lib",
         "guides",
-        "examples",
         "mix.exs",
         "README.md",
         "LICENSE",

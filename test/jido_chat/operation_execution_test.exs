@@ -1,8 +1,8 @@
-defmodule Jido.Chat.ChatActionTest do
+defmodule Jido.Chat.OperationExecutionTest do
   use ExUnit.Case, async: true
   @moduletag capture_log: true
   alias Jido.Chat.Client
-  alias Jido.Chat.ContractFixtures, as: F
+  alias Jido.Chat.Operations.Definition
   alias Jido.Signal.{Catalog, Codec}
 
   defmodule AssetRequest do
@@ -23,52 +23,50 @@ defmodule Jido.Chat.ChatActionTest do
         )
   end
 
-  defmodule SendAsset do
-    use Jido.ChatAction,
-      name: "example_send_asset",
-      description: "Sends an asset through an external adapter",
-      signal: AssetRequest,
-      result_schema:
-        Jido.Joi.map(
-          %{
-            "asset_id" => Jido.Joi.string() |> Jido.Joi.min(1),
-            "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
-            "reference" => Jido.Chat.Signal.Schemas.reference() |> Jido.Joi.optional()
-          },
-          unrecognized_keys: :error
-        )
+  defmodule AssetCompleted do
+    @result_schema Jido.Joi.map(
+                     %{
+                       "asset_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+                       "room_id" => Jido.Joi.string() |> Jido.Joi.min(1),
+                       "reference" => Jido.Chat.Signal.Schemas.reference() |> Jido.Joi.optional()
+                     },
+                     unrecognized_keys: :error
+                   )
+    use Jido.Signal, Definition.completion_options(AssetRequest, @result_schema)
+
+    def result_schema, do: @result_schema
   end
 
-  defmodule InlineAsset do
-    use Jido.ChatAction,
-      name: "inline_asset",
-      description: "Define both Signal contracts inline",
-      vsn: 1,
-      input: [
-        type: "example.asset.create",
-        default_source: "urn:example:caller",
-        schema:
-          Jido.Chat.Signal.Schemas.object(%{
-            "client_id" => Jido.Chat.Signal.Schemas.id(),
-            "request_id" => Jido.Chat.Signal.Schemas.id(),
-            "room_id" => Jido.Chat.Signal.Schemas.id()
-          })
-      ],
-      output: [
-        type: "example.asset.ready",
-        schema:
-          Jido.Chat.Signal.Schemas.completion(
-            "example.asset.create",
-            Jido.Joi.map(%{"asset_id" => Jido.Joi.string(), "room_id" => Jido.Joi.string()})
-          )
-      ],
-      result_schema: Jido.Joi.map(%{"asset_id" => Jido.Joi.string(), "room_id" => Jido.Joi.string()})
+  defmodule AssetFailed do
+    use Jido.Signal, Definition.failure_options(AssetRequest)
+  end
+
+  defmodule SendAsset do
+    use Jido.Action,
+      name: "example_send_asset",
+      description: "Sends an asset through an external adapter",
+      schema: AssetRequest.schema(),
+      output_schema: AssetCompleted.schema()
+
+    @definition %Definition{
+      action: __MODULE__,
+      request: AssetRequest,
+      completed: AssetCompleted,
+      failed: AssetFailed,
+      result_schema: AssetCompleted.result_schema()
+    }
+
+    def definition, do: @definition
+
+    @impl Jido.Action
+    def run(params, context), do: Definition.run(@definition, params, context)
   end
 
   defmodule Adapter do
     use Jido.Chat.Adapter
     def channel_type, do: :test
     def capabilities, do: %{}
+    def operation_definitions, do: [SendAsset.definition()]
     def normalize(_, _, _), do: {:error, :unused}
 
     def invoke(client, signal, opts) do
@@ -84,6 +82,10 @@ defmodule Jido.Chat.ChatActionTest do
   end
 
   defp client, do: Client.new!(Adapter, id: "example", credentials: %{token: "private"})
+
+  defp execute(signal, options) do
+    Jido.Exec.run(SendAsset, signal.data, %{client: client(), signal: signal, options: options}, max_attempts: 1)
+  end
 
   defp request do
     signal =
@@ -103,8 +105,9 @@ defmodule Jido.Chat.ChatActionTest do
     assert is_nil(Jido.Chat.Operations.Definitions.lookup(signal.type))
     refute AssetRequest in Jido.Chat.signal_definitions()
 
-    assert {:ok, %{signal: completed}} =
-             F.execute(SendAsset, signal, %{client: client(), options: [observer: self()]})
+    client = client()
+    assert {AssetRequest, SendAsset} in Jido.Chat.operations(client)
+    assert {:ok, completed} = Jido.Chat.execute(client, signal, options: [observer: self()])
 
     assert_receive {:provider, "example", _}
     assert completed.type == signal.type <> ".completed"
@@ -117,7 +120,7 @@ defmodule Jido.Chat.ChatActionTest do
     assert completed.extensions["traceparent"] == signal.extensions["traceparent"]
     assert completed.extensions["tracestate"] == signal.extensions["tracestate"]
 
-    catalog = Catalog.new!(Jido.Chat.signal_definitions() ++ SendAsset.signal_definitions())
+    catalog = Jido.Chat.catalog(client)
     assert {:ok, encoded} = Codec.serialize(completed)
     assert {:ok, ^completed} = Catalog.decode(catalog, encoded)
     assert SendAsset.description() == "Sends an asset through an external adapter"
@@ -147,11 +150,10 @@ defmodule Jido.Chat.ChatActionTest do
           },
           put_in(signal.data["attachments"], [%{"id" => "file-1", "client_id" => "other", "kind" => "file"}])
         ] do
-      assert {:error, _} =
-               F.execute(SendAsset, invalid, %{client: client(), options: [observer: self()]})
+      assert {:error, _} = execute(invalid, observer: self())
     end
 
-    assert {:error, _} = F.execute(SendAsset, signal, %{client: client(), options: [:invalid]})
+    assert {:error, _} = execute(signal, [:invalid])
     refute_receive {:provider, _, _}
   end
 
@@ -167,10 +169,7 @@ defmodule Jido.Chat.ChatActionTest do
           {:throw, :provider_failure, "unknown"}
         ] do
       assert {:error, %Jido.Chat.Error{code: ^code, signal: failed}} =
-               F.execute(SendAsset, signal, %{
-                 client: client(),
-                 options: [observer: self(), response: response]
-               })
+               execute(signal, observer: self(), response: response)
 
       assert_receive {:provider, "example", _}
       assert failed.type == signal.type <> ".failed"
@@ -178,7 +177,7 @@ defmodule Jido.Chat.ChatActionTest do
       assert failed.extensions["jidocausationid"] == signal.id
       assert failed.extensions["traceparent"] == signal.extensions["traceparent"]
       assert failed.extensions["tracestate"] == signal.extensions["tracestate"]
-      assert {:ok, ^failed} = Catalog.validate(Catalog.new!(SendAsset.signal_definitions()), failed)
+      assert {:ok, ^failed} = Catalog.validate(Jido.Chat.catalog(client()), failed)
       refute inspect(failed) =~ "private"
     end
 
@@ -196,31 +195,11 @@ defmodule Jido.Chat.ChatActionTest do
           }
         ] do
       assert {:error, %Jido.Chat.Error{code: :invalid_provider_result, signal: failed}} =
-               F.execute(SendAsset, request(), %{
-                 client: client(),
-                 options: [observer: self(), response: {:ok, result}]
-               })
+               execute(request(), observer: self(), response: {:ok, result})
 
-      assert failed.type == SendAsset.Failed.type()
+      assert failed.type == AssetFailed.type()
       assert_receive {:provider, _, _}
     end
-  end
-
-  test "inline contracts use the explicit output type without a schema URI" do
-    request = InlineAsset.new!(%{"client_id" => "example", "request_id" => "inline-1", "room_id" => "room-1"})
-    assert InlineAsset.signal_definition() == InlineAsset
-    assert InlineAsset.dataschema() == nil
-    assert InlineAsset.Completed.dataschema() == nil
-    assert InlineAsset.Failed.dataschema() == nil
-
-    assert {:ok, data} =
-             Jido.Exec.run(InlineAsset, request.data, %{client: client(), signal: request, options: [observer: self()]})
-
-    assert_receive {:provider, "example", _}
-    assert {:ok, reply} = InlineAsset.reply(request, data, source: client().source)
-    assert reply.type == "example.asset.ready"
-    assert reply.dataschema == nil
-    assert {:ok, ^reply} = Catalog.validate(Catalog.new!(InlineAsset.signal_definitions()), reply)
   end
 
   test "request context cannot describe different Action parameters" do
@@ -231,17 +210,5 @@ defmodule Jido.Chat.ChatActionTest do
              Jido.Exec.run(SendAsset, params, %{client: client(), signal: request, options: [observer: self()]})
 
     refute_received {:provider, _, _}
-  end
-
-  test "an extension must declare its result schema" do
-    assert_raise ArgumentError, ~r/requires :result_schema/, fn ->
-      Code.compile_string("""
-      defmodule MissingChatResultSchema do
-        use Jido.ChatAction,
-          name: "missing_result_schema",
-          signal: Jido.Chat.ChatActionTest.AssetRequest
-      end
-      """)
-    end
   end
 end

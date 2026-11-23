@@ -1,5 +1,8 @@
 defmodule Jido.Chat.Operations.Definitions do
   @moduledoc false
+  alias Jido.Chat.Operations.{Builtins, Execution}
+  alias Jido.Chat.Operations.Definition, as: Operation
+
   @operations Map.new([
                 {"jido.chat.command.stream_text",
                  {Jido.Chat.Signal.StreamText, :stream_text, ["room_id"], :message,
@@ -70,6 +73,52 @@ defmodule Jido.Chat.Operations.Definitions do
                  {Jido.Chat.Signal.OpenDm, :open_dm, ["user_id"], :conversation,
                   Jido.Chat.Signal.Schemas.result(:conversation)}}
               ])
+  @definitions @operations
+               |> Map.values()
+               |> Enum.sort()
+               |> Enum.map(fn {request, capability, _, _, result_schema} ->
+                 action = Module.concat(Jido.Chat, request |> Module.split() |> List.last())
+
+                 opts =
+                   case capability do
+                     :create_thread ->
+                       [
+                         description: "Create a named chat thread",
+                         doc: "Creates a named chat thread. Agent routes defer provider execution until after commit."
+                       ]
+
+                     :stream_text ->
+                       [
+                         doc: "Streams text from an Enumerable supplied in `context.options[:stream]`.",
+                         invoke: {Execution, :invoke_stream, []}
+                       ]
+
+                     _ ->
+                       []
+                   end
+
+                 Builtins.define(
+                   action,
+                   request,
+                   result_schema,
+                   "chat_#{capability}",
+                   [capability: capability] ++ opts,
+                   __ENV__
+                 )
+               end)
+
+  @doc false
+  def definitions, do: @definitions
+
+  def for_client(%Jido.Chat.Client{adapter: adapter}) do
+    (@definitions ++ for_adapter(adapter))
+    |> Enum.sort_by(&Operation.pair/1)
+  end
+
+  def for_adapter(adapter) do
+    if function_exported?(adapter, :operation_definitions, 0), do: adapter.operation_definitions(), else: []
+  end
+
   @doc false
   def lookup(type), do: Map.get(@operations, type)
   @doc false

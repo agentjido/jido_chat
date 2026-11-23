@@ -1,5 +1,5 @@
 ---
-modules: [Jido.ChatAction]
+modules: [Jido.Chat.Operations.Definition]
 ---
 # Native chat Actions
 

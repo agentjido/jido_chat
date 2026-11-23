@@ -135,7 +135,7 @@ permission.
 
 ## Create a thread after commit
 
-`CreateThread` uses `Jido.ChatAction` with typed request and completion Signals.
+`CreateThread` is a native `Jido.Action` with typed request and completion Signals.
 The Agent route selects a handler that returns a Deliver directive. The Plugin
 calls the provider after the turn commits.
 

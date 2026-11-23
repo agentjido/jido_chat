@@ -7,6 +7,7 @@ defmodule Jido.Chat.Telegram do
   processes, update offsets, draft timing, and retries.
   """
 
+  alias Jido.Chat.Operations.Definition, as: Operation
   alias Jido.Chat.Telegram.Adapter
 
   @doc "Returns the canonical Telegram adapter module."
@@ -15,28 +16,11 @@ defmodule Jido.Chat.Telegram do
 
   @doc "Returns the native Telegram extension Actions. Core Actions are in Jido.Chat.actions/0."
   @spec actions() :: [module()]
-  def actions do
-    [
-      Jido.Chat.Telegram.SendPoll,
-      Jido.Chat.Telegram.SendPhoto,
-      Jido.Chat.Telegram.SendDocument,
-      Jido.Chat.Telegram.SendSticker,
-      Jido.Chat.Telegram.SendAnimation,
-      Jido.Chat.Telegram.SendVideoNote,
-      Jido.Chat.Telegram.GetFile,
-      Jido.Chat.Telegram.GetMe,
-      Jido.Chat.Telegram.AnswerCallbackQuery,
-      Jido.Chat.Telegram.SendDraft,
-      Jido.Chat.Telegram.FetchUpdates,
-      Jido.Chat.Telegram.SetWebhook,
-      Jido.Chat.Telegram.GetWebhookInfo,
-      Jido.Chat.Telegram.DeleteWebhook
-    ]
-  end
+  def actions, do: Enum.map(Adapter.operation_definitions(), & &1.action)
 
   @doc "Returns Telegram extension request/Action pairs. The host owns routing and execution."
   @spec operations() :: [{module(), module()}]
-  def operations, do: actions() |> Enum.map(&{&1.signal_definition(), &1}) |> Enum.sort()
+  def operations, do: Enum.map(Adapter.operation_definitions(), &Operation.pair/1) |> Enum.sort()
 
   @doc "Returns the incoming facts normalized by Telegram."
   @spec event_definitions() :: [module()]
@@ -57,7 +41,7 @@ defmodule Jido.Chat.Telegram do
 
   @doc "Returns Telegram request, completion, and failure definitions for a host catalog."
   @spec signal_definitions() :: [module()]
-  def signal_definitions, do: Enum.flat_map(actions(), & &1.signal_definitions())
+  def signal_definitions, do: Enum.flat_map(Adapter.operation_definitions(), &Operation.signal_definitions/1)
 
   @doc "Returns a catalog with core Chat and Telegram extension definitions."
   @spec catalog() :: Jido.Signal.Catalog.t()

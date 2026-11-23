@@ -27,8 +27,8 @@ poll = Jido.Chat.Signal.Policy.new!(Jido.Chat.Telegram.Signal.SendPoll, %{
 {:ok, completed} = Jido.Chat.Telegram.SendPoll.reply(poll, data, source: client.source)
 ```
 
-All Telegram extension Actions use `Jido.ChatAction`. Each has a native request
-Signal, a strict result schema, and generated `Completed` and `Failed` Signals.
+Each Telegram extension registers a native `Jido.Action`, a request Signal,
+and typed `Completed` and `Failed` Signals.
 Run extensions through `Jido.Chat.execute/3`, `Jido.Exec`, Flow, or a Router-selected Instruction.
 
 | Telegram Actions | Purpose |
@@ -232,13 +232,6 @@ test topics remain in the forum; messages are deleted by default.
 The existing Action suite checks rejection in the default chat when no forum
 chat is configured, or successful topic creation when a forum chat is configured.
 Fixtures are local; the suite does not use external fixture URLs.
-
-To leave a visible Action and Flow proof in Desktop:
-
-```sh
-MIX_ENV=test RUN_LIVE_TELEGRAM_TESTS=true \
-  mix run examples/providers/telegram/live_proof.exs
-```
 
 Managed bridge bindings belong in Jido Chat Runtime. The legacy Ingress,
 Extensions, FileInfo, MediaMessage, option structs, and keyboard structs are removed.

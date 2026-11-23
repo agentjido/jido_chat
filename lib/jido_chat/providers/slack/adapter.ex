@@ -14,9 +14,6 @@ defmodule Jido.Chat.Slack.Adapter do
   def default_transport, do: Jido.Chat.Slack.Transport.ReqClient
 
   @impl true
-  def operations, do: Jido.Chat.Slack.operations()
-
-  @impl true
   def event_definitions, do: Jido.Chat.Slack.event_definitions()
 
   @impl true

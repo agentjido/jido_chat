@@ -1,14 +1,11 @@
 # Source layout
 
-Public Actions keep flat names. `actions/send_message.ex` defines
-`Jido.Chat.SendMessage`. File groups do not add a public namespace.
+Public Actions keep flat names. The core operation table generates
+`Jido.Chat.SendMessage` and the other native Actions at compile time.
 
 ```text
 lib/
   jido_chat.ex                Client execution, normalization, and catalog
-  jido_chat_action.ex         Native Jido Action composition macro
-  jido_chat_action/
-    execution.ex             Request/result validation and trace inheritance
   jido_chat/
     adapter.ex               Stateless provider behaviour and pure render helpers
     client.ex                Immutable credentials and transport configuration
@@ -27,11 +24,10 @@ lib/
     post.ex                  Portable local or provider post request
     resource_ref.ex          Portable provider resource reference
     ai.ex                    AI message conversion
-    actions/                 23 native Jido Actions; generated nested result definitions
     adapter_test_kit/         Native request fixtures and assertions
     errors.ex                Splode error definitions and handler
     internal/                Schema and serialization helpers
-    operations/              Core operation definitions and result schemas
+    operations/              Operation metadata, native Action generation, and execution
     plugin.ex                Agent Chat DSL and explicit connection scope
     plugin/                  DSL entities, post-commit delivery, and activation state
     sensor.ex                Host-owned poll or push input and Signal Dispatch

@@ -172,7 +172,7 @@ defmodule Jido.Chat.StaticSDKTest do
 
     for {definition, action} <- Jido.Chat.operations() do
       assert action.signal_definition() == definition
-      assert Jido.ChatAction in List.flatten(Keyword.get_values(action.__info__(:attributes), :behaviour))
+      assert Jido.Action in List.flatten(Keyword.get_values(action.__info__(:attributes), :behaviour))
 
       assert action.signal_definitions() == [
                definition,

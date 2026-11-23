@@ -1,7 +1,7 @@
 defmodule Jido.Chat.Adapter do
   @moduledoc """
   Stateless provider contract. An adapter maps one validated request Signal to
-  one canonical result value. The Action wraps that value in a result Signal.
+  one canonical result value. The SDK wraps that value in a result Signal.
 
   `normalize/3` maps private provider input to an immutable Delivery of facts.
   The host owns webhook verification, acknowledgements, listeners, storage,
@@ -13,15 +13,18 @@ defmodule Jido.Chat.Adapter do
   canonical message, as for SendMessage. Do not put the source in a Signal.
   """
   alias Jido.Chat.{Client, Delivery}
+  alias Jido.Chat.Operations.Definition, as: Operation
+  alias Jido.Chat.Operations.Definitions
   @type capabilities :: %{optional(atom()) => :native | :unsupported}
   @callback channel_type() :: atom()
   @callback capabilities() :: capabilities()
   @callback default_transport() :: module()
   @callback invoke(Client.t(), Jido.Signal.t(), keyword()) :: {:ok, map()} | {:error, term()}
   @callback normalize(Client.t(), term(), keyword()) :: {:ok, Delivery.t()} | {:error, term()}
-  @callback operations() :: [{module(), module()}]
+  @doc "Declares provider operations for discovery and execution."
+  @callback operation_definitions() :: [Operation.t()]
   @callback event_definitions() :: [module()]
-  @optional_callbacks default_transport: 0, operations: 0, event_definitions: 0
+  @optional_callbacks default_transport: 0, operation_definitions: 0, event_definitions: 0
 
   @doc "Declares a stateless provider adapter."
   @spec __using__(keyword()) :: Macro.t()
@@ -34,7 +37,7 @@ defmodule Jido.Chat.Adapter do
   @doc "Returns provider extension request/Action pairs; core operations are separate."
   @spec operations(module()) :: [{module(), module()}]
   def operations(adapter) do
-    if function_exported?(adapter, :operations, 0), do: adapter.operations(), else: []
+    adapter |> Definitions.for_adapter() |> Enum.map(&Operation.pair/1) |> Enum.sort()
   end
 
   @doc "Returns admitted incoming facts; older adapters admit the core fact set."
@@ -53,7 +56,7 @@ defmodule Jido.Chat.Adapter do
         declared = adapter.capabilities()
 
         operations =
-          Map.new(Jido.Chat.Operations.Definitions.all(), fn {_, {_, operation, _, _, _}} ->
+          Map.new(Definitions.all(), fn {_, {_, operation, _, _, _}} ->
             {operation, Map.get(declared, operation, :unsupported)}
           end)
 
@@ -81,25 +84,28 @@ defmodule Jido.Chat.Adapter do
   end
 
   defp valid_extensions?(adapter) do
-    extensions = operations(adapter)
+    extensions = Definitions.for_adapter(adapter)
     events = event_definitions(adapter)
-    pairs = Jido.Chat.operations() ++ extensions
-
-    types =
-      Enum.map(pairs, fn {definition, action} ->
-        true = Code.ensure_loaded?(action)
-        true = action.signal_definition() == definition
-        definition.type()
-      end)
+    operations = Definitions.definitions() ++ extensions
+    types = Enum.map(operations, & &1.request.type())
 
     definitions =
-      (Jido.Chat.signal_definitions() ++
-         Enum.flat_map(extensions, fn {_, action} -> action.signal_definitions() end) ++ events)
+      (Enum.flat_map(operations, &Operation.signal_definitions/1) ++ Jido.Chat.event_definitions() ++ events)
       |> Enum.uniq()
 
     _catalog = Jido.Signal.Catalog.new!(definitions)
 
-    length(types) == length(Enum.uniq(types)) and Enum.all?(events, &fact_definition?/1)
+    length(types) == length(Enum.uniq(types)) and
+      Enum.all?(extensions, &valid_operation?/1) and Enum.all?(events, &fact_definition?/1)
+  end
+
+  defp valid_operation?(%Operation{} = operation) do
+    instruction = Jido.Instruction.template(:action, operation.action)
+
+    match?({:ok, _}, Jido.Instruction.bind(instruction, %{}, %{})) and
+      Jido.Joi.Schema.schema?(operation.result_schema) and
+      operation.action.schema() == operation.request.schema() and
+      operation.action.output_schema() == operation.completed.schema()
   end
 
   defp fact_definition?(definition) do
