@@ -229,7 +229,7 @@ defmodule Jido.Chat.Runtime.Manager do
     do: ensure_stopped(entry, kind, runtime)
 
   defp ensure_room_running(entry, runtime) do
-    with {:ok, ref} <- Jido.agent_address(runtime.jido(), entry.id),
+    with {:ok, ref} <- runtime.room_address(entry.id),
          {:ok, expected} <- Jido.Agent.instantiate(entry.definition, id: ref.id),
          :ok <- require_plugin(expected, Jido.Chat.Runtime.Room.Plugin, :one_room_plugin_required) do
       case Jido.resolve_agent(runtime.jido(), ref) do
@@ -246,7 +246,7 @@ defmodule Jido.Chat.Runtime.Manager do
     with {:ok, initial_state} <- Room.Plugin.hydrate_state(entry.definition, runtime, ref.id),
          {:ok, expected} <- Jido.Agent.instantiate(entry.definition, id: ref.id, state: initial_state),
          :ok <- require_plugin(expected, Jido.Chat.Runtime.Room.Plugin, :one_room_plugin_required) do
-      case Room.start_agent(runtime.jido(), ref, expected) do
+      case Room.start_agent(runtime.jido(), ref, expected, runtime.room_start_options()) do
         {:ok, server} -> adopt(entry, ref, server, expected)
         {:error, {:already_started, server}} -> adopt(entry, ref, server, expected)
         {:error, reason} -> mark_error(entry, reason, ref)
@@ -359,7 +359,7 @@ defmodule Jido.Chat.Runtime.Manager do
   end
 
   defp entry_ref(entry, :room, runtime),
-    do: Jido.agent_address(runtime.jido(), entry.id)
+    do: runtime.room_address(entry.id)
 
   defp entry_ref(entry, :connection, runtime),
     do: Connection.ref(runtime, entry.id)
