@@ -30,6 +30,7 @@ defmodule Jido.Chat.Runtime do
           :jido,
           :storage,
           :room_definitions,
+          :room_agent_options,
           :connection_definitions,
           :secret_resolver,
           :provider_work_limit,
@@ -39,6 +40,15 @@ defmodule Jido.Chat.Runtime do
 
       @chat_runtime_jido Keyword.fetch!(opts, :jido)
       @chat_runtime_storage Keyword.get(opts, :storage)
+
+      room_agent_options =
+        opts
+        |> Keyword.get(:room_agent_options, [])
+        |> Keyword.validate!([:partition, :persistence])
+
+      @chat_runtime_room_partition Keyword.get(room_agent_options, :partition)
+      @chat_runtime_room_start_options Keyword.take(room_agent_options, [:persistence])
+
       room_definitions = Keyword.get(opts, :room_definitions, %{})
       connection_definitions = Keyword.get(opts, :connection_definitions, %{})
 
@@ -64,6 +74,15 @@ defmodule Jido.Chat.Runtime do
       unless is_nil(@chat_runtime_storage) or
                match?({adapter, _resource} when is_atom(adapter), @chat_runtime_storage) do
         raise ArgumentError, "storage must be {adapter, resource}"
+      end
+
+      unless is_nil(@chat_runtime_room_partition) or
+               (is_binary(@chat_runtime_room_partition) and byte_size(@chat_runtime_room_partition) > 0) do
+        raise ArgumentError, "room_agent_options partition must be a nonempty string or nil"
+      end
+
+      unless Keyword.get(@chat_runtime_room_start_options, :persistence, :inherit) in [:inherit, false] do
+        raise ArgumentError, "room_agent_options persistence must be :inherit or false"
       end
 
       unless Enum.all?(@chat_runtime_room_definitions, fn {key, definition} ->
@@ -109,6 +128,14 @@ defmodule Jido.Chat.Runtime do
       @doc "Returns the selected Runtime storage resource, when configured."
       @spec storage() :: Jido.Chat.Runtime.Storage.selection() | nil
       def storage, do: @chat_runtime_storage
+
+      @doc "Builds a managed Room Address in the configured host instance and partition."
+      @spec room_address(String.t()) :: {:ok, Jido.Agent.Address.t()} | {:error, term()}
+      def room_address(id), do: Jido.agent_address(jido(), id, partition: @chat_runtime_room_partition)
+
+      @doc false
+      @spec room_start_options() :: keyword()
+      def room_start_options, do: @chat_runtime_room_start_options
 
       @doc "Resolves one durable Room definition key through trusted host code."
       @spec room_definition(String.t()) :: {:ok, module()} | {:error, :unknown_room_definition}

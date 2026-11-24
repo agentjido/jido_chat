@@ -11,6 +11,7 @@ defmodule Jido.Chat.RuntimeDurableRoomTest do
     use Jido.Chat.Runtime,
       jido: Jido.Chat.RuntimeDurableRoomTest.Jido,
       storage: {Memory, Jido.Chat.RuntimeDurableRoomTest.Storage},
+      room_agent_options: [partition: "chat", persistence: false],
       room_definitions: %{"team" => Jido.Chat.RuntimeDurableRoomTest.Team}
   end
 
@@ -40,7 +41,7 @@ defmodule Jido.Chat.RuntimeDurableRoomTest do
             %{
               room: %{id: "team"},
               declaration: %{definition_key: "team", desired: :running},
-              activation: {:ok, %{state: :running, source: :durable}}
+              activation: {:ok, %{state: :running, source: :durable, ref: %{partition: "chat"}}}
             }} = Runtime.provision_room("team", %{id: "team", kind: :group, name: "Team"})
 
     join("operator", "operator")
@@ -62,7 +63,7 @@ defmodule Jido.Chat.RuntimeDurableRoomTest do
 
     start_runtime()
 
-    assert {:ok, %{state: :running, pid: pid}} = Runtime.room_runtime_status("team")
+    assert {:ok, %{state: :running, pid: pid, ref: %{partition: "chat"}}} = Runtime.room_runtime_status("team")
     state = snapshot(pid)
     assert MapSet.new(state.room.members) == MapSet.new(["alice", "operator"])
     assert Enum.map(state.room.messages, & &1.id) == [history |> Enum.at(1) |> then(& &1.message_id), third.id]
@@ -326,7 +327,7 @@ defmodule Jido.Chat.RuntimeDurableRoomTest do
   end
 
   defp room do
-    {:ok, room} = Jido.agent_address(Runtime.jido(), "team")
+    {:ok, room} = Runtime.room_address("team")
     room
   end
 

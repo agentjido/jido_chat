@@ -50,6 +50,14 @@ stops Agents only through `MyApp.Jido`. The Room and provider account Agent
 processes remain below the Jido process tree. Set `:bus_max_log_size` on the
 Runtime child to change the default 10,000-record memory bound.
 
+Set `room_agent_options: [partition: "chat", persistence: false]` on the
+Runtime facade to put managed Rooms in their own partition and rebuild them
+from Chat storage without Agent checkpoints. The persistence option requires
+a Jido version that honors `persistence: false` on managed starts. By default
+Rooms use the instance's default partition and persistence profile. Use
+`MyApp.Chat.room_address(id)` to get the full Room Address for Signals,
+participants, or provider mappings that cross partitions.
+
 The initial reconcile starts rooms before provider accounts. One failed entry
 does not stop another entry. The manager retries failed entries at the selected
 positive `:reconcile_interval`. Use `:infinity` only when the host will call

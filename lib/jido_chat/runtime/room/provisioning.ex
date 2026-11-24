@@ -64,7 +64,7 @@ defmodule Jido.Chat.Runtime.Room.Provisioning do
   defp stop_without_manager(runtime, declaration) do
     with {:ok, stopped} <- Durable.set_desired(runtime, declaration.room_id, :stopped),
          {:ok, definition} <- runtime.room_definition(stopped.definition_key),
-         {:ok, ref} <- Jido.agent_address(runtime.jido(), stopped.room_id),
+         {:ok, ref} <- runtime.room_address(stopped.room_id),
          {:ok, expected} <- Jido.Agent.instantiate(definition, id: ref.id),
          :ok <- stop_matching(runtime, ref, expected) do
       {:ok, stopped}

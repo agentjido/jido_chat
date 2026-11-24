@@ -26,12 +26,17 @@ defmodule Jido.Chat.Runtime.Room do
     end
   end
 
-  @doc "Starts a room or participant at its complete Address."
+  @doc "Starts a room or participant at its complete Address through the host instance."
   @spec start_agent(atom(), Jido.Agent.Address.t(), module() | Jido.Agent.t()) ::
           {:ok, pid()} | {:error, term()}
-  def start_agent(jido, %Jido.Agent.Address{} = address, agent) do
+  def start_agent(jido, %Jido.Agent.Address{} = address, agent), do: start_agent(jido, address, agent, [])
+
+  @doc false
+  @spec start_agent(atom(), Jido.Agent.Address.t(), module() | Jido.Agent.t(), keyword()) ::
+          {:ok, pid()} | {:error, term()}
+  def start_agent(jido, %Jido.Agent.Address{} = address, agent, opts) do
     with {:ok, ^address} <- Jido.agent_address(jido, address.id, partition: address.partition) do
-      Jido.start_agent(jido, agent, id: address.id, partition: address.partition)
+      Jido.start_agent(jido, agent, Keyword.merge(opts, id: address.id, partition: address.partition))
     else
       _ -> {:error, :address_mismatch}
     end
