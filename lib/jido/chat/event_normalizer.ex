@@ -14,6 +14,7 @@ defmodule Jido.Chat.EventNormalizer do
     ModalSubmitEvent,
     OptionsLoadEvent,
     ReactionEvent,
+    Schema,
     SlashCommandEvent
   }
 
@@ -127,8 +128,8 @@ defmodule Jido.Chat.EventNormalizer do
     {:ok,
      AssistantThreadStartedEvent.new(
        map
-       |> Map.put_new(:adapter_name, adapter_name)
-       |> Map.put_new(:thread_id, "unknown")
+       |> Schema.put_default(:adapter_name, adapter_name)
+       |> Schema.put_default(:thread_id, "unknown")
      )}
   end
 
@@ -150,8 +151,8 @@ defmodule Jido.Chat.EventNormalizer do
     {:ok,
      AssistantContextChangedEvent.new(
        map
-       |> Map.put_new(:adapter_name, adapter_name)
-       |> Map.put_new(:thread_id, "unknown")
+       |> Schema.put_default(:adapter_name, adapter_name)
+       |> Schema.put_default(:thread_id, "unknown")
      )}
   end
 
@@ -169,9 +170,9 @@ defmodule Jido.Chat.EventNormalizer do
     {:ok,
      EventEnvelope.new(
        map
-       |> Map.put_new(:adapter_name, adapter_name)
-       |> Map.put_new(:event_type, event_type || :message)
-       |> Map.put_new(:raw, map[:raw] || map["raw"] || %{})
+       |> Schema.put_default(:adapter_name, adapter_name)
+       |> Schema.put_default(:event_type, event_type || :message)
+       |> Schema.put_default(:raw, map[:raw] || map["raw"] || %{})
      )}
   end
 
@@ -201,14 +202,14 @@ defmodule Jido.Chat.EventNormalizer do
     {:ok,
      map
      |> normalize_event_user()
-     |> Map.put_new(:adapter_name, adapter_name)
+     |> Schema.put_default(:adapter_name, adapter_name)
      |> mod.new()}
   rescue
     _ -> {:error, {error_tag, map}}
   end
 
   defp ensure_lifecycle_event_struct(map, adapter_name, mod, error_tag) when is_map(map) do
-    {:ok, map |> Map.put_new(:adapter_name, adapter_name) |> mod.new()}
+    {:ok, map |> Schema.put_default(:adapter_name, adapter_name) |> mod.new()}
   rescue
     _ -> {:error, {error_tag, map}}
   end

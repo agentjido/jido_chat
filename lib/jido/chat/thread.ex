@@ -49,7 +49,7 @@ defmodule Jido.Chat.Thread do
   @doc "Creates a thread handle."
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Map.put_new(
+    |> Jido.Chat.Schema.put_default(
       :channel_id,
       "#{attrs[:adapter_name] || attrs["adapter_name"]}:#{attrs[:external_room_id] || attrs["external_room_id"]}"
     )

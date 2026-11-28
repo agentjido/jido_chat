@@ -60,7 +60,7 @@ defmodule Jido.Chat.WebhookRequest do
     payload = attrs[:payload] || attrs["payload"]
 
     if is_map(payload) do
-      attrs
+      Jido.Chat.Schema.normalize_keys!(attrs, __MODULE__)
     else
       %{
         adapter_name: attrs[:adapter_name] || attrs["adapter_name"],

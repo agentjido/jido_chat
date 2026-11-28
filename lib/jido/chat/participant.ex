@@ -31,7 +31,7 @@ defmodule Jido.Chat.Participant do
   @doc "Creates a new participant with generated ID"
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Map.put_new(:id, Jido.Chat.ID.generate!())
+    |> Jido.Chat.Schema.put_default(:id, Jido.Chat.ID.generate!())
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 end

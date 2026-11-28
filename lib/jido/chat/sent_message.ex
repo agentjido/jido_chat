@@ -43,6 +43,7 @@ defmodule Jido.Chat.SentMessage do
   """
   def new(attrs) when is_map(attrs) do
     attrs
+    |> Jido.Chat.Schema.normalize_keys!(__MODULE__)
     |> maybe_normalize_response()
     |> normalize_author()
     |> normalize_attachments()
