@@ -37,10 +37,22 @@ defmodule Jido.Chat.EventEnvelopeTest do
 
       round_tripped = envelope |> EventEnvelope.to_map() |> EventEnvelope.from_map()
 
+      assert round_tripped.id == envelope.id
       assert round_tripped.event_type == event_type
       assert round_tripped.adapter_name == :telegram
       assert round_tripped.raw == %{"source" => "test"}
       assert round_tripped.payload.__struct__ == payload.__struct__
+    end
+  end
+
+  test "duplicate input keys fail without normalizing nested provider data" do
+    raw = %{"id" => "provider id", id: "adapter id"}
+    attrs = %{"id" => "saved id", "event_type" => "message", "raw" => raw}
+
+    assert %EventEnvelope{id: "saved id", raw: ^raw} = EventEnvelope.new(attrs)
+
+    assert_raise Jido.Chat.Errors.Validation, ~r/multiple input keys match field id/, fn ->
+      EventEnvelope.new(Map.put(attrs, :id, "other id"))
     end
   end
 

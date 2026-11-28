@@ -39,6 +39,7 @@ defmodule Jido.Chat.Message do
   @doc "Creates a normalized message from map input."
   def new(attrs) when is_map(attrs) do
     attrs
+    |> Jido.Chat.Schema.normalize_keys!(__MODULE__)
     |> attach_defaults()
     |> normalize_author()
     |> normalize_reply_context()

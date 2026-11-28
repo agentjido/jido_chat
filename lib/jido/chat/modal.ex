@@ -36,7 +36,7 @@ defmodule Jido.Chat.Modal do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Map.put_new(
+    |> Jido.Chat.Schema.put_default(
       :callback_id,
       attrs[:id] || attrs["id"] || attrs[:callback_id] || attrs["callback_id"]
     )

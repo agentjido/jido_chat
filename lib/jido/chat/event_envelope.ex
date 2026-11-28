@@ -76,7 +76,7 @@ defmodule Jido.Chat.EventEnvelope do
   @spec new(map()) :: t()
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Map.put_new(:id, Jido.Chat.ID.generate!())
+    |> Jido.Chat.Schema.put_default(:id, Jido.Chat.ID.generate!())
     |> maybe_normalize_adapter_name()
     |> maybe_normalize_event_type()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))

@@ -41,6 +41,7 @@ defmodule Jido.Chat.PostPayload do
 
   def new(attrs) when is_map(attrs) do
     attrs
+    |> Jido.Chat.Schema.normalize_keys!(__MODULE__)
     |> normalize_kind()
     |> normalize_content()
     |> normalize_metadata()
@@ -53,7 +54,7 @@ defmodule Jido.Chat.PostPayload do
   @doc "Builds a text payload."
   @spec text(String.t(), keyword() | map()) :: t()
   def text(value, opts \\ []) when is_binary(value) do
-    opts = normalize_opts(opts)
+    opts = opts |> normalize_opts() |> Jido.Chat.Schema.normalize_keys!(__MODULE__)
     new(Map.merge(opts, %{kind: :text, text: value, formatted: value}))
   end
 
@@ -64,7 +65,7 @@ defmodule Jido.Chat.PostPayload do
   @doc "Builds a stream payload from chunk input."
   @spec stream(term(), keyword() | map()) :: t()
   def stream(chunks, opts) do
-    opts = normalize_opts(opts)
+    opts = opts |> normalize_opts() |> Jido.Chat.Schema.normalize_keys!(__MODULE__)
     new(Map.merge(opts, %{kind: :stream, stream: chunks}))
   end
 

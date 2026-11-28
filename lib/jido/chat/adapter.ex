@@ -42,6 +42,7 @@ defmodule Jido.Chat.Adapter do
     Postable,
     PostPayload,
     Response,
+    Schema,
     Thread,
     ThreadPage,
     UserInfo,
@@ -1310,11 +1311,11 @@ defmodule Jido.Chat.Adapter do
 
   defp normalize_channel_info(_adapter_module, info, external_room_id) when is_map(info) do
     info
-    |> Map.put_new(:id, to_string(external_room_id))
-    |> Map.put_new(:metadata, %{})
-    |> Map.put_new(:name, nil)
-    |> Map.put_new(:is_dm, nil)
-    |> Map.put_new(:member_count, nil)
+    |> Schema.put_default(:id, to_string(external_room_id))
+    |> Schema.put_default(:metadata, %{})
+    |> Schema.put_default(:name, nil)
+    |> Schema.put_default(:is_dm, nil)
+    |> Schema.put_default(:member_count, nil)
     |> Map.drop([:adapter_name])
     |> ChannelInfo.new()
   end
@@ -1375,7 +1376,7 @@ defmodule Jido.Chat.Adapter do
       )
     else
       map
-      |> Map.put_new(:thread_id, opts[:thread_id])
+      |> Schema.put_default(:thread_id, opts[:thread_id])
       |> Message.new()
     end
   end
@@ -1527,9 +1528,9 @@ defmodule Jido.Chat.Adapter do
         "#{adapter_type(adapter_module)}:#{external_room_id}"
 
     page
-    |> Map.put_new(:direction, fetch_opts.direction)
-    |> Map.put_new(:adapter_name, adapter_type(adapter_module))
-    |> Map.put_new(:thread_id, thread_id)
+    |> Schema.put_default(:direction, fetch_opts.direction)
+    |> Schema.put_default(:adapter_name, adapter_type(adapter_module))
+    |> Schema.put_default(:thread_id, thread_id)
     |> MessagePage.new()
   end
 
@@ -1889,7 +1890,7 @@ defmodule Jido.Chat.Adapter do
     adapter_name = opts[:adapter_name]
 
     request
-    |> Map.put_new(:adapter_name, adapter_name)
+    |> Schema.put_default(:adapter_name, adapter_name)
     |> WebhookRequest.new()
   end
 
@@ -1924,7 +1925,7 @@ defmodule Jido.Chat.Adapter do
 
   defp normalize_event_envelope(adapter_module, map) when is_map(map) do
     map
-    |> Map.put_new(:adapter_name, adapter_type(adapter_module))
+    |> Schema.put_default(:adapter_name, adapter_type(adapter_module))
     |> EventEnvelope.new()
   end
 

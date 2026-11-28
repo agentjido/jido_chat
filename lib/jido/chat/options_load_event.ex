@@ -41,7 +41,7 @@ defmodule Jido.Chat.OptionsLoadEvent do
 
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Map.put_new(:id, attrs[:id] || attrs["id"] || Jido.Chat.ID.generate!())
+    |> Jido.Chat.Schema.put_default(:id, attrs[:id] || attrs["id"] || Jido.Chat.ID.generate!())
     |> normalize_adapter_name()
     |> normalize_author()
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))

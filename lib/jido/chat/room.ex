@@ -30,8 +30,8 @@ defmodule Jido.Chat.Room do
   @doc "Creates a new room with generated ID and timestamp"
   def new(attrs) when is_map(attrs) do
     attrs
-    |> Map.put_new(:id, Jido.Chat.ID.generate!())
-    |> Map.put_new(:inserted_at, DateTime.utc_now())
+    |> Jido.Chat.Schema.put_default(:id, Jido.Chat.ID.generate!())
+    |> Jido.Chat.Schema.put_default(:inserted_at, DateTime.utc_now())
     |> then(&Jido.Chat.Schema.parse!(__MODULE__, @schema, &1))
   end
 end
